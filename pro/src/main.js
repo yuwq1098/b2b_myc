@@ -4,6 +4,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router/index.js'
 import FastClick from 'fastclick'
+import 'assets/css/reset.styl'; // 引入公共样式
+import 'assets/css/main.styl'; // 引入公共样式
 
 Vue.config.productionTip = false
 

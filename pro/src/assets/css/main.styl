@@ -1,0 +1,419 @@
+@charset "utf-8"
+/*
+ * 下面是许多研究的结果在跨浏览器的样式。
+ * 木有车B2B平台的主要样式表文件
+ * 作者Geek.Yu 在2017-05-22 16:12:00 创建了它
+ * email : 1098654043@qq.com
+ */
+
+
+//变量前缀为$ ,方法前缀为_
+
+//---颜色变量
+//黑色
+$c_black = #424345
+$c_black02 = $c_black + 1 * 8% + 1 * .5deg
+$c_black03 = $c_black + 2 * 8% + 2 * .5deg
+$c_black04 = $c_black + 3 * 8% + 3 * .5deg
+$c_black05 = $c_black + 4 * 8% + 4 * .5deg
+//蓝色
+$c_blue = #1499f7
+$c_blue02 = $c_blue + 1 * 8% + 1 * .5deg
+$c_blue03 = $c_blue + 2 * 8% + 2 * .5deg
+$c_blue04 = $c_blue + 3 * 8% + 3 * .5deg
+$c_blue05 = $c_blue + 4 * 8% + 4 * .5deg
+//灰色
+$c_gray = #d4d4d4
+$c_gray02 = $c_gray + -(1 * 8)% + -(1 * .3)deg
+$c_gray03 = $c_gray + -(2 * 8)% + -(2 * .3)deg
+$c_gray04 = $c_gray + -(3 * 8)% + -(3 * .3)deg
+$c_gray05 = $c_gray + -(4 * 8)% + -(4 * .3)deg
+//绿色
+$c_green = #03BD00
+$c_green02 = $c_green + 1 * 8% + 1 * .5deg
+$c_green03 = $c_green + 2 * 8% + 2 * .5deg
+$c_green04 = $c_green + 3 * 8% + 3 * .5deg
+$c_green05 = $c_green + 4 * 8% + 4 * .5deg
+//青色
+$c_cyan = #29B475
+$c_cyan02 = $c_cyan + 1 * 8% + 1 * .5deg
+$c_cyan03 = $c_cyan + 2 * 8% + 2 * .5deg
+$c_cyan04 = $c_cyan + 3 * 8% + 3 * .5deg
+$c_cyan05 = $c_cyan + 4 * 8% + 4 * .5deg
+//橘黄
+$c_orange = #ff9100
+$c_orange02 = $c_orange + 1 * 8% + 1 * .5deg
+$c_orange03 = $c_orange + 2 * 8% + 2 * .5deg
+$c_orange04 = $c_orange + 3 * 8% + 3 * .5deg
+$c_orange05 = $c_orange + 4 * 8% + 4 * .5deg
+//金色
+$c_yellow = #FFCB10
+$c_yellow02 = $c_yellow + 1 * 8% + 1 * .5deg
+$c_yellow03 = $c_yellow + 2 * 8% + 2 * .5deg
+$c_yellow04 = $c_yellow + 3 * 8% + 3 * .5deg
+$c_yellow05 = $c_yellow + 4 * 8% + 4 * .5deg
+//红色
+$c_red = #ec2a00
+$c_red02 = $c_red + 1 * 8% + 1 * .5deg
+$c_red03 = $c_red + 2 * 8% + 2 * .5deg
+$c_red04 = $c_red + 3 * 8% + 3 * .5deg
+$c_red05 = $c_red + 4 * 8% + 4 * .5deg
+//粉色
+$c_pink = #F02387
+$c_pink02 = $c_pink + 1 * 8% + 1 * .5deg
+$c_pink03 = $c_pink + 2 * 8% + 2 * .5deg
+$c_pink04 = $c_pink + 3 * 8% + 3 * .5deg
+$c_pink05 = $c_pink + 4 * 8% + 4 * .5deg
+//白色
+$c_white = #fff
+$c_white02 = $c_white + -(1 * 2.5)%
+$c_white03 = $c_white + -(2 * 2.5)%
+$c_white04 = $c_white + -(3 * 2.5)%
+$c_white05 = $c_white + -(4 * 2.5)%
+
+//---字体大小变量
+$f_small  = 12px
+$f_normal = 13px
+$f_iptxt = 14px
+$f_medium = 15px
+$f_large  = 22px
+$f_super  = 30px
+
+
+//---字体风格
+$f_family = "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei", "微软雅黑", "Segoe UI", "Tahoma", "宋体", "SimSun", "sans-serif"
+
+
+//---颜色类输出
+_colorFn(name,$color,fn=1,count=5)
+    .txt-{name}01
+        color $color
+    for i in 2..count
+        .txt-{name}0{i}
+            if fn == 1
+                color $color + (i - 1) * 8% + (i - 1) * .5deg
+            else if fn == 2
+                color $color + -((i - 1) * 8)% + -((i - 1) * .5)deg
+            else if fn == 3
+                color $color + -((i - 1) * 2.5)%
+    .bg-{name}01
+        background-color $color
+    for i in 2..count
+        .bg-{name}0{i}
+            if fn == 1
+                background-color $color + (i - 1) * 8% + (i - 1) * .5deg
+            else if fn == 2
+                background-color $color + -((i - 1) * 8)% + -((i - 1) * .5)deg
+            else if fn == 3
+                background-color $color + -((i - 1) * 2.5)%
+
+//---颜色样式输出
+_color(color)
+    color color
+
+//---背景颜色样式输出
+_bgColor(bg=$c_white)
+    background-color bg
+
+//---显示方式
+_display(arg=block)
+    display arg
+
+//---隐藏
+_box__hide()
+    display none
+
+//---显示
+_box__show()
+    display block
+
+//---边框线
+_border(direction,color=$c_white03,pixel=1px)
+    border-{direction} pixel solid color
+
+//---严格盒模型
+_boxSizing(fn=1)
+    if fn == 1
+        -webkit-box-sizing border-box
+        box-sizing border-box
+    else if fn == 2
+        -webkit-box-sizing content-box
+        box-sizing content-box
+
+//---垂直居中布局
+_verticalLayout(left=auto,right=auto,top=0,bottom=0)
+    position absolute
+    top top
+    bottom bottom
+    margin auto 
+    left left
+    right right
+
+//---完全居中布局
+_completeCenter(left=0,right=0,top=0,bottom=0)
+    position absolute
+    top top
+    right right
+    bottom bottom
+    left left
+    margin auto
+
+//---图片大小控制(被容器填充)
+_imgwrap(x=100%,y=100%)
+    & img
+        width x
+        height y
+
+//---黑子溢出处理
+_overflow(method=hidden)
+    overflow method
+
+//---字体间隔
+_spacing(pixel=1px)
+    letter-spacing pixel
+
+//---字体间隔升级版
+_spacingPlus(pixel=1px)
+    letter-spacing pixel
+    text-indent pixel
+
+//---单行/多行文字溢出省略
+_ellipsis(line=1)
+    if line == 1
+        overflow hidden
+        text-overflow ellipsis
+        white-space nowrap
+    else if line > 1
+        display -webkit-box !important
+        overflow hidden
+        text-overflow ellipsis
+        word-break break-all
+        -webkit-box-orient vertical
+        -webkit-line-clamp line
+
+//---圆角
+_borderRadius(pixel=50%)
+    -webkit-border-radius pixel
+    -moz-border-radius pixel
+    border-radius pixel
+
+//---线性渐变
+_gradient(bColor,eColor)
+    background -webkit-linear-gradient(left top, bColor, eColor)
+    background -o-linear-gradient(bottom right, bColor, eColor)
+    background -moz-linear-gradient(bottom right, bColor, eColor)
+    background linear-gradient(to bottom right, bColor, eColor)
+
+//---按钮颜色
+_btnColor(bgColor,txtColor,h_bgColor,h_txtColor)
+    background bgColor
+    color txtColor
+    &.actived,&:active
+        background h_bgColor
+        color h_txtColor
+
+//---盒子阴影颜色
+_boxShadow(range=10px,color=$c_black,x=0,y=0,ins=false)
+    if ins != true
+        box-shadow x y range color
+    else
+        box-shadow inset x y range color
+
+
+/* 颜色辅助类 */
+//黑色
+_colorFn('black',$c_black,1,5)
+//蓝色
+_colorFn('blue',$c_blue,1,5)
+//灰色
+_colorFn('gray',$c_gray,2,5)
+//绿色
+_colorFn('green',$c_green,1,5)
+//橘黄
+_colorFn('orange',$c_orange,1,5)
+//金黄
+_colorFn('yellow',$c_yellow,1,5)
+//青色
+_colorFn('cyan',$c_cyan,1,5)
+//红色
+_colorFn('red',$c_red,1,5)
+//粉色
+_colorFn('pink',$c_pink,1,5)
+//白色
+_colorFn('white',$c_white,3,5)
+
+
+
+/* ==========================================================================
+ * 布局（grid）（.g-）：将页面分割为几个大块，通常有头部、主体、主栏、侧栏、尾部等！
+ * 模块（module）（.m-）：通常是一个语义化的可以重复使用的较大的整体！比如导航、登录、注册、各种列表、评论、搜索等！
+ * 元件（unit）（.u-）：通常是一个不可再分的较为小巧的个体，通常被重复用于各种模块中！比如按钮、输入框、loading、图标等！
+ * 功能（function）（.f-）：为方便一些常用样式的使用，我们将这些使用率较高的样式剥离出来，按需使用，通常这些选择器具有固定样式表现，比如清除浮动等！不可滥用！
+ * 皮肤（skin）（.s-）：如果你需要把皮肤型的样式抽离出来，通常为文字色、背景色（图）、边框色等，非换肤型网站通常只提取文字色！非换肤型网站不可滥用此类！
+ * 状态（.z-）：为状态类样式加入前缀，统一标识，方便识别，她只能组合使用或作为后代出现（.u-ipt.z-dis{}，.m-list li.z-sel{}），具体详见命名规则的扩展相关项。
+ * ========================================================================== */
+
+
+
+/* ==========================================================================
+   浏览器升级提示 的样式
+   ========================================================================== */
+
+.browserupgrade 
+    margin 0.2em 0
+    background #ccc
+    color #313536
+    padding 0.2em 0
+
+/* ==========================================================================
+   初始化
+   ========================================================================== */
+
+*{
+    margin: 0;
+    padding: 0;
+}
+html {
+    display: block;
+    font-size: 12px;
+    color: $c_black;
+}
+
+body
+    font-family $f_family
+    display block
+    overflow hidden
+    overflow-y scroll 
+    border 0
+    margin 0
+    padding 0
+    background $c_white03
+
+a{
+    color: inherit;
+    text-decoration: none;
+}
+
+p,h1,h2,h3,h4,h5,h6{
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+button{
+    cursor: pointer;
+}
+button,input{ 
+    outline: none; 
+}
+ul,li{
+    margin: 0; 
+    padding: 0; 
+    list-style: none;
+}
+section,div,span,em,i,p,h1,h2,h3,h4,h5,h6{
+    cursor: default;
+}
+a,a *{
+    cursor: pointer;
+}
+em,i{
+    font-style: normal;
+}
+
+
+
+/* ==========================================================================
+   功能（function）（.f-）工具类
+   ========================================================================== */
+
+//-1200px布局
+.f__w1200
+    width 1200px
+    margin 0 auto
+
+//-清边距
+.f__nopad
+    padding 0!important
+.f__nomag
+    margin 0!important
+
+//-清浮动
+.f__clearfix
+    *zoom 1
+    &:after
+        visibility hidden
+        display block
+        font-size 0 
+        content ""
+        clear both
+        height 0
+.f__fl
+    float left
+.f__fr
+    float right
+
+//-清除间隙
+.f__clearance
+    font-size 0px
+    letter-spacing -4px
+
+//-显示与隐藏
+.f__hide
+    display none
+.f__show
+    display block
+
+//文本对齐
+.f__tal
+    text-align left
+.f__tac
+    text-align center
+.f__tar
+    text-align right
+
+//-溢出隐藏
+.f__oh
+    overflow hidden
+
+//-文本粗细
+.f__fwbd
+    font-weight 700
+.f__fwtn
+    font-weight 400
+
+//-浮动
+.f__fl
+    float left
+.f__fr
+    float center
+.f__cb
+    clear both
+
+//-定位
+.f__pc,.f__pl,.f__pr,.f__pt,.f__pb
+    position absolute
+.f__pc
+    left 0
+    right 0
+    margin 0 auto
+.f__pl
+    left 0
+.f__pr
+    left 0
+.f__pt
+    top 0
+.f__pb
+    bottom 0
+
+
+/* ==========================================================================
+   布局（grid）（.g-）布局类
+   ========================================================================== */
+
+.g-doc
+    width 100%
+    background $c_white03
+    
+/* ==========================================================================
+   木有车B2B网站的主要样式
+   ========================================================================== */

@@ -1,6 +1,6 @@
 import App from '../App'
 
-const Hello = r => require.ensure([], () => r(require('../components/Hello.vue')), 'hello')
+const home = r => require.ensure([], () => r(require('../page/home/index')), 'home')
 
 
 // 定义路由
@@ -11,11 +11,11 @@ export default[{
         //地址为空时跳转hello页面
         {
             path: '',
-            redirect: '/hello'
+            redirect: '/home'
         },
 	    {
-		    path: '/hello',
-		    component: Hello
+		    path: '/home',
+		    component: home
 	    }
 	]
 }]
