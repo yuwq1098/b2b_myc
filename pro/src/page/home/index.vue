@@ -42,7 +42,9 @@
 		    </div><!-- 头部 -->
 
 		    <div class="g-bd">
-		        
+		        <div class="m-ad">
+		        	
+		        </div>
 		    </div><!-- 主体 -->
 
 		    <div class="g-ft">
@@ -258,7 +260,7 @@
             			<i class="iconfont"></i>APP
             		</div>
             		<div class="m-ref-app">
-            			<img src="../../assets/img/knetSeal.png" alt="扫码下载APP" />
+            			<img src="../../assets/img/ewm2.png" alt="扫码下载APP" />
             			<div class="u-close"><i class="iconfont"></i></div><!-- 关闭 -->
             		</div>
             	</div><!-- APP下载 -->
@@ -267,7 +269,7 @@
             			<i class="iconfont"></i>APP
             		</div>
             		<div class="m-ref-gzh">
-            			<img src="../../assets/img/knetSeal.png" alt="关注公众号" />
+            			<img src="../../assets/img/ewm2.png" alt="关注公众号" />
             			<p>关注公众号</p>
             			<p>车源福利少不了</p>
             		</div>
