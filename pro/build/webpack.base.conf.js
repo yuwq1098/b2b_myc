@@ -24,6 +24,7 @@ module.exports = {
       'vue$': 'vue/dist/vue',
       '@': resolve('src'),
       'src': path.resolve(__dirname, '../src'),
+      'static': path.resolve(__dirname, '../static'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'font': path.resolve(__dirname, '../src/font'),
       'components': path.resolve(__dirname, '../src/components'),
@@ -43,7 +44,7 @@ module.exports = {
         include: [resolve('src'), resolve('test')]
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        test: /\.(png|jpeg|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,

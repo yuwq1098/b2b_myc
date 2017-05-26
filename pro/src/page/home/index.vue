@@ -2,14 +2,14 @@
 	<div class="home">
 		<div class="g-doc">
 		    <div class="g-hd">
-		        <div class="f__w1200">
-                    <div class="g-hd-top">
-                        <ul class="m-top-svr f__fl">
+		        <div class="g-hd-top">
+                    <div class="f__w1200">
+                        <ul class="m-top-svr f__fl f__clearfix">
                             <li class="m-city u-item" id="js_select_city">
                                 <a href="javascript:;" class="u-box">
                                     <i class="iconfont icon-weizhi"></i>全国[切换城市]
                                 </a>
-                                <div class="g-down">
+                                <div class="g-down f__hide">
                                     <section class="m-down-city">
                                     
                                     </section>
@@ -20,9 +20,9 @@
                             </li><!-- 客服热线 -->
                             <li class="m-download u-item" id="js_app_download">
                                 <a href="javascript:;"  class="u-box">
-                                    <i class="iconfont">APP下载</i>
+                                    <i class="iconfont"></i>APP下载
                                 </a>
-                                <div class="g-down">
+                                <div class="g-down f__hide">
                                     <section class="m-down-ewm">
                                         <img src="" alt="APP下载二维码" />
                                     </section>
@@ -51,16 +51,18 @@
                                 <a href="javacript:;" class="u-lk">登录</a>
                             </li>
                         </ul><!-- 链接区 -->
-                    </div><!-- 顶部区 -->
+                    </div><!-- 1200px布局 -->
+		        </div><!-- 顶部区 -->
 
-                    <div class="g-hd-nav">
-                        <div class="m-logo">
+                <div class="g-hd-nav">
+                    <div class="f__w1200">
+                        <div class="m-logo f__pl">
                             <a href="javasript:;" class="u-box">
                                 <img src="../../assets/img/logo.png" alt="木有车logo" />
                             </a>
                         </div><!-- logo区 -->
-                        <div class="m-nav">
-                            <ul class="u-nav-list">
+                        <div class="m-nav f__pr">
+                            <ul class="u-nav-list f__clearfix">
                                 <li class="u-item">
                                     <a href="javacript:;" class="u-lk">
                                         首页
@@ -79,139 +81,179 @@
                                     </a></li>
                                 <li class="u-item">
                                     <a href="javacript:;" class="u-lk">
+                                        特色服务
+                                    </a></li>
+                                <li class="u-item">
+                                    <a href="javacript:;" class="u-lk">
                                         我要加盟
                                     </a></li>
                             </ul>
                         </div><!-- 导航区 -->
-                        <div class="m-sch">
+                        <div class="m-sch f__pr">
                             <form class="search-form" method="get" action="" id="car_search_form">
                                 <input id="car_suggest" name="keywords" placeholder="搜索您需要的车辆" autocomplete="off"/>
                                 <button><i class="i-search">搜索</i></button>
                             </form>
                         </div><!-- 搜索区 -->
-                    </div><!-- 导航区 -->
+                    </div><!-- 1200px布局 -->
+                </div><!-- 导航区 -->
 
-		        </div><!-- 1200px布局 -->
 		    </div><!-- 头部 -->
 
 		    <div class="g-bd">
 		        <div class="g-ad">
-		        	<div class="m-sld"></div><!-- 轮播模块 -->
-                    <div class="g-ad-ct f__w1200">
-                        <div class="m-sd-snav f__fl">
-                            <div class="u-snav-bg"></div><!-- 背景 -->
-                            <section class="m-snav-lst-box">
-                                <div class="u-item">
-                                    <h4 class="tit">品牌</h4>
-                                    <ul class="u-lst">
-                                        <li class="u-item">
-                                            <a href="javascript:;">大众</a></li>
-                                        <li>
-                                            <a href="javascript:;">宝马</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">丰田</a></li>
-                                        <li>
-                                            <a href="javascript:;">现代</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">福特</a></li>
-                                        <li>
-                                            <a href="javascript:;">奥迪</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">雪佛兰</a></li>
-                                        <li>
-                                            <a href="javascript:;">别克</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">奔驰</a></li>
-                                        <li>
-                                            <a href="javascript:;">本田</a></li>
-                                        <li>
-                                            <a href="javascript:;">更多
-                                                <i class="iconfont"></i>
-                                            </a></li>
-                                    </ul>
-                                </div><!-- 品牌 -->
-                                <hr class="u-line"/><!-- 水平线 -->
-
-                                <div class="u-item">
-                                    <h4 class="tit">级别</h4>
-                                    <ul class="u-lst">
-                                        <li class="u-item">
-                                            <a href="javascript:;">轿车</a></li>
-                                        <li>
-                                            <a href="javascript:;">SVU</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">MPV</a></li>
-                                        <li>
-                                            <a href="javascript:;">跑车</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">皮卡</a></li>
-                                        <li>
-                                            <a href="javascript:;">面包车</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">客车</a></li>
-                                        <li>
-                                            <a href="javascript:;">货车</a></li>
-                                    </ul>
-                                </div><!-- 级别 -->
-                                <hr class="u-line"/><!-- 水平线 -->
-
-                                <div class="u-item">
-                                    <h4 class="tit">价格</h4>
-                                    <ul class="u-lst u-lst-v2">
-                                        <li class="u-item">
-                                            <a href="javascript:;">3万以下</a></li>
-                                        <li>
-                                            <a href="javascript:;">3-5万</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">5-10万</a></li>
-                                        <li>
-                                            <a href="javascript:;">10-20万</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">20-30万</a></li>
-                                        <li>
-                                            <a href="javascript:;">30-50万</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">50-80万</a></li>
-                                        <li>
-                                            <a href="javascript:;">80万以上</a></li>
-                                    </ul>
-                                </div>
-                                <hr class="u-line"/><!-- 水平线 -->
-
-                                <div class="u-item">
-                                    <h4 class="tit">车龄</h4>
-                                    <ul class="u-lst">
-                                        <li class="u-item">
-                                            <a href="javascript:;">1年内</a></li>
-                                        <li>
-                                            <a href="javascript:;">1-3年</a></li>
-                                        <li class="u-item">
-                                            <a href="javascript:;">3-5年</a></li>
-                                        <li>
-                                            <a href="javascript:;">5年以上</a></li>
-                                    </ul>
-                                </div>
-                            </section>
-                        </div><!-- 侧边子导航栏 -->
-                        <div class="m-fuc-box f__fr">
-                            <div class="u-box-bg"></div><!-- 背景 -->
-                            <section class="m-cards">
-                                <div class="u-card">
+		        	<div class="m-sld">
+                        <div class="swiper-container" id="index-carousel">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
                                     <a href="javascript:;">
-                                        <img src="" alt="全国连锁" /><!-- 圆状图 -->
-                                        <p class="tit">全国连锁</p><!-- 标题 -->
-                                        <p class="des">千家门店 身边的二手车专家</p><!-- 描述 -->
+                                        <img src="../../assets/img/figure01_tiny.jpeg" alt=""/>
                                     </a>
                                 </div>
-                                <div class="u-card">
+                                <div class="swiper-slide">
                                     <a href="javascript:;">
-                                        <img src="" alt="车源真实" /><!-- 圆状图 -->
-                                        <p class="tit">车源真实</p><!-- 标题 -->
-                                        <p class="des">海量真实车源 车况可检测</p><!-- 描述 -->
+                                        <img src="../../assets/img/figure02_tiny.jpeg" alt=""/>
                                     </a>
                                 </div>
-                            </section>
-                        </div><!-- 链接地址盒子 -->
+                                <div class="swiper-slide">
+                                    <a href="javascript:;">
+                                        <img src="../../assets/img/figure03_tiny.jpeg" alt=""/>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="javascript:;">
+                                        <img src="../../assets/img/figure04_tiny.jpeg" alt=""/>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="javascript:;">
+                                        <img src="../../assets/img/figure05_tiny.jpeg" alt=""/>
+                                    </a>
+                                </div>
+                            </div><!-- 图片容器 -->
+                            <div class="swiper-pagination"></div><!-- 引入分页器 -->
+                        </div><!-- swiper轮播容器 -->    
+
+                    </div><!-- 轮播模块 -->
+                    <div class="g-ad-ct">
+                        <section class="f__w1200">
+                            <div class="m-sd-snav f__fl">
+                                <div class="u-snav-bg"></div><!-- 背景 -->
+                                <section class="m-snav-lst-box">
+                                    <div class="m-item">
+                                        <h4 class="tit">品牌</h4>
+                                        <ul class="u-lst f__clearfix">
+                                            <li class="u-item">
+                                                <a href="javascript:;">大众</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">宝马</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">丰田</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">现代</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">福特</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">奥迪</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">雪佛兰</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">别克</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">奔驰</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">本田</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">更多
+                                                    <i class="iconfont"></i>
+                                                </a></li>
+                                        </ul>
+                                    </div><!-- 品牌 -->
+                                    <hr class="u-line"/><!-- 水平线 -->
+
+                                    <div class="m-item">
+                                        <h4 class="tit">级别</h4>
+                                        <ul class="u-lst f__clearfix">
+                                            <li class="u-item">
+                                                <a href="javascript:;">轿车</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">SVU</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">MPV</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">跑车</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">皮卡</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">面包车</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">客车</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">货车</a></li>
+                                        </ul>
+                                    </div><!-- 级别 -->
+                                    <hr class="u-line"/><!-- 水平线 -->
+
+                                    <div class="m-item">
+                                        <h4 class="tit">价格</h4>
+                                        <ul class="u-lst u-lst-v2 f__clearfix">
+                                            <li class="u-item">
+                                                <a href="javascript:;">3万以下</a></li>
+                                            <li>
+                                                <a href="javascript:;">3-5万</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">5-10万</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">10-20万</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">20-30万</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">30-50万</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">50-80万</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">80万以上</a></li>
+                                        </ul>
+                                    </div>
+                                    <hr class="u-line"/><!-- 水平线 -->
+
+                                    <div class="m-item">
+                                        <h4 class="tit">车龄</h4>
+                                        <ul class="u-lst f__clearfix">
+                                            <li class="u-item">
+                                                <a href="javascript:;">1年内</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">1-3年</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">3-5年</a></li>
+                                            <li class="u-item">
+                                                <a href="javascript:;">5年以上</a></li>
+                                        </ul>
+                                    </div>
+                                </section>
+                            </div><!-- 侧边子导航栏 -->
+                            <div class="m-fuc-box f__fr">
+                                
+                                <section class="m-cards">
+                                    <div class="u-card part1">
+                                        <div class="u-card-bg"></div><!-- 背景 -->
+                                        <a href="javascript:;">
+                                            <img src="../../assets/img/logos-pic1.png" alt="全国连锁" /><!-- 圆状图 -->
+                                            <p class="tit">全国连锁</p><!-- 标题 -->
+                                            <p class="des">千家门店 身边的二手车专家</p><!-- 描述 -->
+                                        </a>
+                                    </div>
+                                    <div class="u-card">
+                                        <div class="u-card-bg"></div><!-- 背景 -->
+                                        <a href="javascript:;">
+                                            <img src="../../assets/img/logos-pic2.png" alt="车源真实" /><!-- 圆状图 -->
+                                            <p class="tit">车源真实</p><!-- 标题 -->
+                                            <p class="des">海量真实车源 车况可检测</p><!-- 描述 -->
+                                        </a>
+                                    </div>
+                                </section>
+                            </div><!-- 链接地址盒子 -->
+                        </section>
                     </div><!-- 其他内容 -->
 		        </div><!-- 广告区 -->
 
@@ -824,18 +866,45 @@
 </template>
 
 <script>
-export default {
-	name: 'home',
-	data () {
-		return {
-			
-		}
-	}
-}
+
+    import 'src/assets/vendor/jquery.min.js'
+    import Swiper from "../../../static/swiper.min.js";
+
+    export default {
+    	name: 'home',
+    	data () {
+    		return {
+    			
+    		}
+    	},
+        mounted(){
+            var mySwiper = new Swiper('#index-carousel', {
+                autoplay: 5000,     //可选选项，自动滑动
+                autoplayDisableOnInteraction : false,  //用户操作后，不禁止自动滑动
+                effect : 'fade',
+                touchAngle : 20,
+                speed:600,         //速度
+                loop : true,     //环路
+                mousewheelControl : true,            //滚轮触发
+                paginationClickable: true,           //分页点击
+                pagination : '.swiper-pagination',   //分页器
+                // 关闭淡出，保留淡入
+                fade: {
+                  crossFade: false,
+                },
+                // 如果滑动停了，那么重新开启它
+                onAutoplayStop: function(swiper){
+                    mySwiper.startAutoplay();
+                },
+            });
+
+        },
+    }
 </script>
 
 <!-- 限定作用域 -->
 <style lang="stylus" rel="stylesheet/stylus" scope>
+    @import '../../../static/swiper.min.css'
     @import './home.styl'
 </style>
 
