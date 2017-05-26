@@ -137,10 +137,9 @@ Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
 
-
 import 'element-ui/lib/theme-default/index.css'
-import 'assets/css/reset.styl'; // 引入公共样式
-import 'assets/css/main.styl'; // 引入公共样式
+
+import 'assets/css/index.styl'      // 引入公共样式
 
 Vue.config.productionTip = false
 

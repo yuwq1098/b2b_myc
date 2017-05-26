@@ -22,9 +22,12 @@ module.exports = {
     extensions: ['.css', '.js', '.vue' ,'.styl'],
     alias: {
       'vue$': 'vue/dist/vue',
+      '@': resolve('src'),
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'font': path.resolve(__dirname, '../src/font'),
+      'components': path.resolve(__dirname, '../src/components'),
+      'page': path.resolve(__dirname, '../src/page')
     }
   },
   module: {
