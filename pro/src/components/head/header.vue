@@ -21,7 +21,7 @@
 		                    <li class="u-item login">
 		                        <a href="javascript:;" class="u-lk lg"><i class="i-user-lgn"></i>登录</a>
 		                        <span>/</span>
-		                        <a href="javascript:;"  class="u-lk">注册</a>
+		                        <a href="javascript:;" class="u-lk">注册</a>
 		                    </li>
 		                    <li class="u-item">
 		                        <a href="javascript:;"  class="u-lk">下载APP</a>
@@ -33,10 +33,10 @@
 		                        <a href="javascript:;"  class="u-lk">我要买车</a>
 		                    </li>
 		                    <li class="u-item">
-		                        <a href="javascript:;"  class="u-lk">我要收车</a>
+		                        <router-link to="/collect"  class="u-lk">我要收车</router-link>
 		                    </li>
 		                    <li class="u-item">
-		                        <a href="javascript:;"  class="u-lk">首页</a>
+		                        <router-link to="/home"  class="u-lk">首页</router-link>
 		                    </li>
 		                </ul>
 		            </div><!-- 站点链接 -->

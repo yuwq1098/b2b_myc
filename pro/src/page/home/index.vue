@@ -1,3 +1,4 @@
+<!-- 网站首页 -->
 <template>
 	<div class="home">
 		<div class="g-doc">
