@@ -1,0 +1,51 @@
+@import '../../assets/css/mixin.styl'
+
+.g-doc
+    .g-hd
+        height 100px
+        width 100%
+        .m-hd
+            font-size 14px
+            .m-logo
+                height 100px
+                width 200px
+                position relative
+                a
+                    height 100%
+                    width 100%
+                    _display(block)
+                img
+                    _completeCenter()
+            .m-city
+                line-height 100px
+                height 30px
+                line-height 30px
+                margin-top 35px
+                margin-left 30px
+                text-align left
+                .u-lk
+                    .iconfont
+                        margin-left 4px
+                        font-size 15px
+                        color #959595
+            .m-site-lk
+                .m-lk-list
+                    line-height 100px
+                    .u-item
+                        float right
+                        padding 0 25px
+                        &.login
+                            .lg
+                                padding-left 28px
+                                position relative
+                                .i-user-lgn
+                                    font-size 17px
+                                    vertical-align: middle;
+                                    &::before
+                                        content ""
+                                        _display()
+                                        width 22px
+                                        height 22px
+                                        background url(../../assets/img/i-user-lgn.png) 0 0 no-repeat
+                                        background-size 100% 100%
+                                        _verticalLayout(0)

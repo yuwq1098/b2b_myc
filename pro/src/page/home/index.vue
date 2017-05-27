@@ -1,50 +1,9 @@
 <template>
 	<div class="home">
 		<div class="g-doc">
-		    <div class="g-hd">
-                <div class="m-hd">
-                    <div class="f__w1200 f__clearfix">
-                        <div class="m-logo f__fl">
-                            <a href="javascript:;" class="u-lk">
-                                <img src="../../assets/img/logo.png" alt="logo" />
-                            </a>
-                        </div><!-- 网站LOGO -->
 
-                        <div class="m-city f__fl">
-                            <a href="javascript:;" class="u-lk">南昌<i class="iconfont icon-arrowdown1"></i></a>
-                            <div class="m-down f__hide">
-                                
-                            </div><!-- 城市盒子 -->
-                        </div><!-- 城市 -->
-
-                        <div class="m-site-lk f__fr">
-                            <ul class="m-lk-list">
-                                <li class="u-item login">
-                                    <a href="javascript:;" class="u-lk lg"><i class="i-user-lgn"></i>登录</a>
-                                    <span>/</span>
-                                    <a href="javascript:;"  class="u-lk">注册</a>
-                                </li>
-                                <li class="u-item">
-                                    <a href="javascript:;"  class="u-lk">下载APP</a>
-                                </li>
-                                <li class="u-item">
-                                    <a href="javascript:;"  class="u-lk">服务保障</a>
-                                </li>
-                                <li class="u-item">
-                                    <a href="javascript:;"  class="u-lk">我要买车</a>
-                                </li>
-                                <li class="u-item">
-                                    <a href="javascript:;"  class="u-lk">我要收车</a>
-                                </li>
-                                <li class="u-item">
-                                    <a href="javascript:;"  class="u-lk">首页</a>
-                                </li>
-                            </ul>
-                        </div><!-- 站点链接 -->
-                    </div><!-- 1200px布局 -->
-                    
-                </div>
-		    </div><!-- 头部 -->
+            <!-- 引入网站头部 -->
+            <c-head></c-head>
             
             <div class="g-bd">
                 <div class="g-ad">
@@ -400,77 +359,16 @@
                             </div>
                         </div><!-- 列表信息展示组 -->
                     </div>
-                    <div class="m-site-svr">
-                        <div class="f__w1200">
-                            <ul class="u-svr-lst f__clearfix">
-                                <li class="u-item">
-                                    <i class="i-ser-tk"></i>14天可退
-                                </li>
-                                <li class="u-item">
-                                    <i class="i-ser-yz"></i>100%优质车源
-                                </li>
-                                <li class="u-item">
-                                    <i class="i-ser-zj"></i>资金托管安全放心
-                                </li>
-                                <li class="u-item">
-                                    <i class="i-ser-bz"></i>车质保障
-                                </li>
-                                <li class="u-item">
-                                    <i class="i-ser-lc"></i>一站式服务
-                                </li>
-                            </ul>
-                        </div>
-                    </div><!-- 网站服务保障 -->
+                    
+
+
                 </div><!-- 网页内容 -->
-
             </div><!-- 网页主体 -->
-
-            <div class="g-ft">
-                <section class="m-ft-bxo f__w1200">
-                    <div class="m-ft-ct f_clearfix">
-                        <div class="m-lk-wrap f_clearfix">
-                            <dl class="m-item">
-                                <dt class="u-tit">关于我们</dt>
-                                <dd><a href="javascript:;" class="u-lk">公司介绍</a></dd>
-                                <dd><a href="javascript:;" class="u-lk">联系我们</a></dd>
-                                <dd><a href="javascript:;" class="u-lk">加入我们</a></dd>
-                            </dl>
-                            <dl class="m-item">
-                                <dt class="u-tit">交易流程</dt>
-                                <dd><a href="javascript:;" class="u-lk">收车流程</a></dd>
-                                <dd><a href="javascript:;" class="u-lk">卖车流程</a></dd>
-                                <dd><a href="javascript:;" class="u-lk">异地收车</a></dd>
-                            </dl>
-                            <dl class="m-item">
-                                <dt class="u-tit">交易流程</dt>
-                                <dd><a href="javascript:;" class="u-lk">收车流程</a></dd>
-                                <dd><a href="javascript:;" class="u-lk">卖车流程</a></dd>
-                                <dd><a href="javascript:;" class="u-lk">异地收车</a></dd>
-                            </dl>
-                        </div><!-- 链接区 -->
-                        <div class="m-ewm-wrap f__clearfix">
-                            <div class="u-ewm-box">
-                                <img src="../../assets/img/wechat-ewm.jpg" alt="微信公众号" />
-                                <p>微信公众号</p>
-                            </div>
-                            <div class="u-ewm-box v2">
-                                <img src="../../assets/img/wechat-ewm.jpg" alt="微信公众号" />
-                                <p>下载APP</p>
-                            </div>
-                        </div><!-- 二维码区域 -->
-                        <div class="m-tel-box">
-                            <p class="u-tit">售后客服电话</p>
-                            <p class="u-tel">400-900-9936</p>
-                            <p class="u-txt">免费咨询（咨询、投诉、建议）</p>
-                            <p class="u-txt">周一至周六 9:00-18:00（工作时间）</p>
-                        </div><!-- 联系方式 -->
-                    </div><!-- 底部主要内容 -->
-                    <div class="m-ft-cprt">
-                        <p>Copyright © 2016-2017 木有车 All Rights Reserved 版权所有 南昌小目标车网科技发展股份有限公司</p> 
-                    </div><!-- 版权声明模块 -->
-                </section>
-                
-            </div><!-- 网站底部 -->
+            
+            <!-- 引入底部站点服务图示 -->
+            <c-foot-server></c-foot-server>
+            <!-- 引入网站底部 -->
+            <c-foot></c-foot>
 
 		</div><!-- 文档 -->
 	</div>
@@ -479,10 +377,19 @@
 <script>
 
     import 'src/assets/vendor/jquery.min.js'
-    import Swiper from "../../../static/swiper.min.js";
+    import Swiper from "../../../static/swiper.min.js"
+    import cHead from "../../components/head/header.vue"
+    import cFoot from "../../components/foot/footer.vue"
+    import cFootServer from "../../components/foot/foot-svr.vue"
 
     export default {
     	name: 'home',
+        // 注册组件
+        components: {
+            cHead,
+            cFoot,
+            cFootServer,
+        },
     	data () {
     		return {
     			
@@ -507,7 +414,6 @@
                     mySwiper.startAutoplay();
                 },
             });
-
         },
     }
 </script>
