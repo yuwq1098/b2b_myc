@@ -11,7 +11,7 @@
                         </div><!-- 网站LOGO -->
 
                         <div class="m-city f__fl">
-                            <a href="javascript:;">南昌<i class="iconfont icon-arrowdown1"></i></a>
+                            <a href="javascript:;" class="u-lk">南昌<i class="iconfont icon-arrowdown1"></i></a>
                             <div class="m-down f__hide">
                                 
                             </div><!-- 城市盒子 -->
@@ -20,24 +20,24 @@
                         <div class="m-site-lk f__fr">
                             <ul class="m-lk-list">
                                 <li class="u-item login">
-                                    <a href="javascript:;"><i class="iconfont"></i>登录</a>
+                                    <a href="javascript:;" class="u-lk lg"><i class="i-user-lgn"></i>登录</a>
                                     <span>/</span>
-                                    <a href="javascript:;">注册</a>
+                                    <a href="javascript:;"  class="u-lk">注册</a>
                                 </li>
                                 <li class="u-item">
-                                    <a href="">下载APP</a>
+                                    <a href="javascript:;"  class="u-lk">下载APP</a>
                                 </li>
                                 <li class="u-item">
-                                    <a href="">服务保障</a>
+                                    <a href="javascript:;"  class="u-lk">服务保障</a>
                                 </li>
                                 <li class="u-item">
-                                    <a href="">我要买车</a>
+                                    <a href="javascript:;"  class="u-lk">我要买车</a>
                                 </li>
                                 <li class="u-item">
-                                    <a href="">我要收车</a>
+                                    <a href="javascript:;"  class="u-lk">我要收车</a>
                                 </li>
                                 <li class="u-item">
-                                    <a href="">首页</a>
+                                    <a href="javascript:;"  class="u-lk">首页</a>
                                 </li>
                             </ul>
                         </div><!-- 站点链接 -->
@@ -88,56 +88,56 @@
                         <div class="m-category f__clearfix">
                             <div class="m-brand-wrap f__fl">
                                 <div class="u-hd">
-                                    <a href="javascript:;">品牌<i class="i-arrow"></i></a>
+                                    <a href="javascript:;">品牌<i class="iconfont icon-caretdown"></i></a>
                                 </div>
                                 <div class="u-con f__clearfix">
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
+                                        <img src="../../assets/img/b_84.png" alt="大众" />
                                         <p class="u-tit">大众</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_62.png" alt="奥迪" />
+                                        <p class="u-tit">奥迪</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_89.png" alt="丰田" />
+                                        <p class="u-tit">丰田</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_47.png" alt="奔驰" />
+                                        <p class="u-tit">奔驰</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_38.png" alt="宝马" />
+                                        <p class="u-tit">宝马</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_59.png" alt="本田" />
+                                        <p class="u-tit">本田</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_34.png" alt="别克" />
+                                        <p class="u-tit">别克</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_55.png" alt="现代" />
+                                        <p class="u-tit">现代</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_15.png" alt="日产" />
+                                        <p class="u-tit">日产</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_98.png" alt="福特" />
+                                        <p class="u-tit">福特</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_73.png" alt="雪佛兰" />
+                                        <p class="u-tit">雪佛兰</p>
                                     </a>
                                     <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
+                                        <img src="../../assets/img/b_129.png" alt="起亚" />
+                                        <p class="u-tit">起亚</p>
                                     </a>
                                 </div>
                             </div>
@@ -207,7 +207,7 @@
                                     <span class="u-des">最全的二手车资源，农行合作，交易安全无忧</span>
                                 </h3>
                                 <a href="javascript:;" class="u-more f__fr">
-                                    更多<i class="iconfont"></i>
+                                    更多<i class="iconfont icon-fanhui6"></i>
                                 </a>
                             </div>
                             <div class="m-lst-con">
