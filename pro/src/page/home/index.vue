@@ -173,7 +173,7 @@
                             <div class="m-lst-con">
                                 <ul class="m-lst f__clearfix">
                                     <li class="m-item">
-                                        <a href="javascript:;" class="u-box">
+                                        <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
                                             </div>
@@ -193,10 +193,10 @@
                                                     <p>围观</p>
                                                 </a>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </li>
                                     <li class="m-item">
-                                        <a href="javascript:;" class="u-box">
+                                        <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
                                             </div>
@@ -216,10 +216,10 @@
                                                     <p>围观</p>
                                                 </a>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </li>
                                     <li class="m-item">
-                                        <a href="javascript:;" class="u-box">
+                                        <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
                                             </div>
@@ -239,10 +239,10 @@
                                                     <p>围观</p>
                                                 </a>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </li>
                                     <li class="m-item">
-                                        <a href="javascript:;" class="u-box">
+                                        <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
                                             </div>
@@ -262,10 +262,10 @@
                                                     <p>围观</p>
                                                 </a>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </li>
                                     <li class="m-item">
-                                        <a href="javascript:;" class="u-box">
+                                        <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
                                             </div>
@@ -285,10 +285,10 @@
                                                     <p>围观</p>
                                                 </a>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </li>
                                     <li class="m-item">
-                                        <a href="javascript:;" class="u-box">
+                                        <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
                                             </div>
@@ -308,10 +308,10 @@
                                                     <p>围观</p>
                                                 </a>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </li>
                                     <li class="m-item">
-                                        <a href="javascript:;" class="u-box">
+                                        <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
                                             </div>
@@ -331,10 +331,10 @@
                                                     <p>围观</p>
                                                 </a>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </li>
                                     <li class="m-item">
-                                        <a href="javascript:;" class="u-box">
+                                        <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
                                             </div>
@@ -354,7 +354,7 @@
                                                     <p>围观</p>
                                                 </a>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </li>
                                 </ul>
                             </div>

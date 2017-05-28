@@ -137,6 +137,7 @@ Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
 
+import $ from 'jquery'
 import 'element-ui/lib/theme-default/index.css'
 import 'assets/css/index.styl'      // 引入公共样式
 
@@ -153,6 +154,18 @@ Vue.use(VueRouter)
 const router = new VueRouter({
 	routes,
 	mode: 'hash',
+})
+
+// 路由导航钩子，beforeEach，在路由进入前调用
+router.beforeEach(({meta, path}, from, next) => {
+  // 是否启用返回顶部
+  var isGoTop = meta.isGoTop?meta.isGoTop:false;
+  if(isGoTop){
+    // 每次进入新页面时页面滚动至顶部
+    $("body").scrollTop(0);
+  }
+  next();
+  
 })
 
 new Vue({

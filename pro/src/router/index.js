@@ -2,6 +2,7 @@ import App from '../App'
 
 const home = r => require.ensure([], () => r(require('../page/home/index')), 'home')
 const collect_car = r => require.ensure([], () => r(require('../page/collect/index')), 'collect')
+const car_details = r => require.ensure([], () => r(require('../page/car/car-details')), 'carDetails')
 
 const elm_ix = r => require.ensure([], () => r(require('../element/index')), 'elm_ix')
 const elm_test = r => require.ensure([], () => r(require('../element/test')), 'elm_test')
@@ -22,11 +23,22 @@ export default[{
         },
 	    {
 		    path: '/home',
-		    component: home
+		    component: home,
+            meta: {
+                isGoTop: true,
+            }
 	    },
         {
             path: '/collect',
-            component: collect_car
+            component: collect_car,
+            meta: { }
+        },
+        {
+            path: '/carDetails',
+            component: car_details,
+            meta: {
+                isGoTop: true,
+            }
         },
         {
             path: '/elm',
