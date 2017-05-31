@@ -3,6 +3,16 @@
 .bg-test
     background #e2e2e2
 
+.el-dropdown-menu
+    padding 4px 0
+    margin-top 8px
+    _borderRadius(3px)
+    .el-dropdown-menu__item
+        line-height 32px
+        &:not(.is-disabled):hover
+            background-color #E9F0F5
+            color #0479CC
+
 .g-doc
     background #fff
     .g-bd
@@ -45,6 +55,7 @@
             .m-sel-gp
                 height 44px
                 line-height 44px
+                position relative
                 .m-gp-tit,.m-sel-lk-box
                     float left
                 .m-gp-tit
@@ -58,23 +69,81 @@
                         .m-lk-list,.m-other-price
                             float left
                         .m-lk-list
-                            line-height 44px
+                            height 28px
+                            margin-top 8px
                             .u-item
                                 float left
-                                padding 0 7px
                                 height 28px
                                 line-height 28px
                                 margin-right 10px
-                                background #ea5
                                 _display(block)
+                                .u-lk
+                                    padding 0 7px
+                                    height 28px
+                                    _display()
+                                    _borderRadius(2px)
+                                    color #545454
+                                &.on
+                                    .u-lk
+                                        background #0479cc
+                                        color #f4f4f4
+                                .el-dropdown
+                                    background #fff
+                                    border 1px solid #d8d8d8
+                                    .el-dropdown-link
+                                        width 72px
+                                        height 28px
+                                        _display()
+                                        position relative
+                                        padding 0 6px
+                                        font-size 13px
+                                        color #545454
+                                        .el-icon-caret-bottom
+                                            position absolute
+                                            right 6px
+                                            line-height 28px
+                                            height 28px
+                                            font-size 10px
+                                            color #959595
                         .m-other-price
-                            line-height 44px
-                            height 44px
+                            height 30px
+                            margin-top 7px
+                            margin-left 25px
                             & >*
                                 float left
+                            .m-price
+                                height 28px
+                                line-height 28px
+                                border 1px solid #d8d8d8
+                                padding  0 8px
+                                position relative
+                                .u-price-ipt
+                                    height 28px
+                                    width 70px
+                                    border none
+                                    vertical-align top
+                            .u-connect
+                                line-height 30px
+                                margin 0 6px
                             .u-btn
-                                height 32px
+                                margin-left 12px
+                                height 30px
+                                border none
+                                background #0479cc
+                                color #f4f4f4
+                                _borderRadius(3px)
+                                padding 0 15px
+                                _spacingPlus(2px)
                                 vertical-align middle
+                .u-more
+                    float right
+                    color #545454
+                    margin-right 8px
+                    .iconfont
+                        font-size 14px
+                        color #959595
+                        margin-left 2px
+
 
 
         .m-lst-gp-sel
@@ -99,6 +168,7 @@
                             line-height 32px
                             margin-left 12px
                             border 1px solid #e2e2e2
+                            _borderRadius(2px)
                             &.on
                                 border 1px solid #0479cc
                                 color #0479cc
@@ -116,6 +186,13 @@
                             background #fff
                             _boxShadow(12px,rgba(0,0,0,.15))
                             margin 20px 20px 0 0
+                            _transitionAll(.2s)
+                            &:hover
+                                _transitionAll(.3s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
+                                _translate3d(,-4px);
+                                _boxShadow(20px,rgba(0,0,0,.15),1px,10px)
+                                h5.u-tit
+                                    font-size 16px
                             .u-pic
                                 width 285px
                                 height 200px

@@ -195,6 +195,13 @@
                             background #fff
                             _boxShadow(12px,rgba(0,0,0,.15))
                             margin 20px 20px 0 0
+                            _transitionAll(.2s)
+                            &:hover
+                                _transitionAll(.3s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
+                                _translate3d(,-4px);
+                                _boxShadow(20px,rgba(0,0,0,.15),1px,10px)
+                                h5.u-tit
+                                    font-size 16px
                             .u-pic
                                 width 285px
                                 height 200px

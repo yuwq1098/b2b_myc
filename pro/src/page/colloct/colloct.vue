@@ -27,7 +27,7 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
                                     <ul class="m-lk-list f__clearfix">
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item on"><a href="javascript:;" class="u-lk">不限</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">大众</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">奥迪</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">丰田</a></li>
@@ -46,7 +46,7 @@
                                 </div><!-- 信息 -->
                                 <div class="m-info-cld"></div><!-- 子信息 -->
                             </div>
-                            <a href="javascript:;" class="u-lk">
+                            <a href="javascript:;" class="u-more">
                                 更多<i class="iconfont icon-arrowdown1"></i>
                             </a>
                         </div>
@@ -55,7 +55,7 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
                                     <ul class="m-lk-list">
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item on"><a href="javascript:;" class="u-lk">不限</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">捷达</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">速腾</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">迈腾</a></li>
@@ -79,7 +79,7 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info f__clearfix">
                                     <ul class="m-lk-list">
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">5万以下</a></li>
+                                        <li class="u-item on"><a href="javascript:;" class="u-lk">5万以下</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">5-10万</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">10-15万</a></li>
                                         <li class="u-item"><a href="javascript:;" class="u-lk">15-20万</a></li>
@@ -88,9 +88,9 @@
                                         <li class="u-item"><a href="javascript:;" class="u-lk">50万以上</a></li>
                                     </ul>
                                     <div class="m-other-price f__clearfix">
-                                        <div class="u-price"><input name="min-price" type="text" maxlength="8" />万</div>
-                                        <span>-</span>
-                                        <div class="u-price"><input name="max-price" type="text" maxlength="8" />万</div>
+                                        <div class="m-price"><input name="min-price" class="u-price-ipt" type="text" maxlength="8" />万</div>
+                                        <span class="u-connect">-</span>
+                                        <div class="m-price"><input name="max-price" class="u-price-ipt" type="text" maxlength="8" />万</div>
                                         <button class="u-btn">确定</button>
                                     </div>
                                 </div><!-- 信息 -->
