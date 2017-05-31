@@ -4,13 +4,15 @@ const home = r => require.ensure([], () => r(require('../page/home/home')), 'hom
 const buy_car_list = r => require.ensure([], () => r(require('../page/buy/car_list')), 'buyCarList')
 const car_details = r => require.ensure([], () => r(require('../page/car/car-details')), 'carDetails')
 const sellCar = r => require.ensure([], () => r(require('../page/sell/sellCar')), 'sellCar')
+const member = r => require.ensure([], () => r(require('../page/member/member')), 'member')
 
-// 定义路由
+
+// 瀹氫箟璺敱
 export default[{
 	path: '/',
-    component: App, //顶层路由，对应index.html
-    children: [ //二级路由。对应App.vue
-        //地址为空时跳转hello页面
+    component: App, //椤跺眰璺敱锛屽搴攊ndex.html
+    children: [ //浜岀骇璺敱銆傚搴擜pp.vue
+        //鍦板潃涓虹┖鏃惰烦杞琱ello椤甸潰
         {
             path: '',
             redirect: '/home'
@@ -30,6 +32,11 @@ export default[{
         {
             path: '/sellCar',
             component: sellCar,
+            meta: { }
+        },
+        {
+            path: '/member',
+            component: member,
             meta: { }
         },
         {
