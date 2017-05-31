@@ -1,0 +1,79 @@
+@import '../../assets/css/mixin.styl'
+
+.m-focus-pic
+    width 625px
+    height 520px
+    .m-sld-wrap
+        width 100%
+        height 420px
+        overflow hidden
+        position relative
+        .m-sld
+	        .m-sld-lst
+	            .u-sld-item
+	                width 625px
+	                height 420px
+	                img
+	                    width 100%
+	                    height 100%
+	    .m-info-bar
+	        position absolute
+	        bottom 0
+	        left 0
+	        width 100%
+	        height 32px
+	        line-height 32px
+	        background rgba(0,0,0,.38)
+	        color #d8d8d8
+	        z-index 999
+	        .u-info
+	            width 80%
+	            padding-left 10px
+	            font-size 13px
+	            float left
+            .u-pages
+                float right
+                margin-right 10px
+                .i-img-thumb
+                    position relative
+                    padding-right 20px
+                    height 19px
+                    line-height 19px
+                    _display(inline-block)
+                    vertical-align: middle;
+                    font-size 15px
+                    &::before
+                        content ""
+                        _display()
+                        width 17px
+                        height 17px
+                        background url(../../assets/img/i-img-thumb.png)
+                        background-size 100% 100%
+                        position absolute
+                        top 0
+                .u-page
+                    _spacingPlus()
+
+
+
+    .m-sld-cd-wrap
+        width 100%
+        height 88px
+        margin-top 12px
+        background #e2e2e2
+        position relative
+        .m-sld-cd
+            width 550px
+            height 100%
+            overflow hidden
+            _completeCenter()
+            .m-sld-cd-lst
+                width 1080px
+                .u-sld-cd-item
+                    float left
+                    width 130px
+                    height 88px
+                    margin-right 10px
+                    img
+                        width 100%
+                        height 100%

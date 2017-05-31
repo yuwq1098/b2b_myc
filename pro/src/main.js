@@ -139,7 +139,7 @@ Vue.prototype.$message = Message
 
 import $ from 'jquery'
 import 'element-ui/lib/theme-default/index.css'
-import 'assets/css/index.styl'      // å¼•å…¥å…¬å…±æ ·å¼
+import 'assets/css/index.styl'      // ÒıÈë¹«¹²ÑùÊ½
 
 Vue.config.productionTip = false
 
@@ -156,12 +156,12 @@ const router = new VueRouter({
 	mode: 'hash',
 })
 
-// è·¯ç”±å¯¼èˆªé’©å­ï¼ŒbeforeEachï¼Œåœ¨è·¯ç”±è¿›å…¥å‰è°ƒç”¨
+// Â·ÓÉµ¼º½¹³×Ó£¬beforeEach£¬ÔÚÂ·ÓÉ½øÈëÇ°µ÷ÓÃ
 router.beforeEach(({meta, path}, from, next) => {
-  // æ˜¯å¦å¯ç”¨è¿”å›é¡¶éƒ¨
+  // ÊÇ·ñÆôÓÃ·µ»Ø¶¥²¿
   var isGoTop = meta.isGoTop?meta.isGoTop:false;
   if(isGoTop){
-    // æ¯æ¬¡è¿›å…¥æ–°é¡µé¢æ—¶é¡µé¢æ»šåŠ¨è‡³é¡¶éƒ¨
+    // Ã¿´Î½øÈëĞÂÒ³ÃæÊ±Ò³Ãæ¹ö¶¯ÖÁ¶¥²¿
     $("body").scrollTop(0);
   }
   next();
@@ -170,5 +170,6 @@ router.beforeEach(({meta, path}, from, next) => {
 
 new Vue({
 	router,
+  $,
 }).$mount('#app')
 

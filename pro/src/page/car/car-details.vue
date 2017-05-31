@@ -13,30 +13,10 @@
                     </div><!-- 面包屑 -->
 
                     <div class="m-mn-hd f__clearfix">
-                        <div class="m-focus-pic f__fl bg-test ">
-                            <div class="m-sld-wrap">
-                                <div class="m-sld">
-                                    
-                                </div><!-- 主轮播 -->
-                                <div class="m-info-bar">
-                                    
-                                </div>
-                            </div><!-- 主轮播容器 -->
+                        <c-focus class="f__fl">
+                            
+                        </c-focus><!-- 轮播控件 -->
 
-                            <div class="m-sld-cd-wrap">
-                                <a href="javascript:;" class="u-prev-cd-btn"></a>
-                                <div class="m-sld-cd">
-                                    <ul>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                        <li></li>
-                                    </ul>
-                                </div><!-- 小轮播（焦点） -->
-                                <a href="javascript:;" class="u-prev-cd-btn"></a>
-                            </div><!-- 次轮播容器 -->
-                        </div><!-- 轮播控件 -->
                         <div class="m-mn-info f__fr">
                             <div class="m-tit">大众-朗逸 2011款 1.6L 手动品悠版</div>
                             <div class="m-pic f__clearfix">
@@ -473,6 +453,7 @@
 <script>
     import cHead from "../../components/head/header.vue"
     import cFoot from "../../components/foot/footer.vue"
+    import cFocus from "../../components/slide/focusThumb.vue"
 
 	export default {
         name: "collect-home",
@@ -486,6 +467,7 @@
         components:{
             cHead,
             cFoot,
+            cFocus,
         },
 	}
 </script>
