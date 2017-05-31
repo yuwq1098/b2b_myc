@@ -33,7 +33,7 @@
 		                        <a href="javascript:;"  class="u-lk">我要买车</a>
 		                    </li>
 		                    <li class="u-item">
-		                        <router-link to="/collect"  class="u-lk">我要收车</router-link>
+		                        <router-link to="/colloct"  class="u-lk">我要收车</router-link>
 		                    </li>
 		                    <li class="u-item">
 		                        <router-link to="/home"  class="u-lk">首页</router-link>
@@ -64,5 +64,5 @@
 
 <!-- 限定作用域 -->
 <style lang="stylus" rel="stylesheet/stylus" scope>
-    @import './head.styl'
+    @import './header.styl'
 </style>
