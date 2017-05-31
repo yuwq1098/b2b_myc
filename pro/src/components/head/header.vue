@@ -30,13 +30,13 @@
 		                        <a href="javascript:;"  class="u-lk">服务保障</a>
 		                    </li>
 		                    <li class="u-item">
-		                        <a href="javascript:;"  class="u-lk">我要买车</a>
+		                        <router-link to="/sellCar" class="u-lk">我要卖车</router-link>
 		                    </li>
 		                    <li class="u-item">
-		                        <router-link to="/colloct"  class="u-lk">我要收车</router-link>
+		                        <router-link to="/buyCar" class="u-lk">我要收车</router-link>
 		                    </li>
 		                    <li class="u-item">
-		                        <router-link to="/home"  class="u-lk">首页</router-link>
+		                        <router-link to="/home" class="u-lk">首页</router-link>
 		                    </li>
 		                </ul>
 		            </div><!-- 站点链接 -->

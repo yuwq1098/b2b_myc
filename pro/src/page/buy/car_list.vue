@@ -1,5 +1,5 @@
 <template>
-	<div class="collect-home">
+	<div class="buy-car-list">
 	    <div class="g-doc">
 			<c-head></c-head>
             <div class="g-bd">
@@ -445,7 +445,7 @@
     import cFoot from "../../components/foot/footer.vue"
 
 	export default {
-        name: "collect-home",
+        name: "buy-car-list",
         // 数据
         data() {
             return{
@@ -471,5 +471,5 @@
 
 <!-- 限定作用域 -->
 <style lang="stylus" rel="stylesheet/stylus" scope>
-    @import './colloct.styl'
+    @import './car_list.styl'
 </style>

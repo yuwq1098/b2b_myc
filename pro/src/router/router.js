@@ -1,9 +1,9 @@
 import App from '../App'
 
 const home = r => require.ensure([], () => r(require('../page/home/home')), 'home')
-const colloct_car = r => require.ensure([], () => r(require('../page/colloct/colloct')), 'collect')
+const buy_car_list = r => require.ensure([], () => r(require('../page/buy/car_list')), 'buyCarList')
 const car_details = r => require.ensure([], () => r(require('../page/car/car-details')), 'carDetails')
-
+const sellCar = r => require.ensure([], () => r(require('../page/sell/sellCar')), 'sellCar')
 
 // 定义路由
 export default[{
@@ -23,8 +23,13 @@ export default[{
             }
 	    },
         {
-            path: '/colloct',
-            component: colloct_car,
+            path: '/buyCar',
+            component: buy_car_list,
+            meta: { }
+        },
+        {
+            path: '/sellCar',
+            component: sellCar,
             meta: { }
         },
         {
