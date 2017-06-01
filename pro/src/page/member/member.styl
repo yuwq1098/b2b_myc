@@ -10,3 +10,11 @@
                 width 1020px
                 height 880px
                 background #e2e2e2
+                &.fade-enter-active,&.fade-enter-active
+                    _transitionAll(2s)
+                &.fade-enter
+                    _opacity(0)
+                    _translate3d(80px)
+                &.fade-leave-active
+                    _opacity(0)
+                    _translate3d(80px)

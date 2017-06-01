@@ -1,12 +1,12 @@
 <template>
-	<div class="orderBuy">
-	    <p>我是买车订单页面</p>
+	<div class="collectMerchant">
+	    <p>我是收藏的车行页面</p>
 	</div>
 </template>
 
 <script>
 	export default {
-        name: "orderBuy",
+        name: "collectMerchant",
         // 数据
         data() {
             return{
@@ -26,5 +26,5 @@
 
 <!-- 限定作用域 -->
 <style lang="stylus" rel="stylesheet/stylus" scope>
-    @import './order_buy.styl'
+    @import './merchant.styl'
 </style>

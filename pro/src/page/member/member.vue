@@ -15,7 +15,11 @@
                     <div class="m-bd-wrap f__clearfix">
                         <sidebar class="f__fl"></sidebar><!-- 侧边栏 -->
                         <section class="m-bd-mn f__fr">
-                            
+                            <transition name="fade" mode="out-in">
+                                <keep-alive>
+                                    <router-view></router-view>
+                                </keep-alive>
+                            </transition>
                         </section>     
                     </div>
                 </section><!-- 1200px布局 -->

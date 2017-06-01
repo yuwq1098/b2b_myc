@@ -221,10 +221,13 @@ _opacity(n)
     opacity n
 
 //---偏移
+_rotate(angle=0)
+    -webkit-transform: rotate(angle);
+    -moz-transform: rotate(angle);
+    transform: rotate(angle);
+
+//---偏移
 _translate3d(x=0,y=0,z=0)
-    -webkit-transition all duration delay timingFn
-    -moz-transition all duration delay timingFn
-    transition all duration delay timingFn
     -webkit-transform: translate3d(x,y,z);
     -moz-transform: translate3d(x,y,z);
     transform: translate3d(x,y,z);
