@@ -1,6 +1,17 @@
 <template>
 	<div class="orderBuy">
-	    <p>我是买车订单页面</p>
+	    <div class="g-mn-con">
+            <div class="m-hd">
+                
+            </div><!-- 顶部标题头 -->
+            <div class="m-tap">
+
+            </div><!-- 条件切换tap -->
+            <div>
+                
+            </div>
+        </div>
+        
 	</div>
 </template>
 

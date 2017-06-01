@@ -1,1 +1,127 @@
 @import '../../../assets/css/mixin.styl'
+
+.g-mn-con
+    width 1020px
+    background #fff
+    .m-hd
+        height 48px
+        line-height 48px
+        font-size 18px
+        padding 0 12px
+        _spacingPlus(3px)
+        background #e2e2e2
+        margin-bottom 20px
+        .u-tit
+            color #313536
+    .m-tap
+        margin-bottom 20px
+        .m-tap-lst
+            height 38px
+            line-height 38px
+            .u-tap-tem
+                float left
+                _display()
+                width 130px
+                text-align center
+                line-height 36px
+                _spacingPlus()
+                color $c_blue
+                border 1px solid $c_blue
+                border-right none
+                &:last-child
+                    border-right 1px solid $c_blue
+                &.on
+                    background $c_blue
+                    color #f4f4f4
+    .m-mn-wrap
+        .m-lst-wrap
+            width 1020px
+            .m-car-list
+                width @width + 14px
+                margin-left -14px
+                .m-car-item
+                    width (@width / 4) - 14px
+                    height 257px
+                    margin 0 0 15px 14px
+                    float left
+                    _boxShadow(12px,rgba(0,0,0,.15))
+                    _transitionAll(.2s)
+                    .u-pic-box
+                        width 100%
+                        height 160px
+                        position relative
+                        .u-pic
+                            width 100%
+                            height 100%
+                            img
+                                width @width
+                                height @height
+                        .i-close
+                            position absolute
+                            top 0
+                            right 0
+                            z-index 99
+                            width 38px
+                            height 38px
+                            background rgba(25,25,25,.42)
+                            _opacity(0)
+                            _transitionAll(.15s)
+                            line-height 38px
+                            text-align center
+                            _borderRadius(19px,bottom-left)
+                            .iconfont
+                                font-size 20px
+                                _transitionAll(.08s)
+                                color #e2e2e2
+                            &:hover
+                                background rgba(25,25,25,.72)
+                                .iconfont
+                                    color #f43
+                        .u-txt
+                            position absolute
+                            left 0
+                            bottom 0
+                            z-index 99
+                            width 100%
+                            height 38px
+                            line-height 38px
+                            text-align center
+                            font-size 15px
+                            _spacingPlus(4px)
+                            color #e2e2e2
+                            background rgba(25,25,25,.42)
+                            _opacity(0)
+                            _transitionAll(.15s)
+                    .u-con
+                        font-size 13px
+                        padding 5px 10px
+                        .u-tit
+                            height 32px
+                            line-height 32px
+                            font-size 14px
+                            color #313536
+                            _ellipsis()
+                        .u-price
+                            height 28px
+                            line-height 28px
+                            color #777
+                            .price
+                                font-size 18px
+                                color #f43
+                        .u-collect
+                            line-height 22px
+                            margin-top 5px
+                            color #777
+                            .vital
+                                color #f43
+                                margin 0 3px
+                    &:hover
+                        _transitionAll(.3s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
+                        _translate3d(,-3px);
+                        _boxShadow(20px,rgba(0,0,0,.15),1px,10px)
+                        .u-pic-box
+                            .u-txt
+                                _opacity(1)
+                            .i-close
+                                _opacity(1)
+

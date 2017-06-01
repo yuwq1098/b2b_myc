@@ -183,10 +183,15 @@ _ellipsis(line=1)
         -webkit-line-clamp line
 
 //---圆角
-_borderRadius(pixel=50%)
-    -webkit-border-radius pixel
-    -moz-border-radius pixel
-    border-radius pixel
+_borderRadius(pixel=50%,direction=null)
+    if direction == true
+        -webkit-border-radius pixel
+        -moz-border-radius pixel
+        border-radius pixel
+    else
+        -webkit-border-{direction}-radius pixel
+        -moz-border-{direction}-radius pixel
+        border-{direction}-radius pixel
 
 //---线性渐变
 _gradient(bColor,eColor)

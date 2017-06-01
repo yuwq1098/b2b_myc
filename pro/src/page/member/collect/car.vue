@@ -1,6 +1,102 @@
 <template>
 	<div class="collectCar">
-	    <p>我是收藏的车辆页面</p>
+	    <div class="g-mn-con">
+            <div class="m-hd">
+                <h3 class="u-tit">我的收藏</h3>
+            </div><!-- 顶部标题头 -->
+            <div class="m-tap">
+                <ul class="m-tap-lst f__clearfix">
+                    <li class="u-tap-tem on">
+                        <a class="u-lk">
+                            收藏的车辆
+                        </a>
+                    </li>
+                    <li class="u-tap-tem">
+                        <a class="u-lk">
+                            收藏的车行
+                        </a>
+                    </li>
+                </ul>
+            </div><!-- 条件切换tap -->
+            <div class="m-mn-wrap">
+                <div class="m-lst-wrap">
+                    <ul class="m-car-list f__clearfix">
+                        <li class="m-car-item">
+                            <a href="javascript:;" class="u-lk">
+                                <div class="u-pic-box">
+                                    <section class="i-close">
+                                        <i class="iconfont icon-shanchu"></i>
+                                    </section>
+                                    <div class="u-pic">
+                                        <img src="../../../assets/img/car_02.jpg" alt="车辆图"/>
+                                    </div><!-- 图片容器 -->
+                                    <p class="u-txt">找相似</p>
+                                </div><!-- 图片容器 -->
+                                <div class="u-con">
+                                    <div class="u-tit">大众-朗逸 2011款 1.6L 手动品悠版</div><!-- 标题 -->
+                                    <div class="u-price">批发价：<em class="price">￥4.00万</em></div><!-- 价格 -->
+                                    <div class="u-collect">已有<strong class="vital">15</strong>人收藏</div><!-- 收藏人数 -->
+                                </div><!-- 内容 -->
+                            </a>  
+                        </li>
+                        <li class="m-car-item">
+                            <a href="javascript:;" class="u-lk">
+                                <div class="u-pic-box">
+                                    <section class="i-close">
+                                        <i class="iconfont icon-shanchu"></i>
+                                    </section>
+                                    <div class="u-pic">
+                                        <img src="../../../assets/img/car_02.jpg" alt="车辆图"/>
+                                    </div><!-- 图片容器 -->
+                                    <p class="u-txt">找相似</p>
+                                </div><!-- 图片容器 -->
+                                <div class="u-con">
+                                    <div class="u-tit">大众-朗逸 2011款 1.6L 手动品悠版</div><!-- 标题 -->
+                                    <div class="u-price">批发价：<em class="price">￥4.00万</em></div><!-- 价格 -->
+                                    <div class="u-collect">已有<strong class="vital">15</strong>人收藏</div><!-- 收藏人数 -->
+                                </div><!-- 内容 -->
+                            </a>  
+                        </li>
+                        <li class="m-car-item">
+                            <a href="javascript:;" class="u-lk">
+                                <div class="u-pic-box">
+                                    <section class="i-close">
+                                        <i class="iconfont icon-shanchu"></i>
+                                    </section>
+                                    <div class="u-pic">
+                                        <img src="../../../assets/img/car_02.jpg" alt="车辆图"/>
+                                    </div><!-- 图片容器 -->
+                                    <p class="u-txt">找相似</p>
+                                </div><!-- 图片容器 -->
+                                <div class="u-con">
+                                    <div class="u-tit">大众-朗逸 2011款 1.6L 手动品悠版</div><!-- 标题 -->
+                                    <div class="u-price">批发价：<em class="price">￥4.00万</em></div><!-- 价格 -->
+                                    <div class="u-collect">已有<strong class="vital">15</strong>人收藏</div><!-- 收藏人数 -->
+                                </div><!-- 内容 -->
+                            </a>  
+                        </li>
+                        <li class="m-car-item">
+                            <a href="javascript:;" class="u-lk">
+                                <div class="u-pic-box">
+                                    <section class="i-close">
+                                        <i class="iconfont icon-shanchu"></i>
+                                    </section>
+                                    <div class="u-pic">
+                                        <img src="../../../assets/img/car_02.jpg" alt="车辆图"/>
+                                    </div><!-- 图片容器 -->
+                                    <p class="u-txt">找相似</p>
+                                </div><!-- 图片容器 -->
+                                <div class="u-con">
+                                    <div class="u-tit">大众-朗逸 2011款 1.6L 手动品悠版</div><!-- 标题 -->
+                                    <div class="u-price">批发价：<em class="price">￥4.00万</em></div><!-- 价格 -->
+                                    <div class="u-collect">已有<strong class="vital">15</strong>人收藏</div><!-- 收藏人数 -->
+                                </div><!-- 内容 -->
+                            </a>  
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div><!-- 中心内容 -->
 	</div>
 </template>
 
