@@ -119,6 +119,8 @@ _box__show()
     display block
 
 //---边框线
+_borderAll(color=$c_white03,pixel=1px)
+    border pixel solid color
 _border(direction,color=$c_white03,pixel=1px)
     border-{direction} pixel solid color
 
@@ -168,6 +170,11 @@ _spacingPlus(pixel=1px)
     letter-spacing pixel
     text-indent pixel
 
+//---删除间隙
+_rmGap(spacing=-4px)
+    _spacing(spacing)
+    font-size 0
+
 //---单行/多行文字溢出省略
 _ellipsis(line=1)
     if line == 1
@@ -184,7 +191,7 @@ _ellipsis(line=1)
 
 //---圆角
 _borderRadius(pixel=50%,direction=null)
-    if direction == true
+    if direction == null
         -webkit-border-radius pixel
         -moz-border-radius pixel
         border-radius pixel
@@ -225,7 +232,7 @@ _opacity(n)
     -webkit-opacity n
     opacity n
 
-//---偏移
+//---旋转
 _rotate(angle=0)
     -webkit-transform: rotate(angle);
     -moz-transform: rotate(angle);

@@ -6,15 +6,15 @@
             </div><!-- 顶部标题头 -->
             <div class="m-tap">
                 <ul class="m-tap-lst f__clearfix">
-                    <li class="u-tap-tem on">
-                        <a class="u-lk">
+                    <li class="u-tap-item on">
+                        <router-link :to="{path:'/member/collect/car'}" class="u-lk" tag="div">
                             收藏的车辆
-                        </a>
+                        </router-link>
                     </li>
-                    <li class="u-tap-tem">
-                        <a class="u-lk">
+                    <li class="u-tap-item">
+                        <router-link :to="{path:'/member/collect/merchant'}" class="u-lk" tag="div">
                             收藏的车行
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </div><!-- 条件切换tap -->
