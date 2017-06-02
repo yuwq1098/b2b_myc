@@ -48,18 +48,18 @@
                         points: '0,0 145,0 160,20 145,40 0,40',
                     },
                     {
-                        title: '2.支付定金',
-                        width: 160,
-                        isActive: false,
-                        dx: 3,
-                        points: '0,0 145,0 160,20 145,40 0,40 15,20',
-                    },
-                    {
-                        title: '3.在线签订电子合同',
+                        title: '2.在线签订电子合同',
                         width: 240,
                         isActive: false,
                         dx: 3,
                         points: '0,0 225,0 240,20 225,40 0,40 15,20',
+                    },
+                    {
+                        title: '3.支付定金',
+                        width: 160,
+                        isActive: false,
+                        dx: 3,
+                        points: '0,0 145,0 160,20 145,40 0,40 15,20',
                     },
                     {
                         title: '4.过户完毕',
@@ -101,7 +101,6 @@
         // 字段变化侦听
         watch: {
             step(val){
-                console.log("变化");
                 this.stepShow();
             }
         },

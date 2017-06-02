@@ -1,11 +1,11 @@
 <template>
     <div id="payCreate">
         <div class="m-order-wrap">
-            <div class="m-car-info">
-                <div class="u-pic">
+            <div class="m-car-info f__clearfix">
+                <div class="u-pic f__fl">
                     <img src="../../assets/img/car_02.jpg" alt="交易车辆的图片" />
                 </div><!-- 图片 -->
-                <div class="m-info-box">
+                <div class="m-info-box f__fl">
                     <div class="u-tit">长城-M4 2012款 1.5L 手动豪华型 </div><!-- 车辆名称 -->
                     <div class="u-info">
                         <span class="u-nub">长城</span><!-- 汽车品牌 -->
@@ -17,15 +17,15 @@
                         <span class="u-nub">非营运</span><!-- 使用性质 -->
                     </div>
                 </div><!-- 订单信息 -->
-                <div class="m-price">
-                    <p class="u-price">成交价：4.00万</p><!-- 成交价 -->
-                    <p class="u-deposit">定金：3000元</p><!-- 支付定金 -->
+                <div class="m-price f__fr">
+                    <p class="u-price">成交价：<span class="vital"><em>4.00</em>万</span></p><!-- 成交价 -->
+                    <p class="u-deposit">定金：<span class="vital"><em>3000</em>元</span></p><!-- 支付定金 -->
                 </div><!-- 价格 -->
-            </div>
+            </div><!-- 车辆订单信息 -->
             <div class="m-pay-box f__clearfix">
-                <div class="u-pay-info">支付定金<em>3000元</em></div>
-                <a href="javascript" class="u-btn">支付定金</a>
-            </div>
+                <div class="u-pay-info f__fl">支付定金：<em class="vital">3000元</em></div>
+                <router-link :to="{path:'/pay/contract'}" class="u-btn f__fr">支付定金</router-link>
+            </div><!-- 支付信息 -->
         </div>
     </div>
 </template>
@@ -52,7 +52,7 @@
         },
         //属性计算
         computed: {
-            
+
         },
         //当el被$el替换，并挂载到实例上去之后调用该钩子
         mounted(){

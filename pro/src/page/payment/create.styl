@@ -1,2 +1,95 @@
 @import '../../assets/css/mixin.styl'
 
+.m-order-wrap
+    width 100%
+    .m-car-info
+        width 100%
+        height 90px
+        padding-bottom 10px
+        _border(bottom,#e2e2e2)
+        overflow hidden
+        position relative
+        .u-pic
+            width 115px
+            height 72px
+            _imgwrap()
+            img
+                _borderRadius(3px)
+            margin-top 9px
+        .m-info-box
+            width 860px
+            height 60px
+            margin-left 15px
+            margin-top 15px
+            .u-tit
+                width 100%
+                height 28px
+                line-height 28px
+                font-size 15px
+                _ellipsis()
+                _spacingPlus()
+            .u-info 
+                height 22px
+                line-height 22px
+                margin-top 8px
+                color #777
+                .u-nub
+                    font-size 13px
+                    margin-right 5px
+                    padding-right 10px
+                    position relative
+                    &:not(:last-child)::after
+                        _completeCenter(auto,0)
+                        content ""
+                        _display()
+                        width 1px
+                        height 10px
+                        background #a5a5a5
+        .m-price
+            height 54px
+            margin-top 18px
+            .u-price,.u-deposit
+                height 22px
+                line-height 22px
+                text-align right
+                & .vital
+                    color #f43
+                    font-size 12px
+                    margin-left 3px
+                    em
+                        _display(inline-block)
+                        font-size 20px
+                        margin 0 3px
+                        _translate3d(0,2px)
+
+            .u-deposit
+                margin-top 10px
+
+    .m-pay-box
+        height 72px
+        margin-top 20px
+        .u-pay-info
+            height 42px
+            line-height 42px
+            text-align center
+            padding 0 15px
+            _borderAll($c_blue)
+            _borderRadius(2px)
+            font-size 15px
+            font-weight bold
+            .vital
+                font-weight bold
+                color #f43
+        .u-btn
+            height 42px
+            line-height 42px
+            text-align center
+            width 120px
+            font-size 16px
+            _borderRadius(2px)
+            _spacingPlus(3px)
+            color #f4f4f4
+            text-align center
+            background $c_blue
+
+

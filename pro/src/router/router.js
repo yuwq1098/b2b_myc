@@ -60,17 +60,17 @@ export default[{
                     },
                 },
                 {
-                    //支付定金
-                    path: 'deposit',
-                    component: pay_deposit,
+                    //签订合同
+                    path: 'contract',
+                    component: pay_contract,
                     meta: {
                         step: 2,
                     },
                 },
                 {
-                    //签订合同
-                    path: 'contract',
-                    component: pay_contract,
+                    //支付定金
+                    path: 'deposit',
+                    component: pay_deposit,
                     meta: {
                         step: 3,
                     },

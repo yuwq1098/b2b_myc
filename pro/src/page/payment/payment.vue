@@ -87,9 +87,7 @@
         methods:{
             //根据路由的变化更新步骤高亮
             stepUpdate(){
-                console.log(this.$route.meta)
                 this.step = this.$route.meta.step||1;
-                console.log(this.step)
             }
         },
         // 在当前模块注册组件

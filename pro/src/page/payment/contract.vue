@@ -1,6 +1,7 @@
 <template>
     <div id="payContract">
         <div>我是签订合同页</div>
+        <router-link :to="{path:'/pay/deposit'}" class="u-btn">跳转至支付定金页</router-link>
     </div>
 </template>
 
