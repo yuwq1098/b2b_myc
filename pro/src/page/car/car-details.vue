@@ -60,7 +60,7 @@
                                     <i class="i"></i>电话咨询
                                 </a> 
                                 <a href="javascript:;" class="u-btn v2">关注车辆</a>
-                                <a href="javascript:;" class="u-btn v3">立即秒杀</a>
+                                <router-link :to="{path : '/payment'}" class="u-btn v3">立即秒杀</router-link>
                             </div><!-- 操作 -->
                             <div class="m-collect">
                                 <a href="javascript:;" class="u-lk">

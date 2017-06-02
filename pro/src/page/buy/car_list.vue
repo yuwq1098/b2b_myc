@@ -102,102 +102,74 @@
                                 <div class="m-info">
                                     <ul class="m-lk-list">
                                         <li class="u-item">
-                                            <el-dropdown trigger="click">
-                                                <span class="el-dropdown-link">
-                                                    车型<i class="el-icon-caret-bottom el-icon--right"></i>
-                                                </span>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item>车型</el-dropdown-item>
-                                                    <el-dropdown-item>车型</el-dropdown-item>
-                                                    <el-dropdown-item>车型</el-dropdown-item>
-                                                    <el-dropdown-item>车型</el-dropdown-item>
-                                                    <el-dropdown-item>车型</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
+                                            <el-select v-model="carColor" placeholder="车型">
+                                                <el-option
+                                                  v-for="item in carColorItems"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-dropdown trigger="click">
-                                                <span class="el-dropdown-link">
-                                                    车龄<i class="el-icon-caret-bottom el-icon--right"></i>
-                                                </span>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item>车龄</el-dropdown-item>
-                                                    <el-dropdown-item>车龄</el-dropdown-item>
-                                                    <el-dropdown-item>车龄</el-dropdown-item>
-                                                    <el-dropdown-item>车龄</el-dropdown-item>
-                                                    <el-dropdown-item>车龄</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
+                                            <el-select v-model="carColor" placeholder="车龄">
+                                                <el-option
+                                                  v-for="item in carColorItems"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-dropdown trigger="click">
-                                                <span class="el-dropdown-link">
-                                                    排放标准<i class="el-icon-caret-bottom el-icon--right"></i>
-                                                </span>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item>排放标准</el-dropdown-item>
-                                                    <el-dropdown-item>排放标准</el-dropdown-item>
-                                                    <el-dropdown-item>排放标准</el-dropdown-item>
-                                                    <el-dropdown-item>排放标准</el-dropdown-item>
-                                                    <el-dropdown-item>排放标准</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
+                                            <el-select v-model="carColor" placeholder="排放标准">
+                                                <el-option
+                                                  v-for="item in carColorItems"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-dropdown trigger="click">
-                                                <span class="el-dropdown-link">
-                                                    里程<i class="el-icon-caret-bottom el-icon--right"></i>
-                                                </span>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item>里程</el-dropdown-item>
-                                                    <el-dropdown-item>里程</el-dropdown-item>
-                                                    <el-dropdown-item>里程</el-dropdown-item>
-                                                    <el-dropdown-item>里程</el-dropdown-item>
-                                                    <el-dropdown-item>里程</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
+                                            <el-select v-model="carColor" placeholder="里程">
+                                                <el-option
+                                                  v-for="item in carColorItems"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-dropdown trigger="click">
-                                                <span class="el-dropdown-link">
-                                                    排量<i class="el-icon-caret-bottom el-icon--right"></i>
-                                                </span>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item>排量</el-dropdown-item>
-                                                    <el-dropdown-item>排量</el-dropdown-item>
-                                                    <el-dropdown-item>排量</el-dropdown-item>
-                                                    <el-dropdown-item>排量</el-dropdown-item>
-                                                    <el-dropdown-item>排量</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
+                                            <el-select v-model="carColor" placeholder="排量">
+                                                <el-option
+                                                  v-for="item in carColorItems"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-dropdown trigger="click">
-                                                <span class="el-dropdown-link">
-                                                    颜色<i class="el-icon-caret-bottom el-icon--right"></i>
-                                                </span>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item>颜色</el-dropdown-item>
-                                                    <el-dropdown-item>颜色</el-dropdown-item>
-                                                    <el-dropdown-item>颜色</el-dropdown-item>
-                                                    <el-dropdown-item>颜色</el-dropdown-item>
-                                                    <el-dropdown-item>颜色</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
+                                            <el-select v-model="carColor" placeholder="颜色">
+                                                <el-option
+                                                  v-for="item in carColorItems"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-dropdown trigger="click">
-                                                <span class="el-dropdown-link">
-                                                    过户次数<i class="el-icon-caret-bottom el-icon--right"></i>
-                                                </span>
-                                                <el-dropdown-menu slot="dropdown">
-                                                    <el-dropdown-item>过户次数</el-dropdown-item>
-                                                    <el-dropdown-item>过户次数</el-dropdown-item>
-                                                    <el-dropdown-item>过户次数</el-dropdown-item>
-                                                    <el-dropdown-item>过户次数</el-dropdown-item>
-                                                    <el-dropdown-item>过户次数</el-dropdown-item>
-                                                </el-dropdown-menu>
-                                            </el-dropdown>
+                                            <el-select v-model="carColor" placeholder="过户次数">
+                                                <el-option
+                                                  v-for="item in carColorItems"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
                                         </li>
                                     </ul>
                                 </div><!-- 信息 -->
@@ -211,22 +183,22 @@
                             <div class="m-filtrate f__fr">
                                 <ul class="m-filter-lst f__clearfix">
                                     <li class="u-item on">
-                                        <a href="javascript:;">默认排序</a>
+                                        <a href="javascript:;" class="u-lk">默认排序</a>
                                     </li>
                                     <li class="u-item">
-                                        <a href="javascript:;">车龄最短</a>
+                                        <a href="javascript:;" class="u-lk">车龄最短</a>
                                     </li>
                                     <li class="u-item">
-                                        <a href="javascript:;">最新发布</a>
+                                        <a href="javascript:;" class="u-lk">最新发布</a>
                                     </li>
                                     <li class="u-item">
-                                        <a href="javascript:;">价格最低</a>
+                                        <a href="javascript:;" class="u-lk">价格最低</a>
                                     </li>
                                     <li class="u-item">
-                                        <a href="javascript:;">价格最高</a>
+                                        <a href="javascript:;" class="u-lk">价格最高</a>
                                     </li>
                                     <li class="u-item">
-                                        <a href="javascript:;">里程最少</a>
+                                        <a href="javascript:;" class="u-lk">里程最少</a>
                                     </li>
                                 </ul>
                             </div><!-- 条件过滤沙宣 -->
@@ -450,6 +422,25 @@
         data() {
             return{
                 currentPage: 5,
+                carColorItems: [
+                    {
+                        value: '选项1',
+                        label: '黄金糕'
+                    }, {
+                        value: '选项2',
+                        label: '双皮奶'
+                    }, {
+                        value: '选项3',
+                        label: '蚵仔煎'
+                    }, {
+                        value: '选项4',
+                        label: '龙须面'
+                    }, {
+                        value: '选项5',
+                        label: '北京烤鸭'
+                    }
+                ],
+                carColor: '',
             }
         },
         // 自定义函数(方法)
