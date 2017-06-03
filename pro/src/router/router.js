@@ -1,21 +1,45 @@
 import App from '../App'
 
+//b2b主页
 const home = r => require.ensure([], () => r(require('../page/home/home')), 'home')
+//我要买车
 const buy_car_list = r => require.ensure([], () => r(require('../page/buy/car_list')), 'buyCarList')
+//车辆详情
 const car_details = r => require.ensure([], () => r(require('../page/car/car-details')), 'carDetails')
+//我要卖车
 const sellCar = r => require.ensure([], () => r(require('../page/sell/sellCar')), 'sellCar')
+//支付主页
 const paymentIndex = r => require.ensure([], () => r(require('../page/payment/payment.vue')), 'paymentIndex')
+//创建订单
 const pay_create = r => require.ensure([], () => r(require('../page/payment/create.vue')), 'payCreate')
-const pay_deposit = r => require.ensure([], () => r(require('../page/payment/deposit.vue')), 'payDeposit')
+//签订合同
 const pay_contract = r => require.ensure([], () => r(require('../page/payment/contract.vue')), 'payContract')
+//支付定金
+const pay_deposit = r => require.ensure([], () => r(require('../page/payment/deposit.vue')), 'payDeposit')
+//过户完毕
 const pay_success = r => require.ensure([], () => r(require('../page/payment/transfer_success.vue')), 'paySuccess')
 
-
+//会员中心首页
 const member = r => require.ensure([], () => r(require('../page/member/member')), 'member')
-const odrder_buyCar = r => require.ensure([], () => r(require('../page/member/order/order_buy.vue')), 'buyCarOrder')
-const odrder_sellCar = r => require.ensure([], () => r(require('../page/member/order/order_sell.vue')), 'buyCarOrder')
+//买车订单
+const order_buyCar = r => require.ensure([], () => r(require('../page/member/order/order_buy.vue')), 'buyCarOrder')
+//卖车订单
+const order_sellCar = r => require.ensure([], () => r(require('../page/member/order/order_sell.vue')), 'buyCarOrder')
+//退款维权
+const order_refund = r => require.ensure([], () => r(require('../page/member/order/order_refund.vue')), 'orderRefund')
+//收藏车辆
 const collect_car = r => require.ensure([], () => r(require('../page/member/collect/car.vue')), 'collectCar')
+//收藏商家
 const collect_merchant = r => require.ensure([], () => r(require('../page/member/collect/merchant.vue')), 'collectMerchant')
+
+
+//修改绑定的手机号
+const upd_tel = r => require.ensure([], () => r(require('../page/member/setting/upd_tel.vue')), 'modifyPhone')
+//修改密码
+const upd_pwd = r => require.ensure([], () => r(require('../page/member/setting/upd_pwd.vue')), 'modifyPassword')
+//使用帮助
+const s_help = r => require.ensure([], () => r(require('../page/member/setting/s_help.vue')), 'setHelp')
+
 
 
 
@@ -86,6 +110,7 @@ export default[{
             ],
         },
         {
+            //会员中心
             path: '/member',
             component: member,
             meta: { },
@@ -96,12 +121,17 @@ export default[{
                 },
                 {
                     path: 'order/buyCar',
-                    component: odrder_buyCar,
+                    component: order_buyCar,
                     meta: { },
                 },
                 {
                     path: 'order/sellCar',
-                    component: odrder_sellCar,
+                    component: order_sellCar,
+                    meta: { },
+                },
+                {
+                    path: 'order/refund',
+                    component: order_refund,
                     meta: { },
                 },
                 {
@@ -116,6 +146,21 @@ export default[{
                 {
                     path: 'collect/merchant',
                     component: collect_merchant,
+                    meta: { },
+                },
+                {
+                    path: 'setting/phone',
+                    component: upd_tel,
+                    meta: { },
+                },
+                {
+                    path: 'setting/password',
+                    component: upd_pwd,
+                    meta: { },
+                },
+                {
+                    path: 'setting/help',
+                    component: s_help,
                     meta: { },
                 },
             ]

@@ -1,5 +1,6 @@
 <template>
 	<div class="orderBuy">
+        <p>我是买车订单页面</p>
 	    <div class="g-mn-con">
             <div class="m-hd">
                 

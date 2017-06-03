@@ -43,7 +43,7 @@
                 },
                 {
                     'title': '退款维权',
-                    'hash':'',
+                    'hash':'/member/order/refund',
                 },
             ]
         },
@@ -70,15 +70,19 @@
             'hash':'',
             'children': [
                 {
-                    'title': '我的钱包1',
+                    'title': '我的余额',
                     'hash':'',
                 },
                 {
-                    'title': '我的钱包2',
+                    'title': '我的历史交易',
                     'hash':'',
                 },
                 {
-                    'title': '我的钱包3',
+                    'title': '充值',
+                    'hash':'',
+                },
+                {
+                    'title': '提现',
                     'hash':'',
                 },
             ]  
@@ -102,15 +106,11 @@
             'hash':'',
             'children': [
                 {
-                    'title': '车源管理1',
+                    'title': '车源信息管理',
                     'hash':'',
                 },
                 {
-                    'title': '车源管理2',
-                    'hash':'',
-                },
-                {
-                    'title': '车源管理3',
+                    'title': '发布新车源',
                     'hash':'',
                 },
             ]  
@@ -120,15 +120,15 @@
             'hash':'',
             'children': [
                 {
-                    'title': '设置1',
+                    'title': '手机号绑定',
                     'hash':'',
                 },
                 {
-                    'title': '设置2',
+                    'title': '修改密码',
                     'hash':'',
                 },
                 {
-                    'title': '设置3',
+                    'title': '使用帮助',
                     'hash':'',
                 },
             ]  
@@ -148,7 +148,7 @@
         methods: {
             toggleClass: function (index) {
 
-                //结构赋值
+                //解构赋值
                 if(!this.isActive[index]){
                     this.isActive = [false, false, false, false, false];
                 }
