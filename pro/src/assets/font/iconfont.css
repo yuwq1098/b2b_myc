@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('./iconfont.eot?t=1495696695605'); /* IE9*/
-  src: url('./iconfont.eot?t=1495696695605#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('./iconfont.woff?t=1495696695605') format('woff'), /* chrome, firefox */
-  url('./iconfont.ttf?t=1495696695605') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('./iconfont.svg?t=1495696695605#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1496486641700'); /* IE9*/
+  src: url('iconfont.eot?t=1496486641700#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1496486641700') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1496486641700') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1496486641700#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -14,6 +14,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.icon-round:before { content: "\e6d7"; }
+
+.icon-roundadd:before { content: "\e6d9"; }
+
+.icon-add1:before { content: "\e6da"; }
 
 .icon-fanhui8:before { content: "\e621"; }
 
@@ -44,6 +50,8 @@
 .icon-31xiala:before { content: "\e709"; }
 
 .icon-shouji:before { content: "\e611"; }
+
+.icon-shanchu:before { content: "\e63f"; }
 
 .icon-androidaddcircle:before { content: "\e637"; }
 
@@ -89,7 +97,39 @@
 
 .icon-arrowupb:before { content: "\e6e2"; }
 
+.icon-iossearchstrong:before { content: "\e857"; }
+
+.icon-minuscircled:before { content: "\e8a5"; }
+
+.icon-pluscircled:before { content: "\e8c4"; }
+
 .icon-3:before { content: "\e74f"; }
+
+.icon-danxuanfill:before { content: "\e73c"; }
+
+.icon-danxuan:before { content: "\e73f"; }
+
+.icon-fangxingweixuanzhong:before { content: "\e740"; }
+
+.icon-fangxingxuanzhongfill:before { content: "\e742"; }
+
+.icon-fangxingxuanzhong:before { content: "\e743"; }
+
+.icon-guanbi1:before { content: "\e74e"; }
+
+.icon-guanbi2fill:before { content: "\e744"; }
+
+.icon-guanbi2:before { content: "\e745"; }
+
+.icon-jiahao1:before { content: "\e753"; }
+
+.icon-jianhao:before { content: "\e755"; }
+
+.icon-tishifill:before { content: "\e756"; }
+
+.icon-tishi1:before { content: "\e757"; }
+
+.icon-xuanze:before { content: "\e758"; }
 
 .icon-yuanxingxuanzhongfill:before { content: "\e730"; }
 
@@ -130,6 +170,8 @@
 .icon-hot2:before { content: "\e63a"; }
 
 .icon-hot11:before { content: "\e60d"; }
+
+.icon-iconfontwodea-copy-copy:before { content: "\e60e"; }
 
 .icon-activity:before { content: "\e6de"; }
 

@@ -6,7 +6,7 @@
                     <img src="../../assets/img/car_02.jpg" alt="交易车辆的图片" />
                 </div><!-- 图片 -->
                 <div class="m-info-box f__fl">
-                    <div class="u-tit">长城-M4 2012款 1.5L 手动豪华型 </div><!-- 车辆名称 -->
+                    <div class="u-tit">长城-M4 2012款 1.5L 手动豪华型</div><!-- 车辆名称 -->
                     <div class="u-info">
                         <span class="u-nub">长城</span><!-- 汽车品牌 -->
                         <span class="u-nub">行驶3.56万公里</span><!-- 行驶里程 -->
