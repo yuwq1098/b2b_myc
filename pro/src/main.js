@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router/router.js'
+//å¼•å…¥vuexçŠ¶æ€é…ç½®
+import store from './store/'
 import FastClick from 'fastclick'
 import {
   Pagination,
@@ -139,7 +141,7 @@ Vue.prototype.$message = Message
 
 import $ from 'jquery'
 import 'element-ui/lib/theme-default/index.css'
-import 'assets/css/index.styl'      // ÒýÈë¹«¹²ÑùÊ½
+import 'assets/css/index.styl'      // å¼•å…¥å…¬å…±æ ·å¼
 
 Vue.config.productionTip = false
 
@@ -156,12 +158,12 @@ const router = new VueRouter({
 	mode: 'hash',
 })
 
-// Â·ÓÉµ¼º½¹³×Ó£¬beforeEach£¬ÔÚÂ·ÓÉ½øÈëÇ°µ÷ÓÃ
+// è·¯ç”±å¯¼èˆªé’©å­ï¼ŒbeforeEachï¼Œåœ¨è·¯ç”±è¿›å…¥å‰è°ƒç”¨
 router.beforeEach(({meta, path}, from, next) => {
-  // ÊÇ·ñÆôÓÃ·µ»Ø¶¥²¿
+  // æ˜¯å¦å¯ç”¨è¿”å›žé¡¶éƒ¨
   var isGoTop = meta.isGoTop?meta.isGoTop:false;
   if(isGoTop){
-    // Ã¿´Î½øÈëÐÂÒ³ÃæÊ±Ò³Ãæ¹ö¶¯ÖÁ¶¥²¿
+    // æ¯æ¬¡è¿›å…¥æ–°é¡µé¢æ—¶é¡µé¢æ»šåŠ¨è‡³é¡¶éƒ¨
     $("body").scrollTop(0);
   }
   next();
@@ -170,6 +172,7 @@ router.beforeEach(({meta, path}, from, next) => {
 
 new Vue({
 	router,
+  store,
   $,
 }).$mount('#app')
 

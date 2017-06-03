@@ -33,6 +33,7 @@
 
 
 <script>
+    import {mapState} from "vuex"
     import cHead from "../../components/head/header.vue"
     import cFoot from "../../components/foot/footer.vue"
     import payFlow from "./pay_flow.vue"
@@ -85,6 +86,7 @@
         },
         //自定义函数（方法）
         methods:{
+
             //根据路由的变化更新步骤高亮
             stepUpdate(){
                 this.step = this.$route.meta.step||1;
@@ -96,6 +98,15 @@
             cFoot,
             payFlow,
         },
+        computed: {
+            ...mapState([
+                'menus',
+            ]),
+        },
+        mounted(){
+            console.log(this.menus);
+            this.$store.commit("showUserName");
+        },
         watch: {
             // 如果路由有变化，会再次执行该方法
             "$route": "stepUpdate"
@@ -104,7 +115,7 @@
 
 </script>
 
-<!-- 引入支付环节的页面样式 -->
-<style lang="stylus" rel="stylesheet/stylus" scope>
+<!-- 限定作用域"scoped" 不要误写成scope -->
+<style lang="stylus" rel="stylesheet/stylus" scoped>
    @import "./payment.styl"
 </style>

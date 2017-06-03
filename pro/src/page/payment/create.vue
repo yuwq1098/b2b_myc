@@ -72,6 +72,8 @@
 </script>
 
 <!-- 引入支付环节的页面样式 -->
-<style lang="stylus" rel="stylesheet/stylus" scope>
-   @import "./create.styl"
+
+<!-- 限定作用域"scoped" 不要误写成scope -->
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+    @import "./create.styl"
 </style>

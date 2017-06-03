@@ -3,13 +3,6 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
-var env = process.env.NODE_ENV
-    // check env & config/index.js to decide weither to enable CSS Sourcemaps for the
-    // various preprocessor loaders added to vue-loader at the end of this file
-var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
-var cssSourceMapProd = (env === 'production' && config.build.productionSourceMap)
-var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
-
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -33,9 +26,9 @@ module.exports = {
       'src': path.resolve(__dirname, '../src'),
       'static': path.resolve(__dirname, '../static'),
       'assets': path.resolve(__dirname, '../src/assets'),
+      'common': path.resolve(__dirname, '../src/common'),
       'font': path.resolve(__dirname, '../src/font'),
-      'components': path.resolve(__dirname, '../src/components'),
-      'page': path.resolve(__dirname, '../src/page')
+      'components': path.resolve(__dirname, '../src/components')
     }
   },
   module: {
@@ -67,5 +60,5 @@ module.exports = {
         }
       }
     ]
-  },
+  }
 }
