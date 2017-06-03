@@ -2,10 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 import routes from './router/router.js'
 //引入vuex状态配置
 import store from './store/'
 import FastClick from 'fastclick'
+
 import {
   Pagination,
   Dialog,
@@ -152,6 +154,8 @@ if ('addEventListener' in document) {
 }
 
 Vue.use(VueRouter)
+Vue.use(VueResource)
+
 
 const router = new VueRouter({
 	routes,
@@ -167,12 +171,11 @@ router.beforeEach(({meta, path}, from, next) => {
     $("body").scrollTop(0);
   }
   next();
-  
-})
+});
+
 
 new Vue({
 	router,
   store,
-  $,
 }).$mount('#app')
 

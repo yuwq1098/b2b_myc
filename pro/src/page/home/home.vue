@@ -377,8 +377,11 @@
 
 <script>
 
-    import 'src/assets/vendor/jquery.min.js'
+    // import $ from 'src/assets/vendor/jquery.min.js'
+    
+    import $ from 'jquery'
     import Swiper from "../../../static/swiper.min.js"
+    // import Swiper from "swiper"
     import cHead from "../../components/head/header.vue"
     import cFoot from "../../components/foot/footer.vue"
     import cFootServer from "../../components/foot/foot-svr.vue"
@@ -415,13 +418,27 @@
                     mySwiper.startAutoplay();
                 },
             });
+            console.log("我是首页");
+
+            // $.get("/api/action2/AllProvince.ashx",function(res){
+            //     console.log(res)
+            // });
+            this.$http.get('/api/action2/AllProvince.ashx').then((response) => {    
+                // 响应成功回调
+                console.log(response.data);
+            }, (response) => {    
+                // 响应错误回调
+                console.log("失败了")
+            });
         },
     }
 </script>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus">
     @import '../../../static/swiper.min.css'
+</style>
+<style lang="stylus" rel="stylesheet/stylus">
     @import './home.styl'
 </style>
 
