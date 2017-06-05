@@ -1,6 +1,6 @@
 <template>
-	<div class="orderBuy">
-        <p>我是帮助页面</p>
+	<div class="mSetting">
+        <p>我是设置页面</p>
 	    <div class="g-mn-con">
             <div class="m-hd">
                 
@@ -18,7 +18,7 @@
 
 <script>
 	export default {
-        name: "orderBuy",
+        name: "mSetting",
         // 数据
         data() {
             return{
@@ -38,5 +38,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './order_buy.styl'
+    @import './setting.styl'
 </style>

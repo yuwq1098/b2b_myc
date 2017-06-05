@@ -1,5 +1,5 @@
 <template>
-	<div class="orderBuy">
+	<div class="updTelephone">
         <p>我是修改手机号页面</p>
 	    <div class="g-mn-con">
             <div class="m-hd">
@@ -18,7 +18,7 @@
 
 <script>
 	export default {
-        name: "orderBuy",
+        name: "updTelephone",
         // 数据
         data() {
             return{
@@ -38,5 +38,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './order_buy.styl'
+    @import './upd_tel.styl'
 </style>

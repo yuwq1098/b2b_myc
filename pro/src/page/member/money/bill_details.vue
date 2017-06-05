@@ -1,6 +1,6 @@
 <template>
-	<div class="updPwd">
-        <p>我是修改密码页面</p>
+	<div class="billDetails">
+        <p>我是账单详情页面</p>
 	    <div class="g-mn-con">
             <div class="m-hd">
                 
@@ -18,7 +18,7 @@
 
 <script>
 	export default {
-        name: "updPwd",
+        name: "billDetails",
         // 数据
         data() {
             return{
@@ -38,5 +38,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './upd_pwd.styl'
+    @import './bill_details.styl'
 </style>

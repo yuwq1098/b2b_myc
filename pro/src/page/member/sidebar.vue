@@ -71,7 +71,7 @@
             'children': [
                 {
                     'title': '我的余额',
-                    'hash':'',
+                    'hash':'/member/wallet/myWallet',
                 },
                 {
                     'title': '我的历史交易',
@@ -107,7 +107,7 @@
             'children': [
                 {
                     'title': '车源信息管理',
-                    'hash':'',
+                    'hash':'/member/manage',
                 },
                 {
                     'title': '发布新车源',
@@ -125,7 +125,7 @@
                 },
                 {
                     'title': '修改密码',
-                    'hash':'',
+                    'hash':'/member/setting/password',
                 },
                 {
                     'title': '使用帮助',

@@ -32,6 +32,13 @@ const collect_car = r => require.ensure([], () => r(require('../page/member/coll
 //收藏商家
 const collect_merchant = r => require.ensure([], () => r(require('../page/member/collect/merchant.vue')), 'collectMerchant')
 
+// 我的钱包
+const my_wallet = r => require.ensure([], () => r(require('../page/member/money/wallet.vue')), 'myWallet')
+// 账单详情
+const bill_details = r => require.ensure([], () => r(require('../page/member/money/bill_details.vue')), 'billDetails')
+
+//车源管理
+const car_manage = r => require.ensure([], () => r(require('../page/member/manage/manage.vue')),'carManage')
 
 //修改绑定的手机号
 const upd_tel = r => require.ensure([], () => r(require('../page/member/setting/upd_tel.vue')), 'modifyPhone')
@@ -115,6 +122,7 @@ export default[{
             component: member,
             meta: { },
             children: [
+                //订单中心
                 {
                     path: 'order',
                     redirect: 'order/buyCar'
@@ -134,6 +142,7 @@ export default[{
                     component: order_refund,
                     meta: { },
                 },
+                //我的收藏
                 {
                     path: 'collect',
                     redirect: 'collect/car'
@@ -148,6 +157,24 @@ export default[{
                     component: collect_merchant,
                     meta: { },
                 },
+                //我的钱包
+                {
+                    path: 'wallet/myWallet',
+                    component: my_wallet,
+                    meta: { },
+                },
+                {
+                    path: 'wallet/bill',
+                    component: bill_details,
+                    meta: { },
+                },
+                //车源管理
+                {
+                    path: 'manage',
+                    component: car_manage,
+                    meta: { },
+                },
+                //设置
                 {
                     path: 'setting/phone',
                     component: upd_tel,

@@ -1,24 +1,14 @@
 <template>
-	<div class="updPwd">
-        <p>我是修改密码页面</p>
-	    <div class="g-mn-con">
-            <div class="m-hd">
-                
-            </div><!-- 顶部标题头 -->
-            <div class="m-tap">
-
-            </div><!-- 条件切换tap -->
-            <div>
-                
-            </div>
-        </div>
+	<div class="myWallet">
+        <p>我是我的钱包页面</p>
+	    <router-link :to="{path:'/member/wallet/bill'}">前往账单详情页</router-link>
         
 	</div>
 </template>
 
 <script>
 	export default {
-        name: "updPwd",
+        name: "myWallet",
         // 数据
         data() {
             return{
@@ -38,5 +28,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './upd_pwd.styl'
+    @import './wallet.styl'
 </style>
