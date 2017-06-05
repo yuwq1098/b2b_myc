@@ -48,6 +48,9 @@ const upd_pwd = r => require.ensure([], () => r(require('../page/member/setting/
 const s_help = r => require.ensure([], () => r(require('../page/member/setting/s_help.vue')), 'setHelp')
 
 
+// 轮播测试
+const t_swiper_demo = r => require.ensure([], () => r(require('../page/test/swiper-demo')), 'swiperDemo')
+
 
 
 // 定义路由
@@ -203,6 +206,12 @@ export default[{
             meta: {
                 isGoTop: true,
             }
+        },
+
+        {
+            path: '/test/swiper',
+            component: t_swiper_demo,
+            meta: {}
         },
 	]
 }]
