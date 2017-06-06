@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import axios from 'axios'
 import routes from './router/router.js'
 //引入vuex状态配置
 import store from './store/'
@@ -143,13 +144,14 @@ Vue.prototype.$message = Message
 import 'element-ui/lib/theme-default/index.css'
 import 'assets/css/index.styl'      // 引入公共样式
 
-Vue.config.productionTip = false
-
 if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {
         FastClick.attach(document.body);
     }, false);
 }
+
+// 将axios 改写为 Vue 的原型属性,使得其在其他组件中一样能使用
+Vue.prototype.$ajax = axios
 
 Vue.use(VueRouter)
 
@@ -166,13 +168,6 @@ router.beforeEach(({meta, path}, from, next) => {
     // 每次进入新页面时页面滚动至顶部
     document.body.scrollTop = 0+"px"
   }
-
-  // store.dispatch('changeLoadingState',true);
-
-  // setTimeout(()=>{
-  //   store.dispatch('changeLoadingState',false);
-  // },60)
-
   next();
 });
 

@@ -382,7 +382,6 @@
     import $ from 'jquery'
     import Swiper from "../../../static/swiper.min.js"
     // import Swiper from "swiper"
-    import axios from 'axios'
     import {mapActions} from 'vuex'
     import cHead from "../../components/head/header.vue"
     import cFoot from "../../components/foot/footer.vue"
@@ -402,12 +401,7 @@
     		}
     	},
         created () {
-            // this.$store.dispatch('getAllProvince')
-            // 以对象形式分发
-            this.$store.dispatch({
-              type: 'getAllProvince',
-              amount: 10
-            })
+            this.$store.dispatch('getAllProvince')
         },
         mounted(){
             var mySwiper = new Swiper('#index-carousel', {

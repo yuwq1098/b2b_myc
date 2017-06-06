@@ -18,21 +18,29 @@
 		    </div><!-- 登录方式选择 -->
 
             <div class="m-login-ipt" v-show="loginType==0">
-                <form class="m-form-gp">
+                <form class="m-form-gp" @submit.prevent="submitSignIn" ref="signInForm">
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box">
-                	    	<input class="u-ipt" type="text" placeholder="输入手机号" />
+                	    	<input class="u-ipt" v-model="lgForm.username" type="text" placeholder="输入手机号/用户名" />
+                	    	<div class="u-ico">
+                	    	    <i class="iconfont icon-zhanghuffffffpx"></i><!-- 用户 -->
+                	    	</div>
                 	    </div>
                 	</div>
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box code">
-            				<input class="u-ipt" type="text" placeholder="请输入图形验证码" />
-                		</div>
-                		<a class="u-code"></a>
+            				<input class="u-ipt" v-model="lgForm.vcode" type="text" placeholder="请输入图形验证码" />
+            			</div>
+                		<a class="u-vcode">
+                			<img :src="vcodeUrl" @click.stop="getCode"/>
+                		</a><!-- 验证码区域 -->
                 	</div>
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box">
-                		    <input class="u-ipt" type="text" placeholder="6-10位数字、字母、符号的组合" />
+                		    <input class="u-ipt" v-model="lgForm.password" name="password" type="password" placeholder="6-10位数字、字母、符号的组合" />
+                		    <!-- <div class="u-ico">
+                		    	<i class="iconfont icon-mimaffffffpx"></i>锁
+                		    </div> -->
                 		</div>
                 	</div>
                 	<div class="m-gp-line m-btn-oper">
@@ -42,22 +50,34 @@
             </div>
             
             <div class="m-login-ipt" v-show="loginType==1">
-		    	短信验证码登录
+		    	<form class="m-form-gp" @submit.prevent="submitSignInByPhone"  ref="signInByPhoneForm">
+                	<div class="m-gp-line">
+                	    <div class="u-ipt-box">
+                	    	<input class="u-ipt" type="text" placeholder="请输入手机号" />
+                	    	<div class="u-ico">
+                	    	    <i class="iconfont icon-zhanghuffffffpx"></i><!-- 用户 -->
+                	    	</div>
+                	    </div>
+                	</div>
+                	<div class="m-gp-line">
+                	    <div class="u-ipt-box code">
+            				<input class="u-ipt" type="text" placeholder="请输入图形验证码" />
+            			</div>
+                		<a class="u-vcode">
+                			<img :src="vcodeUrl" @click.stop="getCode"/>
+                		</a><!-- 验证码区域 -->
+                	</div>
+                	<div class="m-gp-line">
+                	    <div class="u-ipt-box code">
+                		    <input class="u-ipt" placeholder="6位数字验证码" />
+                		</div>
+                		<button class="m-code">发送验证码</button><!-- 发送验证码 -->
+                	</div>
+                	<div class="m-gp-line m-btn-oper">
+                		<button class="u-btn login-btn">登录</button>
+                	</div>
+                </form>
 		    </div>
-		    
-		    <!-- <div class="m-login-ipt" v-show="loginType==0">
-		    	<el-form :model="ruleForm" :rules="rules2" ref="ruleForm" label-width="0" class="demo-ruleForm">
-				    <el-form-item prop="pass">
-					    <el-input type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
-					</el-form-item>
-					<el-form-item prop="checkPass">
-					    <el-input type="password" v-model="ruleForm.checkPass" auto-complete="off"></el-input>
-					</el-form-item>
-					<el-form-item>
-					    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-					</el-form-item>
-				</el-form>
-		    </div> -->
 
 		    <div class="m-other-oper f__clearfix">
 		    	<a href="javascript:;" class="u-lk register" @click="goRegister">立即注册</a>
@@ -109,9 +129,28 @@
 			            { validator: validatePass2, trigger: 'blur' }
 			        ]
 			    },
+			    lgForm:{
+                    username: "",
+                    vcode: "",
+                    password: "",
+			    },
+			    lgFormByPhone:{
+                    
+			    },
+			    vcodeUrl: require("../../assets/img/get_vcode__001.png"),
             }
     	},
+    	//属性计算
+    	computed:{
+            
+    	},
     	methods:{
+    		pwdFocus(e){
+               e.target.type="password"
+    		},
+    		pwdBlur(e){
+    			let el = e.target;
+    		},
     		//关闭登录框
     		closeBox(){
     			this.$emit('closeSignIn');
@@ -127,11 +166,25 @@
     		//忘记密码，去找回密码
     		goForget(){
             	this.$emit('openForget');
-            }
-
+            },
+            //获取验证码
+            getCode(){
+            	let num = Math.ceil(Math.random()*5)
+            	this.vcodeUrl = require("../../assets/img/get_vcode__00"+num+".png");
+            },
+            //登录表单提交(普通登录)
+            submitSignIn(){
+            	let lgForm = this.lgForm;
+            	console.log(lgForm);
+            },
+            //登录表单提交(手机号登录)
+            submitSignInByPhone(){
+            	var formData = JSON.stringify(this.user); // 这里才是你的表单数据
+                console.log(formData)
+            },
     	},
         mounted(){
-         
+            
         },
     }
 </script>

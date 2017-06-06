@@ -14,7 +14,7 @@
     top 50%
     left 0
     right 0
-    margin -350px auto 0
+    margin -280px auto 0
     z-index 2000001
     width 560px
     background #fff
@@ -63,6 +63,9 @@
             &.active
                 _border(bottom,$c_blue,2px)
                 color $c_blue
+    &.forget 
+        .m-login-ipt
+            padding 40px 0 50px
 
     .m-login-ipt
         width 380px
@@ -76,15 +79,46 @@
                 .u-ipt-box
                     _borderAll(#e2e2e2)
                     _borderRadius(3px)
+                    position relative
                     &.code
                         width @width - 160px
                         .u-ipt
 	                        width @width - 2px
-	                .u-ipt
+                    .u-ipt
 	                    width @width - 2px
 	                    height @height
 	                    padding 0 20px
 	                    border none
+                    .u-ico
+                        width 20px
+                        height 20px
+                        color #dedede
+                        position absolute
+                        right 10px
+                        top 0
+                        bottom 0
+                        margin auto 0
+                        .iconfont
+                            font-size 18px
+                .u-vcode
+                    width 130px
+                    height @height - 8px
+                    position absolute
+                    right 0
+                    top 4px
+                    img
+                        width @width
+                        height @height
+                .m-code
+                    width 145px
+                    height @height + 2px
+                    position absolute
+                    right 0
+                    top 0
+                    _borderAll(#e2e2e2)
+                    _borderRadius(3px)
+                    background #fff
+
                 &.m-btn-oper
                     padding-top 12px
                     margin-bottom 0

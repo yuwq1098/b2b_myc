@@ -5,12 +5,20 @@ import * as types from './mutation-types.js'
 export default {
 
 	getAllProvince({commit,state},num){
-		console.log(num);
         axios.get('/api/action2/AllProvince.ashx').then((response)=>{
         	let res = response.data;
-            console.log(res);
+        	console.log(res)
         })
 	},
+
+	// 封装一个 ajax 方法
+    saveForm (context) {
+      axios({
+        method: 'post',
+        url: '/user',
+        data: context.state.test02
+      })
+    },
 
 	changeLoadingState({commit,state},bool){
         commit(types.IS_SHOW_LOADING, bool);
