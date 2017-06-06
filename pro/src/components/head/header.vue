@@ -19,9 +19,9 @@
 		            <div class="m-site-lk f__fr">
 		                <ul class="m-lk-list">
 		                    <li class="u-item login">
-		                        <a href="javascript:;" class="u-lk lg"><i class="i-user-lgn"></i>登录</a>
+		                        <a href="javascript:;" class="u-lk lg" @click="openSignIn(1)"><i class="i-user-lgn"></i>登录</a>
 		                        <span>/</span>
-		                        <a href="javascript:;" class="u-lk">注册</a>
+		                        <a href="javascript:;" class="u-lk" @click="openSignUp(1)">注册</a>
 		                    </li>
 		                    <li class="u-item">
 		                        <a href="javascript:;"  class="u-lk">下载APP</a>
@@ -44,20 +44,97 @@
 		        
 		    </div>
 		</div><!-- 头部 -->
+
+        <sign-in 
+            v-show="signInShow" 
+            @closeSignIn="openSignIn(0)" 
+            @openSignUp="openSignUp(1,true)" 
+            @openForget="openForgetPwd(1)"
+            >
+        </sign-in><!-- 登录框 -->
+
+        <sign-up 
+            v-show="signUpShow" 
+            @closeSignUp="openSignUp(0)" 
+            @openSignIn="openSignIn(1,true)"
+            @openForget="openForgetPwd(1)"
+            >
+        </sign-up><!-- 注册框 -->
+        
+        <forget-pwd 
+            v-show="forgetShow" 
+            @closeForgetPwd="openForgetPwd(0)"
+            >
+        </forget-pwd><!-- 注册框 -->
+
+
 	</div>
 </template>
 
 <script>
+    import signIn from "components/sign/signin"
+    import signUp from "components/sign/signup"
+    import forgetPwd from "components/sign/forget_pwd"
 
     export default {
     	name: 'c-header',
     	data () {
     		return {
-    			
+    			signInShow: false,
+    			signUpShow: false,
+    			forgetShow: false,
     		}
     	},
         mounted(){
 
+        },
+        methods:{
+        	//打开/关闭登录框
+        	openSignIn(type,closeThat=false){
+        		//关闭忘记密码的输入框
+        		this.forgetShow = false
+        		if(type==1){
+        		    this.signInShow = true
+        		    if(closeThat){
+        		    	this.signUpShow = false
+        		    }
+        		}else if(type==0){
+        			this.signInShow = false
+        		}
+        	},
+
+        	//打开/关闭注册框
+        	openSignUp(type,closeThat=false){
+        		//关闭忘记密码的输入框
+        		this.forgetShow = false
+        		if(type==1){
+                    this.signUpShow = true
+                    if(closeThat){
+        		    	this.signInShow = false
+        		    }
+        		}else if(type==0){
+                    this.signUpShow = false
+        		}
+                
+        	},
+            
+            //打开/关闭 忘记密码/找回密码框
+        	openForgetPwd(type){
+        		//登录注册框都关闭
+        		this.signInShow = false
+        		this.signUpShow = false
+                if(type==1){
+                    this.forgetShow = true
+        		}else if(type==0){
+                    this.forgetShow = false
+        		}
+        	}
+
+        },
+        components:{
+            signIn,
+            signUp,
+            forgetPwd,
         },
     }
 </script>

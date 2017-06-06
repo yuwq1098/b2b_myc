@@ -382,6 +382,8 @@
     import $ from 'jquery'
     import Swiper from "../../../static/swiper.min.js"
     // import Swiper from "swiper"
+    import axios from 'axios'
+    import {mapActions} from 'vuex'
     import cHead from "../../components/head/header.vue"
     import cFoot from "../../components/foot/footer.vue"
     import cFootServer from "../../components/foot/foot-svr.vue"
@@ -399,6 +401,14 @@
     			
     		}
     	},
+        created () {
+            // this.$store.dispatch('getAllProvince')
+            // 以对象形式分发
+            this.$store.dispatch({
+              type: 'getAllProvince',
+              amount: 10
+            })
+        },
         mounted(){
             var mySwiper = new Swiper('#index-carousel', {
                 autoplay: 6000,     //可选选项，自动滑动
@@ -418,19 +428,23 @@
                     mySwiper.startAutoplay();
                 },
             });
-            console.log("我是首页");
+            //调用数据
+            // this._getAllProvince()
+            // this.getAllProvince()
 
-            // $.get("/api/action2/AllProvince.ashx",function(res){
-            //     console.log(res)
-            // });
-            this.$http.get('/api/action2/AllProvince.ashx').then((response) => {    
-                // 响应成功回调
-                console.log(response.data);
-            }, (response) => {    
-                // 响应错误回调
-                console.log("失败了")
-            });
         },
+        methods:{
+            // ...mapActions(['getAllProvince']),
+            //获取图片数据
+            // _getAllProvince(){
+            //     axios.get('/api/action2/AllProvince.ashx').then((response)=>{
+            //         this.provinceList = response.data.data;
+            //         console.log(this.provinceList)
+            //     }).catch(function(error){
+            //         console.log('请求slider数据:'+error);
+            //     });
+            // },
+        }
     }
 </script>
 

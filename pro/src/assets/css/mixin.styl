@@ -189,7 +189,11 @@ _ellipsis(line=1)
         -webkit-box-orient vertical
         -webkit-line-clamp line
 
-//---圆角
+//显示模式，默认为溢出隐藏
+_overflow(mode=hidden)
+    overflow mode
+
+//---圆角，方向先垂直方向后左右
 _borderRadius(pixel=50%,direction=null)
     if direction == null
         -webkit-border-radius pixel
@@ -199,6 +203,13 @@ _borderRadius(pixel=50%,direction=null)
         -webkit-border-{direction}-radius pixel
         -moz-border-{direction}-radius pixel
         border-{direction}-radius pixel
+
+//禁止用户对该区域进入选中
+_unUserSelect()
+    -webkit-user-select none
+    -moz-user-select none
+    -o-user-select none
+    user-select none
 
 //---线性渐变
 _gradient(bColor,eColor)

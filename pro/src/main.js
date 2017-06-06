@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
 import routes from './router/router.js'
 //引入vuex状态配置
 import store from './store/'
@@ -141,7 +140,6 @@ Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
 
-import $ from 'jquery'
 import 'element-ui/lib/theme-default/index.css'
 import 'assets/css/index.styl'      // 引入公共样式
 
@@ -154,8 +152,6 @@ if ('addEventListener' in document) {
 }
 
 Vue.use(VueRouter)
-Vue.use(VueResource)
-
 
 const router = new VueRouter({
 	routes,
@@ -168,8 +164,15 @@ router.beforeEach(({meta, path}, from, next) => {
   var isGoTop = meta.isGoTop?meta.isGoTop:false;
   if(isGoTop){
     // 每次进入新页面时页面滚动至顶部
-    $("body").scrollTop(0);
+    document.body.scrollTop = 0+"px"
   }
+
+  // store.dispatch('changeLoadingState',true);
+
+  // setTimeout(()=>{
+  //   store.dispatch('changeLoadingState',false);
+  // },60)
+
   next();
 });
 
