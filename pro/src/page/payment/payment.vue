@@ -1,7 +1,6 @@
 <template>
    <div class="paymentIndex">
         <div class="g-doc">
-            <c-head></c-head>
            <div class="g-bd">
                <section class="f__w1200">
                    <div class="m-crm">
@@ -26,7 +25,6 @@
                    </div>
                 </section>
             </div>
-            <c-foot></c-foot>
         </div>
    </div>
 </template>
@@ -34,8 +32,6 @@
 
 <script>
     import {mapState} from "vuex"
-    import cHead from "../../components/head/header.vue"
-    import cFoot from "../../components/foot/footer.vue"
     import payFlow from "./pay_flow.vue"
 
     export default{
@@ -94,8 +90,6 @@
         },
         // 在当前模块注册组件
         components:{
-            cHead,
-            cFoot,
             payFlow,
         },
         computed: {

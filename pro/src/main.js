@@ -160,15 +160,18 @@ const router = new VueRouter({
 	mode: 'hash',
 })
 
-// 路由导航钩子，beforeEach，在路由进入前调用
+// 路由导航钩子beforeEach，在路由进入前调用
 router.beforeEach(({meta, path}, from, next) => {
-  // 是否启用返回顶部
-  var isGoTop = meta.isGoTop?meta.isGoTop:false;
-  if(isGoTop){
-    // 每次进入新页面时页面滚动至顶部
+  next();
+});
+
+// after 钩子没有 next 方法，不能改变导航
+router.afterEach((to) => {
+  var notGoTop = to.meta.notGoTop||false;
+  //是否不返回顶部，默认返回顶部
+  if(!notGoTop){
     document.body.scrollTop = 0+"px"
   }
-  next();
 });
 
 

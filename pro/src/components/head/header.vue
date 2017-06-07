@@ -9,11 +9,9 @@
 		                </a>
 		            </div><!-- 网站LOGO -->
 
-		            <div class="m-city f__fl">
-		                <a href="javascript:;" class="u-lk">南昌<i class="iconfont icon-arrowdown1"></i></a>
-		                <div class="m-down f__hide">
-		                    
-		                </div><!-- 城市盒子 -->
+		            <div class="m-city f__fl" @mouseenter="" @mouseleave="">
+		                <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur">南昌<i class="iconfont icon-arrowdown1"></i></a>
+                        <city-choose :style="{'left':cityChooseLeft}" v-show="isCityChooseShow"></city-choose><!-- 城市选择 -->
 		            </div><!-- 城市 -->
 
 		            <div class="m-site-lk f__fr">
@@ -67,14 +65,15 @@
             >
         </forget-pwd><!-- 注册框 -->
 
-
 	</div>
 </template>
 
 <script>
+    import {getLeftToBrowser,addEvent,removeEvent} from "assets/js/dom.js"
     import signIn from "components/sign/signin"
     import signUp from "components/sign/signup"
     import forgetPwd from "components/sign/forget_pwd"
+    import cityChoose from "components/citySel/citySel.vue"
 
     export default {
     	name: 'c-header',
@@ -83,10 +82,20 @@
     			signInShow: false,
     			signUpShow: false,
     			forgetShow: false,
+                cityChooseLeft: '',
+                isCityChooseShow: false,
     		}
     	},
         mounted(){
-
+            //获取浏览器的左值
+            this._getCityChooseLeft();
+            //侦听浏览器窗口大小变化
+            // removeEvent(window,'resize',this._getCityChooseLeft)
+            // addEvent(window,'resize',this._getCityChooseLeft)
+        },
+        //组件销毁
+        destroyed() {
+            
         },
         methods:{
         	//打开/关闭登录框
@@ -128,18 +137,28 @@
         		}else if(type==0){
                     this.forgetShow = false
         		}
-        	}
+        	},
+
+            //获取城市选择盒子left值
+            _getCityChooseLeft(){
+                let cityCurrentDom = document.getElementById("city_cur");
+                //传入dom查询其相对于浏览器的left值
+                let curCiBoxLeft = getLeftToBrowser(cityCurrentDom);
+                console.log(curCiBoxLeft);
+                this.cityChooseLeft = curCiBoxLeft - 40 + "px";
+            },
 
         },
         components:{
             signIn,
             signUp,
             forgetPwd,
+            cityChoose,
         },
     }
 </script>
 
 <!-- 限定作用域 -->
-<style lang="stylus" rel="stylesheet/stylus" scope>
+<style lang="stylus" rel="stylesheet/stylus" scoped>
     @import './header.styl'
 </style>

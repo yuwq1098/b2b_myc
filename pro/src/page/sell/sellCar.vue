@@ -1,7 +1,6 @@
 <template>
 	<div class="sellCar">
 	    <div class="g-doc">
-			<c-head></c-head>
             <div class="g-bd">
                 <section class="f__w1200">
                     <div class="m-crm">
@@ -195,14 +194,11 @@
 
                 </section><!-- 1200px布局 -->
             </div><!-- 网页主体 -->
-			<c-foot></c-foot>
 		</div>
 	</div>
 </template>
 
 <script>
-    import cHead from "../../components/head/header.vue"
-    import cFoot from "../../components/foot/footer.vue"
 
 	export default {
         name: "sellCar",
@@ -338,8 +334,7 @@
         },
         // 在当前模块注册组件
         components:{
-            cHead,
-            cFoot,
+
         },
 	}
 </script>

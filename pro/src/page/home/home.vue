@@ -2,10 +2,6 @@
 <template>
 	<div class="home">
 		<div class="g-doc">
-
-            <!-- 引入网站头部 -->
-            <c-head></c-head>
-            
             <div class="g-bd">
                 <div class="g-ad">
                     <div class="m-sld">
@@ -368,31 +364,23 @@
             
             <!-- 引入底部站点服务图示 -->
             <c-foot-server></c-foot-server>
-            <!-- 引入网站底部 -->
-            <c-foot></c-foot>
-
+            
 		</div><!-- 文档 -->
 	</div>
 </template>
 
 <script>
-
-    // import $ from 'src/assets/vendor/jquery.min.js'
     
     import $ from 'jquery'
     import Swiper from "../../../static/swiper.min.js"
     // import Swiper from "swiper"
     import {mapActions} from 'vuex'
-    import cHead from "../../components/head/header.vue"
-    import cFoot from "../../components/foot/footer.vue"
     import cFootServer from "../../components/foot/foot-svr.vue"
 
     export default {
     	name: 'home',
         // 注册组件
         components: {
-            cHead,
-            cFoot,
             cFootServer,
         },
     	data () {
@@ -401,31 +389,42 @@
     		}
     	},
         created () {
-            this.$store.dispatch('getAllProvince')
+            this.mySwiper = null;
+            this.$store.dispatch('getAllProvince');
+            this.$nextTick(function(){
+                this.mySwiper = new Swiper('#index-carousel', {
+                    autoplay: 6000,     //可选选项，自动滑动
+                    autoplayDisableOnInteraction : false,  //用户操作后，不禁止自动滑动
+                    effect: 'fade',
+                    speed: 400,         //速度
+                    loop: true,     //环路
+                    paginationClickable: true,           //分页点击
+                    pagination: '.swiper-pagination',   //分页器
+                    // 关闭淡出，保留淡入
+                    fade: {
+                        crossFade: false,
+                    },
+                    // 如果滑动停了，那么重新开启它
+                    onAutoplayStop: function(swiper){
+                        this.mySwiper.startAutoplay();
+                    },
+                });
+            })
         },
         mounted(){
-            var mySwiper = new Swiper('#index-carousel', {
-                autoplay: 6000,     //可选选项，自动滑动
-                autoplayDisableOnInteraction : false,  //用户操作后，不禁止自动滑动
-                effect : 'fade',
-                touchAngle : 20,
-                speed:600,         //速度
-                loop : true,     //环路
-                paginationClickable: true,           //分页点击
-                pagination : '.swiper-pagination',   //分页器
-                // 关闭淡出，保留淡入
-                fade: {
-                  crossFade: false,
-                },
-                // 如果滑动停了，那么重新开启它
-                onAutoplayStop: function(swiper){
-                    mySwiper.startAutoplay();
-                },
-            });
-            //调用数据
-            // this._getAllProvince()
-            // this.getAllProvince()
-
+            
+        },
+        //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
+        activated() {
+            //更新swiper
+            if(this.mySwiper){
+                this.mySwiper.update()
+            }
+            
+        },
+        //退出的生命周期钩子
+        deactivated(){
+           
         },
         methods:{
             // ...mapActions(['getAllProvince']),
@@ -444,9 +443,9 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus">
-    @import '../../../static/swiper.min.css'
+    @import '~static/swiper.min.css'
 </style>
 <style lang="stylus" rel="stylesheet/stylus">
-    @import './home.styl'
+    @import 'home.styl'
 </style>
 

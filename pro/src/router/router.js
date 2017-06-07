@@ -67,7 +67,7 @@ export default[{
 		    path: '/home',
 		    component: home,
             meta: {
-                isGoTop: true,
+                notGoTop: true,
             }
 	    },
         {
@@ -203,9 +203,7 @@ export default[{
         {
             path: '/carDetails',
             component: car_details,
-            meta: {
-                isGoTop: true,
-            }
+            meta: { }
         },
 
         {

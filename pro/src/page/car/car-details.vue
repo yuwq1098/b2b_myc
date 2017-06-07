@@ -1,7 +1,6 @@
 <template>
 	<div class="collect-home">
 	    <div class="g-doc">
-			<c-head></c-head>
             <div class="g-bd">
                 <section class="f__w1200">
                     <div class="m-crm">
@@ -13,9 +12,9 @@
                     </div><!-- 面包屑 -->
 
                     <div class="m-mn-hd f__clearfix">
-                        <c-focus class="f__fl">
+                        <!-- <c-focus class="f__fl">
                             
-                        </c-focus><!-- 轮播控件 -->
+                        </c-focus> --><!-- 轮播控件 -->
 
                         <div class="m-mn-info f__fr">
                             <div class="m-tit">大众-朗逸 2011款 1.6L 手动品悠版</div>
@@ -445,15 +444,12 @@
 
                 </section><!-- 1200px布局 -->
             </div><!-- 网页主体 -->
-			<c-foot></c-foot>
 		</div>
 	</div>
 </template>
 
 <script>
     import cHead from "../../components/head/header.vue"
-    import cFoot from "../../components/foot/footer.vue"
-    import cFocus from "../../components/slide/focusThumb.vue"
 
 	export default {
         name: "collect-home",
@@ -465,9 +461,7 @@
         },
         // 在当前模块注册组件
         components:{
-            cHead,
-            cFoot,
-            cFocus,
+            
         },
 	}
 </script>
