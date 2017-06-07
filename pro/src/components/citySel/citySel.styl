@@ -1,8 +1,130 @@
 @import '../../assets/css/mixin.styl'
 
 .m-ci-box
-    width 772px
-    height 442px
+    width 740px
     position fixed
     z-index 99999
-    background #e2e2e2
+    margin -5px 0 0 -30px
+    background #fff
+    _borderAll(#ededed)
+    _borderRadius(1px)
+    _boxShadow(20px,rgba(0,0,0,.25),5px,5px)
+    .m-sch-box
+        height 54px
+        position relative
+        _border(bottom,#ededed)
+        .m-sch-bar
+            width 420px
+            height 34px
+            line-height 34px
+            _borderRadius(4px,)
+            _completeCenter()
+            .m-sch-ipt
+                width 315px
+                height 32px
+                _borderRadiusAll(16px 0 0 16px)
+                _borderAll(#ededed)
+                position relative
+                .u-ipt
+                    width 292px
+                    height 30px
+                    background transparent
+                    border none
+                    _completeCenter(4px)
+                    vertical-align middle
+                .u-close
+                    _display()
+                    width 28px
+                    height 28px
+                    line-height 28px
+                    text-align right
+                    color #959595
+                    z-index 2
+                    _completeCenter(auto,8px,2px)
+                    .iconfont
+                        font-size 18px
+                    &:hover
+                        color#313536
+
+            .u-sch-btn
+                width 94px
+                height 32px
+                line-height 32px
+                text-align center
+                cursor pointer
+                text-indent -4px
+                color #777
+                _borderRadiusAll(0 16px 16px 0)
+                _borderAll(#ededed)
+                & >*
+                    cursor pointer
+                &:hover
+                    color $c_blue
+                .iconfont
+                    margin-right 3px
+                    font-size 18px
+                    _display(inline-block)
+                    _translate3d(0,2px)
+
+    .m-ix-bar
+        height 50px
+        line-height 50px
+        _border(bottom,#ededed)
+        .u-ix-lst
+            padding 0 20px
+            .u-ix-item
+                padding-left 20px
+                color #777
+                cursor pointer
+                float left
+                &.first
+                    padding-left 0
+                &:hover,&.current
+                    color $c_blue
+    .m-ci-con
+        width 740px
+        height 350px
+        overflow-y auto
+        overflow-x hidden
+        position relative
+        line-height 48px
+        .m-ci-lst
+            width @width - 46px
+            margin-left 14px
+            .m-ci-item
+                min-height 48px
+                position relative
+                _border(bottom,#e8e8e8,,dashed)
+                .u-ci-tit
+                    _display()
+                    width 40px
+                    height 48px
+                    position absolute
+                    top 0
+                    left 0
+                    text-align center
+                    color #a8a8a8
+                    &.vital
+                        color $c_blue
+                .u-gp-con
+                    width @width - 60px
+                    margin-left 60px
+                .u-gp-lst
+                    .u-gp-item
+                        float left
+                        margin-right 30px
+                        color #777
+                        cursor pointer
+                        &:hover
+                            color $c_blue
+
+
+
+
+                
+
+
+
+
+
+

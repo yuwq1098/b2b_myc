@@ -1,13 +1,39 @@
 <template>
+     <!-- @mousewheel="_stopBubble($event)" -->
     <div class="m-ci-box" ref="citySelBox">
     	<div class="m-sch-box">
-    		
+    		<div class="m-sch-bar f__clearfix">
+                <div class="m-sch-ipt f__fl">
+                    <input type="text" class="u-ipt" v-model="schValue" placeholder="请输入城市名称" />
+                    <a class="u-close" @click="clearVal" v-show="schValue"><i class="iconfont icon-guanbi2fill"></i></a><!-- 关闭 -->
+                </div>
+                <div class="u-sch-btn f__fr"><i class="iconfont icon-iossearchstrong"></i>搜索</div><!-- 搜索 -->
+                <div class="m-sch-res-box" v-show="schValue">
+                    <ul class="m-res-lst">
+                        <li class="u-item" v-for="item in schList"></li>
+                    </ul>
+                </div><!-- 搜索结果列表 -->
+            </div>
     	</div><!-- 头部 -->
-    	<div class="m-ix-bar">
-                
+    	<div class="m-ix-bar f__clearfix">
+            <ul class="u-ix-lst f__clearfix">
+                <li class="u-ix-item" @click="changeCurIndnx(index)" v-for="(item,index) in shortcutList" :data-index="index" :class="[{'current':currentIndex===index},{'first':index==0}]">{{item}}</li>
+            </ul><!-- 索引列表 -->    
         </div><!-- 索引条 -->
-        <div class="m-ci-con">
-            
+        <!-- @mousewheel="_stopBubble($event)" -->
+        <div class="m-ci-con" ref="cityListBox">
+            <ul class="m-ci-lst">
+                <li class="m-ci-item f__clearfix" ref="cityItem" v-for="group in citys">
+                    <span class="u-ci-tit" :class="{'vital':group.title=='周边'}">{{group.title}}</span>
+                    <div class="u-gp-con">
+                        <ul class="u-gp-lst f__clearfix">
+                            <li class="u-gp-item" @click="gotoLink(item.name)" v-for="item in group.items">
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div><!-- 城市信息盒子 -->
     </div>
 </template>
@@ -36,14 +62,22 @@
         data(){
         	return{
                 citys:[],
+                currentIndex: 0,
+                schValue: '',
+                schList: [],  //搜索结果列表
         	}
         },
         mounted(){
-            let cityBoxDom = this.$refs.citySelBox;
-            this._preventScroll(cityBoxDom)
+            // let cityBoxDom = this.$refs.citySelBox;
+            // this._preventScroll(cityBoxDom);
         },
         computed:{
-            
+            //城市索引列表
+            shortcutList() {
+                return this.citys.map((group) => {
+                    return group.title
+                })
+            }
         },
         methods:{
         	//获取所有城市的列表
@@ -128,7 +162,7 @@
                 //将nature数据连接在around数据背后一起返回出去
 		        return around.concat(nature);
             },
-            //阻止滚轮事件冒泡
+            // 阻止滚轮事件冒泡
             _preventScroll(el){
                 let me = el;
                 if(navigator.userAgent.indexOf("Firefox")>0){ 
@@ -139,11 +173,51 @@
                     me.onmousewheel = function(e){    
                         e = e || window.event;   
                         return false; 
-                    }; 
+                    };
                 } 
                 return this; 
+            },
+            //阻止事件冒泡
+            _stopBubble(e){ 
+                e = e || window.event;
+                // 如果提供了事件对象，则这是一个非IE浏览器
+                if(e && e.stopPropagation){//阻止冒泡
+                    // 因此它支持W3C的stopPropagation()方法 
+                    e.stopPropagation();
+                }else{
+                    // 否则，我们需要使用IE的方式来取消事件冒泡
+                    e.cancelBubble = true;
+                }
+
+            },
+            //更改当前城市索引
+            changeCurIndnx(index){
+                let me = this;
+                let cityListDom = me.$refs.cityListBox;
+
+                this.currentIndex = index;
+                //设置滚动条高度
+                let stop = me.$refs.cityItem[index].offsetTop;
+                cityListDom.scrollTop = stop
+            },
+            //点击城市link
+            gotoLink(name){
+                console.log(name);
+            },
+            //删除searchVal
+            clearVal(){
+                this.schValue = '';
+            },
+            //匹配搜索结果
+            _resListBySch(val){
+                console.log("aaaa");
             }
-        }
+        },
+        watch: {
+            schValue: function (val) {
+                this._resListBySch(val);
+            },
+        },
 	}
 
 </script>

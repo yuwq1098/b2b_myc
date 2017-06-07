@@ -9,9 +9,10 @@
 		                </a>
 		            </div><!-- 网站LOGO -->
 
-		            <div class="m-city f__fl" @mouseenter="" @mouseleave="">
-		                <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur">南昌<i class="iconfont icon-arrowdown1"></i></a>
-                        <city-choose :style="{'left':cityChooseLeft}" v-show="isCityChooseShow"></city-choose><!-- 城市选择 -->
+		            <div class="m-city f__fl" id="f__city_choose">
+		                <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">南昌<i class="iconfont icon-arrowdown1"></i></a>
+                        <city-choose></city-choose>
+                        <!-- <city-choose v-show="isCityChooseShow"></city-choose> --><!-- 城市选择 -->
 		            </div><!-- 城市 -->
 
 		            <div class="m-site-lk f__fr">
@@ -74,6 +75,7 @@
     import signUp from "components/sign/signup"
     import forgetPwd from "components/sign/forget_pwd"
     import cityChoose from "components/citySel/citySel.vue"
+    import $ from 'jquery'
 
     export default {
     	name: 'c-header',
@@ -86,15 +88,45 @@
                 isCityChooseShow: false,
     		}
     	},
+        created () {
+
+        },
         mounted(){
             //获取浏览器的左值
             this._getCityChooseLeft();
             //侦听浏览器窗口大小变化
             // removeEvent(window,'resize',this._getCityChooseLeft)
             // addEvent(window,'resize',this._getCityChooseLeft)
+
+            // 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。
+            this.$nextTick(function(){
+                var cityChooseDom = $("#f__city_choose");
+                var currentCity = $("#city_cur");
+                let me = this;
+                currentCity.on("mouseover",function(){
+                    me.isCityChooseShow = true;
+                });
+                cityChooseDom.on("mouseleave",function(){
+                    me.isCityChooseShow = false;
+                });
+
+            });
+
         },
-        //组件销毁
-        destroyed() {
+        //退出组件
+        activated() {
+
+        },
+        //退出的生命周期钩子
+        deactivated(){
+            
+        },
+        //属性值计算
+        computed:{
+            
+        },
+        //数据侦听
+        watch:{
             
         },
         methods:{
