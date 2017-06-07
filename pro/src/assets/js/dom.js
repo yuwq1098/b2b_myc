@@ -1,3 +1,5 @@
+
+
 export function hasClass(el, className) {
   let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
   return reg.test(el.className)
@@ -47,7 +49,6 @@ export function removeEvent(target, type, func){
         target.detachEvent("on" + type, func); 
     else target["on" + type] = null; 
 };  
-
 
 export function getData(el, name, val) {
   const prefix = 'data-'

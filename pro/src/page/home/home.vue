@@ -372,10 +372,9 @@
 <script>
     
     import $ from 'jquery'
-    import Swiper from "../../../static/swiper.min.js"
-    // import Swiper from "swiper"
+    import Swiper from "static/swiper.min.js"
     import {mapActions} from 'vuex'
-    import cFootServer from "../../components/foot/foot-svr.vue"
+    import cFootServer from "components/foot/foot-svr.vue"
 
     export default {
     	name: 'home',

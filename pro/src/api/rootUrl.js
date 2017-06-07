@@ -1,0 +1,1 @@
+export const rootURL  =  process.env.NODE_ENV === 'production' ? '': "/api";

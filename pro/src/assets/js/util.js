@@ -1,3 +1,5 @@
+import {rootURL} from 'api/rootUrl.js'
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -12,3 +14,8 @@ export function shuffle(arr) {
   }
   return _arr
 }
+
+//api请求URL拼接
+export function joinUrl(url) {
+    return rootURL + url;
+};

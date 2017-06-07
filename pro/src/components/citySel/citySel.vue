@@ -14,7 +14,7 @@
 
 <script>
     import {pinyin} from 'assets/js/pinyin.js'; 
-    import {getAllCityList} from 'api/cityList.js'
+    import {getAllCityList} from 'api/getData.js'
     import CityInfo from 'base/getter/city'
 
     const AROUND_CITY_LEN = 10

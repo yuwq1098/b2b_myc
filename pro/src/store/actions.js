@@ -1,11 +1,14 @@
 import axios from 'axios'
 import * as types from './mutation-types.js'
+import {joinUrl} from 'assets/js/util.js'
 
 /* 异步操作 */
 export default {
 
 	getAllProvince({commit,state},num){
-        axios.get('/api/action2/AllProvince.ashx').then((response)=>{
+		let url = joinUrl("/action2/AllProvince.ashx");
+        
+        axios.get(url).then((response)=>{
         	let res = response.data;
         	console.log(res)
         })
