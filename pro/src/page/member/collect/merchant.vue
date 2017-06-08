@@ -49,7 +49,7 @@
                                 </div><!-- 选项切换 -->
                                 <div class="m-car-wrap">
                                     <ul class="m-car-lst f__clearfix">
-                                        <li class="m-car-item">
+                                        <li class="m-car-item" v-for="n in 3">
                                             <a href="javascript:;" class="u-lk">
                                                 <div class="u-pic">
                                                     <img src="../../../assets/img/car_02.jpg" alt="车辆图"/>
@@ -59,28 +59,6 @@
                                                     <div class="u-price">批发价：<em class="price">￥4.00万</em></div>    
                                                 </div>
                                                 
-                                            </a>
-                                        </li>
-                                        <li class="m-car-item">
-                                            <a href="javascript:;" class="u-lk">
-                                                <div class="u-pic">
-                                                    <img src="../../../assets/img/car_02.jpg" alt="车辆图"/>
-                                                </div>
-                                                <div class="u-con">
-                                                    <div class="u-tit">大众-朗逸 2011款 1.6L 手动品悠版</div>
-                                                    <div class="u-price">批发价：<em class="price">￥4.00万</em></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="m-car-item">
-                                            <a href="javascript:;" class="u-lk">
-                                                <div class="u-pic">
-                                                    <img src="../../../assets/img/car_02.jpg" alt="车辆图"/>
-                                                </div>
-                                                <div class="u-con">
-                                                    <div class="u-tit">大众-朗逸 2011款 1.6L 手动品悠版</div>
-                                                    <div class="u-price">批发价：<em class="price">￥4.00万</em></div>
-                                                </div>
                                             </a>
                                         </li>
                                     </ul>

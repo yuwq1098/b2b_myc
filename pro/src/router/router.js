@@ -123,6 +123,7 @@ export default[{
             //会员中心
             path: '/member',
             component: member,
+            redirect: '/member/order',
             meta: { },
             children: [
                 //订单中心

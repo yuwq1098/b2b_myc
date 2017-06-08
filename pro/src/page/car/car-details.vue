@@ -232,6 +232,7 @@
 <script>
     import $ from "jquery"
     import cHead from "../../components/head/header.vue"
+    
 
 	export default {
         name: "car-details",
@@ -243,7 +244,7 @@
         },
         mounted(){
             setTimeout(() => {
-                console.log("aaaa")
+                
             },20)
         },
         // 在当前模块注册组件

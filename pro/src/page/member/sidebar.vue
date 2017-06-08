@@ -147,7 +147,6 @@
         // 自定义函数(方法)
         methods: {
             toggleClass: function (index) {
-
                 //解构赋值
                 if(!this.isActive[index]){
                     this.isActive = [false, false, false, false, false];
