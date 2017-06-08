@@ -11,8 +11,9 @@
 
 		            <div class="m-city f__fl" id="f__city_choose">
 		                <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">南昌<i class="iconfont icon-arrowdown1"></i></a>
-                        <city-choose></city-choose>
-                        <!-- <city-choose v-show="isCityChooseShow"></city-choose> --><!-- 城市选择 -->
+                        <!-- <city-choose></city-choose> -->
+                        <city-choose v-show="isCityChooseShow"></city-choose>
+                        <!-- 城市选择 -->
 		            </div><!-- 城市 -->
 
 		            <div class="m-site-lk f__fr">
@@ -22,20 +23,8 @@
 		                        <span>/</span>
 		                        <a href="javascript:;" class="u-lk" @click="openSignUp(1)">注册</a>
 		                    </li>
-		                    <li class="u-item">
-		                        <a href="javascript:;"  class="u-lk">下载APP</a>
-		                    </li>
-		                    <li class="u-item">
-		                        <a href="javascript:;"  class="u-lk">服务保障</a>
-		                    </li>
-		                    <li class="u-item">
-		                        <router-link to="/sellCar" class="u-lk">我要卖车</router-link>
-		                    </li>
-		                    <li class="u-item">
-		                        <router-link to="/buyCar" class="u-lk">我要收车</router-link>
-		                    </li>
-		                    <li class="u-item">
-		                        <router-link to="/home" class="u-lk">首页</router-link>
+		                    <li class="u-item" v-for="item in navItemList">
+		                        <router-link :to="item.path" class="u-lk">{{item.pathName}}</router-link>
 		                    </li>
 		                </ul>
 		            </div><!-- 站点链接 -->
@@ -86,10 +75,29 @@
     			forgetShow: false,
                 cityChooseLeft: '',
                 isCityChooseShow: false,
+                navItemList: [
+                    { 
+                        pathName: "首页",
+                        path: "/home"
+                    },{
+                        pathName: "我要收车",
+                        path: "/buyCar"
+                    },{
+                        pathName: "我要卖车",
+                        path: "/sellCar"
+                    },{
+                        pathName: "服务保障",
+                        path: ""
+                    },{
+                        pathName: "下载APP",
+                        path: ""
+                    }
+                ],
     		}
     	},
         created () {
-
+            //reverse 方法颠倒数组中元素的位置，并返回该数组的引用。
+            this.navItemList.reverse();
         },
         mounted(){
             //获取浏览器的左值
@@ -176,7 +184,7 @@
                 let cityCurrentDom = document.getElementById("city_cur");
                 //传入dom查询其相对于浏览器的left值
                 let curCiBoxLeft = getLeftToBrowser(cityCurrentDom);
-                console.log(curCiBoxLeft);
+                // console.log(curCiBoxLeft);
                 this.cityChooseLeft = curCiBoxLeft - 40 + "px";
             },
 

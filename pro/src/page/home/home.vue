@@ -168,179 +168,18 @@
                             </div>
                             <div class="m-lst-con">
                                 <ul class="m-lst f__clearfix">
-                                    <li class="m-item">
+                                    <li class="m-item" v-for="item in b2bCarList">
                                         <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
+                                                <img :src="item.FileUri" :alt="item.Title"/>
                                             </div>
                                             <div class="u-con">
                                                 <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
+                                                    {{item.Title}}
                                                 </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
+                                                <p class="u-des">{{item.CarInCity}}/{{item.ShelveTime | dateFnToYear }}/{{item.Mileage | mileFn}}</p>
                                                 <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
+                                                    批发价:<em>{{item.B2BPrice}}万</em>
                                                 </div>
                                                 <a href="javascript:;" class="u-lk">
                                                     <p class="u-count">
@@ -374,6 +213,9 @@
     import Swiper from "static/swiper.min.js"
     import {mapActions} from 'vuex'
     import cFootServer from "components/foot/foot-svr.vue"
+    import {getB2BCarList} from "api/getData.js"
+    import {dataToJson} from "assets/js/util.js"
+    
 
     export default {
     	name: 'home',
@@ -383,12 +225,15 @@
         },
     	data () {
     		return {
-    			
+    			b2bCarList: [],
     		}
     	},
         created () {
+            // this.$store.dispatch('getAllProvince');
+            //获取b2b二手车大厅列表
+            this.b2bCarList = this._getB2BCarList();
+
             this.mySwiper = null;
-            this.$store.dispatch('getAllProvince');
             this.$nextTick(function(){
                 this.mySwiper = new Swiper('#index-carousel', {
                     autoplay: 6000,     //可选选项，自动滑动
@@ -424,7 +269,30 @@
         deactivated(){
            
         },
+        //vue的过滤器
+        filters: {
+            //时间格式转换
+            dateFn: function (date) {
+                var date = date.substr(0,4)+'年'+date.substr(5,2)+'月';
+                return date.toString();
+            },
+            dateFnToYear: function (date) {
+                var date = date.substr(0,4)+'年';
+                return date.toString();
+            },
+            //公里单位转换
+            mileFn: function(data){
+                return parseInt(data).toFixed(1)+"万公里"
+            }
+        },
         methods:{
+            //获取B2B大厅车辆列表
+            _getB2BCarList(){
+                getB2BCarList().then((res) => {
+                    this.b2bCarList = res.data;
+                    console.log("大厅车辆列表",dataToJson(res.data));
+                })
+            },
             // ...mapActions(['getAllProvince']),
             //获取图片数据
             // _getAllProvince(){

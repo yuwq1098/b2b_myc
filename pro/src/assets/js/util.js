@@ -19,3 +19,8 @@ export function shuffle(arr) {
 export function joinUrl(url) {
     return rootURL + url;
 };
+
+//vue的Data数据转json
+export function dataToJson(data) {
+  return JSON.parse(JSON.stringify(data));
+};

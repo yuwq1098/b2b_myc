@@ -3,20 +3,8 @@
 		<div class="m-site-svr">
             <div class="f__w1200">
                 <ul class="u-svr-lst f__clearfix">
-                    <li class="u-item">
-                        <i class="i-ser-tk"></i>14天可退
-                    </li>
-                    <li class="u-item">
-                        <i class="i-ser-yz"></i>100%优质车源
-                    </li>
-                    <li class="u-item">
-                        <i class="i-ser-zj"></i>资金托管安全放心
-                    </li>
-                    <li class="u-item">
-                        <i class="i-ser-bz"></i>车质保障
-                    </li>
-                    <li class="u-item">
-                        <i class="i-ser-lc"></i>一站式服务
+                    <li class="u-item" v-for="item in serverInfoList">
+                        <i :class="item.icoClasName"></i>{{item.title}}
                     </li>
                 </ul>
             </div>
@@ -30,7 +18,28 @@
     	name: 'foot-svr',
     	data () {
     		return {
-    			
+    			serverInfoList:[
+                    {
+                        icoClasName: "i-ser-tk",
+                        title: "14天可退"
+                    },
+                    {
+                        icoClasName: "i-ser-yz",
+                        title: "100%优质车源"
+                    },
+                    {
+                        icoClasName: "i-ser-zj",
+                        title: "资金托管安全放心"
+                    },
+                    {
+                        icoClasName: "i-ser-bz",
+                        title: "车质保障"
+                    },
+                    {
+                        icoClasName: "i-ser-lc",
+                        title: "一站式服务"
+                    },
+                ]
     		}
     	},
         mounted(){
