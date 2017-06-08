@@ -1,7 +1,6 @@
 import axios from 'axios'
 import {joinUrl} from 'assets/js/util.js'
 
-
 /**
  * 创建临时数据
  */
@@ -10,7 +9,6 @@ const setpromise = data => {
 		resolve(data)
 	})
 }
-
 
 //获取所有城市
 const getAllCityList = function() {

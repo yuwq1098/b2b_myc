@@ -28,12 +28,29 @@
                     & >*
                         float left
                     .u-price
+                        margin-right 25px
+                        line-height 46px
+                        .tit
+                            _display(inline-block)
+                            _translate3d(0,-1px)
+                            margin-right 15px
                         .vital
                             color #ff6533
+                            font-size 22px
+                            font-weight bold
+                    .u-del
+                        font-size 13px
+                        color #959595
+                        text-decoration line-through
                     .u-lk
                         position absolute
                         right 0
                         top 0
+                        &.record i
+                            font-size 20px
+                            margin-right 5px
+                            color #fbad42
+
                 .m-des
                     width 510px
                     height 180px
@@ -110,12 +127,33 @@
                         color #545454
                         font-weight bold
                         _spacingPlus(1px)
+                        .i-phone
+                            _display(inline-block)
+                            margin-right 25px
+                            font-size 18px
+                            height 18px
+                            position relative
+                            &:before
+                                content ""
+                                _display()
+                                width 20px
+                                height 25px
+                                position absolute
+                                left 0
+                                background url("../../assets/img/i-tel-icon.png") 0 0 no-repeat
+                                background-size 100% 100%
                 .m-collect
                     margin-top 15px
                     height 32px
                     line-height 32px
                     .u-lk
                         margin-right 20px
+                        &:hover
+                            color #ff6533
+                        .iconfont
+                            font-size 18px
+                            margin-right 4px
+                            color #ff6533
 
 
 
@@ -239,7 +277,6 @@
                             width 100%
                             height 72px
                             line-height 72px
-                            overflow hidden
                             position relative
 	                        .u-pic
                                 width 115px
@@ -283,9 +320,17 @@
                                 width 145px
                                 height 72px
                                 _verticalLayout(,0)
-                                overflow hidden 
                                 .u-lk
-                                    background #e2e2e2
+                                    height 36px
+                                    line-height 36px
+                                    width 25px
+                                    _completeCenter(0,auto)
+                                    color #b2b2b2
+                                    .iconfont
+                                        font-size 30px
+                                    &:hover
+                                        color $c_blue
+
                                 .u-con
                                     width 105px
                                     margin-left 40px
@@ -295,7 +340,18 @@
                                         &.v1
                                            margin-top 12px
                                 .m-hvr-box
-                                    _display(none) 
+                                    width 120px
+                                    height 120px
+                                    _completeCenter(38px,auto)
+                                    z-index 10
+                                    _display(none)
+                                    _borderRadius(3px)
+                                    background #fff
+                                    _borderAll($c_blue)
+                                    img
+                                        _completeCenter()
+                                        width 114px
+                                        height 114px
 
 
                         &:not(:last-child)
@@ -318,6 +374,13 @@
                         background #fff
                         _boxShadow(12px,rgba(0,0,0,.15))
                         margin 0 20px 0 0
+                        _transitionAll(.2s)
+                        &:hover
+                            _transitionAll(.3s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
+                            _translate3d(,-4px);
+                            _boxShadow(20px,rgba(0,0,0,.15),1px,10px)
+                            h5.u-tit
+                                font-size 16px
                         .u-pic
                             width 285px
                             height 200px

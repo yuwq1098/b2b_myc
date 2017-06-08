@@ -1,5 +1,5 @@
 <template>
-	<div class="collect-home">
+	<div class="car-details">
 	    <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
@@ -19,10 +19,10 @@
                         <div class="m-mn-info f__fr">
                             <div class="m-tit">大众-朗逸 2011款 1.6L 手动品悠版</div>
                             <div class="m-pic f__clearfix">
-                                <span class="u-price">批发价<em class="vital">4.50万</em></span>
+                                <span class="u-price"><em class="tit">批发价</em><em class="vital">4.50万</em></span>
                                 <span class="u-del">零售价：5.60万</span>
-                                <a href="javascript:;" class="u-lk">
-                                    <i class="iconfont"></i>查询维修保养记录
+                                <a href="javascript:;" class="u-lk record">
+                                    <i class="iconfont icon-activity_fill"></i>查询维修保养记录
                                 </a>
                             </div><!-- 价格 -->
                             <div class="m-des">
@@ -56,17 +56,17 @@
                             <div class="m-intro"></div><!-- 说明 -->
                             <div class="m-opra f__clearfix">
                                 <a href="javascript:;" class="u-btn-a v1">
-                                    <i class="i"></i>电话咨询
+                                    <i class="i-phone"></i>电话咨询
                                 </a> 
                                 <a href="javascript:;" class="u-btn v2">关注车辆</a>
                                 <router-link :to="{path : '/payment'}" class="u-btn v3">立即秒杀</router-link>
                             </div><!-- 操作 -->
                             <div class="m-collect">
-                                <a href="javascript:;" class="u-lk">
-                                    <i class="iconfont"></i>收藏
+                                <a href="javascript:;" class="u-lk collect">
+                                    <i class="iconfont icon-heart"></i>收藏
                                 </a>
-                                <a href="javascript:;" class="u-lk">
-                                    <i class="iconfont"></i>分享给好友
+                                <a href="javascript:;" class="u-lk share">
+                                    <i class="iconfont icon-fenxiang"></i>分享给好友
                                 </a>
                             </div><!-- 收藏 -->
                         </div><!-- 主要信息 -->
@@ -152,7 +152,7 @@
 
                         <div class="m-lst-gp-a">
                             <ul class="m-lst">
-                                <li class="m-item">
+                                <li class="m-item" v-for="(n,index) in 6">
                                     <div class="m-item-box f__clearfix">
                                         <div class="u-pic">
                                             <img src="../../assets/img/deal_car_01.jpg" alt="成交车辆" />
@@ -169,164 +169,14 @@
                                             成交价：<em class="price">**万</em>
                                         </div><!-- 价格 -->
                                         <div class="u-code" id="js_ewm_code">
-                                            <a href="javascript:;" class="u-lk">
-                                                <i class="iconfont"></i>
+                                            <a href="javascript:;" @mouseover="codeEwmShow(index)" @mouseleave="codeEwmHide(index)" class="u-lk">
+                                                <i class="iconfont icon-shouji4"></i>
                                             </a>
                                             <div class="u-con">
                                                 <p class="u-tit v1">扫码下载APP</p>
                                                 <p class="u-tit">查看成交价</p>   
                                             </div>
-                                            <div class="m-hvr-box">
-                                                <img src="../../assets/img/wechat-ewm.jpg" alt="二维码"/>
-                                            </div><!-- 悬浮显示的二维码框 -->
-                                        </div><!-- 扫码下载APP -->
-                                    </div>
-                                </li>
-                                <li class="m-item">
-                                    <div class="m-item-box f__clearfix">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/deal_car_01.jpg" alt="成交车辆" />
-                                            <p class="u-state">已下架</p>
-                                        </div>
-                                        <div class="m-info">
-                                            <span class="u-vital">[1天前成交]</span>
-                                            <span class="u-mode">长城-M4 2012款 1.5L 手动豪华型</span>
-                                            <span class="u-separator">|</span>
-                                            <span class="u-time">2014年-01</span><!-- 时间 -->
-                                            <span class="u-mileage">4.8万公里</span><!-- 里程 -->
-                                        </div><!-- 信息 -->
-                                        <div class="u-price">
-                                            成交价：<em class="price">**万</em>
-                                        </div><!-- 价格 -->
-                                        <div class="u-code" id="js_ewm_code">
-                                            <a href="javascript:;" class="u-lk">
-                                                <i class="iconfont"></i>
-                                            </a>
-                                            <div class="u-con">
-                                                <p class="u-tit v1">扫码下载APP</p>
-                                                <p class="u-tit">查看成交价</p>   
-                                            </div>
-                                            <div class="m-hvr-box">
-                                                <img src="../../assets/img/wechat-ewm.jpg" alt="二维码"/>
-                                            </div><!-- 悬浮显示的二维码框 -->
-                                        </div><!-- 扫码下载APP -->
-                                    </div>
-                                </li>
-                                <li class="m-item">
-                                    <div class="m-item-box f__clearfix">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/deal_car_01.jpg" alt="成交车辆" />
-                                            <p class="u-state">已下架</p>
-                                        </div>
-                                        <div class="m-info">
-                                            <span class="u-vital">[1天前成交]</span>
-                                            <span class="u-mode">长城-M4 2012款 1.5L 手动豪华型</span>
-                                            <span class="u-separator">|</span>
-                                            <span class="u-time">2014年-01</span><!-- 时间 -->
-                                            <span class="u-mileage">4.8万公里</span><!-- 里程 -->
-                                        </div><!-- 信息 -->
-                                        <div class="u-price">
-                                            成交价：<em class="price">**万</em>
-                                        </div><!-- 价格 -->
-                                        <div class="u-code" id="js_ewm_code">
-                                            <a href="javascript:;" class="u-lk">
-                                                <i class="iconfont"></i>
-                                            </a>
-                                            <div class="u-con">
-                                                <p class="u-tit v1">扫码下载APP</p>
-                                                <p class="u-tit">查看成交价</p>   
-                                            </div>
-                                            <div class="m-hvr-box">
-                                                <img src="../../assets/img/wechat-ewm.jpg" alt="二维码"/>
-                                            </div><!-- 悬浮显示的二维码框 -->
-                                        </div><!-- 扫码下载APP -->
-                                    </div>
-                                </li>
-                                <li class="m-item">
-                                    <div class="m-item-box f__clearfix">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/deal_car_01.jpg" alt="成交车辆" />
-                                            <p class="u-state">已下架</p>
-                                        </div>
-                                        <div class="m-info">
-                                            <span class="u-vital">[1天前成交]</span>
-                                            <span class="u-mode">长城-M4 2012款 1.5L 手动豪华型</span>
-                                            <span class="u-separator">|</span>
-                                            <span class="u-time">2014年-01</span><!-- 时间 -->
-                                            <span class="u-mileage">4.8万公里</span><!-- 里程 -->
-                                        </div><!-- 信息 -->
-                                        <div class="u-price">
-                                            成交价：<em class="price">**万</em>
-                                        </div><!-- 价格 -->
-                                        <div class="u-code" id="js_ewm_code">
-                                            <a href="javascript:;" class="u-lk">
-                                                <i class="iconfont"></i>
-                                            </a>
-                                            <div class="u-con">
-                                                <p class="u-tit v1">扫码下载APP</p>
-                                                <p class="u-tit">查看成交价</p>   
-                                            </div>
-                                            <div class="m-hvr-box">
-                                                <img src="../../assets/img/wechat-ewm.jpg" alt="二维码"/>
-                                            </div><!-- 悬浮显示的二维码框 -->
-                                        </div><!-- 扫码下载APP -->
-                                    </div>
-                                </li>
-                                <li class="m-item">
-                                    <div class="m-item-box f__clearfix">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/deal_car_01.jpg" alt="成交车辆" />
-                                            <p class="u-state">已下架</p>
-                                        </div>
-                                        <div class="m-info">
-                                            <span class="u-vital">[1天前成交]</span>
-                                            <span class="u-mode">长城-M4 2012款 1.5L 手动豪华型</span>
-                                            <span class="u-separator">|</span>
-                                            <span class="u-time">2014年-01</span><!-- 时间 -->
-                                            <span class="u-mileage">4.8万公里</span><!-- 里程 -->
-                                        </div><!-- 信息 -->
-                                        <div class="u-price">
-                                            成交价：<em class="price">**万</em>
-                                        </div><!-- 价格 -->
-                                        <div class="u-code" id="js_ewm_code">
-                                            <a href="javascript:;" class="u-lk">
-                                                <i class="iconfont"></i>
-                                            </a>
-                                            <div class="u-con">
-                                                <p class="u-tit v1">扫码下载APP</p>
-                                                <p class="u-tit">查看成交价</p>   
-                                            </div>
-                                            <div class="m-hvr-box">
-                                                <img src="../../assets/img/wechat-ewm.jpg" alt="二维码"/>
-                                            </div><!-- 悬浮显示的二维码框 -->
-                                        </div><!-- 扫码下载APP -->
-                                    </div>
-                                </li>
-                                <li class="m-item">
-                                    <div class="m-item-box f__clearfix">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/deal_car_01.jpg" alt="成交车辆" />
-                                            <p class="u-state">已下架</p>
-                                        </div>
-                                        <div class="m-info">
-                                            <span class="u-vital">[1天前成交]</span>
-                                            <span class="u-mode">长城-M4 2012款 1.5L 手动豪华型</span>
-                                            <span class="u-separator">|</span>
-                                            <span class="u-time">2014年-01</span><!-- 时间 -->
-                                            <span class="u-mileage">4.8万公里</span><!-- 里程 -->
-                                        </div><!-- 信息 -->
-                                        <div class="u-price">
-                                            成交价：<em class="price">**万</em>
-                                        </div><!-- 价格 -->
-                                        <div class="u-code" id="js_ewm_code">
-                                            <a href="javascript:;" class="u-lk">
-                                                <i class="iconfont"></i>
-                                            </a>
-                                            <div class="u-con">
-                                                <p class="u-tit v1">扫码下载APP</p>
-                                                <p class="u-tit">查看成交价</p>   
-                                            </div>
-                                            <div class="m-hvr-box">
+                                            <div class="m-hvr-box" ref="hvrewm">
                                                 <img src="../../assets/img/wechat-ewm.jpg" alt="二维码"/>
                                             </div><!-- 悬浮显示的二维码框 -->
                                         </div><!-- 扫码下载APP -->
@@ -345,76 +195,7 @@
                         </div>
                         <div class="m-lst-gp-b">
                             <ul class="m-lst f__clearfix">
-                                <li class="m-item">
-                                    <a href="javascript:;" class="u-box">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                        </div>
-                                        <div class="u-con">
-                                            <h5 class="u-tit">
-                                                大众朗逸 2011款 1.6L手动品悠版
-                                            </h5>
-                                            <p class="u-des">南昌/2006年/10.0万里</p>
-                                            <div class="u-price">
-                                                批发价:<em>5.0万</em>
-                                            </div>
-                                            <a href="javascript:;" class="u-lk">
-                                                <p class="u-count">
-                                                    <strong>215</strong>
-                                                    次
-                                                </p>
-                                                <p>围观</p>
-                                            </a>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="m-item">
-                                    <a href="javascript:;" class="u-box">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                        </div>
-                                        <div class="u-con">
-                                            <h5 class="u-tit">
-                                                大众朗逸 2011款 1.6L手动品悠版
-                                            </h5>
-                                            <p class="u-des">南昌/2006年/10.0万里</p>
-                                            <div class="u-price">
-                                                批发价:<em>5.0万</em>
-                                            </div>
-                                            <a href="javascript:;" class="u-lk">
-                                                <p class="u-count">
-                                                    <strong>215</strong>
-                                                    次
-                                                </p>
-                                                <p>围观</p>
-                                            </a>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="m-item">
-                                    <a href="javascript:;" class="u-box">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                        </div>
-                                        <div class="u-con">
-                                            <h5 class="u-tit">
-                                                大众朗逸 2011款 1.6L手动品悠版
-                                            </h5>
-                                            <p class="u-des">南昌/2006年/10.0万里</p>
-                                            <div class="u-price">
-                                                批发价:<em>5.0万</em>
-                                            </div>
-                                            <a href="javascript:;" class="u-lk">
-                                                <p class="u-count">
-                                                    <strong>215</strong>
-                                                    次
-                                                </p>
-                                                <p>围观</p>
-                                            </a>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="m-item">
+                                <li class="m-item" v-for="n in 4">
                                     <a href="javascript:;" class="u-box">
                                         <div class="u-pic">
                                             <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
@@ -449,20 +230,36 @@
 </template>
 
 <script>
+    import $ from "jquery"
     import cHead from "../../components/head/header.vue"
 
 	export default {
-        name: "collect-home",
+        name: "car-details",
         // 数据
         data() {
             return{
                 
             }
         },
+        mounted(){
+            setTimeout(() => {
+                console.log("aaaa")
+            },20)
+        },
         // 在当前模块注册组件
         components:{
             
         },
+        methods:{
+            //历史交易二维码显示
+            codeEwmShow(index){
+                this.$refs.hvrewm[index].style.display = "block";
+            },
+            //历史交易二维码隐藏
+            codeEwmHide(index){
+                this.$refs.hvrewm[index].style.display = "none";
+            }
+        }
 	}
 </script>
 

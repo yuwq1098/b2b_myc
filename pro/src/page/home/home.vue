@@ -171,7 +171,7 @@
                                     <li class="m-item" v-for="item in b2bCarList">
                                         <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
-                                                <img :src="item.FileUri" :alt="item.Title"/>
+                                                <img v-lazy="item.FileUri" :alt="item.Title"/>
                                             </div>
                                             <div class="u-con">
                                                 <h5 class="u-tit">

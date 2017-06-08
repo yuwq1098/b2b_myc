@@ -7,6 +7,7 @@ import routes from './router/router.js'
 //引入vuex状态配置
 import store from './store/'
 import FastClick from 'fastclick'
+import VueLazyload from 'vue-lazyload'
 
 import {
   Pagination,
@@ -60,7 +61,6 @@ import {
   Rate,
   Steps,
   Step,
-  Carousel,
   Scrollbar,
   CarouselItem,
   Collapse,
@@ -123,7 +123,6 @@ Vue.use(Card)
 Vue.use(Rate)
 Vue.use(Steps)
 Vue.use(Step)
-Vue.use(Carousel)
 Vue.use(Scrollbar)
 Vue.use(CarouselItem)
 Vue.use(Collapse)
@@ -158,6 +157,10 @@ Vue.use(VueRouter)
 const router = new VueRouter({
 	routes,
 	mode: 'hash',
+})
+
+Vue.use(VueLazyload, {
+  loading: require('assets/img/car-default.jpg')
 })
 
 // 路由导航钩子beforeEach，在路由进入前调用
