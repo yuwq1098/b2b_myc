@@ -293,6 +293,7 @@
                     console.log("大厅车辆列表",dataToJson(res.data));
                 })
             },
+            
             // ...mapActions(['getAllProvince']),
             //获取图片数据
             // _getAllProvince(){

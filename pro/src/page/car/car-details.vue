@@ -15,6 +15,10 @@
                         <!-- <c-focus class="f__fl">
                             
                         </c-focus> --><!-- 轮播控件 -->
+                        <fc-slide class="f__fl">
+
+                        </fc-slide>
+
 
                         <div class="m-mn-info f__fr">
                             <div class="m-tit">大众-朗逸 2011款 1.6L 手动品悠版</div>
@@ -231,8 +235,7 @@
 
 <script>
     import $ from "jquery"
-    import cHead from "../../components/head/header.vue"
-    
+    import fcSlide from "components/slide/fc_slide.vue"
 
 	export default {
         name: "car-details",
@@ -249,7 +252,7 @@
         },
         // 在当前模块注册组件
         components:{
-            
+            fcSlide,
         },
         methods:{
             //历史交易二维码显示

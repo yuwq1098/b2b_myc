@@ -1,0 +1,118 @@
+@import '../../assets/css/mixin.styl'
+
+.focusSlide
+    width 625px
+    height 520px
+    position relative
+    overflow hidden
+    .m-sld-wrap
+        width 100%
+        height 420px
+        overflow hidden
+        position relative
+        .m-sld
+	        .m-sld-lst
+                position absolute
+                left 0
+                top 0
+	            .u-sld-item
+	                width 625px
+	                height 420px
+	                img
+	                    width 100%
+	                    height 100%
+	    .m-info-bar
+	        position absolute
+	        bottom 0
+	        left 0
+	        width 100%
+	        height 32px
+	        line-height 32px
+	        background rgba(0,0,0,.38)
+	        color #d8d8d8
+	        z-index 999
+	        .u-info
+	            width 80%
+	            padding-left 10px
+	            font-size 13px
+	            float left
+            .u-pages
+                float right
+                margin-right 10px
+                .i-img-thumb
+                    position relative
+                    padding-right 20px
+                    height 19px
+                    line-height 19px
+                    _display(inline-block)
+                    vertical-align: middle;
+                    font-size 15px
+                    &::before
+                        content ""
+                        _display()
+                        width 17px
+                        height 17px
+                        background url(../../assets/img/i-img-thumb.png)
+                        background-size 100% 100%
+                        position absolute
+                        top 0
+                .u-page
+                    _spacingPlus()
+
+    .m-sld-cd-wrap
+        width 100%
+        height 88px
+        margin-top 12px
+        position relative
+        .u-prev-cd-btn,.u-next-cd-btn
+            width 36px
+            text-align center
+            height 88px
+            line-height 88px
+            background #f0f0f0
+            position absolute
+            top 0
+            .iconfont
+                font-size 20px
+                color #959595
+            &:hover
+                background #e2e2e2
+                .iconfont
+                    color $c_blue
+        .u-prev-cd-btn
+            left 0
+            &:hover
+                _boxShadow(4px,rgba(0,0,0,.08),1px,2px,true)
+        .u-next-cd-btn
+            right 0
+            &:hover
+                _boxShadow(4px,rgba(0,0,0,.08),-2px,-1px,true)
+
+        .m-sld-cd
+            width 541px
+            height 100%
+            overflow hidden
+            _completeCenter()
+            .m-sld-cd-lst
+                position absolute
+                left 0
+                top 0
+                .u-sld-cd-item
+                    width 130px
+                    height 88px
+                    margin-right 7px
+                    position relative
+                    cursor pointer
+                    &.on:before
+                        content ""
+                        z-index 2
+                        _display()
+                        width @width - 4px
+                        height @height - 4px
+                        position absolute
+                        top 0
+                        left 0
+                        border 2px solid $c_blue
+                    img
+                        width 100%
+                        height 100%
