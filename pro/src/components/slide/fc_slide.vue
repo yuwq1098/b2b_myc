@@ -1,35 +1,20 @@
 <template>
-    <div class="focusSlide">
+    <div class="focusSlide" v-show="carDateilsList">
         <div class="m-sld-wrap" id="cSlide">
             <div class="m-sld" id="ban_pic">
                 <div class="prev1" id="prev"></div>
 		        <div class="next1" id="next"></div>
                 <ul class="m-sld-lst">
-                    <li slot="sld-item" class="u-sld-item">
-                        <img src="../../assets/img/car-details_001.jpg" alt="轮播图一" />
-                    </li>
-                    <li slot="sld-item" class="u-sld-item">
-                        <img src="../../assets/img/car-details_002.jpg" alt="轮播图二" />
-                    </li>
-                    <li slot="sld-item" class="u-sld-item">
-                        <img src="../../assets/img/car-details_003.jpg" alt="轮播图三" />
-                    </li>
-                    <li slot="sld-item" class="u-sld-item">
-                        <img src="../../assets/img/car-details_004.jpg" alt="轮播图四" />
-                    </li>
-                    <li slot="sld-item" class="u-sld-item">
-                        <img src="../../assets/img/car-details_005.jpg" alt="轮播图五" />
-                    </li>
-                    <li slot="sld-item" class="u-sld-item">
-                        <img src="../../assets/img/car-details_006.jpg" alt="轮播图六" />
+                    <li slot="sld-item" class="u-sld-item" v-for="item in carDateilsList.imgItems">
+                        <img :src="item.imgurl" :alt="item.title" />
                     </li>
                 </ul>
             </div><!-- 主轮播 -->
             <div class="m-info-bar">
-                <p class="u-info">卖家：威力服务汽车行</p>
+                <p class="u-info">{{carDateilsList.merchantName}}</p>
                 <section class="u-pages">
                     <i class="i-img-thumb"></i><!-- 缩略图小icon -->
-                    <span class="u-page">1/9</span>
+                    <span class="u-page">{{curSildeNumber}}/{{carDateilsList.imgItems.length}}</span>
                 </section>
             </div>
         </div><!-- 主轮播容器 -->
@@ -40,23 +25,8 @@
             </a>
             <div class="m-sld-cd" id="ban_num">
                 <ul class="m-sld-cd-lst">
-                    <li slot="sld-cd-item" class="u-sld-cd-item">
-                        <img src="../../assets/img/car-details_001.jpg" alt="轮播图一" />
-                    </li>
-                    <li slot="sld-cd-item" class="u-sld-cd-item">
-                        <img src="../../assets/img/car-details_002.jpg" alt="轮播图二" />
-                    </li>
-                    <li slot="sld-cd-item" class="u-sld-cd-item">
-                        <img src="../../assets/img/car-details_003.jpg" alt="轮播图三" />
-                    </li>
-                    <li slot="sld-cd-item" class="u-sld-cd-item">
-                        <img src="../../assets/img/car-details_004.jpg" alt="轮播图四" />
-                    </li>
-                    <li slot="sld-cd-item" class="u-sld-cd-item">
-                        <img src="../../assets/img/car-details_005.jpg" alt="轮播图五" />
-                    </li>
-                    <li slot="sld-cd-item" class="u-sld-cd-item">
-                        <img src="../../assets/img/car-details_006.jpg" alt="轮播图六" />
+                    <li slot="sld-cd-item" class="u-sld-cd-item" v-for="item in carDateilsList.imgItems">
+                        <img :src="item.imgurl" :alt="item.title" />
                     </li>
                 </ul>
             </div><!-- 小轮播（焦点） -->
@@ -76,13 +46,17 @@
 		// 数据
 		data() {
 			return{
-            
+                curSildeNumber: 1,
 			}
 		},
 		props: {
-            
+            carDateilsList:{
+                type: Object,
+                default: {},
+            }
 		},
 		mounted(){
+            let me = this;
 			setTimeout(() => {
                 jq('#cSlide').banqh({
                     box:"#cSlide",//总框架
@@ -99,6 +73,9 @@
                     picdire:true,//大图滚动方向（true为水平方向滚动）
                     mindire:true,//小图滚动方向（true为水平方向滚动）
                     min_picnum:4,//小图显示数量
+                    onSlideChangeEnd: function(can){
+                        me.curSildeNumber = can.xtqhnum + 1;
+                    }
                 })
             },20)
 		},

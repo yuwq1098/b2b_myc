@@ -26,7 +26,8 @@ import $ from "jquery"
 						pop_div:null,//弹出框框架
 						pop_pic:null,//弹出框图片框架
 						pop_xx:null,//关闭弹出框按钮
-						mhc:null//朦灰层
+						mhc:null,//朦灰层
+						onSlideChangeEnd: null,//滑动结束的回调
 					}, can || {});
 		var picnum = jq(can.pic).find('ul li').length;
 		var picw = jq(can.pic).find('ul li').outerWidth(true);
@@ -35,7 +36,6 @@ import $ from "jquery"
 		var picminnum = jq(can.pnum).find('ul li').length;
 		var picpopnum = jq(can.pop_pic).find('ul li').length;
 		var picminw = jq(can.pnum).find('ul li').outerWidth(true);
-		console.log(picminw)
 		var picminh = jq(can.pnum).find('ul li').outerHeight(true);
 		var pictime;
 		var tpqhnum=0;
@@ -160,6 +160,11 @@ import $ from "jquery"
 					jq(can.pnum).find('ul').stop().animate({'top':mingdjl_h},can.delayTime);
 					}
 				}
+			//滚动结束执行回调
+			if(can.onSlideChangeEnd){
+				can.xtqhnum = xtqhnum;
+                can.onSlideChangeEnd(can);
+			}
 			
 		}
 	//大图切换过程

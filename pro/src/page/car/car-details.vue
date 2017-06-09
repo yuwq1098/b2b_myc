@@ -12,13 +12,8 @@
                     </div><!-- 面包屑 -->
 
                     <div class="m-mn-hd f__clearfix">
-                        <!-- <c-focus class="f__fl">
-                            
-                        </c-focus> --><!-- 轮播控件 -->
-                        <fc-slide class="f__fl">
 
-                        </fc-slide>
-
+                        <fc-slide class="f__fl" :carDateilsList="carDateilsList"></fc-slide>
 
                         <div class="m-mn-info f__fr">
                             <div class="m-tit">大众-朗逸 2011款 1.6L 手动品悠版</div>
@@ -242,7 +237,35 @@
         // 数据
         data() {
             return{
-                
+                carDateilsList:{
+                    merchantName: '卖家：威力服务汽车行',
+                    imgItems:[
+                        {
+                            title:'图一',
+                            imgurl: require('../../assets/img/car-details_001.jpg'),
+                        },
+                        {
+                            title:'图二',
+                            imgurl: require('../../assets/img/car-details_002.jpg'),
+                        },
+                        {
+                            title:'图三',
+                            imgurl: require('../../assets/img/car-details_003.jpg'),
+                        },
+                        {
+                            title:'图四',
+                            imgurl: require('../../assets/img/car-details_004.jpg'),
+                        },
+                        {
+                            title:'图五',
+                            imgurl: require('../../assets/img/car-details_005.jpg'),
+                        },
+                        {
+                            title:'图六',
+                            imgurl: require('../../assets/img/car-details_006.jpg'),
+                        },
+                    ]
+                }
             }
         },
         mounted(){
