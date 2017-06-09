@@ -10,7 +10,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 // axios.defaults.baseURL = 'https://www.muyouche.com/';
 // axios.defaults.baseURL = 'http://localhost:8080';
 
-
 //POST传参序列化
 // axios.interceptors.request.use((config) => {
 //     if(config.method  === 'post'){
@@ -18,7 +17,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 //     }
 //     return config;
 // });
-
 
 
 // 自定义请求数据方法(post请求)

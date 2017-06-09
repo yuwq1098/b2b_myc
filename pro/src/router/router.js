@@ -124,75 +124,105 @@ export default[{
             path: '/member',
             component: member,
             redirect: '/member/order',
-            meta: { },
+            meta: {
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            },
             children: [
                 //订单中心
                 {
                     path: 'order',
-                    redirect: 'order/buyCar'
+                    redirect: 'order/buyCar',
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 {
                     path: 'order/buyCar',
                     component: order_buyCar,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 {
                     path: 'order/sellCar',
                     component: order_sellCar,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 {
                     path: 'order/refund',
                     component: order_refund,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 //我的收藏
                 {
                     path: 'collect',
-                    redirect: 'collect/car'
+                    redirect: 'collect/car',
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 {
                     path: 'collect/car',
                     component: collect_car,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 {
                     path: 'collect/merchant',
                     component: collect_merchant,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 //我的钱包
                 {
                     path: 'wallet/myWallet',
                     component: my_wallet,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 {
                     path: 'wallet/bill',
                     component: bill_details,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 //车源管理
                 {
                     path: 'manage',
                     component: car_manage,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 //设置
                 {
                     path: 'setting/phone',
                     component: upd_tel,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 {
                     path: 'setting/password',
                     component: upd_pwd,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
                 {
                     path: 'setting/help',
                     component: s_help,
-                    meta: { },
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
                 },
             ]
         },

@@ -165,8 +165,24 @@ Vue.use(VueLazyload, {
 })
 
 // 路由导航钩子beforeEach，在路由进入前调用
-router.beforeEach(({meta, path}, from, next) => {
-  next();
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
+      if (store.state.user.token) {  // 通过vuex state获取当前的token是否存在
+          next();   //通过
+      }
+      else {
+          Notification.error({
+              title: '未登录',
+              message: '您还没有登录，请先登录',
+              duration: 1500,
+          });
+          next({path: from?from.path:'/home'});
+          return;
+      }
+  }
+  else {
+      next();
+  }
 });
 
 // after 钩子没有 next 方法，不能改变导航
