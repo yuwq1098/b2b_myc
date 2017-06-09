@@ -1,1 +1,0 @@
-export const IS_SHOW_LOADING = 'IS_SHOW_LOADING'

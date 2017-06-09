@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 import routes from './router/router.js'
 //引入vuex状态配置
-import store from './store/'
+import store from './store/store'
 import FastClick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
 
@@ -52,6 +52,7 @@ import {
   Slider,
   Icon,
   Row,
+  Notification,
   Col,
   Upload,
   Progress,

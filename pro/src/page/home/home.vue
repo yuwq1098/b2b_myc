@@ -226,13 +226,17 @@
     	data () {
     		return {
     			b2bCarList: [],
+                b2bCarBrand: [],
     		}
     	},
         created () {
             // this.$store.dispatch('getAllProvince');
             //获取b2b二手车大厅列表
-            this.b2bCarList = this._getB2BCarList();
-
+            this._getB2BCarList();
+            //获取汽车品牌列表
+            this._getB2BCarBrandList();
+            this._getCarSeries();
+            
             this.mySwiper = null;
             this.$nextTick(function(){
                 this.mySwiper = new Swiper('#index-carousel', {
@@ -288,22 +292,50 @@
         methods:{
             //获取B2B大厅车辆列表
             _getB2BCarList(){
-                api.getB2BCarList().then((res) => {
+                // var [data] = [{}]
+                // data.PageSize = '12';
+                // data.PageIndex = '2';
+                var data = {
+                    "PageSize": 8,
+                    "PageIndex": 1,
+                }
+                api.getB2BCarList(data).then((res) => {
                     this.b2bCarList = res.data;
-                    console.log("大厅车辆列表",dataToJson(res.data));
+                })
+                // this.$ajax.post("/api/action2/B2BCarList.ashx",{
+                //         PageSize: 8,
+                //         PageIndex: 1
+                //     })
+                //     .this((res) => {
+                //         console.log("我的数据",res);
+                //     })
+                // var data = {
+                //     "PageSize": 8,
+                //     "PageIndex": 1,
+                // }
+                // $.ajax({
+                //      url: "/api/action2/B2BCarList.ashx",
+                //      dataType: 'json',
+                //      method: 'POST',
+                //      data: JSON.stringify(data),
+                // });
+            },
+            //获取B2B车辆品牌列表
+            _getB2BCarBrandList(){
+                api.getCarBrand().then((res) => {
+                    this.b2bCarBrand = res.data;
+                    console.log("汽车品牌列表",dataToJson(res.data));
+                })
+            },
+            //根据车品牌获取车系
+            _getCarSeries(){
+                let [data] = [{}]
+                data.brandid = '5';
+                api.getCarSeriesByBrand(data).then((res) => {
+                    console.log("根据车品牌获取车系",dataToJson(res.data));
                 })
             },
             
-            // ...mapActions(['getAllProvince']),
-            //获取图片数据
-            // _getAllProvince(){
-            //     axios.get('/api/action2/AllProvince.ashx').then((response)=>{
-            //         this.provinceList = response.data.data;
-            //         console.log(this.provinceList)
-            //     }).catch(function(error){
-            //         console.log('请求slider数据:'+error);
-            //     });
-            // },
         }
     }
 </script>

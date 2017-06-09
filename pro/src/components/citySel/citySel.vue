@@ -55,7 +55,6 @@
             this.onlyCityList = [];
             //城市转拼音
             this.cityToSpellList = [];
-
             //-获取城市信息列表
             this._getAllCityList();
         },

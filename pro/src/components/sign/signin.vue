@@ -90,6 +90,8 @@
 </template>
 
 <script>
+    
+    import api from "api/getData.js"
 
     export default {
     	name: 'signIn',
@@ -174,8 +176,36 @@
             },
             //登录表单提交(普通登录)
             submitSignIn(){
+                var me = this;
             	let lgForm = this.lgForm;
-            	console.log(lgForm);
+
+                if (!lgForm.username || !lgForm.password) {
+                    console.log('请填写完整')
+                    return;
+                }
+                
+                // 解构赋值
+                var [data] = [{}]; 
+                data.username = lgForm.username;
+                data.userpass = lgForm.password;
+                data.loginType = 'BusinessPC';
+                
+                api.Login(data)
+                    .then(res => {
+                        if(res.code === 0){
+                            me.closeBox()
+                            me.$notify({
+                                title: '登录成功',
+                                message: '这是一条成功的提示消息',
+                                type: 'success',
+                                duration: 2000,
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
             },
             //登录表单提交(手机号登录)
             submitSignInByPhone(){

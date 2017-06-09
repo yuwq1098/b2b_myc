@@ -17,10 +17,33 @@ export function shuffle(arr) {
 
 //api请求URL拼接
 export function joinUrl(url) {
-    return rootURL + url;
+  return rootURL + url;
 };
 
 //vue的Data数据转json
 export function dataToJson(data) {
   return JSON.parse(JSON.stringify(data));
 };
+
+//obj转FormData
+export function objToFormData(data) {
+  // var datax = {
+  //   name:"1234",
+  //   pass:"xxxx"
+  // };
+  // let myFormData = new FormData();
+  // for(var pops in datax){
+  //   console.log(pops,datax[pops])
+  //    myFormData.append("xxx", datax.pops);
+  // }
+  // console.log(myFormData);
+  
+  // datax.forEach((item, i) => {  
+  //    console.log(item, i);
+  // });  
+  // myFormData.append("username", lgForm.username);
+  //               myFormData.append("userpass", lgForm.password);
+  //               myFormData.append("loginType", "BusinessPC");
+  return myFormData;
+};
+
