@@ -40,7 +40,7 @@
 
 <script>
     import {pinyin} from 'assets/js/pinyin.js'; 
-    import {getAllCityList} from 'api/getData.js'
+    import api from 'api/getData.js'
     import CityInfo from 'base/getter/city'
 
     const AROUND_CITY_LEN = 10
@@ -82,7 +82,7 @@
         methods:{
         	//获取所有城市的列表
         	_getAllCityList(){
-        		getAllCityList().then((res) => {
+        		api.getAllCityList().then((res) => {
 			        this.allCityList = res.data
 			        this._updateCityList();
 		        })

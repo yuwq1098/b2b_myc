@@ -213,7 +213,7 @@
     import Swiper from "static/swiper.min.js"
     import {mapActions} from 'vuex'
     import cFootServer from "components/foot/foot-svr.vue"
-    import {getB2BCarList} from "api/getData.js"
+    import api from "api/getData.js"
     import {dataToJson} from "assets/js/util.js"
     
 
@@ -288,7 +288,7 @@
         methods:{
             //获取B2B大厅车辆列表
             _getB2BCarList(){
-                getB2BCarList().then((res) => {
+                api.getB2BCarList().then((res) => {
                     this.b2bCarList = res.data;
                     console.log("大厅车辆列表",dataToJson(res.data));
                 })
