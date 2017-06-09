@@ -35,6 +35,7 @@ import $ from "jquery"
 		var picminnum = jq(can.pnum).find('ul li').length;
 		var picpopnum = jq(can.pop_pic).find('ul li').length;
 		var picminw = jq(can.pnum).find('ul li').outerWidth(true);
+		console.log(picminw)
 		var picminh = jq(can.pnum).find('ul li').outerHeight(true);
 		var pictime;
 		var tpqhnum=0;
