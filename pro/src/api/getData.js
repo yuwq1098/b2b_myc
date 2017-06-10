@@ -1,8 +1,26 @@
 import axios from 'axios'
 import qs from 'qs'
-import {joinUrl} from 'assets/js/util.js'
-import store from 'store/store'
+import {joinUrl,dataToJson} from 'assets/js/util.js'
+import {store} from 'assets/js/store.js'; 
+import {md5} from 'assets/js/md5.js';
 
+//headers字段
+let [timestamp,token,secret]=[
+        ((+new Date())/1000).toFixed(0),
+        store.get('AccessToken'),
+        store.get('AccessSecret'),      
+    ];
+let sign=md5(timestamp+token+secret);
+
+//更新headers字段
+const updataSign=function(){
+    [timestamp,token,secret]=[
+        ((+new Date())/1000).toFixed(0),
+        store.get('AccessToken'),
+        store.get('AccessSecret'),      
+    ];
+    sign=md5(timestamp+token+secret);
+};
 
 // axios 配置
 axios.defaults.timeout = 5000;
@@ -14,11 +32,10 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 // http request 拦截器
 axios.interceptors.request.use(
     config => {
-        console.log("拦截器,token",store.state.user.token)
-        if (store.state.user.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
-            config.headers.Authorization = `token ${store.state.token}`;
-        }
-        config.headers.sign = "ywq";
+        // updataSign();
+        // if (token&&secret) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+        //     config.headers = {timestamp:timestamp,token:token,sign:sign};
+        // }
         return config;
     },
     err => {
@@ -32,6 +49,26 @@ export function fetch(url, params) {
     return new Promise((resolve, reject) => {
         let newUrl = joinUrl(url);
         axios.post(newUrl, params)
+            .then(response => {
+                resolve(response.data);
+            }, err => {
+                reject(err);
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    })
+}
+
+// 自定义请求数据方法(post请求)
+export function fetchSign(url, params) {
+    return new Promise((resolve, reject) => {
+        let newUrl = joinUrl(url);
+        updataSign();
+        const config = {
+            headers: {timestamp:timestamp,token:token,sign:sign},
+        }
+        axios.post(newUrl, params,config)
             .then(response => {
                 resolve(response.data);
             }, err => {
@@ -75,11 +112,11 @@ export default {
     },
     //获取所有车辆(JSON提交方式)
     getB2BCarList(params){
-        return fetch('/action2/B2BCarList.ashx', JSON.stringify(params))
+        return fetch('/action2/B2BCarList.ashx', dataToJson(params))
     },
     //根据车辆id获取车辆详情信息
     getCarDetalis(params){
-        return fetch('/action2/B2BCarDetail.ashx', JSON.stringify(params))
+        return fetch('/action2/B2BCarDetail.ashx', dataToJson(params))
     },
     //用户登录||(FormData提交方式[qs转换])
     Login(params){
@@ -94,4 +131,23 @@ export default {
     getCarSeriesByBrand(params){
         return fetch('/action2/CarSeries.ashx',params);
     },
+
+    //获取我的我的个人信息
+    getMyMemberInfo(params){
+        return fetchSign('/action2/MyMemberInfo.ashx',dataToJson(params));
+    },
+    
+    /*getMyMemberInfo(params){
+        const url = joinUrl("/action2/MyMemberInfo.ashx");
+        updataSign();
+        const data = dataToJson(params);
+        const config = {
+            headers: {timestamp:timestamp,token:token,sign:sign},
+        }
+        return axios.post(url, data, config).then((res) => {
+            return Promise.resolve(res.data)
+        })
+
+        // return fetch('/action2/MyMemberInfo.ashx',dataToJson(params));
+    },*/
 }

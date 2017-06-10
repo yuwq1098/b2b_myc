@@ -92,6 +92,7 @@
 <script>
     
     import api from "api/getData.js"
+    import { mapActions } from 'vuex'
 
     export default {
     	name: 'signIn',
@@ -147,6 +148,7 @@
             
     	},
     	methods:{
+            ...mapActions({ setUserInfo: 'setUserInfo' }),
     		pwdFocus(e){
                e.target.type="password"
     		},
@@ -177,6 +179,9 @@
             //登录表单提交(普通登录)
             submitSignIn(){
                 var me = this;
+                //本地存储方法
+                let {store} = this.method;
+
             	let lgForm = this.lgForm;
 
                 if (!lgForm.username || !lgForm.password) {
@@ -193,6 +198,10 @@
                 api.Login(data)
                     .then(res => {
                         if(res.code === 0){
+                            store.set('AccessToken',res.data.AccessToken);
+                            store.set('AccessSecret',res.data.AccessSecret);
+                            this.setUserInfo(res.data)
+
                             me.closeBox();
                             me.$notify({
                                 title: '登录成功',
@@ -204,6 +213,11 @@
                     })
                     .catch(error => {
                         console.log(error)
+                    })
+
+                api.getMyMemberInfo(data)
+                    .then(data => {
+                        console.log(data);
                     })
 
             },

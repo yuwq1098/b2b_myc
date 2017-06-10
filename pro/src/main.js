@@ -8,6 +8,7 @@ import routes from './router/router.js'
 import store from './store/store'
 import FastClick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
+import * as yyd from 'assets/js/yydjs.js';
 
 import {
   Pagination,
@@ -152,9 +153,12 @@ if ('addEventListener' in document) {
 
 // 将axios 改写为 Vue 的原型属性,使得其在其他组件中一样能使用
 Vue.prototype.$ajax = axios
+//挂载全局方法在vue对象原型方法下
+Vue.prototype.method=yyd;
 
 Vue.use(VueRouter)
 
+//路由对象
 const router = new VueRouter({
 	routes,
 	mode: 'hash',
