@@ -189,11 +189,11 @@
                 data.username = lgForm.username;
                 data.userpass = lgForm.password;
                 data.loginType = 'BusinessPC';
-                
+
                 api.Login(data)
                     .then(res => {
                         if(res.code === 0){
-                            me.closeBox()
+                            me.closeBox();
                             me.$notify({
                                 title: '登录成功',
                                 message: '这是一条成功的提示消息',

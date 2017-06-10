@@ -1,5 +1,6 @@
 import api from 'api/getData.js'
 import * as types from '../types'
+import md5 from 'md5'
 
 const state = {
     // 用户登录状态
@@ -16,10 +17,11 @@ const actions = {
      * 用户登录
      */
     setUserInfo({ commit }, res) {
-        localStorage.setItem('userInfo', JSON.stringify(res))
-        localStorage.setItem('loginStatus', true)
-        commit(types.SET_USER_INFO, res)
-        commit(types.SET_LOGIN_STATUS, true)
+        // localStorage.setItem('userInfo', JSON.stringify(res))
+        // localStorage.setItem('loginStatus', true)
+        localStorage.setItem('token', '')
+        // commit(types.SET_USER_INFO, res)
+        // commit(types.SET_LOGIN_STATUS, true)
     },
 
     /**

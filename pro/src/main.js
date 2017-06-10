@@ -195,6 +195,26 @@ router.afterEach((to) => {
 });
 
 
+//---vue的过滤器
+
+//时间转换
+Vue.filter('dateFn', function(data) {
+    if(!data&&data!=0) return;
+    var data = data.substr(0,4)+'年'+data.substr(5,2)+'月';
+    return data.toString();
+})
+Vue.filter('dateFnToYear', function(data) {
+    if(!data&&data!=0) return;
+    var data = data&&data.substr(0,4)+'年';
+    return data.toString();
+})
+//公里单位转换
+Vue.filter('mileFn', function(data) {
+    console.log("aaaa")
+    if(!data&&data!=0) return;
+    return parseInt(data).toFixed(1)+"万公里"
+})
+
 new Vue({
 	router,
   store,

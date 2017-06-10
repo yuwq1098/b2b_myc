@@ -220,8 +220,6 @@
                             </ul>
                         </div><!-- 列表组b -->
                     </div><!-- 相似推荐 -->
-                    
-
                 </section><!-- 1200px布局 -->
             </div><!-- 网页主体 -->
 		</div>
@@ -269,8 +267,12 @@
             }
         },
         mounted(){
+            
+        },
+        //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
+        activated(){
             setTimeout(() => {
-                
+                console.log(this.$router.currentRoute.query);
             },20)
         },
         // 在当前模块注册组件

@@ -169,7 +169,7 @@
                             <div class="m-lst-con">
                                 <ul class="m-lst f__clearfix">
                                     <li class="m-item" v-for="item in b2bCarList">
-                                        <router-link to="/carDetails" class="u-box">
+                                        <router-link :to="{path:'/carDetails',query: { CarId: item.CarId }}" class="u-box">
                                             <div class="u-pic">
                                                 <img v-lazy="item.FileUri" :alt="item.Title"/>
                                             </div>
@@ -272,22 +272,6 @@
         //退出的生命周期钩子
         deactivated(){
            
-        },
-        //vue的过滤器
-        filters: {
-            //时间格式转换
-            dateFn: function (date) {
-                var date = date.substr(0,4)+'年'+date.substr(5,2)+'月';
-                return date.toString();
-            },
-            dateFnToYear: function (date) {
-                var date = date.substr(0,4)+'年';
-                return date.toString();
-            },
-            //公里单位转换
-            mileFn: function(data){
-                return parseInt(data).toFixed(1)+"万公里"
-            }
         },
         methods:{
             //获取B2B大厅车辆列表

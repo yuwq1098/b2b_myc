@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import {joinUrl} from 'assets/js/util.js'
-
+import store from 'store/store'
 
 
 // axios 配置
@@ -10,13 +10,21 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 // axios.defaults.baseURL = 'https://www.muyouche.com/';
 // axios.defaults.baseURL = 'http://localhost:8080';
 
-//POST传参序列化
-// axios.interceptors.request.use((config) => {
-//     if(config.method  === 'post'){
-//         config.data = qs.stringify(config.data);
-//     }
-//     return config;
-// });
+
+// http request 拦截器
+axios.interceptors.request.use(
+    config => {
+        console.log("拦截器,token",store.state.user.token)
+        if (store.state.user.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
+            config.headers.Authorization = `token ${store.state.token}`;
+        }
+        config.headers.sign = "ywq";
+        return config;
+    },
+    err => {
+        return Promise.reject(err);
+    });
+
 
 
 // 自定义请求数据方法(post请求)
