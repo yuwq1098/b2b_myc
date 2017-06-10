@@ -209,16 +209,18 @@
                                 type: 'success',
                                 duration: 2000,
                             });
+
+                            api.getMyMemberInfo(data)
+                                .then(data => {
+                                    console.log(data);
+                                })
                         }
                     })
                     .catch(error => {
                         console.log(error)
                     })
 
-                api.getMyMemberInfo(data)
-                    .then(data => {
-                        console.log(data);
-                    })
+                
 
             },
             //登录表单提交(手机号登录)
