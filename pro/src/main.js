@@ -210,7 +210,6 @@ Vue.filter('dateFnToYear', function(data) {
 })
 //公里单位转换
 Vue.filter('mileFn', function(data) {
-    console.log("aaaa")
     if(!data&&data!=0) return;
     return parseInt(data).toFixed(1)+"万公里"
 })

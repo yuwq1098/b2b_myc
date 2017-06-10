@@ -77,7 +77,10 @@ export default {
     getB2BCarList(params){
         return fetch('/action2/B2BCarList.ashx', JSON.stringify(params))
     },
-
+    //根据车辆id获取车辆详情信息
+    getCarDetalis(params){
+        return fetch('/action2/B2BCarDetail.ashx', JSON.stringify(params))
+    },
     //用户登录||(FormData提交方式[qs转换])
     Login(params){
         return fetch('/action2/UserLogin.ashx', qs.stringify(params))

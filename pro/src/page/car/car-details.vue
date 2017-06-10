@@ -12,11 +12,13 @@
                     </div><!-- 面包屑 -->
 
                     <div class="m-mn-hd f__clearfix">
-
-                        <fc-slide class="f__fl" :carDateilsList="carDateilsList"></fc-slide>
+                        
+                        <div class="f__fl" v-if="carDetailsImgList">
+                            <fc-slide :carDetailsList="carDetailsImgList"></fc-slide>
+                        </div>
 
                         <div class="m-mn-info f__fr">
-                            <div class="m-tit">大众-朗逸 2011款 1.6L 手动品悠版</div>
+                            <div class="m-tit">{{carDetailsInfo.Title}}</div>
                             <div class="m-pic f__clearfix">
                                 <span class="u-price"><em class="tit">批发价</em><em class="vital">4.50万</em></span>
                                 <span class="u-del">零售价：5.60万</span>
@@ -82,7 +84,7 @@
                                     <ul class="u-list f__fl">
                                         <li class="u-item">
                                             <span class="u-attr">表显里程</span><!-- 属性 -->
-                                            <span class="u-val">3.92万公里</span><!-- 值 -->
+                                            <span class="u-val">{{carDetailsInfo.Mileage}}万公里</span><!-- 值 -->
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">过户次数</span><!-- 属性 -->
@@ -116,17 +118,18 @@
                                         <div class="u-icon">
                                             <img src="../../assets/img/businesses-face.png" alt="头像" />
                                         </div><!-- 服务商头像 -->
-                                        <div class="u-tit">威力汽车服务
-                                           <div class="u-prove">车商认证</div><!-- 认证标识 -->
+                                        <div class="u-tit">{{carOtherInfo.CdgName}}
+                                           <div class="u-prove" v-if="carOtherInfo.AuthType=='企业车行'">车商认证</div><!-- 认证标识 -->
+                                           <div class="u-prove" v-else>{{carOtherInfo.AuthType}}</div><!-- 认证标识 -->
                                         </div><!-- 服务商名字 -->
                                         <div class="u-tel">
-                                            <span class="name">王先生</span>
-                                            <span class="tel">13065656525</span>
+                                            <span class="name">{{carOtherInfo.ContactMan}}</span>
+                                            <span class="tel">{{carOtherInfo.Mobile}}</span>
                                         </div><!-- 电话 -->
-                                        <div class="u-adss">地址：顺义汽车美食城</div><!-- 地址 -->
+                                        <div class="u-adss">地址：{{carOtherInfo.CdgAddress}}</div><!-- 地址 -->
                                         
                                     </div><!-- 头部 -->
-                                    <div class="u-mct-txt">这辆车我没用几个月，整个车都很新，跟新车没什么区别。车子基本没怎么开，公里数还不到四万公里。一直都是城市道路行驶，自家用车，正常使用，车况很好</div><!-- 文本介绍 -->   
+                                    <div class="u-mct-txt">{{carOtherInfo.CdgDescription}}</div><!-- 文本介绍 -->   
                                 </div>
                                 
                             </div><!-- 车商认证信息 -->
@@ -229,41 +232,22 @@
 <script>
     import $ from "jquery"
     import fcSlide from "components/slide/fc_slide.vue"
+    
+    import api from "api/getData.js"
 
 	export default {
         name: "car-details",
         // 数据
         data() {
             return{
-                carDateilsList:{
-                    merchantName: '卖家：威力服务汽车行',
-                    imgItems:[
-                        {
-                            title:'图一',
-                            imgurl: require('../../assets/img/car-details_001.jpg'),
-                        },
-                        {
-                            title:'图二',
-                            imgurl: require('../../assets/img/car-details_002.jpg'),
-                        },
-                        {
-                            title:'图三',
-                            imgurl: require('../../assets/img/car-details_003.jpg'),
-                        },
-                        {
-                            title:'图四',
-                            imgurl: require('../../assets/img/car-details_004.jpg'),
-                        },
-                        {
-                            title:'图五',
-                            imgurl: require('../../assets/img/car-details_005.jpg'),
-                        },
-                        {
-                            title:'图六',
-                            imgurl: require('../../assets/img/car-details_006.jpg'),
-                        },
-                    ]
-                }
+                carDetailsImgList:{
+                    merchantName : "无形",
+                    imgItems:[]
+                },
+
+                carDetailsInfo:{},
+                carOtherInfo:{},
+                carFiles:{},
             }
         },
         mounted(){
@@ -272,7 +256,20 @@
         //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated(){
             setTimeout(() => {
-                console.log(this.$router.currentRoute.query);
+                var query = this.$router.currentRoute.query;
+                var data = {
+                    CarId : query.CarId
+                }
+                api.getCarDetalis(data).then((res) => {
+                    console.log(res);
+                    this.carDetailsInfo = res.data.CarInfo;
+                    this.carOtherInfo = res.data.OtherInfo;
+                    this.carFiles = res.data.CarFiles;
+                    //获取车辆图片信息
+                    this.carDetailsImgList = this._getCarImgsInfo(this.carFiles,this.carOtherInfo);
+                    
+                    console.log("车辆图片信息",this.carDetailsImgList)
+                })
             },20)
         },
         // 在当前模块注册组件
@@ -287,6 +284,23 @@
             //历史交易二维码隐藏
             codeEwmHide(index){
                 this.$refs.hvrewm[index].style.display = "none";
+            },
+            //获取车辆图片列表
+            _getCarImgsInfo(list,otherInfo){
+                let map = {
+                    merchantName : "",
+                    imgItems:[]
+                }
+                map.merchantName = otherInfo.CdgName;
+                if(list.length<=0) return map;
+                list.forEach((item, index) => {
+                    let obj = {
+                        title: item.Title,
+                        imgurl: item.FileUri,
+                    }
+                    map.imgItems.push(obj)
+                });
+                return map;
             }
         }
 	}

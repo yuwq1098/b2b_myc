@@ -213,8 +213,8 @@
     import Swiper from "static/swiper.min.js"
     import {mapActions} from 'vuex'
     import cFootServer from "components/foot/foot-svr.vue"
-    import api from "api/getData.js"
     import {dataToJson} from "assets/js/util.js"
+    import api from "api/getData.js"
     
 
     export default {
