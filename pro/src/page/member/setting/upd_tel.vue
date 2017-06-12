@@ -1,37 +1,35 @@
 <template>
 	<div class="updTelephone">
-        <p>我是修改手机号页面</p>
-	    <div class="g-mn-con">
-            <div class="m-hd">
-                
-            </div><!-- 顶部标题头 -->
-            <div class="m-tap">
-
-            </div><!-- 条件切换tap -->
-            <div>
+        <div class="g-mn-con">
+            <m-head>修改手机号绑定</m-head>
+            <div class="m-upd-box">
                 
             </div>
-        </div>
-        
+        </div>        
 	</div>
 </template>
 
 <script>
+    import MHead from "components/base/memberHd.vue"
 	export default {
         name: "updTelephone",
         // 数据
         data() {
             return{
-                
+                ruleForm: {
+                    pass: '',
+                    newPass: '',
+                    checkPass: ''
+                },
             }
         },
         // 自定义函数(方法)
         methods: {
-            
+
         },
         // 在当前模块注册组件
         components:{
-
+            MHead,
         },
 	}
 </script>

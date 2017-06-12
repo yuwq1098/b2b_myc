@@ -7,7 +7,7 @@
             <div class="m-order-tap" v-loading="loading">
                 <el-tabs v-model="activeName" @tab-click="handleClick">
                     <el-tab-pane label="全部订单" name="all">
-                        <order-table order-type="all"></order-table>
+                        <all-order-table order-type="all"></all-order-table>
                     </el-tab-pane>
                     <el-tab-pane label="待签订电子合同" name="contract">
                         <order-table order-type="contract"></order-table>
@@ -18,7 +18,9 @@
                     <el-tab-pane label="待过户验收" name="check">
                         <order-table order-type="check"></order-table>
                     </el-tab-pane>
-                    <el-tab-pane label="过户完成" name="success">过户完成</el-tab-pane>
+                    <el-tab-pane label="过户完成" name="success">
+                        <order-table order-type="success"></order-table>
+                    </el-tab-pane>
                 </el-tabs>
             </div>
         </div>

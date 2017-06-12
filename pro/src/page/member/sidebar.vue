@@ -52,15 +52,7 @@
             'hash':'',
             'children': [
                 {
-                    'title': '车行认证1',
-                    'hash':'',
-                },
-                {
-                    'title': '车行认证2',
-                    'hash':'',
-                },
-                {
-                    'title': '车行认证3',
+                    'title': '我的认证',
                     'hash':'',
                 },
             ]
@@ -75,14 +67,6 @@
                 },
                 {
                     'title': '我的历史交易',
-                    'hash':'',
-                },
-                {
-                    'title': '充值',
-                    'hash':'',
-                },
-                {
-                    'title': '提现',
                     'hash':'',
                 },
             ]  
@@ -121,16 +105,16 @@
             'children': [
                 {
                     'title': '手机号绑定',
-                    'hash':'',
+                    'hash':'/member/setting/phone',
                 },
                 {
                     'title': '修改密码',
                     'hash':'/member/setting/password',
                 },
-                {
-                    'title': '使用帮助',
-                    'hash':'',
-                },
+                // {
+                //     'title': '使用帮助',
+                //     'hash':'/member/setting/help',
+                // },
             ]  
         }
     ];
@@ -152,12 +136,11 @@
                     this.isActive = [false, false, false, false, false];
                 }
                 this.$set(this.isActive,index,!this.isActive[index]);
-                
             },
         },
         // 在当前模块注册组件
         components:{
-
+            
         },
 	}
 </script>

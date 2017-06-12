@@ -139,7 +139,10 @@ export default {
     },
 
     //根据品牌获取车系
-    getCarSeriesByBrand(params){
+    getCarSeriesByBrand(id){
+        let params = {
+            brandid: id,
+        }
         return fetch('/action2/CarSeries.ashx',params);
     },
 
@@ -184,8 +187,8 @@ export default {
     },
 
     //获取所有车辆颜色
-    getAllCarColor(params){
-        return fetch('/action2/AllCarColor.ashx', dataToJson(params))
+    getAllCarColor(){
+        return get('/action2/AllCarColor.ashx')
     },
 
     //支付信誉保证金

@@ -72,14 +72,17 @@
         margin 20px auto 0
         .m-form-gp
             .m-gp-line
-                height 42px
+                min-height 42px
                 width @width
                 position relative
                 margin-bottom 15px
                 .u-ipt-box
+                    height 42px
                     _borderAll(#e2e2e2)
                     _borderRadius(3px)
                     position relative
+                    &.error
+                        _borderAll(#f43)
                     &.code
                         width @width - 160px
                         .u-ipt
@@ -100,9 +103,13 @@
                         margin auto 0
                         .iconfont
                             font-size 18px
+                .error-validate
+                    line-height 28px
+                    height 28px
+                    color #f43
                 .u-vcode
                     width 130px
-                    height @height - 8px
+                    height 42px - 8px
                     position absolute
                     right 0
                     top 4px
@@ -111,7 +118,7 @@
                         height @height
                 .m-code
                     width 145px
-                    height @height + 2px
+                    height 42px + 2px
                     position absolute
                     right 0
                     top 0

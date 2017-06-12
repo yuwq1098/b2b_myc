@@ -69,8 +69,12 @@
                         .m-lk-list,.m-other-price
                             float left
                         .m-lk-list
+                            max-width 950px
+                            overflow hidden
                             height 28px
                             margin-top 8px
+                            &.no-overflow
+                                overflow inherit
                             .u-item
                                 float left
                                 height 28px
@@ -155,7 +159,9 @@
                                 _spacingPlus(2px)
                                 vertical-align middle
                 .u-more
-                    float right
+                    position absolute
+                    right 0
+                    top 0
                     color #545454
                     margin-right 8px
                     .iconfont

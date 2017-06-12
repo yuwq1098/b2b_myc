@@ -51,8 +51,9 @@
 
 						<div class="m-tr-box box2">
 							
-							<div class="m-price" v-show="orderType=='contract'">
+							<div class="m-price" v-show="orderType=='contract'||orderType=='success'">
 								<p class="u-price">￥<em>4.00万元</em></p>
+								<p class="u-tip">（购车总额）</p>
 							</div><!-- 定金/待签合同 -->
 
 							<div class="m-price" v-show="orderType=='payment'||orderType=='check'">
@@ -77,6 +78,12 @@
 								<p class="u-state">待过户验收</p>
 								<a href="javascript:;" class="u-lk">订单详情</a>
 							</div><!-- 状态 -->
+
+							<div class="m-state" v-show="orderType=='success'">
+								<p class="u-state">已成功过户</p>
+								<a href="javascript:;" class="u-lk">订单详情</a>
+							</div><!-- 状态 -->
+
 						</div>
 
 						<div class="m-tr-box box4">
@@ -94,6 +101,10 @@
 							<div class="m-oper" v-show="orderType=='check'">
 							    <div class="u-line"><a href="javascript:;" class="u-btn">过户完成</a></div>
 								<div class="u-line"><a href="javascript:;" class="u-lk">支付尾款</a></div>
+								<div class="u-line"><a href="javascript:;" class="u-lk">退款维权</a></div>
+							</div><!-- 操作 -->
+
+							<div class="m-oper" v-show="orderType=='success'">
 								<div class="u-line"><a href="javascript:;" class="u-lk">退款维权</a></div>
 							</div><!-- 操作 -->
 

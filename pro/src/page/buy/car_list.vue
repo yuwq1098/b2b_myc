@@ -25,66 +25,42 @@
                             <span class="m-gp-tit">品牌：</span>
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
-                                    <ul class="m-lk-list f__clearfix">
-                                        <li class="u-item on"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">大众</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">奥迪</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">丰田</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">奔驰</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">宝马</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">本田</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">别克</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">现代</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">日产</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">福特</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">雪佛兰</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">起亚</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">马自达</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">路虎</a></li>
+                                    <ul class="m-lk-list f__clearfix" id="js__brand_list">
+                                        <li class="u-item" :class="{'on':!currentBrand}" @click.stop="brandFilter(-1,$event.target)"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item" v-for="(item,index) in allCarBrandList" v-if="index<13" @click.stop="brandFilter(item.brand_id,$event.target)">
+                                            <a href="javascript:;"  class="u-lk">{{item.brand_name}}</a>
+                                        </li>
                                     </ul>
                                 </div><!-- 信息 -->
                                 <div class="m-info-cld"></div><!-- 子信息 -->
                             </div>
-                            <a href="javascript:;" class="u-more">
+                            <a href="javascript:;" class="u-more" v-if="allCarBrandList.length>=13">
+                                更多<i class="iconfont icon-arrowdown1"></i>
+                            </a>
+                        </div>
+                        <div class="m-sel-gp f__clearfix" v-show="!isNotBrand">
+                            <span class="m-gp-tit">车系：</span>
+                            <div class="m-sel-lk-box">
+                                <div class="m-info">
+                                    <ul class="m-lk-list f__clearfix" id="js__series_list">
+                                        <li class="u-item" :class="{'on':!currentSeries}"  @click.stop="seriesFilter(-1,$event.target)"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item" v-for="(item,index) in allsearchCarSeries" v-if="index<10" @click.stop="seriesFilter(item.brand_id,$event.target)"><a href="javascript:;" class="u-lk">{{item.series_name}}</a></li>
+                                    </ul>
+                                </div><!-- 信息 -->
+                                <div class="m-info-cld"></div><!-- 子信息 -->
+                            </div>
+                            <a href="javascript:;" class="u-more" v-if="allsearchCarSeries.length>=12">
                                 更多<i class="iconfont icon-arrowdown1"></i>
                             </a>
                         </div>
                         <div class="m-sel-gp">
-                            <span class="m-gp-tit">车系：</span>
-                            <div class="m-sel-lk-box">
-                                <div class="m-info">
-                                    <ul class="m-lk-list">
-                                        <li class="u-item on"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">捷达</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">速腾</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">迈腾</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">宝来</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">奔腾B70</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">全新奔腾B50</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">奇瑞QQ3</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">五菱之光</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">马自达</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">睿翼</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">奥迪A6L</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">哈弗H6</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">奔腾X80</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">一汽丰田RAV4</a></li>
-                                    </ul>
-                                </div><!-- 信息 -->
-                            </div>
-                        </div>
-                        <div class="m-sel-gp">
                             <span class="m-gp-tit">价格：</span>
                             <div class="m-sel-lk-box">
-                                <div class="m-info f__clearfix">
+                                <div class="m-info f__clearfix" ref="priceFilter">
                                     <ul class="m-lk-list">
-                                        <li class="u-item on"><a href="javascript:;" class="u-lk">5万以下</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">5-10万</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">10-15万</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">15-20万</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">20-30万</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">30-50万</a></li>
-                                        <li class="u-item"><a href="javascript:;" class="u-lk">50万以上</a></li>
+                                        <li class="u-item" v-for="(item,index) in searchPriceList" :min="item.min" :max="item.max" :class="{'on':index==0}">
+                                            <a href="javascript:;" class="u-lk">{{item.title}}</a>
+                                        </li>
                                     </ul>
                                     <div class="m-other-price f__clearfix">
                                         <div class="m-price"><input name="min-price" class="u-price-ipt" type="text" maxlength="8" />万</div>
@@ -99,11 +75,11 @@
                             <span class="m-gp-tit">其他：</span>
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
-                                    <ul class="m-lk-list">
+                                    <ul class="m-lk-list no-overflow">
                                         <li class="u-item">
                                             <el-select v-model="carColor" placeholder="车型">
                                                 <el-option
-                                                  v-for="item in carColorItems"
+                                                  v-for="item in carModel"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -113,7 +89,7 @@
                                         <li class="u-item">
                                             <el-select v-model="carColor" placeholder="车龄">
                                                 <el-option
-                                                  v-for="item in carColorItems"
+                                                  v-for="item in carAge"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -133,7 +109,7 @@
                                         <li class="u-item">
                                             <el-select v-model="carColor" placeholder="里程">
                                                 <el-option
-                                                  v-for="item in carColorItems"
+                                                  v-for="item in mileage"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -143,7 +119,7 @@
                                         <li class="u-item">
                                             <el-select v-model="carColor" placeholder="排量">
                                                 <el-option
-                                                  v-for="item in carColorItems"
+                                                  v-for="item in displacement"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -153,7 +129,7 @@
                                         <li class="u-item">
                                             <el-select v-model="carColor" placeholder="颜色">
                                                 <el-option
-                                                  v-for="item in carColorItems"
+                                                  v-for="item in carColor"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -163,7 +139,7 @@
                                         <li class="u-item">
                                             <el-select v-model="carColor" placeholder="过户次数">
                                                 <el-option
-                                                  v-for="item in carColorItems"
+                                                  v-for="item in changeNum"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -176,6 +152,10 @@
                         </div>
                     </div><!-- 选择过滤条件 -->
                     
+                    <div class="m-b2b-svr">
+                        <div></div>
+                    </div><!-- b2b服务专享 -->
+
                     <div class="m-lst-gp-sel">
                         <div class="m-hd f__clearfix">
                             <h3 class="u-tit f__fl">全部车源</h3>
@@ -205,168 +185,7 @@
                         <div class="m-con">
                             <div class="m-gp-lst">
                                 <ul class="m-car-lst f__clearfix">
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                    <li class="m-item">
+                                    <li class="m-item" v-for="n in 8">
                                         <router-link to="/carDetails" class="u-box">
                                             <div class="u-pic">
                                                 <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
@@ -396,9 +215,9 @@
                                     @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
                                     :current-page.sync="currentPage"
-                                    :page-size="8"
-                                    layout="prev, pager, next, jumper"
-                                    :total="435">
+                                    :page-size="pageSize"
+                                    layout="prev, pager, next"
+                                    :total="totalPage">
                                 </el-pagination>
                             </div>
                         </div>
@@ -411,13 +230,31 @@
 </template>
 
 <script>
+    import $ from 'jquery'
+    import api from 'api/getData.js'
+    // 本地数据
+    import {searchPriceList} from "api/localJson/home.js"
+    import {changeNum,carAge,carModel,mileage,displacement} from "api/localJson/filter.js"
+    
 	export default {
         name: "buy-car-list",
         // 数据
         data() {
             return{
-                currentPage: 5,
-                carColorItems: [
+
+                currentBrand: '',  //当前选中的汽车品牌
+                currentSeries: '',  //当前选中的汽车车系
+                allCarBrandList: [],    //全部的汽车品牌列表
+                allsearchCarSeries: [],    //全部的根据汽车品牌查询到的车系
+                
+                isNotBrand: true,   //品牌不限时不显示车系
+
+                searchPriceList: searchPriceList,    //本地数据中的价格查询字典列表
+
+                currentPage: 5,         //查询结果的当前页
+                pageSize : 8,           //每页所含的数据数量
+                totalPage: 400,         //总数据条数
+                carColorItems: [        //汽车颜色选择列表
                     {
                         value: '选项1',
                         label: '黄金糕'
@@ -435,17 +272,89 @@
                         label: '北京烤鸭'
                     }
                 ],
-                carColor: '',
+                //过户次数
+                changeNum: changeNum,
+                //车龄
+                carAge: carAge,
+                carModel: carModel,
+                carColor: [],
+                mileage: mileage,
+                displacement: displacement,
             }
+
+        },
+        computed:{
+            
+        },
+        created(){
+
+        },
+        mounted() {
+            
+        },
+        activated(){
+            this._getCarBrandList();
+            this._getCarColor();
         },
         // 自定义函数(方法)
         methods: {
+            
+            //获取车辆品牌
+            _getCarBrandList(){
+                api.getCarBrand().then((res) => {
+                    this.allCarBrandList = res.data
+                })
+            },
+            //获取对应汽车品牌的车系
+            _getDefaultCarSeries(id){
+                api.getCarSeriesByBrand(id).then((res) => {
+                    this.allsearchCarSeries = res.data;
+                })
+            },
+            //获取车辆颜色
+            _getCarColor(){
+                api.getAllCarColor().then((res) => {
+                    let carColor = [];
+                    res.data.map(function(value, index, array) {
+                        let obj = {}
+                        obj.value = value.ColorCode;
+                        obj.label = value.ColorName;
+                        carColor.push(obj)
+                    });
+                    this.carColor = carColor;
+                })   
+            },
+
+            //汽车品牌切换
+            brandFilter(id,e){
+                this.isNotBrand = id>-1 ? false :true; 
+                var js__brand_list = $("#js__brand_list");
+                js__brand_list.find(">.u-item").removeClass("on");
+                $(e).parent(".u-item").addClass("on");
+                //如果不是不限的汽车品牌，那么就调用对应的接口数据
+                if(id>-1){
+                    this._getDefaultCarSeries(id);
+                    var js__series_list = $("#js__series_list");
+                    js__series_list.find(">.u-item").removeClass("on");
+                    js__series_list.find(">.u-item").eq(0).addClass("on");
+                }
+            },
+            //车系切换
+            seriesFilter(id,e){
+                var js__series_list = $("#js__series_list");
+                js__series_list.find(">.u-item").removeClass("on");
+                $(e).parent(".u-item").addClass("on");
+            },
+            
+            //分页每页展示数据大小变化后出发
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
+            //分页页号切换触发
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
-            }
+            },
+
         },
         // 在当前模块注册组件
         components:{

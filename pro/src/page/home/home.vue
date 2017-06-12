@@ -35,7 +35,6 @@
                             </div><!-- 图片容器 -->
                             <div class="swiper-pagination"></div><!-- 引入分页器 -->
                         </div>
-
                     </div><!-- 轮播摸块 -->
                 </div><!-- 广告区 -->
 

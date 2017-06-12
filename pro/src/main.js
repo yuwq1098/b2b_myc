@@ -15,7 +15,33 @@ import store from './store/store'
 import VueLazyload from 'vue-lazyload'
 
 //引入表单验证vee-validate插件
-import {VeeValidate, Veeconfig} from './validation';
+// import {VeeValidate, Veeconfig, Validator} from './validation';
+// Vue.use(VeeValidate,Veeconfig, Validator);
+
+import VeeValidate from 'vee-validate';
+//修改语言包
+import zh_CN from 'vee-validate/dist/locale/zh_CN';
+//自定义规则
+import Validator from './validation';
+
+//VeeValidate语言包切换,放自定义提示前
+Validator.addLocale(zh_CN);
+
+
+//自定义提示
+const dictionary = {
+    zh_CN: {
+        messages: {
+            required: (field) => field + '不能为空'
+        }
+    }
+};
+Validator.updateDictionary(dictionary);
+
+//载入
+Vue.use(VeeValidate, {
+  locale: 'zh_CN',
+});
 
 //引入岩东的js
 import * as yyd from 'assets/js/yydjs.js';
@@ -32,7 +58,7 @@ Vue.prototype.method=yyd;
 Vue.use(VueRouter)
 Vue.use(ElementUI)
 
-Vue.use(VeeValidate,Veeconfig);
+
 
 Vue.use(VueLazyload, {
   loading: require('assets/img/car-default.jpg')
@@ -48,7 +74,7 @@ const router = new VueRouter({
 // 路由导航钩子beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
-      if (store.state.user.token) {  // 通过vuex state获取当前的token是否存在
+      /*if (store.state.user.token) {  // 通过vuex state获取当前的token是否存在
           next();   //通过
       }
       else {
@@ -59,7 +85,8 @@ router.beforeEach((to, from, next) => {
           });
           next({path: from?from.path:'/home'});
           return;
-      }
+      }*/
+      next();
   }
   else {
       next();

@@ -20,12 +20,13 @@
             <div class="m-login-ipt" v-show="loginType==0">
                 <form class="m-form-gp" @submit.prevent="submitSignIn" ref="signInForm">
                 	<div class="m-gp-line">
-                	    <div class="u-ipt-box">
-                	    	<input class="u-ipt" v-model="lgForm.username" type="text" placeholder="输入手机号/用户名" />
+                	    <div class="u-ipt-box error">
+                	    	<input v-validate data-rules="required|mobile" name="username"  class="u-ipt" v-model="lgForm.username" type="text" placeholder="输入手机号/用户名" />
                 	    	<div class="u-ico">
                 	    	    <i class="iconfont icon-zhanghuffffffpx"></i><!-- 用户 -->
                 	    	</div>
                 	    </div>
+                        <p v-show="false" class="error-validate">用户名输入错误</p><!-- 错误提示 -->
                 	</div>
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box code">
@@ -34,6 +35,7 @@
                 		<a class="u-vcode">
                 			<img :src="vcodeUrl" @click.stop="getCode"/>
                 		</a><!-- 验证码区域 -->
+                        <p v-show="false" class="error-validate">请输入图形验证码</p><!-- 错误提示 -->
                 	</div>
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box">
@@ -42,6 +44,7 @@
                 		    	<i class="iconfont icon-mimaffffffpx"></i>锁
                 		    </div> -->
                 		</div>
+                        <p v-show="false" class="error-validate">请输入密码</p><!-- 错误提示 -->
                 	</div>
                 	<div class="m-gp-line m-btn-oper">
                 		<button class="u-btn login-btn">登录</button>
@@ -97,41 +100,9 @@
     export default {
     	name: 'signIn',
     	data () {
-    		var validatePass = (rule, value, callback) => {
-		        if (value === '') {
-		            callback(new Error('请输入密码'));
-		        } else {
-		            if (this.ruleForm.checkPass !== '') {
-		                this.$refs.ruleForm.validateField('checkPass');
-		            }
-		            callback();
-		        }
-		    };
-		    var validatePass2 = (rule, value, callback) => {
-		        if (value === '') {
-		            callback(new Error('请再次输入密码'));
-		        } else if (value !== this.ruleForm.pass) {
-		            callback(new Error('两次输入密码不一致!'));
-		        } else {
-		            callback();
-		        }
-		    };
     		return {
     			boxTitle : "登录",
     			loginType: 0,  //0=密码登录， 1=验证码登录
-    			ruleForm: {
-			        pass: '',
-			        checkPass: '',
-			        age: ''
-			    },
-			    rules2: {
-			        pass: [
-			            { validator: validatePass, trigger: 'blur' }
-			        ],
-			        checkPass: [
-			            { validator: validatePass2, trigger: 'blur' }
-			        ]
-			    },
 			    lgForm:{
                     username: "",
                     vcode: "",
@@ -145,7 +116,9 @@
     	},
     	//属性计算
     	computed:{
-            
+            validateUserName(){
+                
+            },
     	},
     	methods:{
             ...mapActions({ setUserInfo: 'setUserInfo' }),
@@ -181,10 +154,10 @@
                 var me = this;
                 //本地存储方法
                 let {store} = this.method;
-
+                
             	let lgForm = this.lgForm;
 
-                if (!lgForm.username || !lgForm.password) {
+                if (!lgForm.username || !lgForm.password || !vcode.password) {
                     console.log('请填写完整')
                     return;
                 }
@@ -219,9 +192,6 @@
                     .catch(error => {
                         console.log(error)
                     })
-
-                
-
             },
             //登录表单提交(手机号登录)
             submitSignInByPhone(){
