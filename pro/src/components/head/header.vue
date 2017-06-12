@@ -80,17 +80,17 @@
                         pathName: "首页",
                         path: "/home"
                     },{
-                        pathName: "我要收车",
+                        pathName: "二手车b2b大厅",
                         path: "/buyCar"
                     },{
                         pathName: "我要卖车",
                         path: "/sellCar"
                     },{
                         pathName: "服务保障",
-                        path: ""
+                        path: "/assurance"
                     },{
                         pathName: "下载APP",
-                        path: ""
+                        path: "/download"
                     }
                 ],
     		}

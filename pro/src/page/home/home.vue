@@ -41,59 +41,23 @@
 
                 <div class="g-bd-ct">
                     <div class="f__w1200">
+                        <div class="m-all-search">
+                            <section class="search-box f__clearfix">
+                                <input type="text" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" autocomplete="off"/>
+                                <a href="javascript:;" class="u-btn">立即搜索</a>
+                                <a href="javascript:;" class="u-btn v2">我要卖车</a>
+                            </section>
+                        </div><!-- 搜索框 -->
+
                         <div class="m-category f__clearfix">
                             <div class="m-brand-wrap f__fl">
                                 <div class="u-hd">
-                                    <a href="javascript:;">品牌<i class="iconfont icon-caretdown"></i></a>
+                                    <a href="javascript:;" class="u-lk">品牌<i class="iconfont icon-caretdown"></i></a>
                                 </div>
                                 <div class="u-con f__clearfix">
-                                    <a href="javascript:;" class="u-lk">
+                                    <a href="javascript:;" class="u-lk" v-for="n in 16">
                                         <img src="../../assets/img/b_84.png" alt="大众" />
                                         <p class="u-tit">大众</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_62.png" alt="奥迪" />
-                                        <p class="u-tit">奥迪</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_89.png" alt="丰田" />
-                                        <p class="u-tit">丰田</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_47.png" alt="奔驰" />
-                                        <p class="u-tit">奔驰</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_38.png" alt="宝马" />
-                                        <p class="u-tit">宝马</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_59.png" alt="本田" />
-                                        <p class="u-tit">本田</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_34.png" alt="别克" />
-                                        <p class="u-tit">别克</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_55.png" alt="现代" />
-                                        <p class="u-tit">现代</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_15.png" alt="日产" />
-                                        <p class="u-tit">日产</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_98.png" alt="福特" />
-                                        <p class="u-tit">福特</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_73.png" alt="雪佛兰" />
-                                        <p class="u-tit">雪佛兰</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/b_129.png" alt="起亚" />
-                                        <p class="u-tit">起亚</p>
                                     </a>
                                 </div>
                             </div>
@@ -102,59 +66,55 @@
                                     <a href="javascript:;">价格</a>
                                 </div>
                                 <div class="u-con f__clearfix">
-                                    <a href="javascript:;" class="u-lk light">低首付</a>
-                                    <a href="javascript:;" class="u-lk light">零月供</a>
                                     <a href="javascript:;" class="u-lk">5万以内</a>
                                     <a href="javascript:;" class="u-lk">5-10万</a>
                                     <a href="javascript:;" class="u-lk">10-15万</a>
-                                    <a href="javascript:;" class="u-lk">15-20万</a>
+                                    <a href="javascript:;" class="u-lk light">15-20万</a>
                                     <a href="javascript:;" class="u-lk">20-30万</a>
                                     <a href="javascript:;" class="u-lk">30-50万</a>
-                                    <a href="javascript:;" class="u-lk">50万以上</a>
-                                </div>
-                            </div>
-                            <div class="m-modal-wrap f__fl">
-                                <div class="u-hd">
-                                    <a href="javascript:;">车型</a>
-                                </div>
-                                <div class="u-con">
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/c-2.png" alt="SUV" />
-                                        <p class="u-tit">SUV</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/c-4.png" alt="面包" />
-                                        <p class="u-tit">面包</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/c-5.png" alt="跑车" />
-                                        <p class="u-tit">跑车</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/c-3.png" alt="MPV" />
-                                        <p class="u-tit">MPV</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/c-7.png" alt="皮卡" />
-                                        <p class="u-tit">皮卡</p>
-                                    </a>
-                                    <a href="javascript:;" class="u-lk">
-                                        <img src="../../assets/img/c-8.png" alt="商务" />
-                                        <p class="u-tit">商务</p>
-                                    </a>
+                                    <a href="javascript:;" class="u-lk light">50-80万</a>
+                                    <a href="javascript:;" class="u-lk light">80万以上</a>
                                 </div>
                             </div>
                         </div><!-- 种类（快速选择） -->
                     </div>
+
                     <div class="f__w1200">
-                        <div class="m-all-search">
-                            <section class="search-box f__clearfix">
-                                <input type="text" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" autocomplete="off"/>
-                                <a href="javascript:;" class="u-btn">立即搜索</a>
-                                <a href="javascript:;" class="u-btn v2">我要卖车</a>
-                            </section>
-                        </div><!-- 搜索框 -->
-                        
+                        <div class="m-b2c-svr">
+                            <ul class="m-svr-lst f__clearfix">
+                                <li class="u-svr-item" v-for="(item,index) in serverList" :class="{lastItem:index==serverList.length - 1}">
+                                    <a href="javascript:;" class="u-lk">
+                                        <img :src="item.imgUrl" :alt="item.title" />
+                                    </a>
+                                </li>
+                            </ul>
+                        </div><!-- 付费服务 -->
+                    </div>
+
+                    <div class="m-b2b-entrance">
+                        <div class="m-etc-bg">
+                            <div class="">
+                                <h2 class="u-tit">二手车<em class="vital">B2B</em>市场</h2>
+                                <p class="u-txt">车商首选 全国二手车批发大厅</p>
+                                <a href="javascript:;" class="u-btn">立即进入</a>
+                            </div>
+                            <div class="u-img-bg"></div><!-- 车背景装饰 -->    
+                        </div>
+                    </div><!-- B2B专区大厅入口 -->
+
+                    <div class="f__w1200">
+                        <div class="m-notice-box">
+                            <div class="m-tit">今日成交：</div><!-- 标题 -->
+                            <div class="m-notice-bar">
+                                <ul class="u-notice-lst">
+                                    <li class="u-notice-item">谁谁谁，成交了xxxxxxxxxxd.</li>
+                                    <li class="u-notice-item">谁谁谁，成交了xxxxxxxxxxd.</li>
+                                    <li class="u-notice-item">谁谁谁，成交了xxxxxxxxxxd.</li>
+                                    <li class="u-notice-item">谁谁谁，成交了xxxxxxxxxxd.</li>
+                                </ul>
+                            </div>
+                        </div><!-- 成交公告区域 -->
+
                         <div class="m-lst-group">
                             <div class="m-lst-hd f__clearfix">
                                 <h3 class="f__fl">
@@ -215,6 +175,7 @@
     import cFootServer from "components/foot/foot-svr.vue"
     import {dataToJson} from "assets/js/util.js"
     import api from "api/getData.js"
+    import {serverList} from "api/localJson/home.js"
     
 
     export default {
@@ -227,6 +188,7 @@
     		return {
     			b2bCarList: [],
                 b2bCarBrand: [],
+                serverList: serverList,
     		}
     	},
         created () {

@@ -8,6 +8,12 @@ const buy_car_list = r => require.ensure([], () => r(require('../page/buy/car_li
 const car_details = r => require.ensure([], () => r(require('../page/car/car-details')), 'carDetails')
 //我要卖车
 const sellCar = r => require.ensure([], () => r(require('../page/sell/sellCar')), 'sellCar')
+//服务保障页
+const assurance = r => require.ensure([], () => r(require('../page/assurance/assurance')), 'assurance')
+//APP下载页
+const download = r => require.ensure([], () => r(require('../page/download/download')), 'download')
+
+
 //支付主页
 const paymentIndex = r => require.ensure([], () => r(require('../page/payment/payment.vue')), 'paymentIndex')
 //创建订单
@@ -59,28 +65,38 @@ export default[{
     component: App, //顶层路由，对应index.html
     children: [ //二级路由。对应App.vue
         //地址为空时跳转hello页面
-        {
+        {   //页面为空时跳转至首页
             path: '',
             redirect: '/home'
         },
-	    {
+	    {   //首页
 		    path: '/home',
 		    component: home,
             meta: {
                 notGoTop: true,
             }
 	    },
-        {
+        {   //买车
             path: '/buyCar',
             component: buy_car_list,
             meta: { }
         },
-        {
+        {   //卖车
             path: '/sellCar',
             component: sellCar,
             meta: { }
         },
-        {
+        {   //服务保障
+            path: '/assurance',
+            component: assurance,
+            meta: { }
+        },
+        {   //APP下载
+            path: '/download',
+            component: download,
+            meta: { }
+        },
+        {   //支付环节页面
             path: '/pay',
             component: paymentIndex,
             redirect:'/pay/create',

@@ -1,4 +1,4 @@
-@import '../../assets/css/mixin.styl'
+@import '~assets/css/mixin.styl'
 
 .g-doc
     .g-bd
@@ -12,119 +12,28 @@
                     .swiper-wrapper
                         height @height
                     .swiper-pagination
-                        bottom 30px
-                        height 32px
+                        bottom 20px
+                        height 15px
                         cursor default
                         .swiper-pagination-bullet
-                            width 14px
-                            height 14px
-                            margin 0 7px
-                            _borderRadius(7px)
-                            background rgba(0,0,0,.40)
+                            width 48px
+                            height 8px
+                            margin 0 8px
+                            _borderRadius(1px)
+                            background #a5a5a5
                             _opacity(1)
                             cursor pointer
                         .swiper-pagination-bullet-active
                             _opacity(1)
-                            background rgba(0,0,0,.65)
-                            position relative
-                            &::before
-                                _display()
-                                content ""
-                                width 6px
-                                height 6px 
-                                background $c_white03
-                                _completeCenter()
-                                _opacity(.78)
-                                _borderRadius(3px)
+                            background $c_blue
                     
         .g-bd-ct
             width 100%
             position relative
-            z-index 10000
-            margin-top -30px
-            .m-category
-                background #fff
-                height 284px
-                _border(#f0f0f0,2px)
-                _boxShadow(12px,rgba(0,0,0,.15))
-                overflow hidden
-                & .u-hd
-                    height 62px
-                    line-height 62px
-                    text-align center
-                    _spacingPlus(2px)
-                    font-size 15px
-                    a,a:hover
-                        color #313536
-                        cursor default
-                .m-brand-wrap .u-hd i
-                    color #313536
-                    font-size 14px
-                    margin-left 3px
-                & .u-con
-                    height 221px
-                    _border(top,#e2e2e2,1px)
-                & >div:not(:last-child)
-                    .u-con
-                        _border(right,#e2e2e2,1px)
-                .m-brand-wrap
-                    width 606px
-                    .u-con
-                        width @width - 42px
-                        padding 12px 21px 7px
-                        .u-lk
-                            float left
-                            height 95px
-                            margin-bottom 5px 
-                            width 94px
-                            img
-                                width 46px
-                                height 46px
-                                display block
-                                margin 12px auto 6px
-                            .u-tit
-                                line-height 25px
-                                text-align center
-                .m-price-wrap
-                    width 297px
-                    .u-con
-                        width - 20px
-                        padding 25px 10px 0
-                        .u-lk
-                            float left
-                            height 50px
-                            line-height 50px
-                            font-size 13px
-                            text-align center
-                            margin-bottom 8px 
-                            width 92px
-                            &.light
-                                color #ff5a37
-
-                .m-modal-wrap
-                    width 297px
-                    .u-con
-                        width - 30px
-                        padding 23px 10px 0
-                        .u-lk
-                            float left
-                            height 82px
-                            font-size 13px
-                            text-align center
-                            margin-bottom 8px 
-                            width 92px
-                            img
-                                width 73px
-                                height 29px
-                                display block
-                                margin 12px auto 6px
-                            .u-tit
-                                line-height 32px
-                                text-align center
-
+            z-index 999
             .m-all-search
                 width 100%
-                height 140px
+                height 110px
                 position relative
                 .search-box
                     width 976px
@@ -155,10 +64,90 @@
                         &.v2
                             background #ff6533
 
+            .m-category
+                background #fff
+                height 284px
+                _border(#f0f0f0,2px)
+                _boxShadow(12px,rgba(0,0,0,.15))
+                overflow hidden
+                margin-bottom 30px
+                & .u-hd
+                    height 62px
+                    line-height 62px
+                    text-align center
+                    _spacingPlus(2px)
+                    font-size 15px
+                    a,a:hover
+                        color #313536
+                        cursor default
+                .m-brand-wrap .u-hd i
+                    color #313536
+                    font-size 14px
+                    margin-left 3px
+                & .u-con
+                    height 191px
+                    padding 15px
+                    _border(top,#ededed,1px)
+                .m-brand-wrap
+                    width 850px
+                    .u-hd
+                        .u-lk:hover
+                            color $c_blue
+                            cursor pointer
+                            .iconfont
+                                color @color
+                    .u-con
+                        width @width - 50px
+                        padding 18px 25px
+                        _border(right,#ededed,1px)
+                        .u-lk
+                            float left
+                            width 100px
+                            height 92px
+                            position relative
+                            img
+                                width 54px
+                                height 54px
+                                margin 0 23px
+                            .u-tit
+                                margin 5px 0 0
+                                line-height 25px
+                                text-align center
+
+                .m-price-wrap
+                    width 350px
+                    .u-con
+                        width @width - 50px
+                        padding 25px 25px 15px
+                        height 182px
+                        .u-lk
+                            float left
+                            height 50px
+                            line-height 50px
+                            margin 0 0 8px
+                            text-align center
+                            font-size 13px
+                            width @width * (1/3)
+                            &.light
+                                color $c_blue
+            
+            // b2b服务
+            .m-b2c-svr
+                margin-bottom 25px
+                .m-svr-lst
+                    padding 0 40px
+                    .u-svr-item
+                        float left
+                        margin-right 80px
+                        .u-lk
+                            _display()
+                        &.lastItem
+                            margin-right 0
+
+
 
             .m-lst-group
                 height 750px
-                
                 .m-lst-hd
                     height 60px
                     line-height 60px
