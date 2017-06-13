@@ -42,6 +42,7 @@
     import {pinyin} from 'assets/js/pinyin.js'; 
     import api from 'api/getData.js'
     import CityInfo from 'base/getter/city'
+    import {mapGetters,mapActions} from 'vuex'
 
     const AROUND_CITY_LEN = 10
     const AROUND_NAME = '周边'
@@ -69,8 +70,12 @@
         mounted(){
             // let cityBoxDom = this.$refs.citySelBox;
             // this._preventScroll(cityBoxDom);
+            console.log("当前城市",this.curCity);
         },
         computed:{
+            ...mapGetters({
+                curCity: 'currentCity',
+            }),
             //城市索引列表
             shortcutList() {
                 return this.citys.map((group) => {
@@ -79,6 +84,9 @@
             }
         },
         methods:{
+            ...mapActions({
+                'setCurrentCity',
+            })
         	//获取所有城市的列表
         	_getAllCityList(){
         		api.getAllCityList().then((res) => {
