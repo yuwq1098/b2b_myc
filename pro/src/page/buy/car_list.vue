@@ -75,9 +75,9 @@
                             <span class="m-gp-tit">其他：</span>
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
-                                    <ul class="m-lk-list no-overflow">
+                                    <ul class="m-lk-list no-overflow other">
                                         <li class="u-item">
-                                            <el-select v-model="carColor" placeholder="车型">
+                                            <el-select v-model="searchFilterList.carModel" placeholder="车型">
                                                 <el-option
                                                   v-for="item in carModel"
                                                   :key="item.value"
@@ -87,7 +87,7 @@
                                             </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-select v-model="carColor" placeholder="车龄">
+                                            <el-select v-model="searchFilterList.carAge" placeholder="车龄">
                                                 <el-option
                                                   v-for="item in carAge"
                                                   :key="item.value"
@@ -99,7 +99,7 @@
                                         <li class="u-item">
                                             <el-select v-model="carColor" placeholder="排放标准">
                                                 <el-option
-                                                  v-for="item in carColorItems"
+                                                  v-for="item in dischargeStandard"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -117,9 +117,9 @@
                                             </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-select v-model="carColor" placeholder="排量">
+                                            <el-select v-model="carColor" placeholder="手/自动挡">
                                                 <el-option
-                                                  v-for="item in displacement"
+                                                  v-for="item in GearType"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -140,6 +140,16 @@
                                             <el-select v-model="carColor" placeholder="过户次数">
                                                 <el-option
                                                   v-for="item in changeNum"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </li>
+                                        <li class="u-item">
+                                            <el-select v-model="carColor" placeholder="营运类型">
+                                                <el-option
+                                                  v-for="item in ServiceCharacteristics"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -234,7 +244,7 @@
     import api from 'api/getData.js'
     // 本地数据
     import {searchPriceList} from "api/localJson/home.js"
-    import {changeNum,carAge,carModel,mileage,displacement} from "api/localJson/filter.js"
+    import {changeNum,carAge,carModel,mileage,displacement,dischargeStandard,GearType,ServiceCharacteristics} from "api/localJson/filter.js"
     
 	export default {
         name: "buy-car-list",
@@ -244,42 +254,46 @@
 
                 currentBrand: '',  //当前选中的汽车品牌
                 currentSeries: '',  //当前选中的汽车车系
-                allCarBrandList: [],    //全部的汽车品牌列表
-                allsearchCarSeries: [],    //全部的根据汽车品牌查询到的车系
+                allCarBrandList: [],                 //全部的汽车品牌列表
+                allsearchCarSeries: [],              //全部的根据汽车品牌查询到的车系
                 
-                isNotBrand: true,   //品牌不限时不显示车系
-
-                searchPriceList: searchPriceList,    //本地数据中的价格查询字典列表
+                isNotBrand: true,                    //品牌不限时不显示车系
 
                 currentPage: 5,         //查询结果的当前页
                 pageSize : 8,           //每页所含的数据数量
                 totalPage: 400,         //总数据条数
-                carColorItems: [        //汽车颜色选择列表
-                    {
-                        value: '选项1',
-                        label: '黄金糕'
-                    }, {
-                        value: '选项2',
-                        label: '双皮奶'
-                    }, {
-                        value: '选项3',
-                        label: '蚵仔煎'
-                    }, {
-                        value: '选项4',
-                        label: '龙须面'
-                    }, {
-                        value: '选项5',
-                        label: '北京烤鸭'
-                    }
-                ],
-                //过户次数
-                changeNum: changeNum,
-                //车龄
-                carAge: carAge,
-                carModel: carModel,
-                carColor: [],
-                mileage: mileage,
-                displacement: displacement,
+                
+                //搜索条件集合
+                searchFilterList:{
+                    carBrand: "",                    //汽车品牌
+                    Series: "",                      //车系
+                    B2BPriceFrom: "",                //最低价格
+                    B2BPriceTo: "",                  //最高价格
+                    carModel: "",                    //车型
+                    carAge: "",                      //车龄
+                    dischargeStandard: "",           //排放标准
+                    MileageFrom: "",                 //最低里程
+                    Color: "",                       //颜色
+                    GearType: "",                    //手/自动挡
+                    MileageTo: "",                   //最高里程
+                    OnLicensePlateDateFrom: "",      //上牌日期起（计算车龄）
+                    OnLicensePlateDateTo: "",        //上牌日期止（计算车龄）
+                    TransferTimesFrom: "",           //最少过户次数
+                    TransferTimesTo: "",             //最多过户次数
+                    ServiceCharacteristics: "",      //营运类型选择
+                    SortType: "",                    //排序规则
+                },
+
+                searchPriceList: searchPriceList,                   //本地数据中的价格查询字典列表
+                changeNum: changeNum,                               //过户次数
+                carAge: carAge,                                     //车龄
+                carModel: carModel,                                 //车型
+                carColor: [],                                       //车体颜色
+                mileage: mileage,                                   //行驶里程
+                displacement: displacement,                         //排量
+                GearType: GearType,                                 //手/自动挡
+                dischargeStandard:dischargeStandard,                //排放标准
+                ServiceCharacteristics: ServiceCharacteristics,     //营运类型
             }
 
         },

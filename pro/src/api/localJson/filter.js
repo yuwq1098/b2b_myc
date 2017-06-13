@@ -151,3 +151,67 @@ export const displacement = [
         value: '6',
     }
 ]
+
+// 排放标准
+export const dischargeStandard = [
+    {
+        label: '不限',
+        value: '-1',
+    },
+    {
+        label: "国1",
+        value: '1',
+    },
+    {
+        label: "国2",
+        value: '2',
+    },
+    {
+        label: "国3",
+        value: '3',
+    },
+    {
+        label: "国4",
+        value: '4',
+    },
+    {
+        label: "国5",
+        value: '5',
+    }
+]
+
+// 排放标准
+export const GearType = [
+    {
+        label: '不限',
+        value: '-1',
+    },
+    {
+        label: "手动挡",
+        value: '1',
+    },
+    {
+        label: "自动挡",
+        value: '2',
+    }
+]
+
+// 营运类型
+export const ServiceCharacteristics = [
+    {
+        label: '不限',
+        value: '-1',
+    },
+    {
+        label: "非营运",
+        value: '1',
+    },
+    {
+        label: "营运",
+        value: '2',
+    },
+    {
+        label: "营转非",
+        value: '3',
+    }
+]
