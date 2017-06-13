@@ -125,7 +125,16 @@
                                     更多<i class="iconfont icon-fanhui6"></i>
                                 </a>
                             </div>
-                            <div class="m-lst-con">
+                            <div class="carListWrap" v-if="b2cCarList.length>0">
+                                <car-list-box
+                                    :carlist="b2cCarList"
+                                    car-to-path="/carDetails"
+                                    boxType="b2c"
+                                    >
+                                </car-list-box>    
+                            </div>
+                            
+                            <!-- <div class="m-lst-con">
                                 <ul class="m-lst f__clearfix">
                                     <li class="m-item" v-for="item in b2bCarList">
                                         <router-link :to="{path:'/carDetails',query: { CarId: item.CarId }}" class="u-box">
@@ -151,7 +160,7 @@
                                         </router-link>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div><!-- 列表信息展示组 -->
                     </div>
                     
@@ -175,6 +184,8 @@
     import {dataToJson} from "assets/js/util.js"
     import api from "api/getData.js"
     import {serverList} from "api/localJson/home.js"
+    import {b2cCarInfo} from "base/class/carInfo.js"
+    import carListBox from "components/boxLayout/carListBox.vue"
     
 
     export default {
@@ -182,10 +193,12 @@
         // 注册组件
         components: {
             cFootServer,
+            carListBox,
         },
     	data () {
     		return {
     			b2bCarList: [],
+                b2cCarList: [],
                 b2bCarBrand: [],
                 serverList: serverList,
     		}
@@ -237,33 +250,21 @@
         methods:{
             //获取B2B大厅车辆列表
             _getB2BCarList(){
-                // var [data] = [{}]
-                // data.PageSize = '12';
-                // data.PageIndex = '2';
                 var data = {
                     "PageSize": 8,
                     "PageIndex": 1,
                 }
                 api.getB2BCarList(data).then((res) => {
-                    this.b2bCarList = res.data;
+                    this.b2cCarList = this._normalizeB2cCarInfo(res.data)
                 })
-                // this.$ajax.post("/api/action2/B2BCarList.ashx",{
-                //         PageSize: 8,
-                //         PageIndex: 1
-                //     })
-                //     .this((res) => {
-                //         console.log("我的数据",res);
-                //     })
-                // var data = {
-                //     "PageSize": 8,
-                //     "PageIndex": 1,
-                // }
-                // $.ajax({
-                //      url: "/api/action2/B2BCarList.ashx",
-                //      dataType: 'json',
-                //      method: 'POST',
-                //      data: JSON.stringify(data),
-                // });
+            },
+            //使用b2c抽象类完成carInfo
+            _normalizeB2cCarInfo(list){
+                let carInfo = [];
+                list.forEach((item, index) => {
+                    carInfo.push(new b2cCarInfo(item))
+                });
+                return carInfo;
             },
             //获取B2B车辆品牌列表
             _getB2BCarBrandList(){
