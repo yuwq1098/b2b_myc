@@ -1,7 +1,7 @@
 <!-- 网站首页 -->
 <template>
-	<div class="home">
-		<div class="g-doc">
+    <div class="home">
+        <div class="g-doc">
             <div class="g-bd">
                 <div class="g-ad">
                     <div class="m-sld">
@@ -44,38 +44,12 @@
                             <section class="search-box f__clearfix">
                                 <input type="text" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" autocomplete="off"/>
                                 <a href="javascript:;" class="u-btn">立即搜索</a>
-                                <a href="javascript:;" class="u-btn v2">我要卖车</a>
+                                <router-link :to="{path:'/sellCar'}" class="u-btn v2">我要卖车</router-link>
                             </section>
                         </div><!-- 搜索框 -->
-
-                        <div class="m-category f__clearfix">
-                            <div class="m-brand-wrap f__fl">
-                                <div class="u-hd">
-                                    <a href="javascript:;" class="u-lk">品牌<i class="iconfont icon-caretdown"></i></a>
-                                </div>
-                                <div class="u-con f__clearfix">
-                                    <a href="javascript:;" class="u-lk" v-for="n in 16">
-                                        <img src="../../assets/img/b_84.png" alt="大众" />
-                                        <p class="u-tit">大众</p>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="m-price-wrap f__fl">
-                                <div class="u-hd">
-                                    <a href="javascript:;">价格</a>
-                                </div>
-                                <div class="u-con f__clearfix">
-                                    <a href="javascript:;" class="u-lk">5万以内</a>
-                                    <a href="javascript:;" class="u-lk">5-10万</a>
-                                    <a href="javascript:;" class="u-lk">10-15万</a>
-                                    <a href="javascript:;" class="u-lk light">15-20万</a>
-                                    <a href="javascript:;" class="u-lk">20-30万</a>
-                                    <a href="javascript:;" class="u-lk">30-50万</a>
-                                    <a href="javascript:;" class="u-lk light">50-80万</a>
-                                    <a href="javascript:;" class="u-lk light">80万以上</a>
-                                </div>
-                            </div>
-                        </div><!-- 种类（快速选择） -->
+                        <div class="m-category-wrap">
+                            <brand-select></brand-select>
+                        </div><!-- 汽车品牌，价格条件搜索 -->
                     </div>
 
                     <div class="f__w1200">
@@ -91,33 +65,28 @@
                     </div>
 
                     <div class="m-b2b-entrance">
-                        <div class="m-etc-bg">
-                            <div class="">
+                        <div class="m-etc-bg f__w1200">
+                            <div class="m-info">
                                 <h2 class="u-tit">二手车<em class="vital">B2B</em>市场</h2>
                                 <p class="u-txt">车商首选 全国二手车批发大厅</p>
-                                <a href="javascript:;" class="u-btn">立即进入</a>
+                                <router-link :to="{path:'/buyCar'}" class="u-btn">立即进入</router-link>
                             </div>
-                            <div class="u-img-bg"></div><!-- 车背景装饰 -->    
+                            <div class="u-img-bg"></div><!-- 车背景装饰 -->
                         </div>
                     </div><!-- B2B专区大厅入口 -->
 
                     <div class="f__w1200">
-                        <div class="m-notice-box">
-                            <div class="m-tit">今日成交：</div><!-- 标题 -->
-                            <div class="m-notice-bar">
-                                <ul class="u-notice-lst">
-                                    <li class="u-notice-item">谁谁谁，成交了xxxxxxxxxxd.</li>
-                                    <li class="u-notice-item">谁谁谁，成交了xxxxxxxxxxd.</li>
-                                    <li class="u-notice-item">谁谁谁，成交了xxxxxxxxxxd.</li>
-                                    <li class="u-notice-item">谁谁谁，成交了xxxxxxxxxxd.</li>
-                                </ul>
-                            </div>
-                        </div><!-- 成交公告区域 -->
+                        <div class="m-notice-bar-warp">
+                            <notice-info-bar
+                                :noticeList="noticeBarList" 
+                                >
+                            </notice-info-bar><!-- 公告条 -->
+                        </div><!-- 今日成交公告条 -->
 
                         <div class="m-lst-group">
                             <div class="m-lst-hd f__clearfix">
                                 <h3 class="f__fl">
-                                    <span class="u-tit">全国二手车批发市场</span>
+                                    <span class="u-tit">全国二手车B2C交易市场</span>
                                     <span class="u-sep">/</span>
                                     <span class="u-des">最全的二手车资源，农行合作，交易安全无忧</span>
                                 </h3>
@@ -133,34 +102,7 @@
                                     >
                                 </car-list-box>    
                             </div>
-                            
-                            <!-- <div class="m-lst-con">
-                                <ul class="m-lst f__clearfix">
-                                    <li class="m-item" v-for="item in b2bCarList">
-                                        <router-link :to="{path:'/carDetails',query: { CarId: item.CarId }}" class="u-box">
-                                            <div class="u-pic">
-                                                <img v-lazy="item.FileUri" :alt="item.Title"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    {{item.Title}}
-                                                </h5>
-                                                <p class="u-des">{{item.CarInCity}}/{{item.ShelveTime | dateFnToYear }}/{{item.Mileage | mileFn}}</p>
-                                                <div class="u-price">
-                                                    批发价:<em>{{item.B2BPrice}}万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                </ul>
-                            </div> -->
+
                         </div><!-- 列表信息展示组 -->
                     </div>
                     
@@ -171,8 +113,8 @@
             <!-- 引入底部站点服务图示 -->
             <c-foot-server></c-foot-server>
             
-		</div><!-- 文档 -->
-	</div>
+        </div><!-- 文档 -->
+    </div>
 </template>
 
 <script>
@@ -183,33 +125,33 @@
     import cFootServer from "components/foot/foot-svr.vue"
     import {dataToJson} from "assets/js/util.js"
     import api from "api/getData.js"
-    import {serverList} from "api/localJson/home.js"
+    import {serverList,noticeBarList} from "api/localJson/home.js"
     import {b2cCarInfo} from "base/class/carInfo.js"
     import carListBox from "components/boxLayout/carListBox.vue"
+    import brandSelect from "components/brandSel/brandSelect.vue"
+    import noticeBar from "components/common/noticeBar.vue"
     
 
     export default {
-    	name: 'home',
+        name: 'home',
         // 注册组件
         components: {
             cFootServer,
             carListBox,
+            brandSelect,
+            noticeInfoBar: noticeBar,
         },
-    	data () {
-    		return {
-    			b2bCarList: [],
+        data () {
+            return {
                 b2cCarList: [],
-                b2bCarBrand: [],
                 serverList: serverList,
-    		}
-    	},
+                noticeBarList: noticeBarList,
+            }
+        },
         created () {
             // this.$store.dispatch('getAllProvince');
             //获取b2b二手车大厅列表
-            this._getB2BCarList();
-            //获取汽车品牌列表
-            this._getB2BCarBrandList();
-            this._getCarSeries();
+            this._getB2cCarList();
             
             this.mySwiper = null;
             this.$nextTick(function(){
@@ -249,7 +191,7 @@
         },
         methods:{
             //获取B2B大厅车辆列表
-            _getB2BCarList(){
+            _getB2cCarList(){
                 var data = {
                     "PageSize": 8,
                     "PageIndex": 1,
@@ -266,22 +208,6 @@
                 });
                 return carInfo;
             },
-            //获取B2B车辆品牌列表
-            _getB2BCarBrandList(){
-                api.getCarBrand().then((res) => {
-                    this.b2bCarBrand = res.data;
-                    console.log("汽车品牌列表",dataToJson(res.data));
-                })
-            },
-            //根据车品牌获取车系
-            _getCarSeries(){
-                let [data] = [{}]
-                data.brandid = '5';
-                api.getCarSeriesByBrand(data).then((res) => {
-                    console.log("根据车品牌获取车系",dataToJson(res.data));
-                })
-            },
-            
         }
     }
 </script>

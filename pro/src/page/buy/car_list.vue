@@ -97,7 +97,7 @@
                                             </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-select v-model="carColor" placeholder="排放标准">
+                                            <el-select v-model="searchFilterList.dischargeStandard" placeholder="排放标准">
                                                 <el-option
                                                   v-for="item in dischargeStandard"
                                                   :key="item.value"
@@ -107,7 +107,7 @@
                                             </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-select v-model="carColor" placeholder="里程">
+                                            <el-select v-model="mileageVal" placeholder="里程">
                                                 <el-option
                                                   v-for="item in mileage"
                                                   :key="item.value"
@@ -117,7 +117,7 @@
                                             </el-select>
                                         </li>
                                         <li class="u-item">
-                                            <el-select v-model="carColor" placeholder="手/自动挡">
+                                            <el-select v-model="searchFilterList.GearType" placeholder="手/自动挡">
                                                 <el-option
                                                   v-for="item in GearType"
                                                   :key="item.value"
@@ -262,7 +262,9 @@
                 currentPage: 5,         //查询结果的当前页
                 pageSize : 8,           //每页所含的数据数量
                 totalPage: 400,         //总数据条数
-                
+
+
+                mileageVal: '',         //里程值
                 //搜索条件集合
                 searchFilterList:{
                     carBrand: "",                    //汽车品牌

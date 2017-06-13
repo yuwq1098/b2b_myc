@@ -64,73 +64,7 @@
                         &.v2
                             background #ff6533
 
-            .m-category
-                background #fff
-                height 284px
-                _border(#f0f0f0,2px)
-                _boxShadow(12px,rgba(0,0,0,.15))
-                overflow hidden
-                margin-bottom 30px
-                & .u-hd
-                    height 62px
-                    line-height 62px
-                    text-align center
-                    _spacingPlus(2px)
-                    font-size 15px
-                    a,a:hover
-                        color #313536
-                        cursor default
-                .m-brand-wrap .u-hd i
-                    color #313536
-                    font-size 14px
-                    margin-left 3px
-                & .u-con
-                    height 191px
-                    padding 15px
-                    _border(top,#ededed,1px)
-                .m-brand-wrap
-                    width 850px
-                    .u-hd
-                        .u-lk:hover
-                            color $c_blue
-                            cursor pointer
-                            .iconfont
-                                color @color
-                    .u-con
-                        width @width - 50px
-                        padding 18px 25px
-                        _border(right,#ededed,1px)
-                        .u-lk
-                            float left
-                            width 100px
-                            height 92px
-                            position relative
-                            img
-                                width 54px
-                                height 54px
-                                margin 0 23px
-                            .u-tit
-                                margin 5px 0 0
-                                line-height 25px
-                                text-align center
 
-                .m-price-wrap
-                    width 350px
-                    .u-con
-                        width @width - 50px
-                        padding 25px 25px 15px
-                        height 182px
-                        .u-lk
-                            float left
-                            height 50px
-                            line-height 50px
-                            margin 0 0 8px
-                            text-align center
-                            font-size 13px
-                            width @width * (1/3)
-                            &.light
-                                color $c_blue
-            
             // b2b服务
             .m-b2c-svr
                 margin-bottom 25px
@@ -144,10 +78,54 @@
                         &.lastItem
                             margin-right 0
 
-
+            //进入B2B大厅
+            .m-b2b-entrance
+                // background url('../../assets/img/b2b-entrance-bg.jpg') 0 0 no-repeat
+                // background-size 100% auto
+                background #fff
+                .m-etc-bg
+                    height 360px
+                    position relative
+                    .m-info
+                        width 480px
+                        height 220px
+                        _completeCenter(72px,auto)
+                        .u-tit
+                            font-size 48px
+                            color #313536
+                            height 60px
+                            line-height 60px
+                            margin-bottom 20px
+                            .vital
+                                color #f43
+                                font-weight bold
+                        .u-txt
+                            color #777
+                            font-size 15px
+                            _spacingPlus()
+                            text-indent 55px
+                        .u-btn
+                            margin-top 30px
+                            background $c_blue
+                            color #f4f4f4
+                            font-size 32px
+                            _spacingPlus(8px)
+                            height 64px
+                            line-height 64px
+                            width 280px
+                            margin-left 15px
+                            text-align center
+                            _display()
+                            _borderRadius(6px)
+                    .u-img-bg
+                        width 570px
+                        height 175px
+                        background url('../../assets/img/b2b-entrance-img01.png') 0 0 no-repeat
+                        background-size 100% auto
+                        _completeCenter(auto,60px)
 
             .m-lst-group
-                height 750px
+                max-height 750px
                 .m-lst-hd
                     height 60px
                     line-height 60px
@@ -171,69 +149,3 @@
                             position relative
                             top 1px
                             margin-left 2px
-                // .m-lst-con
-                //     padding 5px 0 25px
-                //     width 1200px
-                //     .m-lst
-                //         width 1220px
-                //         .m-item
-                //             float left
-                //             width 285px
-                //             height 310px
-                //             background #fff
-                //             _boxShadow(12px,rgba(0,0,0,.15))
-                //             margin 20px 20px 0 0
-                //             _transitionAll(.2s)
-                //             &:hover
-                //                 _transitionAll(.3s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
-                //                 _translate3d(,-4px);
-                //                 _boxShadow(20px,rgba(0,0,0,.15),1px,10px)
-                //                 h5.u-tit
-                //                     font-size 16px
-                //             .u-pic
-                //                 width 285px
-                //                 height 200px
-                //                 img 
-                //                     width 100%
-                //                     height 100%
-                //             .u-con
-                //                 width 260px
-                //                 position relative
-                //                 padding 0 14px
-                //                 h5.u-tit
-                //                     height 28px
-                //                     line-height 28px
-                //                     font-size 15px
-                //                     overflow hidden
-                //                     font-weight normal
-                //                     margin-top 10px
-                //                 .u-des
-                //                     height 22px
-                //                     line-height 22px
-                //                     color #959595
-                //                 .u-price
-                //                     margin-top 15px
-                //                     height 22px
-                //                     line-height 22px
-                //                     color #ff6533
-                //                     em
-                //                         font-size 20px
-                //                         margin-left 3px
-                //                         font-weight normal
-                //                 .u-lk
-                //                     width 85px
-                //                     height 42px
-                //                     background #0479cc
-                //                     color #fff
-                //                     text-align center
-                //                     position absolute
-                //                     top 48px
-                //                     right 14px
-                //                     _borderRadius(3px)
-                //                     p 
-                //                         font-size 13px
-                //                         line-height 18px
-                //                         &.u-count
-                //                             margin-top 3px
-                //                     p strong
-                //                         font-weight normal
