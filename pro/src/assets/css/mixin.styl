@@ -267,6 +267,12 @@ _transitionAll(duration=.3s,timingFn=linear,delay=0s)
     -moz-transition all duration delay timingFn
     transition all duration delay timingFn
 
+//---变形中心
+_transformOrigin(x=50%, y=50%)
+    -webkit-transform-origin x y
+    -moz-transform-origin x y
+    transform-origin x y
+
 //---文本提示样式
 _placeholder(color=#97a8be,pixel=null)
     &::-webkit-input-placeholder
