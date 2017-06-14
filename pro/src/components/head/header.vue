@@ -10,9 +10,9 @@
 		            </div><!-- 网站LOGO -->
 
 		            <div class="m-city f__fl" id="f__city_choose">
-		                <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">南昌<i class="iconfont icon-arrowdown1"></i></a>
+		                <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">{{curCityName}}<i class="iconfont icon-arrowdown1"></i></a>
                         <!-- <city-choose></city-choose> -->
-                        <city-choose v-show="isCityChooseShow"></city-choose>
+                        <city-choose v-show="isCityChooseShow" @setCityChooseShow="setCityChooseShow"></city-choose>
                         <!-- 城市选择 -->
 		            </div><!-- 城市 -->
 
@@ -59,13 +59,15 @@
 </template>
 
 <script>
+
+    import $ from 'jquery'
     import {getLeftToBrowser,addEvent,removeEvent} from "assets/js/dom.js"
     import signIn from "components/sign/signin"
     import signUp from "components/sign/signup"
     import forgetPwd from "components/sign/forget_pwd"
     import cityChoose from "components/citySel/citySel.vue"
-    import $ from 'jquery'
-
+    import {mapGetters} from 'vuex'
+    
     export default {
     	name: 'c-header',
     	data () {
@@ -131,11 +133,19 @@
         },
         //属性值计算
         computed:{
-            
+            ...mapGetters({
+                curCityName: 'currentCityName'
+            }),
         },
         //数据侦听
         watch:{
-            
+            curCityName(val) {
+                // 数据发生变化
+                console.log("城市数据更新了",val);
+                // 关闭盒子
+
+                // this.userIcons = val;
+            }
         },
         methods:{
         	//打开/关闭登录框
@@ -187,6 +197,11 @@
                 // console.log(curCiBoxLeft);
                 this.cityChooseLeft = curCiBoxLeft - 40 + "px";
             },
+
+            //城市选择框开关
+            setCityChooseShow(onOff) {    
+                this.isCityChooseShow = onOff;
+            }
 
         },
         components:{

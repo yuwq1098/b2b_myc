@@ -27,7 +27,7 @@
                     <span class="u-ci-tit" :class="{'vital':group.title=='周边'}">{{group.title}}</span>
                     <div class="u-gp-con">
                         <ul class="u-gp-lst f__clearfix">
-                            <li class="u-gp-item" @click="gotoLink(item.name)" v-for="item in group.items">
+                            <li class="u-gp-item" @click="gotoLink(item.name,item.code)" v-for="item in group.items">
                                 {{item.name}}
                             </li>
                         </ul>
@@ -70,12 +70,8 @@
         mounted(){
             // let cityBoxDom = this.$refs.citySelBox;
             // this._preventScroll(cityBoxDom);
-            console.log("当前城市",this.curCity);
         },
         computed:{
-            ...mapGetters({
-                curCity: 'currentCity',
-            }),
             //城市索引列表
             shortcutList() {
                 return this.citys.map((group) => {
@@ -84,9 +80,9 @@
             }
         },
         methods:{
-            ...mapActions({
-                'setCurrentCity',
-            })
+            ...mapActions([
+                'setCurrentCity', //映射 this.setCurrentCity() 为 this.$store.dispatch('setCurrentCity')
+            ]),
         	//获取所有城市的列表
         	_getAllCityList(){
         		api.getAllCityList().then((res) => {
@@ -122,7 +118,7 @@
                         spellCityList.push(value)
                     })
                     this.citys = this._normalizeCity(spellCityList);
-                    // console.log(this.citys);
+                    console.log(this.citys);
                 }
             },
             //格式化城市列表
@@ -208,8 +204,13 @@
                 cityListDom.scrollTop = stop
             },
             //点击城市link
-            gotoLink(name){
-                console.log(name);
+            gotoLink(cityName,cityCode){
+                let data = {
+                    name: cityName,
+                    code: cityCode
+                }
+                this.setCurrentCity(data);
+                this.$emit('setCityChooseShow',false);
             },
             //删除searchVal
             clearVal(){
