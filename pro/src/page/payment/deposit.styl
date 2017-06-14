@@ -27,7 +27,7 @@
             .vital
                 font-size 18px
                 font-weight bold
-                color #f43
+                color #ff6533
         .m-info
             width 905px
             height 72px
@@ -77,7 +77,7 @@
                 right 0
                 top 0
                 .vital
-                    color #f43
+                    color #ff6533
                     font-size 16px
                     font-weight bold
                     margin-left 4px
@@ -88,7 +88,7 @@
             _borderAll(#ededed)
             _borderRadius(3px)
             &:hover
-                _boxShadow(12px,rgba(4,121,204,.4),2px,3px)
+                _boxShadow(12px,rgba(0,0,0,.20),2px,2px)
             .u-hd
                 height 48px
                 line-height 48px
@@ -98,6 +98,9 @@
                 min-height 72px
                 padding 0 25px
                 margin 0 0 15px 0
+                cursor pointer
+                img
+                    cursor pointer
                 .iconfont
                     width 22px
                     text-align center
@@ -108,7 +111,7 @@
                     cursor pointer
                     _completeCenter(0,auto)
                     &.on
-                        color $c_blue
+                        color #ff6533
         .m-bank
             margin-bottom 15px
             .m-bankcard-lst
@@ -141,7 +144,7 @@
 
     .m-btn-box
         height 44px
-        margin-top 20px
+        margin 20px 0 40px
         .u-btn
             width 150px
             _borderRadius(3px)

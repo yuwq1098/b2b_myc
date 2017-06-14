@@ -53,7 +53,7 @@
             'children': [
                 {
                     'title': '我的认证',
-                    'hash':'',
+                    'hash':'/member/apply/myApply',
                 },
             ]
         },
@@ -65,10 +65,10 @@
                     'title': '我的余额',
                     'hash':'/member/wallet/myWallet',
                 },
-                {
-                    'title': '我的历史交易',
-                    'hash':'',
-                },
+                // {
+                //     'title': '我的历史交易',
+                //     'hash':'',
+                // },
             ]  
         },
         {
@@ -95,7 +95,7 @@
                 },
                 {
                     'title': '发布新车源',
-                    'hash':'',
+                    'hash':'/sellCar',
                 },
             ]  
         },

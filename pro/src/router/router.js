@@ -33,10 +33,15 @@ const order_buyCar = r => require.ensure([], () => r(require('../page/member/ord
 const order_sellCar = r => require.ensure([], () => r(require('../page/member/order/order_sell.vue')), 'buyCarOrder')
 //退款维权
 const order_refund = r => require.ensure([], () => r(require('../page/member/order/order_refund.vue')), 'orderRefund')
+
+//车行认证
+const my_apply = r => require.ensure([], () => r(require('../page/member/apply/myApply.vue')), 'myApply')
+
 //收藏车辆
 const collect_car = r => require.ensure([], () => r(require('../page/member/collect/car.vue')), 'collectCar')
 //收藏商家
 const collect_merchant = r => require.ensure([], () => r(require('../page/member/collect/merchant.vue')), 'collectMerchant')
+
 
 // 我的钱包
 const my_wallet = r => require.ensure([], () => r(require('../page/member/money/wallet.vue')), 'myWallet')
@@ -169,6 +174,14 @@ export default[{
                 {
                     path: 'order/refund',
                     component: order_refund,
+                    meta:{
+                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                //车行认证
+                {
+                    path: 'apply/myApply',
+                    component: my_apply,
                     meta:{
                         requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
                     },

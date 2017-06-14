@@ -12,7 +12,7 @@
                     </div><!-- 面包屑 -->
                     <div class="m-pay-mn">
                         <div class="m-pay-hd">
-                           <pay-flow :step="step"></pay-flow>
+                           <pay-flow :step="step" :flowItems="flowItems"></pay-flow>
                            <div class="u-tip">双方保证金已锁定</div><!-- 提示 -->
                         </div>
                         <div class="m-pay-con">
@@ -31,7 +31,6 @@
 
 
 <script>
-    import {mapState} from "vuex"
     import payFlow from "./pay_flow.vue"
 
     export default{
@@ -39,10 +38,6 @@
         //数据
         data(){
            return{
-                flowgray: "#e2e2e2",
-                flowfill: "#0479cc",
-                fontpure: "#f4f4f4",
-                fontdark: "#545454",
                 step: 1,
                 flowItems: [
                     {
@@ -53,18 +48,18 @@
                         points: '0,0 145,0 160,20 145,40 0,40',
                     },
                     {
-                       title: '2.支付定金',
-                        width: 160,
-                        isActive: true,
-                        dx: 3,
-                        points: '0,0 145,0 160,20 145,40 0,40 15,20',
-                    },
-                    {
-                       title: '3.在线签订电子合同',
+                       title: '1.在线签订电子合同',
                         width: 240,
                         isActive: false,
                         dx: 3,
                         points: '0,0 225,0 240,20 225,40 0,40 15,20',
+                    },
+                    {
+                       title: '3.支付定金',
+                        width: 160,
+                        isActive: true,
+                        dx: 3,
+                        points: '0,0 145,0 160,20 145,40 0,40 15,20',
                     },
                     {
                        title: '4.过户完毕',
@@ -93,13 +88,10 @@
             payFlow,
         },
         computed: {
-            ...mapState([
-                'menus',
-            ]),
+
         },
         mounted(){
-            console.log(this.menus);
-            this.$store.commit("showUserName");
+
         },
         watch: {
             // 如果路由有变化，会再次执行该方法

@@ -1,6 +1,6 @@
 <template>
-    <div id="payFlow">
-        <div class="m-pay-flow">
+    <div id="applyFlow">
+        <div class="m-apply-flow">
             <ul class="m-flow-lst f__clearfix">
                 <li class="u-item" v-for="(item , index) in flowItems">
 
@@ -31,7 +31,7 @@
 
 <script>
    export default{
-        name: "payFlow",
+        name: "applyFlow",
         //数据
         data(){
            return{
@@ -39,6 +39,36 @@
                 flowfill: "#0479cc",
                 fontpure: "#f4f4f4",
                 fontdark: "#545454",
+                flowItems: [
+                    {
+                        title: '1.填写车行信息',
+                        width: 210,
+                        isActive: true,
+                        dx: -5,
+                        points: '0,0 195,0 210,20 195,40 0,40 15,20',
+                    },
+                    {
+                        title: '2.实名认证',
+                        width: 160,
+                        isActive: false,
+                        dx: 3,
+                        points: '0,0 145,0 160,20 145,40 0,40',
+                    },
+                    {
+                        title: '3.提交审核',
+                        width: 160,
+                        isActive: false,
+                        dx: 3,
+                        points: '0,0 145,0 160,20 145,40 0,40 15,20',
+                    },
+                    {
+                        title: '4.认证审核',
+                        width: 160,
+                        isActive: false,
+                        dx: 3,
+                        points: '0,0 145,0 160,20 145,40 0,40 15,20',
+                    },
+                ],
            }
         },
         // 组件值传递（单向传递）
@@ -47,7 +77,6 @@
                 type: Number,
                 default: 1,
             },
-            flowItems: Array,
         },
         //自定义函数（方法）
         methods:{
@@ -86,7 +115,7 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
    @import '~assets/css/mixin.styl'
-    .m-pay-flow
+    .m-apply-flow
         width 100%
         height 40px
         .m-flow-lst
