@@ -59,8 +59,7 @@ const upd_pwd = r => require.ensure([], () => r(require('../page/member/setting/
 const s_help = r => require.ensure([], () => r(require('../page/member/setting/s_help.vue')), 'setHelp')
 
 
-// 轮播测试
-const t_swiper_demo = r => require.ensure([], () => r(require('../page/test/swiper-demo')), 'swiperDemo')
+// 表单测试
 const testFrom = r => require.ensure([], () => r(require('../page/test/test')), 'testFrom')
 
 
@@ -265,12 +264,6 @@ export default[{
             path: '/carDetails',
             component: car_details,
             meta: { }
-        },
-
-        {
-            path: '/test/swiper',
-            component: t_swiper_demo,
-            meta: {}
         },
         {
             path: '/test/testFrom',

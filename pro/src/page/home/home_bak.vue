@@ -5,19 +5,36 @@
             <div class="g-bd">
                 <div class="g-ad">
                     <div class="m-sld">
-                        <swiper :options="swiperOption" id="index-carousel" ref="mySwiper">  
-                            <!-- 这部分放你要渲染的那些内容 -->  
-                            <template v-for="item in swiperItems">
-                                <swiper-slide >
-                                    <a :href="item.href?item.href:'javascript:;'">
-                                        <img :src="item.imgUrl" :alt="item.title"/>
+                        <div class="swiper-container" id="index-carousel">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <a href="javascript:;">
+                                        <img src="../../assets/img/figure01_tiny.jpeg" alt=""/>
                                     </a>
-                                </swiper-slide>  
-                            </template>
-                            
-                            <!-- 这是轮播的小圆点 -->  
-                            <div class="swiper-pagination" slot="pagination"></div>  
-                        </swiper>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="javascript:;">
+                                        <img src="../../assets/img/figure02_tiny.jpeg" alt=""/>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="javascript:;">
+                                        <img src="../../assets/img/figure03_tiny.jpeg" alt=""/>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="javascript:;">
+                                        <img src="../../assets/img/figure04_tiny.jpeg" alt=""/>
+                                    </a>
+                                </div>
+                                <div class="swiper-slide">
+                                    <a href="javascript:;">
+                                        <img src="../../assets/img/figure05_tiny.jpeg" alt=""/>
+                                    </a>
+                                </div>
+                            </div><!-- 图片容器 -->
+                            <div class="swiper-pagination"></div><!-- 引入分页器 -->
+                        </div>
                     </div><!-- 轮播摸块 -->
                 </div><!-- 广告区 -->
 
@@ -112,14 +129,13 @@
 <script>
     
     import $ from 'jquery'
-    import { swiper, swiperSlide } from 'vue-awesome-swiper'  
-
+    import Swiper from "assets/js/swiper/swiper.min.js"
     import {mapActions} from 'vuex'
     import cFootServer from "components/foot/foot-svr.vue"
     import {dataToJson} from "assets/js/util.js"
     import * as geekDom from "assets/js/dom.js"
     import api from "api/getData.js"
-    import {serverList,noticeBarList,swiperItems} from "api/localJson/home.js"
+    import {serverList,noticeBarList} from "api/localJson/home.js"
     import {b2cCarInfo} from "base/class/carInfo.js"
     import {searchCarResult} from "base/class/searchResult.js"
 
@@ -135,8 +151,6 @@
         name: 'home',
         // 注册组件
         components: {
-            swiper,  
-            swiperSlide,
             cFootServer,
             carListBox,
             brandSelect,
@@ -153,38 +167,35 @@
                 isShowSchResultBox: false,    // 是否显示查询结果列表
                 isOkSearch: true,             // 是否允许用户触发搜索
                 b2cCarList: [],
-
-                serverList: serverList,          //网站b2c收费服务
-                noticeBarList: noticeBarList,    //公告滚动条的信息列表
-                swiperItems: swiperItems,        //首页轮播图数据集合
-
-                swiperOption: {  
-                    //是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true  
-                    notNextTick: true,  
-                    pagination: '.swiper-pagination',  
-                    slidesPerView: 'auto',  
-                    centeredSlides: true,  
-                    speed: 400,                         //速度
-                    loop: true,                         //环路
-                    paginationClickable: true,          //分页点击
-                    pagination: '.swiper-pagination',   //分页器
-                    // 关闭淡出，保留淡入
-                    fade: {
-                        crossFade: false,
-                    },
-                    spaceBetween: 30,  
-                    onSlideChangeEnd: swiper => {  
-                        //这个位置放swiper的回调方法  
-                        this.page = swiper.realIndex+1;  
-                        this.index = swiper.realIndex;  
-                    }   
-                },
+                serverList: serverList,
+                noticeBarList: noticeBarList,
             }
         },
         created () {
             // this.$store.dispatch('getAllProvince');
             //获取b2b二手车大厅列表
             this._getB2cCarList();
+            
+            this.mySwiper = null;
+            this.$nextTick(function(){
+                this.mySwiper = new Swiper('#index-carousel', {
+                    autoplay: 6000,     //可选选项，自动滑动
+                    autoplayDisableOnInteraction : false,  //用户操作后，不禁止自动滑动
+                    effect: 'fade',
+                    speed: 400,         //速度
+                    loop: true,     //环路
+                    paginationClickable: true,           //分页点击
+                    pagination: '.swiper-pagination',   //分页器
+                    // 关闭淡出，保留淡入
+                    fade: {
+                        crossFade: false,
+                    },
+                    // 如果滑动停了，那么重新开启它
+                    onAutoplayStop: function(swiper){
+                        this.mySwiper.startAutoplay();
+                    },
+                });
+            })
 
         },
         mounted(){
@@ -192,15 +203,10 @@
         },
         //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated() {
-            //更新swiper(强制初始化)
+            //更新swiper
             if(this.mySwiper){
-                this.mySwiper.init()
+                this.mySwiper.update()
             }
-        },
-        computed:{
-            mySwiper() {  
-                return this.$refs.mySwiper.swiper;  
-            }  
         },
         //退出的生命周期钩子
         deactivated(){
@@ -318,6 +324,9 @@
 </script>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
+<style lang="stylus" rel="stylesheet/stylus">
+    @import '~static/swiper.min.css'
+</style>
 <style lang="stylus" rel="stylesheet/stylus">
     @import 'home.styl'
 </style>

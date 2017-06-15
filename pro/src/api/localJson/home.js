@@ -1,3 +1,34 @@
+
+// 首页轮播图数据集合
+export const swiperItems = [
+    {
+        title: '轮播图一',
+        href: '',
+        imgUrl: require("assets/img/figure01_tiny.jpeg"),
+    },
+    {
+        title: '轮播图二',
+        href: '',
+        imgUrl: require("assets/img/figure02_tiny.jpeg"),
+    },
+    {
+        title: '轮播图三',
+        href: '',
+        imgUrl: require("assets/img/figure03_tiny.jpeg"),
+    },
+    {
+        title: '轮播图四',
+        href: '',
+        imgUrl: require("assets/img/figure04_tiny.jpeg"),
+    },
+    {
+        title: '轮播图五',
+        href: '',
+        imgUrl: require("assets/img/figure05_tiny.jpeg"),
+    }
+]
+
+// 网站b2c收费服务
 export const serverList = [
     {
         title: '我的保证金',
@@ -17,6 +48,7 @@ export const serverList = [
     }
 ]
 
+// 搜索价格列表
 export const searchPriceList = [
     {
         title: '5万以内',
@@ -63,7 +95,7 @@ export const searchPriceList = [
 
 ]
 
-
+// 公告滚动条的信息列表
 export const noticeBarList = [
     {
         title: "郭斯特刚刚卖出了大众帕萨特2011款2.0L手动基本款=>1",
