@@ -42,14 +42,14 @@
                     <div class="f__w1200">
                         <div class="m-all-search">
                             <section class="search-box f__clearfix">
-                                <div class="m-srh-result-box" v-show="isShowSchResultBox">
+                                <div class="m-srh-result-box" v-show="isShowSchResultBox" ref="schResultBox">
                                     <gk-select
                                         :selectList="srhResultList"
                                         >
                                     </gk-select>
                                 </div><!-- 查询结果列表 -->
                                 
-                                <input type="text" @blur="allSearchInputVal=''" @input="allSearchInput" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" v-model="allSearchInputVal" autocomplete="off"/>
+                                <input type="text" ref="allSearchInputBox" @input="allSearchInput" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" v-model="allSearchInputVal" autocomplete="off"/>
                                 <a href="javascript:;" class="u-btn">立即搜索</a>
                                 <router-link :to="{path:'/sellCar'}" class="u-btn v2">我要卖车</router-link>
                             </section>
@@ -133,6 +133,7 @@
     import {mapActions} from 'vuex'
     import cFootServer from "components/foot/foot-svr.vue"
     import {dataToJson} from "assets/js/util.js"
+    import * as geekDom from "assets/js/dom.js"
     import api from "api/getData.js"
     import {serverList,noticeBarList} from "api/localJson/home.js"
     import {b2cCarInfo} from "base/class/carInfo.js"
@@ -195,6 +196,7 @@
                     },
                 });
             })
+
         },
         mounted(){
             
@@ -205,12 +207,13 @@
             if(this.mySwiper){
                 this.mySwiper.update()
             }
-            
         },
         //退出的生命周期钩子
         deactivated(){
             //清空用户搜索结果集合
             this.srhValItems = [];
+            this.isShowSchResultBox = false;
+            this.allSearchInputVal = "";
         },
         methods:{
             //获取B2B大厅车辆列表
@@ -271,6 +274,23 @@
                 return carResultList;
             },
 
+            //处理事件冒泡
+            _searchCancelBubble(){
+                let me = this;
+                let [schResultBox,allSearchInputBox] = [
+                    this.$refs.schResultBox,
+                    this.$refs.allSearchInputBox
+                ]
+                // 事件冒泡
+                geekDom.cancelBubbleTwo(
+                    schResultBox,
+                    allSearchInputBox,
+                    function(){
+                        me.allSearchInputVal = "";
+                    }
+                );
+            }
+
         },
         watch:{
             //侦听用户搜索的值，当其为空时，清空搜索结果集
@@ -283,6 +303,21 @@
             //搜索结果列表
             srhResultList(val){
                 this.isShowSchResultBox = val.length<=0 ? false : true;
+            },
+            // 侦听结果框显示的状态
+            isShowSchResultBox(val){
+                let [schResultBox,allSearchInputBox] = [
+                    this.$refs.schResultBox,
+                    this.$refs.allSearchInputBox
+                ]
+                if(val){
+                    this._searchCancelBubble();
+                }else{
+                    //清空首页的 文档点击事件
+                    document.onclick = null;
+                    schResultBox.onclick = null;
+                    allSearchInputBox.onclick = null;
+                }
             }
         }
     }

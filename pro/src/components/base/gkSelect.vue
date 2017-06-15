@@ -3,7 +3,10 @@
     <div class="gkSelect">
     	<div class="m-select">
     	    <ul class="u-select-lst" :class="{'isOverflow':selectList.length>10}">
-    	    	<li class="u-item" v-for="item in selectList">{{item.name}}</li>
+                <li class="u-item" v-for="item in selectList">
+                    <router-link :to="{path:'/carDetails',query: { CarId: item.id }}" tag="div">{{item.name}}</router-link>
+                    }
+                </li>
     	    </ul>
     	</div>
     </div>

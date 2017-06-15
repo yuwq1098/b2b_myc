@@ -112,6 +112,66 @@ export function getLeftToBrowser(e) {
 }
 
 /** 
+* @description 阻止事件冒泡 
+* @param obj 阻止事件冒泡的对象(1个对象)
+*/ 
+export function cancelBubbleOne(obj,Fn){
+    obj.onclick = function(ev){
+        var e=ev||event;
+        if(e && e.stopPropagation){//阻止冒泡
+            e.stopPropagation();
+        }else{
+            window.event.cancelBubble = true;
+        }
+    } 
+    //处理事件冒泡
+    document.onclick=function(ev){
+        var e=ev||event;
+        var target=e.target||e.srcElement;
+        if(e.target!=obj)//事件对象
+        {
+            //当有回调的时候执行回调
+            Fn&&Fn();
+        }
+    }    
+    return;
+};
+
+/** 
+* @description 阻止事件冒泡 
+* @param obj 阻止事件冒泡的对象(2个对象)
+*/ 
+export function cancelBubbleTwo(obj1,obj2,Fn){
+    obj1.onclick = function(ev){
+        var e=ev||event;
+        if(e && e.stopPropagation){//阻止冒泡
+            e.stopPropagation();
+        }else{
+            window.event.cancelBubble = true;
+        }
+    } 
+    obj2.onclick = function(ev){
+        var e=ev||event;
+        if(e && e.stopPropagation){//阻止冒泡
+            e.stopPropagation();
+        }else{
+            window.event.cancelBubble = true;
+        }
+    } 
+    //处理事件冒泡
+    document.onclick=function(ev){
+        var e=ev||event;
+        var target=e.target||e.srcElement;
+        if(e.target!=obj1&&e.target!=obj2)//事件对象
+        {
+            //当有回调的时候执行回调
+            Fn&&Fn();
+        }
+    }    
+    return;
+};
+
+/** 
 * @description 首页的公告 
 * @param obj 要滚动的父容器 
 * @param dis 每次运动的距离 
