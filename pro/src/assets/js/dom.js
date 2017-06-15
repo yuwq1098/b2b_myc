@@ -15,6 +15,45 @@ export function addClass(el, className) {
   el.className = newClass.join(' ')
 }
 
+/** 
+* @description 对用户表单输入的值进行约束 
+* @param val 需要控制的值
+* @param type [1] 只允许输入数字
+*             [2] 只能输入数字,能输小数点. 
+* @return val 返回匹配后的值
+*/ 
+export function valReplace(val,type){
+    var val = val.toString();
+    var newVal = null;
+
+    switch(type){
+        case 1:
+            newVal = val.replace(/\D/g,'');
+            break;
+        case 2:
+            //修复第一个字符是小数点 的情况.  
+            if(val !=''&& val.substr(0,1) == '.'){  
+                val="";  
+            }  
+            val = val.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符  
+            val = val.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的       
+            val = val.replace(".","$#$").replace(/\./g,"").replace("$#$",".");      
+            val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数       
+            if(val.indexOf(".")< 0 && val !=""){//以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额  
+                if(val.substr(0,1) == '0' && val.length == 2){  
+                    val= val.substr(1,val.length);      
+                }  
+            }
+            return newVal = val;
+            break;
+        default:
+          return newVal = val.replace(/\D/g,'');
+    }
+    return newVal;
+}
+
+
+
 //设置css样式
 export function css(obj,attr,value){
   if(arguments.length==2){

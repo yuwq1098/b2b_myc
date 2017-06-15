@@ -215,3 +215,32 @@ export const ServiceCharacteristics = [
         value: '3',
     }
 ]
+
+
+// 排序类型列表
+export const SortTypeList = [
+    {
+        label: '默认排序',
+        value: '-1',
+    },
+    {
+        label: "车龄最短",
+        value: '车龄最短',
+    },
+    {
+        label: "最新发布",
+        value: '最近更新',
+    },
+    {
+        label: "价格最低",
+        value: '价格最低',
+    },
+    {
+        label: "价格最高",
+        value: '价格最高',
+    },
+    {
+        label: "里程最少",
+        value: '里程最少',
+    }
+]

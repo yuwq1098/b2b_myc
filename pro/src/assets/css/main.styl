@@ -260,6 +260,12 @@ input,select,button
         padding 3px 10px
         color #313536
         _placeholder(#a5a5a5)
+    .el-select.on
+        .el-input__icon
+            _display(none)
+        .el-input__inner
+            _borderAll($c_blue)
+            color $c_blue
 
 .el-select-dropdown__list
     padding 3px 0

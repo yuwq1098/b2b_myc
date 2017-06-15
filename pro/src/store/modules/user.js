@@ -23,8 +23,8 @@ const actions = {
      * 用户登录
      */
     setUserInfo({ commit }, res) {
-        localStorage.setItem('loginInfo', JSON.stringify(res))
-        localStorage.setItem('loginStatus', true)
+        store.set('loginInfo', JSON.stringify(res))
+        store.set('loginStatus', true)
         commit(types.SET_LOGIN_INFO, res)
         commit(types.SET_LOGIN_STATUS, true)
     },
@@ -33,8 +33,8 @@ const actions = {
      * 登录注销
      */
     setSignOut({ commit }) {
-        localStorage.removeItem('loginStatus')
-        localStorage.removeItem('loginInfo')
+        store.remove('loginStatus')
+        store.remove('loginInfo')
         commit(types.SET_LOGIN_STATUS, false)
         commit(types.SET_LOGIN_INFO, {})
     },

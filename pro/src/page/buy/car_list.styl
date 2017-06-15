@@ -80,6 +80,7 @@
                                 max-width 1100px
                                 height 36px
                                 line-height 36px
+
                             .u-item
                                 float left
                                 height 28px
@@ -139,9 +140,13 @@
                             .m-price
                                 height 28px
                                 line-height 28px
+                                _borderRadius(2px)
                                 border 1px solid #d8d8d8
                                 padding  0 8px
                                 position relative
+                                &.focus
+                                    _borderAll($c_blue)
+                                    color $c_blue
                                 .u-price-ipt
                                     height 28px
                                     width 70px
@@ -150,6 +155,7 @@
                                     _placeholder(#959595)
                                     border none
                                     vertical-align top
+
                             .u-connect
                                 line-height 30px
                                 margin 0 6px
@@ -167,12 +173,18 @@
                     position absolute
                     right 0
                     top 0
-                    color #545454
+                    font-size 13px
+                    color #959595
                     margin-right 8px
+                    &:hover
+                        color $c_blue
+                        .iconfont
+                            color $c_blue
                     .iconfont
                         font-size 14px
                         color #959595
                         margin-left 2px
+
 
 
 
@@ -275,12 +287,6 @@
                 .m-page
                     padding 35px 0 20px
                     text-align center
-
-
-
-
-
-
 
 
 

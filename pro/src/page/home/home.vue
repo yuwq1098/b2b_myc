@@ -14,7 +14,6 @@
                                     </a>
                                 </swiper-slide>  
                             </template>
-                            
                             <!-- 这是轮播的小圆点 -->  
                             <div class="swiper-pagination" slot="pagination"></div>  
                         </swiper>

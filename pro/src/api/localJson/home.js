@@ -91,6 +91,7 @@ export const searchPriceList = [
     {
         title: '80万以上',
         min: 80,
+        max: 9999
     },
 
 ]
