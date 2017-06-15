@@ -3,13 +3,7 @@
 	    <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
-                    <div class="m-crm">
-                        <span>当前位置：</span>
-                        <el-breadcrumb separator=">">
-                            <el-breadcrumb-item :to="{ path: '/' }">北京二手车</el-breadcrumb-item>
-                            <el-breadcrumb-item>大众朗逸2011款1.6L手动品悠版</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div><!-- 面包屑 -->
+                    <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
                     
                     <div class="m-sch-wrap f__clearfix">
                         <div class="m-sch f__fr">
@@ -242,12 +236,19 @@
 <script>
     import $ from 'jquery'
     import api from 'api/getData.js'
-    // 本地数据
+    // 本地数据搜索价格
     import {searchPriceList} from "api/localJson/home.js"
-    import {changeNum,carAge,carModel,mileage,displacement,dischargeStandard,GearType,ServiceCharacteristics} from "api/localJson/filter.js"
+    // 面包屑组件
+    import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
+
+    import * as filterData from "api/localJson/filter.js"
     
 	export default {
         name: "buy-car-list",
+        // 在当前模块注册组件
+        components:{
+            gkBreadCrumb,
+        },
         // 数据
         data() {
             return{
@@ -263,8 +264,8 @@
                 pageSize : 8,           //每页所含的数据数量
                 totalPage: 400,         //总数据条数
 
-
                 mileageVal: '',         //里程值
+
                 //搜索条件集合
                 searchFilterList:{
                     carBrand: "",                    //汽车品牌
@@ -285,17 +286,17 @@
                     ServiceCharacteristics: "",      //营运类型选择
                     SortType: "",                    //排序规则
                 },
-
-                searchPriceList: searchPriceList,                   //本地数据中的价格查询字典列表
-                changeNum: changeNum,                               //过户次数
-                carAge: carAge,                                     //车龄
-                carModel: carModel,                                 //车型
-                carColor: [],                                       //车体颜色
-                mileage: mileage,                                   //行驶里程
-                displacement: displacement,                         //排量
-                GearType: GearType,                                 //手/自动挡
-                dischargeStandard:dischargeStandard,                //排放标准
-                ServiceCharacteristics: ServiceCharacteristics,     //营运类型
+                
+                searchPriceList: searchPriceList,                              //本地数据中的价格查询字典列表
+                changeNum: filterData.changeNum,                               //过户次数
+                carAge: filterData.carAge,                                     //车龄
+                carModel: filterData.carModel,                                 //车型
+                carColor: [],                                             //车体颜色
+                mileage: filterData.mileage,                                   //行驶里程
+                displacement: filterData.displacement,                         //排量
+                GearType: filterData.GearType,                                 //手/自动挡
+                dischargeStandard: filterData.dischargeStandard,                //排放标准
+                ServiceCharacteristics: filterData.ServiceCharacteristics,     //营运类型
             }
 
         },
@@ -371,10 +372,6 @@
                 console.log(`当前页: ${val}`);
             },
 
-        },
-        // 在当前模块注册组件
-        components:{
-            
         },
 	}
 </script>

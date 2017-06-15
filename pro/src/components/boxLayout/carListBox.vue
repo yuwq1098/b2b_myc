@@ -54,7 +54,7 @@
             }
         },
         mounted(){
-            console.log(this.carlist);
+            
         },
         // 自定义函数(方法)
         methods: {

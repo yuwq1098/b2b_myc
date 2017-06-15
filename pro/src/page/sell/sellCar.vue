@@ -3,14 +3,7 @@
 	    <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
-                    <div class="m-crm">
-                        <span>当前位置：</span>
-                        <el-breadcrumb separator=">">
-                            <el-breadcrumb-item :to="{ path: '/' }">北京二手车</el-breadcrumb-item>
-                            <el-breadcrumb-item>大众朗逸2011款1.6L手动品悠版</el-breadcrumb-item>
-                            <el-breadcrumb-item>创建订单</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div><!-- 面包屑 -->
+                    <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
 
                     <div class="m-sell-mn">
                         <div class="m-sell-hd">
@@ -199,9 +192,15 @@
 </template>
 
 <script>
+    // 面包屑组件
+    import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
 
 	export default {
         name: "sellCar",
+        // 在当前模块注册组件
+        components:{
+            gkBreadCrumb,
+        },
         // 数据
         data() {
             return{
@@ -331,10 +330,6 @@
             handlePreview(file) {
                 console.log(file);
             }
-        },
-        // 在当前模块注册组件
-        components:{
-
         },
 	}
 </script>

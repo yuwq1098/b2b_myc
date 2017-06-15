@@ -1,9 +1,15 @@
+
+/** 
+* @description 本地数据（所选城市等等）
+* @creatDate 2017-6-15
+* @author Geek.Yu  email:1098654043@qq.com
+*/ 
+
 import * as types from '../types'
 import {store} from 'assets/js/store.js'
 
 const state = {
     // 用户当前选择的城市
-
     currentCity: store.get("currentCity") || null,
     currentCityName: store.get("currentCity")?store.get("currentCity").name : '南昌',
 }

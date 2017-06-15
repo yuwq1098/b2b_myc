@@ -104,7 +104,16 @@ export default {
     Login(params){
         return fetch('/action2/UserLogin.ashx', qs.stringify(params))
     },
-    
+
+    //获取验证码
+    getImgRandomCode(){
+        let timestamp = (+new Date()).valueOf();
+        let data = {
+            a: timestamp
+        }
+        return get('/action2/ImgRandomCode.ashx', data)
+    },
+
     //上传隐私类图片
     uploadImg(params){
         return fetchSign('/action2/UploadPrivateFile.ashx', qs.stringify(params))

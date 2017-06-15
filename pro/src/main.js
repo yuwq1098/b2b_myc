@@ -78,25 +78,20 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
       if (store.state.user.loginStatus) {  // 通过vuex state获取当前的token是否存在
-          console.log("已登录");
           next();   //通过
-      }
-      else {
-          console.log("ElementUI",ElementUI)
+      }else {
+          //在main中调用Element的提示组件
           ElementUI.Notification({
               title: '未登录',
               message: '您还没有登录，请先登录',
               type: 'error',
               duration: 800
-
-              ,
           });
           next({path: from?from.path:'/home'});
           return;
       }
       next();
-  }
-  else {
+  }else {
       next();
   }
 });

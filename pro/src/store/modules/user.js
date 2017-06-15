@@ -1,3 +1,10 @@
+
+/** 
+* @description 用户信息状态管理 
+* @creatDate 2017-6-15
+* @author Geek.Yu  email:1098654043@qq.com
+*/ 
+
 import api from 'api/getData.js'
 import * as types from '../types'
 import {store} from 'assets/js/store.js'
@@ -38,7 +45,6 @@ const actions = {
     getUserData({ commit }, res) {
         api.getMyMemberInfo(res)
             .then(res => {
-                console.log(res);
                 commit(types.GET_USER_DATA, res.data)
             })
     }

@@ -21,7 +21,7 @@
                 <form class="m-form-gp" @submit.prevent="submitSignIn" ref="signInForm">
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box">
-                	    	<input v-validate data-rules="required|mobile" name="username"  class="u-ipt" v-model="lgForm.username" type="text" placeholder="输入手机号/用户名" />
+                	    	<input name="username" auto-complete="off" class="u-ipt" v-model="lgForm.username" type="text" placeholder="输入手机号/用户名" />
                 	    	<div class="u-ico">
                 	    	    <i class="iconfont icon-zhanghuffffffpx"></i><!-- 用户 -->
                 	    	</div>
@@ -30,7 +30,7 @@
                 	</div>
                 	<!-- <div class="m-gp-line">
                         <div class="u-ipt-box code">
-                                                <input class="u-ipt" v-model="lgForm.vcode" type="text" placeholder="请输入图形验证码" />
+                                                <input class="u-ipt" auto-complete="off" v-model="lgForm.vcode" type="text" placeholder="请输入图形验证码" />
                                             </div>
                         <a class="u-vcode">
                             <img :src="vcodeUrl" @click.stop="getCode"/>
@@ -39,7 +39,7 @@
                     </div> -->
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box">
-                		    <input class="u-ipt" v-model="lgForm.password" name="password" type="password" placeholder="6-10位数字、字母、符号的组合" />
+                		    <input class="u-ipt" v-model="lgForm.password" auto-complete="off" name="password" type="password" placeholder="6-10位数字、字母、符号的组合" />
                 		    <!-- <div class="u-ico">
                 		    	<i class="iconfont icon-mimaffffffpx"></i>锁
                 		    </div> -->
@@ -56,7 +56,7 @@
 		    	<form class="m-form-gp" @submit.prevent="submitSignInByPhone"  ref="signInByPhoneForm">
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box">
-                	    	<input class="u-ipt" type="text" placeholder="请输入手机号" />
+                	    	<input class="u-ipt" auto-complete="off" type="text" placeholder="请输入手机号" />
                 	    	<div class="u-ico">
                 	    	    <i class="iconfont icon-zhanghuffffffpx"></i><!-- 用户 -->
                 	    	</div>
@@ -64,7 +64,7 @@
                 	</div>
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box code">
-            				<input class="u-ipt" type="text" placeholder="请输入图形验证码" />
+            				<input class="u-ipt" auto-complete="off" type="text" placeholder="请输入图形验证码" />
             			</div>
                 		<a class="u-vcode">
                 			<img :src="vcodeUrl" @click.stop="getCode"/>
@@ -72,7 +72,7 @@
                 	</div>
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box code">
-                		    <input class="u-ipt" placeholder="6位数字验证码" />
+                		    <input class="u-ipt" auto-complete="off" placeholder="6位数字验证码" />
                 		</div>
                 		<button class="m-code">发送验证码</button><!-- 发送验证码 -->
                 	</div>
@@ -115,6 +115,15 @@
 			    vcodeUrl: require("../../assets/img/get_vcode__001.png"),
             }
     	},
+        mounted(){
+            
+        },
+        activated(){
+            console.log("aaaa");
+        },
+        deactivated(){
+            
+        },
     	//属性计算
     	computed:{
             validateUserName(){
@@ -176,7 +185,6 @@
 
                 api.Login(data)
                     .then(res => {
-                        console.log("登录成功",res);
                         if(res.code === SYSTEM.CODE_IS_OK){
                             this.setUserInfo(res.data)
                             me.closeBox();
@@ -186,6 +194,8 @@
                                 type: 'success',
                                 duration: 1200,
                             });
+                            //清空普通登录框
+                            this._resetLgForm();
                         }
                     })
                     .catch(error => {
@@ -197,10 +207,15 @@
             	var formData = JSON.stringify(this.user); // 这里才是你的表单数据
                 console.log(formData)
             },
-    	},
-        mounted(){
-            
-        },
+            //重置普通登录表单数据
+            _resetLgForm(){
+                let [lgForm] = [this.lgForm];
+                lgForm = {}
+                lgForm.username = "";
+                lgForm.vcode = "";
+                lgForm.password = "";
+            },
+    	}
     }
 </script>
 

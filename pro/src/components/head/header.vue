@@ -10,10 +10,12 @@
 		            </div><!-- 网站LOGO -->
 
 		            <div class="m-city f__fl" id="f__city_choose">
-		                <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">{{curCityName}}<i class="iconfont icon-arrowdown1"></i></a>
-                        <!-- <city-choose></city-choose> -->
+		                
+                        <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">{{curCityName}}<i class="iconfont icon-arrowdown1"></i></a>
+
                         <city-choose v-show="isCityChooseShow" @setCityChooseShow="setCityChooseShow"></city-choose>
                         <!-- 城市选择 -->
+
 		            </div><!-- 城市 -->
 
 		            <div class="m-site-lk f__fr">
@@ -41,7 +43,7 @@
 		</div><!-- 头部 -->
 
         <sign-in 
-            v-show="signInShow" 
+            v-if="signInShow" 
             @closeSignIn="openSignIn(0)" 
             @openSignUp="openSignUp(1,true)" 
             @openForget="openForgetPwd(1)"
@@ -49,7 +51,7 @@
         </sign-in><!-- 登录框 -->
 
         <sign-up 
-            v-show="signUpShow" 
+            v-if="signUpShow" 
             @closeSignUp="openSignUp(0)" 
             @openSignIn="openSignIn(1,true)"
             @openForget="openForgetPwd(1)"
@@ -57,7 +59,7 @@
         </sign-up><!-- 注册框 -->
         
         <forget-pwd 
-            v-show="forgetShow" 
+            v-if="forgetShow" 
             @closeForgetPwd="openForgetPwd(0)"
             >
         </forget-pwd><!-- 注册框 -->
@@ -151,10 +153,10 @@
                     this._updateUserData();
                 }
             },
+            //侦听vuex的userData数据变化
             userData(val){
                 if(val){
                     this.memberInfo = new headMember(val);
-                    console.log(this.memberInfo);
                 }
             }
         },
