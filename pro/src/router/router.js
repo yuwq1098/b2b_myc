@@ -61,6 +61,7 @@ const s_help = r => require.ensure([], () => r(require('../page/member/setting/s
 
 // 轮播测试
 const t_swiper_demo = r => require.ensure([], () => r(require('../page/test/swiper-demo')), 'swiperDemo')
+const testFrom = r => require.ensure([], () => r(require('../page/test/test')), 'testFrom')
 
 
 
@@ -269,6 +270,11 @@ export default[{
         {
             path: '/test/swiper',
             component: t_swiper_demo,
+            meta: {}
+        },
+        {
+            path: '/test/testFrom',
+            component: testFrom,
             meta: {}
         },
 	]

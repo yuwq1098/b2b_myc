@@ -124,11 +124,10 @@ export function autoNoticeHorizontal(obj,onOFF,dis,msec){
   var iNow=0;
   var onOFF = onOFF||false;
   var indexInterval = null;
-  if(onOFF&&!myInterval){
-    console.log("进入定时器")
+  if(onOFF&&!indexInterval){
       css(obj,'translateX',0);
-      clearInterval(myInterval);
-      myInterval = null;
+      clearInterval(indexInterval);
+      indexInterval = null;
       return;
   }    
   obj.innerHTML+=obj.innerHTML;

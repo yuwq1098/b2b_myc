@@ -41,10 +41,10 @@
                     'title': '卖车订单',
                     'hash':'/member/order/sellCar',
                 },
-                {
-                    'title': '退款维权',
-                    'hash':'/member/order/refund',
-                },
+                // {
+                //     'title': '退款维权',
+                //     'hash':'/member/order/refund',
+                // },
             ]
         },
         {

@@ -42,11 +42,20 @@
                     <div class="f__w1200">
                         <div class="m-all-search">
                             <section class="search-box f__clearfix">
-                                <input type="text" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" autocomplete="off"/>
+                                <div class="m-srh-result-box" v-show="isShowSchResultBox">
+                                    <gk-select
+                                        :selectList="srhResultList"
+                                        >
+                                    </gk-select>
+                                </div><!-- 查询结果列表 -->
+                                
+                                <input type="text" @blur="allSearchInputVal=''" @input="allSearchInput" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" v-model="allSearchInputVal" autocomplete="off"/>
                                 <a href="javascript:;" class="u-btn">立即搜索</a>
                                 <router-link :to="{path:'/sellCar'}" class="u-btn v2">我要卖车</router-link>
                             </section>
+                            
                         </div><!-- 搜索框 -->
+
                         <div class="m-category-wrap">
                             <brand-select></brand-select>
                         </div><!-- 汽车品牌，价格条件搜索 -->
@@ -127,10 +136,15 @@
     import api from "api/getData.js"
     import {serverList,noticeBarList} from "api/localJson/home.js"
     import {b2cCarInfo} from "base/class/carInfo.js"
+    import {searchCarResult} from "base/class/searchResult.js"
+
+    import gkSelect from "components/base/gkSelect.vue"
     import carListBox from "components/boxLayout/carListBox.vue"
     import brandSelect from "components/brandSel/brandSelect.vue"
     import noticeBar from "components/common/noticeBar.vue"
     
+    //搜索延迟,300ms
+    const SEARCH_DELAY = 500
 
     export default {
         name: 'home',
@@ -139,10 +153,18 @@
             cFootServer,
             carListBox,
             brandSelect,
+            gkSelect,
             noticeInfoBar: noticeBar,
         },
         data () {
             return {
+                //全部搜索的绑定值
+                allSearchInputVal: "",
+                //用户缓暂搜索值的集合，当用户清空时，也同时清空
+                srhValItems : [],
+                srhResultList: [],            // 搜索结果列表
+                isShowSchResultBox: false,    // 是否显示查询结果列表
+                isOkSearch: true,             // 是否允许用户触发搜索
                 b2cCarList: [],
                 serverList: serverList,
                 noticeBarList: noticeBarList,
@@ -187,7 +209,8 @@
         },
         //退出的生命周期钩子
         deactivated(){
-           
+            //清空用户搜索结果集合
+            this.srhValItems = [];
         },
         methods:{
             //获取B2B大厅车辆列表
@@ -208,6 +231,59 @@
                 });
                 return carInfo;
             },
+            //通过用户输入获取对应信息
+            allSearchInput(){
+                
+                if(this.allSearchInputVal=="") return;
+
+                this.srhValItems.push(this.allSearchInputVal);
+                //如果没有过延缓搜索规定的时间，那么久延迟搜索
+                if(!this.isOkSearch){
+                    console.log("不能触发搜索了");
+                    return;
+                }
+                //获取用户最后一次输入的值
+                let lastSrhVal = this.srhValItems[this.srhValItems.length-1];
+                let data = {
+                    "PageSize": 20,
+                    "PageIndex": 1,
+                    "LikeKey": lastSrhVal,
+                }
+                api.getB2BCarList(data).then((res) => {
+                    this.srhResultList = this._normalizeSearchCarResult(res.data)
+                })
+                setTimeout(() => {
+                    this.isOkSearch = true;
+                    if(this.allSearchInputVal=="") return;
+                    api.getB2BCarList(data).then((res) => {
+                        this.srhResultList = this._normalizeSearchCarResult(res.data)
+                    })
+                },SEARCH_DELAY)
+                if(this.isOkSearch) this.isOkSearch = false;
+
+            },
+            //使用b2c抽象类完成carResult
+            _normalizeSearchCarResult(list){
+                let carResultList = [];
+                list.forEach((item) => {
+                    carResultList.push(new searchCarResult(item))
+                });
+                return carResultList;
+            },
+
+        },
+        watch:{
+            //侦听用户搜索的值，当其为空时，清空搜索结果集
+            allSearchInputVal(val){
+                if(val==""){
+                    this.srhValItems = [];
+                    this.srhResultList = [];
+                }
+            },
+            //搜索结果列表
+            srhResultList(val){
+                this.isShowSchResultBox = val.length<=0 ? false : true;
+            }
         }
     }
 </script>

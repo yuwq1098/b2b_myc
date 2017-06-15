@@ -63,7 +63,6 @@ Vue.use(VueRouter)
 Vue.use(ElementUI)
 
 
-
 Vue.use(VueLazyload, {
   loading: require('assets/img/car-default.jpg')
 })
@@ -78,18 +77,23 @@ const router = new VueRouter({
 // 路由导航钩子beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
-      /*if (store.state.user.token) {  // 通过vuex state获取当前的token是否存在
+      if (store.state.user.loginStatus) {  // 通过vuex state获取当前的token是否存在
+          console.log("已登录");
           next();   //通过
       }
       else {
-          Notification.error({
+          console.log("ElementUI",ElementUI)
+          ElementUI.Notification({
               title: '未登录',
               message: '您还没有登录，请先登录',
-              duration: 1500,
+              type: 'error',
+              duration: 800
+
+              ,
           });
           next({path: from?from.path:'/home'});
           return;
-      }*/
+      }
       next();
   }
   else {

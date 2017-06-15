@@ -32,6 +32,7 @@
 
 <script>
     import payFlow from "./pay_flow.vue"
+    import {payFlowItems as flowItems} from "api/localJson/flowData.js"
 
     export default{
         name: "paymentIndex",
@@ -39,36 +40,7 @@
         data(){
            return{
                 step: 1,
-                flowItems: [
-                    {
-                       title: '1.创建订单',
-                       width: 160,
-                       isActive: true,
-                        dx: -5,
-                        points: '0,0 145,0 160,20 145,40 0,40',
-                    },
-                    {
-                       title: '1.在线签订电子合同',
-                        width: 240,
-                        isActive: false,
-                        dx: 3,
-                        points: '0,0 225,0 240,20 225,40 0,40 15,20',
-                    },
-                    {
-                       title: '3.支付定金',
-                        width: 160,
-                        isActive: true,
-                        dx: 3,
-                        points: '0,0 145,0 160,20 145,40 0,40 15,20',
-                    },
-                    {
-                       title: '4.过户完毕',
-                        width: 160,
-                        isActive: false,
-                        dx: 3,
-                        points: '0,0 145,0 160,20 145,40 0,40 15,20',
-                    },
-                ]
+                flowItems: flowItems,
             }
         },
         //实例创建时

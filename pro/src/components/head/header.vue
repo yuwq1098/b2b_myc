@@ -18,11 +18,18 @@
 
 		            <div class="m-site-lk f__fr">
 		                <ul class="m-lk-list">
-		                    <li class="u-item login">
+		                    <li class="u-item login" v-if="!loginStatus">
 		                        <a href="javascript:;" class="u-lk lg" @click="openSignIn(1)"><i class="i-user-lgn"></i>登录</a>
 		                        <span>/</span>
 		                        <a href="javascript:;" class="u-lk" @click="openSignUp(1)">注册</a>
 		                    </li>
+                            <li class="u-item member" v-if="loginStatus">
+                                <div class="u-member-box">
+                                    <router-link :to="{path:'/member'}" class="u-person"><img :src="memberInfo.imgUrl" :alt="memberInfo.name"/></router-link>
+                                    <span class="u-name">{{memberInfo.name}}</span>
+                                    <a href="javascript:;" @click="_signOut" class="u-lk">注销</a>
+                                </div>
+                            </li>
 		                    <li class="u-item" v-for="item in navItemList">
 		                        <router-link :to="item.path" class="u-lk">{{item.pathName}}</router-link>
 		                    </li>
@@ -66,35 +73,23 @@
     import signUp from "components/sign/signup"
     import forgetPwd from "components/sign/forget_pwd"
     import cityChoose from "components/citySel/citySel.vue"
-    import {mapGetters} from 'vuex'
+    import {mapGetters,mapActions} from 'vuex'
+    import {navItemList} from 'api/localJson/head.js'
+    import {headMember} from 'base/class/member.js'
     
     export default {
     	name: 'c-header',
     	data () {
     		return {
+                //是否显示登录框
     			signInShow: false,
-    			signUpShow: false,
-    			forgetShow: false,
-                cityChooseLeft: '',
-                isCityChooseShow: false,
-                navItemList: [
-                    { 
-                        pathName: "首页",
-                        path: "/home"
-                    },{
-                        pathName: "二手车b2b大厅",
-                        path: "/buyCar"
-                    },{
-                        pathName: "我要卖车",
-                        path: "/sellCar"
-                    },{
-                        pathName: "服务保障",
-                        path: "/assurance"
-                    },{
-                        pathName: "下载APP",
-                        path: "/download"
-                    }
-                ],
+    			signUpShow: false,         //是否显示注册框
+    			forgetShow: false,         //是否显示忘记密码框
+                cityChooseLeft: '',        //城市选择left
+                isCityChooseShow: false,   //城市选择框是否显示
+                memberInfo: {},            //用户信息
+                navItemList: navItemList,  
+
     		}
     	},
         created () {
@@ -118,14 +113,18 @@
                 cityChooseDom.on("mouseleave",function(){
                     me.isCityChooseShow = false;
                 });
-                // window.console.log("获取本地存储的数据",localStorage.getItem('currentCity')||null);
+                
+                //获取用户信息
+                if(this.loginStatus){
+                    this._updateUserData();
+                }
 
             });
 
         },
-        //退出组件
+        //切换会当前组件
         activated() {
-
+              
         },
         //退出的生命周期钩子
         deactivated(){
@@ -134,7 +133,9 @@
         //属性值计算
         computed:{
             ...mapGetters({
-                curCityName: 'currentCityName'
+                loginStatus: 'loginStatus',
+                curCityName: 'currentCityName',
+                userData: 'userData',
             }),
         },
         //数据侦听
@@ -143,11 +144,22 @@
                 // 数据发生变化
                 console.log("城市数据更新了",val);
                 // 关闭盒子
-
                 // this.userIcons = val;
+            },
+            loginStatus(val){
+                if(val){
+                    this._updateUserData();
+                }
+            },
+            userData(val){
+                if(val){
+                    this.memberInfo = new headMember(val);
+                    console.log(this.memberInfo);
+                }
             }
         },
         methods:{
+            ...mapActions(['getUserData','setSignOut']),
         	//打开/关闭登录框
         	openSignIn(type,closeThat=false){
         		//关闭忘记密码的输入框
@@ -201,6 +213,25 @@
             //城市选择框开关
             setCityChooseShow(onOff) {    
                 this.isCityChooseShow = onOff;
+            },
+            
+            //获取/更新用户基本数据
+            _updateUserData(){
+                let data = {};
+                this.getUserData(data);
+            },
+            
+            //注销登录
+            _signOut(){
+                this.$notify({
+                    title: '注销成功',
+                    message: '注销成功，请重新登录',
+                    type: 'success',
+                    duration: 800,
+                });
+                this.$router.push({ path: '/'})
+                //调用vuex的注销方法
+                this.setSignOut();
             }
 
         },

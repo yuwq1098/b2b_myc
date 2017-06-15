@@ -20,7 +20,7 @@
             <div class="m-login-ipt" v-show="loginType==0">
                 <form class="m-form-gp" @submit.prevent="submitSignIn" ref="signInForm">
                 	<div class="m-gp-line">
-                	    <div class="u-ipt-box error">
+                	    <div class="u-ipt-box">
                 	    	<input v-validate data-rules="required|mobile" name="username"  class="u-ipt" v-model="lgForm.username" type="text" placeholder="输入手机号/用户名" />
                 	    	<div class="u-ico">
                 	    	    <i class="iconfont icon-zhanghuffffffpx"></i><!-- 用户 -->
@@ -28,15 +28,15 @@
                 	    </div>
                         <p v-show="false" class="error-validate">用户名输入错误</p><!-- 错误提示 -->
                 	</div>
-                	<div class="m-gp-line">
-                	    <div class="u-ipt-box code">
-            				<input class="u-ipt" v-model="lgForm.vcode" type="text" placeholder="请输入图形验证码" />
-            			</div>
-                		<a class="u-vcode">
-                			<img :src="vcodeUrl" @click.stop="getCode"/>
-                		</a><!-- 验证码区域 -->
-                        <p v-show="false" class="error-validate">请输入图形验证码</p><!-- 错误提示 -->
-                	</div>
+                	<!-- <div class="m-gp-line">
+                        <div class="u-ipt-box code">
+                                                <input class="u-ipt" v-model="lgForm.vcode" type="text" placeholder="请输入图形验证码" />
+                                            </div>
+                        <a class="u-vcode">
+                            <img :src="vcodeUrl" @click.stop="getCode"/>
+                        </a>验证码区域
+                                            <p v-show="false" class="error-validate">请输入图形验证码</p>错误提示
+                    </div> -->
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box">
                 		    <input class="u-ipt" v-model="lgForm.password" name="password" type="password" placeholder="6-10位数字、字母、符号的组合" />
@@ -96,6 +96,7 @@
     
     import api from "api/getData.js"
     import { mapActions } from 'vuex'
+    import * as SYSTEM from 'base/system.js'
 
     export default {
     	name: 'signIn',
@@ -121,7 +122,7 @@
             },
     	},
     	methods:{
-            ...mapActions({ setUserInfo: 'setUserInfo' }),
+            ...mapActions(['setUserInfo']),
     		pwdFocus(e){
                e.target.type="password"
     		},
@@ -157,7 +158,12 @@
                 
             	let lgForm = this.lgForm;
 
-                if (!lgForm.username || !lgForm.password || !vcode.password) {
+                // if (!lgForm.username || !lgForm.password || !lgForm.vcode) {
+                //     console.log('请填写完整')
+                //     return;
+                // }
+
+                if (!lgForm.username || !lgForm.password) {
                     console.log('请填写完整')
                     return;
                 }
@@ -170,23 +176,16 @@
 
                 api.Login(data)
                     .then(res => {
-                        if(res.code === 0){
-                            store.set('AccessToken',res.data.AccessToken);
-                            store.set('AccessSecret',res.data.AccessSecret);
+                        console.log("登录成功",res);
+                        if(res.code === SYSTEM.CODE_IS_OK){
                             this.setUserInfo(res.data)
-
                             me.closeBox();
                             me.$notify({
                                 title: '登录成功',
-                                message: '这是一条成功的提示消息',
+                                message: '恭喜您登录成功！',
                                 type: 'success',
-                                duration: 2000,
+                                duration: 1200,
                             });
-
-                            api.getMyMemberInfo(data)
-                                .then(data => {
-                                    console.log(data);
-                                })
                         }
                     })
                     .catch(error => {
