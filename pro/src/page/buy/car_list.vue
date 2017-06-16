@@ -20,10 +20,24 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
                                     <ul class="m-lk-list f__clearfix" id="js__brand_list">
-                                        <li class="u-item" :class="{'on':!curCarBrandId}" @click.stop="brandFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item" v-for="(item,index) in allCarBrandList" v-if="index<13" @click.stop="brandFilter($event.target,item.brand_id,item.brand_name)">
+
+                                        <li class="u-item" 
+                                            :class="{'on':!curCarBrandId&&!userFilterData.brand}" 
+                                            @click.stop="brandFilter($event.target,-1,-1)"
+                                            >
+                                            <a href="javascript:;" class="u-lk">不限</a>
+                                        </li>
+
+                                        <li class="u-item"
+                                            v-for="(item,index) in allCarBrandList"
+                                            :class="{'on':userFilterData.brand&&userFilterData.brand==item.brand_name}"
+                                            v-if="index<13" 
+                                            :data-id="item.brand_id"
+                                            @click.stop="brandFilter($event.target,item.brand_id,item.brand_name)"
+                                            >
                                             <a href="javascript:;"  class="u-lk">{{item.brand_name}}</a>
                                         </li>
+
                                     </ul>
                                 </div><!-- 信息 -->
                                 <div class="m-info-cld brand" v-show="isShowMoreBrand">
@@ -50,10 +64,16 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
                                     <ul class="m-lk-list f__clearfix" id="js__series_list">
-                                        <li class="u-item" :class="{'on':!curSeriesId}"  @click.stop="seriesFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item" 
+                                            :class="{'on':!curSeriesId&&!userFilterData.series}"  
+                                            @click.stop="seriesFilter($event.target,-1,-1)"
+                                            >
+                                            <a href="javascript:;" class="u-lk">不限</a>
+                                        </li>
                                         <li class="u-item" 
                                             v-for="(item,index) in allsearchCarSeries" 
                                             v-if="index<10" 
+                                            :class="{'on':userFilterData.series&&userFilterData.series==item.series_name}"
                                             @click.stop="seriesFilter($event.target,item.series_id,item.series_name)"
                                             >
                                             <a href="javascript:;" class="u-lk">{{item.series_name}}</a>
@@ -83,8 +103,19 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info f__clearfix" id="js__price_box">
                                     <ul class="m-lk-list c__clearfix" id="js__price_list">
-                                        <li class="u-item" :class="{'on':!curPriceVal}"  @click.stop="priceFilter($event.target,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item" v-for="(item,index) in searchDataItems.price" :min="item.min" :max="item.max" @click.stop="priceFilter($event.target,item.min,item.max,item.title)">
+                                        <li class="u-item" 
+                                            :class="{'on':!curPriceVal&&!userFilterData.price}"  
+                                            @click.stop="priceFilter($event.target,-1)"
+                                            >
+                                            <a href="javascript:;" class="u-lk">不限</a>
+                                        </li>
+
+                                        <li class="u-item" 
+                                            v-for="(item,index) in searchDataItems.price"
+                                            :class="{'on':userFilterData.price&&userFilterData.price==item.title}"
+                                            :min="item.min" :max="item.max" 
+                                            @click.stop="priceFilter($event.target,item.min,item.max,item.title)"
+                                            >
                                             <a href="javascript:;" class="u-lk">{{item.title}}</a>
                                         </li>
                                     </ul>
@@ -103,13 +134,13 @@
                                                 @blur="maxPriceIptFocus=false"
                                                 v-model.number="maxPriceIptVal"
                                                 class="u-price-ipt" type="text" maxlength="5" />万</div>
-                                        <button class="u-btn">确定</button>
+                                        <button class="u-btn" @click="setUserCustomPrice">确定</button>
                                     </div>
                                 </div><!-- 信息 -->
                             </div>
                         </div><!-- 价格选择 -->
 
-                        <div class="m-sel-gp">
+                        <div class="m-sel-gp" v-if="userFilterData">
                             <span class="m-gp-tit">其他：</span>
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
@@ -320,7 +351,7 @@
     // 数据hash匹配
     import * as hashData from "api/localJson/hashData.js"
     // b2b条件过滤相关构造类
-    import {filterShowData} from "base/class/b2bFilter.js"
+    import {filterShowData,filterDataClass} from "base/class/b2bFilter.js"
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 更多车品牌组件
@@ -360,7 +391,7 @@
                 allsearchCarSeries: [],              //全部的根据汽车品牌查询到的车系
                 carColor: [],                        //车体颜色
 
-                isNotBrand: true,                    //品牌不限时不显示车系
+                isNotBrand: true,                    //品牌不限时 不显示车系
                 
                 isShowMoreBrand: false,              //显示更多的品牌
                 isShowMoreSeries: false,             //显示更多的车系
@@ -374,20 +405,22 @@
                 /**
                   * @description 用户选择的筛选条件
                   */
-                userFilterData: {
-                    brand: "",                   //车牌
-                    series: "",                  //车系
-                    price: "",                   //价格
-                    age: "",                     //车龄
-                    dischargeStandard: "",       //排放标准
-                    mileage: "",                 //里程
-                    gearType: "",                //手/自动挡
-                    color: "",                   //颜色
-                    transferCount: "",           //过户次数
-                    serviceType: "",             //营运类型
-                    keyCount: "",                //钥匙数
-                    sortType: "",                //搜索结果排序结果
-                },
+                // userFilterData: {
+                //     brand: "",                   //车牌
+                //     series: "",                  //车系
+                //     price: "",                   //价格
+                //     age: "",                     //车龄
+                //     dischargeStandard: "",       //排放标准
+                //     mileage: "",                 //里程
+                //     gearType: "",                //手/自动挡
+                //     color: "",                   //颜色
+                //     transferCount: "",           //过户次数
+                //     serviceType: "",             //营运类型
+                //     keyCount: "",                //钥匙数
+                //     sortType: "",                //搜索结果排序结果
+                // },
+
+                userFilterData: {},
                 
                 /**
                   * @description 搜索条件集合(向后台发起数据请求是以此种数据结构)
@@ -442,10 +475,12 @@
 
         },
         computed:{
+            ...mapGetters(['getUserFilterData']),
             //已选条件框控制显示隐藏
             isShowByHasFilter(){
                 return geekDom.isObjHasValue(this.userFilterData);
-            }
+            },
+            
         },
         created(){
 
@@ -454,7 +489,11 @@
             
         },
         activated(){
+            //初始化用户条件筛选数据
+            this._initUserFilterData();
+            //获取车品牌列表信息（从线上拉取）
             this._getCarBrandList();
+            //获取车辆颜色列表信息（从线上拉取）
             this._getCarColor();
         },
         //数据侦听
@@ -467,7 +506,6 @@
             maxPriceIptVal(val){
                 this.maxPriceIptVal = geekDom.valReplace(val,2);
             },
-            
             //用户选择条件发生变化
             userFilterData:{
                 handler(curVal,oldVal){ //车型选择变化 @param curVal 当前数据, @param oldVal 过去的数据
@@ -482,11 +520,37 @@
             
             //vuex的actions
             ...mapActions(["setUserFilterData"]),
+             
+            //初始化用户条件筛选数据
+            _initUserFilterData(){
+                //如果当从vuex获取的UserFilterData数据是空是
+                if(!this.getUserFilterData){
+                    //因为构造类中是data.[property],所以要空对象给构造类传一个
+                    let data  = {}
+                    this.userFilterData = new filterDataClass(data);
+                    return;
+                }
+                //用户条件筛选数据
+                this.userFilterData = new filterDataClass(this.getUserFilterData);
+                //计算是否显示车系
+                this.isNotBrand = this.userFilterData.brand?false:true;
+
+                console.log("localstorge中包含userFilterData => 包含",this.userFilterData)
+            },
 
             //获取车辆品牌
             _getCarBrandList(){
                 api.getCarBrand().then((res) => {
                     this.allCarBrandList = res.data
+                    //如果默认选中了其中一个车牌
+                    if(!this.isNotBrand){
+                        //那么在之后显示对应的车系数据
+                        setTimeout(() => {
+                            let js__brand_list = $("#js__brand_list");
+                            let brand_id = js__brand_list.find(".u-item.on").attr("data-id")
+                            this._getDefaultCarSeries(brand_id);
+                        },20)
+                    }
                 })
             },
 
@@ -534,6 +598,8 @@
 
                 // 设置展示给界面  用户所选条件集合中 汽车品牌的lable
                 this.userFilterData.brand = value; 
+                // 设置展示给界面  用户所选条件集合中 汽车车系的lable 为空
+                this.userFilterData.series = ""; 
                 // 设置真实向api请求的字段 汽车品牌的id
                 this.searchFilterList.CarBrandId = id; 
                 // 重新渲染页面
@@ -563,6 +629,8 @@
 
                 // 设置展示给界面  用户所选条件集合中 汽车品牌的lable
                 this.userFilterData.brand = value; 
+                // 设置展示给界面  用户所选条件集合中 汽车车系的lable 为空
+                this.userFilterData.series = ""; 
                 // 设置真实向api请求的字段 汽车品牌的id
                 this.searchFilterList.CarBrandId = id; 
                 // 重新渲染页面
@@ -613,11 +681,31 @@
 
             //价格切换
             priceFilter(e,min,max,value){
+                console.log("价格数据变化",min,max,value)
                 var js__price_list = $("#js__price_list");
                 js__price_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
 
+                // 设置展示给界面  用户所选条件集合中 价格的lable
                 this.userFilterData.price = value; 
+                // 设置真实向api请求的字段 价格区间
+                this.searchFilterList.B2BPriceFrom = min||'';
+                this.searchFilterList.B2BPriceTo = max||''; 
+                // 重新渲染页面
+                this.carListResultRender();
+            },
+
+            //用户自定义设置价格
+            setUserCustomPrice(){
+                let [minPrice,maxPrice] = [this.minPriceIptVal,this.minPriceIptVal];
+                //两个值都没有，退出
+                if(!minPrice&&!maxPrice) return;
+                if(minPrice) minPrice = parseInt(minPrice);
+                if(maxPrice) maxPrice = parseInt(maxPrice);
+
+                console.log(minPrice);
+                console.log(maxPrice);
+
             },
 
             //排序切换
@@ -675,9 +763,8 @@
 
             // 筛选结果渲染,用户执行对筛选条件的增删改查，都将触发这个方法
             carListResultRender(){
-
                 //将用户选中的数据都存在本地中
-                this.setUserFilterData(this.userFilterLabel);
+                this.setUserFilterData(this.userFilterData);
                 console.log("重新渲染",dataToJson(this.searchFilterList));
             },
 

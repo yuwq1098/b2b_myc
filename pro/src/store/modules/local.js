@@ -13,7 +13,7 @@ const state = {
     currentCity: store.get("currentCity") || null,
     currentCityName: store.get("currentCity")?store.get("currentCity").name : '南昌',
     // 用户的搜索条件数据
-    userFilterData: store.get("userFilterData") || {},
+    userFilterData: store.get("userFilterData") || null,
     
 }
 
@@ -26,13 +26,13 @@ const actions = {
 
     //设置用户的搜索条件数据
     setUserFilterData({ commit }, data) {
-        store.set("currentCity",data);
+        store.set("userFilterData",data);
         commit(types.SET_USER_FILTER_DATA, JSON.stringify(data))
     },
 
     //清空用户的搜索条件数据
     clearUserFilterData({ commit }) {
-        store.remove("currentCity");
+        store.remove("userFilterData");
         commit(types.SET_USER_FILTER_DATA, {})
     },
 
