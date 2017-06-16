@@ -53,7 +53,7 @@
         .m-select-filter
             margin 10px 0 20px
             .m-sel-gp
-                height 44px
+                min-height 44px
                 line-height 44px
                 position relative
                 .m-gp-tit,.m-sel-lk-box
@@ -67,6 +67,7 @@
                     _spacingPlus()
                 .m-sel-lk-box
                     .m-info
+                        min-height 44px
                         .m-lk-list,.m-other-price
                             float left
                         .m-lk-list
@@ -94,10 +95,14 @@
                                     _display()
                                     _borderRadius(2px)
                                     color #545454
+                                    &:hover
+                                        color $c_blue
                                 &.on
                                     .u-lk
                                         background #0479cc
                                         color #f4f4f4
+                                        &:hover
+                                            color @color
                                 .el-select
                                     width 110px
                                     height 30px
@@ -170,6 +175,12 @@
                                 padding 0 15px
                                 _spacingPlus(2px)
                                 vertical-align middle
+                    .m-info-cld
+                        min-height 50px
+                        width 1100px
+                        margin 5px 5px 10px
+                        _borderAll(#e2e2e2)
+                        _borderRadius(2px)        
                 .u-more
                     position absolute
                     right 0
@@ -177,14 +188,25 @@
                     font-size 13px
                     color #959595
                     margin-right 8px
-                    &:hover
-                        color $c_blue
-                        .iconfont
-                            color $c_blue
+                    _transitionAll(.1s)
                     .iconfont
                         font-size 14px
                         color #959595
                         margin-left 2px
+                        _display(inline-block)
+                        _transformOrigin(,47.5%)
+                    &:hover
+                        color $c_blue
+                        .iconfont
+                            color @color
+                    &.on
+                        color $c_blue
+                        .iconfont
+                            color @color
+                            _rotate(180deg)
+                            -webkit-transition all .1s linear,rotate .15s ease-in-out 
+                            -moz-transition all .1s linear,rotate .15s ease-in-out 
+                            transition all .1s linear,rotate .15s ease-in-out 
 
             .m-sel-check
                 min-height 36px
@@ -247,8 +269,6 @@
                             color #ff6533
                             &:hover
                                 color #ff6533
-
-
 
 
         .m-lst-gp-sel

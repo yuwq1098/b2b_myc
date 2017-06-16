@@ -26,9 +26,21 @@
                                         </li>
                                     </ul>
                                 </div><!-- 信息 -->
-                                <div class="m-info-cld"></div><!-- 子信息 -->
+                                <div class="m-info-cld brand" v-show="isShowMoreBrand">
+                                    <!-- 更多车品牌信息展示 -->
+                                    <brand-more-box class="m-cld-box" id="js__brand_more_list"
+                                        :brandList="allCarBrandList"
+                                        @brandFilterMore="brandFilterMore"
+                                        v-if="allCarBrandList.length>0"
+                                        >
+                                    </brand-more-box>
+                                </div><!-- 子信息 -->
                             </div>
-                            <a href="javascript:;" class="u-more" v-if="allCarBrandList.length>=13">
+                            <a href="javascript:;" class="u-more"
+                                @click="isShowMoreBrand=!isShowMoreBrand" 
+                                v-if="allCarBrandList.length>=13"
+                                :class="{'on':isShowMoreBrand}" 
+                                >
                                 更多<i class="iconfont icon-arrowdown1"></i>
                             </a>
                         </div><!-- 品牌选择 -->
@@ -39,12 +51,29 @@
                                 <div class="m-info">
                                     <ul class="m-lk-list f__clearfix" id="js__series_list">
                                         <li class="u-item" :class="{'on':!currentSeries}"  @click.stop="seriesFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item" v-for="(item,index) in allsearchCarSeries" v-if="index<10" @click.stop="seriesFilter($event.target,item.series_id,item.series_name)"><a href="javascript:;" class="u-lk">{{item.series_name}}</a></li>
+                                        <li class="u-item" 
+                                            v-for="(item,index) in allsearchCarSeries" 
+                                            v-if="index<10" 
+                                            @click.stop="seriesFilter($event.target,item.series_id,item.series_name)"
+                                            >
+                                            <a href="javascript:;" class="u-lk">{{item.series_name}}</a>
+                                        </li>
                                     </ul>
                                 </div><!-- 信息 -->
-                                <div class="m-info-cld"></div><!-- 子信息 -->
+                                <div class="m-info-cld series" v-show="isShowMoreSeries">
+                                    <!-- 更多车系信息展示 -->
+                                    <series-more-box class="m-cld-box" id="js__series_more_list"
+                                        :seriesList="allsearchCarSeries"
+                                        @seriesFilterMore="seriesFilterMore"
+                                        >
+                                    </series-more-box>
+                                </div><!-- 子信息 -->
                             </div>
-                            <a href="javascript:;" class="u-more" v-if="allsearchCarSeries.length>=12">
+                            <a href="javascript:;" class="u-more" 
+                                @click="isShowMoreSeries=!isShowMoreSeries" 
+                                v-if="allsearchCarSeries.length>=12"
+                                :class="{'on':isShowMoreSeries}" 
+                                >
                                 更多<i class="iconfont icon-arrowdown1"></i>
                             </a>
                         </div><!-- 车系选择 -->
@@ -292,7 +321,12 @@
     
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
+    // 更多车品牌组件
+    import brandMoreBox from "components/filterMoreBox/brandMoreBox.vue"
+    // 更多车系组件
+    import seriesMoreBox from "components/filterMoreBox/seriesMoreBox.vue"
 
+    //本地的过滤筛选数据
     import * as filterData from "api/localJson/filter.js"
     
 	export default {
@@ -300,6 +334,8 @@
         // 在当前模块注册组件
         components:{
             gkBreadCrumb,
+            brandMoreBox,
+            seriesMoreBox,
         },
         // 数据
         data() {
@@ -322,6 +358,9 @@
                 carColor: [],                        //车体颜色
 
                 isNotBrand: true,                    //品牌不限时不显示车系
+                
+                isShowMoreBrand: false,              //显示更多的品牌
+                isShowMoreSeries: false,             //显示更多的车系
 
                 
                 /**
@@ -485,6 +524,30 @@
                 }
                 this.userFilterData.brand = value; 
             },
+            
+            //汽车品牌切换(更多中的操作)
+            brandFilterMore(e,id,value){
+                this.isNotBrand = id>-1 ? false :true; 
+                // 先清除一遍外层的选中效果
+                var js__brand_list = $("#js__brand_list");
+                js__brand_list.find(">.u-item").removeClass("on");
+                //如果不是不限的汽车品牌，那么就调用对应的接口数据
+                if(id>-1){
+                    this._getDefaultCarSeries(id);
+                    var js__series_list = $("#js__series_list");
+                    js__series_list.find(">.u-item").removeClass("on");
+                    js__series_list.find(">.u-item").eq(0).addClass("on");
+                }
+                
+                //由于id不是挂载在ul上，所以find(".u-item")  :不需要>
+                var js__brand_more_list = $("#js__brand_more_list");
+                js__brand_more_list.find(".u-item").removeClass("on");
+                $(e).parent(".u-item").addClass("on");
+                this.userFilterData.brand = value; 
+
+                //操作完毕后隐藏更多品牌
+                this.isShowMoreBrand = false;
+            },
 
             //车系切换
             seriesFilter(e,id,value){
@@ -492,6 +555,23 @@
                 js__series_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
                 this.userFilterData.series = value; 
+            },
+
+            //车系切换(更多中的操作)
+            seriesFilterMore(e,id,value){
+
+                // 先清除一遍外层的选中效果
+                var js__series_list = $("#js__series_list");
+                js__series_list.find(">.u-item").removeClass("on");
+                
+                //由于id不是挂载在ul上，所以find(".u-item")  :不需要>
+                var js__series_more_list = $("#js__series_more_list");
+                js__series_more_list.find(".u-item").removeClass("on");
+                $(e).parent(".u-item").addClass("on");
+                this.userFilterData.series = value; 
+
+                //操作完毕后隐藏更多车系
+                this.isShowMoreSeries = false;
             },
 
             //价格切换
