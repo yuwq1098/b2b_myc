@@ -219,7 +219,9 @@
             
             //获取/更新用户基本数据
             _updateUserData(){
-                let data = {};
+                let data = {
+                    a:'0'
+                };
                 this.getUserData(data);
             },
             

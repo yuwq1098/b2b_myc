@@ -25,6 +25,12 @@ export function dataToJson(data) {
   return JSON.parse(JSON.stringify(data));
 };
 
+//被vuex JSON.stringify后要进行反向转换 成为JSON
+export function strToJson(data) {
+  return JSON.parse(data);
+};
+
+
 //obj转FormData
 export function objToFormData(data) {
   // var datax = {

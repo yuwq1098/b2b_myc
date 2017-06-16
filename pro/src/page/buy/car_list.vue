@@ -20,7 +20,7 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
                                     <ul class="m-lk-list f__clearfix" id="js__brand_list">
-                                        <li class="u-item" :class="{'on':!currentBrand}" @click.stop="brandFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item" :class="{'on':!curCarBrandId}" @click.stop="brandFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
                                         <li class="u-item" v-for="(item,index) in allCarBrandList" v-if="index<13" @click.stop="brandFilter($event.target,item.brand_id,item.brand_name)">
                                             <a href="javascript:;"  class="u-lk">{{item.brand_name}}</a>
                                         </li>
@@ -50,7 +50,7 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
                                     <ul class="m-lk-list f__clearfix" id="js__series_list">
-                                        <li class="u-item" :class="{'on':!currentSeries}"  @click.stop="seriesFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item" :class="{'on':!curSeriesId}"  @click.stop="seriesFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
                                         <li class="u-item" 
                                             v-for="(item,index) in allsearchCarSeries" 
                                             v-if="index<10" 
@@ -83,7 +83,7 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info f__clearfix" id="js__price_box">
                                     <ul class="m-lk-list c__clearfix" id="js__price_list">
-                                        <li class="u-item" :class="{'on':!currentPrice}"  @click.stop="priceFilter($event.target,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item" :class="{'on':!curPriceVal}"  @click.stop="priceFilter($event.target,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
                                         <li class="u-item" v-for="(item,index) in searchDataItems.price" :min="item.min" :max="item.max" @click.stop="priceFilter($event.target,item.min,item.max,item.title)">
                                             <a href="javascript:;" class="u-lk">{{item.title}}</a>
                                         </li>
@@ -307,7 +307,10 @@
 
 <script>
     import $ from 'jquery'
+    // 获取数据的api
     import api from 'api/getData.js'
+    // vuex状态管理
+    import { mapGetters,mapActions } from 'vuex'
     // 本地数据搜索价格
     import {searchPriceList} from "api/localJson/home.js"
     // dom操作方法
@@ -318,13 +321,13 @@
     import * as hashData from "api/localJson/hashData.js"
     // b2b条件过滤相关构造类
     import {filterShowData} from "base/class/b2bFilter.js"
-    
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 更多车品牌组件
     import brandMoreBox from "components/filterMoreBox/brandMoreBox.vue"
     // 更多车系组件
     import seriesMoreBox from "components/filterMoreBox/seriesMoreBox.vue"
+
 
     //本地的过滤筛选数据
     import * as filterData from "api/localJson/filter.js"
@@ -341,10 +344,10 @@
         data() {
             return{
 
-                currentBrand: '',                    //当前选中的汽车品牌
-                currentSeries: '',                   //当前选中的汽车车系
-                currentPrice: '',                    //当前选中的价格
-                
+                curCarBrandId: '',                    // 当前选中的汽车品牌ID(线上数据庞大，不能用hashData匹配)
+                curSeriesId: '',                      // 当前选中的汽车车系ID(线上数据庞大，不能用hashData匹配)
+
+                curPriceVal: '',                      // 当前选中的值（这个可以直接和hashData匹配）==> 最终还是要转成 min+max
                 // 价格的最小值和最大值
                 minPriceIptVal: '',
                 maxPriceIptVal: '',
@@ -390,22 +393,25 @@
                   * @description 搜索条件集合(向后台发起数据请求是以此种数据结构)
                   */
                 searchFilterList:{
-                    carBrand: "",                    //汽车品牌
-                    Series: "",                      //车系
-                    B2BPriceFrom: "",                //最低价格
-                    B2BPriceTo: "",                  //最高价格
-                    dischargeStandard: "",           //排放标准
-                    MileageFrom: "",                 //最低里程
-                    MileageTo: "",                   //最高里程
-                    GearType: "",                    //手/自动挡
-                    Color: "",                       //颜色
-                    OnLicensePlateDateFrom: "",      //上牌日期起（计算车龄）
-                    OnLicensePlateDateTo: "",        //上牌日期止（计算车龄）
-                    TransferTimesFrom: "",           //最少过户次数
-                    TransferTimesTo: "",             //最多过户次数
-                    ServiceCharacteristics: "",      //营运类型选择
-                    SortType: "-1",                  //排序规则
-                    keyCount: "",                    //钥匙
+                    PageSize: "",                    // pageSize页面规格 默认10
+                    PageIndex: "",                   // pageIndex当前页序 默认第1页
+                    CarBrandId: "",                  // 汽车品牌id
+                    CarSeriesId: "",                 // 车系id
+                    DischargeStandard: "",           // 排放标准, 国1, 国2, ...
+                    Color: "",                       // 颜色
+                    OnLicensePlateDateFrom: "",      // 上牌日期起 2016-01-01（通过计算车龄反算出上牌日期）
+                    OnLicensePlateDateTo: "",        // 上牌日期止 2016-09-01（通过计算车龄反算出上牌日期）
+                    MileageFrom: "",                 // 最低里程  0   (单位万公里)
+                    MileageTo: "",                   // 最高里程  5   (单位万公里)
+                    B2BPriceFrom: "",                // 最低价格  0   (单位万元)
+                    B2BPriceTo: "",                  // 最高价格  10  (单位万元)
+                    ServiceCharacteristics: "",      // 运营类型 string  非营运
+                    TransferTimesFrom: "",           // 最少过户次数 0
+                    TransferTimesTo: "",             // 最多过户次数 2
+                    KeyCountFrom:"",                 // 钥匙数起 0
+                    KeyCountTo:"",                   // 钥匙数止于 5
+                    GearType: "",                    // 手/自动挡  int  1是手动 2是自动
+                    SortType: "",                    // 排序关键字： string 价格最低、价格最高、车龄最短、里程最少、最近更新
                 },
                 
                 /**
@@ -465,14 +471,17 @@
             //用户选择条件发生变化
             userFilterData:{
                 handler(curVal,oldVal){ //车型选择变化 @param curVal 当前数据, @param oldVal 过去的数据
-                    console.log("数据发生变化")
                     this._getFilterShowDataItems(curVal);
+                    this._setUserFilterData(curVal);
                 },
                 deep:true
             }
         },
         // 自定义函数(方法)
         methods: {
+            
+            //vuex的actions
+            ...mapActions(["setUserFilterData"]),
 
             //获取车辆品牌
             _getCarBrandList(){
@@ -522,7 +531,14 @@
                     js__series_list.find(">.u-item").removeClass("on");
                     js__series_list.find(">.u-item").eq(0).addClass("on");
                 }
+
+                // 设置展示给界面  用户所选条件集合中 汽车品牌的lable
                 this.userFilterData.brand = value; 
+                // 设置真实向api请求的字段 汽车品牌的id
+                this.searchFilterList.CarBrandId = id; 
+                // 重新渲染页面
+                this.carListResultRender();
+
             },
             
             //汽车品牌切换(更多中的操作)
@@ -543,7 +559,14 @@
                 var js__brand_more_list = $("#js__brand_more_list");
                 js__brand_more_list.find(".u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
+
+
+                // 设置展示给界面  用户所选条件集合中 汽车品牌的lable
                 this.userFilterData.brand = value; 
+                // 设置真实向api请求的字段 汽车品牌的id
+                this.searchFilterList.CarBrandId = id; 
+                // 重新渲染页面
+                this.carListResultRender();
 
                 //操作完毕后隐藏更多品牌
                 this.isShowMoreBrand = false;
@@ -554,7 +577,14 @@
                 var js__series_list = $("#js__series_list");
                 js__series_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
+
+                // 设置展示给界面  用户所选条件集合中 汽车车系的lable
                 this.userFilterData.series = value; 
+                // 设置真实向api请求的字段 汽车车系的id
+                this.searchFilterList.CarSeriesId = id; 
+                // 重新渲染页面
+                this.carListResultRender();
+
             },
 
             //车系切换(更多中的操作)
@@ -568,7 +598,14 @@
                 var js__series_more_list = $("#js__series_more_list");
                 js__series_more_list.find(".u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
+
+
+                // 设置展示给界面  用户所选条件集合中 汽车车系的lable
                 this.userFilterData.series = value; 
+                // 设置真实向api请求的字段 汽车车系的id
+                this.searchFilterList.CarSeriesId = id; 
+                // 重新渲染页面
+                this.carListResultRender();
 
                 //操作完毕后隐藏更多车系
                 this.isShowMoreSeries = false;
@@ -579,6 +616,7 @@
                 var js__price_list = $("#js__price_list");
                 js__price_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
+
                 this.userFilterData.price = value; 
             },
 
@@ -615,6 +653,11 @@
                 console.log("用户所选条件集合",this.filterShowDataItems);
             },
 
+            //设置真实向api请求的字段
+            _setUserFilterData(dataObj){
+                console.log("处理选中的那些数据",dataToJson(dataObj));
+            },
+
             //清空搜索记录
             clearFilterData(){
                 console.log("清空条件搜索记录")
@@ -628,6 +671,14 @@
             //分页页号切换触发
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
+            },
+
+            // 筛选结果渲染,用户执行对筛选条件的增删改查，都将触发这个方法
+            carListResultRender(){
+
+                //将用户选中的数据都存在本地中
+                this.setUserFilterData(this.userFilterLabel);
+                console.log("重新渲染",dataToJson(this.searchFilterList));
             },
 
         },

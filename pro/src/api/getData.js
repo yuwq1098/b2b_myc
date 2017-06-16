@@ -1,23 +1,25 @@
 import axios from 'axios'
 import qs from 'qs'
-import {joinUrl,dataToJson} from 'assets/js/util.js'
+import {joinUrl,dataToJson,strToJson} from 'assets/js/util.js'
 import {store} from 'assets/js/store.js'; 
 import {md5} from 'assets/js/md5.js';
 
-let [timestamp,token,secret,sign] = [null,null,null,null]
+
 //获取headers签名字段
 const getSignHeaders=function(){
+    let [timestamp,token,secret,sign] = [null,null,null,null];
     if(store.get('loginInfo')){
         [timestamp,token,secret]=[
             ((+new Date())/1000).toFixed(0),
-            store.get('loginInfo').AccessToken,
-            store.get('loginInfo').AccessSecret,      
+            strToJson(store.get('loginInfo')).AccessToken,
+            strToJson(store.get('loginInfo')).AccessSecret,      
         ];
         sign=md5(timestamp+token+secret);
     }
+    return [timestamp,token,secret,sign]
 };
-//初次加载先获取一次headers签名字段
-getSignHeaders();
+let [timestamp,token,secret,sign] = getSignHeaders();
+
 
 // axios 配置
 axios.defaults.timeout = 5000;
@@ -57,7 +59,7 @@ export function fetch(url, params) {
 export function fetchSign(url, params) {
     return new Promise((resolve, reject) => {
         let newUrl = joinUrl(url);
-        getSignHeaders();
+        let [timestamp,token,secret,sign] = getSignHeaders();
         const config = {
             headers: {timestamp:timestamp,token:token,sign:sign},
         }
