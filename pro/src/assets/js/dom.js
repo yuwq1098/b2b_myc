@@ -158,13 +158,38 @@ export function getLeftToBrowser(e) {
 */ 
 export function isObjHasValue(obj){
 
+    //obj非空截断
+    if(!obj||obj.length<=0) return;
+
     let onOff = false;
     //遍历对象
     for (var key of Object.keys(obj)) {
-        let bool = obj[key]?true:false;
+        let bool = (obj[key]&&obj[key]!=-1)?true:false;
         onOff = onOff||bool;
     }
     return onOff;
+}
+
+/** 
+* @description 清空obj的所有值
+* @param obj 需要遍历的对象
+* @function 通过es6语法实现
+* @return newObj 返回一个新对象回去
+*/ 
+export function clearObjAllValue(obj){
+    
+    //obj非空截断
+    if(!obj||obj.length<=0) return;
+
+    let newObj = {}
+
+    //遍历对象
+    for (var key of Object.keys(obj)) {
+        obj[key] = null;
+        newObj.push(obj[key]);
+    }
+    console.log(newObj);
+    return newObj;
 }
 
 /** 

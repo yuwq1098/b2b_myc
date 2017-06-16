@@ -36,7 +36,7 @@ export const carAge = [
         value: '-1',
     },
     {
-        label: "一年内",
+        label: "1年内",
         value: '1',
     },
     {
@@ -185,7 +185,7 @@ export const dischargeStandard = [
     }
 ]
 
-// 排放标准
+// 手/自动挡
 export const GearType = [
     {
         label: '不限',

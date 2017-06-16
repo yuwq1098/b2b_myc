@@ -20,8 +20,8 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
                                     <ul class="m-lk-list f__clearfix" id="js__brand_list">
-                                        <li class="u-item" :class="{'on':!currentBrand}" @click.stop="brandFilter(-1,$event.target)"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item" v-for="(item,index) in allCarBrandList" v-if="index<13" @click.stop="brandFilter(item.brand_id,$event.target)">
+                                        <li class="u-item" :class="{'on':!currentBrand}" @click.stop="brandFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item" v-for="(item,index) in allCarBrandList" v-if="index<13" @click.stop="brandFilter($event.target,item.brand_id,item.brand_name)">
                                             <a href="javascript:;"  class="u-lk">{{item.brand_name}}</a>
                                         </li>
                                     </ul>
@@ -38,8 +38,8 @@
                             <div class="m-sel-lk-box">
                                 <div class="m-info">
                                     <ul class="m-lk-list f__clearfix" id="js__series_list">
-                                        <li class="u-item" :class="{'on':!currentSeries}"  @click.stop="seriesFilter(-1,$event.target)"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item" v-for="(item,index) in allsearchCarSeries" v-if="index<10" @click.stop="seriesFilter(item.brand_id,$event.target)"><a href="javascript:;" class="u-lk">{{item.series_name}}</a></li>
+                                        <li class="u-item" :class="{'on':!currentSeries}"  @click.stop="seriesFilter($event.target,-1,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
+                                        <li class="u-item" v-for="(item,index) in allsearchCarSeries" v-if="index<10" @click.stop="seriesFilter($event.target,item.series_id,item.series_name)"><a href="javascript:;" class="u-lk">{{item.series_name}}</a></li>
                                     </ul>
                                 </div><!-- 信息 -->
                                 <div class="m-info-cld"></div><!-- 子信息 -->
@@ -55,7 +55,7 @@
                                 <div class="m-info f__clearfix" id="js__price_box">
                                     <ul class="m-lk-list c__clearfix" id="js__price_list">
                                         <li class="u-item" :class="{'on':!currentPrice}"  @click.stop="priceFilter($event.target,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item" v-for="(item,index) in searchDataItems.price" :min="item.min" :max="item.max" @click.stop="priceFilter($event.target,item.min,item.max)">
+                                        <li class="u-item" v-for="(item,index) in searchDataItems.price" :min="item.min" :max="item.max" @click.stop="priceFilter($event.target,item.min,item.max,item.title)">
                                             <a href="javascript:;" class="u-lk">{{item.title}}</a>
                                         </li>
                                     </ul>
@@ -189,7 +189,20 @@
                         
                         <div class="m-sel-check">
                             <div class="m-check-none" v-show="!isShowByHasFilter">请选择筛选条件</div><!-- 当用户没有选择任何条件的时候 -->
-                            <div class="m-check-box" v-show="isShowByHasFilter"></div>
+                            <div class="m-check-box" v-show="isShowByHasFilter">
+                                <div class="m-check-tit">当前已选条件：</div>
+                                <div class="m-check-con f__clearfix">
+                                    <ul class="u-check-lst f__clearfix">
+                                        <template v-for="item in filterShowDataItems">
+                                            <li class="f__fl u-check-item" v-if="item">
+                                                <span class="u-label">{{item.label}}</span>
+                                                <a class="u-lk"><i class="iconfont icon-guanbi1"></i></a><!-- 关闭按钮 -->
+                                            </li>    
+                                        </template>
+                                    </ul>
+                                    <a href="javascript:;" @click="clearFilterData" class="u-all-clear">清空选择</a>
+                                </div>
+                            </div>
                         </div><!-- 当前用户已选择过滤条件 -->
 
                     </div><!-- 选择过滤条件 -->
@@ -270,6 +283,13 @@
     import {searchPriceList} from "api/localJson/home.js"
     // dom操作方法
     import * as geekDom from "assets/js/dom.js"
+    // 工具函数
+    import {dataToJson} from "assets/js/util.js"
+    // 数据hash匹配
+    import * as hashData from "api/localJson/hashData.js"
+    // b2b条件过滤相关构造类
+    import {filterShowData} from "base/class/b2bFilter.js"
+    
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
 
@@ -303,6 +323,11 @@
 
                 isNotBrand: true,                    //品牌不限时不显示车系
 
+                
+                /**
+                  * @description 用以展示的用户所选条件
+                  */
+                filterShowDataItems: [],
 
                 /**
                   * @description 用户选择的筛选条件
@@ -318,8 +343,8 @@
                     color: "",                   //颜色
                     transferCount: "",           //过户次数
                     serviceType: "",             //营运类型
-                    sortType: "",                //搜索结果排序结果
                     keyCount: "",                //钥匙数
+                    sortType: "",                //搜索结果排序结果
                 },
                 
                 /**
@@ -401,32 +426,37 @@
             //用户选择条件发生变化
             userFilterData:{
                 handler(curVal,oldVal){ //车型选择变化 @param curVal 当前数据, @param oldVal 过去的数据
-                    console.log("数据发生变化",curVal);  
+                    console.log("数据发生变化")
+                    this._getFilterShowDataItems(curVal);
                 },
                 deep:true
             }
         },
         // 自定义函数(方法)
         methods: {
+
             //获取车辆品牌
             _getCarBrandList(){
                 api.getCarBrand().then((res) => {
                     this.allCarBrandList = res.data
                 })
             },
+
             //获取对应汽车品牌的车系
             _getDefaultCarSeries(id){
                 api.getCarSeriesByBrand(id).then((res) => {
                     this.allsearchCarSeries = res.data;
                 })
             },
+
             //获取车辆颜色
             _getCarColor(){
                 api.getAllCarColor().then((res) => {
                     let carColor = [];
                     res.data.map(function(value, index, array) {
                         let obj = {}
-                        obj.value = value.ColorCode;
+                        // obj.value = value.ColorCode;
+                        obj.value = value.ColorName;
                         obj.label = value.ColorName;
                         carColor.push(obj)
                     });
@@ -441,7 +471,7 @@
             },
 
             //汽车品牌切换
-            brandFilter(id,e){
+            brandFilter(e,id,value){
                 this.isNotBrand = id>-1 ? false :true; 
                 var js__brand_list = $("#js__brand_list");
                 js__brand_list.find(">.u-item").removeClass("on");
@@ -453,20 +483,23 @@
                     js__series_list.find(">.u-item").removeClass("on");
                     js__series_list.find(">.u-item").eq(0).addClass("on");
                 }
+                this.userFilterData.brand = value; 
             },
 
             //车系切换
-            seriesFilter(id,e){
+            seriesFilter(e,id,value){
                 var js__series_list = $("#js__series_list");
                 js__series_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
+                this.userFilterData.series = value; 
             },
 
             //价格切换
-            priceFilter(e,min,max){
+            priceFilter(e,min,max,value){
                 var js__price_list = $("#js__price_list");
                 js__price_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
+                this.userFilterData.price = value; 
             },
 
             //排序切换
@@ -474,15 +507,44 @@
                 var js__sort_list = $("#js__sort_list");
                 js__sort_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
-                this.searchFilterList.SortType = value; 
+                this.userFilterData.sortType = value; 
             },
 
-            
-            
+            //获取用以展示的用户所选条件集合
+            _getFilterShowDataItems(dataObj){
+                //清空
+                this.filterShowDataItems=[];
+                let [key,value,thisHash,label] = [null,null,null,null]
+                for (key in dataObj) {
+                    if(dataObj[key]&&dataObj[key]!="-1"){  //判断是否有数据，并且数据不为无限
+                        
+                        //当hash表有这个key对应值时,用hash数据，否则都用原本的label
+                        if(hashData.userFilterLabel[key]){  
+                            value = dataObj[key];
+                            thisHash = hashData.userFilterLabel[key];
+                            label = thisHash[value];
+                        }
+                        else{//用原本的label
+                            value = dataObj[key];
+                            label = dataObj[key];
+                        }
+                        this.filterShowDataItems.push(new filterShowData(key,value,label))
+                        
+                    }
+                }
+                console.log("用户所选条件集合",this.filterShowDataItems);
+            },
+
+            //清空搜索记录
+            clearFilterData(){
+                console.log("清空条件搜索记录")
+            },
+
             //分页每页展示数据大小变化后出发
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
+
             //分页页号切换触发
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);

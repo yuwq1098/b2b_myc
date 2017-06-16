@@ -19,9 +19,10 @@ class filterDataClass{
 	    this.color = data.color||""                                 //颜色
 	    this.transferCount = data.transferCount||""                 //过户次数
 	    this.serviceType = data.serviceType||""                     //营运类型
-	    this.sortType = data.sortType||""                           //搜索结果排序结果
 	    this.keyCount = data.keyCount||""                           //钥匙数
+	    this.sortType = data.sortType||""                           //搜索结果排序结果
 	}
 }
+
 
 export {searchCarResult,filterDataClass}

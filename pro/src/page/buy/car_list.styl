@@ -64,6 +64,7 @@
                     text-align right
                     _display(block)
                     color #959595
+                    _spacingPlus()
                 .m-sel-lk-box
                     .m-info
                         .m-lk-list,.m-other-price
@@ -186,12 +187,68 @@
                         margin-left 2px
 
             .m-sel-check
-                height 36px
-                line-height 36px
-                margin-top 8px
+                min-height 36px
+                margin-top 12px
+                padding-top 5px
+                _border(top,#e2e2e2)
                 .m-check-none
-                    padding-left 15px
+                    line-height 36px
+                    padding-left 13px
                     color #959595
+                    _spacingPlus()
+                .m-check-box
+                    position relative
+                    min-height 36px
+                    .m-check-tit
+                        width 130px - 13px
+                        padding-left 13px
+                        color #959595
+                        _spacingPlus()
+                        height 36px
+                        line-height 36px
+                        _completeCenter(0,auto,0,auto)
+                    .m-check-con
+                        margin-left 140px
+                        padding 7px 0 0
+                        .u-check-lst,.u-all-clear
+                            float left
+                        .u-check-lst
+                            .u-check-item
+                                height 25px
+                                line-height 25px
+                                padding 0 21px 0 8px
+                                _borderAll($c_blue)
+                                color $c_blue
+                                margin-right 10px
+                                _spacingPlus() 
+                                _borderRadius(2px)
+                                cursor pointer
+                                position relative
+                                .u-label,.iconfont
+                                    cursor @cursor
+                                .iconfont
+                                    width 20px
+                                    text-align center
+                                    height 20px
+                                    line-height 20px
+                                    _completeCenter(auto,2px,2px);
+                                    color $c_blue
+                                    font-size 15px
+                                &:hover
+                                    _borderAll(#ff6533)
+                                    .iconfont,.u-label
+                                        color #ff6533
+
+
+                        .u-all-clear
+                            margin-left 5px
+                            height 27px
+                            line-height 27px
+                            color #ff6533
+                            &:hover
+                                color #ff6533
+
+
 
 
         .m-lst-gp-sel
