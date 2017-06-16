@@ -1,4 +1,9 @@
-import api from 'api/getData.js'
+
+/** 
+* @description b2b大厅数据筛选列表本地化资源 
+* @creatDate 2017-6-15
+* @author Geek.Yu  email:1098654043@qq.com
+*/ 
 
 //过户次数
 export const changeNum = [
@@ -243,4 +248,32 @@ export const SortTypeList = [
         label: "里程最少",
         value: '里程最少',
     }
+]
+
+//钥匙数
+export const keyCount = [
+    {
+        label: '不限',
+        value: '-1',
+    },
+    {
+        label: "1把",
+        value: '1',
+    },
+    {
+        label: "2把",
+        value: '2',
+    },
+    {
+        label: "3把",
+        value: '3',
+    },
+    {
+        label: "4把",
+        value: '4',
+    },
+    {
+        label: "五把",
+        value: '5',
+    },
 ]

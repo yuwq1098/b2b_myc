@@ -53,7 +53,7 @@
                                 <div class="m-info f__clearfix" id="js__price_box">
                                     <ul class="m-lk-list c__clearfix" id="js__price_list">
                                         <li class="u-item" :class="{'on':!currentPrice}"  @click.stop="priceFilter($event.target,-1)"><a href="javascript:;" class="u-lk">不限</a></li>
-                                        <li class="u-item" v-for="(item,index) in searchPriceList" :min="item.min" :max="item.max" @click.stop="priceFilter($event.target,item.min,item.max)">
+                                        <li class="u-item" v-for="(item,index) in searchDataItems.price" :min="item.min" :max="item.max" @click.stop="priceFilter($event.target,item.min,item.max)">
                                             <a href="javascript:;" class="u-lk">{{item.title}}</a>
                                         </li>
                                     </ul>
@@ -84,10 +84,10 @@
                                     <ul class="m-lk-list no-overflow other">
                                         <li class="u-item">
                                             <el-select 
-                                                :class="{'on':searchFilterList.carModel&&searchFilterList.carModel!='-1'}"
-                                                v-model="searchFilterList.carModel" placeholder="车型">
+                                                :class="{'on':userFilterData.age!=''&&userFilterData.age!='-1'}" 
+                                                v-model="userFilterData.age" placeholder="车龄">
                                                 <el-option
-                                                  v-for="item in carModel"
+                                                  v-for="item in searchDataItems.age"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -96,10 +96,10 @@
                                         </li>
                                         <li class="u-item">
                                             <el-select 
-                                                :class="{'on':carAgeVal&&carAgeVal!='-1'}" 
-                                                v-model="carAgeVal" placeholder="车龄">
+                                                :class="{'on':userFilterData.dischargeStandard!=''&&userFilterData.dischargeStandard!='-1'}" 
+                                                v-model="userFilterData.dischargeStandard" placeholder="排放标准">
                                                 <el-option
-                                                  v-for="item in carAge"
+                                                  v-for="item in searchDataItems.dischargeStandard"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -108,10 +108,10 @@
                                         </li>
                                         <li class="u-item">
                                             <el-select 
-                                                :class="{'on':searchFilterList.dischargeStandard&&searchFilterList.dischargeStandard!='-1'}" 
-                                                v-model="searchFilterList.dischargeStandard" placeholder="排放标准">
+                                                :class="{'on':userFilterData.mileage!=''&&userFilterData.mileage!='-1'}" 
+                                                v-model="userFilterData.mileage" placeholder="里程">
                                                 <el-option
-                                                  v-for="item in dischargeStandard"
+                                                  v-for="item in searchDataItems.mileage"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -120,10 +120,10 @@
                                         </li>
                                         <li class="u-item">
                                             <el-select 
-                                                :class="{'on':mileageVal&&mileageVal!='-1'}" 
-                                                v-model="mileageVal" placeholder="里程">
+                                                :class="{'on':userFilterData.gearType!=''&&userFilterData.gearType!='-1'}" 
+                                                v-model="userFilterData.gearType" placeholder="手/自动挡">
                                                 <el-option
-                                                  v-for="item in mileage"
+                                                  v-for="item in searchDataItems.gearType"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -132,23 +132,10 @@
                                         </li>
                                         <li class="u-item">
                                             <el-select 
-                                                :class="{'on':searchFilterList.GearType&&searchFilterList.GearType!='-1'}" 
-                                                v-model="searchFilterList.GearType" placeholder="手/自动挡">
-                                                <el-option
-                                                  v-for="item in GearType"
-                                                  :key="item.value"
-                                                  :label="item.label"
-                                                  :value="item.value">
-                                                </el-option>
-                                            </el-select>
-                                        </li>
-                                        <li class="u-item">
-                                            <el-select 
-                                                :class="{'on':searchFilterList.Color&&searchFilterList.Color!='-1'}" 
-                                                v-model="searchFilterList.Color" placeholder="颜色">
+                                                :class="{'on':userFilterData.color!=''&&userFilterData.color!='-1'}" 
+                                                v-model="userFilterData.color" placeholder="颜色">
                                                 <el-option
                                                   v-for="(item,index) in carColor"
-                                                  :selected="index==0?'selected':false"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -157,10 +144,10 @@
                                         </li>
                                         <li class="u-item">
                                             <el-select 
-                                                :class="{'on':transferTimesVal&&transferTimesVal!='-1'}" 
-                                                v-model="transferTimesVal" placeholder="过户次数">
+                                                :class="{'on':userFilterData.transferCount!=''&&userFilterData.transferCount!='-1'}" 
+                                                v-model="userFilterData.transferCount" placeholder="过户次数">
                                                 <el-option
-                                                  v-for="item in changeNum"
+                                                  v-for="item in searchDataItems.changeNum"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
@@ -169,16 +156,29 @@
                                         </li>
                                         <li class="u-item">
                                             <el-select 
-                                                :class="{'on':searchFilterList.ServiceCharacteristics&&searchFilterList.ServiceCharacteristics!='-1'}" 
-                                                v-model="searchFilterList.ServiceCharacteristics" placeholder="营运类型">
+                                                :class="{'on':userFilterData.serviceType!=''&&userFilterData.serviceType!='-1'}" 
+                                                v-model="userFilterData.serviceType" placeholder="营运类型">
                                                 <el-option
-                                                  v-for="item in ServiceCharacteristics"
+                                                  v-for="item in searchDataItems.serviceType"
                                                   :key="item.value"
                                                   :label="item.label"
                                                   :value="item.value">
                                                 </el-option>
                                             </el-select>
                                         </li>
+                                        <li class="u-item">
+                                            <el-select 
+                                                :class="{'on':userFilterData.keyCount!=''&&userFilterData.keyCount!='-1'}" 
+                                                v-model="userFilterData.keyCount" placeholder="钥匙数">
+                                                <el-option
+                                                  v-for="item in searchDataItems.keyCount"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </li>
+                                        
                                     </ul>
                                 </div><!-- 信息 -->
                             </div>
@@ -195,7 +195,7 @@
                             <div class="m-filtrate f__fr">
                                 <ul class="m-filter-lst f__clearfix" id="js__sort_list">
                                     
-                                    <template v-for="(item,index) in SortTypeList">
+                                    <template v-for="(item,index) in searchDataItems.sortType">
                                         <li class="u-item" 
                                             :class="{'on':index==0&&searchFilterList.SortType=='-1'}"
                                             @click.stop="sortTypeFilter($event.target,item.value)"
@@ -203,21 +203,7 @@
                                             <a href="javascript:;" class="u-lk">{{item.label}}</a>
                                         </li>
                                     </template>
-                                    <!-- <li class="u-item">
-                                        <a href="javascript:;" class="u-lk">车龄最短</a>
-                                    </li>
-                                    <li class="u-item">
-                                        <a href="javascript:;" class="u-lk">最新发布</a>
-                                    </li>
-                                    <li class="u-item">
-                                        <a href="javascript:;" class="u-lk">价格最低</a>
-                                    </li>
-                                    <li class="u-item">
-                                        <a href="javascript:;" class="u-lk">价格最高</a>
-                                    </li>
-                                    <li class="u-item">
-                                        <a href="javascript:;" class="u-lk">里程最少</a>
-                                    </li> -->
+
                                 </ul><!-- 排序方式选择 -->
                             </div><!-- 条件过滤筛选 -->
                         </div>
@@ -253,10 +239,10 @@
                                 <el-pagination
                                     @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
-                                    :current-page.sync="currentPage"
-                                    :page-size="pageSize"
+                                    :current-page.sync="resultPage.currentPage"
+                                    :page-size="resultPage.pageSize"
                                     layout="prev, pager, next"
-                                    :total="totalPage">
+                                    :total="resultPage.totalPage">
                                 </el-pagination>
                             </div>
                         </div>
@@ -304,12 +290,9 @@
 
                 allCarBrandList: [],                 //全部的汽车品牌列表
                 allsearchCarSeries: [],              //全部的根据汽车品牌查询到的车系
-                
+                carColor: [],                        //车体颜色
                 isNotBrand: true,                    //品牌不限时不显示车系
 
-                currentPage: 5,                      //查询结果的当前页
-                pageSize : 8,                        //每页所含的数据数量
-                totalPage: 400,                      //总数据条数
 
 
                 /**
@@ -319,7 +302,6 @@
                     brand: "",                   //车牌
                     series: "",                  //车系
                     price: "",                   //价格
-                    model: "",                   //车型
                     age: "",                     //车龄
                     dischargeStandard: "",       //排放标准
                     mileage: "",                 //里程
@@ -328,6 +310,7 @@
                     transferCount: "",           //过户次数
                     serviceType: "",             //营运类型
                     sortType: "",                //搜索结果排序结果
+                    keyCount: "",                //钥匙数
                 },
                 
                 /**
@@ -338,7 +321,6 @@
                     Series: "",                      //车系
                     B2BPriceFrom: "",                //最低价格
                     B2BPriceTo: "",                  //最高价格
-                    carModel: "",                    //车型
                     dischargeStandard: "",           //排放标准
                     MileageFrom: "",                 //最低里程
                     MileageTo: "",                   //最高里程
@@ -350,19 +332,33 @@
                     TransferTimesTo: "",             //最多过户次数
                     ServiceCharacteristics: "",      //营运类型选择
                     SortType: "-1",                  //排序规则
+                    keyCount: "",                    //钥匙
                 },
                 
-                searchPriceList: searchPriceList,                              //本地数据中的价格查询字典列表
-                changeNum: filterData.changeNum,                               //过户次数
-                carAge: filterData.carAge,                                     //车龄
-                carModel: filterData.carModel,                                 //车型
-                carColor: [],                                                  //车体颜色
-                mileage: filterData.mileage,                                   //行驶里程
-                displacement: filterData.displacement,                         //排量
-                GearType: filterData.GearType,                                 //手/自动挡
-                dischargeStandard: filterData.dischargeStandard,               //排放标准
-                ServiceCharacteristics: filterData.ServiceCharacteristics,     //营运类型
-                SortTypeList: filterData.SortTypeList,             //排序规则
+                /**
+                  * @description 搜索条件列表信息集合(通过本地的数据获取+通过线上的数据获取)
+                  */
+                searchDataItems:{
+                    price: searchPriceList,                              //本地数据中的价格搜索条件列表
+                    changeNum: filterData.changeNum,                            //过户次数
+                    age: filterData.carAge,                                     //车龄
+                    mileage: filterData.mileage,                                //行驶里程
+                    gearType: filterData.GearType,                              //手/自动挡
+                    dischargeStandard: filterData.dischargeStandard,            //排放标准
+                    serviceType: filterData.ServiceCharacteristics,             //营运类型
+                    sortType: filterData.SortTypeList,                          //排序规则
+                    keyCount: filterData.keyCount,                              //钥匙数
+                },
+
+                /**
+                  * @description 结果集分页信息
+                  */
+                resultPage:{
+                    currentPage: 5,                      //查询结果的当前页
+                    pageSize : 8,                        //每页所含的数据数量
+                    totalPage: 400,                      //总数据条数
+                },
+                
             }
 
         },
@@ -379,13 +375,24 @@
             this._getCarBrandList();
             this._getCarColor();
         },
+        //数据侦听
         watch:{
+            //限制用户输入最小价格（只能输入后两位小数点的数字）
             minPriceIptVal(val){
                 this.minPriceIptVal = geekDom.valReplace(val,2);
             },
+            //限制用户输入最大价格（只能输入后两位小数点的数字）
             maxPriceIptVal(val){
                 this.maxPriceIptVal = geekDom.valReplace(val,2);
             },
+            
+            //用户选择条件发生变化
+            userFilterData:{
+                handler(curVal,oldVal){ //车型选择变化 @param curVal 当前数据, @param oldVal 过去的数据
+                    console.log("数据发生变化",curVal);  
+                },
+                deep:true
+            }
         },
         // 自定义函数(方法)
         methods: {
@@ -417,7 +424,7 @@
                     }]
                     this.carColor = first.concat(carColor);
                     //由于车辆颜色是在获取到数据后再渲染,导致每次都会直接显示最后一项，所以直接设为false,设为‘’无效
-                    this.searchFilterList.Color = false;
+                    this.userFilterData.color = false;
                 })   
             },
 
