@@ -31,7 +31,8 @@
                             <a href="javascript:;" class="u-more" v-if="allCarBrandList.length>=13">
                                 更多<i class="iconfont icon-arrowdown1"></i>
                             </a>
-                        </div>
+                        </div><!-- 品牌选择 -->
+
                         <div class="m-sel-gp f__clearfix" v-show="!isNotBrand">
                             <span class="m-gp-tit">车系：</span>
                             <div class="m-sel-lk-box">
@@ -46,7 +47,8 @@
                             <a href="javascript:;" class="u-more" v-if="allsearchCarSeries.length>=12">
                                 更多<i class="iconfont icon-arrowdown1"></i>
                             </a>
-                        </div>
+                        </div><!-- 车系选择 -->
+
                         <div class="m-sel-gp">
                             <span class="m-gp-tit">价格：</span>
                             <div class="m-sel-lk-box">
@@ -76,7 +78,8 @@
                                     </div>
                                 </div><!-- 信息 -->
                             </div>
-                        </div>
+                        </div><!-- 价格选择 -->
+
                         <div class="m-sel-gp">
                             <span class="m-gp-tit">其他：</span>
                             <div class="m-sel-lk-box">
@@ -182,7 +185,13 @@
                                     </ul>
                                 </div><!-- 信息 -->
                             </div>
-                        </div>
+                        </div><!-- 其他信息选择 -->
+                        
+                        <div class="m-sel-check">
+                            <div class="m-check-none" v-show="!isShowByHasFilter">请选择筛选条件</div><!-- 当用户没有选择任何条件的时候 -->
+                            <div class="m-check-box" v-show="isShowByHasFilter"></div>
+                        </div><!-- 当前用户已选择过滤条件 -->
+
                     </div><!-- 选择过滤条件 -->
                     
                     <div class="m-b2b-svr">
@@ -291,8 +300,8 @@
                 allCarBrandList: [],                 //全部的汽车品牌列表
                 allsearchCarSeries: [],              //全部的根据汽车品牌查询到的车系
                 carColor: [],                        //车体颜色
-                isNotBrand: true,                    //品牌不限时不显示车系
 
+                isNotBrand: true,                    //品牌不限时不显示车系
 
 
                 /**
@@ -363,7 +372,10 @@
 
         },
         computed:{
-            
+            //已选条件框控制显示隐藏
+            isShowByHasFilter(){
+                return geekDom.isObjHasValue(this.userFilterData);
+            }
         },
         created(){
 

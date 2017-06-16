@@ -9,10 +9,9 @@ class searchCarResult{
 //b2c大厅数据筛选构造类
 class filterDataClass{
     constructor(data) {
-	    this.brand = data.brand||""                   //车牌
-	    this.series = data.series||""                 //车系
-	    this.price = data.price||""                   //价格
-	    this.model = data.model||""                   //车型
+	    this.brand = data.brand||""                                 //车牌
+	    this.series = data.series||""                               //车系
+	    this.price = data.price||""                                 //价格
 	    this.age = data.age||""                                     //车龄
 	    this.dischargeStandard = data.dischargeStandard||""         //排放标准
 	    this.mileage = data.mileage||""                             //里程
@@ -21,6 +20,7 @@ class filterDataClass{
 	    this.transferCount = data.transferCount||""                 //过户次数
 	    this.serviceType = data.serviceType||""                     //营运类型
 	    this.sortType = data.sortType||""                           //搜索结果排序结果
+	    this.keyCount = data.keyCount||""                           //钥匙数
 	}
 }
 

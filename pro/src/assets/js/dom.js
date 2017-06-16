@@ -16,11 +16,11 @@ export function addClass(el, className) {
 }
 
 /** 
-* @description å¯¹ç”¨æˆ·è¡¨å•è¾“å…¥çš„å€¼è¿›è¡Œçº¦æŸ 
-* @param val éœ€è¦æ§åˆ¶çš„å€¼
-* @param type [1] åªå…è®¸è¾“å…¥æ•°å­—
-*             [2] åªèƒ½è¾“å…¥æ•°å­—,èƒ½è¾“å°æ•°ç‚¹. 
-* @return val è¿”å›åŒ¹é…åçš„å€¼
+* @description ¶ÔÓÃ»§±íµ¥ÊäÈëµÄÖµ½øĞĞÔ¼Êø 
+* @param val ĞèÒª¿ØÖÆµÄÖµ
+* @param type [1] Ö»ÔÊĞíÊäÈëÊı×Ö
+*             [2] Ö»ÄÜÊäÈëÊı×Ö,ÄÜÊäĞ¡Êıµã. 
+* @return val ·µ»ØÆ¥ÅäºóµÄÖµ
 */ 
 export function valReplace(val,type){
     var val = val.toString();
@@ -31,15 +31,15 @@ export function valReplace(val,type){
             newVal = val.replace(/\D/g,'');
             break;
         case 2:
-            //ä¿®å¤ç¬¬ä¸€ä¸ªå­—ç¬¦æ˜¯å°æ•°ç‚¹ çš„æƒ…å†µ.  
+            //ĞŞ¸´µÚÒ»¸ö×Ö·ûÊÇĞ¡Êıµã µÄÇé¿ö.  
             if(val !=''&& val.substr(0,1) == '.'){  
                 val="";  
             }  
-            val = val.replace(/[^\d.]/g,"");  //æ¸…é™¤â€œæ•°å­—â€å’Œâ€œ.â€ä»¥å¤–çš„å­—ç¬¦  
-            val = val.replace(/\.{2,}/g,"."); //åªä¿ç•™ç¬¬ä¸€ä¸ª. æ¸…é™¤å¤šä½™çš„       
+            val = val.replace(/[^\d.]/g,"");  //Çå³ı¡°Êı×Ö¡±ºÍ¡°.¡±ÒÔÍâµÄ×Ö·û  
+            val = val.replace(/\.{2,}/g,"."); //Ö»±£ÁôµÚÒ»¸ö. Çå³ı¶àÓàµÄ       
             val = val.replace(".","$#$").replace(/\./g,"").replace("$#$",".");      
-            val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//åªèƒ½è¾“å…¥ä¸¤ä¸ªå°æ•°       
-            if(val.indexOf(".")< 0 && val !=""){//ä»¥ä¸Šå·²ç»è¿‡æ»¤ï¼Œæ­¤å¤„æ§åˆ¶çš„æ˜¯å¦‚æœæ²¡æœ‰å°æ•°ç‚¹ï¼Œé¦–ä½ä¸èƒ½ä¸ºç±»ä¼¼äº 01ã€02çš„é‡‘é¢  
+            val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//Ö»ÄÜÊäÈëÁ½¸öĞ¡Êı       
+            if(val.indexOf(".")< 0 && val !=""){//ÒÔÉÏÒÑ¾­¹ıÂË£¬´Ë´¦¿ØÖÆµÄÊÇÈç¹ûÃ»ÓĞĞ¡Êıµã£¬Ê×Î»²»ÄÜÎªÀàËÆÓÚ 01¡¢02µÄ½ğ¶î  
                 if(val.substr(0,1) == '0' && val.length == 2){  
                     val= val.substr(1,val.length);      
                 }  
@@ -54,7 +54,7 @@ export function valReplace(val,type){
 
 
 
-//è®¾ç½®cssæ ·å¼
+//ÉèÖÃcssÑùÊ½
 export function css(obj,attr,value){
   if(arguments.length==2){
     if(attr=='scale'|| attr=='rotate'|| attr=='rotateX'||attr=='rotateY'||attr=='scaleX'||attr=='scaleY'||attr=='translateY'||attr=='translateX'){
@@ -110,7 +110,7 @@ export function css(obj,attr,value){
   return function(attr_in,value_in){css(obj,attr_in,value_in)};
 };
 
-//å…¼å®¹css3æ ·å¼
+//¼æÈİcss3ÑùÊ½
 export function setCss3(obj, attr, value){
   var str='';
   var val='';
@@ -143,7 +143,7 @@ export function setCss3(obj, attr, value){
   } 
 };  
 
-//è·å–å…ƒç´ ç›¸å¯¹äºæµè§ˆå™¨çš„æ¨ªåæ ‡
+//»ñÈ¡ÔªËØÏà¶ÔÓÚä¯ÀÀÆ÷µÄºá×ø±ê
 export function getLeftToBrowser(e) {
   var offset=e.offsetLeft; 
   if(e.offsetParent!=null) offset+=getLeftToBrowser(e.offsetParent); 
@@ -151,25 +151,42 @@ export function getLeftToBrowser(e) {
 }
 
 /** 
-* @description é˜»æ­¢äº‹ä»¶å†’æ³¡ 
-* @param obj é˜»æ­¢äº‹ä»¶å†’æ³¡çš„å¯¹è±¡(1ä¸ªå¯¹è±¡)
+* @description ÅĞ¶Ï¶ÔÏóÖĞÊôĞÔÊÇ·ñº¬ÓĞÖµ£¨ÓĞ1¸ö¾Í¿ÉÒÔ£©
+* @param obj ĞèÒª±éÀúµÄ¶ÔÏó
+* @function Í¨¹ıes6Óï·¨ÊµÏÖ
+* @return boolean  ÖÁÉÙÒ»¸öÊôĞÔÓĞÖµtrue,Ã»ÓĞÊôĞÔÓĞÖµfalse 
+*/ 
+export function isObjHasValue(obj){
+
+    let onOff = false;
+    //±éÀú¶ÔÏó
+    for (var key of Object.keys(obj)) {
+        let bool = obj[key]?true:false;
+        onOff = onOff||bool;
+    }
+    return onOff;
+}
+
+/** 
+* @description ×èÖ¹ÊÂ¼şÃ°Åİ 
+* @param obj ×èÖ¹ÊÂ¼şÃ°ÅİµÄ¶ÔÏó(1¸ö¶ÔÏó)
 */ 
 export function cancelBubbleOne(obj,Fn){
     obj.onclick = function(ev){
         var e=ev||event;
-        if(e && e.stopPropagation){//é˜»æ­¢å†’æ³¡
+        if(e && e.stopPropagation){//×èÖ¹Ã°Åİ
             e.stopPropagation();
         }else{
             window.event.cancelBubble = true;
         }
     } 
-    //å¤„ç†äº‹ä»¶å†’æ³¡
+    //´¦ÀíÊÂ¼şÃ°Åİ
     document.onclick=function(ev){
         var e=ev||event;
         var target=e.target||e.srcElement;
-        if(e.target!=obj)//äº‹ä»¶å¯¹è±¡
+        if(e.target!=obj)//ÊÂ¼ş¶ÔÏó
         {
-            //å½“æœ‰å›è°ƒçš„æ—¶å€™æ‰§è¡Œå›è°ƒ
+            //µ±ÓĞ»Øµ÷µÄÊ±ºòÖ´ĞĞ»Øµ÷
             Fn&&Fn();
         }
     }    
@@ -177,13 +194,13 @@ export function cancelBubbleOne(obj,Fn){
 };
 
 /** 
-* @description é˜»æ­¢äº‹ä»¶å†’æ³¡ 
-* @param obj é˜»æ­¢äº‹ä»¶å†’æ³¡çš„å¯¹è±¡(2ä¸ªå¯¹è±¡)
+* @description ×èÖ¹ÊÂ¼şÃ°Åİ 
+* @param obj ×èÖ¹ÊÂ¼şÃ°ÅİµÄ¶ÔÏó(2¸ö¶ÔÏó)
 */ 
 export function cancelBubbleTwo(obj1,obj2,Fn){
     obj1.onclick = function(ev){
         var e=ev||event;
-        if(e && e.stopPropagation){//é˜»æ­¢å†’æ³¡
+        if(e && e.stopPropagation){//×èÖ¹Ã°Åİ
             e.stopPropagation();
         }else{
             window.event.cancelBubble = true;
@@ -191,19 +208,19 @@ export function cancelBubbleTwo(obj1,obj2,Fn){
     } 
     obj2.onclick = function(ev){
         var e=ev||event;
-        if(e && e.stopPropagation){//é˜»æ­¢å†’æ³¡
+        if(e && e.stopPropagation){//×èÖ¹Ã°Åİ
             e.stopPropagation();
         }else{
             window.event.cancelBubble = true;
         }
     } 
-    //å¤„ç†äº‹ä»¶å†’æ³¡
+    //´¦ÀíÊÂ¼şÃ°Åİ
     document.onclick=function(ev){
         var e=ev||event;
         var target=e.target||e.srcElement;
-        if(e.target!=obj1&&e.target!=obj2)//äº‹ä»¶å¯¹è±¡
+        if(e.target!=obj1&&e.target!=obj2)//ÊÂ¼ş¶ÔÏó
         {
-            //å½“æœ‰å›è°ƒçš„æ—¶å€™æ‰§è¡Œå›è°ƒ
+            //µ±ÓĞ»Øµ÷µÄÊ±ºòÖ´ĞĞ»Øµ÷
             Fn&&Fn();
         }
     }    
@@ -211,10 +228,10 @@ export function cancelBubbleTwo(obj1,obj2,Fn){
 };
 
 /** 
-* @description é¦–é¡µçš„å…¬å‘Š 
-* @param obj è¦æ»šåŠ¨çš„çˆ¶å®¹å™¨ 
-* @param dis æ¯æ¬¡è¿åŠ¨çš„è·ç¦» 
-* @param msec å®šæ—¶å™¨é¢‘ç‡ 
+* @description Ê×Ò³µÄ¹«¸æ 
+* @param obj Òª¹ö¶¯µÄ¸¸ÈİÆ÷ 
+* @param dis Ã¿´ÎÔË¶¯µÄ¾àÀë 
+* @param msec ¶¨Ê±Æ÷ÆµÂÊ 
 */ 
 export function autoNoticeHorizontal(obj,onOFF,dis,msec){
   var oLi=obj.children;
@@ -244,24 +261,24 @@ export function autoNoticeHorizontal(obj,onOFF,dis,msec){
 };
 
 /** 
-* @description äº‹ä»¶ç»‘å®šï¼Œå…¼å®¹å„æµè§ˆå™¨ 
-* @param target äº‹ä»¶è§¦å‘å¯¹è±¡ 
-* @param type äº‹ä»¶ 
-* @param func äº‹ä»¶å¤„ç†å‡½æ•° 
+* @description ÊÂ¼ş°ó¶¨£¬¼æÈİ¸÷ä¯ÀÀÆ÷ 
+* @param target ÊÂ¼ş´¥·¢¶ÔÏó 
+* @param type ÊÂ¼ş 
+* @param func ÊÂ¼ş´¦Àíº¯Êı 
 */ 
 export function addEvent(target, type, func) { 
-    if (target.addEventListener) //éie å’Œie9 
+    if (target.addEventListener) //·Çie ºÍie9 
         target.addEventListener(type, func, false); 
-    else if (target.attachEvent) //ie6åˆ°ie8 
+    else if (target.attachEvent) //ie6µ½ie8 
         target.attachEvent("on" + type, func); 
     else target["on" + type] = func; //ie5 
 }; 
 
 /** 
-* @description äº‹ä»¶ç§»é™¤ï¼Œå…¼å®¹å„æµè§ˆå™¨ 
-* @param target äº‹ä»¶è§¦å‘å¯¹è±¡ 
-* @param type äº‹ä»¶ 
-* @param func äº‹ä»¶å¤„ç†å‡½æ•° 
+* @description ÊÂ¼şÒÆ³ı£¬¼æÈİ¸÷ä¯ÀÀÆ÷ 
+* @param target ÊÂ¼ş´¥·¢¶ÔÏó 
+* @param type ÊÂ¼ş 
+* @param func ÊÂ¼ş´¦Àíº¯Êı 
 */ 
 export function removeEvent(target, type, func){ 
     if (target.removeEventListener) 
@@ -271,7 +288,7 @@ export function removeEvent(target, type, func){
     else target["on" + type] = null; 
 };  
 
-//è·å–dataï¼Œæ‹¼æ¥
+//»ñÈ¡data£¬Æ´½Ó
 export function getData(el, name, val) {
   const prefix = 'data-'
   if (val) {
