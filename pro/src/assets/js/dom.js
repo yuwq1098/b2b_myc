@@ -16,11 +16,11 @@ export function addClass(el, className) {
 }
 
 /** 
-* @description ¶ÔÓÃ»§±íµ¥ÊäÈëµÄÖµ½øĞĞÔ¼Êø 
-* @param val ĞèÒª¿ØÖÆµÄÖµ
-* @param type [1] Ö»ÔÊĞíÊäÈëÊı×Ö
-*             [2] Ö»ÄÜÊäÈëÊı×Ö,ÄÜÊäĞ¡Êıµã. 
-* @return val ·µ»ØÆ¥ÅäºóµÄÖµ
+* @description å¯¹ç”¨æˆ·è¡¨å•è¾“å…¥çš„å€¼è¿›è¡Œçº¦æŸ 
+* @param val éœ€è¦æ§åˆ¶çš„å€¼
+* @param type [1] åªå…è®¸è¾“å…¥æ•°å­—
+*             [2] åªèƒ½è¾“å…¥æ•°å­—,èƒ½è¾“å°æ•°ç‚¹. 
+* @return val è¿”å›åŒ¹é…åçš„å€¼
 */ 
 export function valReplace(val,type){
     var val = val.toString();
@@ -31,15 +31,15 @@ export function valReplace(val,type){
             newVal = val.replace(/\D/g,'');
             break;
         case 2:
-            //ĞŞ¸´µÚÒ»¸ö×Ö·ûÊÇĞ¡Êıµã µÄÇé¿ö.  
+            //ä¿®å¤ç¬¬ä¸€ä¸ªå­—ç¬¦æ˜¯å°æ•°ç‚¹ çš„æƒ…å†µ.  
             if(val !=''&& val.substr(0,1) == '.'){  
                 val="";  
             }  
-            val = val.replace(/[^\d.]/g,"");  //Çå³ı¡°Êı×Ö¡±ºÍ¡°.¡±ÒÔÍâµÄ×Ö·û  
-            val = val.replace(/\.{2,}/g,"."); //Ö»±£ÁôµÚÒ»¸ö. Çå³ı¶àÓàµÄ       
+            val = val.replace(/[^\d.]/g,"");  //æ¸…é™¤â€œæ•°å­—â€å’Œâ€œ.â€ä»¥å¤–çš„å­—ç¬¦  
+            val = val.replace(/\.{2,}/g,"."); //åªä¿ç•™ç¬¬ä¸€ä¸ª. æ¸…é™¤å¤šä½™çš„       
             val = val.replace(".","$#$").replace(/\./g,"").replace("$#$",".");      
-            val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//Ö»ÄÜÊäÈëÁ½¸öĞ¡Êı       
-            if(val.indexOf(".")< 0 && val !=""){//ÒÔÉÏÒÑ¾­¹ıÂË£¬´Ë´¦¿ØÖÆµÄÊÇÈç¹ûÃ»ÓĞĞ¡Êıµã£¬Ê×Î»²»ÄÜÎªÀàËÆÓÚ 01¡¢02µÄ½ğ¶î  
+            val = val.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//åªèƒ½è¾“å…¥ä¸¤ä¸ªå°æ•°       
+            if(val.indexOf(".")< 0 && val !=""){//ä»¥ä¸Šå·²ç»è¿‡æ»¤ï¼Œæ­¤å¤„æ§åˆ¶çš„æ˜¯å¦‚æœæ²¡æœ‰å°æ•°ç‚¹ï¼Œé¦–ä½ä¸èƒ½ä¸ºç±»ä¼¼äº 01ã€02çš„é‡‘é¢  
                 if(val.substr(0,1) == '0' && val.length == 2){  
                     val= val.substr(1,val.length);      
                 }  
@@ -54,7 +54,7 @@ export function valReplace(val,type){
 
 
 
-//ÉèÖÃcssÑùÊ½
+//è®¾ç½®cssæ ·å¼
 export function css(obj,attr,value){
   if(arguments.length==2){
     if(attr=='scale'|| attr=='rotate'|| attr=='rotateX'||attr=='rotateY'||attr=='scaleX'||attr=='scaleY'||attr=='translateY'||attr=='translateX'){
@@ -110,7 +110,7 @@ export function css(obj,attr,value){
   return function(attr_in,value_in){css(obj,attr_in,value_in)};
 };
 
-//¼æÈİcss3ÑùÊ½
+//å…¼å®¹css3æ ·å¼
 export function setCss3(obj, attr, value){
   var str='';
   var val='';
@@ -143,26 +143,163 @@ export function setCss3(obj, attr, value){
   } 
 };  
 
-//»ñÈ¡ÔªËØÏà¶ÔÓÚä¯ÀÀÆ÷µÄºá×ø±ê
+//è·å–å…ƒç´ ç›¸å¯¹äºæµè§ˆå™¨çš„æ¨ªåæ ‡
 export function getLeftToBrowser(e) {
   var offset=e.offsetLeft; 
   if(e.offsetParent!=null) offset+=getLeftToBrowser(e.offsetParent); 
   return offset; 
 }
 
+
+/**
+ * æ ¼å¼åŒ–æ—¶é—´
+ * 
+ * @param {String} str
+ * @returns æ ¼å¼åŒ–åçš„æ—¶é—´
+ */
+export const formatDate = (str) => {
+    if (!str) return ''
+    var date = new Date(str)
+    var time = new Date().getTime() - date.getTime() //ç°åœ¨çš„æ—¶é—´-ä¼ å…¥çš„æ—¶é—´ = ç›¸å·®çš„æ—¶é—´ï¼ˆå•ä½ = æ¯«ç§’ï¼‰
+    if (time < 0) {
+        return ''
+    } else if ((time / 1000 < 30)) {
+        return 'åˆšåˆš'
+    } else if (time / 1000 < 60) {
+        return parseInt((time / 1000)) + 'ç§’å‰'
+    } else if ((time / 60000) < 60) {
+        return parseInt((time / 60000)) + 'åˆ†é’Ÿå‰'
+    } else if ((time / 3600000) < 24) {
+        return parseInt(time / 3600000) + 'å°æ—¶å‰'
+    } else if ((time / 86400000) < 31) {
+        return parseInt(time / 86400000) + 'å¤©å‰'
+    } else if ((time / 2592000000) < 12) {
+        return parseInt(time / 2592000000) + 'æœˆå‰'
+    } else {
+        return parseInt(time / 31536000000) + 'å¹´å‰'
+    }
+}
+
+// å¯¹Dateçš„æ‰©å±•ï¼Œå°† Date è½¬åŒ–ä¸ºæŒ‡å®šæ ¼å¼çš„String   
+// æœˆ(M)ã€æ—¥(d)ã€å°æ—¶(h)ã€åˆ†(m)ã€ç§’(s)ã€å­£åº¦(q) å¯ä»¥ç”¨ 1-2 ä¸ªå ä½ç¬¦ï¼Œ   
+// å¹´(y)å¯ä»¥ç”¨ 1-4 ä¸ªå ä½ç¬¦ï¼Œæ¯«ç§’(S)åªèƒ½ç”¨ 1 ä¸ªå ä½ç¬¦(æ˜¯ 1-3 ä½çš„æ•°å­—)   
+// ä¾‹å­ï¼š   
+// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423   
+// (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18   
+export function dateFormat(fmt,timestamp){ 
+
+  var myTimestamp = new Date(parseInt(timestamp));
+  var date={   
+    "M+":myTimestamp.getMonth()+1,                 //æœˆä»½   
+    "d+":myTimestamp.getDate(),                    //æ—¥   
+    "H+":myTimestamp.getHours(),                   //å°æ—¶   
+    "m+":myTimestamp.getMinutes(),                 //åˆ†   
+    "s+":myTimestamp.getSeconds(),                 //ç§’   
+    "q+":Math.floor((myTimestamp.getMonth()+3)/3), //å­£åº¦ï¼Œ+3ä¸ºäº†å¥½å–æ•´   
+    "S":myTimestamp.getMilliseconds()              //æ¯«ç§’   
+  };   
+  if(/(y+)/.test(fmt)){//RegExp.$1(æ­£åˆ™è¡¨è¾¾å¼çš„ç¬¬ä¸€ä¸ªåŒ¹é…ï¼Œä¸€å…±æœ‰99ä¸ªåŒ¹é…)
+    fmt=fmt.replace(RegExp.$1,(myTimestamp.getFullYear()+"").substr(4-RegExp.$1.length));  
+    for(var k in date){  
+      if(new RegExp("("+k+")").test(fmt)){
+        fmt=fmt.replace(RegExp.$1,(RegExp.$1.length==1)?(date[k]):(("00"+ date[k]).substr((""+ date[k]).length)));   
+      } 
+    }
+  }     
+  return fmt;   
+};
+
+
 /** 
-* @description ÅĞ¶Ï¶ÔÏóÖĞÊôĞÔÊÇ·ñº¬ÓĞÖµ£¨ÓĞ1¸ö¾Í¿ÉÒÔ£©
-* @param obj ĞèÒª±éÀúµÄ¶ÔÏó
-* @function Í¨¹ıes6Óï·¨ÊµÏÖ
-* @return boolean  ÖÁÉÙÒ»¸öÊôĞÔÓĞÖµtrue,Ã»ÓĞÊôĞÔÓĞÖµfalse 
+* @description æ ¹æ®intè½¦é¾„æ¨ç®—å‡º  æ—¶é—´ 
+* @param minAge maxAge ä¼ å…¥int  æœ€å°è½¦é¾„ æœ€å¤§è½¦é¾„
+* @function é€šè¿‡es6è¯­æ³•å®ç°
+* @return DATE.string  è¿”å›æ—¥æœŸ   2016-01-01
+*/ 
+export function getDateByInt(int){
+
+    var dateTime = '';
+    // ç›®æ ‡æ—¶é—´æˆ³
+    var targetTimestamp = getLastYearYestdy(new Date(),int);
+    dateTime = dateFormat("yyyy-MM-dd",targetTimestamp)
+
+    return dateTime;
+}
+
+ //è·å¾—å‡ å¹´å‰ï¼ˆintï¼‰åœ¨æ˜¨å¤©è¿™ä¸€å¤©çš„æ—¥æœŸ   
+export function getLastYearYestdy(date,num){   
+    var yearNum = num||1;
+     var strYear = date.getFullYear() - yearNum;     
+     var strDay = date.getDate();     
+     var strMonth = date.getMonth()+1;   
+     if(strMonth<10)     
+     {     
+        strMonth="0"+strMonth;     
+     }   
+     if(strDay<10)     
+     {     
+        strDay="0"+strDay;     
+     }
+     // å¦‚æœè¯¥æ—¥æœŸåˆæ³• æ¯”å¦‚é—°å¹´æœ‰2-29 / å¹³å¹´æœ‰2-28 
+     if(checkDate(parseInt(strYear),parseInt(strMonth),parseInt(strDay))){
+         var datastr = strYear+"-"+strMonth+"-"+strDay; 
+         return +new Date(datastr); 
+     }
+
+     // å¦åˆ™ä½¿ç”¨æ—¶é—´æˆ³æ–¹å¼
+     return +new Date(date) - 31536000000
+       
+}
+
+//åˆ¤æ–­ç»™å®šæ—¥æœŸæ˜¯å¦åˆæ³•
+export function checkDate(year,month,date){
+    var now = new Date(year,month -1,date);
+    if(now.getDate()===date&&now.getFullYear()==year&&now.getMonth()===(month-1)){
+        return true;
+    }
+    return false;
+}  
+
+
+/** 
+* @description æ ¹æ®intè½¦é¾„æ¨ç®—å‡º  æ—¶é—´åŒºé—´ è¿”å›ä¸¤ä¸ªdate
+* @param minAge maxAge ä¼ å…¥int  æœ€å°è½¦é¾„ æœ€å¤§è½¦é¾„
+* @function é€šè¿‡es6è¯­æ³•å®ç°
+* @return Array  è¿”å›æ—¥æœŸåŒºé—´  dateFrom èµ·   dateTo æ­¢
+*/ 
+export function getDateByAge(minAge,maxAge){
+    
+    let [dateFrom,dateTo] = ['',''];
+        
+    // if(minAge&&!maxAge){   //å¦‚æœåªæœ‰æœ€å°å€¼
+    //     dateTo =  getDateByInt(minAge);          //æ¯”å¦‚ä¸¤å¹´å‰ï¼Œ  å°±æ˜¯æœ€å¤§æ—¶é—´ 2015
+    // }else if(!minAge&&maxAge){ //å¦‚æœåªæœ‰æœ€å¤§å€¼
+    //     dateFrom =  getDateByInt(maxAge);        //æ¯”å¦‚äº”å¹´å†…ï¼Œ  å°±æ˜¯æœ€å°æ—¶é—´ 2012
+    // }else if(minAge&&maxAge){//å¦‚æœæœ‰æœ€å¤§å€¼å’Œæœ€å°å€¼
+    //     dateTo =  getDateByInt(minAge);          //æ¯”å¦‚ä¸¤å¹´å‰ï¼Œ  å°±æ˜¯æœ€å¤§æ—¶é—´ 2015
+    //     dateFrom =  getDateByInt(maxAge);        //æ¯”å¦‚äº”å¹´å†…ï¼Œ  å°±æ˜¯æœ€å°æ—¶é—´ 2012
+    // }
+
+    if((minAge&&!maxAge)||(minAge&&maxAge)) dateTo =  getDateByInt(minAge);          //æ¯”å¦‚ä¸¤å¹´å‰ï¼Œ  å°±æ˜¯æœ€å¤§æ—¶é—´ 2015
+    if((!minAge&&maxAge)||(minAge&&maxAge)) dateFrom =  getDateByInt(maxAge);        //æ¯”å¦‚äº”å¹´å†…ï¼Œ  å°±æ˜¯æœ€å°æ—¶é—´ 2012
+
+
+    return [dateFrom,dateTo]
+}
+
+/** 
+* @description åˆ¤æ–­å¯¹è±¡ä¸­å±æ€§æ˜¯å¦å«æœ‰å€¼ï¼ˆæœ‰1ä¸ªå°±å¯ä»¥ï¼‰
+* @param obj éœ€è¦éå†çš„å¯¹è±¡
+* @function é€šè¿‡es6è¯­æ³•å®ç°
+* @return boolean  è‡³å°‘ä¸€ä¸ªå±æ€§æœ‰å€¼true,æ²¡æœ‰å±æ€§æœ‰å€¼false 
 */ 
 export function isObjHasValue(obj){
 
-    //obj·Ç¿Õ½Ø¶Ï
+    //objéç©ºæˆªæ–­
     if(!obj||obj.length<=0) return;
 
     let onOff = false;
-    //±éÀú¶ÔÏó
+    //éå†å¯¹è±¡
     for (var key of Object.keys(obj)) {
         let bool = (obj[key]&&obj[key]!=-1)?true:false;
         onOff = onOff||bool;
@@ -171,19 +308,19 @@ export function isObjHasValue(obj){
 }
 
 /** 
-* @description Çå¿ÕobjµÄËùÓĞÖµ
-* @param obj ĞèÒª±éÀúµÄ¶ÔÏó
-* @function Í¨¹ıes6Óï·¨ÊµÏÖ
-* @return newObj ·µ»ØÒ»¸öĞÂ¶ÔÏó»ØÈ¥
+* @description æ¸…ç©ºobjçš„æ‰€æœ‰å€¼
+* @param obj éœ€è¦éå†çš„å¯¹è±¡
+* @function é€šè¿‡es6è¯­æ³•å®ç°
+* @return newObj è¿”å›ä¸€ä¸ªæ–°å¯¹è±¡å›å»
 */ 
 export function clearObjAllValue(obj){
     
-    //obj·Ç¿Õ½Ø¶Ï
+    //objéç©ºæˆªæ–­
     if(!obj||obj.length<=0) return;
 
     let newObj = {}
 
-    //±éÀú¶ÔÏó
+    //éå†å¯¹è±¡
     for (var key of Object.keys(obj)) {
         obj[key] = null;
         newObj.push(obj[key]);
@@ -193,25 +330,25 @@ export function clearObjAllValue(obj){
 }
 
 /** 
-* @description ×èÖ¹ÊÂ¼şÃ°Åİ 
-* @param obj ×èÖ¹ÊÂ¼şÃ°ÅİµÄ¶ÔÏó(1¸ö¶ÔÏó)
+* @description é˜»æ­¢äº‹ä»¶å†’æ³¡ 
+* @param obj é˜»æ­¢äº‹ä»¶å†’æ³¡çš„å¯¹è±¡(1ä¸ªå¯¹è±¡)
 */ 
 export function cancelBubbleOne(obj,Fn){
     obj.onclick = function(ev){
         var e=ev||event;
-        if(e && e.stopPropagation){//×èÖ¹Ã°Åİ
+        if(e && e.stopPropagation){//é˜»æ­¢å†’æ³¡
             e.stopPropagation();
         }else{
             window.event.cancelBubble = true;
         }
     } 
-    //´¦ÀíÊÂ¼şÃ°Åİ
+    //å¤„ç†äº‹ä»¶å†’æ³¡
     document.onclick=function(ev){
         var e=ev||event;
         var target=e.target||e.srcElement;
-        if(e.target!=obj)//ÊÂ¼ş¶ÔÏó
+        if(e.target!=obj)//äº‹ä»¶å¯¹è±¡
         {
-            //µ±ÓĞ»Øµ÷µÄÊ±ºòÖ´ĞĞ»Øµ÷
+            //å½“æœ‰å›è°ƒçš„æ—¶å€™æ‰§è¡Œå›è°ƒ
             Fn&&Fn();
         }
     }    
@@ -219,13 +356,13 @@ export function cancelBubbleOne(obj,Fn){
 };
 
 /** 
-* @description ×èÖ¹ÊÂ¼şÃ°Åİ 
-* @param obj ×èÖ¹ÊÂ¼şÃ°ÅİµÄ¶ÔÏó(2¸ö¶ÔÏó)
+* @description é˜»æ­¢äº‹ä»¶å†’æ³¡ 
+* @param obj é˜»æ­¢äº‹ä»¶å†’æ³¡çš„å¯¹è±¡(2ä¸ªå¯¹è±¡)
 */ 
 export function cancelBubbleTwo(obj1,obj2,Fn){
     obj1.onclick = function(ev){
         var e=ev||event;
-        if(e && e.stopPropagation){//×èÖ¹Ã°Åİ
+        if(e && e.stopPropagation){//é˜»æ­¢å†’æ³¡
             e.stopPropagation();
         }else{
             window.event.cancelBubble = true;
@@ -233,19 +370,19 @@ export function cancelBubbleTwo(obj1,obj2,Fn){
     } 
     obj2.onclick = function(ev){
         var e=ev||event;
-        if(e && e.stopPropagation){//×èÖ¹Ã°Åİ
+        if(e && e.stopPropagation){//é˜»æ­¢å†’æ³¡
             e.stopPropagation();
         }else{
             window.event.cancelBubble = true;
         }
     } 
-    //´¦ÀíÊÂ¼şÃ°Åİ
+    //å¤„ç†äº‹ä»¶å†’æ³¡
     document.onclick=function(ev){
         var e=ev||event;
         var target=e.target||e.srcElement;
-        if(e.target!=obj1&&e.target!=obj2)//ÊÂ¼ş¶ÔÏó
+        if(e.target!=obj1&&e.target!=obj2)//äº‹ä»¶å¯¹è±¡
         {
-            //µ±ÓĞ»Øµ÷µÄÊ±ºòÖ´ĞĞ»Øµ÷
+            //å½“æœ‰å›è°ƒçš„æ—¶å€™æ‰§è¡Œå›è°ƒ
             Fn&&Fn();
         }
     }    
@@ -253,10 +390,10 @@ export function cancelBubbleTwo(obj1,obj2,Fn){
 };
 
 /** 
-* @description Ê×Ò³µÄ¹«¸æ 
-* @param obj Òª¹ö¶¯µÄ¸¸ÈİÆ÷ 
-* @param dis Ã¿´ÎÔË¶¯µÄ¾àÀë 
-* @param msec ¶¨Ê±Æ÷ÆµÂÊ 
+* @description é¦–é¡µçš„å…¬å‘Š 
+* @param obj è¦æ»šåŠ¨çš„çˆ¶å®¹å™¨ 
+* @param dis æ¯æ¬¡è¿åŠ¨çš„è·ç¦» 
+* @param msec å®šæ—¶å™¨é¢‘ç‡ 
 */ 
 export function autoNoticeHorizontal(obj,onOFF,dis,msec){
   var oLi=obj.children;
@@ -286,24 +423,24 @@ export function autoNoticeHorizontal(obj,onOFF,dis,msec){
 };
 
 /** 
-* @description ÊÂ¼ş°ó¶¨£¬¼æÈİ¸÷ä¯ÀÀÆ÷ 
-* @param target ÊÂ¼ş´¥·¢¶ÔÏó 
-* @param type ÊÂ¼ş 
-* @param func ÊÂ¼ş´¦Àíº¯Êı 
+* @description äº‹ä»¶ç»‘å®šï¼Œå…¼å®¹å„æµè§ˆå™¨ 
+* @param target äº‹ä»¶è§¦å‘å¯¹è±¡ 
+* @param type äº‹ä»¶ 
+* @param func äº‹ä»¶å¤„ç†å‡½æ•° 
 */ 
 export function addEvent(target, type, func) { 
-    if (target.addEventListener) //·Çie ºÍie9 
+    if (target.addEventListener) //éie å’Œie9 
         target.addEventListener(type, func, false); 
-    else if (target.attachEvent) //ie6µ½ie8 
+    else if (target.attachEvent) //ie6åˆ°ie8 
         target.attachEvent("on" + type, func); 
     else target["on" + type] = func; //ie5 
 }; 
 
 /** 
-* @description ÊÂ¼şÒÆ³ı£¬¼æÈİ¸÷ä¯ÀÀÆ÷ 
-* @param target ÊÂ¼ş´¥·¢¶ÔÏó 
-* @param type ÊÂ¼ş 
-* @param func ÊÂ¼ş´¦Àíº¯Êı 
+* @description äº‹ä»¶ç§»é™¤ï¼Œå…¼å®¹å„æµè§ˆå™¨ 
+* @param target äº‹ä»¶è§¦å‘å¯¹è±¡ 
+* @param type äº‹ä»¶ 
+* @param func äº‹ä»¶å¤„ç†å‡½æ•° 
 */ 
 export function removeEvent(target, type, func){ 
     if (target.removeEventListener) 
@@ -313,7 +450,7 @@ export function removeEvent(target, type, func){
     else target["on" + type] = null; 
 };  
 
-//»ñÈ¡data£¬Æ´½Ó
+//è·å–dataï¼Œæ‹¼æ¥
 export function getData(el, name, val) {
   const prefix = 'data-'
   if (val) {

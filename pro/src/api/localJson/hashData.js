@@ -62,5 +62,38 @@ export const userFilterLabel = {
     	'3':'3把',
     	'4':'4把',
     	'5':'5把'
+    },
+    //钥匙数
+    'keyCount':{
+    	'-1':'不限',
+    	'1':'1把',
+    	'2':'2把',
+    	'3':'3把',
+    	'4':'4把',
+    	'5':'5把'
     }
+}
+
+export const userFilterData = {
+	//车龄
+    'age':{
+        '-1':function(){
+             
+        },
+    	'1':function(){
+             
+        },
+    	'2':function(){
+             
+        },
+    	'3':function(){
+             
+        },
+    	'4':function(){
+             
+        },
+    	'5':function(){
+             
+        }
+    },
 }

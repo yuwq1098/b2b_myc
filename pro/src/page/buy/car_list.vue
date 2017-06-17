@@ -148,7 +148,7 @@
                                         <li class="u-item">
                                             <el-select 
                                                 :class="{'on':userFilterData.age!=''&&userFilterData.age!='-1'}" 
-                                                v-model="userFilterData.age" placeholder="车龄">
+                                                v-model="userFilterData.age" @change="changeAge" placeholder="车龄">
                                                 <el-option
                                                   v-for="item in searchDataItems.age"
                                                   :key="item.value"
@@ -279,7 +279,10 @@
                                     
                                     <template v-for="(item,index) in searchDataItems.sortType">
                                         <li class="u-item" 
-                                            :class="{'on':index==0&&searchFilterList.SortType=='-1'}"
+                                            :class="{
+                                                'on':(index==0&&!sortTypeVal&&!userFilterData.sortType)||
+                                                        (index!=0&&userFilterData.sortType&&userFilterData.sortType==item.value)
+                                                }"
                                             @click.stop="sortTypeFilter($event.target,item.value)"
                                             >
                                             <a href="javascript:;" class="u-lk">{{item.label}}</a>
@@ -347,7 +350,7 @@
     // dom操作方法
     import * as geekDom from "assets/js/dom.js"
     // 工具函数
-    import {dataToJson} from "assets/js/util.js"
+    import {dataToJson,strToJson} from "assets/js/util.js"
     // 数据hash匹配
     import * as hashData from "api/localJson/hashData.js"
     // b2b条件过滤相关构造类
@@ -374,11 +377,15 @@
         // 数据
         data() {
             return{
+                
+                dataChangeOnOff: false,               // 当真实数据拉取成功时，才让数据和本地存储通信，锁住某些操作
 
                 curCarBrandId: '',                    // 当前选中的汽车品牌ID(线上数据庞大，不能用hashData匹配)
                 curSeriesId: '',                      // 当前选中的汽车车系ID(线上数据庞大，不能用hashData匹配)
 
-                curPriceVal: '',                      // 当前选中的值（这个可以直接和hashData匹配）==> 最终还是要转成 min+max
+                curPriceVal: '',                      // 当前选中的价格值（这个可以直接和hashData匹配）==> 最终还是要转成 min+max
+                sortTypeVal: '',                      // 当前选中的排序类型值（这个可以直接和hashData匹配）
+
                 // 价格的最小值和最大值
                 minPriceIptVal: '',
                 maxPriceIptVal: '',
@@ -488,13 +495,28 @@
         mounted() {
             
         },
+        //再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-            //初始化用户条件筛选数据
-            this._initUserFilterData();
             //获取车品牌列表信息（从线上拉取）
             this._getCarBrandList();
             //获取车辆颜色列表信息（从线上拉取）
             this._getCarColor();
+            let me = this;
+            //如果还没有开锁
+            if(!this.dataChangeOnOff){
+                //当真实数据拉取成功时，才让数据和本地存储通信
+                this.dataChangeOnOff = true;
+                setTimeout(() => {
+                    //用户条件筛选数据
+                    this._initUserFilterData();
+                },20)
+            }
+            
+        },
+        //退出的生命周期钩子
+        deactivated(){
+            //重新上锁
+            this.dataChangeOnOff = false;
         },
         //数据侦听
         watch:{
@@ -509,11 +531,17 @@
             //用户选择条件发生变化
             userFilterData:{
                 handler(curVal,oldVal){ //车型选择变化 @param curVal 当前数据, @param oldVal 过去的数据
-                    this._getFilterShowDataItems(curVal);
-                    this._setUserFilterData(curVal);
+                    
+                    //没有开锁, 那就return它
+                    if(!this.dataChangeOnOff) return
+                    // 如果这个数组内属性都是空(假)或者-1
+                    if(!geekDom.isObjHasValue(curVal)) return;
+
+                    this._getFilterShowDataItems(curVal);  //获取用以展示的用户所选条件集合(用以显示)
+                    this._setSearchFilterList(curVal);   //设置真实向api请求的字段
                 },
                 deep:true
-            }
+            },
         },
         // 自定义函数(方法)
         methods: {
@@ -523,19 +551,26 @@
              
             //初始化用户条件筛选数据
             _initUserFilterData(){
-                //如果当从vuex获取的UserFilterData数据是空是
-                if(!this.getUserFilterData){
+                //如果当从vuex获取的UserFilterData数据是空时
+                if(!this.getUserFilterData&&!geekDom.isObjHasValue(this.getUserFilterData)){
                     //因为构造类中是data.[property],所以要空对象给构造类传一个
+                    console.log("你丫的走了那，1")
                     let data  = {}
                     this.userFilterData = new filterDataClass(data);
                     return;
                 }
+                console.log("你丫的走了那，2")
                 //用户条件筛选数据
-                this.userFilterData = new filterDataClass(this.getUserFilterData);
+                
+                if(typeof this.getUserFilterData === 'string'){
+                    this.userFilterData = new filterDataClass(strToJson(this.getUserFilterData));
+                }else{
+                    this.userFilterData = new filterDataClass(this.getUserFilterData);
+                }
+                
                 //计算是否显示车系
                 this.isNotBrand = this.userFilterData.brand?false:true;
-
-                console.log("localstorge中包含userFilterData => 包含",this.userFilterData)
+                
             },
 
             //获取车辆品牌
@@ -578,7 +613,8 @@
                     }]
                     this.carColor = first.concat(carColor);
                     //由于车辆颜色是在获取到数据后再渲染,导致每次都会直接显示最后一项，所以直接设为false,设为‘’无效
-                    this.userFilterData.color = false;
+
+                    this.userFilterData.color = this.userFilterData.color||"";
                 })   
             },
 
@@ -697,27 +733,69 @@
 
             //用户自定义设置价格
             setUserCustomPrice(){
-                let [minPrice,maxPrice] = [this.minPriceIptVal,this.minPriceIptVal];
+                let [minPrice,maxPrice] = [this.minPriceIptVal,this.maxPriceIptVal];
                 //两个值都没有，退出
                 if(!minPrice&&!maxPrice) return;
                 if(minPrice) minPrice = parseInt(minPrice);
                 if(maxPrice) maxPrice = parseInt(maxPrice);
 
-                console.log(minPrice);
-                console.log(maxPrice);
+                //两个值都有
+                if(minPrice&&maxPrice&&maxPrice<minPrice){
+                    maxPrice = minPrice;
+                    this.maxPriceIptVal = this.minPriceIptVal;   
+                }
+                
+                // 设置展示给界面  用户所选条件集合中 价格的lable
+                if(minPrice&&!maxPrice){
+                    //只有最低价
+                    this.userFilterData.price = minPrice+"万以上"; 
+                }else if(!minPrice&&maxPrice){
+                    //只有最高价
+                    this.userFilterData.price = maxPrice+"万以内";
+                }else if(minPrice&&maxPrice){
+                    //两个价都有
+                    if(minPrice==maxPrice){
+                        //两个价格一样
+                        this.userFilterData.price = minPrice+"万";
+                    }else{
+                        //有最低价和最高价
+                        this.userFilterData.price = minPrice+"-"+maxPrice+"万";
+                    }
+                }
+
+                // 设置真实向api请求的字段 价格区间
+                this.searchFilterList.B2BPriceFrom = min||'';
+                this.searchFilterList.B2BPriceTo = max||'';
+                // 重新渲染页面
+                this.carListResultRender();
 
             },
 
-            //排序切换
+            //排序类型切换
             sortTypeFilter(e,value){
+
                 var js__sort_list = $("#js__sort_list");
                 js__sort_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
+                
+                // 设置展示给界面  用户所选条件集合中 排序类型的的lable
                 this.userFilterData.sortType = value; 
+                // 设置真实向api请求的字段 排序类型
+                this.searchFilterList.SortType = value||'';
+                // 重新渲染页面
+                this.carListResultRender();
+            },
+            
+            //车龄值变化
+            changeAge(){
+                console.log("车龄值发生变化了");
             },
 
             //获取用以展示的用户所选条件集合
             _getFilterShowDataItems(dataObj){
+                //没有数据时加锁
+                if(!this.dataChangeOnOff) return;
+
                 //清空
                 this.filterShowDataItems=[];
                 let [key,value,thisHash,label] = [null,null,null,null]
@@ -735,20 +813,32 @@
                             label = dataObj[key];
                         }
                         this.filterShowDataItems.push(new filterShowData(key,value,label))
-                        
                     }
                 }
                 console.log("用户所选条件集合",this.filterShowDataItems);
             },
 
             //设置真实向api请求的字段
-            _setUserFilterData(dataObj){
-                console.log("处理选中的那些数据",dataToJson(dataObj));
+            _setSearchFilterList(dataObj){
+                //没有数据时加锁
+                if(!this.dataChangeOnOff) return;
+                // 重新渲染页面
+                this.carListResultRender();
+
+                console.log("设置真实向api请求的字段",dataToJson(dataObj));
             },
 
             //清空搜索记录
             clearFilterData(){
                 console.log("清空条件搜索记录")
+                /*//清空展示的用户所选条件集合
+                this.filterShowDataItems=[];
+                //清空用户展示记录
+                let data  = {}
+                this.userFilterData = new filterDataClass(data);
+                // 重新渲染页面
+                this.carListResultRender();*/
+
             },
 
             //分页每页展示数据大小变化后出发
@@ -763,9 +853,10 @@
 
             // 筛选结果渲染,用户执行对筛选条件的增删改查，都将触发这个方法
             carListResultRender(){
+                //没有数据时加锁
+                if(!this.dataChangeOnOff) return;
                 //将用户选中的数据都存在本地中
                 this.setUserFilterData(this.userFilterData);
-                console.log("重新渲染",dataToJson(this.searchFilterList));
             },
 
         },

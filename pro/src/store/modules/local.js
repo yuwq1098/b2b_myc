@@ -13,7 +13,7 @@ const state = {
     currentCity: store.get("currentCity") || null,
     currentCityName: store.get("currentCity")?store.get("currentCity").name : '南昌',
     // 用户的搜索条件数据
-    userFilterData: store.get("userFilterData") || null,
+    userFilterData: store.has("userFilterData")?store.get("userFilterData"):null,
     
 }
 
