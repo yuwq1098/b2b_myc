@@ -254,7 +254,7 @@
                                 <div class="m-check-con f__clearfix">
                                     <ul class="u-check-lst f__clearfix">
                                         <template v-for="item in filterShowDataItems">
-                                            <li class="f__fl u-check-item" v-if="item">
+                                            <li class="f__fl u-check-item" @click="clearFilterDataTheOne(item.key)" v-if="item">
                                                 <span class="u-label">{{item.label}}</span>
                                                 <a class="u-lk"><i class="iconfont icon-guanbi1"></i></a><!-- 关闭按钮 -->
                                             </li>    
@@ -280,8 +280,8 @@
                                     <template v-for="(item,index) in searchDataItems.sortType">
                                         <li class="u-item" 
                                             :class="{
-                                                'on':(index==0&&!sortTypeVal&&!userFilterData.sortType)||
-                                                        (index!=0&&userFilterData.sortType&&userFilterData.sortType==item.value)
+                                                'on':((index==0)&&(item.label=='默认排序'||!userFilterData.sortType))
+                                                    ||(index>0&&userFilterData.sortType&&userFilterData.sortType==item.value)
                                                 }"
                                             @click.stop="sortTypeFilter($event.target,item.value,item.label)"
                                             >
@@ -320,7 +320,7 @@
                                     </li>
                                 </ul>    
                             </div>
-                            <div class="m-page">
+                            <div class="m-page" v-show="resultPage.totalPage>0">
                                 <el-pagination
                                     @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
@@ -365,6 +365,9 @@
 
     //本地的过滤筛选数据
     import * as filterData from "api/localJson/filter.js"
+
+    //每页显示八条
+    const RESULE_PAGE_SIZE = 8
     
 	export default {
         name: "buy-car-list",
@@ -437,10 +440,10 @@
                 /**
                   * @description 结果集分页信息
                   */
-                resultPage:{
-                    currentPage: 5,                      //查询结果的当前页
-                    pageSize : 8,                        //每页所含的数据数量
-                    totalPage: 400,                      //总数据条数
+                resultPage:{ 
+                    currentPage : 1,
+                    pageSize : 8,
+                    totalPage : 0
                 },
                 
             }
@@ -451,7 +454,7 @@
             //已选条件框控制显示隐藏
             isShowByHasFilter(){
                 return geekDom.isObjHasValue(this.userFilterData);
-            },
+            }
             
         },
         created(){
@@ -504,7 +507,7 @@
                     
                     //没有开锁, 那就return它
                     if(!this.dataChangeOnOff) return
-                    // 如果这个数组内属性都是空(假)或者-1
+                    // 如果这个数组内属性都是空(假) 但是不为-1
                     if(!geekDom.isObjHasValue(curVal)) return;
 
                     this._getFilterShowDataItems(curVal);  //获取用以展示的用户所选条件集合(用以显示)
@@ -513,19 +516,6 @@
                 },
                 deep:true
             },
-            // //用户向后台发起api请求的数据 发生变化
-            // searchFilterList:{
-            //     handler(curVal,oldVal){ //车型选择变化 @param curVal 当前数据, @param oldVal 过去的数据
-                    
-            //         //没有开锁, 那就return它
-            //         if(!this.dataChangeOnOff) return
-            //         // 如果这个数组内属性都是空(假)或者-1
-            //         if(!geekDom.isObjHasValue(curVal)) return;
-
-                    
-            //     },
-            //     deep:true
-            // },
         },
         // 自定义函数(方法)
         methods: {
@@ -564,12 +554,14 @@
                     }
                 }
                 
-                setTimeout(() => {
-                    console.log("我想看看searchFilterList数据",this.searchFilterList)
-                },200)
-                
                 //计算是否显示车系
                 this.isNotBrand = this.userFilterData.brand?false:true;
+                
+                //设置分页控件的分页大小
+                this.searchFilterList.PageSize = RESULE_PAGE_SIZE;
+
+                //页面渲染
+                this.renderByData(this.searchFilterList)
                 
             },
 
@@ -772,11 +764,9 @@
 
             //排序类型切换
             sortTypeFilter(e,value,label){
-
                 var js__sort_list = $("#js__sort_list");
                 js__sort_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
-                
                 // 设置展示给界面  用户所选条件集合中 排序类型的的lable
                 this.userFilterData.sortType = label; 
                 // 设置真实向api请求的字段 排序类型
@@ -859,14 +849,67 @@
                             break;
                     }
                 }
-                console.log("执行完for");
                 // 重新渲染页面
                 this.carListResultRender();
-                console.log("需要修改的用户选择的过滤字段",dataToJson(dataObj));
-                console.log("设置真实向api请求的字段",dataToJson(this.searchFilterList));
             },
 
+            //根据传入的对应值，删除对应的 用户搜索记录，然后重新渲染
+            clearFilterDataTheOne(key){
+                this.userFilterData[key] = '';
+                this.searchFilterList[key] = '';
+                let dataObj = this.userFilterData;
+                
+                //遍历对象, 删除对应属性值
+                for (var key of Object.keys(dataObj)) {
+                    switch(key){
+                        case 'brand':                 // 车品牌
+                            this.searchFilterList.CarBrandId = "";
+                            break;
+                        case 'series':                // 车系
+                            this.searchFilterList.CarSeriesId = "";
+                            break;
+                        case 'price':                 // 价格
+                            this.searchFilterList.B2BPriceFrom = "";
+                            this.searchFilterList.B2BPriceTo = "";
+                            break;
 
+                        case 'age':                   // 车龄(上牌日期)
+                            this.searchFilterList.OnLicensePlateDateFrom = "";
+                            this.searchFilterList.OnLicensePlateDateTo = "";
+                            break;
+                        case 'dischargeStandard':     // 排放标准
+                            this.searchFilterList.DischargeStandard = "";
+                            break;
+                        case 'mileage':               // 行驶里程
+                            this.searchFilterList.MileageFrom = "";
+                            this.searchFilterList.MileageTo = "";
+                            break;
+                        case 'gearType':              // 手自动挡
+                            this.searchFilterList.GearType = "";
+                            break;
+                        case 'color':                 // 颜色
+                            this.searchFilterList.Color = "";
+                            break;
+                        case 'transferCount':         // 过户次数
+                            this.searchFilterList.TransferTimesFrom = "";
+                            this.searchFilterList.TransferTimesTo = "";
+                            break;
+                        case 'serviceType':           // 营运类型
+                            this.searchFilterList.ServiceCharacteristics = "";
+                            break;
+                        case 'keyCount':              // 钥匙数
+                            this.searchFilterList.KeyCountFrom = "";
+                            this.searchFilterList.KeyCountTo = "";
+                            break;
+                        case 'sortType':              // 排序类型
+                            this.searchFilterList.SortType = "";
+                            break;
+                    }
+                }
+
+                // 重新渲染页面
+                this.carListResultRender();
+            },
 
             //清空搜索记录
             clearFilterData(){
@@ -885,7 +928,11 @@
 
             //分页页号切换触发
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                // console.log(`当前页: ${val}`);
+                //设置分页控件中当前页好
+                this.searchFilterList.PageIndex = val;
+                // 重新渲染页面
+                this.carListResultRender();
             },
 
             // 筛选结果渲染,用户执行对筛选条件的增删改查，都将触发这个方法
@@ -896,6 +943,30 @@
                 this.setUserFilterData(this.userFilterData);
                 //将用户选中的 向后台发起api请求数据 存在本地中
                 this.setSearchFilterList(this.searchFilterList);
+
+                //页面渲染
+                this.renderByData(this.searchFilterList)
+            },
+            
+            // 根据筛选数据渲染页面
+            renderByData(data){
+                console.log("我在渲染页面",dataToJson(data));
+                this.resultPage.currentPage = data.PageIndex;
+                this.resultPage.pageSize = RESULE_PAGE_SIZE;
+                //获取数据并设置分页条数
+                this._getB2bCarList(data);
+
+                // this.resultPage.totalPage = data.;
+            },
+
+            //获取B2B大厅车辆列表
+            _getB2bCarList(data){
+                let me = this;
+                api.getB2BCarList(data).then((res) => {
+                    console.log("最后fuck的数据",dataToJson(res.data))
+                    me.resultPage.totalPage = res.data.length;
+                });
+                
             },
 
         },

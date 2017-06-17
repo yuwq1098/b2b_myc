@@ -301,7 +301,8 @@ export function isObjHasValue(obj){
     let onOff = false;
     //遍历对象
     for (var key of Object.keys(obj)) {
-        let bool = (obj[key]&&obj[key]!=-1)?true:false;
+        // let bool = (obj[key]&&obj[key]!=-1)?true:false;
+        let bool = obj[key]?true:false;
         onOff = onOff||bool;
     }
     return onOff;

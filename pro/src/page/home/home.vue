@@ -209,7 +209,7 @@
             this.allSearchInputVal = "";
         },
         methods:{
-            //获取B2B大厅车辆列表
+            //获取B2C大厅车辆列表
             _getB2cCarList(){
                 var data = {
                     "PageSize": 8,
