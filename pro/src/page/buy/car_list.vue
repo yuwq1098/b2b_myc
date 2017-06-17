@@ -293,43 +293,55 @@
                             </div><!-- 条件过滤筛选 -->
                         </div>
                         <div class="m-con">
-                            <div class="m-gp-lst">
-                                <ul class="m-car-lst f__clearfix">
-                                    <li class="m-item" v-for="n in 8">
-                                        <router-link to="/carDetails" class="u-box">
-                                            <div class="u-pic">
-                                                <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                            </div>
-                                            <div class="u-con">
-                                                <h5 class="u-tit">
-                                                    大众朗逸 2011款 1.6L手动品悠版
-                                                </h5>
-                                                <p class="u-des">南昌/2006年/10.0万里</p>
-                                                <div class="u-price">
-                                                    批发价:<em>5.0万</em>
-                                                </div>
-                                                <a href="javascript:;" class="u-lk">
-                                                    <p class="u-count">
-                                                        <strong>215</strong>
-                                                        次
-                                                    </p>
-                                                    <p>围观</p>
-                                                </a>
-                                            </div>
-                                        </router-link>
-                                    </li>
-                                </ul>    
+
+                            <div class="m-carlist-true" v-if="b2bCarList.length>0">
+                                <b2b-car-listbox
+                                    :carlist="b2bCarList"
+                                    car-to-path="/carDetails"
+                                    >
+                                </b2b-car-listbox>
+                                
+                                <!-- 分页数据 -->
+                                <!-- <p>{{resultPage.currentPage}}</p>
+                                <p>{{resultPage.pageSize}}</p>
+                                <p>{{resultPage.totalPage}}</p> -->
+
+                                <div class="m-page" v-show="resultPage.totalPage>0">
+                                    <el-pagination
+                                        @size-change="handleSizeChange"
+                                        @current-change="handleCurrentChange"
+                                        :current-page.sync="resultPage.currentPage"
+                                        :page-size="resultPage.pageSize"
+                                        layout="prev, pager, next"
+                                        :total="resultPage.totalPage">
+                                    </el-pagination>
+                                </div>
+                            </div><!-- 当搜索到数据时 -->
+ 
+                            <div class="m-carlist-null"  v-if="b2bCarList.length==0">
+                                <div class="m-not-srh">
+                                    <div class="m-pic">
+                                        <img class="u-img" :src="errorPic" />
+                                    </div>
+                                    <div class="m-srh-info">
+                                        <div class="u-hd">
+                                            <span class="txt">暂时没有</span>
+                                            <span class="label" v-if="filterShowDataItems.length>0">
+                                                <template v-for="(item,index) in filterShowDataItems">
+                                                    <template>{{item.label}}</template><template v-if="index!=filterShowDataItems.length-1"><em class="symbol">/</em>
+                                                    </template>
+                                                </template>
+                                            </span>
+                                            <span class="txt">相关的结果</span>
+                                        </div>
+                                        <div class="u-txt">建议您：</div>
+                                        <div class="u-txt">· 减少筛选条件</div>
+                                        <div class="u-txt">· 检查输入是否正确</div>
+                                        <div class="u-txt">· 简化输入词</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="m-page" v-show="resultPage.totalPage>0">
-                                <el-pagination
-                                    @size-change="handleSizeChange"
-                                    @current-change="handleCurrentChange"
-                                    :current-page.sync="resultPage.currentPage"
-                                    :page-size="resultPage.pageSize"
-                                    layout="prev, pager, next"
-                                    :total="resultPage.totalPage">
-                                </el-pagination>
-                            </div>
+                            
                         </div>
                     </div><!-- 列表盒子 -->
 
@@ -361,6 +373,10 @@
     import brandMoreBox from "components/filterMoreBox/brandMoreBox.vue"
     // 更多车系组件
     import seriesMoreBox from "components/filterMoreBox/seriesMoreBox.vue"
+    // b2b车辆信息构造类
+    import {b2bCarInfo} from "base/class/carInfo.js"
+    // b2b车辆信息盒子
+    import b2bCarListbox from "components/boxLayout/b2bCarListbox.vue"
 
 
     //本地的过滤筛选数据
@@ -376,10 +392,15 @@
             gkBreadCrumb,
             brandMoreBox,
             seriesMoreBox,
+            b2bCarListbox,
         },
         // 数据
         data() {
             return{
+
+                errorPic: require("assets/img/error_pic2.png"),
+
+                b2bCarList: [],                       // b2b大厅搜索结果 车辆列表
                 
                 dataChangeOnOff: false,               // 当真实数据拉取成功时，才让数据和本地存储通信，锁住某些操作
 
@@ -953,6 +974,7 @@
                 console.log("我在渲染页面",dataToJson(data));
                 this.resultPage.currentPage = data.PageIndex;
                 this.resultPage.pageSize = RESULE_PAGE_SIZE;
+
                 //获取数据并设置分页条数
                 this._getB2bCarList(data);
 
@@ -963,10 +985,20 @@
             _getB2bCarList(data){
                 let me = this;
                 api.getB2BCarList(data).then((res) => {
+
+                    this.b2bCarList = this._normalizeB2bCarInfo(res.data)
                     console.log("最后fuck的数据",dataToJson(res.data))
                     me.resultPage.totalPage = res.data.length;
                 });
-                
+            },
+
+            //使用b2b抽象类完成carInfo
+            _normalizeB2bCarInfo(list){
+                let carInfo = [];
+                list.forEach((item, index) => {
+                    carInfo.push(new b2bCarInfo(item))
+                });
+                return carInfo;
             },
 
         },
