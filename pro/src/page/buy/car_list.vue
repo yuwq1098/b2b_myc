@@ -148,7 +148,7 @@
                                         <li class="u-item">
                                             <el-select 
                                                 :class="{'on':userFilterData.age!=''&&userFilterData.age!='-1'}" 
-                                                v-model="userFilterData.age" @change="changeAge" placeholder="车龄">
+                                                v-model="userFilterData.age" placeholder="车龄">
                                                 <el-option
                                                   v-for="item in searchDataItems.age"
                                                   :key="item.value"
@@ -283,7 +283,7 @@
                                                 'on':(index==0&&!sortTypeVal&&!userFilterData.sortType)||
                                                         (index!=0&&userFilterData.sortType&&userFilterData.sortType==item.value)
                                                 }"
-                                            @click.stop="sortTypeFilter($event.target,item.value)"
+                                            @click.stop="sortTypeFilter($event.target,item.value,item.label)"
                                             >
                                             <a href="javascript:;" class="u-lk">{{item.label}}</a>
                                         </li>
@@ -354,7 +354,7 @@
     // 数据hash匹配
     import * as hashData from "api/localJson/hashData.js"
     // b2b条件过滤相关构造类
-    import {filterShowData,filterDataClass} from "base/class/b2bFilter.js"
+    import {filterShowData,filterDataClass,searchFilterClass} from "base/class/b2bFilter.js"
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 更多车品牌组件
@@ -412,47 +412,12 @@
                 /**
                   * @description 用户选择的筛选条件
                   */
-                // userFilterData: {
-                //     brand: "",                   //车牌
-                //     series: "",                  //车系
-                //     price: "",                   //价格
-                //     age: "",                     //车龄
-                //     dischargeStandard: "",       //排放标准
-                //     mileage: "",                 //里程
-                //     gearType: "",                //手/自动挡
-                //     color: "",                   //颜色
-                //     transferCount: "",           //过户次数
-                //     serviceType: "",             //营运类型
-                //     keyCount: "",                //钥匙数
-                //     sortType: "",                //搜索结果排序结果
-                // },
-
                 userFilterData: {},
                 
                 /**
                   * @description 搜索条件集合(向后台发起数据请求是以此种数据结构)
                   */
-                searchFilterList:{
-                    PageSize: "",                    // pageSize页面规格 默认10
-                    PageIndex: "",                   // pageIndex当前页序 默认第1页
-                    CarBrandId: "",                  // 汽车品牌id
-                    CarSeriesId: "",                 // 车系id
-                    DischargeStandard: "",           // 排放标准, 国1, 国2, ...
-                    Color: "",                       // 颜色
-                    OnLicensePlateDateFrom: "",      // 上牌日期起 2016-01-01（通过计算车龄反算出上牌日期）
-                    OnLicensePlateDateTo: "",        // 上牌日期止 2016-09-01（通过计算车龄反算出上牌日期）
-                    MileageFrom: "",                 // 最低里程  0   (单位万公里)
-                    MileageTo: "",                   // 最高里程  5   (单位万公里)
-                    B2BPriceFrom: "",                // 最低价格  0   (单位万元)
-                    B2BPriceTo: "",                  // 最高价格  10  (单位万元)
-                    ServiceCharacteristics: "",      // 运营类型 string  非营运
-                    TransferTimesFrom: "",           // 最少过户次数 0
-                    TransferTimesTo: "",             // 最多过户次数 2
-                    KeyCountFrom:"",                 // 钥匙数起 0
-                    KeyCountTo:"",                   // 钥匙数止于 5
-                    GearType: "",                    // 手/自动挡  int  1是手动 2是自动
-                    SortType: "",                    // 排序关键字： string 价格最低、价格最高、车龄最短、里程最少、最近更新
-                },
+                searchFilterList:{},
                 
                 /**
                   * @description 搜索条件列表信息集合(通过本地的数据获取+通过线上的数据获取)
@@ -482,7 +447,7 @@
 
         },
         computed:{
-            ...mapGetters(['getUserFilterData']),
+            ...mapGetters(['getUserFilterData','getSearchFilterList']),
             //已选条件框控制显示隐藏
             isShowByHasFilter(){
                 return geekDom.isObjHasValue(this.userFilterData);
@@ -490,24 +455,29 @@
             
         },
         created(){
-
+            this.dataChangeOnOff = true;
         },
         mounted() {
             
         },
         //再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
+
             //获取车品牌列表信息（从线上拉取）
             this._getCarBrandList();
             //获取车辆颜色列表信息（从线上拉取）
             this._getCarColor();
+            if(this.dataChangeOnOff){
+                //用户条件筛选数据
+                this._initUserFilterData();
+            }
+
             let me = this;
             //如果还没有开锁
             if(!this.dataChangeOnOff){
                 //当真实数据拉取成功时，才让数据和本地存储通信
                 this.dataChangeOnOff = true;
                 setTimeout(() => {
-                    //用户条件筛选数据
                     this._initUserFilterData();
                 },20)
             }
@@ -539,34 +509,64 @@
 
                     this._getFilterShowDataItems(curVal);  //获取用以展示的用户所选条件集合(用以显示)
                     this._setSearchFilterList(curVal);   //设置真实向api请求的字段
+                    
                 },
                 deep:true
             },
+            // //用户向后台发起api请求的数据 发生变化
+            // searchFilterList:{
+            //     handler(curVal,oldVal){ //车型选择变化 @param curVal 当前数据, @param oldVal 过去的数据
+                    
+            //         //没有开锁, 那就return它
+            //         if(!this.dataChangeOnOff) return
+            //         // 如果这个数组内属性都是空(假)或者-1
+            //         if(!geekDom.isObjHasValue(curVal)) return;
+
+                    
+            //     },
+            //     deep:true
+            // },
         },
         // 自定义函数(方法)
         methods: {
             
             //vuex的actions
-            ...mapActions(["setUserFilterData"]),
+            ...mapActions(["setUserFilterData",'setSearchFilterList']),
              
             //初始化用户条件筛选数据
             _initUserFilterData(){
-                //如果当从vuex获取的UserFilterData数据是空时
+                //如果当从vuex获取的userFilterData数据是空时
                 if(!this.getUserFilterData&&!geekDom.isObjHasValue(this.getUserFilterData)){
                     //因为构造类中是data.[property],所以要空对象给构造类传一个
-                    console.log("你丫的走了那，1")
                     let data  = {}
                     this.userFilterData = new filterDataClass(data);
-                    return;
-                }
-                console.log("你丫的走了那，2")
-                //用户条件筛选数据
-                
-                if(typeof this.getUserFilterData === 'string'){
-                    this.userFilterData = new filterDataClass(strToJson(this.getUserFilterData));
                 }else{
-                    this.userFilterData = new filterDataClass(this.getUserFilterData);
+                    //用户条件筛选数据
+                    if(typeof this.getUserFilterData === 'string'){   //第一次获取是obj，切换页面就变成了string，有些坑
+                        this.userFilterData = new filterDataClass(strToJson(this.getUserFilterData));
+                    }else{
+                        this.userFilterData = new filterDataClass(this.getUserFilterData);
+                    }
                 }
+                
+
+                //如果当从vuex获取的searchFilterList数据是空时
+                if(!this.getSearchFilterList&&!geekDom.isObjHasValue(this.getSearchFilterList)){
+                    //因为构造类中是data.[property],所以要空对象给构造类传一个
+                    let data  = {}
+                    this.searchFilterList = new searchFilterClass(data);
+                }else{
+                    //用户条件筛选数据
+                    if(typeof this.getSearchFilterList === 'string'){   //第一次获取是obj，切换页面就变成了string，有些坑
+                        this.searchFilterList = new searchFilterClass(strToJson(this.getSearchFilterList));
+                    }else{
+                        this.searchFilterList = new searchFilterClass(this.getSearchFilterList);
+                    }
+                }
+                
+                setTimeout(() => {
+                    console.log("我想看看searchFilterList数据",this.searchFilterList)
+                },200)
                 
                 //计算是否显示车系
                 this.isNotBrand = this.userFilterData.brand?false:true;
@@ -717,7 +717,6 @@
 
             //价格切换
             priceFilter(e,min,max,value){
-                console.log("价格数据变化",min,max,value)
                 var js__price_list = $("#js__price_list");
                 js__price_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
@@ -772,23 +771,18 @@
             },
 
             //排序类型切换
-            sortTypeFilter(e,value){
+            sortTypeFilter(e,value,label){
 
                 var js__sort_list = $("#js__sort_list");
                 js__sort_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
                 
                 // 设置展示给界面  用户所选条件集合中 排序类型的的lable
-                this.userFilterData.sortType = value; 
+                this.userFilterData.sortType = label; 
                 // 设置真实向api请求的字段 排序类型
                 this.searchFilterList.SortType = value||'';
                 // 重新渲染页面
                 this.carListResultRender();
-            },
-            
-            //车龄值变化
-            changeAge(){
-                console.log("车龄值发生变化了");
             },
 
             //获取用以展示的用户所选条件集合
@@ -815,30 +809,73 @@
                         this.filterShowDataItems.push(new filterShowData(key,value,label))
                     }
                 }
-                console.log("用户所选条件集合",this.filterShowDataItems);
             },
 
             //设置真实向api请求的字段
             _setSearchFilterList(dataObj){
                 //没有数据时加锁
                 if(!this.dataChangeOnOff) return;
+                
+                //遍历对象
+                for (var key of Object.keys(dataObj)) {
+                    //如果是空值，跳出本次循环
+                    if(!dataObj[key]) continue;
+                    //hashData是使用，return是一个方法所以最后要加()   hashData.userFilterData[key][value]()
+                    switch(key){
+                        case 'age':                   // 车龄(上牌日期)
+                            let _ageVal = hashData.userFilterData[key][dataObj[key]]();
+                            this.searchFilterList.OnLicensePlateDateFrom = _ageVal[0];
+                            this.searchFilterList.OnLicensePlateDateTo = _ageVal[1];
+                            break;
+                        case 'dischargeStandard':     // 排放标准
+                            let _dischargeStandardVal = hashData.userFilterData[key][dataObj[key]]();
+                            this.searchFilterList.DischargeStandard = _dischargeStandardVal;
+                            break;
+                        case 'mileage':               // 行驶里程
+                            let _mileageVal = hashData.userFilterData[key][dataObj[key]]();
+                            this.searchFilterList.MileageFrom = _mileageVal[0];
+                            this.searchFilterList.MileageTo = _mileageVal[1];
+                            break;
+                        case 'gearType':              // 手自动挡
+                            let _gearTypeVal = hashData.userFilterData[key][dataObj[key]]();
+                            this.searchFilterList.GearType = _gearTypeVal;
+                            break;
+                        case 'color':                 // 颜色
+                            this.searchFilterList.Color = dataObj[key];
+                            break;
+                        case 'transferCount':         // 过户次数
+                            let _transferCountVal = hashData.userFilterData[key][dataObj[key]]();
+                            this.searchFilterList.TransferTimesFrom = _transferCountVal[0];
+                            this.searchFilterList.TransferTimesTo = _transferCountVal[1];
+                            break;
+                        case 'serviceType':           // 营运类型
+                            let _serviceTypeVal = hashData.userFilterData[key][dataObj[key]]();
+                            this.searchFilterList.ServiceCharacteristics = _serviceTypeVal;
+                            break;
+                        case 'keyCount':              // 钥匙数
+                            let _keyCountVal = hashData.userFilterData[key][dataObj[key]]();
+                            this.searchFilterList.KeyCountFrom = _keyCountVal[0];
+                            this.searchFilterList.KeyCountTo = _keyCountVal[1];
+                            break;
+                    }
+                }
+                console.log("执行完for");
                 // 重新渲染页面
                 this.carListResultRender();
-
-                console.log("设置真实向api请求的字段",dataToJson(dataObj));
+                console.log("需要修改的用户选择的过滤字段",dataToJson(dataObj));
+                console.log("设置真实向api请求的字段",dataToJson(this.searchFilterList));
             },
+
+
 
             //清空搜索记录
             clearFilterData(){
-                console.log("清空条件搜索记录")
-                /*//清空展示的用户所选条件集合
-                this.filterShowDataItems=[];
                 //清空用户展示记录
                 let data  = {}
                 this.userFilterData = new filterDataClass(data);
+                this.searchFilterList = new searchFilterClass(data);
                 // 重新渲染页面
-                this.carListResultRender();*/
-
+                this.carListResultRender();
             },
 
             //分页每页展示数据大小变化后出发
@@ -857,6 +894,8 @@
                 if(!this.dataChangeOnOff) return;
                 //将用户选中的数据都存在本地中
                 this.setUserFilterData(this.userFilterData);
+                //将用户选中的 向后台发起api请求数据 存在本地中
+                this.setSearchFilterList(this.searchFilterList);
             },
 
         },

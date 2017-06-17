@@ -20,11 +20,11 @@ export const changeNum = [
         value: '2',
     },
     {
-        label: "3次",
+        label: "3-5次",
         value: '3',
     },
     {
-        label: "4次",
+        label: "5-8次",
         value: '4',
     },
 ]
@@ -265,15 +265,15 @@ export const keyCount = [
         value: '2',
     },
     {
-        label: "3把",
+        label: "3-5把",
         value: '3',
     },
     {
-        label: "4把",
+        label: "5-8把",
         value: '4',
     },
     {
-        label: "五把",
+        label: "8把以上",
         value: '5',
     },
 ]

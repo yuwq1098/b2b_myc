@@ -26,4 +26,29 @@ class filterDataClass{
 	}
 }
 
-export {filterShowData,filterDataClass}
+//用户向后台发起api请求的数据的构造类
+class searchFilterClass{
+    constructor(data) {
+        this.PageSize = data.PageSize||"8",                            // pageSize页面规格 默认10
+        this.PageIndex = data.PageIndex||"1",                          // pageIndex当前页序 默认第1页
+        this.CarBrandId = data.CarBrandId||"",                                // 汽车品牌id
+        this.CarSeriesId = data.CarSeriesId||"",                                // 车系id
+        this.DischargeStandard = data.DischargeStandard||"",                  // 排放标准, 国1, 国2, ...
+        this.Color = data.Color||"",                                          // 颜色
+        this.OnLicensePlateDateFrom = data.OnLicensePlateDateFrom||"",        // 上牌日期起 2016-01-01（通过计算车龄反算出上牌日期）
+        this.OnLicensePlateDateTo = data.OnLicensePlateDateTo||"",            // 上牌日期止 2016-09-01（通过计算车龄反算出上牌日期）
+        this.MileageFrom = data.MileageFrom||"",                              // 最低里程  0   (单位万公里)
+        this.MileageTo = data.MileageTo||"",                                  // 最高里程  5   (单位万公里)
+        this.B2BPriceFrom = data.B2BPriceFrom||"",                            // 最低价格  0   (单位万元)
+        this.B2BPriceTo = data.B2BPriceTo||"",                                // 最高价格  10  (单位万元)
+        this.ServiceCharacteristics = data.ServiceCharacteristics||"",        // 运营类型 string  非营运
+        this.TransferTimesFrom = data.TransferTimesFrom||"",                  // 最少过户次数 0
+        this.TransferTimesTo = data.TransferTimesTo||"",                      // 最多过户次数 2
+        this.KeyCountFrom = data.KeyCountFrom||"",                            // 钥匙数起 0
+        this.KeyCountTo = data.KeyCountTo||"",                                // 钥匙数止于 5
+        this.GearType = data.GearType||"",                            // 手/自动挡  int  1是手动 2是自动
+        this.SortType = data.SortType||""                            // 排序关键字： string 价格最低、价格最高、车龄最短、里程最少、最近更新
+    }
+}
+
+export {filterShowData,filterDataClass,searchFilterClass}

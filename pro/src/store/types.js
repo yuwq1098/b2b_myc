@@ -7,6 +7,8 @@ export const GET_USER_DATA      =   'GET_USER_DATA'           //获取用户信�
 export const SET_CURRENT_CITY = "SET_CURRENT_CITY"
 //设置用户当前选择的过滤条件
 export const SET_USER_FILTER_DATA = "SET_USER_FILTER_DATA"
+//设置用户当前选择的过滤条件
+export const SET_SEARCH_FILTER_LIST = "SET_SEARCH_FILTER_LIST"
 
 
 
