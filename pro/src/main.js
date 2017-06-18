@@ -19,9 +19,6 @@ import * as filters from './filter'
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k])) //注册过滤器
 
 //引入表单验证vee-validate插件
-// import {VeeValidate, Veeconfig, Validator} from './validation';
-// Vue.use(VeeValidate,Veeconfig, Validator);
-
 import VeeValidate from 'vee-validate';
 //修改语言包
 import zh_CN from 'vee-validate/dist/locale/zh_CN';
@@ -42,10 +39,7 @@ const dictionary = {
 };
 Validator.updateDictionary(dictionary);
 
-//载入
-Vue.use(VeeValidate, {
-  locale: 'zh_CN',
-});
+
 
 //引入岩东的js
 import * as yyd from 'assets/js/yydjs.js';

@@ -1,48 +1,24 @@
-// import VeeValidate, {Validator}  from 'vee-validate';
-// import zh from 'vee-validate/dist/locale/zh_CN';
-// Validator.addLocale(zh);
+import Vue from 'vue';
+import VeeValidate from 'vee-validate';
 
-// const Veeconfig = {
-//     locale: 'zh_CN',
-//     events: 'blur',
-// };
+const config = {
+  errorBagName: 'errors', // change if property conflicts.
+  fieldsBagName: 'fields', 
+  delay: 0, 
+  locale: 'en', 
+  dictionary: null, 
+  strict: true, 
+  enableAutoClasses: false, 
+  classNames: {
+    touched: 'touched', // the control has been blurred
+    untouched: 'untouched', // the control hasn't been blurred
+    valid: 'valid', // model is valid
+    invalid: 'invalid', // model is invalid
+    pristine: 'pristine', // control has not been interacted with
+    dirty: 'dirty' // control has been interacted with
+  },
+  events: 'input|blur',
+  inject: true
+};
 
-// const dictionary = {
-//     zh_CN: {
-//         messages: {
-//             required:(field)=> "请输入"+field
-//         },
-//         attributes:{
-//             email:'邮箱',
-//             password:'密码',
-//             phone: '手机号'
-//         }
-//     }
-// };
-
-// Validator.extend('phone', {
-//    messages: {
-//        zh_CN:field => '手机号格式不正确',
-//    },
-//    validate: value => {
-//        return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
-//    }
-// });
-
-// Validator.updateDictionary(dictionary);
-
-
-// export {VeeValidate, Veeconfig, Validator}
-
-import { Validator } from 'vee-validate';
-
-Validator.extend('mobile', {
-    messages: {
-      zh_CN:field => '手机号码输入不正确',
-    },
-    validate: value => {
-        return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
-    }
-});
-
-export default Validator;
+Vue.use(VeeValidate, config);
