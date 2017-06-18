@@ -8,7 +8,7 @@ export const navItemList = [
         path: "/buyCar"
     },{
         pathName: "我要卖车",
-        path: "/sellCar"
+        path: "/sell"
     },{
         pathName: "服务保障",
         path: "/assurance"

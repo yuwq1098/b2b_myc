@@ -6,7 +6,14 @@ const home = r => require.ensure([], () => r(require('../page/home/home')), 'hom
 const buy_car_list = r => require.ensure([], () => r(require('../page/buy/car_list')), 'buyCarList')
 //车辆详情
 const car_details = r => require.ensure([], () => r(require('../page/car/car-details')), 'carDetails')
-//我要卖车
+
+//卖车大厅
+const sellHome = r => require.ensure([], () => r(require('../page/sell/sell.vue')), 'sellHome')
+//用户卖车填写的表单页
+const sendCar = r => require.ensure([], () => r(require('../page/sell/sendCar.vue')), 'sendCar')
+
+
+//(之前的版本)我要卖车
 const sellCar = r => require.ensure([], () => r(require('../page/sell/sellCar')), 'sellCar')
 //服务保障页
 const assurance = r => require.ensure([], () => r(require('../page/assurance/assurance')), 'assurance')
@@ -95,6 +102,18 @@ export default[{
             path: '/sellCar',
             component: sellCar,
             meta: { }
+        },
+        {   //卖车大厅
+            path: '/sell',
+            component: sellHome,
+            meta: { }
+        },
+        {   //用户卖车填写的表单页
+            path: '/sendCar',
+            component: sendCar,
+            meta: { 
+                requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+            }
         },
         {   //服务保障
             path: '/assurance',
