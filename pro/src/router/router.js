@@ -60,7 +60,9 @@ const s_help = r => require.ensure([], () => r(require('../page/member/setting/s
 
 
 // 表单测试
-const testFrom = r => require.ensure([], () => r(require('../page/test/test')), 'testFrom')
+const testFrom = r => require.ensure([], () => r(require('../page/test/test.vue')), 'testFrom')
+// 表单验证
+const testValidate = r => require.ensure([], () => r(require('../page/test/validate.vue')), 'testValidate')
 
 
 
@@ -268,7 +270,12 @@ export default[{
         {
             path: '/test/testFrom',
             component: testFrom,
-            meta: {}
+            meta: { }
+        },
+        {
+            path: '/test/validate',
+            component: testValidate,
+            meta: { }
         },
 	]
 }]
