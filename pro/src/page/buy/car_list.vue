@@ -651,8 +651,6 @@
                 this.userFilterData.series = ""; 
                 // 设置真实向api请求的字段 汽车品牌的id
                 this.searchFilterList.CarBrandId = id; 
-                // 重新渲染页面
-                this.carListResultRender();
 
             },
             
@@ -682,8 +680,6 @@
                 this.userFilterData.series = ""; 
                 // 设置真实向api请求的字段 汽车品牌的id
                 this.searchFilterList.CarBrandId = id; 
-                // 重新渲染页面
-                this.carListResultRender();
 
                 //操作完毕后隐藏更多品牌
                 this.isShowMoreBrand = false;
@@ -699,8 +695,6 @@
                 this.userFilterData.series = value; 
                 // 设置真实向api请求的字段 汽车车系的id
                 this.searchFilterList.CarSeriesId = id; 
-                // 重新渲染页面
-                this.carListResultRender();
 
             },
 
@@ -721,8 +715,6 @@
                 this.userFilterData.series = value; 
                 // 设置真实向api请求的字段 汽车车系的id
                 this.searchFilterList.CarSeriesId = id; 
-                // 重新渲染页面
-                this.carListResultRender();
 
                 //操作完毕后隐藏更多车系
                 this.isShowMoreSeries = false;
@@ -739,8 +731,6 @@
                 // 设置真实向api请求的字段 价格区间
                 this.searchFilterList.B2BPriceFrom = min||'';
                 this.searchFilterList.B2BPriceTo = max||''; 
-                // 重新渲染页面
-                this.carListResultRender();
             },
 
             //用户自定义设置价格
@@ -778,8 +768,6 @@
                 // 设置真实向api请求的字段 价格区间
                 this.searchFilterList.B2BPriceFrom = min||'';
                 this.searchFilterList.B2BPriceTo = max||'';
-                // 重新渲染页面
-                this.carListResultRender();
 
             },
 
@@ -792,8 +780,6 @@
                 this.userFilterData.sortType = label; 
                 // 设置真实向api请求的字段 排序类型
                 this.searchFilterList.SortType = value||'';
-                // 重新渲染页面
-                this.carListResultRender();
             },
 
             //获取用以展示的用户所选条件集合
@@ -972,8 +958,8 @@
             // 根据筛选数据渲染页面
             renderByData(data){
                 console.log("我在渲染页面",dataToJson(data));
-                this.resultPage.currentPage = data.PageIndex;
-                this.resultPage.pageSize = RESULE_PAGE_SIZE;
+                this.resultPage.currentPage = parseInt(data.PageIndex);
+                this.resultPage.pageSize = parseInt(RESULE_PAGE_SIZE);
 
                 //获取数据并设置分页条数
                 this._getB2bCarList(data);
@@ -988,7 +974,7 @@
 
                     this.b2bCarList = this._normalizeB2bCarInfo(res.data)
                     console.log("最后fuck的数据",dataToJson(res.data))
-                    me.resultPage.totalPage = res.data.length;
+                    me.resultPage.totalPage = parseInt(res.data.length);
                 });
             },
 
