@@ -8,7 +8,16 @@
             <div class="g-bd">
                 <section class="f__w1200">
                     <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
-                    <div>我是卖车大厅，没什么内容</div>
+                    <div class="m-sell-hall">
+                        <div class="m-sell-swiper">
+                            
+                        </div><!-- 卖车大厅的轮播图 -->
+                        
+                        <div class="m-sell-func">
+                            
+                        </div><!-- 卖车大厅的主要功能 -->
+
+                    </div><!-- 卖车大厅内容主体 -->
                 </section><!-- 1200px布局 -->
             </div><!-- 网页主体 -->
 		</div>
@@ -18,6 +27,9 @@
 <script>
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
+
+    // 获取卖车大厅的本地相关数据
+    import {sellSwiperItems,sellFunctionList} from "api/localJson/sell.js"
 
 	export default {
         name: "sellHome",
