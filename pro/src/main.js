@@ -19,9 +19,9 @@ import * as filters from './filter'
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k])) //注册过滤器
 
 // 引入表单验证vee-validate插件
-import {VeeValidate,vConfig} from './validate.js';  //自定义的验证
+import {VeeValidate, vConfig, validator} from './validate.js';  //自定义的验证
 // 加载验证相关的东西，以及配置
-Vue.use(VeeValidate, vConfig);
+Vue.use(VeeValidate, vConfig, validator);
 
 
 //引入岩东的js

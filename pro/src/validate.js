@@ -1,4 +1,4 @@
-/*
+/**
 插件自带的验证规则：
 after{target} - 比target要大的一个合法日期，格式(DD/MM/YYYY)
 alpha - 只包含英文字符
@@ -28,6 +28,21 @@ size:{kb} - 文件大小不超过
 url:{domain?} - (指定域名的)url
  */
 
+/**
+插件自带的errors方法   
+在当前组件使用的方式 => this.errors.all()
+
+errors.first('field') - 获取关于当前field的第一个错误信息
+collect('field') - 获取关于当前field的所有错误信息(list)
+has('field') - 当前filed是否有错误(true/false)
+all() - 当前表单所有错误(list)
+any() - 当前表单是否有任何错误(true/false)
+add(String field, String msg) - 添加错误
+clear() - 清除错误
+count() - 错误数量
+remove(String field) - 清除指定filed的所有错误
+*/
+
 
 import VeeValidate, { Validator } from 'vee-validate';
 import zh_CN from 'vee-validate/dist/locale/zh_CN';
@@ -38,9 +53,9 @@ import zh_CN from 'vee-validate/dist/locale/zh_CN';
 
 // 验证器配置信息
 const vConfig = {
-  errorBagName: 'errors',     // 如果属性有冲突，那么改变这个错误提示的名字.
+  errorBagName: 'allErrors',     // 如果属性有冲突，那么改变这个错误提示的名字.
   fieldsBagName: 'fields',    // 将在Vue的实例数据中注入的字段(旗帜)对象的名称。
-  delay: 80,                  // 延迟时间(验证延时触发) 我这里改成80ms，一般设置0
+  delay: 20,                  // 延迟时间(验证延时触发) 我这里改成 20ms，一般设置0
   locale: 'zh_CN',            // 加载语言包 (zh_CN中文包)，默认en,  英文字体包
   messages: null,         
   strict: true,               // 没有规则的字段将会失败，除非严格设置为false。
@@ -59,7 +74,7 @@ const vConfig = {
   * @description 可用参数, 常用表单事件 onkeyup,onkeydown,onfocus,onblur
   * @targetUrl  参考网址路径:  http://www.w3school.com.cn/tags/html_ref_eventattributes.asp
   */
-  events: 'input|blur',       // input的频率远高于blur, 事件触发, 如果提供了空字符串，它将禁用所有侦听器。
+  events: 'input|blur|keyup',       // input的频率远高于blur, 事件触发, 如果提供了空字符串，它将禁用所有侦听器。
                           
   inject: true,               // 指定是否应该为所有组件自动注入验证器实例，检查组件注入(高级注射)以获得更多信息。
 };
@@ -83,16 +98,20 @@ const dictionary = {
             mobile: {
                 required:(field)=> field+'为空,你好意思吗' // messages can be strings as well.
             },
+            email: {
+                email:(field)=> field+'格式不对' // messages can be strings as well.
+            },
         },
         attributes:{
             email:'邮箱',
             password:'密码',
+            name:'name',
         }
     }
 };
 
 /*
-*自定义规则：****
+* @description 手机号验证规则
 */
 Validator.extend('mobile', {
     messages: {
@@ -104,7 +123,7 @@ Validator.extend('mobile', {
 });
 
 /*
-*异步验证****
+* @description 异步验证,返回一个promise
 */
 Validator.extend('verify_coupon', {
     getMessage: (field) => `The ${field} is not a valid coupon.`,
@@ -113,7 +132,12 @@ Validator.extend('verify_coupon', {
     })
 });
 
+const validator = new Validator();
+
+validator.attach('email', 'required|email');
+validator.attach('name', 'required|alpha|min:3');
+
 Validator.addLocale(zh_CN);
 Validator.updateDictionary(dictionary);
 
-export {VeeValidate,vConfig};
+export {VeeValidate, vConfig, validator};

@@ -61,9 +61,12 @@ const s_help = r => require.ensure([], () => r(require('../page/member/setting/s
 
 // 表单测试
 const testFrom = r => require.ensure([], () => r(require('../page/test/test.vue')), 'testFrom')
+
+
 // 表单验证
 const testValidate = r => require.ensure([], () => r(require('../page/test/validate.vue')), 'testValidate')
-
+// 表单验证demo
+const testValidate2 = r => require.ensure([], () => r(require('../page/test/demoValidate.vue')), 'validator2')
 
 
 // 定义路由
@@ -262,11 +265,15 @@ export default[{
             component: member,
             meta: { }
         },
+
+        //车辆详情
         {
             path: '/carDetails',
             component: car_details,
             meta: { }
         },
+
+        // 测试相关
         {
             path: '/test/testFrom',
             component: testFrom,
@@ -277,5 +284,10 @@ export default[{
             component: testValidate,
             meta: { }
         },
+        {
+            path: '/test/validate2',
+            component: testValidate2,
+            meta: { }
+        }
 	]
 }]
