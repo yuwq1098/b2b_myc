@@ -8,7 +8,7 @@
     </label>
     <label>
       邮箱：
-      <input v-validate="'required|abc'"  type="text" name="email" data-vv-as="邮箱">
+      <input v-validate="'required|email'"  type="text" name="email" data-vv-as="邮箱">
       <span v-show="errors.has('email')" class="help is-danger">{{ errors.first('email') }}</span>
     </label>
     <label>
@@ -22,7 +22,8 @@
     </label>
     <label>
       手机号：
-      <input type="text" />
+      <input v-validate="'required|mobile'"  type="text" name="mobile" data-vv-as="手机号">
+      <span v-show="errors.has('mobile')" class="help is-danger">{{ errors.first('mobile') }}</span>
     </label>
     <label>
       身份证：
