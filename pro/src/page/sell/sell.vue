@@ -26,7 +26,7 @@
                         </div><!-- 卖车大厅的轮播图 -->
                         
                         <div class="m-sell-func">
-                            
+                            <sell-box :dataList="sellFunctionList"></sell-box><!-- 卖车大厅功能卡片信息盒子组件 -->
                         </div><!-- 卖车大厅的主要功能 -->
 
                     </div><!-- 卖车大厅内容主体 -->
@@ -41,6 +41,8 @@
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // swiper轮播组件
     import { swiper, swiperSlide } from 'vue-awesome-swiper'  
+    // 卖车大厅功能卡片group组件
+    import sellBox from "components/boxLayout/sellFuncBox.vue"
 
     // 获取卖车大厅的本地相关数据
     import {sellSwiperItems,sellFunctionList} from "api/localJson/sell.js"
@@ -51,13 +53,16 @@
         components:{
             gkBreadCrumb,
             swiperSlide,
-            swiper,  
+            swiper,
+            sellBox,
         },
         // 数据
         data() {
             return{
-                
-                sellSwiperItems: sellSwiperItems,              // 卖车大厅轮播图数据集合
+                // 卖车大厅轮播图数据集合
+                sellSwiperItems: sellSwiperItems,    
+                //  卖车大厅功能信息列表信息         
+                sellFunctionList: sellFunctionList,            
 
                 swiperOption: {  
                     //是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true  

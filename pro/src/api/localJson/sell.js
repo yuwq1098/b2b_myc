@@ -23,25 +23,25 @@ export const sellFunctionList = [
     {
         title: '成为商户',
         pathUrl: '',
-        imgUrl: require("assets/img/sell-swiper1.jpg"),
+        imgUrl: require("assets/img/sell-step1.jpg"),
         lkTarget: "查看详情",
     },
     {
         title: '自己网上卖车',
-        pathUrl: '',
-        imgUrl: require("assets/img/sell-swiper1.jpg"),
+        pathUrl: '/sendCar',
+        imgUrl: require("assets/img/sell-step2.jpg"),
         lkTarget: "立即卖车",
     },
     {
         title: '我要置换二手车',
         pathUrl: '',
-        imgUrl: require("assets/img/sell-swiper1.jpg"),
+        imgUrl: require("assets/img/sell-step3.jpg"),
         lkTarget: "查看详情",
     },
     {
         title: '专业车辆价格评估',
         pathUrl: '',
-        imgUrl: require("assets/img/sell-swiper1.jpg"),
+        imgUrl: require("assets/img/sell-step4.jpg"),
         lkTarget: "查看详情",
     },
 ]
