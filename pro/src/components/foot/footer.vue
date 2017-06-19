@@ -13,16 +13,16 @@
                     </div><!-- 链接区 -->
                     <div class="m-ewm-wrap f__clearfix">
                         <div class="u-ewm-box">
-                            <img src="../../assets/img/wechat-ewm.jpg" alt="微信公众号" />
-                            <p>微信公众号</p>
+                            <img class="u-pic" src="../../assets/img/wechat-ewm.jpg" alt="微信公众号" />
+                            <p class="u-txt">微信公众号</p>
                         </div>
                         <div class="u-ewm-box v2">
-                            <img src="../../assets/img/wechat-ewm.jpg" alt="微信公众号" />
-                            <p>下载APP</p>
+                            <img class="u-pic" src="../../assets/img/wechat-ewm.jpg" alt="微信公众号" />
+                            <p class="u-txt">下载APP</p>
                         </div>
                     </div><!-- 二维码区域 -->
                     <div class="m-tel-box">
-                        <p class="u-tit">售后客服电话</p>
+                        <div class="u-tit"><i class="iconfont icon-biaoqianlanbodianhua"></i>售后客服电话</div>
                         <p class="u-tel">{{serviceTel}}</p>
                         <p class="u-txt">免费咨询（咨询、投诉、建议）</p>
                         <p class="u-txt">周一至周六 9:00-18:00（工作时间）</p>
@@ -108,6 +108,6 @@
 </script>
 
 <!-- 限定作用域 -->
-<style lang="stylus" rel="stylesheet/stylus" scope>
-    @import './foot.styl'
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+    @import './footer.styl'
 </style>

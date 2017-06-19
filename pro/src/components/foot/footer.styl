@@ -2,8 +2,8 @@
 
 .g-doc
     .g-ft
-        background #313536
-        color #c5c5c5
+        background #4B5861
+        color #d2d2d2
         height 320px
         width 100%
         position relative
@@ -36,42 +36,57 @@
                 .m-ewm-wrap
                     width 320px
                     height 210px
-                    _verticalLayout(495px,,45px)
+                    _verticalLayout(495px,,52px)
                     .u-ewm-box
                         width 145px
                         float left
                         &.v2
                             margin-left 30px
-                        img
+                        .u-pic
                             width 145px
                             height 145px
                             margin 0 auto
-                        p
+                        .u-txt
                             width 100%
-                            height 28px
-                            line-height 28px
-                            margin-top 4px
+                            height 22px
+                            line-height 22px
+                            margin-top 8px
                             text-align center
+                            color #e2e2e2
+                            _spacingPlus()
 
                 .m-tel-box
-                    width 280px
+                    width 270px
                     height 210px
                     _verticalLayout(,0,35px)
                     .u-tit
-                        font-size 16px
+                        background rgba(255,255,255,.35)
+                        _borderRadius(3px)
+                        _spacingPlus()
+                        font-size 19px
                         color #f4f4f4
-                        font-weight bold
-                        letter-spacing 2px
-                        text-indent 2px
-                        line-height 32px
+                        width 140px
+                        margin-top 6px
+                        padding-left 50px
+                        height 50px
+                        line-height 50px
+                        position relative
+                        .iconfont 
+                            width 28px
+                            height 28px
+                            text-align center
+                            line-height 28px
+                            font-size 26px
+                            _completeCenter(16px,auto,4px)
                     .u-tel
+                        margin 8px 3px 10px
                         font-size 25px
                         _spacingPlus()
-                        color #ff6533
-                        font-weight bold
+                        color #ededed
                     .u-txt
-                        line-height 28px
+                        line-height 26px
                         padding-left 5px
+                        color #c2c2c2
 
             .m-ft-cprt
                 width 100%
@@ -82,4 +97,3 @@
                 p
                     text-align center
                     font-size 12px
-                    _spacingPlus()
