@@ -24,9 +24,7 @@
             }
         },
         mounted(){
-            this.$nextTick(function(){
-                
-            })
+
         },
         //重新进入该组件
         activated(){

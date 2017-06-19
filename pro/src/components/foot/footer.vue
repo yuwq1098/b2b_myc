@@ -5,7 +5,7 @@
                 <div class="m-ft-ct f_clearfix">
                     <div class="m-lk-wrap">
                         <div class="m-lk-hd">
-                            <p class="u-tit">木有车【汽车服务大平台】</p>
+                            <p class="u-tit">木有车【汽车服务/B2B大平台】</p>
                         </div><!-- 链接区头部 -->
                         <div class="m-gp-wrap f__clearfix">
                             <template v-for="(group,index) in lkInfoItems">

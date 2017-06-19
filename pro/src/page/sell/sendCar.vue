@@ -25,6 +25,7 @@
                                 
                             </div><!-- 车单内容 -->
                         </div><!-- 用户填单(发单) -->
+                        <app-box></app-box><!-- APP发布车辆 -->
                     </section>
                 </div><!-- 填写表单处 -->
             </div><!-- 网页主体 -->
@@ -36,6 +37,9 @@
 
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
+    // 手机扫码盒子
+    import appBox from "components/common/appBox.vue"
+
     // 获取m卖车填单页的本地相关数据
     import {sendBannerInfo} from "api/localJson/sell.js"
 
@@ -44,6 +48,7 @@
         // 在当前模块注册组件
         components:{
             gkBreadCrumb,
+            appBox,
         },
         // 数据
         data() {
