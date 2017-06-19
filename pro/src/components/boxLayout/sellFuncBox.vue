@@ -79,9 +79,13 @@
                     font-size 12px
                     _spacingPlus()
                     _completeCenter(18px,,auto,20px)
-                    color $c_blue
+                    color #ff6533
                     .iconfont
                         font-size 14px
                         _completeCenter(auto,0)
+                &:hover
+                    .u-txt
+                        color $c_blue
+
 
 </style>
