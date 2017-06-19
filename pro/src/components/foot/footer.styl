@@ -4,47 +4,61 @@
     .g-ft
         background #4B5861
         color #d2d2d2
-        height 320px
+        padding-top 50px
         width 100%
         position relative
         .m-ft-bxo
             height @height
             .m-ft-ct
                 width 100%
-                height 240px
+                min-height 205px
                 position relative
+                padding-bottom 20px
+                _border(bottom,#6E777D)
                 .m-lk-wrap
-                    width 480px
-                    height 210px
-                    _verticalLayout(0,,35px)
-                    .m-item
-                        float left
-                        width 135px
-                        height 210px
-                        &:not(:last-child)
-                            margin-right 15px
+                    width 440px
+                    height 205px
+                    _completeCenter(0,auto,0,auto)
+                    .m-lk-hd
+                        height 36px
+                        line-height 36px
+                        margin-top -8px
+                        margin-bottom 5px
                         .u-tit
-                            font-size 16px
-                            color #f4f4f4
-                            font-weight bold
-                            _spacingPlus(2px)
-                            line-height 32px
-                        dd
-                            line-height 28px
-                            padding-left 5px
+                            color #ededed
+                            font-size 18px
+                            _spacingPlus()
+                    .m-gp-wrap
+                        padding-left 3px
+                        .m-gp-item
+                            width 185px
+                            float left
+                            margin-right 15px
+                            &.last
+                                margin-right 0
+                        .u-lk-lst
+                            .u-item
+                                line-height 32px 
+                                font-size 12px
+                                color #c2c2c2
+                                .u-lk
+                                    color @color
+                                    &:hover
+                                        color #ededed
+
 
                 .m-ewm-wrap
-                    width 320px
-                    height 210px
-                    _verticalLayout(495px,,52px)
+                    width 290px
+                    min-height 205px
+                    _completeCenter(480px,auto,0,auto)
                     .u-ewm-box
-                        width 145px
+                        width 130px
                         float left
                         &.v2
                             margin-left 30px
                         .u-pic
-                            width 145px
-                            height 145px
+                            width 130px
+                            height 130px
                             margin 0 auto
                         .u-txt
                             width 100%
@@ -57,8 +71,8 @@
 
                 .m-tel-box
                     width 270px
-                    height 210px
-                    _verticalLayout(,0,35px)
+                    height 205px
+                    _completeCenter(auto,0,0,auto)
                     .u-tit
                         background rgba(255,255,255,.35)
                         _borderRadius(3px)
@@ -66,7 +80,6 @@
                         font-size 19px
                         color #f4f4f4
                         width 140px
-                        margin-top 6px
                         padding-left 50px
                         height 50px
                         line-height 50px
@@ -86,14 +99,34 @@
                     .u-txt
                         line-height 26px
                         padding-left 5px
+                        font-size 12px
                         color #c2c2c2
+                        
 
             .m-ft-cprt
                 width 100%
-                height 54px
-                line-height 54px
-                position absolute
-                bottom 0
-                p
+                margin-top 8px
+                padding-bottom 30px
+                .m-info
+                    height 36px
+                    line-height 36px
+                    margin-bottom 8px
                     text-align center
                     font-size 12px
+                    .span
+                        margin-right 12px
+                        &.last
+                            margin-right 0
+                .m-pic
+                    text-align center
+                    height 24px
+                    .u-lk
+                        width 93px
+                        height 24px
+                        margin-right 15px
+                        _display(inline-block)
+                        &.last
+                            margin-right 0
+                        .u-pic
+                            width 100%
+                            height 100%

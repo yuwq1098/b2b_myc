@@ -3,13 +3,26 @@
 		<div class="g-ft">
             <section class="m-ft-bxo f__w1200">
                 <div class="m-ft-ct f_clearfix">
-                    <div class="m-lk-wrap f_clearfix">
-                        <dl class="m-item" v-for="group in linkList">
-                            <dt class="u-tit">{{group.title}}</dt>
-                            <dd v-for="item in group.itemList">
-                                <router-link :to="item.path" class="u-lk">{{item.name}}</router-link>
-                            </dd>
-                        </dl>
+                    <div class="m-lk-wrap">
+                        <div class="m-lk-hd">
+                            <p class="u-tit">木有车【汽车服务大平台】</p>
+                        </div><!-- 链接区头部 -->
+                        <div class="m-gp-wrap f__clearfix">
+                            <template v-for="(group,index) in lkInfoItems">
+                                <ul class="m-gp-item u-lk-lst f__clearfix"
+                                    :class="{'last':index==lkInfoItems.length-1}"
+                                >
+                                    <template v-for="(item,index) in group.items">
+                                        <li class="u-item">
+
+                                            <a class="u-lk" href="javascript:;" v-if="!item.path">{{item.name}}</a><!-- 当不存在的path时 -->
+
+                                            <router-link class="u-lk" :to="item.path" v-if="item.path" tag="a">{{item.name}}</router-link><!-- 当存在的path时 -->
+                                        </li>
+                                    </template>
+                                </ul>
+                            </template>
+                        </div>
                     </div><!-- 链接区 -->
                     <div class="m-ewm-wrap f__clearfix">
                         <div class="u-ewm-box">
@@ -29,8 +42,21 @@
                     </div><!-- 联系方式 -->
                 </div><!-- 底部主要内容 -->
                 <div class="m-ft-cprt">
-                    <p v-text="copyright.info"></p> 
+                    <div class="m-info">
+                        <template v-for="(item,index) in cprtInfo">
+                            <span class="span" :class="{'last':index==cprtInfo.length-1}">{{item}}</span>
+                        </template>
+                        <span></span>
+                    </div>
+                    <div class="m-pic">
+                        <template v-for="(item,index) in cprtImgs">
+                            <a :href="item.href?item.href:'javascript:;'" class="u-lk" :class="{'last':index==cprtInfo.length-1}">
+                                <img class="u-pic" :src="item.imgUrl" :alt="item.title"/>
+                            </a>
+                        </template>
+                    </div>
                 </div><!-- 版权声明模块 -->
+                
             </section>
         </div><!-- 网站底部 -->
 	</div>
@@ -38,67 +64,17 @@
 
 <script>
 
+    // 获取底部的本地相关数据
+    import * as footData from "api/localJson/foot.js"
+
     export default {
     	name: 'footer',
     	data () {
     		return {
                 serviceTel: "400-900-9936",
-                copyright:{
-                    info: "Copyright © 2016-2017 木有车 All Rights Reserved 版权所有 南昌小目标车网科技发展股份有限公司",
-                },
-    			linkList:[
-                    {
-                        title: "关于我们",
-                        itemList:[
-                            {
-                                name: "公司介绍",
-                                path: ""
-                            },
-                            {
-                                name: "联系我们",
-                                path: ""
-                            },
-                            {
-                                name: "加入我们",
-                                path: ""
-                            },
-                        ]
-                    },
-                    {
-                        title: "交易流程",
-                        itemList:[
-                            {
-                                name: "收车流程",
-                                path: ""
-                            },
-                            {
-                                name: "卖车流程",
-                                path: ""
-                            },
-                            {
-                                name: "异地收车",
-                                path: ""
-                            },
-                        ]
-                    },
-                    {
-                        title: "交易流程",
-                        itemList:[
-                            {
-                                name: "收车流程",
-                                path: ""
-                            },
-                            {
-                                name: "卖车流程",
-                                path: ""
-                            },
-                            {
-                                name: "异地收车1",
-                                path: ""
-                            },
-                        ]
-                    }
-                ]
+                cprtInfo: footData.cprtInfo,           // 版权信息
+                lkInfoItems: footData.lkInfoItems,     // 底部链接区
+                cprtImgs: footData.footCprtImgItems,   // 诚信网站图片
     		}
     	},
         mounted(){
