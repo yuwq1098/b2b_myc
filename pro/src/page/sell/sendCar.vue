@@ -8,16 +8,36 @@
             <div class="g-bd">
                 <section class="f__w1200">
                     <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
-                    <div>我是卖车填写表单的页面</div>
                 </section><!-- 1200px布局 -->
+                <div class="m-send-con">
+                    <div class="m-banner-box">
+                        <img :src="bannerInfo.imgUrl" :alt="bannerInfo.title"/>
+                    </div><!-- 填写表单的小广告图 -->
+                    <section class="f__w1200">
+                        <div class="m-bill-wrap">
+                            <div class="m-bill-hd">
+                                <p class="u-tit">
+                                    <span class="text">请认真填写个人车辆信息，</span>
+                                    <span class="vital">极速审核发车</span>
+                                </p>
+                            </div><!-- 头部标题 -->
+                            <div class="m-bill-con">
+                                
+                            </div><!-- 车单内容 -->
+                        </div><!-- 用户填单(发单) -->
+                    </section>
+                </div><!-- 填写表单处 -->
             </div><!-- 网页主体 -->
 		</div>
 	</div>
 </template>
 
 <script>
+
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
+    // 获取m卖车填单页的本地相关数据
+    import {sendBannerInfo} from "api/localJson/sell.js"
 
 	export default {
         name: "sendCar",
@@ -28,7 +48,7 @@
         // 数据
         data() {
             return{
-
+                bannerInfo: sendBannerInfo,
             }
         },
         // 计算数据
@@ -66,5 +86,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './sell.styl'
+    @import './sendCar.styl'
 </style>

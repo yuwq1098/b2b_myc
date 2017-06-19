@@ -45,3 +45,9 @@ export const sellFunctionList = [
         lkTarget: "查看详情",
     },
 ]
+
+// 卖车填单的banner图信息
+export const sendBannerInfo = {
+    title: '放心交易，快速卖车',
+    imgUrl: require("assets/img/sendCar_banner.jpg"),
+}
