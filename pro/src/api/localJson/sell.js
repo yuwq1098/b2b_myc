@@ -9,12 +9,12 @@ export const sellSwiperItems = [
     {
         title: '海量商户 选择多多',
         href: '',
-        imgUrl: require("assets/img/sell-swiper1.jpg"),
+        imgUrl: require("assets/img/sell-swiper2.jpg"),
     },
     {
         title: '成为冠军商户 助力生意发展',
         href: '',
-        imgUrl: require("assets/img/sell-swiper1.jpg"),
+        imgUrl: require("assets/img/sell-swiper3.jpg"),
     }
 ]
 
