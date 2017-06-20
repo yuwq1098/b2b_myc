@@ -76,12 +76,12 @@
             font-size 12px
             _borderRadius(8px)
             _spacingPlus(2px)
-            background $c_blue
+            background #00BCD4
             .i-angle
                 _completeCenter(auto,6px,auto,-7px)
                 width 0
                 height 0;
-                border-top 8px solid $c_blue
+                border-top 8px solid #00BCD4
                 border-left 7px solid transparent
                 border-right 3px solid transparent
         .i-point

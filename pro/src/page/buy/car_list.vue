@@ -863,12 +863,13 @@
 
             //根据传入的对应值，删除对应的 用户搜索记录，然后重新渲染
             clearFilterDataTheOne(key){
+                console.log("我在删除",key);
                 this.userFilterData[key] = '';
                 this.searchFilterList[key] = '';
                 let dataObj = this.userFilterData;
                 
                 //遍历对象, 删除对应属性值
-                for (var key of Object.keys(dataObj)) {
+                for (var newKey of Object.keys(dataObj)) {
                     switch(key){
                         case 'brand':                 // 车品牌
                             this.searchFilterList.CarBrandId = "";
@@ -880,7 +881,6 @@
                             this.searchFilterList.B2BPriceFrom = "";
                             this.searchFilterList.B2BPriceTo = "";
                             break;
-
                         case 'age':                   // 车龄(上牌日期)
                             this.searchFilterList.OnLicensePlateDateFrom = "";
                             this.searchFilterList.OnLicensePlateDateTo = "";
@@ -914,6 +914,7 @@
                             break;
                     }
                 }
+                console.log("删除结束后",dataToJson(this.searchFilterList))
 
                 // 重新渲染页面
                 this.carListResultRender();
