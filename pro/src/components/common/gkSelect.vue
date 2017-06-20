@@ -1,5 +1,5 @@
 <!--  
- **  @description 日期选择器（不带时间）
+ **  @description select选择器（不带时间）
  --> 
 
 <template>

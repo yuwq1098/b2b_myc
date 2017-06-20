@@ -83,6 +83,8 @@
                                                     </div>
                                                     <div class="u-item-box">
                                                         <date-picke
+                                                            @dateChangeEnd="plateDateEnd"
+                                                            :disabledPrevYear="20"
                                                             >
                                                         </date-picke>
                                                     </div>
@@ -111,7 +113,11 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <date-picke
+                                                            @dateChangeEnd="outFactoryDateEnd"
+                                                            :disabledPrevYear="30"
+                                                            >
+                                                        </date-picke>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -188,7 +194,11 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <date-picke
+                                                            @dateChangeEnd="insuranceDateEnd"
+                                                            :disabledPrevYear="3"
+                                                            >
+                                                        </date-picke>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -439,6 +449,18 @@
             // 城市级联(车牌归属地)
             plateInCityChangeEnd(selected){
                 console.log("城市级联你少扯淡,",selected);
+            },
+            // 上牌日期
+            plateDateEnd(selected){
+                console.log("上牌日期选择",selected);
+            },
+            // 出厂日期
+            outFactoryDateEnd(date){
+                console.log("出厂日期",date);
+            },
+            // 交强险(到期时间)
+            insuranceDateEnd(date){
+                console.log("交强险",date);
             }
             
         },
