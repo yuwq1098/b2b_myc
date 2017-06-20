@@ -12,6 +12,14 @@ export const cprtInfo = [
     "版权所有： 南昌小目标车网科技发展股份有限公司",
 ]
 
+//咨询服务
+export const counseling = {
+    title: '木有车客服电话',
+    tel: '400-900-9936',
+    desc: '免费咨询（咨询、投诉、建议）',
+    workTime: '周一至周六 9:00-18:00（工作时间）',
+}
+
 //诚信网站图片
 export const footCprtImgItems = [
     {

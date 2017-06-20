@@ -8,7 +8,7 @@
                 <div class="u-pic">
                     <img class="u-imgCode" :src="imgCodeUrl" alt="扫码发单"/>
                 </div>
-                <div class="u-tit">赶紧扫码</div>
+                <div class="u-tit">立即扫码</div>
                 <div class="u-txt">使用手机发单</div>
             </div><!-- 屏幕 -->
             <i class="i-app-home"></i><!-- 手机home键 -->

@@ -35,10 +35,10 @@
                         </div>
                     </div><!-- 二维码区域 -->
                     <div class="m-tel-box">
-                        <div class="u-tit"><i class="iconfont icon-biaoqianlanbodianhua"></i>售后客服电话</div>
-                        <p class="u-tel">{{serviceTel}}</p>
-                        <p class="u-txt">免费咨询（咨询、投诉、建议）</p>
-                        <p class="u-txt">周一至周六 9:00-18:00（工作时间）</p>
+                        <div class="u-tit"><i class="iconfont icon-biaoqianlanbodianhua"></i>{{counseling.title}}</div>
+                        <p class="u-tel">{{counseling.tel}}</p>
+                        <p class="u-txt">{{counseling.desc}}</p>
+                        <p class="u-txt">{{counseling.workTime}}</p>
                     </div><!-- 联系方式 -->
                 </div><!-- 底部主要内容 -->
                 <div class="m-ft-cprt">
@@ -71,7 +71,8 @@
     	name: 'footer',
     	data () {
     		return {
-                serviceTel: "400-900-9936",
+                //咨询服务
+                counseling: footData.counseling,       // 咨询服务
                 cprtInfo: footData.cprtInfo,           // 版权信息
                 lkInfoItems: footData.lkInfoItems,     // 底部链接区
                 cprtImgs: footData.footCprtImgItems,   // 诚信网站图片
