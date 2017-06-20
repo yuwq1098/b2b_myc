@@ -155,7 +155,10 @@ export default {
     },
 
     //根据车系获取车型
-    getCarModel(params){
+    getCarModel(id){
+        let params = {
+            seriesid: id,
+        }
         return fetch('/action2/CarModel.ashx',params);
     },
 
@@ -165,8 +168,11 @@ export default {
     },
 
     //获取省份的城市
-    getCityForProvince(params){
-        return get('/action2/CityForProvince.ashx', qs.stringify(params));
+    getCityForProvince(code){
+        let params = {
+            proCode: code,
+        }
+        return fetch('/action2/CityForProvince.ashx', qs.stringify(params));
     },
 
     //获取所有城市

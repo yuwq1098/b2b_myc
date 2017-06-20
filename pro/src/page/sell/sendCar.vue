@@ -35,7 +35,10 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.carInCity"></el-input>
+                                                        <city-cascader
+                                                            @valChangeEnd="carInCityChangeEnd"
+                                                            >
+                                                        </city-cascader>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -65,7 +68,10 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <city-cascader
+                                                            @valChangeEnd="plateInCityChangeEnd"
+                                                            >
+                                                        </city-cascader>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -76,7 +82,9 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <date-picke
+                                                            >
+                                                        </date-picke>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -274,6 +282,10 @@
     import appBox from "components/common/appBox.vue"
     // 车型级联选择组件
     import modelCascader from "components/cascader/brandModel.vue"
+    // 城市级联选择组件
+    import cityCascader from "components/cascader/citySelect.vue"
+    // 日期选择器
+    import datePicke from "components/common/datePicke.vue"
 
 
     // 获取m卖车填单页的本地相关数据
@@ -287,6 +299,8 @@
             appBox,
             promptInfo,
             modelCascader,
+            cityCascader,
+            datePicke,
         },
         // 数据
         data() {
@@ -404,7 +418,7 @@
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-            this._getBrandModelOptions();   //获取车型级联选择框的初始选项
+            
         },
 
         //退出的生命周期钩子
@@ -414,16 +428,17 @@
         // 自定义函数(方法)
         methods: {
             
-            // 获取车型级联选择框的初始选项
-            _getBrandModelOptions(){
-                
-            },
-
-            // 车型级联组件传来的事件
+            // 车型级联()
             modelChangeEnd(selected){
-                // 第二个是用户真实选中的值
                 console.log("车型级联你少扯淡,",selected);
-
+            },
+            // 城市级联(车辆所属地)
+            carInCityChangeEnd(selected){
+                console.log("城市级联你少扯淡,",selected);
+            },
+            // 城市级联(车牌归属地)
+            plateInCityChangeEnd(selected){
+                console.log("城市级联你少扯淡,",selected);
             }
             
         },

@@ -1,3 +1,4 @@
+// b2b车辆信息构造类
 class b2bCarInfo{
 	constructor(data) {
 	    this.id = data.CarId                            // 车辆ID
@@ -14,6 +15,7 @@ class b2bCarInfo{
 	}
 }
 
+// b2c车辆信息的构造类
 class b2cCarInfo{
 	constructor(data) {
 	    this.id = data.CarId

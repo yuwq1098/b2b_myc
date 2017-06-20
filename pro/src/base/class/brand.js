@@ -1,3 +1,4 @@
+// 车品牌构造类
 class brandInfo{
 	constructor(data) {
 	    this.id = data.brand_id
