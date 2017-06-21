@@ -29,10 +29,11 @@
                                         <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">车辆所在地</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="车辆所在地"
+                                                        errorTetx="请选择车辆所在地"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <city-cascader
                                                             @valChangeEnd="carInCityChangeEnd"
@@ -44,10 +45,11 @@
                                             </el-col>
                                             <el-col :span="16">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">品牌车型</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="品牌车型"
+                                                        errorTetx="请选择车型"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <model-cascader
                                                             @valChangeEnd="modelChangeEnd"
@@ -64,10 +66,11 @@
                                         <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">车牌归属地</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="车牌归属地"
+                                                        errorTetx="请选择车牌归属地"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <city-cascader
                                                             @valChangeEnd="plateInCityChangeEnd"
@@ -79,10 +82,11 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">上牌时间</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="上牌时间"
+                                                        errorTetx="请选择上牌时间"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <date-picke
                                                             @dateChangeEnd="plateDateEnd"
@@ -95,13 +99,14 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">过户次数</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="过户次数"
+                                                        errorTetx="请选择过户次数"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <gk-select
-                                                            placeholder="请填写过户次数"
+                                                            placeholder="请选择过户次数"
                                                             @selectedEnd="changeNumEnd"
                                                             :options="selectData.changeNumList"
                                                             >
@@ -116,10 +121,11 @@
                                         <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">出厂日期</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="出厂日期"
+                                                        errorTetx="请选择出厂日期"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <date-picke
                                                             @dateChangeEnd="outFactoryDateEnd"
@@ -132,10 +138,11 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">一口价</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="一口价"
+                                                        errorTetx="请填写一口价"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <el-input placeholder="请填写一口价" v-model="form.price"></el-input>
                                                     </div>
@@ -143,10 +150,11 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">零售价</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="零售价"
+                                                        errorTetx="请填写零售价"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <el-input placeholder="请填写零售价" v-model="form.price2"></el-input>
                                                     </div>
@@ -159,10 +167,11 @@
                                         <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">行驶里程</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="行驶里程"
+                                                        errorTetx="请填写行驶里程"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <el-input placeholder="请填写行驶里程" v-model="form.mileage"></el-input>
                                                     </div>
@@ -170,10 +179,12 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">排放标准</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+
+                                                    <gk-input-error
+                                                        title="排放标准"
+                                                        errorTetx="请选择排放标准"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <gk-select
                                                             placeholder="请选择排放标准"
@@ -187,10 +198,11 @@
                                             
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">排量</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="排量"
+                                                        errorTetx="请填写排量"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <el-input placeholder="请填写排量，1.0L ~ 7.0L" v-model="form.Liter"></el-input>
                                                     </div>
@@ -203,10 +215,11 @@
                                         <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">交强险（到期时间）</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="交强险（到期时间）"
+                                                        errorTetx="请填写交强险"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <date-picke
                                                             @dateChangeEnd="insuranceDateEnd"
@@ -219,10 +232,11 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd"> 
-                                                        <span class="u-tit">使用性质</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="使用性质"
+                                                        errorTetx="请填写使用性质"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <gk-select
                                                             placeholder="请选择使用性质"
@@ -235,10 +249,11 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <div class="m-item">
-                                                    <div class="u-item-hd">
-                                                        <span class="u-tit">车架号</span>
-                                                        <p class="u-error"></p>
-                                                    </div>
+                                                    <gk-input-error
+                                                        title="车架号"
+                                                        errorTetx="请填写车架号"
+                                                        >
+                                                    </gk-input-error>
                                                     <div class="u-item-box">
                                                         <el-input placeholder="请填写车架号" v-model="form.price"></el-input>
                                                     </div>
@@ -249,38 +264,63 @@
 
                                     <div class="m-gp-other color">
                                         <div class="m-other-hd">
-                                            <span class="u-tit">车身颜色</span>
-                                            <p class="u-error"></p>
+                                            <gk-input-error
+                                                title="车身颜色"
+                                                errorTetx="请选择车身颜色"
+                                                errorAlign="left"
+                                                >
+                                            </gk-input-error>
+                                        </div>
+                                        <div class="m-color-wrap">
+                                            <color-select
+                                                @selectedEnd="carColorEnd"
+                                                >
+                                            </color-select>
                                         </div>
                                     </div><!-- 车身颜色选择 -->
                                     
                                     <div class="m-gp-other pictures">
                                         <div class="m-other-hd">
-                                            <span class="u-tit">上传车辆铭牌</span>
-                                            <p class="u-error"></p>
+                                            <gk-input-error
+                                                title="上传车辆铭牌"
+                                                errorTetx="请上传车辆铭牌"
+                                                errorAlign="left"
+                                                >
+                                            </gk-input-error>
                                         </div>
                                     </div><!-- 车辆铭牌 -->
 
                                     <div class="m-gp-other pictures">
                                         <div class="m-other-hd">
-                                            <span class="u-tit">上传车辆照片</span>
-                                            <p class="u-error"></p>
+                                            <gk-input-error
+                                                title="上传车辆照片"
+                                                errorTetx="请最少上传2张车辆图片"
+                                                errorAlign="left"
+                                                >
+                                            </gk-input-error>
                                         </div>
                                     </div><!-- 车辆图片 -->
 
                                     <div class="m-gp-other desc">
                                         <div class="m-other-hd">
-                                            <span class="u-tit">车主留言(对车况进行描述)</span>
+                                            <span class="u-tit"></span>
                                             <p class="u-error"></p>
+                                            <gk-input-error
+                                                title="车主留言(对车况进行描述)"
+                                                errorTetx="请输入10-300字内容"
+                                                errorAlign="left"
+                                                >
+                                            </gk-input-error>
                                         </div>
                                         <div class="m-other-con">
-                                            <el-input
-                                                type="textarea"
-                                                :autosize="{ minRows: 2, maxRows: 4}"
-                                                placeholder="请输入内容"
-                                                v-model="form.carInCity"
+                                            <gk-textarea
+                                                @inputEnd="descEnd"
+                                                :maxLength="300"
+                                                placeholder="填写车况描述，提高资料完善度，让购车人更容易搜到你！"
+                                                tips="*请填写10~300之间的车况描述，其他无关信息会影响车辆通过审核"
+
                                                 >
-                                            </el-input>
+                                            </gk-textarea>
                                         </div>
                                     </div><!-- 车况描述 -->
                                     
@@ -318,6 +358,12 @@
     import gkSelect from "components/common/gkSelect.vue"
     // 日期选择器
     import datePicke from "components/common/datePicke.vue"
+    // 表单错误提示头组件
+    import gkInputError from "components/common/inputError.vue"
+    // 汽车颜色选择插件
+    import colorSelect from "components/common/colorSelect.vue"
+    // 多行文本输入器
+    import gkTextarea from "components/common/gkTextArea.vue"
 
 
     // 获取m卖车填单页的本地相关数据
@@ -334,6 +380,9 @@
             cityCascader,
             gkSelect,
             datePicke,
+            gkInputError,
+            colorSelect,
+            gkTextarea,
         },
         // 数据
         data() {
@@ -387,6 +436,10 @@
                     insuranceDate: "",      // 交强险日期
                     serviceType: "",        // 使用性质（运营类型）
                     vin: "",                // 车架号
+                    color: "",              // 颜色
+                    desc: "",               // 车主留言
+                    nameplate: [],          // 铭牌图片
+                    photo: [],              // 车辆图片
                 },
 
                 // 数据源（下拉选择的数据）
@@ -497,7 +550,15 @@
             },
             // 选择排放标准
             dischargeStandardEnd(val){
-                console.log("排放标准是",val)
+                console.log("排放标准是",val);
+            },
+            // 汽车颜色
+            carColorEnd(val){
+                console.log("汽车颜色是",val);
+            },
+            // 车主留言值变化（blur事件触发）
+            descEnd(val){
+                console.log("车主留言",val);
             },
 
         },
