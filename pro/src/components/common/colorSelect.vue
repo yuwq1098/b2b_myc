@@ -127,6 +127,7 @@
                     _borderAll(transparent,2px)
                     &.on
                         _borderAll(#ff6533,2px)
+
                     .u-lk
                         _display()
                         width 100%
@@ -153,7 +154,7 @@
                         _spacingPlus(2px)
                         color #959595
                         margin-left 28px
-                    &:hover
+                    &:hover,&.on
                         .u-txt
                             color #ff6533
 

@@ -323,9 +323,25 @@
                                             </gk-textarea>
                                         </div>
                                     </div><!-- 车况描述 -->
+
+                                    <div class="m-gp-other postRetail">
+                                        <div class="m-switch-box">
+                                            <gk-switch
+                                                text="是否发布到普通二手车市场"
+                                                @switchEnd="postRetailEnd"
+                                                >
+                                            </gk-switch>
+                                        </div>
+                                    </div><!-- 发布到普通b2c市场 -->
                                     
                                     <div class="m-gp-btn">
-                                        <el-button type="primary">提交</el-button>
+                                        <div class="m-submit-box">
+                                            <gk-submit
+                                                btnText="立即发布"
+                                                @submitTrigger="putOut"
+                                                >
+                                            </gk-submit>
+                                        </div><!-- 提交按钮 -->
                                     </div>
 
                                 </div>
@@ -364,6 +380,10 @@
     import colorSelect from "components/common/colorSelect.vue"
     // 多行文本输入器
     import gkTextarea from "components/common/gkTextArea.vue"
+    // switch开关
+    import gkSwitch from "components/common/gkSwitch.vue"
+    // 表单提交按钮
+    import gkSubmit from "components/common/submitBtn.vue"
 
 
     // 获取m卖车填单页的本地相关数据
@@ -383,6 +403,8 @@
             gkInputError,
             colorSelect,
             gkTextarea,
+            gkSwitch,
+            gkSubmit,
         },
         // 数据
         data() {
@@ -440,6 +462,7 @@
                     desc: "",               // 车主留言
                     nameplate: [],          // 铭牌图片
                     photo: [],              // 车辆图片
+                    isPostRetail: "",    // 是否发布到二手市场
                 },
 
                 // 数据源（下拉选择的数据）
@@ -560,6 +583,14 @@
             descEnd(val){
                 console.log("车主留言",val);
             },
+            // 是否发布到普通二手车市场
+            postRetailEnd(val){
+                console.log("是否发布到普通二手车市场",val)
+            },
+            // 立即发布
+            putOut(){
+                console.log("立即发布");
+            }
 
         },
 	}

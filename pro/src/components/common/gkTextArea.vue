@@ -79,7 +79,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '../../assets/css/mixin.styl'
     .m-textarea
-        margin 0 0 15px
+        margin 0 0 5px
         .m-other-box
             height 28px
             line-height 28px
