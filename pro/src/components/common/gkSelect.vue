@@ -1,53 +1,69 @@
 <!--  
- **  @description select选择器（不带时间）
+ **  @description select下拉选择器
  --> 
 
 <template>
-    <div class="datePicke">
-        <div class="m-gk-cascader">
-            <el-date-picker
-                v-model="selectedDate"
-                type="date"
-                placeholder="选择日期"
+    <div class="gkSelect">
+        <div class="m-gk-select" v-if="options">
+            <el-select 
+                v-model="selectedVal"
                 style="width:100%"
-                :picker-options="pickerOptions">
-            </el-date-picker>
+                :placeholder="placeholder"
+                >
+                <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                </el-option>
+            </el-select>
         </div>
     </div>
 </template>
 
 <script>
 
-    import * as geekDom from "assets/js/dom.js"  
-
     export default {
-        name: "datePicke",
+        name: "gkSelect",
         // 数据
         data() {
             return{
-                selectedDate: "",   // 用户选择的时间
-                pickerOptions: {},  // 日期选择器的配置
+                selectedVal: '',
             }
         },
         props:{
-            disabledPrevYear: Number,
+            // 文本框提示
+            placeholder:{
+                type: String,
+                default: "请选择"
+            },
+            options: {
+                type: Array,
+                default: function () {
+                    let arr = [
+                        {
+                            label: '测试1',
+                            value: '1',
+                        },
+                        {
+                            label: '测试2',
+                            value: '2',
+                        },
+                    ]
+                    return arr
+                } 
+            },
         },
         // 数据侦听
         watch:{
             // 当用户选中的值变化了，再将事件派发给父组件
-            selectedDate: function(val){
-                this.$emit("dateChangeEnd",this.selectedDate)
+            selectedVal: function(val){
+                this.$emit("selectedEnd",this.selectedVal)
             }
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-            setTimeout(() => {
-                let me = this;
-                this.pickerOptions.disabledDate = function(time) {
-                    return time.getTime() < +new Date(geekDom.getDateByInt(me.disabledPrevYear));
-                }
-            })
-            
+
         },
         // 自定义函数(方法)
         methods: {

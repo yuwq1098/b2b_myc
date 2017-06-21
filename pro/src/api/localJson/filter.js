@@ -212,12 +212,16 @@ export const ServiceCharacteristics = [
         value: '1',
     },
     {
-        label: "营运",
+        label: "非营运租赁",
         value: '2',
     },
     {
-        label: "营转非",
+        label: "营运",
         value: '3',
+    },
+    {
+        label: "营转非",
+        value: '4',
     }
 ]
 

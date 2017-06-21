@@ -54,8 +54,9 @@ export const userFilterLabel = {
     'serviceType':{
         '-1':'不限',
     	'1':'非营运',
-    	'2':'营运',
-    	'3':'营转非',
+        '2':'非营运租赁',
+    	'3':'营运',
+    	'4':'营转非',
     },
     //钥匙数
     'keyCount':{
@@ -174,9 +175,12 @@ export const userFilterData = {
             return '非营运';   
         },
         '2':function(){
-            return '营运';   
+            return '非营运租赁';   
         },
         '3':function(){
+            return '营运';   
+        },
+        '4':function(){
             return '营转非';   
         },
     },

@@ -37,6 +37,7 @@
                                                     <div class="u-item-box">
                                                         <city-cascader
                                                             @valChangeEnd="carInCityChangeEnd"
+                                                            placeholder="请选择车辆所在地"
                                                             >
                                                         </city-cascader>
                                                     </div>
@@ -45,12 +46,13 @@
                                             <el-col :span="16">
                                                 <div class="m-item">
                                                     <div class="u-item-hd">
-                                                        <span class="u-tit">品牌车型选择</span>
+                                                        <span class="u-tit">品牌车型</span>
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
                                                         <model-cascader
                                                             @valChangeEnd="modelChangeEnd"
+                                                            placeholder="请选择车品牌、车系及车型"
                                                             >
                                                         </model-cascader>
                                                     </div>
@@ -70,6 +72,7 @@
                                                     <div class="u-item-box">
                                                         <city-cascader
                                                             @valChangeEnd="plateInCityChangeEnd"
+                                                            placeholder="请选择车牌归属地（城市）"
                                                             >
                                                         </city-cascader>
                                                     </div>
@@ -85,6 +88,7 @@
                                                         <date-picke
                                                             @dateChangeEnd="plateDateEnd"
                                                             :disabledPrevYear="20"
+                                                            placeholder="请选择上牌时间"
                                                             >
                                                         </date-picke>
                                                     </div>
@@ -97,7 +101,12 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <gk-select
+                                                            placeholder="请填写过户次数"
+                                                            @selectedEnd="changeNumEnd"
+                                                            :options="selectData.changeNumList"
+                                                            >
+                                                        </gk-select>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -116,6 +125,7 @@
                                                         <date-picke
                                                             @dateChangeEnd="outFactoryDateEnd"
                                                             :disabledPrevYear="30"
+                                                            placeholder="请选择出厂日期"
                                                             >
                                                         </date-picke>
                                                     </div>
@@ -128,7 +138,7 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <el-input placeholder="请填写一口价" v-model="form.price"></el-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -139,7 +149,7 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <el-input placeholder="请填写零售价" v-model="form.price2"></el-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -155,7 +165,7 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <el-input placeholder="请填写行驶里程" v-model="form.mileage"></el-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -166,7 +176,12 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <gk-select
+                                                            placeholder="请选择排放标准"
+                                                            @selectedEnd="dischargeStandardEnd"
+                                                            :options="selectData.dischargeStandardList"
+                                                            >
+                                                        </gk-select>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -178,7 +193,7 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <el-input placeholder="请填写排量，1.0L ~ 7.0L" v-model="form.Liter"></el-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -197,6 +212,7 @@
                                                         <date-picke
                                                             @dateChangeEnd="insuranceDateEnd"
                                                             :disabledPrevYear="3"
+                                                            placeholder="请选择交强险（到期时间）"
                                                             >
                                                         </date-picke>
                                                     </div>
@@ -209,7 +225,12 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <gk-select
+                                                            placeholder="请选择使用性质"
+                                                            @selectedEnd="serviceEnd"
+                                                            :options="selectData.ServiceCharacteristics"
+                                                            >
+                                                        </gk-select>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -220,7 +241,7 @@
                                                         <p class="u-error"></p>
                                                     </div>
                                                     <div class="u-item-box">
-                                                        <el-input v-model="form.price"></el-input>
+                                                        <el-input placeholder="请填写车架号" v-model="form.price"></el-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -294,12 +315,14 @@
     import modelCascader from "components/cascader/brandModel.vue"
     // 城市级联选择组件
     import cityCascader from "components/cascader/citySelect.vue"
+    // 下拉组件
+    import gkSelect from "components/common/gkSelect.vue"
     // 日期选择器
     import datePicke from "components/common/datePicke.vue"
 
 
     // 获取m卖车填单页的本地相关数据
-    import {sendBannerInfo} from "api/localJson/sell.js"
+    import * as sendCarData from "api/localJson/sendCar.js"
 
 	export default {
         name: "sendCar",
@@ -310,13 +333,15 @@
             promptInfo,
             modelCascader,
             cityCascader,
+            gkSelect,
             datePicke,
         },
         // 数据
         data() {
             return{
-                bannerInfo: sendBannerInfo,
-                promptInfoText: "请完整填写您的车辆信息，您填写的信息越完善，成交率越高哦！",
+                
+                bannerInfo: sendCarData.sendBanner,                  // 发布订单页面的banner图信息
+                promptInfoText: sendCarData.promptInfo,              // 发布订单页面的温馨提示
                 
                 // 表单样式集中管理
                 formStyleData:{  
@@ -367,11 +392,12 @@
 
                 // 数据源（下拉选择的数据）
                 selectData:{
-                    brandList: "",          // 汽车品牌列表
-                    seriesList: "",         // 车系列表
-                    modelList: "",          // 车型列表
-                    carColorList: "",       // 车辆颜色列表
-                    
+                    carColorList: "",                       // 车辆颜色列表
+                    changeNumList: sendCarData.changeNum,   // 过户次数列表
+                    // 排放标准
+                    dischargeStandardList: sendCarData.dischargeStandard,    
+                    // 运营类型
+                    ServiceCharacteristics: sendCarData.ServiceCharacteristics,
                 },
                 
                 // 真实发单向api发起请求的字段
@@ -461,7 +487,19 @@
             // 交强险(到期时间)
             insuranceDateEnd(date){
                 console.log("交强险",date);
-            }
+            },
+            // 过户次数
+            changeNumEnd(val){
+                console.log("过户次数",val);
+            },
+            // 运营性质
+            serviceEnd(val){
+                console.log("运营性质",val);
+            },
+            // 选择排放标准
+            dischargeStandardEnd(val){
+                console.log("排放标准是",val)
+            },
             
         },
 

@@ -8,7 +8,7 @@
             <el-date-picker
                 v-model="selectedDate"
                 type="date"
-                placeholder="选择日期"
+                :placeholder="placeholder"
                 style="width:100%"
                 :picker-options="pickerOptions">
             </el-date-picker>
@@ -31,6 +31,10 @@
         },
         props:{
             disabledPrevYear: Number,
+            placeholder:{
+                type: String,
+                default: "请选择日期"
+            }
         },
         // 数据侦听
         watch:{

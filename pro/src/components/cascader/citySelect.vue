@@ -11,6 +11,7 @@
                 :props="props"
                 v-model="selectedOptions"
                 style="width: 100%"
+                :placeholder="placeholder"
                 >
             </el-cascader>
         </div>
@@ -50,7 +51,10 @@
             }
         },
         props:{
-
+            placeholder:{
+                type: String,
+                default: "请选择城市"
+            }
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){

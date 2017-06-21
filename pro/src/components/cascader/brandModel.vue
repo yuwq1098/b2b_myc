@@ -10,6 +10,7 @@
                 @active-item-change="brandModelChange"
                 :props="props"
                 v-model="selectedOptions"
+                :placeholder="placeholder"
                 style="width: 100%"
                 >
             </el-cascader>
@@ -52,7 +53,11 @@
             }
         },
         props:{
-
+            // 文本框提示
+            placeholder:{
+                type: String,
+                default: "请选择相应车型"
+            }
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
