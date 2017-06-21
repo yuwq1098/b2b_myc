@@ -279,7 +279,7 @@
                                         </div>
                                     </div><!-- 车身颜色选择 -->
                                     
-                                    <div class="m-gp-other pictures">
+                                    <div class="m-gp-other nameplate">
                                         <div class="m-other-hd">
                                             <gk-input-error
                                                 title="上传车辆铭牌"
@@ -288,9 +288,14 @@
                                                 >
                                             </gk-input-error>
                                         </div>
+                                        <div class="m-nameplate-upload">
+                                            <nameplate-upload
+                                                >
+                                            </nameplate-upload>
+                                        </div>
                                     </div><!-- 车辆铭牌 -->
 
-                                    <div class="m-gp-other pictures">
+                                    <div class="m-gp-other photo">
                                         <div class="m-other-hd">
                                             <gk-input-error
                                                 title="上传车辆照片"
@@ -298,6 +303,17 @@
                                                 errorAlign="left"
                                                 >
                                             </gk-input-error>
+                                        </div>
+                                        <div class="">
+                                            <el-upload
+                                                list-type="picture-card"
+                                                :on-preview="handlePictureCardPreview"
+                                                :on-remove="handleRemove">
+                                                <i class="el-icon-plus"></i>
+                                            </el-upload>
+                                            <el-dialog v-model="dialogVisible" size="tiny">
+                                                <img width="100%" :src="dialogImageUrl" alt="">
+                                            </el-dialog>
                                         </div>
                                     </div><!-- 车辆图片 -->
 
@@ -384,6 +400,11 @@
     import gkSwitch from "components/common/gkSwitch.vue"
     // 表单提交按钮
     import gkSubmit from "components/common/submitBtn.vue"
+    // 铭牌上传
+    import nameplateUpload from "components/common/nameplateUpload.vue"
+    // 图片上传
+    import photoUpload from "components/common/photoUpload.vue"
+
 
 
     // 获取m卖车填单页的本地相关数据
@@ -405,11 +426,17 @@
             gkTextarea,
             gkSwitch,
             gkSubmit,
+            nameplateUpload,
+            photoUpload,
         },
         // 数据
         data() {
             return{
                 
+                dialogImageUrl: '',
+                dialogVisible: false,
+
+
                 bannerInfo: sendCarData.sendBanner,                  // 发布订单页面的banner图信息
                 promptInfoText: sendCarData.promptInfo,              // 发布订单页面的温馨提示
                 
@@ -539,6 +566,14 @@
         // 自定义函数(方法)
         methods: {
             
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePictureCardPreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogVisible = true;
+            },
+
             // 车型级联()
             modelChangeEnd(selected){
                 console.log("车型级联你少扯淡,",selected);
