@@ -25,7 +25,6 @@
                                 <prompt-info :info="promptInfoText"></prompt-info><!-- 温馨提示 -->
                                 
                                 <div class="m-bill-box">
-
                                     <div class="m-gp-wrap f__clearfix">
                                         <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
@@ -286,7 +285,7 @@
                                     </div><!-- 车况描述 -->
                                     
                                     <div class="m-gp-btn">
-                                        <el-button type="primary">上传</el-button>
+                                        <el-button type="primary">提交</el-button>
                                     </div>
 
                                 </div>
@@ -500,10 +499,8 @@
             dischargeStandardEnd(val){
                 console.log("排放标准是",val)
             },
-            
+
         },
-
-
 	}
 </script>
 
