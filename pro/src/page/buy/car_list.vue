@@ -280,9 +280,9 @@
                                     <template v-for="(item,index) in searchDataItems.sortType">
                                         <li class="u-item" 
                                             :class="{
-                                                'on':(item.label=='默认排序')
-                                                    ||(index==0&&!userFilterData.sortType)
-                                                    ||(index>0&&userFilterData.sortType&&userFilterData.sortType==item.value)
+                                                'on':(index==0&&!userFilterData.sortType)
+                                                    ||(index==0&&userFilterData.sortType=='默认排序')
+                                                    ||(userFilterData.sortType&&userFilterData.sortType==item.value)
                                                 }"
                                             @click.stop="sortTypeFilter($event.target,item.value,item.label)"
                                             >
