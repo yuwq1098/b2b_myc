@@ -13,7 +13,12 @@
 		                
                         <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">{{curCityName}}<i class="iconfont icon-arrowdown1"></i></a>
 
-                        <city-choose v-show="isCityChooseShow" @setCityChooseShow="setCityChooseShow"></city-choose>
+                        <city-choose 
+                            v-show="isCityChooseShow" 
+                            :isShow="isCityChooseShow"
+                            @setCityChooseShow="setCityChooseShow"
+                            >
+                        </city-choose>
                         <!-- 城市选择 -->
 
 		            </div><!-- 城市 -->

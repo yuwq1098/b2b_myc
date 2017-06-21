@@ -67,6 +67,10 @@
                 schList: [],  //搜索结果列表
         	}
         },
+        props:{
+            // 显隐状态
+            isShow: Boolean,
+        },
         mounted(){
             // let cityBoxDom = this.$refs.citySelBox;
             // this._preventScroll(cityBoxDom);
@@ -77,7 +81,8 @@
                 return this.citys.map((group) => {
                     return group.title
                 })
-            }
+            },
+
         },
         methods:{
             ...mapActions([
@@ -225,6 +230,13 @@
             schValue: function (val) {
                 this._resListBySch(val);
             },
+            // 侦听显隐值
+            isShow: function (val) {
+                if(val){
+                    let cityListDom = this.$refs.cityListBox;
+                    cityListDom.scrollTop = 0
+                }
+            }
         },
 	}
 
