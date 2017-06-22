@@ -67,7 +67,7 @@
         position relative
         .el-button
             height 38px
-            width 180px
+            width 240px
             font-size 15px
             _spacingPlus(3px)
             _borderRadius(3px)
