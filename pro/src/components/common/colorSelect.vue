@@ -27,7 +27,7 @@
                 <p class="u-none" v-if="!selectedColor">请选择车辆颜色</p>
                 <div class="m-selected" v-if="selectedColor">
                     <p class="u-text">您选择的车辆颜色是：<em class="vital">{{selectedColor}}</em></p>
-                    <div class="u-icon">
+                    <div class="u-icon" v-if="selectedColor!='其它'">
                         <i class="iconfont icon-qiche"
                             :style="'color:'+selectedCode"
                             >
@@ -103,7 +103,7 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import '../../assets/css/mixin.styl'
+    @import '~assets/css/mixin.styl'
     .m-color-wrap
         padding-bottom 15px
         _border(bottom,#e2e2e2)
@@ -119,14 +119,14 @@
                     margin-left 12px
                     width 86px
                     margin-bottom 8px
-                    height 34px
-                    line-height 34px
+                    height 36px
+                    line-height 36px
                     text-align center
                     position relative
                     _borderRadius(4px)
-                    _borderAll(transparent,2px)
+                    _borderAll(transparent,1px)
                     &.on
-                        _borderAll(#ff6533,2px)
+                        _borderAll(#ff6533,1px)
 
                     .u-lk
                         _display()
@@ -136,7 +136,7 @@
                         width 22px
                         height 22px
                         _display()
-                        _completeCenter(12px,auto)
+                        _completeCenter(14px,auto)
                         _boxShadow(5px,rgba(0,0,0,.35),1px,1px)
                         _borderRadius()
                     .u-block-other
@@ -149,11 +149,11 @@
                             _borderRadius()
                             _completeCenter()
                     .u-txt
-                        line-height 34px
+                        line-height 36px
                         font-size 13px
                         _spacingPlus(2px)
                         color #959595
-                        margin-left 28px
+                        margin-left 30px
                     &:hover,&.on
                         .u-txt
                             color #ff6533
@@ -168,14 +168,16 @@
                 color #959595
                 position relative
                 .vital
-                    color $c_blue
+                    color #ff6533
                 .u-icon
                     _display()
-                    height 28px
+                    width 28px
                     line-height 28px
                     _completeCenter(180px,auto)
                     .iconfont
                         font-size 28px
+                        _display(inline-block)
+                        _translate3d(0,-1px)
                         text-shadow rgba(0,0,0,.18) 0 0 4px 
 
 
