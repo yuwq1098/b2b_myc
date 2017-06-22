@@ -36,11 +36,12 @@
         name: "uploadInput",
         // 在当前模块注册组件
         components:{
-
+            
         },
         // 数据
         data() {
             return{
+                // 真实的input：files 隐藏
                 isShowRealInput: false,
             }
         },
@@ -53,6 +54,7 @@
                 type: String,
                 default: "图片比例控制在4:3"
             }
+            files: [],
         },
         // 数据侦听
         watch:{
@@ -69,8 +71,23 @@
         methods: {
             // 点击虚拟上传按钮触发真实的input:file
             onTriggerUploadIpt(){
-                var uploadInputFile = this.$refs.uploadInputFile.$el;
+                var uploadInputFile = this.$refs.uploadInputFile;
                 uploadInputFile.click();
+            },
+            // 当值变化时
+            uploadInputChange(){
+                this.$emit('uploadChange');
+                // var uploadInputFile = this.$refs.uploadInputFile;
+                // if(uploadInputFile.files.length<=0) return;
+
+                // if(this.files.length<=0){ //当上传文件组为空时
+                //     for (var key of Object.keys(uploadInputFile.files)) {
+                //         this.files.push(uploadInputFile.files[key]);
+                //     };
+                // }else{
+                //     console.log("看看这些文件是什么类型",typeof uploadInputFile.files)
+                // }
+                // console.log("值发生变化了",uploadInputFile.files)
             }
         },
     }

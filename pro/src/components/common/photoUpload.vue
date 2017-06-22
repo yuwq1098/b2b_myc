@@ -5,34 +5,12 @@
 <template>
     <div class="photoUpload">
         <div class="m-upload-wrap">
-            
-            <!-- 文件上传 -->
-            <input 
-                v-show="false" 
-                @change="_uploadInputChange" 
-                type="file" 
-                ref="uploadInputFile" 
-                accept="image/*" 
-                multiple
-                />
 
-            <div class="m-oper-box f__clearfix">
-                <div class="u-oper-btn" @click="onPhotoUpload">
-                    <a href="javascript:;" class="u-lk">
-                        <span class="u-btn-tit"></span>
-                        <i class="iconfont icon-shangchuan1"></i><!-- 上传小图标 -->
-                    </a>
-                </div><!-- 上传按钮 -->
-                <div class="u-oper-tip">
-                    <p class="u-txt">
-                    </p>
-                </div><!-- 上传提示 -->
-            </div><!-- 操作区 -->
-            
             <!-- 文件上传(button区域)组件 -->
             <upload-input
                 btnText="点击上传车辆图片"
                 uploadTip="按住Ctrl键可批量上传，图片比例为4:3，支持jpg/gif/png格式，每张最大2M，请最少上传2张。遵循下图从各个角度拍摄照片可以使咨询量提升80%哦！"
+                :files="photoFiles"
                 >
             </upload-input>
 
@@ -83,7 +61,7 @@
             return{
                 // 图片上传示例
                 photoExamples: photoExamples,
-                
+                photoFiles: [],
             }
         },
         props:{
