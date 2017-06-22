@@ -74,6 +74,10 @@ const testFrom = r => require.ensure([], () => r(require('../page/test/test.vue'
 const testValidate = r => require.ensure([], () => r(require('../page/test/validate.vue')), 'testValidate')
 // 表单验证demo
 const testValidate2 = r => require.ensure([], () => r(require('../page/test/demoValidate.vue')), 'validator2')
+// 文件上传demo                                                          
+const uploadTest = r => require.ensure([], () => r(require('../page/test/uploadFileTest.vue')), 'uploadTest')
+// 图片上传
+const uploadImgTest = r => require.ensure([], () => r(require('../page/test/uploadImgTest.vue')), 'uploadImgTest')
 
 
 // 定义路由
@@ -306,6 +310,16 @@ export default[{
         {
             path: '/test/validate2',
             component: testValidate2,
+            meta: { }
+        },
+        {
+            path: '/test/upload',
+            component: uploadTest,
+            meta: { }
+        },
+        {
+            path: '/test/imgUpload',
+            component: uploadImgTest,
             meta: { }
         }
 	]

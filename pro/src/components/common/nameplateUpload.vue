@@ -13,7 +13,7 @@
                     </a>
                 </div><!-- 上传按钮 -->
                 <div class="u-oper-tip">
-                    <p class="u-txt">上传车辆铭牌图片，图片比例为10:7，支持jpg/gif/png格式，每张最大2M，为保证铭牌有效辨识度，您可以尝试上传2-3张不同角度的铭牌照片！
+                    <p class="u-txt">上传车辆铭牌图片，图片比例为4:3，支持jpg/gif/png格式，每张最大2M，为保证铭牌有效辨识度，您可以尝试上传2-3张不同角度的铭牌照片！
                     </p>
                 </div><!-- 上传提示 -->
             </div><!-- 操作区 -->
@@ -67,7 +67,7 @@
         methods: {
             // 上传车辆文件图片
             onPhotoUpload(){
-                console.log("开始上传车辆图片文件");
+                console.log("开始上传车辆铭牌图片文件");
             }
         },
         // 在当前模块注册组件
@@ -128,11 +128,11 @@
                     .u-item
                         width 120px
                         margin-left 16px
-                        height 114px
+                        height 120px
                         float left
                         .u-pic
                             width @width
-                            height 84px
+                            height 90px
                             img
                                 width @width
                                 height @height
