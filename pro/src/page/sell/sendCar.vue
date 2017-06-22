@@ -304,16 +304,10 @@
                                                 >
                                             </gk-input-error>
                                         </div>
-                                        <div class="">
-                                            <el-upload
-                                                list-type="picture-card"
-                                                :on-preview="handlePictureCardPreview"
-                                                :on-remove="handleRemove">
-                                                <i class="el-icon-plus"></i>
-                                            </el-upload>
-                                            <el-dialog v-model="dialogVisible" size="tiny">
-                                                <img width="100%" :src="dialogImageUrl" alt="">
-                                            </el-dialog>
+                                        <div class="m-photo-upload">
+                                            <photo-upload
+                                                >    
+                                            </photo-upload>
                                         </div>
                                     </div><!-- 车辆图片 -->
 

@@ -5,12 +5,12 @@
 <template>
     <div class="submitBtn">
         <div class="m-submit-wrap">
-            <el-button 
-                type="primary"
+            <button
+                class="el-button"
                 @click="submitFn"
                 >
                 {{btnText}}
-            </el-button>
+            </button>
         </div>
     </div>
 </template>
@@ -70,8 +70,11 @@
             width 180px
             font-size 15px
             _spacingPlus(3px)
+            _borderRadius(3px)
             _completeCenter()
             background $c_blue + 5% - 3deg
+            border none
+            color #f4f4f4
             &:hover
                 background $c_blue + 3%
 </style>

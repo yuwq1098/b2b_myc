@@ -11,6 +11,7 @@ export const sendBanner = {
     imgUrl: require("assets/img/sendCar_banner.jpg"),
 }
 
+// 发补订单的温馨提示
 export const promptInfo = "请完整填写您的车辆信息，您填写的信息越完善，成交率越高哦！"
 
 //过户次数
@@ -99,5 +100,45 @@ export const ServiceCharacteristics = [
     {
         label: "营转非",
         value: '营转非',
+    },
+]
+
+// 车辆发布的传图示例
+export const photoExamples = [
+    {
+        title: "左前",
+        imgUrl: require("assets/img/upload-example_01.jpg"),
+    },
+    {
+        title: "正前",
+        imgUrl: require("assets/img/upload-example_02.jpg"),
+    },
+    {
+        title: "侧面",
+        imgUrl: require("assets/img/upload-example_03.jpg"),
+    },
+    {
+        title: "后面",
+        imgUrl: require("assets/img/upload-example_04.jpg"),
+    },
+    {
+        title: "中控",
+        imgUrl: require("assets/img/upload-example_05.jpg"),
+    },
+    {
+        title: "座椅",
+        imgUrl: require("assets/img/upload-example_06.jpg"),
+    },
+]
+
+// 发布的车辆铭牌传图示例
+export const nameplateExamples = [
+    {
+        title: "车辆铭牌1",
+        imgUrl: require("assets/img/vehicle-nameplate_01.jpg"),
+    },
+    {
+        title: "车辆铭牌2",
+        imgUrl: require("assets/img/vehicle-nameplate_02.jpg"),
     },
 ]
