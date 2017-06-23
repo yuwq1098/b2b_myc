@@ -8,7 +8,7 @@
 
             <!-- 文件上传(button区域)组件 -->
             <upload-input
-                btnText="选择车辆图片"
+                btnText="上传车辆图片"
                 uploadTip="按住Ctrl键可批量上传，图片比例为4:3，支持jpg/gif/png格式，每张最大2M，请最少上传2张。遵循下图从各个角度拍摄照片可以使咨询量提升80%哦！"
                 :files="photoFiles"
                 @uploadChange="photoFilesChange"
@@ -32,6 +32,7 @@
                         </template>
                     </ul>
                 </div><!-- 文件上传例子(当没有上传文件，文件列表为空时显示) -->
+
                 <div class="m-files-gp" v-show="photoFiles.length>0">
                     <transition-group 
                         name="img-list" 
@@ -71,7 +72,7 @@
 
             <el-dialog v-model="dialogVisible" size="small">
                 <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
+            </el-dialog><!-- 显示大图（对话框）组件 -->
         </div>
     </div>
 </template>
@@ -103,7 +104,7 @@
         name: "photoUpload",
         // 在当前模块注册组件
         components:{
-            uploadInput,
+            uploadInput:uploadInput,
         },
         // 数据
         data() {

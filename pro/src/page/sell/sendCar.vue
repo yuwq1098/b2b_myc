@@ -290,6 +290,7 @@
                                         </div>
                                         <div class="m-nameplate-upload">
                                             <nameplate-upload
+                                                @changeFiles="nameplateEnd"
                                                 >
                                             </nameplate-upload>
                                         </div>
@@ -609,6 +610,10 @@
             // 汽车颜色
             carColorEnd(val){
                 console.log("汽车颜色是",val);
+            },
+            // 车辆铭牌图片
+            nameplateEnd(val){
+                console.log("车辆铭牌图片数据更新了",val);
             },
             // 车辆图片
             photoEnd(val){
