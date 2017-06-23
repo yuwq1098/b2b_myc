@@ -16,6 +16,81 @@ export function addClass(el, className) {
 }
 
 /** 
+* @description 将图片文件转换成Base64格式
+* @param file Object 图片文件对象
+* @param callBack Function 回调方法
+*/ 
+export function getBase64FromImgFile(file,callBack){
+    var reader = new FileReader();  
+    reader.onload = function(e) {  
+        var base64Img= e.target.result;
+        if(callBack){  
+            callBack(base64Img);  
+        }  
+    };  
+    reader.readAsDataURL(file);  
+}
+
+
+/** 
+* @description 使用canvas裁剪/压缩图片
+* @param img,theW,theH,realW,realH  Number/String 传值 图片及各种canvas信息
+* @param callBack Function 回调方法
+*/ 
+export function drawToCanvas(img,theW,theH,realW,realH,callback){
+    var canvas = document.createElement("canvas");  
+    canvas.width=theW;  
+    canvas.height=theH;  
+    var ctx = canvas.getContext('2d');  
+    ctx.drawImage(
+        img,    //规定要使用的图像、画布或视频。
+        0,      //开始剪切的 x 坐标位置,  
+        0,      //开始剪切的 y 坐标位置,  
+        realW,  //被剪切图像的宽度,  
+        realH,  //被剪切图像的高度,
+        0,      //在画布上放置图像的 x 坐标位置,  
+        0,      //在画布上放置图像的 y 坐标位置,  
+        theW,   //要使用的图像的宽度。（伸展或缩小图像） 
+        theH    //要使用的图像的高度。（伸展或缩小图像）
+    );  
+
+    //--获取base64字符串及canvas对象传给success函数。  
+    var base64str=canvas.toDataURL("image/jpeg");  
+    if(callback){  
+        callback(base64str,canvas);  
+    }  
+}
+
+/** 
+* @description 判断用户当前选择的文件是不是已经在之前的文件列表里了 
+* @param newfiles Object 当前选择的文件
+* @param curFiles Array  已选择的文件列表
+* @return fileRepeat  boolean 返回是否有重复  true 有, false 没有
+*/ 
+export function isRepeatSelectionByFiles(newfiles,curFiles){
+
+    let isRepeat = false;
+    for (var key of Object.keys(newfiles)) {
+        let _files =  newfiles[key];
+        
+        for(let i = 0; i<curFiles.length; i++)
+        {
+            let item = curFiles[i];
+            if(item.name==_files.name&&
+                item.size==_files.size&&
+                item.type==_files.type)
+            {
+                isRepeat = true;
+                break;
+            }
+        }
+        if(isRepeat) break;
+    }
+    return isRepeat;
+}
+
+
+/** 
 * @description 对用户表单输入的值进行约束 
 * @param val 需要控制的值
 * @param type [1] 只允许输入数字

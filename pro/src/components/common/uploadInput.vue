@@ -32,6 +32,9 @@
 
 <script>
 
+    // 最大上传数量
+    const maxUploadSize = 6;
+
     export default {
         name: "uploadInput",
         // 在当前模块注册组件
@@ -53,8 +56,13 @@
             uploadTip:{
                 type: String,
                 default: "图片比例控制在4:3"
-            }
-            files: [],
+            },
+            files: {
+                type: Array,
+                default: function(){
+                    return [];
+                }
+            },
         },
         // 数据侦听
         watch:{
@@ -76,18 +84,13 @@
             },
             // 当值变化时
             uploadInputChange(){
-                this.$emit('uploadChange');
-                // var uploadInputFile = this.$refs.uploadInputFile;
-                // if(uploadInputFile.files.length<=0) return;
-
-                // if(this.files.length<=0){ //当上传文件组为空时
-                //     for (var key of Object.keys(uploadInputFile.files)) {
-                //         this.files.push(uploadInputFile.files[key]);
-                //     };
-                // }else{
-                //     console.log("看看这些文件是什么类型",typeof uploadInputFile.files)
-                // }
-                // console.log("值发生变化了",uploadInputFile.files)
+                var uploadInputFile = this.$refs.uploadInputFile.files;
+                if(uploadInputFile.length<=0) return;
+                if(uploadInputFile.length > maxUploadSize){
+                    this.$message.error('最多同时只可上传'+maxUploadSize+'张图片');
+                    return;
+                }
+                this.$emit('uploadChange',uploadInputFile);
             }
         },
     }
@@ -106,7 +109,6 @@
                 height 38px
                 line-height 34px
                 text-align center
-                background #ff6533
                 _completeCenter(0,auto)
                 _spacingPlus(1px)
                 _borderRadius(3px)

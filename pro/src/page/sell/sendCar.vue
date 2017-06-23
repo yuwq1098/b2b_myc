@@ -301,11 +301,13 @@
                                                 title="上传车辆照片"
                                                 errorTetx="请最少上传2张车辆图片"
                                                 errorAlign="left"
+                                                
                                                 >
                                             </gk-input-error>
                                         </div>
                                         <div class="m-photo-upload">
                                             <photo-upload
+                                                @changeFiles="photoEnd"
                                                 >    
                                             </photo-upload>
                                         </div>
@@ -608,6 +610,10 @@
             carColorEnd(val){
                 console.log("汽车颜色是",val);
             },
+            // 车辆图片
+            photoEnd(val){
+                console.log("车辆图片数据更新了",val);
+            },
             // 车主留言值变化（blur事件触发）
             descEnd(val){
                 console.log("车主留言",val);
@@ -619,8 +625,8 @@
             // 立即发布
             putOut(){
                 console.log("立即发布");
-            }
-
+            },
+            
         },
 	}
 </script>
