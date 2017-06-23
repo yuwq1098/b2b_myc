@@ -24,7 +24,7 @@
                             <div class="m-bill-con">
                                 <prompt-info :info="promptInfoText"></prompt-info><!-- 温馨提示 -->
                                 
-                                <div class="m-bill-box">
+                                <div class="m-bill-box" ref="sendBill">
                                     <div class="m-gp-wrap f__clearfix">
                                         <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
@@ -546,7 +546,8 @@
 
         //退出的生命周期钩子
         deactivated(){
-            
+            // this.$destroy();
+            // this.clearErrors();
         },
         // 自定义函数(方法)
         methods: {
@@ -618,12 +619,15 @@
                     carInCity: this.form.carInCity,
                     selectedModel: this.form.selectedModel,
                 }).then(() => {
-                  console.log('恭喜了，我的歌，验证通过');
+                    console.log('恭喜了，我的歌，验证通过');
                 }).catch(() => {
-
-                  console.log("失败了")
+                    document.body.scrollTop = 500
                 });
             },
+            // 清除表单验证的错误
+            clearErrors() {
+                this.sendError.clear();
+            }
             
         },
 	}

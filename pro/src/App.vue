@@ -7,8 +7,9 @@
 	        </keep-alive>
 
 		    <keep-alive>
-		        <router-view></router-view>
-		    </keep-alive>
+			    <router-view v-if="!$route.meta.notKeepAlive"></router-view>
+			</keep-alive>
+			<router-view v-if="$route.meta.notKeepAlive"></router-view>
 		    
 	        <!-- 引入loading -->
 		    <loading></loading>

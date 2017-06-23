@@ -78,7 +78,7 @@ router.afterEach((to) => {
   var notGoTop = to.meta.notGoTop||false;
   //是否不返回顶部，默认返回顶部
   if(!notGoTop){
-    document.body.scrollTop = 0+"px"
+    document.body.scrollTop = 0
   }
 });
 
