@@ -15,7 +15,7 @@
                             <div class="u-gp-con" :class="{'last-item':n==gpLength}">
                                 <ul class="u-gp-lst f__clearfix" v-for="(group,index) in brandList" v-if="index>=(7*(n-1))&&index<=(7*n)-1" :class="{'active':index==(7*(n-1))}">
                                     <li class="u-gp-item" v-for="item in group.items">
-                                        <router-link :to="{path:"/buyCar"}" class="u-lk">{{item.name}}</a>
+                                        <router-link :to="{path:'/buyCar'}" class="u-lk">{{item.name}}</router-link>
                                     </li>
                                 </ul>
                             </div>
@@ -23,14 +23,15 @@
                     </div><!-- 所有品牌展示的盒子 -->
                 </div>
                 <div class="u-con f__clearfix" v-if="hotBrand.length>0">
-                    <router-link class="u-lk" 
-                        v-for="item in hotBrand" 
-                        :data-brand-id="item.id"
-                        :to="{path:"/buyCar"}"
-                        >
-                        <img :src="item.imgUrl" :alt="item.name" />
-                        <p class="u-tit">{{item.name}}</p>
-                    </router-link>
+                    <template v-for="item in hotBrand">
+                        <router-link class="u-lk"
+                            :data-brand-id="item.id"
+                            :to="{path:'/buyCar'}"
+                            >
+                            <img :src="item.imgUrl" :alt="item.name" />
+                            <p class="u-tit">{{item.name}}</p>
+                        </router-link>
+                    </template>
                 </div>
                 
             </div>
@@ -40,16 +41,15 @@
                 </div>
                 <div class="u-con f__clearfix">
                     <template v-for="(item,index) in priceList">
-                        <router-link class="u-lk" class="u-lk"
+                        <router-link class="u-lk"
                             :class="{'light':item.isHot}"
                             :min="item.min" :max="item.max"
-                            :to="{path:"/buyCar"}"
+                            :to="{path:'/buyCar'}"
                             >
                             {{item.title}}
                         </router-link>
                     </template>
                 </div>
-
             </div>
         </div><!-- 种类（快速选择） -->
 

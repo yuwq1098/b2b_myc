@@ -31,7 +31,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="车辆所在地"
-                                                        errorTetx="请选择车辆所在地"
+                                                        :errorTetx="sendError.first('carInCity')"
+                                                        :isShow="sendError.has('carInCity')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -48,6 +49,8 @@
                                                     <gk-input-error
                                                         title="品牌车型"
                                                         errorTetx="请选择车型"
+                                                        :errorTetx="sendError.first('selectedModel')"
+                                                        :isShow="sendError.has('selectedModel')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -402,13 +405,15 @@
     // 图片上传
     import photoUpload from "components/common/photoUpload.vue"
 
-
-
     // 获取m卖车填单页的本地相关数据
     import * as sendCarData from "api/localJson/sendCar.js"
+    
+    //引入表单验证
+    import { Validator } from 'vee-validate';
 
 	export default {
         name: "sendCar",
+        validator: null,
         // 在当前模块注册组件
         components:{
             gkBreadCrumb,           
@@ -426,14 +431,13 @@
             nameplateUpload,
             photoUpload,
         },
+
         // 数据
         data() {
             return{
                 
                 dialogImageUrl: '',
                 dialogVisible: false,
-
-
                 bannerInfo: sendCarData.sendBanner,                  // 发布订单页面的banner图信息
                 promptInfoText: sendCarData.promptInfo,              // 发布订单页面的温馨提示
                 
@@ -442,34 +446,13 @@
                     gutter: 20,
                 },
                 
-                // 级联选择组件的options
-                options: {
-                    // 车型级联选择
-                    brandModel:[{
-                        label: '江苏',
-                        value: '1',
-                        children: []
-                    }, {
-                        label: '浙江',
-                        value: '5',
-                        children: []
-                    }],
-                },
-                
-
-                // 级联选择组件的props
-                props: {
-                    // 车型级联选择
-                    brandModel:{
-                        value: 'value',
-                        children: 'children'    
-                    }
-                },
+                // 发布订单的表单验证报错集合
+                sendError: null,
                 
                 // 车辆订单的表单信息（供双向绑定及提交）
                 form:{
                     carInCity: "",          // 车辆所在地
-                    selectedModel: [],      // 品牌车型选择的结果
+                    selectedModel: "",      // 品牌车型选择的结果
                     plateInCity: "",        // 车牌归属地
                     plateDate: "",          // 上牌日期
                     changeNum: "",          // 过户次数
@@ -526,7 +509,6 @@
                     },
                     CarOtherInfo: [],                 // 其他车况内容补充，参考示例(可不填)
                     CarFileInfo: [],                  // 录音描述、车辆照片、（选填）出厂铭牌
-
                 }
             }
         },
@@ -543,7 +525,13 @@
 
         //生命周期,开始的时候
         created(){
-            
+            this.validator = new Validator({
+                // email: 'required|email',
+                // name: 'required|alpha|min:3',
+                carInCity: 'required',
+                selectedModel: 'required',
+            });
+            this.$set(this, 'sendError', this.validator.errorBag);
         },
 
         // $el 挂载的时候
@@ -558,26 +546,23 @@
 
         //退出的生命周期钩子
         deactivated(){
-
+            
         },
         // 自定义函数(方法)
         methods: {
-            
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url;
-                this.dialogVisible = true;
-            },
-
             // 车型级联()
             modelChangeEnd(selected){
+                let carModelId = selected[2];
+                this.form.selectedModel = carModelId;
+                this.validator.validate('selectedModel',carModelId);
+
                 console.log("车型级联你少扯淡,",selected);
             },
             // 城市级联(车辆所属地)
             carInCityChangeEnd(selected){
-                console.log("城市级联你少扯淡,",selected);
+                let curCityCode = selected[1];
+                this.form.carInCity = curCityCode;
+                this.validator.validate('carInCity',curCityCode);
             },
             // 城市级联(车牌归属地)
             plateInCityChangeEnd(selected){
@@ -629,12 +614,47 @@
             },
             // 立即发布
             putOut(){
-                console.log("立即发布");
+                this.validator.validateAll({
+                    carInCity: this.form.carInCity,
+                    selectedModel: this.form.selectedModel,
+                }).then(() => {
+                  console.log('恭喜了，我的歌，验证通过');
+                }).catch(() => {
+
+                  console.log("失败了")
+                });
             },
             
         },
 	}
 </script>
+
+<style lang="stylus" rel="stylesheet/stylus">
+    @import '~assets/css/mixin.styl'
+    .m-bill-con
+        .el-cascader
+            color $c_blue
+            span
+                color @color
+            &:hover
+                .el-input__inner
+                    _borderAll(#b8b8b8)    
+        .el-input__inner,
+        .el-textarea__inner
+            _borderAll(#e2e2e2)
+            _borderRadius(2px)
+            color $c_blue
+            _placeholder(#b2b2b2,13px,28px)
+            &:hover
+                _borderAll(#b8b8b8)
+        .el-input__icon,
+        .el-select .el-input .el-input__icon
+            color #DEDFE0
+        .el-select:hover
+            .el-input__inner
+                _borderAll(#b8b8b8)
+
+</style>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>

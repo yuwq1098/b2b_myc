@@ -8,6 +8,7 @@
             <span class="u-tit">{{title}}</span>
             <p class="u-error"
                 :class="[errorAlign]"
+                v-show="isShow"
                 >
                 <i class="iconfont icon-shenhebutongguo"></i>
                 <span class="text">{{errorTetx}}</span>
@@ -39,6 +40,10 @@
                 type: String,
                 default: "right",
             },
+            isShow:{
+                type: Boolean,
+                default: false,
+            }
         },
         // 数据侦听
         watch:{

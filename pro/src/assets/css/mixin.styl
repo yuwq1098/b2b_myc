@@ -287,23 +287,19 @@ _transformOrigin(x=50%, y=50%)
     transform-origin x y
 
 //---文本提示样式
-_placeholder(color=#97a8be,pixel=null)
+_placeholder(color=#97a8be,pixel=null,lh=1.4)
     &::-webkit-input-placeholder
         color color
-        if pixel != null
-            font-size pixel
     &:-moz-placeholder
         color color
-        if pixel != null
-            font-size pixel
     &::-moz-placeholder
         color color
-        if pixel != null
-            font-size pixel
     &:-ms-input-placeholder
         color color
-        if pixel != null
-            font-size pixel
+    if pixel != null
+        font-size pixel
+    line-height lh
+
 
 /* 颜色辅助类 */
 //黑色

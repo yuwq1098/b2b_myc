@@ -101,6 +101,12 @@ const dictionary = {
             email: {
                 email:(field)=> field+'格式不对' // messages can be strings as well.
             },
+            carInCity:{
+                required:()=> '请选择车辆所在地' 
+            },
+            selectedModel:{
+                required:()=> '请选择品牌车型' 
+            }
         },
         attributes:{
             email:'邮箱',
