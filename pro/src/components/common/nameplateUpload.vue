@@ -1,5 +1,5 @@
 <!--  
- **  @description 图片文件上传（汽辆图片上传）
+ **  @description 图片文件上传（汽车铭牌上传）
  --> 
 
 <template>

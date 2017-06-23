@@ -15,7 +15,7 @@
                             <div class="u-gp-con" :class="{'last-item':n==gpLength}">
                                 <ul class="u-gp-lst f__clearfix" v-for="(group,index) in brandList" v-if="index>=(7*(n-1))&&index<=(7*n)-1" :class="{'active':index==(7*(n-1))}">
                                     <li class="u-gp-item" v-for="item in group.items">
-                                        <a href="javascript:;" class="u-lk">{{item.name}}</a>
+                                        <router-link :to="{path:"/buyCar"}" class="u-lk">{{item.name}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -23,10 +23,14 @@
                     </div><!-- 所有品牌展示的盒子 -->
                 </div>
                 <div class="u-con f__clearfix" v-if="hotBrand.length>0">
-                    <a href="javascript:;" class="u-lk" v-for="item in hotBrand" :data-brand-id="item.id" >
+                    <router-link class="u-lk" 
+                        v-for="item in hotBrand" 
+                        :data-brand-id="item.id"
+                        :to="{path:"/buyCar"}"
+                        >
                         <img :src="item.imgUrl" :alt="item.name" />
                         <p class="u-tit">{{item.name}}</p>
-                    </a>
+                    </router-link>
                 </div>
                 
             </div>
@@ -35,15 +39,17 @@
                     <a href="javascript:;">价格</a>
                 </div>
                 <div class="u-con f__clearfix">
-                    <a href="javascript:;" class="u-lk">5万以内</a>
-                    <a href="javascript:;" class="u-lk">5-10万</a>
-                    <a href="javascript:;" class="u-lk">10-15万</a>
-                    <a href="javascript:;" class="u-lk light">15-20万</a>
-                    <a href="javascript:;" class="u-lk">20-30万</a>
-                    <a href="javascript:;" class="u-lk">30-50万</a>
-                    <a href="javascript:;" class="u-lk light">50-80万</a>
-                    <a href="javascript:;" class="u-lk light">80万以上</a>
+                    <template v-for="(item,index) in priceList">
+                        <router-link class="u-lk" class="u-lk"
+                            :class="{'light':item.isHot}"
+                            :min="item.min" :max="item.max"
+                            :to="{path:"/buyCar"}"
+                            >
+                            {{item.title}}
+                        </router-link>
+                    </template>
                 </div>
+
             </div>
         </div><!-- 种类（快速选择） -->
 
@@ -56,6 +62,8 @@
     import api from "api/getData.js"
     import {dataToJson} from "assets/js/util.js"
     import {brandInfo} from "base/class/brand.js"
+    // 本地数据搜索价格
+    import {searchPriceList} from "api/localJson/home.js"
 
     // 热门品牌
     const HOT_BRAND_LEN = 16
@@ -69,12 +77,16 @@
                 hotBrand: [],
                 brandList: [],
                 isShowAllBrand: false,
+                priceList: searchPriceList,
             }
         },
         mounted(){
             //获取汽车品牌列表
             this._getB2BCarBrandList();
-            // this._getCarSeries();
+
+            //获取热门品牌列表
+            this._getHotBrandList();
+
         },
         computed:{
             // 仅读取，值只须为函数
@@ -88,10 +100,7 @@
             _getB2BCarBrandList(){
                 api.getCarBrand().then((res) => {
                     //品牌map集合
-                    this.carBrandMap = this._normalizeBrandInfo(res.data)
-                    //热门品牌列表
-                    this.hotBrand = this.carBrandMap.hotBrand;
-                    this.brandList = this.carBrandMap.brandList;
+                    this.brandList = this._normalizeBrandInfo(res.data);
                     
                     //显示更多的品牌信息的事件
                     this._allBrandevent();
@@ -99,16 +108,8 @@
             },
             //使用b2c抽象类完成brandInfo
             _normalizeBrandInfo(list){
-                let map = {
-                    hot: {
-                        title: HOT_BRAND_NAME,
-                        items: []
-                    }
-                }
+                let map = { }
                 list.forEach((item, index) => {
-                    if (index < HOT_BRAND_LEN) {
-                        map.hot.items.push(new brandInfo(item));
-                    }
                     const key = item.key_word
                     if (!map[key]) {
                         map[key] = {
@@ -120,7 +121,6 @@
                 })
                 // 为了得到有序列表，我们需要处理 map
                 let nature = []
-                let hot = []
                 //循环map分别得到两个数组
                 for (let key in map) {
                     let val = map[key]
@@ -134,20 +134,27 @@
                     return a.title.charCodeAt(0) - b.title.charCodeAt(0);
                 })
                 //将nature数据连接在around数据背后一起返回出去
-                var brandMap = {
-                    hotBrand: map.hot.items,
-                    brandList: nature,
-                }
-                return brandMap;
+                return nature;
             },
-            //根据车品牌获取车系
-            _getCarSeries(){
-                let [data] = [{}]
-                data.brandid = '5';
-                api.getCarSeriesByBrand(data).then((res) => {
-                    console.log("根据车品牌获取车系",dataToJson(res.data));
+
+            //获取热门品牌列表
+            _getHotBrandList(){
+                api.getHotBrand().then((res) => {
+                    this.hotBrand = this._normalizeHotBrand(res.data);
                 })
             },
+
+            //使用构造类格式化热门品牌
+            _normalizeHotBrand(list){
+                let hot = [];
+                list.forEach((item, index) => {
+                    if(index<HOT_BRAND_LEN){
+                        hot.push(new brandInfo(item));
+                    }
+                })
+                return hot;
+            },
+
             //显示更多的品牌信息的事件
             _allBrandevent(){
                 setTimeout(() => {
@@ -290,6 +297,8 @@
                     width 100px
                     height 92px
                     position relative
+                    &:hover
+                        color #ff6533
                     img
                         width 54px
                         height 54px
@@ -313,6 +322,8 @@
                     text-align center
                     font-size 13px
                     width @width * (1/3)
+                    &:hover
+                        color #ff6533
                     &.light
                         color #ff6533
             

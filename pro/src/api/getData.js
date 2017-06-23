@@ -145,6 +145,11 @@ export default {
     getCarBrand(){
         return get('/action2/CarBrand.ashx');
     },
+    
+    //获取车辆品牌
+    getHotBrand(){
+        return get('/action2/HotCarBrand.ashx');
+    },
 
     //根据品牌获取车系
     getCarSeriesByBrand(id){
