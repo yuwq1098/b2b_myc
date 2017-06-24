@@ -59,9 +59,24 @@
                 default: "请选择相应车型"
             }
         },
+        computed:{
+            isNotKeepAlive(){
+                return this.$router.currentRoute.meta.notKeepAlive;
+            }
+        },
+        // 不使用keep-alive时,走这个生命周期
+        created(){
+            // 如果不启用keep-alive
+            if(this.isNotKeepAlive){
+                this._getBrandOptions();   //获取车型级联选择框的初始选项     
+            }
+        },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-            this._getBrandOptions();   //获取车型级联选择框的初始选项
+            // 如果启用keep-alive
+            if(!this.isNotKeepAlive){
+                this._getBrandOptions();   //获取车型级联选择框的初始选项     
+            }
         },
 
         // 自定义函数(方法)
