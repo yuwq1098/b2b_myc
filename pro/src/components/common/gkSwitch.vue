@@ -61,7 +61,7 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import '../../assets/css/mixin.styl'
+    @import '~assets/css/mixin.styl'
     .m-switch-wrap
         line-height 28px
         height 28px

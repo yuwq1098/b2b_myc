@@ -157,7 +157,12 @@
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
-                                                        <el-input placeholder="请填写一口价" v-model="form.fixedPrice"></el-input>
+                                                        <gk-input
+                                                            placeholder="请填写一口价"
+                                                            unit="万元"
+                                                            @inputChangeEnd="fixedPriceEnd"
+                                                            >
+                                                        </gk-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -171,7 +176,12 @@
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
-                                                        <el-input placeholder="请填写零售价" v-model="form.retailPrice"></el-input>
+                                                        <gk-input
+                                                            placeholder="请填写零售价"
+                                                            unit="万元"
+                                                            @inputChangeEnd="retailPriceEnd"
+                                                            >
+                                                        </gk-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -190,7 +200,12 @@
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
-                                                        <el-input placeholder="请填写行驶里程" v-model="form.mileage"></el-input>
+                                                        <gk-input
+                                                            placeholder="请填写行驶里程"
+                                                            unit="万公里"
+                                                            @inputChangeEnd="mileageEnd"
+                                                            >
+                                                        </gk-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -225,7 +240,12 @@
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
-                                                        <el-input placeholder="请填写排量，1.0L ~ 7.0L" v-model="form.liter"></el-input>
+                                                        <gk-input
+                                                            placeholder="请填写排量，1.0L ~ 7.0L"
+                                                            unit="L"
+                                                            @inputChangeEnd="literEnd"
+                                                            >
+                                                        </gk-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -282,7 +302,11 @@
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
-                                                        <el-input placeholder="请填写车架号" v-model="form.price"></el-input>
+                                                        <gk-input
+                                                            placeholder="请填写车架号"
+                                                            @inputChangeEnd="vinEnd"
+                                                            >
+                                                        </gk-input>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -405,7 +429,9 @@
 </template>
 
 <script>
-
+    
+    // dom操作方法
+    import * as geekDom from "assets/js/dom.js"
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 温馨提示组件
@@ -426,6 +452,8 @@
     import colorSelect from "components/common/colorSelect.vue"
     // 多行文本输入器
     import gkTextarea from "components/common/gkTextArea.vue"
+    // 输入框组件
+    import gkInput from "components/common/gkInput.vue"
     // switch开关
     import gkSwitch from "components/common/gkSwitch.vue"
     // 表单提交按钮
@@ -456,6 +484,7 @@
             gkInputError,
             colorSelect,
             gkTextarea,
+            gkInput,
             gkSwitch,
             gkSubmit,
             nameplateUpload,
@@ -499,7 +528,7 @@
                     desc: "",               // 车主留言
                     nameplate: [],          // 铭牌图片
                     photo: [],              // 车辆图片
-                    isPostRetail: "",    // 是否发布到二手市场
+                    isPostRetail: false,    // 是否发布到二手市场
                 },
 
                 // 数据源（下拉选择的数据）
@@ -564,8 +593,8 @@
                 plateDate: 'required',
                 changeNum: 'required',
                 outFactoryDate: 'required',
-                fixedPrice: 'required',
-                retailPrice: 'required',
+                fixedPrice: 'required|decimal:2',
+                retailPrice: 'required|decimal:2',
                 mileage: 'required',
                 dischargeStandard: 'required',
                 liter: 'required',
@@ -573,7 +602,7 @@
                 serviceType: 'required',
                 vin: 'required',
                 color: 'required',
-                desc: 'required',
+                desc: 'required|min:10|max:300',
                 nameplate: 'required',
                 photo: 'required',
             });
@@ -597,68 +626,120 @@
         },
         // 自定义函数(方法)
         methods: {
+
             // 车型级联()
             modelChangeEnd(selected){
                 let carModelId = selected[2];
                 this.form.selectedModel = carModelId;
                 this.validator.validate('selectedModel',carModelId);
-
-                console.log("车型级联你少扯淡,",selected);
             },
+
             // 城市级联(车辆所属地)
             carInCityChangeEnd(selected){
                 let curCityCode = selected[1];
                 this.form.carInCity = curCityCode;
                 this.validator.validate('carInCity',curCityCode);
             },
+
             // 城市级联(车牌归属地)
             plateInCityChangeEnd(selected){
-                console.log("城市级联你少扯淡,",selected);
+                let curCityCode = selected[1];
+                this.form.plateInCity = curCityCode;
+                this.validator.validate('plateInCity',curCityCode);
             },
+
             // 上牌日期
             plateDateEnd(selected){
-                console.log("上牌日期选择",selected);
+                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
+                this.form.plateDate = curDateTime;
+                this.validator.validate('plateDate',curDateTime);
             },
-            // 出厂日期
-            outFactoryDateEnd(date){
-                console.log("出厂日期",date);
-            },
-            // 交强险(到期时间)
-            insuranceDateEnd(date){
-                console.log("交强险",date);
-            },
+
             // 过户次数
             changeNumEnd(val){
-                console.log("过户次数",val);
+                let curNumber = +val;
+                this.form.changeNum = curNumber;
+                this.validator.validate('changeNum',curNumber);
             },
-            // 运营性质
-            serviceEnd(val){
-                console.log("运营性质",val);
+
+            // 出厂日期
+            outFactoryDateEnd(selected){
+                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
+                this.form.outFactoryDate = curDateTime;
+                this.validator.validate('outFactoryDate',curDateTime);
             },
+            
+            // 一口价
+            fixedPriceEnd(val){
+                console.log("一口价",val);
+            },
+
+            // 零售价
+            retailPriceEnd(val){
+                console.log("零售价",val);
+            },
+            
+            // 行驶里程
+            mileageEnd(val){
+                console.log("行驶里程",val);
+            },
+
             // 选择排放标准
             dischargeStandardEnd(val){
-                console.log("排放标准是",val);
+                this.form.dischargeStandard = val;
+                this.validator.validate('dischargeStandard',val);
             },
-            // 汽车颜色
+
+            // 排量
+            literEnd(val){
+                console.log("排量",val);
+            },
+
+            // 交强险(到期时间)
+            insuranceDateEnd(selected){
+                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
+                this.form.insuranceDate = curDateTime;
+                this.validator.validate('insuranceDate',curDateTime);
+            },
+
+            // 选择运营性质
+            serviceEnd(val){
+                this.form.serviceType = val;
+                this.validator.validate('serviceType',val);
+            },
+
+            // 车架号
+            vinEnd(val){
+                console.log("车架号",val);
+            },
+            
+            // 选择汽车颜色
             carColorEnd(val){
-                console.log("汽车颜色是",val);
+                this.form.color = val;
+                this.validator.validate('color',val);
             },
+
             // 车辆铭牌图片
             nameplateEnd(val){
                 console.log("车辆铭牌图片数据更新了",val);
             },
+
             // 车辆图片
             photoEnd(val){
                 console.log("车辆图片数据更新了",val);
             },
+
             // 车主留言值变化（blur事件触发）
             descEnd(val){
-                console.log("车主留言",val);
+                this.form.desc = val;
+                this.validator.validate('desc',val);
             },
+
             // 是否发布到普通二手车市场
             postRetailEnd(val){
-                console.log("是否发布到普通二手车市场",val)
+                this.form.isPostRetail = val;
             },
+
             // 立即发布
             putOut(){
                 this.validator.validateAll({

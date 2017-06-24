@@ -227,12 +227,12 @@ export function getLeftToBrowser(e) {
 
 
 /**
- * 格式化时间
+ * 格式化时间(已过去时间)
  * 
  * @param {String} str
  * @returns 格式化后的时间
  */
-export const formatDate = (str) => {
+export const passByFormatDate = (str) => {
     if (!str) return ''
     var date = new Date(str)
     var time = new Date().getTime() - date.getTime() //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
@@ -275,6 +275,35 @@ export function dateFormat(fmt,timestamp){
   };   
   if(/(y+)/.test(fmt)){//RegExp.$1(正则表达式的第一个匹配，一共有99个匹配)
     fmt=fmt.replace(RegExp.$1,(myTimestamp.getFullYear()+"").substr(4-RegExp.$1.length));  
+    for(var k in date){  
+      if(new RegExp("("+k+")").test(fmt)){
+        fmt=fmt.replace(RegExp.$1,(RegExp.$1.length==1)?(date[k]):(("00"+ date[k]).substr((""+ date[k]).length)));   
+      } 
+    }
+  }     
+  return fmt;   
+};
+
+/** 
+* @description 根据时间对象格式化时间
+* @param fmt 时间格式 "yyyy-MM-dd hh:mm:ss.S"   "yyyy-M-d h:m:s.S"
+* @param data 时间对象（结果）
+* @return DATE.string  返回日期   2016-01-01
+*/
+export function formatDateByDate(fmt,data){ 
+
+  var myDate = new Date(data);
+  var date={   
+    "M+":myDate.getMonth()+1,                 //月份   
+    "d+":myDate.getDate(),                    //日   
+    "H+":myDate.getHours(),                   //小时   
+    "m+":myDate.getMinutes(),                 //分   
+    "s+":myDate.getSeconds(),                 //秒   
+    "q+":Math.floor((myDate.getMonth()+3)/3), //季度，+3为了好取整   
+    "S":myDate.getMilliseconds()              //毫秒   
+  };   
+  if(/(y+)/.test(fmt)){//RegExp.$1(正则表达式的第一个匹配，一共有99个匹配)
+    fmt=fmt.replace(RegExp.$1,(myDate.getFullYear()+"").substr(4-RegExp.$1.length));  
     for(var k in date){  
       if(new RegExp("("+k+")").test(fmt)){
         fmt=fmt.replace(RegExp.$1,(RegExp.$1.length==1)?(date[k]):(("00"+ date[k]).substr((""+ date[k]).length)));   

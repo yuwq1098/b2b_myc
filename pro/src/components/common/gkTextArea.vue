@@ -15,6 +15,7 @@
                     :placeholder="placeholder"
                     v-model="inputVal"
                     @blur="inputEnd"
+                    @input="inputEnd"
                     >
                 </el-input>
             </div>

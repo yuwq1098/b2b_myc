@@ -91,7 +91,8 @@ const dictionary = {
     zh_CN: {
         // 默认的匹配提示
         messages: {
-            required:(field)=> "请输入"+field
+            required:(field)=> "请输入"+field,
+            decimal:(field,params)=> '请输入'+params+'位小数以内的数字'
         },
         // 用户自定义匹配提示(简单说就是不想用默认的)
         custom: {
@@ -160,6 +161,9 @@ const dictionary = {
             email:'邮箱',
             password:'密码',
             name:'name',
+            desc: '车主留言',
+            fixedPrice: "一口价",
+            retailPrice: '零售价'
         }
     }
 };
