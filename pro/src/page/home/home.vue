@@ -25,10 +25,10 @@
                         <div class="m-all-search">
                             <section class="search-box f__clearfix">
                                 <div class="m-srh-result-box" v-show="isShowSchResultBox" ref="schResultBox">
-                                    <gk-select
+                                    <srh-select
                                         :selectList="srhResultList"
                                         >
-                                    </gk-select>
+                                    </srh-select>
                                 </div><!-- 查询结果列表 -->
                                 
                                 <input type="text" ref="allSearchInputBox" @input="allSearchInput" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" v-model="allSearchInputVal" autocomplete="off"/>
@@ -122,7 +122,7 @@
     import {b2cCarInfo} from "base/class/carInfo.js"
     import {searchCarResult} from "base/class/searchResult.js"
 
-    import gkSelect from "components/base/gkSelect.vue"
+    import srhSelect from "components/common/srhSelect.vue"
     import carListBox from "components/boxLayout/carListBox.vue"
     import brandSelect from "components/brandSel/brandSelect.vue"
     import noticeBar from "components/common/noticeBar.vue"
@@ -139,7 +139,7 @@
             cFootServer,
             carListBox,
             brandSelect,
-            gkSelect,
+            srhSelect,
             noticeInfoBar: noticeBar,
         },
         data () {
