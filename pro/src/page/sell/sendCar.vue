@@ -391,6 +391,7 @@
                                         <div class="m-submit-box">
                                             <gk-submit
                                                 btnText="立即发布"
+                                                :submiting="isSubmitState"
                                                 @submitTrigger="putOut"
                                                 >
                                             </gk-submit>
@@ -413,8 +414,14 @@
 
 <script>
     
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
     // dom操作方法
     import * as geekDom from "assets/js/dom.js"
+    // 发布订单的向后端请求的构造类
+    import {sendCarForm} from "base/class/sendCar.js"
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 温馨提示组件
@@ -478,8 +485,9 @@
         data() {
             return{
                 
-                dialogImageUrl: '',
-                dialogVisible: false,
+                //是不是表单提交的状态
+                isSubmitState: false,
+
                 bannerInfo: sendCarData.sendBanner,                  // 发布订单页面的banner图信息
                 promptInfoText: sendCarData.promptInfo,              // 发布订单页面的温馨提示
                 
@@ -524,34 +532,6 @@
                     ServiceCharacteristics: sendCarData.ServiceCharacteristics,
                 },
                 
-                // 真实发单向api发起请求的字段
-                sendForm:{
-                    CarBaseInfo:{
-                        CarId: "",                    // 修改时必填原先记录主键，如果是新增加则不传
-                        CarModelId: "",               // 车型id
-                        B2BPrice: "",                 // B2B价格 单位：万元
-                        RetailPrice: "",              // 普通分享价格 单位：万元
-                        OutFactoryDate: "",           // 出厂日期2015-01-01，如果没填就传空字符传
-                        OnLicensePlateDate: "",       // 上牌时间2015-01-01
-                        Liter: "",                    // 排量(1.0~7.0)
-                        DischargeStandard: "",        // 排放标准：国12345
-                        Mileage: "",                  // 真实里程
-                        Color: "",                    // 颜色：红色
-                        VehicleConfiguration: "",     // 车辆配置
-                        TransferTimes: "",            // 过户次数
-                        LicensePlateInCity: "",       // 车牌归属地：110000
-                        //（先写了车牌所在地后，自动填写车身所在地，客户如果需要修改，可以自行修改车身所在地）
-                        CarInCity: "",                // 车身所在城市：110000
-                        //强险到期时：有强险时，以本机时间+1年（如：2018-01-02），无强险时以本机时间-1年（如2016-01-02）
-                        CompulsoryInsuranceExpiration:"",
-                        CarDescription: "",           // 车况描述
-                        PostToRetailMarket: "",       // 是否发布到普通二手车市场
-                        Vin: "",                      // 车架号
-                        ServiceCharacteristics: "",   // 使用性质（非营运，非营运租赁，营运，营转非）
-                    },
-                    CarOtherInfo: [],                 // 其他车况内容补充，参考示例(可不填)
-                    CarFileInfo: [],                  // 录音描述、车辆照片、（选填）出厂铭牌
-                }
             }
         },
 
@@ -583,7 +563,7 @@
                 liter: 'required|between:1,7|decimal:2',
                 insuranceDate: 'required',
                 serviceType: 'required',
-                vin: 'required|alpha_dash|digits:17',
+                vin: 'required|alpha_dash|min:17|max:17',
                 color: 'required',
                 desc: 'required|min:10|max:300',
                 nameplate: 'between:1,6|max:6',
@@ -750,22 +730,62 @@
                     color: this.form.color,
                     desc: this.form.desc,
                     nameplate: this.form.nameplate.length,
-                    photo: this.form.length,
+                    photo: this.form.photo.length,
                 }).then(() => {
-                    console.log('恭喜了，我的歌，验证通过');
+
+                    //验证通过那么久将按钮设置为提交中状态
+                    this.isSubmitState = true;
+                    this.issue();
+
                 }).catch(() => {
                     document.body.scrollTop = 500
                 });
+
             },
+            
+            //整理数据并发布
+            issue(){
+                let me = this;
+                // 获取数据
+                this._normalizeData(this.form,function(data){
+
+                    api.addOrEditB2BCar(data).then(res => {
+                        if(res.code==SYSTEM.CODE_IS_OK){
+                            console.log("去你妹的，我发成功了",res)
+                        }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                            me.$notify.error({
+                                title: '发布失败',
+                                message: res.msg,
+                                duration: 2000,
+                            });
+                            setTimeout(() => {
+                                me.$router.push('/member/apply/myApply');
+                            },2000)
+                        }
+                    }).catch(error => {
+                        console.log(error)
+                    });
+                });
+            },
+            
+            //格式化数据
+            _normalizeData(list,callBack){
+                let _sendForm = new sendCarForm(list);
+                if(callBack){  
+                    callBack(_sendForm);  
+                }  
+            },
+
             // 清除表单验证的错误
             clearErrors() {
                 this.sendError.clear();
-            }
-            
+            },
+
         },
 	}
 </script>
 
+<!-- 改变elementUI的样式，所以不能使用"scoped"限制作用域 -->
 <style lang="stylus" rel="stylesheet/stylus">
     @import '~assets/css/mixin.styl'
     .m-bill-con

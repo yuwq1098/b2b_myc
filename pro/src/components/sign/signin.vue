@@ -96,7 +96,7 @@
     
     import api from "api/getData.js"
     import { mapActions } from 'vuex'
-    import * as SYSTEM from 'base/system.js'
+    import * as SYSTEM from 'api/system.js'
 
     export default {
     	name: 'signIn',
@@ -157,7 +157,7 @@
             //获取验证码
             getCode(){
             	let num = Math.ceil(Math.random()*5)
-            	this.vcodeUrl = require("../../assets/img/get_vcode__00"+num+".png");
+            	this.vcodeUrl = require("assets/img/get_vcode__00"+num+".png");
             },
             //登录表单提交(普通登录)
             submitSignIn(){

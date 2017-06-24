@@ -44,7 +44,6 @@ Vue.use(VueLazyload, {
   loading: require('assets/img/car-default.jpg')
 })
 
-
 //路由对象
 const router = new VueRouter({
 	routes,
@@ -81,7 +80,6 @@ router.afterEach((to) => {
     document.body.scrollTop = 0
   }
 });
-
 
 new Vue({
 	router,
