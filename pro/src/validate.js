@@ -92,7 +92,10 @@ const dictionary = {
         // 默认的匹配提示
         messages: {
             required:(field)=> "请输入"+field,
-            decimal:(field,params)=> '请输入'+params+'位小数以内的数字'
+            decimal:(field,params)=> '请输入'+params+'位小数以内的数字',
+            between:(field,params) => '请输入'+params[0]+'~'+params[1]+'之间的值',
+            min:(field,params) => '请最少输入'+params+'字的内容',
+            alpha_dash:(field,params) => '只能输入数字和字母'
         },
         // 用户自定义匹配提示(简单说就是不想用默认的)
         custom: {
@@ -133,7 +136,8 @@ const dictionary = {
                 required:()=> '请选择排放标准'
             },
             liter:{
-                required:()=> '请填写排量'
+                required:()=> '请填写排量',
+                between:(field,params) => '请输入'+params[0]+'.0L ~ '+params[1]+'.0L 之间的值',
             },
             insuranceDate:{
                 required:()=> '请选择交强险日期'
@@ -142,19 +146,22 @@ const dictionary = {
                 required:()=> '请选择使用性质'
             },
             vin:{
-                required:()=> '请填写车架号'
+                required:()=> '请填写车架号',
+                digits:()=> '车架号一般由17位字符组成',
             },
             color:{
                 required:()=> '请选择车身颜色'
             },
             desc:{
-                required:()=> '请填写10-300字的车主留言'
+                required:(field)=> '请填写'+field,
+                min:(field,params) => '请填写10 ~ 300字的'+field,
+                max:(field,params) => '请填写10 ~ 300字的'+field
             },
             nameplate:{
-                required:()=> '请上传车铭牌图片'
+                between:() => '请最少上传1张车铭牌图片'
             },
             photo:{
-                required:()=> '请上传车辆图片'
+                between:() => '请最少上传2张车辆图片'
             }
         },
         attributes:{

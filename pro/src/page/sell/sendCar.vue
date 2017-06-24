@@ -48,7 +48,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="品牌车型"
-                                                        errorTetx="请选择车型"
                                                         :errorTetx="sendError.first('selectedModel')"
                                                         :isShow="sendError.has('selectedModel')"
                                                         >
@@ -71,7 +70,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="车牌归属地"
-                                                        errorTetx="请选择车牌归属地"
                                                         :errorTetx="sendError.first('plateInCity')"
                                                         :isShow="sendError.has('plateInCity')"
                                                         >
@@ -89,7 +87,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="上牌时间"
-                                                        errorTetx="请选择上牌时间"
                                                         :errorTetx="sendError.first('plateDate')"
                                                         :isShow="sendError.has('plateDate')"
                                                         >
@@ -108,7 +105,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="过户次数"
-                                                        errorTetx="请选择过户次数"
                                                         :errorTetx="sendError.first('changeNum')"
                                                         :isShow="sendError.has('changeNum')"
                                                         >
@@ -132,7 +128,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="出厂日期"
-                                                        errorTetx="请选择出厂日期"
                                                         :errorTetx="sendError.first('outFactoryDate')"
                                                         :isShow="sendError.has('outFactoryDate')"
                                                         >
@@ -151,14 +146,13 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="一口价"
-                                                        errorTetx="请填写一口价"
                                                         :errorTetx="sendError.first('fixedPrice')"
                                                         :isShow="sendError.has('fixedPrice')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
                                                         <gk-input
-                                                            placeholder="请填写一口价"
+                                                            placeholder="请填写一口价, 例：32.88"
                                                             unit="万元"
                                                             @inputChangeEnd="fixedPriceEnd"
                                                             >
@@ -170,14 +164,13 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="零售价"
-                                                        errorTetx="请填写零售价"
                                                         :errorTetx="sendError.first('retailPrice')"
                                                         :isShow="sendError.has('retailPrice')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
                                                         <gk-input
-                                                            placeholder="请填写零售价"
+                                                            placeholder="请填写零售价, 例：38.00"
                                                             unit="万元"
                                                             @inputChangeEnd="retailPriceEnd"
                                                             >
@@ -194,14 +187,13 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="行驶里程"
-                                                        errorTetx="请填写行驶里程"
                                                         :errorTetx="sendError.first('mileage')"
                                                         :isShow="sendError.has('mileage')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
                                                         <gk-input
-                                                            placeholder="请填写行驶里程"
+                                                            placeholder="请填写行驶里程, 例：6.35"
                                                             unit="万公里"
                                                             @inputChangeEnd="mileageEnd"
                                                             >
@@ -214,7 +206,6 @@
 
                                                     <gk-input-error
                                                         title="排放标准"
-                                                        errorTetx="请选择排放标准"
                                                         :errorTetx="sendError.first('dischargeStandard')"
                                                         :isShow="sendError.has('dischargeStandard')"
                                                         >
@@ -234,7 +225,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="排量"
-                                                        errorTetx="请填写排量"
                                                         :errorTetx="sendError.first('liter')"
                                                         :isShow="sendError.has('liter')"
                                                         >
@@ -258,7 +248,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="交强险"
-                                                        errorTetx="请填写交强险"
                                                         :errorTetx="sendError.first('insuranceDate')"
                                                         :isShow="sendError.has('insuranceDate')"
                                                         >
@@ -277,7 +266,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="使用性质"
-                                                        errorTetx="请填写使用性质"
                                                         :errorTetx="sendError.first('serviceType')"
                                                         :isShow="sendError.has('serviceType')"
                                                         >
@@ -296,7 +284,6 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="车架号"
-                                                        errorTetx="请填写车架号"
                                                         :errorTetx="sendError.first('vin')"
                                                         :isShow="sendError.has('vin')"
                                                         >
@@ -317,7 +304,6 @@
                                         <div class="m-other-hd">
                                             <gk-input-error
                                                 title="车身颜色"
-                                                errorTetx="请选择车身颜色"
                                                 errorAlign="left"
                                                 :errorTetx="sendError.first('color')"
                                                 :isShow="sendError.has('color')"
@@ -336,7 +322,6 @@
                                         <div class="m-other-hd">
                                             <gk-input-error
                                                 title="上传车辆铭牌"
-                                                errorTetx="请上传车辆铭牌"
                                                 errorAlign="left"
                                                 :errorTetx="sendError.first('nameplate')"
                                                 :isShow="sendError.has('nameplate')"
@@ -355,7 +340,6 @@
                                         <div class="m-other-hd">
                                             <gk-input-error
                                                 title="上传车辆照片"
-                                                errorTetx="请最少上传2张车辆图片"
                                                 errorAlign="left"
                                                 :errorTetx="sendError.first('photo')"
                                                 :isShow="sendError.has('photo')"
@@ -376,7 +360,6 @@
                                             <p class="u-error"></p>
                                             <gk-input-error
                                                 title="车主留言(对车况进行描述)"
-                                                errorTetx="请输入10-300字内容"
                                                 errorAlign="left"
                                                 :errorTetx="sendError.first('desc')"
                                                 :isShow="sendError.has('desc')"
@@ -593,18 +576,18 @@
                 plateDate: 'required',
                 changeNum: 'required',
                 outFactoryDate: 'required',
-                fixedPrice: 'required|decimal:2',
-                retailPrice: 'required|decimal:2',
-                mileage: 'required',
+                fixedPrice: 'required|between:1,3000|decimal:2',
+                retailPrice: 'required|between:1,3000|decimal:2',
+                mileage: 'required|between:0,200|decimal:2',
                 dischargeStandard: 'required',
-                liter: 'required',
+                liter: 'required|between:1,7|decimal:2',
                 insuranceDate: 'required',
                 serviceType: 'required',
-                vin: 'required',
+                vin: 'required|alpha_dash|digits:17',
                 color: 'required',
                 desc: 'required|min:10|max:300',
-                nameplate: 'required',
-                photo: 'required',
+                nameplate: 'between:1,6|max:6',
+                photo: 'between:2,6|max:6',
             });
             this.$set(this, 'sendError', this.validator.errorBag);
         },
@@ -671,17 +654,20 @@
             
             // 一口价
             fixedPriceEnd(val){
-                console.log("一口价",val);
+                this.form.fixedPrice = val;
+                this.validator.validate('fixedPrice',val);
             },
 
             // 零售价
             retailPriceEnd(val){
-                console.log("零售价",val);
+                this.form.retailPrice = val;
+                this.validator.validate('retailPrice',val);
             },
             
             // 行驶里程
             mileageEnd(val){
-                console.log("行驶里程",val);
+                this.form.mileage = val;
+                this.validator.validate('mileage',val);
             },
 
             // 选择排放标准
@@ -692,7 +678,8 @@
 
             // 排量
             literEnd(val){
-                console.log("排量",val);
+                this.form.liter = val;
+                this.validator.validate('liter',val);
             },
 
             // 交强险(到期时间)
@@ -710,7 +697,8 @@
 
             // 车架号
             vinEnd(val){
-                console.log("车架号",val);
+                this.form.vin = val;
+                this.validator.validate('vin',val);
             },
             
             // 选择汽车颜色
@@ -721,12 +709,14 @@
 
             // 车辆铭牌图片
             nameplateEnd(val){
-                console.log("车辆铭牌图片数据更新了",val);
+                this.form.nameplate = val;
+                this.validator.validate('nameplate',val.length);
             },
 
             // 车辆图片
             photoEnd(val){
-                console.log("车辆图片数据更新了",val);
+                this.form.photo = val;
+                this.validator.validate('photo',val.length);
             },
 
             // 车主留言值变化（blur事件触发）
@@ -759,8 +749,8 @@
                     vin: this.form.vin,
                     color: this.form.color,
                     desc: this.form.desc,
-                    nameplate: this.form.nameplate,
-                    photo: this.form.photo,
+                    nameplate: this.form.nameplate.length,
+                    photo: this.form.length,
                 }).then(() => {
                     console.log('恭喜了，我的歌，验证通过');
                 }).catch(() => {

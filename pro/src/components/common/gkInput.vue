@@ -6,7 +6,7 @@
     <div class="gkInput">
         <div class="m-input-wrap">
             <el-input 
-                placeholder="请填写一口价"
+                :placeholder="placeholder"
                 v-model="inputVal"
                 @input="inputChangeEnd"
                 @blur="inputChangeEnd"
