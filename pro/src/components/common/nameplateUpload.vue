@@ -176,8 +176,6 @@
                     }
                     
                 });
-                console.log("循环结束，看看nameplateFiles里的值",this.nameplateFiles);
-                
             },
 
             // 循环处理我们的图片

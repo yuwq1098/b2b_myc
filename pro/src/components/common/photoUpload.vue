@@ -175,7 +175,6 @@
                     }
                     
                 });
-                console.log("循环结束，看看photoFiles里的值",this.photoFiles);
                 
             },
 
