@@ -106,6 +106,54 @@ const dictionary = {
             },
             selectedModel:{
                 required:()=> '请选择品牌车型' 
+            },
+            plateInCity:{
+                required:()=> '请选择车牌归属地' 
+            },
+            plateDate:{
+                required:()=> '请选择上牌日期' 
+            },
+            changeNum:{
+                required:()=> '请选择过户次数' 
+            },
+            outFactoryDate:{
+                required:()=> '请选择出厂日期'
+            },
+            fixedPrice:{
+                required:()=> '请填写一口价'
+            },
+            retailPrice:{
+                required:()=> '请填写零售价'
+            },
+            mileage:{
+                required:()=> '请填写行驶里程'
+            },
+            dischargeStandard:{
+                required:()=> '请选择排放标准'
+            },
+            liter:{
+                required:()=> '请填写排量'
+            },
+            insuranceDate:{
+                required:()=> '请选择交强险日期'
+            },
+            serviceType:{
+                required:()=> '请选择使用性质'
+            },
+            vin:{
+                required:()=> '请填写车架号'
+            },
+            color:{
+                required:()=> '请选择车身颜色'
+            },
+            desc:{
+                required:()=> '请填写10-300字的车主留言'
+            },
+            nameplate:{
+                required:()=> '请上传车铭牌图片'
+            },
+            photo:{
+                required:()=> '请上传车辆图片'
             }
         },
         attributes:{
