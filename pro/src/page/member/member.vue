@@ -3,13 +3,6 @@
 	    <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
-                    <div class="m-crm">
-                        <span>当前位置：</span>
-                        <el-breadcrumb separator=">">
-                            <el-breadcrumb-item :to="{ path: '/' }">个人中心</el-breadcrumb-item>
-                            <el-breadcrumb-item>车辆订单</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div><!-- 面包屑 -->
 
                     <div class="m-bd-wrap f__clearfix">
                         <sidebar class="f__fl"></sidebar><!-- 侧边栏 -->
@@ -52,5 +45,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './member.styl'
+    @import 'member.styl'
 </style>
