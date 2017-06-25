@@ -26,15 +26,36 @@
 		            <div class="m-site-lk f__fr">
 		                <ul class="m-lk-list">
 		                    <li class="u-item login" v-if="!loginStatus">
-		                        <a href="javascript:;" class="u-lk lg" @click="openSignIn(1)"><i class="i-user-lgn"></i>登录</a>
-		                        <span>/</span>
-		                        <a href="javascript:;" class="u-lk" @click="openSignUp(1)">注册</a>
+		                        <a href="javascript:;" class="u-lk lg" @click="openSignIn(1)">hi,请登录</a>
+		                        <span class="u-join">|</span>
+		                        <a href="javascript:;" class="u-lk" @click="openSignUp(1)">免费注册</a>
 		                    </li>
                             <li class="u-item member" v-if="loginStatus">
                                 <div class="u-member-box">
-                                    <router-link :to="{path:'/member'}" class="u-person"><img :src="memberInfo.imgUrl" :alt="memberInfo.name"/></router-link>
-                                    <span class="u-name">{{memberInfo.name}}</span>
-                                    <a href="javascript:;" @click="_signOut" class="u-lk">注销</a>
+                                   <el-dropdown menu-align="end">
+                                        <span class="u-person el-dropdown-link">
+                                            <img :src="memberInfo.imgUrl" class="u-pic" :alt="memberInfo.name"/>
+                                            {{memberInfo.name}}
+                                        </span>
+                                        <el-dropdown-menu slot="dropdown" class="member-dropdown">
+                                            <el-dropdown-item>
+                                                <router-link :to="{path:'/member'}" class="u-lk" tag="a">会员中心</router-link>
+                                            </el-dropdown-item>
+                                            <el-dropdown-item>车行认证</el-dropdown-item>
+                                            <el-dropdown-item>我的收藏</el-dropdown-item>
+                                            <el-dropdown-item>个人设置</el-dropdown-item>
+                                            <el-dropdown-item divided>
+                                                <a href="javascript:;" @click="_signOut" class="u-lk">注销</a>
+                                            </el-dropdown-item>
+                                        </el-dropdown-menu>
+                                    </el-dropdown>
+                                   <!-- <router-link :to="{path:'/member'}">
+                                        <div class="u-person">
+                                            <img :src="memberInfo.imgUrl" :alt="memberInfo.name"/>
+                                        </div>
+                                        <span class="u-name">{{memberInfo.name}}</span>
+                                    </router-link> -->
+                                    <!-- <a href="javascript:;" @click="_signOut" class="u-lk">注销</a> -->
                                 </div>
                             </li>
 		                    <li class="u-item" v-for="item in navItemList">
@@ -253,7 +274,70 @@
     }
 </script>
 
+<!-- hender中用户下拉组件 -->
+<style lang="stylus" rel="stylesheet/stylus">
+    @import '~assets/css/mixin.styl'
+    .member
+        .u-member-box
+            height 72px
+            min-width 120px
+            position relative
+            .el-dropdown
+                color #7A7F86
+                margin-top 14px
+                height 42px
+                line-height 42px
+                cursor pointer
+                .u-person
+                    _display(inline-block)
+                    position relative
+                    padding-left 40px
+                    cursor @cursor
+                    .u-pic
+                        height 30px
+                        width 30px
+                        _borderAll(rgba(255,255,255,.42),2px)
+                        _borderRadius()
+                        _completeCenter(0,auto,2px)
+                    .iconfont
+                        height 24px
+                        line-height 24px
+                        width 24px
+                        _completeCenter(0,auto,2px)
+                        font-size 24px
+                        color #65E693
+    .member-dropdown
+        margin 5px 0 0
+        padding 4px 0
+        _borderAll(#e2e2e2)
+        _borderRadius(2px)
+        _boxShadow(12px,rgba(0,0,0,.25),5px,5px)
+        .el-dropdown-menu__item
+            width 140px
+            font-size 13px
+            line-height 40px
+            color #959595
+            padding 0 15px
+            _spacingPlus()
+            .u-lk
+                _display()
+                width 100%
+                height 100%
+            &:hover
+                background #E8F1F7
+                color $c_blue
+                .u-lk
+                    color $c_blue
+        .el-dropdown-menu__item--divided
+            margin-top 4px
+            _border(top,#e2e2e2)
+            &:before
+                height 4px
+                margin 0 -15px
+
+</style>
+
 <!-- 限定作用域 -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './header.styl'
+    @import 'header.styl'
 </style>

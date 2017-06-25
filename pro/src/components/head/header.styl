@@ -1,35 +1,41 @@
-@import '../../assets/css/mixin.styl'
+@import '~assets/css/mixin.styl'
 
 .g-doc
     .g-hd
-        height 100px
+        height 72px
         width 100%
         background #fff
-        _border(bottom,#e2e2e2)
-        _boxShadow(5px,rgba(0,0,0,.08),0,2px)
+        color #7A7F86
+        _border(bottom,#f4f4f4,2px)
+        // _boxShadow(5px,rgba(0,0,0,1),0,2px)
         .m-hd
             font-size 14px
+            position relative
             .m-logo
-                height 100px
-                width 200px
+                height 54px
+                width 180px
+                margin-top 9px
+                margin-left 15px
                 position relative
                 a
                     height 100%
                     width 100%
                     _display(block)
                 img
+                    width 100%
+                    height 100%
                     _completeCenter()
             .m-city
-                height 54px
-                line-height 54px
-                margin-top 23px
+                height 48px
+                line-height 48px
+                margin-top 12px
                 padding-left 30px
                 text-align left
                 .u-lk
                     .iconfont
                         margin-left 4px
                         font-size 15px
-                        color #959595
+                        color #7A7F86
                         _display(inline-block)
                         _transitionAll(.05s)
                     &.on
@@ -42,15 +48,15 @@
 
             .m-site-lk
                 .m-lk-list
-                    line-height 100px
+                    line-height 72px
                     .u-item
                         float right
-                        padding 0 25px
+                        padding 0 20px
                         .router-link-active
                             color $c_blue
                         &.login
                             .lg
-                                padding-left 28px
+                                padding-left 0px
                                 position relative
                                 .i-user-lgn
                                     font-size 17px
@@ -63,26 +69,6 @@
                                         background url(../../assets/img/i-user-lgn.png) 0 0 no-repeat
                                         background-size 100% 100%
                                         _verticalLayout(0)
-                        &.member
-                            .u-member-box
-                                height 100px
-                                overflow hidden
-                                > *
-                                    _display(inline-block)
-                                .u-person
-                                    width 42px
-                                    height 42px
-                                    _borderRadius()
-                                    _borderAll(#c2c2c2)
-                                    overflow hidden
-                                    vertical-align middle
-                                    position relative
-                                    img
-                                        width @width - 7px
-                                        height @height - 7px
-                                        _completeCenter()
-                                        _borderRadius()
-                                .u-name
-                                    padding 0 5px
-                                .u-lk
-                                    margin-left 12px
+                            .u-join
+                                margin 0 4px
+                                color #c2c2c2
