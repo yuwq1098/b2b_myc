@@ -49,10 +49,10 @@ const mySource = r => require.ensure([], () => r(require('page/member/car-source
 const walletHome = r => require.ensure([], () => r(require('page/member/wallet/home')), 'walletHome')
 
 
-// 我的收藏 => 车辆收藏
-const carCollect = r => require.ensure([], () => r(require('page/member/collect/car')), 'carCollect')
+// 我的收藏 => 车辆收藏                                     
+const carCollect = r => require.ensure([], () => r(require('page/member/collect/car/index')), 'carCollect')
 // 我的收藏 => 车商收藏
-const merchantCollect = r => require.ensure([], () => r(require('page/member/collect/merchant')), 'merchantCollect')
+const merchantCollect = r => require.ensure([], () => r(require('page/member/collect/merchant/index')), 'merchantCollect')
 
 
 // 账户设置 => 个人资料设置

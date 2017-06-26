@@ -1,13 +1,29 @@
 <template>
 	<div class="personalSetting">
-	    <p class="">个人资料设置</p>
+
+        <!-- 会员中心内容布局组件 -->
+        <member-layout
+            title="个人资料设置"
+            >
+            <div slot="content">
+                个人资料设置
+            </div><!-- 个人资料设置内容 -->
+        </member-layout>
+
 	</div>
 </template>
 
 <script>
+    
+    // 会员中心内容布局组件
+    import memberLayout from 'components/layout/memberCon.vue' 
 
 	export default {
         name: "personalSetting",
+        // 在当前模块注册组件
+        components:{
+            memberLayout,
+        },
         // 数据
         data() {
             return{
@@ -18,10 +34,7 @@
         methods: {
             
         },
-        // 在当前模块注册组件
-        components:{
-
-        },
+        
 	}
 </script>
 

@@ -1,13 +1,29 @@
 <template>
 	<div class="safetySetting">
-	    <p class="">安全中心</p>
+
+        <!-- 会员中心内容布局组件 -->
+        <member-layout
+            title="安全中心"
+            >
+            <div slot="content">
+                安全中心
+            </div><!-- 安全中心内容 -->
+        </member-layout>
+        
 	</div>
 </template>
 
 <script>
 
+    // 会员中心内容布局组件
+    import memberLayout from 'components/layout/memberCon.vue' 
+
 	export default {
         name: "safetySetting",
+        // 在当前模块注册组件
+        components:{
+            memberLayout,
+        },
         // 数据
         data() {
             return{
@@ -18,10 +34,7 @@
         methods: {
             
         },
-        // 在当前模块注册组件
-        components:{
-
-        },
+        
 	}
 </script>
 

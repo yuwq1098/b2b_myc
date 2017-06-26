@@ -1,13 +1,29 @@
 <template>
 	<div class="shoppingCart">
-	    <p class="">我的购物车</p>
+        <!-- 会员中心内容布局组件 -->
+        <member-layout
+            title="我的购物车"
+            >
+            <div slot="content">
+                我的购物车内容
+
+            </div><!-- 我的购物车内容 -->
+        </member-layout>
 	</div>
 </template>
 
 <script>
 
+    // 会员中心内容布局组件
+    import memberLayout from 'components/layout/memberCon.vue' 
+
 	export default {
+
         name: "shoppingCart",
+        // 在当前模块注册组件
+        components:{
+            memberLayout,
+        },
         // 数据
         data() {
             return{
@@ -18,10 +34,7 @@
         methods: {
             
         },
-        // 在当前模块注册组件
-        components:{
-
-        },
+        
 	}
 </script>
 
