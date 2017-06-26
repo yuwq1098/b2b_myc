@@ -1,6 +1,6 @@
 <template>
-	<div class="buy-car-list">
-	    <div class="g-doc">
+    <div class="buy-car-list">
+        <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
                     <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
@@ -298,7 +298,7 @@
                             <div class="m-carlist-true" v-if="b2bCarList.length>0">
                                 <b2b-car-listbox
                                     :carlist="b2bCarList"
-                                    car-to-path="/carDetails"
+                                    car-to-path="/b2bCar"
                                     >
                                 </b2b-car-listbox>
                                 
@@ -348,8 +348,8 @@
 
                 </section><!-- 1200px布局 -->
             </div><!-- 网页主体 -->
-		</div>
-	</div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -386,7 +386,7 @@
     //每页显示八条
     const RESULE_PAGE_SIZE = 8
     
-	export default {
+    export default {
         name: "buy-car-list",
         // 在当前模块注册组件
         components:{
@@ -990,10 +990,10 @@
             },
 
         },
-	}
+    }
 </script>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import 'car_list.styl'
+    @import 'b2bHall.styl'
 </style>

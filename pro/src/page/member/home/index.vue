@@ -1,12 +1,13 @@
 <template>
-	<div class="download">
-	    <p class="">APP下载页</p>
+	<div class="memberHome">
+	    <p class="">会员主页</p>
 	</div>
 </template>
 
 <script>
+
 	export default {
-        name: "download",
+        name: "memberHome",
         // 数据
         data() {
             return{
@@ -26,5 +27,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './download.styl'
+    @import 'index.styl'
 </style>

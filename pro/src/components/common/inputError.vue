@@ -66,7 +66,7 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import '../../assets/css/mixin.styl'
+    @import '~assets/css/mixin.styl'
     .u-item-hd
         height 32px
         line-height 32px

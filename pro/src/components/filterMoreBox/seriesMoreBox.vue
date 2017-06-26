@@ -1,5 +1,5 @@
 <!--  
- **  @description b2bËÑË÷´óÌüÖĞµã»÷¸ü¶à³µÏµ Õ¹Ê¾¸ü¶à³µÏµĞÅÏ¢
+ **  @description b2bæœç´¢å¤§å…ä¸­ç‚¹å‡»æ›´å¤šè½¦ç³» å±•ç¤ºæ›´å¤šè½¦ç³»ä¿¡æ¯
  --> 
 
 <template>
@@ -21,13 +21,13 @@
     
     export default {
         name: "seriesMoreBox",
-        // Êı¾İ
+        // æ•°æ®
         data() {
             return{
                 
             }
         },
-        // ¸¸Ò³Ãæ´«ÈëµÄÖµ£¬µ÷ÓÃ·½Ê½ÓëdataÒ»Ñù
+        // çˆ¶é¡µé¢ä¼ å…¥çš„å€¼ï¼Œè°ƒç”¨æ–¹å¼ä¸dataä¸€æ ·
         props:{
             seriesList: Array,
         },
@@ -40,21 +40,21 @@
         deactivated(){
             
         },
-        // ×Ô¶¨Òåº¯Êı(·½·¨)
+        // è‡ªå®šä¹‰å‡½æ•°(æ–¹æ³•)
         methods: {
-            // ´«µİ¸ø¸¸×é¼şµÄÊÂ¼ş
+            // ä¼ é€’ç»™çˆ¶ç»„ä»¶çš„äº‹ä»¶
             seriesFilterMore(e,id,value){
                 this.$emit('seriesFilterMore',e,id,value);
             }
         },
-        // ÔÚµ±Ç°Ä£¿é×¢²á×é¼ş
+        // åœ¨å½“å‰æ¨¡å—æ³¨å†Œç»„ä»¶
         components:{
 
         },
     }
 </script>
 
-<!-- ÏŞ¶¨×÷ÓÃÓò"scoped" ²»ÒªÎóĞ´³Éscope -->
+<!-- é™å®šä½œç”¨åŸŸ"scoped" ä¸è¦è¯¯å†™æˆscope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
     .m-lk-list

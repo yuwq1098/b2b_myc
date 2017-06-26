@@ -26,7 +26,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-    @import '../../assets/css/mixin.styl'
+    @import '~assets/css/mixin.styl'
     .m-load-mask
         height 100%
         width 100%

@@ -4,9 +4,9 @@
 		    <div class="m-hd">
 		        <div class="f__w1200 f__clearfix">
 		            <div class="m-logo f__fl">
-		                <a href="javascript:;" class="u-lk">
-		                    <img src="../../assets/img/logo.png" alt="logo" />
-		                </a>
+		                <router-link :to="{path:'/'}" class="u-lk">
+		                    <img :src="siteLogo" alt="logo" />
+		                </router-link>
 		            </div><!-- 网站LOGO -->
 
 		            <div class="m-city f__fl" id="f__city_choose">
@@ -104,7 +104,8 @@
     	data () {
     		return {
 
-                
+                siteLogo: require("assets/img/logo.png"),   //网站LOGO
+
     			signInShow: false,         //是否显示登录框
     			signUpShow: false,         //是否显示注册框
     			forgetShow: false,         //是否显示忘记密码框

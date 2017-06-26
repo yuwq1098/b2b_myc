@@ -1,24 +1,13 @@
 <template>
-	<div class="sHelp">
-        <p>我是帮助页面</p>
-	    <div class="g-mn-con">
-            <div class="m-hd">
-                
-            </div><!-- 顶部标题头 -->
-            <div class="m-tap">
-
-            </div><!-- 条件切换tap -->
-            <div>
-                
-            </div>
-        </div>
-        
+	<div class="service">
+	    <p class="">木有车服务</p>
 	</div>
 </template>
 
 <script>
+
 	export default {
-        name: "sHelp",
+        name: "service",
         // 数据
         data() {
             return{
@@ -38,5 +27,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './s_help.styl'
+    @import './service.styl'
 </style>

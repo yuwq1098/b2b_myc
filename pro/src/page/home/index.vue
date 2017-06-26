@@ -60,7 +60,7 @@
                             <div class="m-info">
                                 <h2 class="u-tit">二手车<em class="vital">B2B</em>市场</h2>
                                 <p class="u-txt">车商首选 全国二手车批发大厅</p>
-                                <router-link :to="{path:'/buyCar'}" class="u-btn">立即进入</router-link>
+                                <router-link :to="{path:'/b2bHall'}" class="u-btn">立即进入</router-link>
                             </div>
                             <div class="u-img-bg"></div><!-- 车背景装饰 -->
                         </div>
@@ -88,7 +88,7 @@
                             <div class="carListWrap" v-if="b2cCarList.length>0">
                                 <car-list-box
                                     :carlist="b2cCarList"
-                                    car-to-path="/carDetails"
+                                    car-to-path="/b2cCar"
                                     boxType="b2c"
                                     >
                                 </car-list-box>    
@@ -325,6 +325,6 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import 'home.styl'
+    @import 'index.styl'
 </style>
 

@@ -5,14 +5,18 @@ export const navItemList = [
         path: "/home"
     },{
         pathName: "二手车b2b大厅",
-        path: "/buyCar"
+        path: "/b2bHall"
     },{
         pathName: "我要卖车",
-        path: "/sell"
+        path: "/sellHome"
     },{
         pathName: "木有车服务",
-        path: "/assurance"
+        path: "/siteServer"
     }/*,{
+        pathName: "使用帮助",
+        path: "/helpHome"
+        
+    },{
         pathName: "关于模拟股东",
         path: "/partner"
     }*/

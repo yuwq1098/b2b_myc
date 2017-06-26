@@ -28,7 +28,7 @@ export const sellFunctionList = [
     },
     {
         title: '自己网上卖车',
-        pathUrl: '/sendCar',
+        pathUrl: '/sellSend',
         imgUrl: require("assets/img/sell-step2.jpg"),
         lkTarget: "立即卖车",
     },

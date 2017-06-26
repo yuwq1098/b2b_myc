@@ -1,13 +1,13 @@
 <template>
-	<div class="assurance">
-	    <p class="">服务保障页</p>
+	<div class="shoppingCart">
+	    <p class="">我的购物车</p>
 	</div>
 </template>
 
 <script>
 
 	export default {
-        name: "assurance",
+        name: "shoppingCart",
         // 数据
         data() {
             return{
@@ -27,5 +27,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './assurance.styl'
+    @import 'index.styl'
 </style>

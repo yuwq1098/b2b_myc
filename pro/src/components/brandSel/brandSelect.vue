@@ -15,7 +15,7 @@
                             <div class="u-gp-con" :class="{'last-item':n==gpLength}">
                                 <ul class="u-gp-lst f__clearfix" v-for="(group,index) in brandList" v-if="index>=(7*(n-1))&&index<=(7*n)-1" :class="{'active':index==(7*(n-1))}">
                                     <li class="u-gp-item" v-for="item in group.items">
-                                        <router-link :to="{path:'/buyCar'}" class="u-lk">{{item.name}}</router-link>
+                                        <router-link :to="{path:'/b2bHall'}" class="u-lk">{{item.name}}</router-link>
                                     </li>
                                 </ul>
                             </div>
@@ -26,7 +26,7 @@
                     <template v-for="item in hotBrand">
                         <router-link class="u-lk"
                             :data-brand-id="item.id"
-                            :to="{path:'/buyCar'}"
+                            :to="{path:'/b2bHall'}"
                             >
                             <img :src="item.imgUrl" :alt="item.name" />
                             <p class="u-tit">{{item.name}}</p>
@@ -44,7 +44,7 @@
                         <router-link class="u-lk"
                             :class="{'light':item.isHot}"
                             :min="item.min" :max="item.max"
-                            :to="{path:'/buyCar'}"
+                            :to="{path:'/b2bHall'}"
                             >
                             {{item.title}}
                         </router-link>

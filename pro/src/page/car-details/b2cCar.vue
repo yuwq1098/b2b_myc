@@ -1,18 +1,12 @@
 <template>
-	<div class="car-details">
+	<div class="b2cCarDetails">
 	    <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
-                    <div class="m-crm">
-                        <span>当前位置：</span>
-                        <el-breadcrumb separator=">">
-                            <el-breadcrumb-item :to="{ path: '/' }">北京二手车</el-breadcrumb-item>
-                            <el-breadcrumb-item>大众朗逸2011款1.6L手动品悠版</el-breadcrumb-item>
-                        </el-breadcrumb>
-                    </div><!-- 面包屑 -->
+
+                    <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
 
                     <div class="m-mn-hd f__clearfix">
-                        
                         <div class="f__fl" v-if="carDetailsImgList">
                             <fc-slide :carDetailsList="carDetailsImgList"></fc-slide>
                         </div>
@@ -230,13 +224,23 @@
 </template>
 
 <script>
+
+    // 引入jq
     import $ from "jquery"
-    import fcSlide from "components/slide/fc_slide.vue"
-    
+    // api获取数据
     import api from "api/getData.js"
+    // 面包屑组件
+    import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
+    // 双向控制焦点图组件
+    import fcSlide from "components/slide/fc_slide.vue"
 
 	export default {
-        name: "car-details",
+        name: "b2cCarDetails",
+        // 在当前模块注册组件
+        components:{
+            gkBreadCrumb,
+            fcSlide,
+        },
         // 数据
         data() {
             return{
@@ -272,10 +276,6 @@
                 })
             },20)
         },
-        // 在当前模块注册组件
-        components:{
-            fcSlide,
-        },
         methods:{
             //历史交易二维码显示
             codeEwmShow(index){
@@ -308,5 +308,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './car-details.styl'
+    @import 'b2cCar.styl'
 </style>
