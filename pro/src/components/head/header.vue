@@ -13,13 +13,13 @@
 		                
                         <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">{{curCityName}}<i class="iconfont icon-arrowdown1"></i></a>
 
+                        
                         <city-choose 
                             v-show="isCityChooseShow" 
                             :isShow="isCityChooseShow"
                             @setCityChooseShow="setCityChooseShow"
                             >
-                        </city-choose>
-                        <!-- 城市选择 -->
+                        </city-choose><!-- 城市选择 -->
 
 		            </div><!-- 城市 -->
 
@@ -93,6 +93,7 @@
     import signIn from "components/sign/signin"
     import signUp from "components/sign/signup"
     import forgetPwd from "components/sign/forget_pwd"
+    // 城市选择组件
     import cityChoose from "components/citySel/citySel.vue"
     import {mapGetters,mapActions} from 'vuex'
     import {navItemList} from 'api/localJson/head.js'
@@ -102,8 +103,9 @@
     	name: 'c-header',
     	data () {
     		return {
-                //是否显示登录框
-    			signInShow: false,
+
+                
+    			signInShow: false,         //是否显示登录框
     			signUpShow: false,         //是否显示注册框
     			forgetShow: false,         //是否显示忘记密码框
                 cityChooseLeft: '',        //城市选择left
@@ -118,12 +120,7 @@
             this.navItemList.reverse();
         },
         mounted(){
-            //获取浏览器的左值
-            this._getCityChooseLeft();
-            //侦听浏览器窗口大小变化
-            // removeEvent(window,'resize',this._getCityChooseLeft)
-            // addEvent(window,'resize',this._getCityChooseLeft)
-            // 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。
+
             this.$nextTick(function(){
                 var cityChooseDom = $("#f__city_choose");
                 var currentCity = $("#city_cur");
@@ -164,8 +161,6 @@
             curCityName(val) {
                 // 数据发生变化
                 console.log("城市数据更新了",val);
-                // 关闭盒子
-                // this.userIcons = val;
             },
             loginStatus(val){
                 if(val){
@@ -222,15 +217,6 @@
         		}
         	},
 
-            //获取城市选择盒子left值
-            _getCityChooseLeft(){
-                let cityCurrentDom = document.getElementById("city_cur");
-                //传入dom查询其相对于浏览器的left值
-                let curCiBoxLeft = getLeftToBrowser(cityCurrentDom);
-                // console.log(curCiBoxLeft);
-                this.cityChooseLeft = curCiBoxLeft - 40 + "px";
-            },
-
             //城市选择框开关
             setCityChooseShow(onOff) {    
                 this.isCityChooseShow = onOff;
@@ -272,12 +258,12 @@
     @import '~assets/css/mixin.styl'
     .member
         .u-member-box
-            height 72px
+            height 84px
             min-width 120px
             position relative
             .el-dropdown
                 color #7A7F86
-                margin-top 14px
+                margin-top 21px
                 height 42px
                 line-height 42px
                 cursor pointer

@@ -1,41 +1,43 @@
 <template>
      <!-- @mousewheel="_stopBubble($event)" -->
-    <div class="m-ci-box" ref="citySelBox">
-    	<div class="m-sch-box">
-    		<div class="m-sch-bar f__clearfix">
-                <div class="m-sch-ipt f__fl">
-                    <input type="text" class="u-ipt" v-model="schValue" placeholder="请输入城市名称" />
-                    <a class="u-close" @click="clearVal" v-show="schValue"><i class="iconfont icon-guanbi2fill"></i></a><!-- 关闭 -->
-                </div>
-                <div class="u-sch-btn f__fr"><i class="iconfont icon-iossearchstrong"></i>搜索</div><!-- 搜索 -->
-                <div class="m-sch-res-box" v-show="schValue">
-                    <ul class="m-res-lst">
-                        <li class="u-item" v-for="item in schList"></li>
-                    </ul>
-                </div><!-- 搜索结果列表 -->
-            </div>
-    	</div><!-- 头部 -->
-    	<div class="m-ix-bar f__clearfix">
-            <ul class="u-ix-lst f__clearfix">
-                <li class="u-ix-item" @click="changeCurIndnx(index)" v-for="(item,index) in shortcutList" :data-index="index" :class="[{'current':currentIndex===index},{'first':index==0}]">{{item}}</li>
-            </ul><!-- 索引列表 -->    
-        </div><!-- 索引条 -->
-        <!-- @mousewheel="_stopBubble($event)" -->
-        <div class="m-ci-con" ref="cityListBox">
-            <ul class="m-ci-lst">
-                <li class="m-ci-item f__clearfix" ref="cityItem" v-for="group in citys">
-                    <span class="u-ci-tit" :class="{'vital':group.title=='周边'}">{{group.title}}</span>
-                    <div class="u-gp-con">
-                        <ul class="u-gp-lst f__clearfix">
-                            <li class="u-gp-item" @click="gotoLink(item.name,item.code)" v-for="item in group.items">
-                                {{item.name}}
-                            </li>
-                        </ul>
+    <transition name="zoom-in-top">
+        <div class="m-ci-box" ref="citySelBox">
+        	<div class="m-sch-box"  v-if="false">
+        		<div class="m-sch-bar f__clearfix">
+                    <div class="m-sch-ipt f__fl">
+                        <input type="text" class="u-ipt" v-model="schValue" placeholder="请输入城市名称" />
+                        <a class="u-close" @click="clearVal" v-show="schValue"><i class="iconfont icon-guanbi2fill"></i></a><!-- 关闭 -->
                     </div>
-                </li>
-            </ul>
-        </div><!-- 城市信息盒子 -->
-    </div>
+                    <div class="u-sch-btn f__fr"><i class="iconfont icon-iossearchstrong"></i>搜索</div><!-- 搜索 -->
+                    <div class="m-sch-res-box" v-show="schValue">
+                        <ul class="m-res-lst">
+                            <li class="u-item" v-for="item in schList"></li>
+                        </ul>
+                    </div><!-- 搜索结果列表 -->
+                </div>
+        	</div><!-- 头部 -->
+        	<div class="m-ix-bar f__clearfix">
+                <ul class="u-ix-lst f__clearfix">
+                    <li class="u-ix-item" @click="changeCurIndnx(index)" v-for="(item,index) in shortcutList" :data-index="index" :class="[{'current':currentIndex===index},{'first':index==0}]">{{item}}</li>
+                </ul><!-- 索引列表 -->    
+            </div><!-- 索引条 -->
+            <!-- @mousewheel="_stopBubble($event)" -->
+            <div class="m-ci-con" ref="cityListBox">
+                <ul class="m-ci-lst">
+                    <li class="m-ci-item f__clearfix" ref="cityItem" v-for="group in citys">
+                        <span class="u-ci-tit" :class="{'vital':group.title=='周边'}">{{group.title}}</span>
+                        <div class="u-gp-con">
+                            <ul class="u-gp-lst f__clearfix">
+                                <li class="u-gp-item" @click="gotoLink(item.name,item.code)" v-for="item in group.items">
+                                    {{item.name}}
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div><!-- 城市信息盒子 -->
+        </div>
+    </transition>
 </template>
 
 <script>
@@ -210,11 +212,13 @@
             },
             //点击城市link
             gotoLink(cityName,cityCode){
+                console.log("怎么会点两下")
                 let data = {
                     name: cityName,
                     code: cityCode
                 }
                 this.setCurrentCity(data);
+                this.currentIndex = 0;
                 this.$emit('setCityChooseShow',false);
             },
             //删除searchVal
@@ -223,7 +227,7 @@
             },
             //匹配搜索结果
             _resListBySch(val){
-                console.log("aaaa");
+                console.log("匹配搜索结果");
             }
         },
         watch: {
@@ -234,7 +238,8 @@
             isShow: function (val) {
                 if(val){
                     let cityListDom = this.$refs.cityListBox;
-                    cityListDom.scrollTop = 0
+                    cityListDom.scrollTop = 0,
+                    this.currentIndex = 0;
                 }
             }
         },

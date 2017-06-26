@@ -277,6 +277,19 @@ _scale(zoom=0.8)
     -o-transform: scale(zoom);
     transform: scale(zoom);
 
+_scaleX(zoom=0.8)
+    -webkit-transform: scaleX(zoom)
+    -moz-transform: scaleX(zoom)
+    -o-transform: scaleX(zoom)
+    transform: scaleX(zoom)
+
+_scaleY(zoom=0.8)
+    -webkit-transform: scaleY(zoom)
+    -moz-transform: scaleY(zoom)
+    -o-transform: scaleY(zoom)
+    transform: scaleY(zoom)
+
+
 //---变形中心
 _origin2d(x=0%,y=0%)
     -webkit-transform-origin: x y
@@ -305,11 +318,11 @@ _transitionAll(duration=.3s,timingFn=linear,delay=0s)
     transition all duration delay timingFn
 
 //---变形中心
-_transformOrigin(x=50%, y=50%)
-    -webkit-transform-origin x y
-    -moz-transform-origin x y
-    -o-transform-origin x y
-    transform-origin x y
+_transformOrigin(x=50%, y=50% , z=0)
+    -webkit-transform-origin x y z
+    -moz-transform-origin x y z
+    -o-transform-origin x y z
+    transform-origin x y z
 
 //---文本提示样式
 _placeholder(color=#97a8be,pixel=null,lh=1.4)
