@@ -13,11 +13,11 @@ export const sidebarMenu = [
         'children': [
             {
             	'title': '车行认证',
-	        	'hash': '',
+	        	'hash': '/member/apply',
             },
             {
             	'title': '我的购物车',
-	        	'hash': '',
+	        	'hash': '/member/shopCart',
             },
         ]
     },
@@ -28,11 +28,11 @@ export const sidebarMenu = [
         'children': [
             {
             	'title': '买车订单',
-	        	'hash': '',
+	        	'hash': '/member/buyOrder',
             },
             {
             	'title': '卖车订单',
-	        	'hash': '',
+	        	'hash': '/member/sellOrder',
             },
         ]
     },
@@ -43,7 +43,7 @@ export const sidebarMenu = [
         'children': [
             {
             	'title': '我的车源',
-	        	'hash': '',
+	        	'hash': '/member/sourceHome',
             },
         ]
     },
@@ -54,7 +54,7 @@ export const sidebarMenu = [
         'children': [
             {
             	'title': '现金账户',
-	        	'hash': '',
+	        	'hash': '/member/wallet',
             },
         ]
     },
@@ -65,11 +65,11 @@ export const sidebarMenu = [
         'children': [
             {
             	'title': '车辆收藏',
-	        	'hash': '/member/collect/car',
+	        	'hash': '/member/collectCar',
             },
             {
             	'title': '车行收藏',
-	        	'hash': '/member/collect/merchant',
+	        	'hash': '/member/merchantCar',
             },
         ]
     },
@@ -80,11 +80,11 @@ export const sidebarMenu = [
         'children': [
             {
             	'title': '完善个人资料',
-	        	'hash': '',
+	        	'hash': '/member/personal',
             },
             {
             	'title': '安全中心',
-	        	'hash': '',
+	        	'hash': '/member/safety',
             },
         ]
     },

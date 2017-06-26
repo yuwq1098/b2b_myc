@@ -1,5 +1,5 @@
 <template>
-	<div class="orderBuy">
+	<div class="orderSell">
 	    <div class="g-mn-con">
             <div class="m-hd">
                 <h3 class="u-tit">{{pageTitle}}</h3>
@@ -12,10 +12,10 @@
                     <el-tab-pane label="待签订电子合同" name="contract">
                         <order-table order-type="contract"></order-table>
                     </el-tab-pane>
-                    <el-tab-pane label="待支付定金" name="payment">
+                    <el-tab-pane label="待买家支付定金" name="payment">
                         <order-table order-type="payment"></order-table>
                     </el-tab-pane>
-                    <el-tab-pane label="待过户验收" name="check">
+                    <el-tab-pane label="待买家过户验收" name="check">
                         <order-table order-type="check"></order-table>
                     </el-tab-pane>
                     <el-tab-pane label="过户完成" name="success">
@@ -24,19 +24,18 @@
                 </el-tabs>
             </div>
         </div>
-        
 	</div>
 </template>
 
 <script>
     import orderTable from "components/table/order-table";
     import allOrderTable from "components/table/all-order-table";
-	export default {
+    export default {
         name: "orderBuy",
         // 数据
         data() {
             return{
-                pageTitle: "买车订单",
+                pageTitle: "卖车订单",
                 activeName: 'all',
                 loading: false,
             }
@@ -53,10 +52,10 @@
             orderTable,
             allOrderTable,
         },
-	}
+    }
 </script>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './order_buy.styl'
+    @import './index.styl'
 </style>

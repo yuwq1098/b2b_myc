@@ -1,5 +1,6 @@
 import App from '../App'
 
+
 // 网站首页
 const index = r => require.ensure([], () => r(require('page/home')), 'index')
 // b2b大厅(买车)
@@ -27,10 +28,37 @@ const member = r => require.ensure([], () => r(require('page/member/member')), '
 // 会员中心首页（大概的包括各种信息）
 const memberHome = r => require.ensure([], () => r(require('page/member/home')), 'memberHome')
 
+
 // 用户中心 => 车行认证
 const authApply = r => require.ensure([], () => r(require('page/member/center/apply')), 'authApply')
 // 用户中心 => 我的购物车
 const shoppingCart = r => require.ensure([], () => r(require('page/member/center/shopping-cart')), 'shoppingCart')
+
+
+// 买车订单
+const buyOrder = r => require.ensure([], () => r(require('page/member/order/buy')), 'buyOrder')
+// 卖车订单
+const sellOrder = r => require.ensure([], () => r(require('page/member/order/sell')), 'sellOrder')
+
+
+// 车源管理 => 我的车源
+const mySource = r => require.ensure([], () => r(require('page/member/car-source/manage')), 'mySource')
+
+
+// 我的钱包 => 钱包主页
+const walletHome = r => require.ensure([], () => r(require('page/member/wallet/home')), 'walletHome')
+
+
+// 我的收藏 => 车辆收藏
+const carCollect = r => require.ensure([], () => r(require('page/member/collect/car')), 'carCollect')
+// 我的收藏 => 车商收藏
+const merchantCollect = r => require.ensure([], () => r(require('page/member/collect/merchant')), 'merchantCollect')
+
+
+// 账户设置 => 个人资料设置
+const personalSetting = r => require.ensure([], () => r(require('page/member/setting/personal')), 'personalSetting')
+// 账户设置 => 安全中心
+const safetySetting = r => require.ensure([], () => r(require('page/member/setting/safety')), 'safetySetting')
 
 
 // 定义路由
@@ -112,7 +140,7 @@ export default[{
             component: member,
             redirect: '/member/home',
             meta: {
-                requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
             },
             children: [
                 {
@@ -120,7 +148,7 @@ export default[{
                     path: 'home',
                     component: memberHome,
                     meta:{
-                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
                 },
                 {
@@ -128,7 +156,7 @@ export default[{
                     path: 'apply',
                     component: authApply,
                     meta:{
-                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
                 },
                 {
@@ -136,7 +164,76 @@ export default[{
                     path: 'shopCart',
                     component: shoppingCart,
                     meta:{
-                        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 买车订单
+                    path: 'buyOrder',
+                    component: buyOrder,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 卖车订单
+                    path: 'sellOrder',
+                    component: sellOrder,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 我的车源
+                    path: 'car-source',
+                    component: mySource,
+                    alias: 'sourceHome',        // 使用别名
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 我的钱包主页
+                    
+                    path: 'wallet-home',
+                    component: walletHome,
+                    alias: 'wallet',            // 使用别名
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 车辆收藏
+                    path: 'collect-car',
+                    component: carCollect,
+                    alias: 'collectCar',        // 使用别名
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 车行收藏
+                    path: 'merchant-car',
+                    component: merchantCollect,
+                    alias: 'merchantCar',       // 使用别名
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 个人资料设置
+                    path: 'personal',
+                    component: personalSetting,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 安全中心
+                    path: 'safety',
+                    component: safetySetting,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
                 }
             ]
