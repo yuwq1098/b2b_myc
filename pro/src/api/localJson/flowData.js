@@ -1,3 +1,9 @@
+/** 
+* @description 一些流程相关的数据 
+* @creatDate 2017-6-26
+* @author Geek.Yu  email:1098654043@qq.com
+*/ 
+
 //认证流程
 export const applyFlowItems = [
     {
@@ -30,6 +36,7 @@ export const applyFlowItems = [
     },
 ]
 
+//支付流程
 export const payFlowItems = [
     {
        title: '1.创建订单',

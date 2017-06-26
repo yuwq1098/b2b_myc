@@ -14,63 +14,28 @@
 
             <div class="m-menu">
                 <ul class="m-gp-lst">
-                    <li class="m-gp-item">
-                        <div class="m-gp-hd">
-                            <i class="iconfont icon-huiyuan"></i>
-                            <span class="gp-tit">个人中心</span>
-                        </div>
-                        <ul class="m-menu-lst">
-                            <li class="u-item">车行认证</li>
-                        </ul>
-                    </li>
-                    <li class="m-gp-item">
-                        <div class="m-gp-hd">
-                            <i class="iconfont icon-asmkticon0126"></i>
-                            <span class="gp-tit">我的订单</span>
-                        </div>
-                        <ul class="m-menu-lst">
-                            <li class="u-item">买车订单</li>
-                            <li class="u-item">卖车订单</li>
-                        </ul>
-                    </li>
-                    <li class="m-gp-item">
-                        <div class="m-gp-hd">
-                            <i class="iconfont icon-yuan"></i>
-                            <span class="gp-tit">车源管理</span>
-                        </div>
-                        <ul class="m-menu-lst">
-                            <li class="u-item">我的车源</li>
-                        </ul>
-                    </li>
-                    <li class="m-gp-item">
-                        <div class="m-gp-hd">
-                            <i class="iconfont icon-qianbao"></i>
-                            <span class="gp-tit">我的钱包</span>
-                        </div>
-                        <ul class="m-menu-lst">
-                            <li class="u-item">现金账户</li>
-                        </ul>
-                    </li>
-                    <li class="m-gp-item">
-                        <div class="m-gp-hd">
-                            <i class="iconfont icon-wodeshoucang"></i>
-                            <span class="gp-tit">我的收藏</span>
-                        </div>
-                        <ul class="m-menu-lst">
-                            <li class="u-item">车辆收藏</li>
-                            <li class="u-item">车行收藏</li>
-                        </ul>
-                    </li>
-                    <li class="m-gp-item">
-                        <div class="m-gp-hd">
-                            <i class="iconfont icon-shezhi"></i>
-                            <span class="gp-tit">账户设置</span>
-                        </div>
-                        <ul class="m-menu-lst">
-                            <li class="u-item">完善个人资料</li>
-                            <li class="u-item">安全中心</li>
-                        </ul>
-                    </li>
+                    <template v-for="group in memberMenu">
+                        <li class="m-gp-item">
+                            <div class="m-gp-hd">
+                                <i class="iconfont"
+                                    :class="[group.icon]"></i>
+                                <span class="gp-tit">{{group.title}}</span>
+                            </div>
+                            <ul class="m-menu-lst">
+                                <template v-for="item in group.children">
+                                    <li class="u-item">
+                                        <a href="javascript:;" class="u-lk"
+                                            v-if="!item.hash">{{item.title}}</a>
+                                        <router-link class="u-lk"
+                                            :to="item.hash"
+                                            v-if="item.hash" tag="a">
+                                            {{item.title}}
+                                        </router-link>
+                                    </li>
+                                </template>
+                            </ul>
+                        </li>
+                    </template>
                 </ul>
             </div>
         </div>
@@ -83,6 +48,8 @@
     import {mapGetters,mapActions} from 'vuex'
     // 会员中心侧边栏用户信息构造类
     import {sidebarMember} from "base/class/member.js"
+    //本地的会员中心侧导航信息
+    import {sidebarMenu} from "api/localJson/sidebar.js"
 
 	export default {
         name: "sidebar",
@@ -95,14 +62,16 @@
         data() {
             return{
                 memberInfo:"",
+                memberMenu: sidebarMenu,
             }
         },
+        // 生命周期被创建时
         created() {
-
+            this.memberInfo = new sidebarMember(this.userData);
         },
-        //切换会当前组件
+        // 切换回本组件时
         activated() {
-            
+            this.memberInfo = new sidebarMember(this.userData);
         },
         //退出的生命周期钩子
         deactivated(){
@@ -125,14 +94,6 @@
         // 自定义函数(方法)
         methods: {
             ...mapActions(['getUserData']),
-            //获取/更新用户基本数据
-            _updateUserData(){
-                let data = {
-                    a:'0'
-                };
-                this.getUserData(data);
-            },
-            
         },
 	}
 </script>
