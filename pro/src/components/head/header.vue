@@ -49,13 +49,6 @@
                                             </el-dropdown-item>
                                         </el-dropdown-menu>
                                     </el-dropdown>
-                                   <!-- <router-link :to="{path:'/member'}">
-                                        <div class="u-person">
-                                            <img :src="memberInfo.imgUrl" :alt="memberInfo.name"/>
-                                        </div>
-                                        <span class="u-name">{{memberInfo.name}}</span>
-                                    </router-link> -->
-                                    <!-- <a href="javascript:;" @click="_signOut" class="u-lk">注销</a> -->
                                 </div>
                             </li>
 		                    <li class="u-item" v-for="item in navItemList">
@@ -309,8 +302,8 @@
     .member-dropdown
         margin 5px 0 0
         padding 4px 0
-        _borderAll(#e2e2e2)
-        _borderRadius(2px)
+        _borderAll(#ededed)
+        _borderRadius(1px)
         _boxShadow(12px,rgba(0,0,0,.25),5px,5px)
         .el-dropdown-menu__item
             width 140px
