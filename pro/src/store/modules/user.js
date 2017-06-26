@@ -45,6 +45,7 @@ const actions = {
     getUserData({ commit }, res) {
         api.getMyMemberInfo(res)
             .then(res => {
+                console.log("发送了请求",res.data)
                 commit(types.GET_USER_DATA, res.data)
             })
     }

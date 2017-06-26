@@ -320,11 +320,11 @@
 
 <!-- 修改外部插件（组件）的样式时，不要加scoped，最好文件分成两个 -->
 <style lang="stylus" rel="stylesheet/stylus">
-    @import './indexSwiper.styl'
+    @import 'indexSwiper.styl'
 </style>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './home.styl'
+    @import 'home.styl'
 </style>
 

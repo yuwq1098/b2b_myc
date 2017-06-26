@@ -161,7 +161,7 @@ _imgwrap(x=100%,y=100%)
         width x
         height y
 
-//---黑子溢出处理
+//---盒子溢出处理
 _overflow(method=hidden)
     overflow method
 
@@ -258,32 +258,57 @@ _boxShadow(range=10px,color=$c_black,x=0,y=0,ins=false)
 
 //---透明度写法
 _opacity(n)
-    -moz-opacity n
     -webkit-opacity n
+    -moz-opacity n
+    -o-opacity n
     opacity n
 
 //---旋转
 _rotate(angle=0)
     -webkit-transform: rotate(angle);
     -moz-transform: rotate(angle);
+    -o-transform: rotate(angle);
     transform: rotate(angle);
+
+//---缩放
+_scale(zoom=0.8)
+    -webkit-transform: scale(zoom);
+    -moz-transform: scale(zoom);
+    -o-transform: scale(zoom);
+    transform: scale(zoom);
+
+//---变形中心
+_origin2d(x=0%,y=0%)
+    -webkit-transform-origin: x y
+    -moz-transform-origin: x y
+    -o-transform-origin: x y
+    transform-origin: x y
+
+_origin3d(x=0%,y=0%,z=0%)
+    -webkit-transform-origin: x y z
+    -moz-transform-origin: x y z
+    -o-transform-origin: x y z
+    transform-origin: x y z
 
 //---偏移
 _translate3d(x=0,y=0,z=0)
     -webkit-transform: translate3d(x,y,z);
     -moz-transform: translate3d(x,y,z);
+    -o-transform: translate3d(x,y,z);
     transform: translate3d(x,y,z);
 
 //---过渡
 _transitionAll(duration=.3s,timingFn=linear,delay=0s)
     -webkit-transition all duration delay timingFn
     -moz-transition all duration delay timingFn
+    -o-transition all duration delay timingFn
     transition all duration delay timingFn
 
 //---变形中心
 _transformOrigin(x=50%, y=50%)
     -webkit-transform-origin x y
     -moz-transform-origin x y
+    -o-transform-origin x y
     transform-origin x y
 
 //---文本提示样式

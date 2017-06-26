@@ -16,13 +16,16 @@
                     </div>
                 </section><!-- 1200px布局 -->
             </div><!-- 网页主体 -->
+            <!-- 引入底部站点服务图示 -->
+            <c-foot-server></c-foot-server>
 		</div>
 	</div>
 </template>
 
 <script>
     //侧边栏
-    import sidebar from "./sidebar.vue"
+    import sidebar from "page/member/sidebar/sidebar.vue"
+    import cFootServer from "components/foot/foot-svr.vue"
 
 	export default {
         name: "member",
@@ -39,6 +42,7 @@
         // 在当前模块注册组件
         components:{
             sidebar,
+            cFootServer,
         },
 	}
 </script>
