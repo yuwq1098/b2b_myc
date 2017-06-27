@@ -9,35 +9,39 @@
                 <div class="m-form-wrap">
                     <g-form>
                         <g-form-item
-                            placeholder="请输入当前密码"
                             :errorText="errors.first('pass')"
                             :errorShow="errors.has('pass')"
-                            inputType="password"
-                            title="当前密码"
-                            ref="pass"
-                            @inputChangeEnd="passEnd"
+                            title="原密码"
                             >
+                            <input placeholder="请输入原密码"
+                                class="u-ipt" 
+                                v-model="pass"
+                                type="password" 
+                                />
                         </g-form-item>
                         <g-form-item
-                            placeholder="请输入新密码"
                             :errorText="errors.first('newPass')"
                             :errorShow="errors.has('newPass')"
-                            inputType="password"
-                            @inputChangeEnd="newPassEnd"
-                            inputName="newPass"
                             title="新密码"
-                            ref="newPass"
                             >
+                            <input placeholder="请输入新密码"
+                                class="u-ipt"
+                                v-model="newPass"
+                                name="newPass"
+                                type="password" 
+                                />
                         </g-form-item>
                         <g-form-item
-                            placeholder="请输入确认密码"
                             :errorText="errors.first('checkPass')"
                             :errorShow="errors.has('checkPass')"
-                            inputType="password"
-                            @inputChangeEnd="checkPassEnd"
                             title="确认密码"
-                            ref="checkPass"
                             >
+                            <input placeholder="请输入确认密码"
+                                class="u-ipt"
+                                v-model="checkPass"
+                                name="checkPass"
+                                type="password" 
+                                />
                         </g-form-item>
 
                         <div slot="btnBox">
@@ -132,21 +136,21 @@
         deactivated(){
             this.errors.clear();
         },
+        //数据侦听
+        watch:{
+            pass(val){
+                this.validator.validate('pass',val);
+            },
+            newPass(val){
+                this.validator.validate('newPass',val);
+            },
+            checkPass(val){
+                this.validator.validate('checkPass',val);
+            },
+        },
         // 自定义函数(方法)
         methods: {
             ...mapActions(['setSignOut']),
-            passEnd(val){
-                this.pass = val;
-                this.validator.validate('pass',val);
-            },
-            newPassEnd(val){
-                this.newPass = val;
-                this.validator.validate('newPass',val);
-            },
-            checkPassEnd(val){
-                this.checkPass = val;
-                this.validator.validate('checkPass',val);
-            },
             // 提交修改
             onSubmit(){
                 let me = this;
@@ -169,8 +173,7 @@
             },
             // 提交修改
             putCommit(data){
-                // 清空输入框
-                this.reset();
+                
                 api.editPassword(data).then((res)=>{
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.$notify({
@@ -183,24 +186,21 @@
                         //调用vuex的注销方法
                         this.setSignOut();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        // 清空输入框
+                        // this.reset();
                         this.errors.add('pass', res.msg, 'auth');
                     }
                 });
             },
             // 重置（清空）
             reset(){
-
-                $(this.$refs.pass.$el).find("input").val("来回切换");
-                $(this.$refs.newPass.$el).find("input").val("来回切换");
-                $(this.$refs.checkPass.$el).find("input").val("来回切换");
-                $(this.$refs.pass.$el).find("input").val("");
-                $(this.$refs.newPass.$el).find("input").val("");
-                $(this.$refs.checkPass.$el).find("input").val("");
-                setTimeout(()=>{
-                    console.dir(this.errors);
-                    
+                this.pass = "";
+                this.newPass = "";
+                this.checkPass = "";
+                // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
+                setTimeout(() => {
+                    this.errors.clear();
                 })
-                // $(this.$refs.checkPass.$el).find("input").val("");
                 
             },
             // 更新验证码

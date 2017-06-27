@@ -13,7 +13,28 @@
             <div class="item-inner">
                 <span class="tit">{{title}}</span>
                 <div class="info">
-                    <slot></slot>
+                    
+                    <!-- input的type类型不可以动态指定 -->
+                    <input 
+                        class="u-ipt" 
+                        type="password"
+                        :placeholder="placeholder"
+                        v-model="inputVal"
+                        v-if="inputType=='password'"
+                        :name="inputName"
+                        :readonly="readonly"
+                        :disabled="readonly"
+                        />
+
+                    <input 
+                        class="u-ipt" 
+                        :placeholder="placeholder"
+                        v-model="inputVal"
+                        v-if="inputType!='password'"
+                        :name="inputName"
+                        :readonly="readonly"
+                        :disabled="readonly"
+                        />
                 </div>
             </div>
         </div>
@@ -35,6 +56,11 @@
             }
         },
         props:{
+            // 输入框提示
+            placeholder:{
+                type: String,
+                default: '请输入'
+            },
             // 错误提示文本
             errorText:{
                 type: String,
@@ -50,13 +76,31 @@
                 type: String,
                 default: '这是一个标题'
             },
+            // 输入框类型
+            inputType:{
+                type: String,
+                default: 'text'
+            },
+            // input的name
+            inputName:String,
+            // 输入款只读
+            readonly:{
+                type: Boolean,
+                default: false  
+            },
+            clear:{
+                type: Boolean,
+                default: false  
+            }
         },
         watch:{
-            
+            inputVal(val){
+                this.$emit("inputChangeEnd",this.inputVal)
+            }
         },
         //退出的生命周期钩子
         deactivated(){
-
+            this.inputVal = "";
         },
         // 自定义函数(方法)
         methods: {
