@@ -13,7 +13,7 @@
                             <div class="m-bar-box f__clearfix">
                                 <span class="u-tit">密码修改</span>
                                 <div class="u-data">较安全</div>
-                                <p class="u-tips">密码长度为8-30个字符，建议由数字、字母、符号组成，不宜与注册手机号相同</p><!-- 说明 -->
+                                <p class="u-tips">密码长度为6-22个字符，建议由数字、字母、符号组成，不宜与注册手机号相同</p><!-- 说明 -->
                                 <router-link 
                                     :to="{path:'/member/safetyPass'}"
                                     class="u-lk"

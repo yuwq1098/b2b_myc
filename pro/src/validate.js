@@ -94,7 +94,8 @@ const dictionary = {
             required:(field)=> "请输入"+field,
             decimal:(field,params)=> '请输入'+params+'位小数以内的数字',
             between:(field,params) => '请输入'+params[0]+'~'+params[1]+'之间的值',
-            min:(field,params) => '请最少输入'+params+'字的内容',
+            min:(field,params) => '请最少输入'+params+'个字符',
+            max:(field,params) => '最多允许输入'+params+'个字符',
             alpha_dash:(field,params) => '只能输入数字和字母'
         },
         // 用户自定义匹配提示(简单说就是不想用默认的)
@@ -163,7 +164,15 @@ const dictionary = {
             },
             photo:{
                 between:() => '请最少上传2张车辆图片'
-            }
+            },
+            pass:{
+                min:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+                max:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+            },
+            newPass:{
+                min:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+                max:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+            },
         },
         attributes:{
             email:'邮箱',
@@ -171,7 +180,10 @@ const dictionary = {
             name:'name',
             desc: '车主留言',
             fixedPrice: "一口价",
-            retailPrice: '零售价'
+            retailPrice: '零售价',
+            pass: '密码',
+            newPass: '新密码',
+            checkPass: '确认密码',
         }
     }
 };

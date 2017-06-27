@@ -13,7 +13,32 @@
             <div class="item-inner">
                 <span class="tit">{{title}}</span>
                 <div class="info">
-                    <input class="u-ipt" :type="inputType" :placeholder="placeholder" />
+                    
+                    <!-- input的type类型不可以动态指定 -->
+                    <input 
+                        class="u-ipt" 
+                        type="password"
+                        :placeholder="placeholder"
+                        v-model="inputVal"
+                        @input="inputChangeEnd"
+                        @blur="inputChangeEnd"
+                        v-if="inputType=='password'"
+                        :name="inputName"
+                        :readonly="readonly"
+                        :disabled="readonly"
+                        />
+
+                    <input 
+                        class="u-ipt" 
+                        :placeholder="placeholder"
+                        v-model="inputVal"
+                        @input="inputChangeEnd"
+                        @blur="inputChangeEnd"
+                        v-if="inputType!='password'"
+                        :name="inputName"
+                        :readonly="readonly"
+                        :disabled="readonly"
+                        />
                 </div>
             </div>
         </div>
@@ -31,7 +56,7 @@
         // 数据
         data() {
             return{
-                
+                inputVal: "",
             }
         },
         props:{
@@ -59,11 +84,20 @@
             inputType:{
                 type: String,
                 default: 'text'
+            },
+            // input的name
+            inputName:String,
+            // 输入款只读
+            readonly:{
+                type: Boolean,
+                default: false  
             }
         },
         // 自定义函数(方法)
         methods: {
-            
+            inputChangeEnd(){
+                this.$emit("inputChangeEnd",this.inputVal)
+            }
         },    
     }
 </script>
@@ -117,5 +151,7 @@
                     _borderRadius(1px)
                     padding 0 15px
                     _borderAll(#e2e2e2)
+                    &:disabled
+                        background #f0f2f4
 
 </style>
