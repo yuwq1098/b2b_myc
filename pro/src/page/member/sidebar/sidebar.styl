@@ -88,6 +88,19 @@
                             _display()
                             width 100%
                             height 100%
+                            position relative
+                            &:hover
+                                color #4AA2CA
+                            &.router-link-active
+                                color #4AA2CA
+                                &:before
+                                    content ""
+                                    _display()
+                                    width 4px
+                                    height 4px
+                                    _borderRadius()
+                                    background #4AA2CA
+                                    _completeCenter(-9px,auto,1px)
                         &:hover
                             background #4E565A
                             color #4AA2CA

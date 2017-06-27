@@ -1,14 +1,14 @@
 <template>
-    <div class="collectCar">
+    <div class="merchantCollect">
 
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="车商收藏"
+            title="车行收藏"
             >
             <div slot="content">
-                车商收藏内容
+                车行收藏内容
 
-            </div><!-- 我的收藏内容 -->
+            </div><!-- 车行收藏内容 -->
         </member-layout>
         
     </div>
@@ -21,7 +21,7 @@
 
     export default {
 
-        name: "collectCar",
+        name: "merchantCollect",
         // 在当前模块注册组件
         components: {
             memberLayout,

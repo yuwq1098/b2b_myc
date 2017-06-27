@@ -79,7 +79,7 @@ export const sidebarMenu = [
         'icon': 'icon-shezhi',
         'children': [
             {
-            	'title': '完善个人资料',
+            	'title': '个人资料设置',
 	        	'hash': '/member/personal',
             },
             {

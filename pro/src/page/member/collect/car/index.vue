@@ -1,5 +1,6 @@
 <template>
 	<div class="carCollect">
+    
 	    <!-- 会员中心内容布局组件 -->
         <member-layout
             title="车辆收藏"

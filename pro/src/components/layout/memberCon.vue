@@ -57,14 +57,14 @@
                 font-size 18px
                 font-weight bold
                 _spacingPlus(3px)
-                padding 0 15px
+                padding 0 18px
                 position relative
                 &:before
                     _display()
                     content ""
                     height 3px
                     background $c_blue
-                    _completeCenter(0,-5px,auto,-2px)
+                    _completeCenter(0,-4px,auto,-2px)
 
         .m-member-con
             width @width - 2px
