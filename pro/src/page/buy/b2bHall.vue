@@ -301,11 +301,6 @@
                                     car-to-path="/b2bCar"
                                     >
                                 </b2b-car-listbox>
-                                
-                                <!-- 分页数据 -->
-                                <!-- <p>{{resultPage.currentPage}}</p>
-                                <p>{{resultPage.pageSize}}</p>
-                                <p>{{resultPage.totalPage}}</p> -->
 
                                 <div class="m-page" v-show="resultPage.totalPage>0">
                                     <el-pagination
@@ -857,13 +852,14 @@
                             break;
                     }
                 }
+                // 当搜索条件发生变化时，页号变为1
+                this.searchFilterList.PageIndex = 1;
                 // 重新渲染页面
                 this.carListResultRender();
             },
 
             //根据传入的对应值，删除对应的 用户搜索记录，然后重新渲染
             clearFilterDataTheOne(key){
-                console.log("我在删除",key);
                 this.userFilterData[key] = '';
                 this.searchFilterList[key] = '';
                 let dataObj = this.userFilterData;
@@ -914,7 +910,6 @@
                             break;
                     }
                 }
-                console.log("删除结束后",dataToJson(this.searchFilterList))
 
                 // 重新渲染页面
                 this.carListResultRender();
@@ -959,24 +954,20 @@
             
             // 根据筛选数据渲染页面
             renderByData(data){
-                console.log("我在渲染页面",dataToJson(data));
                 this.resultPage.currentPage = parseInt(data.PageIndex);
                 this.resultPage.pageSize = parseInt(RESULE_PAGE_SIZE);
 
                 //获取数据并设置分页条数
                 this._getB2bCarList(data);
 
-                // this.resultPage.totalPage = data.;
             },
 
             //获取B2B大厅车辆列表
             _getB2bCarList(data){
                 let me = this;
                 api.getB2BCarList(data).then((res) => {
-
                     this.b2bCarList = this._normalizeB2bCarInfo(res.data)
-                    console.log("最后fuck的数据",dataToJson(res.data))
-                    me.resultPage.totalPage = parseInt(res.data.length);
+                    me.resultPage.totalPage = parseInt(res.total);
                 });
             },
 
