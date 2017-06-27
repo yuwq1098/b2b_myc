@@ -94,9 +94,14 @@
 
 <script>
     
-    import api from "api/getData.js"
-    import { mapActions } from 'vuex'
+    
+    
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
     import * as SYSTEM from 'api/system.js'
+    // vuex状态管理
+    import { mapActions } from 'vuex'
 
     export default {
     	name: 'signIn',

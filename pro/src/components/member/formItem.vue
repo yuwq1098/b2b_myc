@@ -20,8 +20,6 @@
                         type="password"
                         :placeholder="placeholder"
                         v-model="inputVal"
-                        @input="inputChangeEnd"
-                        @blur="inputChangeEnd"
                         v-if="inputType=='password'"
                         :name="inputName"
                         :readonly="readonly"
@@ -32,8 +30,6 @@
                         class="u-ipt" 
                         :placeholder="placeholder"
                         v-model="inputVal"
-                        @input="inputChangeEnd"
-                        @blur="inputChangeEnd"
                         v-if="inputType!='password'"
                         :name="inputName"
                         :readonly="readonly"
@@ -91,13 +87,26 @@
             readonly:{
                 type: Boolean,
                 default: false  
+            },
+            clear:{
+                type: Boolean,
+                default: false  
             }
+        },
+        watch:{
+            inputVal(val){
+                this.$emit("inputChangeEnd",this.inputVal)
+            }
+        },
+        //退出的生命周期钩子
+        deactivated(){
+            this.inputVal = "";
         },
         // 自定义函数(方法)
         methods: {
-            inputChangeEnd(){
-                this.$emit("inputChangeEnd",this.inputVal)
-            }
+            // inputChangeEnd(){
+            //     this.$emit("inputChangeEnd",this.inputVal)
+            // }
         },    
     }
 </script>

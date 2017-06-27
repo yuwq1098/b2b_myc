@@ -107,14 +107,7 @@ export default {
         return fetch('/action2/UserLogin.ashx', qs.stringify(params))
     },
 
-    //获取验证码
-    getImgRandomCode(){
-        let timestamp = (+new Date()).valueOf();
-        let data = {
-            a: timestamp
-        }
-        return get('/action2/ImgRandomCode.ashx', data)
-    },
+
 
     //上传隐私类图片
     uploadImg(params){
@@ -210,6 +203,74 @@ export default {
         return get('/action2/AllCarColor.ashx')
     },
 
+    /*
+     * 验证注册类
+     */
+
+    // 获取图形验证码
+    getImgRandomCode(){
+        let timestamp = (+new Date()).valueOf();
+        let url = '/action2/ImgRandomCode.ashx'+'?FS=18&a='+timestamp;
+        return get(url)
+    },
+
+    // 获取手机验证码(语音或者短信)
+    getSMSCode(params){
+        return fetchSign('/action2/GetSMSCode.ashx',dataToJson(params));
+    },
+
+    // 验证手机号是否重复
+    checkMobileCanReg(params){
+        return fetchSign('/action2/CheckMobileCanReg.ashx',dataToJson(params));
+    },
+
+    // 注册
+    register(params){
+        return fetchSign('/action2/RegUser.ashx',dataToJson(params));
+    },
+
+
+    /*
+     * 个人中心
+     */
+    
+    // 修改个人信息
+    editMemberInfo(params){
+        return fetchSign('/action2/MemberInfoEdit.ashx',dataToJson(params));
+    },
+
+    // 银行卡管理
+    manageBankCard(params){
+        return fetchSign('/action2/BankCardMng.ashx',dataToJson(params));
+    },
+
+    // 修改密码
+    editPassword(params){
+        return fetchSign('/action2/EditPassword.ashx',dataToJson(params));
+    },
+
+    
+
+    /*
+     * 收藏夹
+     */
+
+
+    /*
+     * 认证类
+     */
+
+
+    /*
+     * 支付、交易、金额类
+     */
+
+
+    /*
+     * B2B核心业务
+     */
+
+
     //支付信誉保证金
     payB2BCreditPoint(params){
         return fetchSign('/action2/payB2BCreditPoint.ashx',dataToJson(params));
@@ -278,7 +339,17 @@ export default {
     // 获取当前大厅最后几次推送的消息
     lastHallCarList(params){
         return fetchSign('/action2/LastHallCarList.ashx', dataToJson(params))
-    }
+    },
+
+    /*
+     * 首页相关
+     */
+
+    // 猜你喜欢
+    getGuessYouLike(){
+        return get('/action2/GuessYouLike.ashx')
+    },
+
 
 
 }

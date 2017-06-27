@@ -14,6 +14,7 @@
                             :errorShow="errors.has('pass')"
                             inputType="password"
                             title="当前密码"
+                            ref="pass"
                             @inputChangeEnd="passEnd"
                             >
                         </g-form-item>
@@ -25,7 +26,7 @@
                             @inputChangeEnd="newPassEnd"
                             inputName="newPass"
                             title="新密码"
-                            :readonly="errors.has('pass')"
+                            ref="newPass"
                             >
                         </g-form-item>
                         <g-form-item
@@ -35,7 +36,7 @@
                             inputType="password"
                             @inputChangeEnd="checkPassEnd"
                             title="确认密码"
-                            :readonly="errors.has('pass')||errors.has('newPass')"
+                            ref="checkPass"
                             >
                         </g-form-item>
 
@@ -48,6 +49,10 @@
                             </a>
                         </div>
                     </g-form>
+                   <!--  <div class="codeImg">
+                        <img @click="changeCode" :src="'http://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+timestamp" />
+                    </div> --><!-- 图形验证码 -->
+                    
                 </div>
             </div>
         </member-layout>
@@ -58,6 +63,14 @@
 
 <script>
     
+    import $ from "jquery"
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
+    // vuex状态管理
+    import {mapActions} from 'vuex'
+
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
 
@@ -87,14 +100,18 @@
                 pass: "",
                 newPass: "",
                 checkPass: "",
-
+                form:{
+                    pass: "",
+                },
+                codeUrl: "",
+                timestamp: (+new Date()).valueOf(),
                 // 表单验证报错集合
                 errors: null,
             }
         },
         //生命周期,开始的时候
         created(){
-            // console.log("走了这吗")
+            
             this.validator = new Validator({
                 pass: 'required|alpha_dash|min:6|max:22',
                 newPass: 'required|alpha_dash|min:6|max:22',
@@ -102,13 +119,22 @@
             });
             this.$set(this, 'errors', this.validator.errorBag);
             this.validator.validate('pass', this.pass).then((res) => {});
-
+            
         },
         mounted(){
-            
+
+        },
+        activated(){
+            this.errors.clear();
+            this.validator.validate('pass', this.pass).then((res) => {});
+        },
+        //退出的生命周期钩子
+        deactivated(){
+            this.errors.clear();
         },
         // 自定义函数(方法)
         methods: {
+            ...mapActions(['setSignOut']),
             passEnd(val){
                 this.pass = val;
                 this.validator.validate('pass',val);
@@ -123,23 +149,64 @@
             },
             // 提交修改
             onSubmit(){
+                let me = this;
                 this.validator.validateAll({
                     pass: this.pass,
                     newPass: this.newPass,
                     checkPass: this.checkPass
                 }).then(() => {
-
-                    this.errors.add('pass', '这不是您的当前密码', 'auth');
+                     
+                    // 密码修改的数据
+                    let data = {
+                        OldPwd: me.pass,
+                        NewPwd: me.checkPass
+                    }
+                    me.putCommit(data);
+                    
                 }).catch(error => {
-                    console.log("挺蛋疼吧")
+                    console.log(error);
+                });
+            },
+            // 提交修改
+            putCommit(data){
+                // 清空输入框
+                this.reset();
+                api.editPassword(data).then((res)=>{
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '密码修改成功',
+                            message: '请重新登录！',
+                            type: 'success',
+                            duration: 1500,
+                        });
+                        this.$router.push({ path: '/'})
+                        //调用vuex的注销方法
+                        this.setSignOut();
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.errors.add('pass', res.msg, 'auth');
+                    }
                 });
             },
             // 重置（清空）
             reset(){
-                this.pass = "";
-                this.newPass = "";
-                this.checkPass = "";
-                this.errors.clear();
+
+                $(this.$refs.pass.$el).find("input").val("来回切换");
+                $(this.$refs.newPass.$el).find("input").val("来回切换");
+                $(this.$refs.checkPass.$el).find("input").val("来回切换");
+                $(this.$refs.pass.$el).find("input").val("");
+                $(this.$refs.newPass.$el).find("input").val("");
+                $(this.$refs.checkPass.$el).find("input").val("");
+                setTimeout(()=>{
+                    console.dir(this.errors);
+                    
+                })
+                // $(this.$refs.checkPass.$el).find("input").val("");
+                
+            },
+            // 更新验证码
+            changeCode(){
+                this.timestamp = (+new Date()).valueOf();
+
             }
         },    
     }
