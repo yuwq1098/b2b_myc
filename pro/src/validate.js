@@ -173,8 +173,13 @@ const dictionary = {
                 min:()=> '密码由6-22位数字与字母组成,暂不支持符号',
                 max:()=> '密码由6-22位数字与字母组成,暂不支持符号',
             },
+            smsCode:{
+                min:(field)=> field+'由4位数字组成',
+                max:(field)=> field+'由4位数字组成',
+            }
         },
         attributes:{
+            tel: '手机号码',
             email:'邮箱',
             password:'密码',
             name:'name',
@@ -184,6 +189,7 @@ const dictionary = {
             pass: '密码',
             newPass: '新密码',
             checkPass: '确认密码',
+            smsCode: '短信验证码'
         }
     }
 };
@@ -193,7 +199,7 @@ const dictionary = {
 */
 Validator.extend('mobile', {
     messages: {
-        zh_CN:(field, args) => field + '必须是11位手机号码',
+        zh_CN:(field, args) => field + '必须是11位',
     },
     validate: (value, args) => {
        return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)

@@ -39,7 +39,7 @@
                     </div> -->
                 	<div class="m-gp-line">
                 	    <div class="u-ipt-box">
-                		    <input class="u-ipt" v-model="lgForm.password" auto-complete="off" name="password" type="password" placeholder="6-10位数字、字母、符号的组合" />
+                		    <input class="u-ipt" v-model="lgForm.password" auto-complete="off" name="password" type="password" placeholder="由6~22位数字、字母的组合" />
                 		    <!-- <div class="u-ico">
                 		    	<i class="iconfont icon-mimaffffffpx"></i>锁
                 		    </div> -->

@@ -107,7 +107,6 @@
                 form:{
                     pass: "",
                 },
-                codeUrl: "",
                 timestamp: (+new Date()).valueOf(),
                 // 表单验证报错集合
                 errors: null,
@@ -189,6 +188,7 @@
                         // 清空输入框
                         // this.reset();
                         this.errors.add('pass', res.msg, 'auth');
+
                     }
                 });
             },
@@ -214,6 +214,9 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import 'index.styl'
-
+    .m-form-wrap
+        width 450px
+        margin 0 auto 40px
+        .user-form
+            width @width
 </style>

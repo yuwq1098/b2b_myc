@@ -14,6 +14,9 @@
                 <span class="tit">{{title}}</span>
                 <div class="info">
                     <slot></slot>
+                    <div class="smsCode">
+                        <slot name="code"></slot>    
+                    </div><!-- 手机验证码 -->
                 </div>
             </div>
         </div>
@@ -52,7 +55,7 @@
             },
         },
         watch:{
-            
+
         },
         //退出的生命周期钩子
         deactivated(){
@@ -60,9 +63,7 @@
         },
         // 自定义函数(方法)
         methods: {
-            // inputChangeEnd(){
-            //     this.$emit("inputChangeEnd",this.inputVal)
-            // }
+
         },    
     }
 </script>
@@ -110,6 +111,7 @@
                 width @width - 135px
                 height @height
                 margin-left 135px
+                position relative
                 .u-ipt
                     width @width
                     height @height
@@ -118,5 +120,29 @@
                     _borderAll(#e2e2e2)
                     &:disabled
                         background #f0f2f4
+                .smsCode
+                    width @width
+                    height @height
+                    .code-ipt
+                        width @width * 0.6 - 8px
+                        height @height 
+                        _borderRadius(1px)
+                        padding 0 15px
+                        _borderAll(#e2e2e2)
+                        &:disabled
+                            background #f0f2f4
+                    .code-btn
+                        _display()
+                        width @width * 0.4 - 6px
+                        text-align center
+                        height @height
+                        line-height @height
+                        background #2F98E2
+                        color #f0f0f0
+                        _borderRadius(2px)
+                        _spacingPlus(2px)
+                        _completeCenter(auto,0)
+                        &:hover
+                            background @background + 12%
 
 </style>
