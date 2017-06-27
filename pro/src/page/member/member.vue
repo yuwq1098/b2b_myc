@@ -56,7 +56,7 @@
                 margin 40px 0 40px
                 .m-bd-mn
                     width 980px
-                    min-height 480px
+                    min-height 600px
                     &.fade-enter-active,&.fade-enter-active
                         _transitionAll(2s)
                     &.fade-enter

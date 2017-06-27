@@ -6,7 +6,13 @@
             title="安全中心"
             >
             <div slot="content">
-                安全中心
+
+                <div class="m-safety-con">
+                    <transition name="fade" mode="out-in">
+                        <router-view></router-view>
+                    </transition>
+                </div>
+
             </div><!-- 安全中心内容 -->
         </member-layout>
         
@@ -40,5 +46,6 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import 'index.styl'
+    .m-safety-con
+        margin 60px 40px 40px
 </style>

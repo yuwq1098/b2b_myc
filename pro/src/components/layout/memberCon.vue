@@ -51,7 +51,6 @@
             height 54px
             line-height 52px
             background #DFE4E6
-            
             .tit
                 _display(inline-block)
                 font-size 18px
@@ -70,6 +69,6 @@
             width @width - 2px
             _borderAll(#E7EaEd)
             margin-top 15px
-            min-height 400px
+            min-height 550px
             background #fff
 </style>
