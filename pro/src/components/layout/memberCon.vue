@@ -6,8 +6,14 @@
             </div>
             <div class="m-member-con">
                 <slot name="content">
-                    页面内容
+                    <!-- 页面内容 -->
                 </slot>
+                <div class="m-safety-con">
+                    <slot name="safety">
+                        <!-- 安全中心页面内容 -->
+                    </slot>
+                </div>
+                
             </div>
         </div>
 	</div>
@@ -71,4 +77,6 @@
             margin-top 15px
             min-height 550px
             background #fff
+            .m-safety-con
+                margin 60px 40px 40px
 </style>

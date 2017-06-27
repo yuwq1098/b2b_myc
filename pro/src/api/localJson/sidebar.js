@@ -84,7 +84,7 @@ export const sidebarMenu = [
             },
             {
             	'title': '安全中心',
-	        	'hash': '/member/safety',
+	        	'hash': '/member/safetyCenter',
             },
         ]
     },

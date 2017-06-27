@@ -59,10 +59,8 @@ const merchantCollect = r => require.ensure([], () => r(require('page/member/col
 const personalSetting = r => require.ensure([], () => r(require('page/member/setting/personal')), 'personalSetting')
 
 
-// 账户设置 => 安全中心
-const safetySetting = r => require.ensure([], () => r(require('page/member/setting/safety')), 'safetySetting')
 // 账户设置 => 安全中心 => 内容主页
-const safetyCenter = r => require.ensure([], () => r(require('page/member/setting/safety/center')), 'safetyCenter')
+const safetyCenter = r => require.ensure([], () => r(require('page/member/setting/safety')), 'safetyCenter')
 // 账户设置 => 安全中心 => 密码修改
 const safetyPass = r => require.ensure([], () => r(require('page/member/setting/safety/password')), 'safetyPass')
 // 账户设置 => 安全中心 => 忘记密码
@@ -239,49 +237,49 @@ export default[{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
                 },
+                // // 安全中心
+                //     path: 'safety',
+                //     component: safetySetting,
+                //     redirect: 'safety/center',
+                //     meta:{
+                //         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                //     },
+                //     children: [
+                        
+                //     ]
+                // },
                 {
-                // 安全中心
-                    path: 'safety',
-                    component: safetySetting,
-                    redirect: 'safety/center',
+                // 中心内容
+                    path: 'safetyCenter',
+                    component: safetyCenter,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
-                    children: [
-                        {
-                        // 中心内容
-                            path: 'center',
-                            component: safetyCenter,
-                            meta:{
-                                requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
-                            },
-                        },
-                        {
-                        // 密码修改
-                            path: 'pass',
-                            component: safetyPass,
-                            meta:{
-                                requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
-                            },
-                        },
-                        {
-                        // 找回密码
-                            path: 'forget',
-                            component: safetyForget,
-                            meta:{
-                                requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
-                            },
-                        },
-                        {
-                        // 手机号绑定修改
-                            path: 'tel',
-                            component: safetyTel,
-                            meta:{
-                                requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
-                            },
-                        },
-                    ]
-                }
+                },
+                {
+                // 密码修改
+                    path: 'safetyPass',
+                    component: safetyPass,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 找回密码
+                    path: 'safetyForget',
+                    component: safetyForget,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 手机号绑定修改
+                    path: 'safetyTel',
+                    component: safetyTel,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
             ]
         }
     ],

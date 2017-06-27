@@ -1,18 +1,29 @@
 <template>
     <div class="safetyTel">
-        手机号绑定修改
+
+        <!-- 会员中心内容布局组件 -->
+        <member-layout
+            title="安全中心"
+            >
+            <div slot="safety">
+                忘记密码
+            </div>
+        </member-layout>
+
     </div>
 </template>
 
 <script>
 
+    // 会员中心内容布局组件
+    import memberLayout from 'components/layout/memberCon.vue' 
 
     export default {
         
         name: "safetyTel",
         // 在当前模块注册组件
         components:{
-
+            memberLayout,
         },
         // 数据
         data() {
