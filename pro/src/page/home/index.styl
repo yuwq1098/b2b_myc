@@ -53,6 +53,7 @@
 
             // b2b服务
             .m-b2c-svr
+                _display(none)
                 margin-bottom 25px
                 .m-svr-lst
                     padding 0 40px
@@ -63,12 +64,20 @@
                             _display()
                         &.lastItem
                             margin-right 0
+            // 平台特色服务
+            .m-svr-box
+                width 100%
+                min-height 50px
+                background #fff
+                _boxShadow(8px,rgba(0,0,0,.05))
+                margin-bottom 25px
 
             //进入B2B大厅
             .m-b2b-entrance
                 // background url('../../assets/img/b2b-entrance-bg.jpg') 0 0 no-repeat
                 // background-size 100% auto
                 background #fff
+                _boxShadow(8px,rgba(0,0,0,.05))
                 .m-etc-bg
                     height 360px
                     position relative
@@ -109,17 +118,23 @@
                         background url('../../assets/img/b2b-entrance-img01.png') 0 0 no-repeat
                         background-size 100% auto
                         _completeCenter(auto,60px)
-
+            
+            // 公告条
+            .m-notice-bar-warp
+                margin 25px 0
+            
+            // b2c车辆盒子
             .m-lst-group
                 max-height 750px
                 .m-lst-hd
                     height 60px
                     line-height 60px
                     background #fff
-                    _boxShadow(12px,rgba(0,0,0,.15))
+                    _boxShadow(8px,rgba(0,0,0,.05))
                     h3
                         .u-tit
                             font-size 24px
+                            _spacingPlus()
                             font-weight bold
                             margin 0 0 0 15px
                         .u-sep

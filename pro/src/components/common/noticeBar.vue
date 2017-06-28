@@ -1,7 +1,7 @@
 <template>
 	<div class="noticeBar">
 	    <div class="m-notice-bar">
-            <div class="m-tit">今日成交：</div><!-- 标题 -->
+            <div class="m-tit">今日成交</div><!-- 标题 -->
             <div class="m-notice-info">
                 <ul class="u-notice-lst f__clearfix" ref="noticeList">
                     <li class="u-notice-item" v-for="item in noticeList">{{item.title}}</li>
@@ -55,32 +55,34 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
     .m-notice-bar
-        width 1200px
-        margin 20px 0
-        height 48px
-        line-height 48px
+        width 1200px - 30px
+        background #fff
+        _boxShadow(8px,rgba(0,0,0,.05))
+        padding 0 15px
+        height 60px
+        line-height 60px
         overflow hidden
         position relative
         .m-tit
-            width 130px
-            height 48px
+            width 110px
+            height 60px
             font-size 24px
-            color $c_blue
             font-weight bold
+            color $c_blue
             _spacingPlus()
-            _completeCenter(0,auto)
+            _completeCenter(15px,auto)
         .m-notice-info
-            width @width - 138px
-            margin-left 138px
+            width @width - 120px
+            margin-left 120px
             overflow hidden
             .u-notice-lst
                 width 500%
-                height 48px
+                height 60px
                 overflow hidden
                 .u-notice-item
                     float left
                     margin-right 72px
                     font-size 14px
-                    color #545454
+                    color #ff6533
 
 </style>

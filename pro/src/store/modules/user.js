@@ -45,18 +45,14 @@ const actions = {
      * 请求用户信息
      */
     getUserData({ commit }, params) {
-        console.log(params);
         api.getMyMemberInfo(params.data)
             .then(res => {
                 if(params.callBack){
                     params.callBack(res.code)
                 }
-                console.log("发送了请求",res.data)
-                commit(types.GET_USER_DATA, res.data)
-                // if(res.code==SYSTEM.CODE_IS_OK){
-                //     console.log("发送了请求",res.data)
-                //     commit(types.GET_USER_DATA, res.data)
-                // }
+                if(res.code==SYSTEM.CODE_IS_OK){
+                    commit(types.GET_USER_DATA, res.data)
+                }
             })
     }
 }

@@ -192,9 +192,8 @@
     .m-category
         background #fff
         height 284px
-        _border(#f0f0f0,2px)
-        _boxShadow(12px,rgba(0,0,0,.15))
-        margin-bottom 30px
+        _boxShadow(8px,rgba(0,0,0,.05))
+        margin-bottom 25px
         & .u-hd
             height 62px
             line-height 62px

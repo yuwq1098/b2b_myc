@@ -53,6 +53,10 @@
                                 </li>
                             </ul>
                         </div><!-- 付费服务 -->
+
+                        <div class="m-svr-box">
+                            <server-box></server-box>
+                        </div><!-- 平台特色服务 -->
                     </div>
 
                     <div class="m-b2b-entrance">
@@ -67,11 +71,12 @@
                     </div><!-- B2B专区大厅入口 -->
 
                     <div class="f__w1200">
+
                         <div class="m-notice-bar-warp">
-                            <notice-info-bar
+                            <notice-bar
                                 :noticeList="noticeBarList" 
                                 >
-                            </notice-info-bar><!-- 公告条 -->
+                            </notice-bar><!-- 公告条 -->
                         </div><!-- 今日成交公告条 -->
 
                         <div class="m-lst-group">
@@ -125,7 +130,10 @@
     import srhSelect from "components/common/srhSelect.vue"
     import carListBox from "components/boxLayout/carListBox.vue"
     import brandSelect from "components/brandSel/brandSelect.vue"
+    // 公告条
     import noticeBar from "components/common/noticeBar.vue"
+    // 平台特色服务
+    import serverBox from "components/common/serverBox.vue"
     
     //搜索延迟,300ms
     const SEARCH_DELAY = 500
@@ -140,7 +148,8 @@
             carListBox,
             brandSelect,
             srhSelect,
-            noticeInfoBar: noticeBar,
+            noticeBar,
+            serverBox,
         },
         data () {
             return {

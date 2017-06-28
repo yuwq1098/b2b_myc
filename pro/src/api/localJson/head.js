@@ -21,3 +21,30 @@ export const navItemList = [
         path: "/partner"
     }*/
 ]
+
+export const memberDropdown = [
+    {
+        title: "会员中心",
+        path: "/member"
+    },
+    {
+        title: "车源管理",
+        path: "/member/sourceHome"
+    },
+    {
+        title: "我的钱包",
+        path: "/member/wallet"
+    },
+    {
+        title: "买车订单",
+        path: "/member/buyOrder"
+    },
+    {
+        title: "我的购物车",
+        path: "/member/shopCart"
+    },
+    {
+        title: "个人设置",
+        path: "/member/personal"
+    },
+]

@@ -38,12 +38,11 @@
                                             {{memberInfo.name}}
                                         </span>
                                         <el-dropdown-menu slot="dropdown" class="member-dropdown">
-                                            <el-dropdown-item>
-                                                <router-link :to="{path:'/member'}" class="u-lk" tag="a">会员中心</router-link>
-                                            </el-dropdown-item>
-                                            <el-dropdown-item>车行认证</el-dropdown-item>
-                                            <el-dropdown-item>我的收藏</el-dropdown-item>
-                                            <el-dropdown-item>个人设置</el-dropdown-item>
+                                            <template v-for="item in memberDropdown">
+                                                <el-dropdown-item>
+                                                    <router-link :to="item.path" class="u-lk" tag="a">{{item.title}}</router-link>
+                                                </el-dropdown-item>
+                                            </template>
                                             <el-dropdown-item divided>
                                                 <a href="javascript:;" @click="_signOut" class="u-lk">注销</a>
                                             </el-dropdown-item>
@@ -98,8 +97,9 @@
     // 城市选择组件
     import cityChoose from "components/citySel/citySel.vue"
     import {mapGetters,mapActions} from 'vuex'
-    import {navItemList} from 'api/localJson/head.js'
+    import {navItemList,memberDropdown} from 'api/localJson/head.js'
     import {headMember} from 'base/class/member.js'
+
     
     export default {
     	name: 'c-header',
@@ -115,12 +115,17 @@
                 isCityChooseShow: false,   //城市选择框是否显示
                 memberInfo: {},            //用户信息
                 navItemList: navItemList,  
+                memberDropdown: memberDropdown,   // 下拉扩展
 
     		}
     	},
         created () {
             //reverse 方法颠倒数组中元素的位置，并返回该数组的引用。
-            this.navItemList.reverse();
+            if(this.navItemList[0].pathName=="首页"){
+                // 如果第一个是首页
+                this.navItemList.reverse();
+            }
+            
         },
         mounted(){
 
