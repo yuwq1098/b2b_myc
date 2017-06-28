@@ -286,6 +286,7 @@
             // 提交修改
             putCommit(data){
                 api.forgotPassword(data).then((res)=>{
+                    this.closeBox();
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.$notify({
                             title: '密码找回成功',
@@ -294,8 +295,6 @@
                             duration: 1500,
                         });
                         this.$router.push({ path: '/'})
-                        //调用vuex的注销方法
-                        this.setSignOut();
                         this.reset();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.errors.remove('newPass');
@@ -316,14 +315,12 @@
                 
             },
 
-
-
-    		//关闭登录框
+    		//关闭忘记密码框
     		closeBox(){
     			this.$emit('closeForgetPwd');
     		},
 
-            //立即去注册
+            //立即去登录
             goLogin(){
                 this.$emit('openSignIn');
             },
