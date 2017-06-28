@@ -12,7 +12,7 @@ export const sidebarMenu = [
         'icon': 'icon-huiyuan',
         'children': [
             {
-            	'title': '车行认证',
+            	'title': '我的认证',
 	        	'hash': '/member/apply',
             },
             {

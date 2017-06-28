@@ -6,7 +6,7 @@
             title="安全中心"
             >
             <div slot="safety">
-                
+
                 <div class="m-center-box">
                     <ul class="m-safety-lst">
                         <li class="m-item">

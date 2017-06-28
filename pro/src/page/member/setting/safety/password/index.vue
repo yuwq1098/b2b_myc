@@ -93,7 +93,6 @@
             memberLayout,
             gForm,
             gFormItem,
-
         },
         // 数据
         data() {
