@@ -7,6 +7,8 @@
 
 import api from 'api/getData.js'
 import * as types from '../types'
+// 引入系统变量
+import * as SYSTEM from 'api/system.js'
 import {store} from 'assets/js/store.js'
 
 const state = {
@@ -42,11 +44,19 @@ const actions = {
     /**
      * 请求用户信息
      */
-    getUserData({ commit }, res) {
-        api.getMyMemberInfo(res)
+    getUserData({ commit }, params) {
+        console.log(params);
+        api.getMyMemberInfo(params.data)
             .then(res => {
+                if(params.callBack){
+                    params.callBack(res.code)
+                }
                 console.log("发送了请求",res.data)
                 commit(types.GET_USER_DATA, res.data)
+                // if(res.code==SYSTEM.CODE_IS_OK){
+                //     console.log("发送了请求",res.data)
+                //     commit(types.GET_USER_DATA, res.data)
+                // }
             })
     }
 }

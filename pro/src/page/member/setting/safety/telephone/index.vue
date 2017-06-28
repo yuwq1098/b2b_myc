@@ -260,7 +260,7 @@
             getOldCode(){
                 if(this.oldTelephone==""||this.errors.first('oldTel')){
                     this.errors.remove('oldTel');
-                    this.errors.add('oldTel', "请正确输入您的新手机号", 'auth');
+                    this.errors.add('oldTel', "请正确输入您的原手机号", 'auth');
                 }else{
                     if(this.oldImgCode==""||this.errors.first('oldImgCode')){
                         this.errors.remove('oldImgCode');
@@ -309,8 +309,13 @@
             getNewCode(){
                 if(this.newTelephone==""||this.errors.first('newTel')){
                     this.errors.remove('newTel');
-                    this.errors.add('newTel', "请正确输入您的原手机号", 'auth');
+                    this.errors.add('newTel', "请正确输入您的新手机号", 'auth');
                 }else{
+                    if(this.newTelephone==this.oldTelephone){
+                        this.errors.remove('newTel');
+                        this.errors.add('newTel', "不允许新/原手机号码重复", 'auth');
+                        return;
+                    }
                     if(this.newImgCode==""||this.errors.first('newImgCode')){
                         this.errors.remove('newImgCode');
                         this.errors.add('newImgCode', "请输入(新)图形验证码", 'auth');

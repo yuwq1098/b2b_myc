@@ -89,6 +89,8 @@
 <script>
 
     import $ from 'jquery'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
     import {getLeftToBrowser,addEvent,removeEvent} from "assets/js/dom.js"
     import signIn from "components/sign/signin"
     import signUp from "components/sign/signup"
@@ -228,7 +230,28 @@
                 let data = {
                     a:'0'
                 };
-                this.getUserData(data);
+                let me = this;
+                this.getUserData({
+                    data:data,
+                    callBack: function(code){
+                        if(code==SYSTEM.CODE_IS_OUT){
+                            me._signPast();
+                        }
+                    }
+                });
+            },
+            
+            // 身份过期
+            _signPast(){
+                this.$notify({
+                    title: '身份过期',
+                    message: '身份过期，请重新登录',
+                    type: 'error',
+                    duration: 3000,
+                });
+                this.$router.push({ path: '/'})
+                //调用vuex的注销方法
+                this.setSignOut();
             },
             
             //注销登录
