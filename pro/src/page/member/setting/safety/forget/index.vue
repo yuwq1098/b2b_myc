@@ -187,6 +187,7 @@
         },
         // 自定义函数(方法)
         methods: {
+            ...mapActions(['setSignOut']),
             // 获取图形验证码
             getImgCode(){
                 this.timestamp = (+new Date()).valueOf();

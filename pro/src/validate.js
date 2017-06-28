@@ -194,7 +194,13 @@ const dictionary = {
             newPass: '新密码',
             checkPass: '确认密码',
             imgCode: '图形验证码',
-            smsCode: '短信验证码'
+            smsCode: '短信验证码',
+            oldTel: '(旧)手机号码',
+            oldImgCode: '(旧)图形验证码',
+            oldCode: '(旧)短信验证码',
+            newTel: '(新)手机号码',
+            newImgCode: '(新)图形验证码',
+            newCode: '(新)短信验证码',
         }
     }
 };

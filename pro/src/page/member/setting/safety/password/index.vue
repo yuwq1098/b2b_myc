@@ -184,6 +184,7 @@
                         this.setSignOut();
                         this.reset();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.errors.remove('pass');
                         this.errors.add('pass', res.msg, 'auth');
                     }
                 });

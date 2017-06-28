@@ -253,6 +253,12 @@ export default {
     forgotPassword(params){
         return fetchSign('/action2/ForgotPassword.ashx',dataToJson(params));
     },
+
+    // 更绑手机号
+    editMobile(params){
+        return fetchSign('/action2/ReplaceMobile.ashx',dataToJson(params));
+    },
+    
     
     
 
