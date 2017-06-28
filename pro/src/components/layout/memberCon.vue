@@ -1,5 +1,5 @@
 <template>
-	<div class="safetySetting">
+	<div class="memberCon">
         <div class="m-member-mn">
             <div class="m-member-hd">
                 <p class="tit">{{title}}</p>
@@ -38,7 +38,7 @@
     import {crumbsHash} from "api/localJson/crumbItems.js"
 
 	export default {
-        name: "safetySetting",
+        name: "memberCon",
         // 数据
         data() {
             return{
@@ -116,7 +116,7 @@
             .m-safety-con
                 margin 30px 40px 40px
         .m-crumbs-wrap
-            padding 15px
+            padding 15px 15px 0
             .m-crumbs-bar
                 height 34px
                 line-height 34px

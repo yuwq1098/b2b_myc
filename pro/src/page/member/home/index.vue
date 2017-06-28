@@ -5,8 +5,9 @@
             title="我的主页"
             >
             <div slot="content">
-                会员中心主页
-
+                <member-inner>
+                    <p>我的主页</p>
+                </member-inner>
             </div><!-- 会员中心主页内容 -->
         </member-layout>
     </div>
@@ -16,6 +17,8 @@
 
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
+    // 会员中心子内容组件
+    import memberInner from 'components/layout/memberInner.vue' 
 
     export default {
         
@@ -23,6 +26,7 @@
         // 在当前模块注册组件
         components:{
             memberLayout,
+            memberInner,
         },
         // 数据
         data() {
