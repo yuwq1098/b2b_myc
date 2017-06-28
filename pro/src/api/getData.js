@@ -249,6 +249,11 @@ export default {
         return fetchSign('/action2/EditPassword.ashx',dataToJson(params));
     },
 
+    // 忘记密码（找回密码）
+    forgotPassword(params){
+        return fetchSign('/action2/ForgotPassword.ashx',dataToJson(params));
+    },
+    
     
 
     /*

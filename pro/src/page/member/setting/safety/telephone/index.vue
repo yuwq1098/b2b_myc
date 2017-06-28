@@ -24,6 +24,7 @@
                             :errorText="errors.first('oldCode')"
                             :errorShow="errors.has('oldCode')"
                             title="短信验证码"
+                            :isCode="true"
                             >
                             <div slot="code">
                                 <input placeholder="输入短信验证码"
@@ -49,6 +50,7 @@
                             :errorText="errors.first('newCode')"
                             :errorShow="errors.has('newCode')"
                             title="短信验证码"
+                            :isCode="true"
                             >
                             <div slot="code">
                                 <input placeholder="输入短信验证码"

@@ -14,7 +14,7 @@
                 <span class="tit">{{title}}</span>
                 <div class="info">
                     <slot></slot>
-                    <div class="smsCode">
+                    <div class="smsCode" v-if="isCode">
                         <slot name="code"></slot>    
                     </div><!-- 手机验证码 -->
                 </div>
@@ -52,6 +52,11 @@
             title:{
                 type: String,
                 default: '这是一个标题'
+            },
+            // 是不是验证码区域 
+            isCode:{
+                type: Boolean,
+                default: false
             },
         },
         watch:{
@@ -123,8 +128,9 @@
                 .smsCode
                     width @width
                     height @height
+                    position relative
                     .code-ipt
-                        width @width * 0.6 - 8px
+                        width @width * 0.55 - 8px
                         height @height 
                         _borderRadius(1px)
                         padding 0 15px
@@ -133,7 +139,7 @@
                             background #f0f2f4
                     .code-btn
                         _display()
-                        width @width * 0.4 - 6px
+                        width @width * 0.45 - 6px
                         text-align center
                         height @height
                         line-height @height
@@ -144,5 +150,26 @@
                         _completeCenter(auto,0)
                         &:hover
                             background @background + 12%
+                        &.disable
+                            width @width - 2px
+                            height @height - 2px
+                            background #f0f0f0
+                            _borderAll(#e2e2e2)
+                            _spacingPlus()
+                            font-size 13px
+                            color #777
+                            &:hover
+                                background @background
+                    .img-btn
+                        _display()
+                        width @width * 0.45 - 6px
+                        height @height
+                        _borderRadius(2px)
+                        _completeCenter(auto,0)
+                        .u-pic
+                            width @width
+                            height @height
+                            _borderRadius(2px)
+
 
 </style>

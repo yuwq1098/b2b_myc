@@ -53,9 +53,6 @@
                             </a>
                         </div>
                     </g-form>
-                   <!--  <div class="codeImg">
-                        <img @click="changeCode" :src="'http://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+timestamp" />
-                    </div> --><!-- 图形验证码 -->
                     
                 </div>
             </div>
@@ -104,10 +101,6 @@
                 pass: "",
                 newPass: "",
                 checkPass: "",
-                form:{
-                    pass: "",
-                },
-                timestamp: (+new Date()).valueOf(),
                 // 表单验证报错集合
                 errors: null,
             }
@@ -128,12 +121,17 @@
 
         },
         activated(){
-            this.errors.clear();
-            this.validator.validate('pass', this.pass).then((res) => {});
+            this.reset();
+            setTimeout(()=>{
+                this.validator.validate('pass', this.pass).then((res) => {});
+            });
         },
         //退出的生命周期钩子
         deactivated(){
-            this.errors.clear();
+            this.reset();
+            setTimeout(()=>{
+                this.validator.validate('pass', this.pass).then((res) => {});
+            });
         },
         //数据侦听
         watch:{
@@ -184,11 +182,9 @@
                         this.$router.push({ path: '/'})
                         //调用vuex的注销方法
                         this.setSignOut();
+                        this.reset();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                        // 清空输入框
-                        // this.reset();
                         this.errors.add('pass', res.msg, 'auth');
-
                     }
                 });
             },
@@ -202,11 +198,6 @@
                     this.errors.clear();
                 })
                 
-            },
-            // 更新验证码
-            changeCode(){
-                this.timestamp = (+new Date()).valueOf();
-
             }
         },    
     }

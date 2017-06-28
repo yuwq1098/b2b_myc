@@ -173,10 +173,14 @@ const dictionary = {
                 min:()=> '密码由6-22位数字与字母组成,暂不支持符号',
                 max:()=> '密码由6-22位数字与字母组成,暂不支持符号',
             },
+            imgCode:{
+                min:(field)=> field+'由4位字符组成',
+                max:(field)=> field+'由4位字符组成',
+            },
             smsCode:{
                 min:(field)=> field+'由4位数字组成',
                 max:(field)=> field+'由4位数字组成',
-            }
+            },
         },
         attributes:{
             tel: '手机号码',
@@ -189,6 +193,7 @@ const dictionary = {
             pass: '密码',
             newPass: '新密码',
             checkPass: '确认密码',
+            imgCode: '图形验证码',
             smsCode: '短信验证码'
         }
     }
