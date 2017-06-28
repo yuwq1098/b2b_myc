@@ -9,9 +9,10 @@
     background #282828
     _opacity(.6)
     z-index 1000001
+
 .m-sign-box
     position fixed
-    top 50%
+    top 45%
     left 0
     right 0
     margin -280px auto 0
@@ -46,6 +47,7 @@
                 _translate3d(0,2px)
             &:hover
                 color $c_blue
+
     .m-login-tab
         height 44px
         width 300px
@@ -63,30 +65,97 @@
             &.active
                 _border(bottom,$c_blue,2px)
                 color $c_blue
+        &.one
+            width 220px
+            .u-tab-item
+                width @width
+                font-size 17px
+                _spacingPlus(4px)
+
     &.forget 
         .m-login-ipt
-            padding 40px 0 50px
+            margin 30px auto 0
+            padding 10px 0
 
     .m-login-ipt
         width 380px
-        margin 20px auto 0
+        margin 30px auto 0
+        padding 10px 0
         .m-form-gp
             .m-gp-line
                 min-height 42px
                 width @width
                 position relative
                 margin-bottom 15px
+                .item-error
+                    height 28px
+                    line-height 30px
+                    margin 0 80px 8px 0
+                    background #FBEBE6
+                    _borderAll(#ff6533)
+                    _borderRadius(1px)
+                    color #777
+                    font-size 12px
+                    .error-txt
+                        margin-left 10px
+                        position relative
+                        height 30px
+                        line-height 30px
+                        padding-left 22px
+                        _overflow()
+                        .iconfont
+                            width 20px
+                            height 20px
+                            line-height 20px
+                            font-size 18px
+                            color #ff6533
+                            _completeCenter(0,auto)
                 .u-ipt-box
                     height 42px
                     _borderAll(#e2e2e2)
                     _borderRadius(3px)
                     position relative
-                    &.error
-                        _borderAll(#f43)
                     &.code
-                        width @width - 160px
+                        border none
+                        _borderRadius(0)
                         .u-ipt
-	                        width @width - 2px
+                            width @width - 162px
+                            height 42px
+                            _borderAll(#e2e2e2)
+                            _borderRadius(3px)
+                        .code-btn
+                            _display()
+                            width 145px
+                            text-align center
+                            height @height
+                            line-height @height
+                            background $c_blue
+                            color #f0f0f0
+                            _borderRadius(2px)
+                            _spacingPlus(2px)
+                            _completeCenter(auto,0)
+                            &:hover
+                                background @background + 12%
+                            &.disable
+                                width @width - 2px
+                                height @height - 2px
+                                background #f0f0f0
+                                _borderAll(#e2e2e2)
+                                _spacingPlus()
+                                font-size 13px
+                                color #777
+                                &:hover
+                                    background @background
+                        .img-btn
+                            _display()
+                            width 145px
+                            height @height
+                            _borderRadius(2px)
+                            _completeCenter(auto,0)
+                            .u-pic
+                                width @width
+                                height @height
+                                _borderRadius(2px)
                     .u-ipt
 	                    width @width - 2px
 	                    height @height
@@ -95,7 +164,7 @@
                     .u-ico
                         width 20px
                         height 20px
-                        color #dedede
+                        color #c2c2c2
                         position absolute
                         right 10px
                         top 0
@@ -103,29 +172,6 @@
                         margin auto 0
                         .iconfont
                             font-size 18px
-                .error-validate
-                    line-height 28px
-                    height 28px
-                    color #f43
-                .u-vcode
-                    width 130px
-                    height 42px - 8px
-                    position absolute
-                    right 0
-                    top 4px
-                    img
-                        width @width
-                        height @height
-                .m-code
-                    width 145px
-                    height 42px + 2px
-                    position absolute
-                    right 0
-                    top 0
-                    _borderAll(#e2e2e2)
-                    _borderRadius(3px)
-                    background #fff
-
                 &.m-btn-oper
                     padding-top 12px
                     margin-bottom 0
@@ -141,8 +187,16 @@
                         background $c_blue
                         &:hover
                             background $c_blue + 8% - 2deg
-
-
+    .gp-other
+        text-align right
+        margin-bottom 10px
+        .u-lk
+            color #a5a5a5
+            height 20px
+            line-height 20px
+            font-size 13px
+            &:hover
+                color $c_blue
 
 
     .m-other-oper

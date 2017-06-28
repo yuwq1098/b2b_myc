@@ -1,5 +1,5 @@
 <!--  
- **  @description ä¸»è¦ç”¨äºä¼šå‘˜ä¸­å¿ƒçš„è¡¨å•itemç»„ä»¶
+ **  @description Ö÷ÒªÓÃÓÚ»áÔ±ÖĞĞÄµÄ±íµ¥item×é¼ş
  --> 
 
 
@@ -16,7 +16,7 @@
                     <slot></slot>
                     <div class="smsCode" v-if="isCode">
                         <slot name="code"></slot>    
-                    </div><!-- æ‰‹æœºéªŒè¯ç  -->
+                    </div><!-- ÊÖ»úÑéÖ¤Âë -->
                 </div>
             </div>
         </div>
@@ -27,33 +27,33 @@
 
     export default {
         name: "gkForm",
-        // åœ¨å½“å‰æ¨¡å—æ³¨å†Œç»„ä»¶
+        // ÔÚµ±Ç°Ä£¿é×¢²á×é¼ş
         components:{
 
         },
-        // æ•°æ®
+        // Êı¾İ
         data() {
             return{
                 inputVal: "",
             }
         },
         props:{
-            // é”™è¯¯æç¤ºæ–‡æœ¬
+            // ´íÎóÌáÊ¾ÎÄ±¾
             errorText:{
                 type: String,
-                default: 'è¿™æ˜¯ä¸€æ¡é”™è¯¯æç¤º'
+                default: 'ÕâÊÇÒ»Ìõ´íÎóÌáÊ¾'
             },
-            // é”™è¯¯æç¤ºæ–‡æœ¬çš„æ˜¾éš
+            // ´íÎóÌáÊ¾ÎÄ±¾µÄÏÔÒş
             errorShow:{
                 type: Boolean,
                 default: false
             },
-            // å½“å‰è¾“å…¥æ¡†çš„æ ‡é¢˜
+            // µ±Ç°ÊäÈë¿òµÄ±êÌâ
             title:{
                 type: String,
-                default: 'è¿™æ˜¯ä¸€ä¸ªæ ‡é¢˜'
+                default: 'ÕâÊÇÒ»¸ö±êÌâ'
             },
-            // æ˜¯ä¸æ˜¯éªŒè¯ç åŒºåŸŸ 
+            // ÊÇ²»ÊÇÑéÖ¤ÂëÇøÓò 
             isCode:{
                 type: Boolean,
                 default: false
@@ -62,18 +62,18 @@
         watch:{
 
         },
-        //é€€å‡ºçš„ç”Ÿå‘½å‘¨æœŸé’©å­
+        //ÍË³öµÄÉúÃüÖÜÆÚ¹³×Ó
         deactivated(){
 
         },
-        // è‡ªå®šä¹‰å‡½æ•°(æ–¹æ³•)
+        // ×Ô¶¨Òåº¯Êı(·½·¨)
         methods: {
 
         },    
     }
 </script>
 
-<!-- é™å®šä½œç”¨åŸŸ"scoped" ä¸è¦è¯¯å†™æˆscope -->
+<!-- ÏŞ¶¨×÷ÓÃÓò"scoped" ²»ÒªÎóĞ´³Éscope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
     .m-form-item
@@ -92,7 +92,10 @@
             .error-txt
                 margin-left 10px
                 position relative
+                height 30px
+                line-height 30px
                 padding-left 22px
+                _overflow()
                 .iconfont
                     width 20px
                     height 20px

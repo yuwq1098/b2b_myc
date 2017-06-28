@@ -84,7 +84,7 @@
                     height 24px
                     line-height 22px
                     font-size 14px
-                    _spacingPlus(2px)
+                    _spacingPlus()
                     color $c_blue
                     margin 12px 0 0
                 .u-desc
@@ -92,5 +92,5 @@
                     margin 5px 0 0
                     line-height 20px
                     text-align center
-                    color #959595
+                    color #a8a8a8
 </style>

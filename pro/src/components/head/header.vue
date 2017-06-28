@@ -79,8 +79,9 @@
         <forget-pwd 
             v-if="forgetShow" 
             @closeForgetPwd="openForgetPwd(0)"
+            @openSignIn="openSignIn(1,true)"
             >
-        </forget-pwd><!-- 注册框 -->
+        </forget-pwd><!-- 忘记密码框 -->
 
 	</div>
 </template>
@@ -192,6 +193,7 @@
         		    this.signInShow = true
         		    if(closeThat){
         		    	this.signUpShow = false
+                        this.forgetShow = false
         		    }
         		}else if(type==0){
         			this.signInShow = false
@@ -265,7 +267,7 @@
                     title: '注销成功',
                     message: '注销成功，请重新登录',
                     type: 'success',
-                    duration: 800,
+                    duration: 1000,
                 });
                 this.$router.push({ path: '/'})
                 //调用vuex的注销方法

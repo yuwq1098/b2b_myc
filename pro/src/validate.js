@@ -181,6 +181,18 @@ const dictionary = {
                 min:(field)=> field+'由4位数字组成',
                 max:(field)=> field+'由4位数字组成',
             },
+            passReg:{
+                min:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+                max:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+            },
+            imgCodeReg:{
+                min:(field)=> field+'由4位字符组成',
+                max:(field)=> field+'由4位字符组成',
+            },
+            smsCodeReg:{
+                min:(field)=> field+'由4位数字组成',
+                max:(field)=> field+'由4位数字组成',
+            },
         },
         attributes:{
             tel: '手机号码',
@@ -201,6 +213,12 @@ const dictionary = {
             newTel: '(新)手机号码',
             newImgCode: '(新)图形验证码',
             newCode: '(新)短信验证码',
+            nameOne: '用户名',
+            passOne: '密码',
+            telReg: "手机号",
+            passReg: "密码",
+            imgCodeReg: "图形验证码",
+            smsCodeReg: "短信验证码",
         }
     }
 };
