@@ -10,7 +10,7 @@
                     <div class="m-personal-wrap">
                         <div class="m-personal-box info" v-show="isInfoShow">
                             <div class="m-hd">
-                                <a href="javascript:;" class="u-edit">
+                                <a href="javascript:;" class="u-edit" @click="onEdit()" title="编辑个人信息">
                                     <i class="iconfont icon-bianji1"></i>编辑
                                 </a>
                                 <div class="m-face">
@@ -51,7 +51,30 @@
                             </div><!-- 用户信息展示 -->
                         </div>
                         <div class="m-personal-box edit" v-show="!isInfoShow">
-
+                            <div class="m-hd">
+                                <div class="m-face">
+                                    <img :src="memberData.imgUrl" />
+                                </div><!--用户头像展示 -->
+                            </div>
+                            <div class="m-info">
+                                <div class="m-line-box f__clearfix input">
+                                    <span class="u-attr">昵称：</span>
+                                    <div class="u-con">
+                                        <input type="text" class="u-ipt" placeholder="请输入您的昵称" v-model="nickname" />
+                                    </div>
+                                </div>
+                                <div class="m-line-box f__clearfix">
+                                    <span class="u-attr">性别：</span>
+                                    <div class="u-con">
+                                        <el-radio class="radio" v-model="sex" label="男">男</el-radio>
+                                        <el-radio class="radio" v-model="sex" label="女">女</el-radio>
+                                    </div>
+                                </div>
+                                <div class="m-btn-box">
+                                    <a href="javascript:;" class="u-btn">保存</a>
+                                    <a href="javascript:;" class="u-lk">返回</a>
+                                </div><!-- 按钮框 -->
+                            </div><!-- 用户信息展示 -->
                         </div>
                     </div><!-- 个人资料 -->
                 </member-inner>
@@ -90,6 +113,10 @@
                 // 控制展示页和编辑页的显隐
                 isInfoShow: true,
                 memberData: {},
+                
+                // 编辑时双向绑定的昵称
+                nickname: "",
+                sex: "",
             }
         },
         //生命周期,开始的时候
@@ -115,6 +142,10 @@
                 api.getMyMemberInfo(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.memberData = new memberInfo(res.data);
+                        
+                        this.nickname = this.memberData.name;
+                        this.sex = this.memberData.sex;
+
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',
@@ -124,11 +155,34 @@
                         });
                     }
                 })   
+            },
+            // 编辑
+            onEdit(){
+                this.isInfoShow = false;
             }
         },
         
 	}
 </script>
+
+<style lang="stylus" rel="stylesheet/stylus">
+    @import '~assets/css/mixin.styl'
+    .m-personal-box
+        .el-radio__label 
+            font-size 14px
+            color #959595
+            padding-left 10px
+        .el-radio__input
+            _display(inline-block)
+            _translate3d(0,-1px)
+        .el-radio__input.is-checked .el-radio__inner
+            border-color #1e8bd8 + 10%
+            background #1e8bd8 + 10%
+        .el-radio__inner:hover
+            border-color #1e8bd8
+
+</style>
+
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
