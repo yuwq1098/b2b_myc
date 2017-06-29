@@ -8,10 +8,10 @@
 
 .cdg-list-enter
     _opacity(0)
-    _translate3d(0,30px)
+    _translate3d(4px,15px)
 .cdg-list-leave-active
     _opacity(0)
-    _translate3d(0,-50px)
+    _translate3d(15px,-50px)
 
 .m-collect-wrap
     width 948px
@@ -25,7 +25,6 @@
             _boxShadow(8px,rgba(0,0,0,.05),1px,1px)
             _borderAll(#e8e8e8)
             _overflow()
-            _transitionAll(.25s)
             position relative
             float left
             .u-lk-box
@@ -87,8 +86,7 @@
                     _ellipsis()
             &:hover
                 _transitionAll(.25s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
-                _translate3d(2px,-3px);
-                _boxShadow(12px,rgba(0,0,0,.10),-5px,5px)
+                _boxShadow(8px,rgba(0,0,0,.08),-3px,3px)
                 .m-info
                     .u-cdg
                         color $c_blue

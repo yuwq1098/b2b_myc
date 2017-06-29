@@ -96,7 +96,7 @@
             width @width
             height 54px
             line-height 52px
-            background #DFE4E6
+            background #E5E8Eb
             .tit
                 _display(inline-block)
                 font-size 18px
@@ -108,7 +108,7 @@
                     _display()
                     content ""
                     height 3px
-                    background $c_blue
+                    background #2F98E2
                     _completeCenter(0,-4px,auto,-2px)
 
         .m-member-con

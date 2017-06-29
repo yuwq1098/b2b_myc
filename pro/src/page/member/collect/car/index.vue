@@ -43,6 +43,8 @@
                         v-if="carCollectList.length==0"
                         speak="您暂时还没有收藏任何车辆，赶紧去B2B大厅找找吧!"
                         >
+                        <router-link :to="{path:'/'}" class="u-lk" tag="a">网站首页&gt;</router-link>
+                        <router-link :to="{path:'/b2bHall'}" class="u-lk" tag="a">B2B大厅&gt;</router-link>
                     </not-content><!-- 缺省组件 -->
 
                 </member-inner>
@@ -99,7 +101,7 @@
         },
         //退出的生命周期钩子
         deactivated(){
-
+            this.carCollectList = []
         },
         // 自定义函数(方法)
         methods: {
