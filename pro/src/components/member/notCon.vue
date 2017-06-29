@@ -91,6 +91,6 @@
                     background #2F98E2
                     color #f0f0f0
                     &:hover
-                        background @background + 12%
+                        background @background - 10%
 
 </style>

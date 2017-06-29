@@ -2,11 +2,11 @@
     <div class="memberHome">
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="我的主页"
+            title="个人主页"
             >
             <div slot="content">
                 <member-inner>
-                    <p>我的主页</p>
+                    <p>个人主页</p>
                 </member-inner>
             </div><!-- 会员中心主页内容 -->
         </member-layout>

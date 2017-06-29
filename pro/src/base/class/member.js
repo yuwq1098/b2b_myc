@@ -29,4 +29,28 @@ class sidebarMember{
 	}
 }
 
-export {headMember,sidebarMember};
+class memberInfo{
+    constructor(data) {
+	    this.id = data.MemberID||""
+	    this.name = data.NickName||""
+	    this.imgUrl = data.PhotoURL?data.PhotoURL:require('assets/img/none-face.png')
+	    this.tel = data.Mobile||""
+	    this.sex = data.Sex||"暂未设置"
+	    this.blance = data.Blance||""          // 余额
+	    this.credit = data.CreditPoint||""     // 信誉保证金
+	    this.hasPaypwd = data.CreditPoint||""  // 是否有交易密码
+	    this.cdgAuth = data.CdgAuth||""        // 车行认证信息数组，没时为[]数组
+	    // 认证状态
+	    this.authName = "未实名认证"           // 真实姓名
+        
+        //如果未认证，那么身份标识为未认证
+        if(data.CdgAuth){
+        	if(data.CdgAuth.CertificateName){
+        		this.authName = data.CdgAuth.CertificateName;
+        	}
+        }
+	    
+	}
+}
+
+export {headMember,sidebarMember,memberInfo};

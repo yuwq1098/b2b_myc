@@ -65,32 +65,32 @@
         width 1200px - 30px
         padding 15px
         .m-svr-lst
-            height 150px
+            height 165px
             width 1176px
             margin-left -9px
             .u-item
                 float left
                 width 156px
-                height 150px - 15px
+                height 165px - 15px
                 margin-left 12px
                 padding-top 15px
                 .u-pic
-                    width 62px
-                    height 62px
+                    width 58px
+                    height 58px
                     _imgwrap()
                     margin 0 auto
                 .u-tit
                     text-align center
-                    height 24px
-                    line-height 22px
-                    font-size 14px
+                    height 28px
+                    line-height 28px
+                    font-size 16px
                     _spacingPlus()
                     color $c_blue
-                    margin 12px 0 0
+                    margin 20px 0 0
                 .u-desc
                     font-size 12px
-                    margin 5px 0 0
-                    line-height 20px
+                    margin 6px 0 0
+                    line-height 22px
                     text-align center
                     color #a8a8a8
 </style>

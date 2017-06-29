@@ -7,10 +7,14 @@
 //侧边导航信息
 export const sidebarMenu = [
     {
-        'title': '个人中心',
+        'title': '用户中心',
         'hash': '',
         'icon': 'icon-huiyuan',
         'children': [
+            {
+                'title': '个人主页',
+                'hash': '/member/home',
+            },
             {
             	'title': '我的认证',
 	        	'hash': '/member/apply',
