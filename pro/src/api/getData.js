@@ -139,9 +139,9 @@ export default {
         return get('/action2/CarBrand.ashx');
     },
     
-    //获取车辆品牌
-    getHotBrand(){
-        return get('/action2/HotCarBrand.ashx');
+    //获取热门车辆品牌
+    getHotBrand(params){
+        return fetch('/action2/HotCarBrand.ashx',dataToJson(params));
     },
 
     //根据品牌获取车系

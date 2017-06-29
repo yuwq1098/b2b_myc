@@ -21,7 +21,7 @@
                 <slot name="content">
                     <!-- 页面内容 -->
                 </slot>
-                <div class="m-safety-con">
+                <div class="m-safety-con" v-if="isSafety">
                     <slot name="safety">
                         <!-- 安全中心页面内容 -->
                     </slot>
@@ -51,6 +51,10 @@
                 type: String,
                 default: "页面标题",
             },
+            isSafety:{
+                type: Boolean,
+                default: false,
+            }
 
         },
         //生命周期,该组件被创建的时候

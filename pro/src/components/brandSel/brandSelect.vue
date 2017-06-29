@@ -139,7 +139,10 @@
 
             //获取热门品牌列表
             _getHotBrandList(){
-                api.getHotBrand().then((res) => {
+                let data = {
+                    Qty:16
+                }
+                api.getHotBrand(data).then((res) => {
                     this.hotBrand = this._normalizeHotBrand(res.data);
                 })
             },

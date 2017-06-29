@@ -1,1 +1,65 @@
 @import '~assets/css/mixin.styl'
+
+.m-collect-wrap
+    width 948px
+    position relative
+    .m-merchant-lst
+        width 948px + 18px
+        margin-left - 18px
+        .m-item
+            width 465px - 2px - 20px
+            padding 10px
+            margin 0 0 15px 18px
+            _boxShadow(8px,rgba(0,0,0,.05),1px,1px)
+            _borderAll(#e8e8e8)
+            _overflow()
+            _transitionAll(.15s)
+            position relative
+            float left
+            .m-face
+                width 56px
+                height 56px
+                _borderRadius()
+                _imgwrap()
+                _completeCenter(12px,auto,12px,auto)
+                img
+                    _borderRadius()
+            .m-info
+                min-height 60px
+                margin 0 0 0 68px 
+                width @width - 68px
+                color #40474a
+                font-size 13px
+                .vital
+                    color #ff6533
+                    margin 0 2px
+                .u-hd
+                    height 22px
+                    line-height 22px
+                    margin-bottom 4px
+                    font-size 14px
+                    .u-cdg
+                        color #40474a
+                    .u-name
+                        margin-left 25px
+                        color #959595
+                        font-size 12px
+                        _display()
+                        _translate3d(0,1px)
+                .u-grade,.u-address
+                    color #959595
+                    line-height 20px
+                    margin-bottom 3px
+                .u-grade
+                    .volume,.grade
+                        margin-right 25px
+                .u-address
+                    _ellipsis()
+            &:hover
+                _transitionAll(.25s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
+                _translate3d(2px,-3px);
+                _boxShadow(12px,rgba(0,0,0,.10),-5px,5px)
+                .m-info
+                    .u-cdg
+                        color $c_blue
+

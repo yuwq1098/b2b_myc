@@ -107,7 +107,7 @@ export const crumbsHash = {
             path:"/member/safetyCenter",
         },
         {
-            pathName:"手机更绑",
+            pathName:"更改手机绑定",
             path:"/member/safetyTel",
         }
     ],
