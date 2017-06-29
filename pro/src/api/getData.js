@@ -260,11 +260,21 @@ export default {
     },
     
     
-    
 
     /*
      * 收藏夹
      */
+    
+    // 操作收藏的车辆
+    myFavoriteCar(params){
+        return fetchSign('/action2/FavoriteB2BCar.ashx',dataToJson(params));
+    },
+
+    // 操作收藏的车行
+    myFavoriteCdg(params){
+        return fetchSign('/action2/FavoriteCdg.ashx',dataToJson(params));
+    },
+
 
 
     /*

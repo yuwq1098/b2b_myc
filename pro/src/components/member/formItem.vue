@@ -26,7 +26,7 @@
 <script>
 
     export default {
-        name: "gkForm",
+        name: "gkFormItem",
         // 在当前模块注册组件
         components:{
 

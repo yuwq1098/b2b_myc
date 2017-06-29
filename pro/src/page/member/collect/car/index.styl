@@ -1,5 +1,18 @@
 @import '~assets/css/mixin.styl'
 
+//列表过渡效果
+.car-list-enter-active
+    _transitionAll(.3s)
+.car-list-leave-active
+    _transitionAll(.4s,cubic-bezier(0.22, 0.61, 0.21, 0.92))
+
+.car-list-enter
+    _opacity(0)
+    _translate3d(-4px,-20px)
+.car-list-leave-active
+    _opacity(0)
+    _translate3d(15px,-50px)
+
 .m-collect-wrap
     width 948px
     position relative
@@ -81,12 +94,14 @@
                 .u-other
                     font-size 12px
                     color #959595
+                    height 18px
+                    _ellipsis()
             &:hover
                 .u-pic-box
                     .u-pic
                         img
-                            _scale(1.1)
-                            _transitionAll(.4s,cubic-bezier(0.43, 0.71, 0.79, 1.07))
+                            _scale(1.05)
+                            _transitionAll(.3s,cubic-bezier(0.43, 0.71, 0.79, 1.07))
                 .u-con
                     .u-tit
                         color $c_blue

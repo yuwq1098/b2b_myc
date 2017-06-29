@@ -8,31 +8,43 @@
             <div slot="content">
                 
                 <member-inner>
-                    <div class="m-collect-wrap">
-                        <ul class="m-car-lst f__clearfix">
-                            <template v-for="n in 10">
-                                <li class="u-item">
-                                    <a href="javascript:;" class="u-lk-box">
+                    <div class="m-collect-wrap" v-if="carCollectList.length>=0">
+                        <transition-group 
+                            name="car-list" 
+                            class="m-car-lst f__clearfix" tag="ul"
+                            >
+                            <template v-for="(item,index) in carCollectList">
+                                <li class="u-item" :key="item">
+                                    <a class="u-lk-box" @click="enterCar(item.id)">
                                         <div class="u-pic-box">
-                                            <span class="u-mark">个人车行</span>
+                                            <span class="u-mark">{{item.authType}}</span>
                                             <div class="u-pic">
-                                                <img :src="imgUrl" alt="车辆图"/>
+                                                <img :src="item.imgUrl" :alt="item.title"/>
                                             </div><!-- 图片容器 -->
-                                            <a href="javascript:;" class="u-lk cancel" title="取消收藏">取消收藏</a>
+                                            <a class="u-lk cancel" 
+                                                @click.stop="delCar(item.id,index)" 
+                                                title="取消收藏">取消收藏</a>
                                         </div><!-- 图片容器 -->
                                         <div class="u-con">
-                                            <div class="u-tit">
-                                                大众-朗逸 2011款 1.6L 手动品悠版
-                                            </div><!-- 标题 -->
-                                            <div class="u-price">批发价：<em class="vital">4.00万</em></div><!-- 价格 -->
-                                            <div class="u-merchant">车商：无形之刃</div><!-- 车商 -->
-                                            <div class="u-other">南昌市/2011年/7.10万公里</div><!-- 其他 -->
+                                            <div class="u-tit">{{item.title}}</div><!-- 标题 -->
+                                            <div class="u-price">批发价：
+                                                <em class="vital">{{item.price | priceToFixed(2)}}</em>
+                                            </div><!-- 价格 -->
+                                            <div class="u-merchant">车商：{{item.cdgName}}</div><!-- 车商 -->
+                                            <div class="u-other">{{item.city}} · {{item.plateDate | dateYearFormat}} · {{item.mileage | mileFn(1)}}</div><!-- 其他 -->
                                         </div><!-- 内容 -->
                                     </a>
                                 </li>
                             </template>
-                        </ul>
+                        </transition-group>
                     </div>
+
+                    <not-content
+                        v-if="carCollectList.length==0"
+                        speak="您暂时还没有收藏任何车辆，赶紧去B2B大厅找找吧!"
+                        >
+                    </not-content><!-- 缺省组件 -->
+
                 </member-inner>
 
             </div><!-- 车辆收藏内容 -->
@@ -42,10 +54,21 @@
 
 <script>
 
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
+    // 工具类
+    import {dataToJson} from "assets/js/util.js"
+    // 收藏车辆信息的构造类
+    import {carClass} from "base/class/collect.js"
+
     // 会员中心内容布局组件
-    import memberLayout from 'components/layout/memberCon.vue' 
+    import memberLayout from 'components/layout/memberCon.vue'
     // 会员中心子内容组件
     import memberInner from 'components/layout/memberInner.vue' 
+    // 会员中心缺省组件
+    import notContent from 'components/member/notCon.vue' 
 
 	export default {
         
@@ -53,17 +76,81 @@
         // 在当前模块注册组件
         components:{
             memberLayout,
-            memberInner
+            memberInner,
+            notContent,
         },
         // 数据
         data() {
             return{
-                imgUrl: require("assets/img/car_02.jpg"),
+                // 收藏的车辆列表集合
+                carCollectList: [],
             }
+        },
+        //生命周期,开始的时候
+        created(){
+
+        },
+        mounted(){
+
+        },
+        activated(){
+            // 获取我收藏的车行列表
+            this.getMerchantCollect();
+        },
+        //退出的生命周期钩子
+        deactivated(){
+
         },
         // 自定义函数(方法)
         methods: {
-            
+            // 获取我收藏的车行列表
+            getMerchantCollect(){
+                let data = {
+                    ActType: 'MyList',
+                }
+                api.myFavoriteCar(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        if(res.data.length==0){
+                            this.carCollectList = [];
+                            return;
+                        }
+                        this.carCollectList = this._normalizeCar(res.data);
+                        console.log(dataToJson(this.carCollectList))
+                    }
+                })
+            },
+            // 格式化车行信息列表
+            _normalizeCar(list) {
+                let arr = []
+                list.forEach(item => {
+                    arr.push(new carClass(item));
+                });
+                return arr;
+            },
+            // 进入车行详情
+            enterCar(id){
+                this.$router.push({ path: '/b2bCar', query: { CarId: id }})
+            },
+            // 删除车行
+            delCar(id,index){
+                let data = {
+                    ActType: 'Delete',
+                    CarId: id,
+                }
+                api.myFavoriteCar(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        // 删除对应车行，同步数据
+                        this.carCollectList.splice(index, 1)
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '删除失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            }
         },
         
 	}

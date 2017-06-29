@@ -48,17 +48,34 @@ export const dateFnToYear = (data) => {
     var data = data&&data.substr(0,4)+'年';
     return data.toString();
 }
+// 年份转换
+export const dateYearFormat = (data) => {
+    if(!data&&data!=0) return;
+    var data = data&&data.substr(0,4);
+    return data.toString();
+}
 
 //----公里单位转换
 
 //转换成15.2万公里
-export const mileFn = (data) => {
-	if(!data&&data!=0) return;
-    return parseInt(data).toFixed(1)+"万公里"
+export const mileFn = (data,num=1) => {
+    var number = data||0;
+    return parseInt(number).toFixed(num)+"万公里"
 }
 
 //---价格小数加零
 export const priceToFixed = (data,num=1) => {
-    if (!data) return ''
-    return parseFloat(data).toFixed(num)+"万元"
+    var number = data||0;
+    return parseFloat(number).toFixed(num)+"万元"
+}
+
+//---评分格式转换
+export const gradeFormat = (num) => {
+    let number = parseInt(num);
+    return parseFloat(num * 5).toFixed(1);
+}
+
+//---地址格式转换 / => 点
+export const addressFormat = (str) => {
+    return str.replace(/[/]/g,' · ')
 }
