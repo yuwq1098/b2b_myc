@@ -3,6 +3,7 @@
 .m-personal-wrap
     width 450px
     padding 60px 0 40px 60px 
+    color #40474a
     .m-personal-box
         position relative
         &.info
@@ -74,11 +75,40 @@
                 .m-face
                     width 90px
                     height 90px
+                    cursor pointer
                     _borderRadius()
                     _imgwrap()
                     _completeCenter()
                     img
                         _borderRadius()
+                    .u-mask
+                        _dispaly()
+                        width @width
+                        height @height
+                        cursor pointer
+                        _borderRadius()
+                        _completeCenter()
+                        background rgba(0,0,0,.55)
+                        .iconfont
+                            cursor @cursor
+                            width 36px
+                            height 36px
+                            line-height 36px
+                            text-align center
+                            font-size 32px
+                            color #f4f4f4
+                            _completeCenter()
+                .u-tips
+                    color #2F98E2
+                    width 120px
+                    height 22px
+                    line-height 22px
+                    font-size 13px
+                    color #2E9BE8
+                    padding-left 8px
+                    position relative
+                    _completeCenter(280px,auto,60px,auto)
+
             .m-info
                 width 100%
                 padding 20px 0
@@ -102,15 +132,88 @@
                         color #959595
                     &.input
                         .u-ipt
-	                        width @width
-	                        height @height
-	                        _completeCenter(0,auto,0,auto)
-	                        border none
-	                        background transparent
-	                        padding-left 70px
-	                        _border(bottom,#e2e2e2)
-	                        font-size 15px
-	                        color #959595
-	                        &:focus
-	                            _border(bottom,#1e8bd8)
-	                            color #40474a
+                            width @width
+                            height @height
+                            _completeCenter(0,auto,0,auto)
+                            border none
+                            background transparent
+                            padding-left 70px
+                            _border(bottom,#e2e2e2)
+                            font-size 15px
+                            color #959595
+                            &:focus
+                                _border(bottom,#1e8bd8)
+                                color #40474a
+                    .nickname-error
+                        width 380px
+                        height 28px
+                        line-height 28px
+                        _completeCenter(370px,auto)
+                        padding 0 0 0 22px
+                        _spacingPlus()
+                        font-size 14px
+                        .iconfont
+                            width 20px
+                            height 20px
+                            line-height 20px
+                            font-size 19px
+                            color #ff6533
+                            _completeCenter(0,auto,4px)
+                .m-line-error
+                    height 28px
+                    line-height 30px
+                    margin 4px 140px 8px 50px
+                    background #FBEBE6
+                    _borderAll(#ff6533)
+                    _borderRadius(1px)
+                    color #777
+                    font-size 12px
+                    .error-txt
+                        margin-left 10px
+                        position relative
+                        height 30px
+                        line-height 30px
+                        padding-left 22px
+                        _overflow()
+                        .iconfont
+                            width 20px
+                            height 20px
+                            line-height 20px
+                            font-size 18px
+                            color #ff6533
+                            _completeCenter(0,auto)
+
+                .m-btn-box
+                    height 38px
+                    margin 12px 50px 0
+                    position relative
+                    font-size 14px
+                    .u-btn,.u-lk
+                        float left
+                    .u-btn
+                        height 38px
+                        line-height 38px
+                        width 236px
+                        text-align center
+                        font-size 15px
+                        margin 0 12px 0 0
+                        _spacingPlus(6px)
+                        _borderRadius(2px)
+                        background #2F98E2
+                        color #f0f0f0
+                        &:hover
+                            background @background - 10%
+                    .u-lk
+                        width 100px
+                        text-align center
+                        font-size 15px
+                        height 36px
+                        line-height 36px
+                        _borderAll(#e2e2e2)
+                        _spacingPlus(6px)
+                        _borderRadius(2px)
+                        color #40474a
+            .m-face-box
+                _completeCenter(auto,-300px,auto,80px)
+
+

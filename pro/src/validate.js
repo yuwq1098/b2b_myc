@@ -193,6 +193,10 @@ const dictionary = {
                 min:(field)=> field+'由4位数字组成',
                 max:(field)=> field+'由4位数字组成',
             },
+            nickname:{
+                min:(field)=> field+'由2~12个字符组成',
+                max:(field)=> field+'由2~12个字符组成',
+            },
         },
         attributes:{
             tel: '手机号码',
@@ -219,6 +223,7 @@ const dictionary = {
             passReg: "密码",
             imgCodeReg: "图形验证码",
             smsCodeReg: "短信验证码",
+            nickname: "昵称",
         }
     }
 };
