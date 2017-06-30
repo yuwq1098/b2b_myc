@@ -28,10 +28,6 @@ export const memberDropdown = [
         path: "/member"
     },
     {
-        title: "车源管理",
-        path: "/member/sourceHome"
-    },
-    {
         title: "我的钱包",
         path: "/member/wallet"
     },
@@ -40,9 +36,17 @@ export const memberDropdown = [
         path: "/member/buyOrder"
     },
     {
-        title: "我的购物车",
-        path: "/member/shopCart"
+        title: "卖车订单",
+        path: "/member/sellOrder"
     },
+    {
+        title: "车源管理",
+        path: "/member/sourceHome"
+    },
+    // {
+    //     title: "我的购物车",
+    //     path: "/member/shopCart"
+    // },
     {
         title: "个人设置",
         path: "/member/personal"

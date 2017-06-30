@@ -2,15 +2,15 @@
 	<div class="walletHome">
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="我的现金账户"
+            title="我的钱包"
             >
             <div slot="content">
                 
                 <member-inner>
-                    <p>我的现金账户</p>
+                    <p>现金账户</p>
                 </member-inner>
 
-            </div><!-- 我的现金账户内容 -->
+            </div><!-- 现金账户内容 -->
         </member-layout>
 	</div>
 </template>

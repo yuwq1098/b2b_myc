@@ -2,7 +2,7 @@
     <div class="buyOrder">
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="买车订单"
+            title="我的订单"
             >
             <div slot="content">
                 

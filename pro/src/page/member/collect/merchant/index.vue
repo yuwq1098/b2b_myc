@@ -3,7 +3,7 @@
 
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="车行收藏"
+            title="我的收藏"
             >
             <div slot="content">
                 
