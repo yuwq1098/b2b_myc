@@ -32,6 +32,27 @@ export const formatDate = (str) => {
     }
 }
 
+/**
+ * 日常问候
+ * @param {String} str 任意字符串
+ * @return 问候语
+ */
+export const greetByDate = (data) => {
+
+    var hours = +(new Date().getHours());
+    if(hours>11&&hours<=14){
+        return "中午好，"
+    }else if(hours>14&&hours<=18){
+        return "下午好，"
+    }else if(hours>18&&hours<=23){
+        return "晚上好，"
+    }else if(hours>=0&&hours<=4){
+        return "夜深了，要注意休息哦！"
+    }else if(hours>4&&hours<=11){
+        return "早上好！"
+    }
+}
+
 
 //----时间转换
 
@@ -42,12 +63,20 @@ export const dateFn = (data) => {
     return data.toString();
 }
 
+//转换成2015年02月04日
+export const dateFnToDay = (data) => {
+    if(!data&&data!=0) return;
+    var data = data.substr(0,4)+'年'+data.substr(5,2)+'月'+data.substr(8,2)+'日';
+    return data.toString();
+}
+
 //转换成2015年
 export const dateFnToYear = (data) => {
 	if(!data&&data!=0) return;
     var data = data&&data.substr(0,4)+'年';
     return data.toString();
 }
+
 // 年份转换
 export const dateYearFormat = (data) => {
     if(!data&&data!=0) return;
@@ -69,6 +98,11 @@ export const priceToFixed = (data,num=1) => {
     return parseFloat(number).toFixed(num)+"万元"
 }
 
+export const priceFormat = (data,num=1) => {
+    var number = data||0;
+    return parseFloat(number).toFixed(num)
+}
+
 //---评分格式转换
 export const gradeFormat = (num) => {
     let number = parseInt(num);
@@ -78,4 +112,10 @@ export const gradeFormat = (num) => {
 //---地址格式转换 / => 点
 export const addressFormat = (str) => {
     return str.replace(/[/]/g,' · ')
+}
+
+//---手机号格式转换 => 188****6264
+export const telFormat = (str) => {
+    if(!str&&str!=0) return;
+    return str.substr(0,3) + "****" + str.substr(7,4)
 }

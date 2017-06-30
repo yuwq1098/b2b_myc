@@ -97,6 +97,7 @@
     import forgetPwd from "components/sign/forget_pwd"
     // 城市选择组件
     import cityChoose from "components/citySel/citySel.vue"
+    // vuex状态管理
     import {mapGetters,mapActions} from 'vuex'
     import {navItemList,memberDropdown} from 'api/localJson/head.js'
     import {headMember} from 'base/class/member.js'

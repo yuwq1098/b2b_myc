@@ -8,7 +8,7 @@
                 </div><!-- 头像 -->
                 <div class="u-info">
                     <div class="u-name">{{memberInfo.name}}</div><!-- 用户名 -->
-                    <div class="u-tel">{{memberInfo.tel}}</div><!-- 手机号 -->
+                    <div class="u-tel">{{memberInfo.tel | telFormat}}</div><!-- 手机号 -->
                 </div><!-- 用户信息 -->
             </div><!-- 头部信息 -->
 

@@ -1,1 +1,124 @@
 @import '~assets/css/mixin.styl'
+
+.m-home-wrap
+    width 100%
+    min-height 600px
+    .m-hd-box
+        width 948px - 2px - 24px
+        height 95px
+        padding 12px
+        _borderAll(#f0f0f0)
+        _borderRadius(60px)
+        _border(bottom,#ededed,2px)
+        _boxShadow(8px,rgba(0,0,0,.08),2px,2px)
+        position relative
+        .m-pic
+            width 92px
+            height 92px
+            _borderAll(#e2e2e2)
+            _borderRadius()
+            background #fff
+            _completeCenter(18px,auto)
+            img
+                width @width - 8px
+                height @height - 8px
+                _borderRadius()
+                _completeCenter()
+        .m-con
+            width @width - 110px - 20px
+            height @height
+            margin-left 110px 
+            position relative
+            .m-info
+                height @height
+                width 340px
+                font-size 12px
+                color #666
+                .u-name
+                    height 36px
+                    line-height 36px
+                    margin-top 2px
+                    .greet
+                        font-size 12px
+                        _spacingPlus()
+                    .name
+                        font 16px/36px "Microsoft Yahei"
+                        font-weight bold
+                        color #1e8bd8
+                        _spacingPlus(3px)
+                .u-tel,.u-other
+                    line-height 22px
+                    height 22px
+                    margin-bottom 4px
+                .u-tel
+                    .telephone
+                        padding-left 22px
+                        position relative
+                        .iconfont
+                            width 20px
+                            height 20px
+                            font-size 15px
+                            _completeCenter(0,auto,-1px)
+                            color #b2b2b2
+                    .u-lk
+                        margin-left 8px
+                .u-other
+                    .info
+                        font-size 12px
+                .u-lk
+                    _display(inline-block)
+                    font-size 13px
+                    background #1e8bd8
+                    color #f0f0f0
+                    padding 1px 8px 2px
+                    _borderRadius(2px)
+                    _origin2d(0,50%)
+                    _scale(.85)
+                    _spacingPlus(2px)
+                    &:hover
+                        background @background - 10% 
+                .cut
+                    margin 0 6px
+                    color #c2c2c2
+            .m-wallet
+                height @height
+                width 450px
+                _completeCenter(340px,auto,0,auto)
+                .m-wallet-lst
+                    width 465px
+                    margin-left -15px
+                    .wallet-item
+                        width 140px
+                        height @height
+                        float left
+                        margin-left 15px
+                        text-align center
+                        position relative
+                        .u-tit
+                            height 38px
+                            line-height 38px
+                            font-size 16px
+                            color #222
+                            _spacingPlus(2px)
+                            margin-top 12px
+                        .u-data
+                            color #666
+                            height 24px
+                            line-height 24px
+                            font-size 13px
+                        .vital
+                            color #ff6533
+                            margin 0 3px
+                            font-size 15px
+                        &.other
+                            .u-lk
+                                height 28px
+                                line-height 28px
+                                color #1e8bd8
+                                _completeCenter(auto,25px,auto,20px)
+                                &:hover
+                                    color @color + 10%
+                                    text-decoration underline
+
+
+            

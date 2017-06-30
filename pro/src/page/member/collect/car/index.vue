@@ -117,7 +117,6 @@
                             return;
                         }
                         this.carCollectList = this._normalizeCar(res.data);
-                        console.log(dataToJson(this.carCollectList))
                     }
                 })
             },

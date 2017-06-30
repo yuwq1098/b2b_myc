@@ -19,10 +19,10 @@ export const sidebarMenu = [
             	'title': '我的认证',
 	        	'hash': '/member/apply',
             },
-            {
-            	'title': '我的购物车',
-	        	'hash': '/member/shopCart',
-            },
+          //   {
+          //   	'title': '我的购物车',
+	        	// 'hash': '/member/shopCart',
+          //   },
         ]
     },
     {

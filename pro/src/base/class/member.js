@@ -36,8 +36,9 @@ class memberInfo{
 	    this.imgUrl = data.PhotoURL?data.PhotoURL:require('assets/img/none-face.png')
 	    this.tel = data.Mobile||""
 	    this.sex = data.Sex||"暂未设置"
-	    this.blance = data.Blance||""          // 余额
-	    this.credit = data.CreditPoint||""     // 信誉保证金
+	    this.blance = data.Blance||0          // 余额
+	    this.credit = data.CreditPoint||0     // 信誉保证金
+	    this.regDate = data.RegDate||""        // 注册时间
 	    this.hasPaypwd = data.CreditPoint||""  // 是否有交易密码
 	    this.cdgAuth = data.CdgAuth||""        // 车行认证信息数组，没时为[]数组
 	    // 认证状态
