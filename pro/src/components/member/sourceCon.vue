@@ -58,8 +58,8 @@
         min-height 420px
         margin 15px 0 0
         .m-more
-            margin 25px 0 0
-            padding 0 0 10px
+            margin 30px 0 0
+            padding 0 0 45px
             height 42px
             line-height 42px
             text-align center
@@ -70,8 +70,8 @@
                 line-height @height
                 padding 0 50px
                 font-size 16px
-                color #2f98e2
-                _borderAll(#2f98e2)
+                color #4B5861
+                _borderAll(#4B5861)
                 _spacingPlus(3px)
                 _borderRadius(21px)
                 &:hover

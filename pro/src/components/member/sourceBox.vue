@@ -11,11 +11,14 @@
                         <img :src="sourceInfo.imgUrl" :alt="sourceInfo.title"/>
                     </div>
                 </div>
-                <div class="m-mask">
+                
+                <div class="m-con-box">
+                    <div class="u-mask">
                     
-                </div><!-- 遮罩内容（操作部分） -->
-                <div class="m-con">
-                    
+                    </div><!-- 遮罩内容（操作部分） -->
+                    <div class="u-con">
+                        
+                    </div><!-- 信息内容 -->
                 </div><!-- 车源主要信息 -->
             </a>
         </div>
@@ -59,7 +62,7 @@
     .m-source-box
         width 225px
         height 265px
-        _boxShadow(12px,rgba(0,0,0,.15),1px,1px)
+        _boxShadow(12px,rgba(0,0,0,.08))
         position relative
         .m-lk
             _display()
@@ -76,17 +79,29 @@
                     height @height
                     _completeCenter()
                     _imgwrap()
-            .m-mask
-                width 100%
-                height 120px
-                _completeCenter(,,165px,auto)
-            .m-con
+            .m-con-box
                 width 100%
                 height 180px
                 _completeCenter(,,165px,auto)
-                z-index 99
-                background #e42
-                _transitionAll(.4s)
-                _translate3d(0,-80px)
-
+                _transitionAll(.3s)
+                .u-mask
+                    width 100%
+                    height 120px
+                    _completeCenter(0,auto,0,auto)
+                    background rgba(0,0,0,.65)
+                    _transitionAll(.25s)
+                .u-con
+                    width @width
+                    height @height
+                    background #fff
+                    _completeCenter(0,auto,auto,0)
+                    z-index 2
+            &:hover
+                _boxShadow(15px,rgba(0,0,0,.10),-4px,4px)
+                .m-con-box
+                    _transitionAll(.3s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
+                    _translate3d(0,-80px)
+                    .u-mask
+                        _transitionAll(.3s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
+                        _translate3d(0,-85px)
 </style>
