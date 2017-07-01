@@ -7,9 +7,9 @@ class sourceInfo{
 	    this.imgUrl = require("assets/img/car-details_001.jpg")
 	    this.title = data.Title||""               // 标题
 	    this.checkTime = data.CheckTime||""       // 审核时间
-	    this.checkRemark = data.CheckRemark||""   // 审核失败
-	    this.shelveTime = data.ShelveTime||""     // 最后上架时间
-	    this.inCity = data.CarInCity||""          // 车辆所在城市
+	    this.checkRemark = data.CheckRemark||""   // 审核失败备注
+	    this.shelveTime = data.ShelveTime||"无时间数据"     // 最后上架时间
+	    this.inCity = data.CarInCity||"未知城市"          // 车辆所在城市
 	    // 上牌时间
 	    this.plateDate = data.OnLicensePlateDate||""
 	    this.mileage = data.Mileage||0           // 行驶里程

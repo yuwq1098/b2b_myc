@@ -310,9 +310,14 @@ export default {
         return fetchSign('/action2/OperateB2BCar.ashx',dataToJson(params));
     },
     
-    //我的车源信息
-    getMyB2BCar(params){
+    //我的车源信息(状态混乱)
+    getMyB2BCarMobile(params){
         return fetchSign('/action2/MyB2BCar.ashx',dataToJson(params));
+    },
+
+    //我的车源信息(PC)
+    getMyB2BCar(params){
+        return fetchSign('/action2/MyB2BCarPC.ashx',dataToJson(params));
     },
 
     //B2B车辆大厅列表

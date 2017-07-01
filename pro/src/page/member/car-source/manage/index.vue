@@ -68,7 +68,12 @@
                                 >
                                 <source-con v-if="tradingList.length>0"
                                     :isShowMore="tradingList.length>=pageSize">
-                                    <div slot="content"></div>
+                                    <div slot="content">
+                                        <source-list
+                                            :sourceList="tradingList"
+                                            >    
+                                        </source-list>
+                                    </div>
                                 </source-con>
                                 <no-content
                                     v-if="tradingList.length==0"
@@ -84,7 +89,12 @@
                                 >
                                 <source-con v-if="auditList.length>0"
                                     :isShowMore="auditList.length>=pageSize">
-                                    <div slot="content"></div>
+                                    <div slot="content">
+                                        <source-list
+                                            :sourceList="auditList"
+                                            >    
+                                        </source-list>
+                                    </div>
                                 </source-con>
                                 <no-content
                                     v-if="auditList.length==0"
@@ -100,7 +110,12 @@
                                 >
                                 <source-con v-if="soldList.length>0"
                                     :isShowMore="soldList.length>=pageSize">
-                                    <div slot="content"></div>
+                                    <div slot="content">
+                                        <source-list
+                                            :sourceList="soldList"
+                                            >    
+                                        </source-list>
+                                    </div>
                                 </source-con>
                                 <no-content
                                     v-if="soldList.length==0"
@@ -116,7 +131,12 @@
                                 >
                                 <source-con v-if="notOnList.length>0"
                                     :isShowMore="notOnList.length>=pageSize">
-                                    <div slot="content"></div>
+                                    <div slot="content">
+                                        <source-list
+                                            :sourceList="notOnList"
+                                            >    
+                                        </source-list>
+                                    </div>
                                 </source-con>
                                 <no-content
                                     v-if="notOnList.length==0"
@@ -132,11 +152,16 @@
                                 >
                                 <source-con v-if="failureList.length>0"
                                     :isShowMore="failureList.length>=pageSize">
-                                    <div slot="content"></div>
+                                    <div slot="content">
+                                        <source-list
+                                            :sourceList="failureList"
+                                            >    
+                                        </source-list>
+                                    </div>
                                 </source-con>
                                 <no-content
                                     v-if="failureList.length==0"
-                                    speak="您没有审核失败车源哦，可以点击下方的发车按钮，前往发布车辆界面去发布新的车辆!"
+                                    speak="真赞，您车源全部审核通过！可以点击下方的发车按钮，去发布新的车辆!"
                                     >
                                     <router-link :to="{path:'/sellSend'}" class="u-lk" tag="a">前往发车&gt;</router-link>
                                     <router-link :to="{path:'/'}" class="u-lk" tag="a">返回首页&gt;</router-link>
@@ -220,7 +245,8 @@
         },
         // 退出的生命周期钩子
         deactivated(){
-            
+            // 清除所有数据
+            this.clearData();
         },
         // 属性值计算
         computed:{
@@ -321,6 +347,15 @@
                         });
                     }
                 })
+            },
+            // 清空所有列表数据
+            clearData(){
+                this.forSaleList= [];
+                this.tradingList= [];
+                this.auditList= [];
+                this.soldList= [];
+                this.notOnList= [];
+                this.failureList= [];
             }
         },
         

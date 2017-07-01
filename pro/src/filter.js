@@ -84,6 +84,13 @@ export const dateYearFormat = (data) => {
     return data.toString();
 }
 
+// 年份转换
+export const dateDayFormat = (data) => {
+    if(!data&&data!=0) return;
+    var data = data&&data.substr(0,10);
+    return data.toString();
+}
+
 //----公里单位转换
 
 //转换成15.2万公里
