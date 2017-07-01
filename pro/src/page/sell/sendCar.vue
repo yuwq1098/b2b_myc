@@ -759,7 +759,7 @@
                                 duration: 2000,
                             });
                             setTimeout(() => {
-                                me.$router.push('/member/apply/myApply');
+                                me.$router.push('/member');
                             },2000)
                         }
                     }).catch(error => {

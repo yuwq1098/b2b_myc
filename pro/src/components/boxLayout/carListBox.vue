@@ -71,7 +71,7 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
     .m-lst-con
-        padding 5px 0 25px
+        padding 5px 0 20px
         width 1200px
         .m-lst
             width 1220px

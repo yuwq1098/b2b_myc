@@ -107,8 +107,6 @@ export default {
         return fetch('/action2/UserLogin.ashx', qs.stringify(params))
     },
 
-
-
     //上传隐私类图片
     uploadImg(params){
         return fetchSign('/action2/UploadPrivateFile.ashx', qs.stringify(params))
@@ -312,7 +310,7 @@ export default {
         return fetchSign('/action2/OperateB2BCar.ashx',dataToJson(params));
     },
     
-    //我的车辆信息
+    //我的车源信息
     getMyB2BCar(params){
         return fetchSign('/action2/MyB2BCar.ashx',dataToJson(params));
     },
