@@ -437,7 +437,6 @@
                 this.soldList= [];
                 this.notOnList= [];
                 this.failureList= [];
-                console.log("进来了吗")
                 this.isNotMoreItems = [false,false,false,false,false,false];
             },
             // 上架车源(当已是上架时，刷新置顶，每天一次)
