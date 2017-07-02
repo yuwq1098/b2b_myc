@@ -43,7 +43,7 @@
                         <li class="m-item">
                             <div class="m-bar-box f__clearfix">
                                 <span class="u-tit">更改手机绑定</span>
-                                <div class="u-data">17607006796</div>
+                                <div class="u-data">{{memberData.tel | telFormat}}</div>
                                 <p class="u-tips">绑定的手机号,可以用于手机登录和找回密码</p><!-- 说明 -->
                                 <router-link 
                                     :to="{path:'/member/safetyTel'}"
@@ -66,6 +66,10 @@
 
 <script>
     
+    // vuex状态管理
+    import {mapGetters,mapActions} from 'vuex'
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
 
@@ -79,12 +83,40 @@
         // 数据
         data() {
             return{
-                
+                memberData: {},
             }
+        },
+        //属性值计算
+        computed:{
+            ...mapGetters(['userData']),
+        },
+        //生命周期,开始的时候
+        created(){
+            
+        },
+        mounted(){
+
+        },
+        activated(){
+            // 获取用户信息
+            this.getMemberInfo();
+        },
+        //退出的生命周期钩子
+        deactivated(){
+            this.isInfoShow = true;
+        },
+        // 数据侦听
+        watch:{
+            userData(val){
+                // 获取用户信息
+                this.getMemberInfo();
+            },
         },
         // 自定义函数(方法)
         methods: {
-            
+            getMemberInfo(){
+                this.memberData = new memberInfo(this.userData);
+            }
         },
         
     }

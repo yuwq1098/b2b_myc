@@ -37,7 +37,7 @@
                                 <div class="m-line-box f__clearfix">
                                     <span class="u-attr">绑定手机号：</span>
                                     <div class="u-data">
-                                        <span class="data">{{memberData.tel}}</span>
+                                        <span class="data">{{memberData.tel | telFormat}}</span>
                                         <router-link :to="{path:'/member/safetyTel'}" 
                                             class="u-lk operate"
                                             tag="a"

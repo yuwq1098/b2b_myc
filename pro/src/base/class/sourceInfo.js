@@ -4,7 +4,7 @@ class sourceInfo{
 	    this.id = data.CarId||""                  // 车辆id
 	    this.viewPeople = data.BrowserCount||0    // 浏览量
 	    this.imgUrl = data.FirstImg||""           // 首图
-	    this.imgUrl = require("assets/img/car-details_001.jpg")
+	    // this.imgUrl = require("assets/img/car-details_001.jpg")
 	    this.title = data.Title||""               // 标题
 	    this.checkTime = data.CheckTime||""       // 审核时间
 	    this.checkRemark = data.CheckRemark||""   // 审核失败备注
