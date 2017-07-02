@@ -43,6 +43,17 @@ export const crumbsHash = {
             path:"/member/sourceHome",
         }
     ],
+    // 编辑车源
+    '/member/sourceEdit':[
+        {
+            pathName:"我的车源",
+            path:"/member/sourceHome",
+        },
+        {
+            pathName:"编辑车源",
+            path:"/member/sourceEdit",
+        },
+    ],
     // 现金账户
     '/member/wallet':[
         {

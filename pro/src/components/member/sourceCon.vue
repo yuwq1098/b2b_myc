@@ -9,8 +9,11 @@
 
             </slot>
             <div class="m-more" v-show="isShowMore">
-                <a href="javascript:;" class="u-lk" v-if="!isNotMore">获取更多...</a>
-                <p u="u-txt" v-if="isNotMore">没有更多了~</p>
+                <a href="javascript:;" class="u-lk" 
+                    @click="getMoreData()"
+                    v-if="!isNotMore"
+                    >获取更多...</a>
+                <p class="u-txt" v-if="isNotMore">没有更多了~</p>
             </div>
         </div>
     </div>
@@ -32,8 +35,8 @@
             }
         },
         props:{
-        	// 是否到底了(是否没有更多)
-            isNotMore:{
+            // 是否到底了(是否没有更多)
+            isNotMore: {
                 type: Boolean,
                 default: false,
             },
@@ -42,10 +45,42 @@
                 type: Boolean,
                 default: false,
             },
+            tabShowIndex: {
+                type: Number,
+                default: 1,
+            },
+            // 车源信息
+            sourceList: {
+                type: Array,
+                default(){
+                    return [];
+                }
+            },
+        },
+        // 数据阵痛
+        watch:{
+
+        },
+        //生命周期,开始的时候
+        created(){
+
+        },
+        mounted(){
+
+        },
+        activated(){
+            
+        },
+        // 退出的生命周期钩子
+        deactivated(){
+
         },
         // 自定义函数(方法)
         methods: {
-            
+            // 获取更多数据
+            getMoreData(){
+                this.$emit("getMoreData")
+            }
         },    
     }
 </script>
@@ -77,6 +112,10 @@
                 &:hover
                     color #2f98e2
                     _borderAll(#2f98e2)
+            .u-txt
+                color #40474A
+                font-size 16px
+                _spacingPlus(2px)
 
         
 </style>

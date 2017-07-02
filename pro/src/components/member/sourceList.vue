@@ -53,16 +53,16 @@
         // 自定义函数(方法)
         methods: {
             // 上架车源(当已是上架时，刷新置顶，每天一次)
-            addedSource(id,status){
-                this.$emit("addedSource",id,status);
+            addedSource(id,acted){
+                this.$emit("addedSource",id,acted);
             },
             // 编辑车源 
             editSource(id){
                 this.$emit("editSource",id);
             },
             // 下架车源 
-            soldOutSource(id,status){
-                this.$emit("soldOutSource",id,status);
+            soldOutSource(id){
+                this.$emit("soldOutSource",id);
             },
             // 删除车源
             delSource(id){

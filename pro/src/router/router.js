@@ -43,6 +43,8 @@ const sellOrder = r => require.ensure([], () => r(require('page/member/order/sel
 
 // 车源管理 => 我的车源
 const mySource = r => require.ensure([], () => r(require('page/member/car-source/manage')), 'mySource')
+// 车源管理 => 编辑车源
+const editSource = r => require.ensure([], () => r(require('page/member/car-source/edit')), 'editSource')
 
 
 // 我的钱包 => 钱包主页
@@ -197,6 +199,15 @@ export default[{
                     path: 'car-source',
                     component: mySource,
                     alias: 'sourceHome',        // 使用别名
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 编辑车源
+                    path: 'edit-source',
+                    component: editSource,
+                    alias: 'sourceEdit',        // 使用别名
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },

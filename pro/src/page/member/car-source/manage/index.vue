@@ -46,6 +46,8 @@
                                 v-if="tabShowIndex==1"
                                 >
                                 <source-con v-if="forSaleList.length>0"
+                                    @getMoreData="getMoreData(1,forSaleList)"
+                                    :isNotMore="isNotMoreItems[0]"
                                     :isShowMore="forSaleList.length>=pageSize">
                                     <div slot="content">
                                         <source-list
@@ -70,6 +72,8 @@
                                 v-if="tabShowIndex==2"
                                 >
                                 <source-con v-if="tradingList.length>0"
+                                    @getMoreData="getMoreData(2,tradingList)"
+                                    :isNotMore="isNotMoreItems[1]"
                                     :isShowMore="tradingList.length>=pageSize">
                                     <div slot="content">
                                         <source-list
@@ -91,6 +95,8 @@
                                 v-if="tabShowIndex==3"
                                 >
                                 <source-con v-if="auditList.length>0"
+                                    @getMoreData="getMoreData(3,auditList)"
+                                    :isNotMore="isNotMoreItems[2]"
                                     :isShowMore="auditList.length>=pageSize">
                                     <div slot="content">
                                         <source-list
@@ -112,6 +118,8 @@
                                 v-if="tabShowIndex==4"
                                 >
                                 <source-con v-if="soldList.length>0"
+                                    @getMoreData="getMoreData(4,soldList)"
+                                    :isNotMore="isNotMoreItems[3]"
                                     :isShowMore="soldList.length>=pageSize">
                                     <div slot="content">
                                         <source-list
@@ -133,7 +141,10 @@
                                 v-if="tabShowIndex==5"
                                 >
                                 <source-con v-if="notOnList.length>0"
-                                    :isShowMore="notOnList.length>=pageSize">
+                                    @getMoreData="getMoreData(5,notOnList)"
+                                    :isNotMore="isNotMoreItems[4]"
+                                    :isShowMore="notOnList.length>=pageSize"
+                                    >
                                     <div slot="content">
                                         <source-list
                                             @addedSource="addedSource"
@@ -157,6 +168,8 @@
                                 v-if="tabShowIndex==6"
                                 >
                                 <source-con v-if="failureList.length>0"
+                                    @getMoreData="getMoreData(6,failureList)"
+                                    :isNotMore="isNotMoreItems[5]"
                                     :isShowMore="failureList.length>=pageSize">
                                     <div slot="content">
                                         <source-list
@@ -184,6 +197,7 @@
         </member-layout>
     </div>
 </template>
+
 
 <script>
     
@@ -238,6 +252,9 @@
 
                 // 我的分页（每页数据大小）
                 pageSize: 12,
+                
+                // 是否有更多的集合
+                isNotMoreItems:[false,false,false,false,false,false]
             }
         },
         //生命周期,开始的时候
@@ -268,6 +285,8 @@
         methods: {
             // 选项卡切换方法
             tabChange(index){
+                // 清除所有数据
+                this.clearData();
                 // 开始切换
                 this.$router.push({
                     path:'/member/sourceHome',
@@ -277,33 +296,40 @@
                 this.tabShowIndex = index
                 this.getManageListData(index);
             },
+            // 根据tabIndex 获取 status
+            _getStatusByIndex(index){
+                let status;
+                switch(index){
+                    case "1":   // 在售
+                        return status = 1;
+                        break;
+                    case "2":   // 交易中
+                        return status = 2;
+                        break;
+                    case "3":   // 审核中
+                        return status = 0;
+                        break;
+                    case "4":   // 已售
+                        return status = 3;
+                        break;
+                    case "5":   // 已下架
+                        return status = -1;
+                        break;
+                    case "6":   // 审核失败
+                        return status = -2;
+                        break;
+                }
+                return status;
+            },
             // 获取管理列表数据
             getManageListData(index){
                 let me = this;
-                let status = null;
                 let _index = index.toString();
-                switch(_index){
-                    case "1":   // 在售
-                        status = 1;
-                        break;
-                    case "2":   // 交易中
-                        status = 2;
-                        break;
-                    case "3":   // 审核中
-                        status = 0;
-                        break;
-                    case "4":   // 已售
-                        status = 3;
-                        break;
-                    case "5":   // 已下架
-                        status = -1;
-                        break;
-                    case "6":   // 审核失败
-                        status = -2;
-                        break;
-                }
+
+                let status = this._getStatusByIndex(_index);
+
                 // 获取数据，然后回调赋值
-                this.getData(status,(res) => {
+                this.getData(status,1,(res) => {
                     switch(_index){
                         case "1":   // 在售
                             me.forSaleList = this._normalizeSource(res);
@@ -335,10 +361,10 @@
                 return arr;
             },
             // 获取数据
-            getData(status,callBack){
+            getData(status,curPage=1,callBack){
                 let data = {
                     status : status,
-                    pageIndex : 1,
+                    pageIndex : curPage,
                     pageSize : this.pageSize,
                 }
                 api.getMyB2BCar(data).then(res => {
@@ -356,6 +382,53 @@
                     }
                 })
             },
+            // 获取更多数据
+            getMoreData(tabIndex,list){
+
+                let index = tabIndex.toString();
+                let status = this._getStatusByIndex(index);
+                let listSize = list.length;
+                if(listSize%this.pageSize!=0) return;
+
+                let nextPageNo = Math.ceil(listSize/this.pageSize) + 1;
+
+                // 获取数据，然后回调赋值
+                this.getData(status,nextPageNo,(res) => {
+                    switch(index){
+                        case "1":   // 在售
+                            this._setIsNotMore(res,0)
+                            this.forSaleList.push(...this._normalizeSource(res));
+                            break;
+                        case "2":   // 交易中
+                            this._setIsNotMore(res,1)
+                            this.tradingList.push(...this._normalizeSource(res));
+                            break;
+                        case "3":   // 审核中
+                            this._setIsNotMore(res,2)
+                            this.auditList.push(...this._normalizeSource(res));
+                            break;
+                        case "4":   // 已售
+                            this._setIsNotMore(res,3)
+                            this.soldList.push(...this._normalizeSource(res));
+                            break;
+                        case "5":   // 已下架
+                            this._setIsNotMore(res,4)
+                            this.notOnList.push(...this._normalizeSource(res));
+                            break;
+                        case "6":   // 审核失败
+                            this._setIsNotMore(res,5)
+                            this.failureList.push(...this._normalizeSource(res));
+                            break;
+                    }
+                })
+            },
+            // 设置是否没有更多数据
+            _setIsNotMore(res,index){
+                if(res.length==0||res.length<this.pageSize){
+                    this.isNotMoreItems[index] = true;     
+                }
+            },
+
             // 清空所有列表数据
             clearData(){
                 this.forSaleList= [];
@@ -364,23 +437,99 @@
                 this.soldList= [];
                 this.notOnList= [];
                 this.failureList= [];
+                console.log("进来了吗")
+                this.isNotMoreItems = [false,false,false,false,false,false];
             },
             // 上架车源(当已是上架时，刷新置顶，每天一次)
-            addedSource(id,status){
-                console.log("上架车源")
+            addedSource(id,acted){
+                // 操作码 -1失败，1上架，2下架
+                this.operateSource(1,id,(msg)=>{
+                    if(acted&&acted=="置顶"){
+                        this.$notify({
+                            title: '置顶成功',
+                            message: msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                    }else{
+                        this.$notify({
+                            title: '上架成功',
+                            message: msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                    }
+                    // 跳转到在售列表
+                    this.tabChange(1);
+                })
             },
             // 编辑车源 
             editSource(id){
-                console.log("编辑车源")
+                this.$router.push(
+                    {path:'/member/sourceEdit',query:{id:id}}
+                );
             },
             // 下架车源 
-            soldOutSource(id,status){
-                console.log("下架车源")
+            soldOutSource(id){
+                // 操作码 -1失败，1上架，2下架
+                this.operateSource(2,id,(msg)=>{
+                    this.$notify({
+                        title: '下架成功',
+                        message: msg,
+                        type: 'success',
+                        duration: 2000,
+                    });
+                    // 跳转到下架列表
+                    this.tabChange(5);
+                })
             },
             // 删除车源
             delSource(id){
-               console.log("删除车源")
-            }
+                // 操作码 -1失败，1上架，2下架
+                this.operateSource(-1,id,(msg)=>{
+                    this.$notify({
+                        title: '删除成功',
+                        message: msg,
+                        type: 'success',
+                        duration: 1500,
+                    });
+                    // 刷新当前tab的列表数据
+                    this.tabChange(this.tabShowIndex);
+                })
+            },
+            // 向api发出对车源的操作请求
+            operateSource(actCode,id,callBack){
+                let actName = "";
+                switch(actCode){
+                    case -1:
+                        actName = "删除"
+                        break;
+                    case 1:
+                        actName = "上架"
+                        break;
+                    case 2:
+                        actName = "下架"
+                        break;
+                }
+                let data = {
+                    CarId: id,
+                    Operate: actName,
+                }
+                api.operateB2BCar(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        if(callBack){
+                            callBack(res.msg);
+                        }
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '操作失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
         },
         
     }

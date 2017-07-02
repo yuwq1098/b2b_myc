@@ -305,7 +305,7 @@ export default {
         return fetchSign('/action2/AddOrEditB2BCar.ashx',dataToJson(params));
     },
 
-    //删除、下架车辆
+    //删除、下架、上架 车辆
     operateB2BCar(params){
         return fetchSign('/action2/OperateB2BCar.ashx',dataToJson(params));
     },

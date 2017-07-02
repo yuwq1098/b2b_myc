@@ -79,13 +79,13 @@
                         
                         <div class="btn-wrap three f__clearfix" v-if="sourceInfo.status == '1'">
                             <a class="u-btn" 
-                                @click="addedSource(sourceInfo.id,sourceInfo.status)"
+                                @click="addedSource(sourceInfo.id,'置顶')"
                                 >置顶</a>
                             <a class="u-btn" 
                                 @click="editSource(sourceInfo.id)"
                                 >编辑</a>
                             <a class="u-btn" 
-                                @click="soldOutSource(sourceInfo.id,sourceInfo.status)"
+                                @click="soldOutSource(sourceInfo.id)"
                                 >下架</a>
                         </div><!-- 交易中 -->
 
@@ -105,7 +105,7 @@
                                 @click="editSource(sourceInfo.id)"
                                 style="width: 56px">编辑</a>
                             <a class="u-btn tiny" 
-                                @click="addedSource(sourceInfo.id,sourceInfo.status)"
+                                @click="addedSource(sourceInfo.id)"
                                 style="width: 77px">再次上架</a>
                             <a class="u-btn tiny"
                                 @click="delSource(sourceInfo.id)"
@@ -155,16 +155,16 @@
         // 自定义函数(方法)
         methods: {
             // 上架车源(当已是上架时，刷新置顶，每天一次)
-            addedSource(id,status){
-                this.$emit("addedSource",id,status);
+            addedSource(id,acted){
+                this.$emit("addedSource",id,acted);
             },
             // 编辑车源 
             editSource(id){
                 this.$emit("editSource",id);
             },
             // 下架车源 
-            soldOutSource(id,status){
-                this.$emit("soldOutSource",id,status);
+            soldOutSource(id){
+                this.$emit("soldOutSource",id);
             },
             // 删除车源
             delSource(id){
