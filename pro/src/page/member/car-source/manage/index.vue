@@ -49,6 +49,9 @@
                                     :isShowMore="forSaleList.length>=pageSize">
                                     <div slot="content">
                                         <source-list
+                                            @addedSource="addedSource"
+                                            @editSource="editSource"
+                                            @soldOutSource="soldOutSource"
                                             :sourceList="forSaleList"
                                             >    
                                         </source-list>
@@ -133,6 +136,9 @@
                                     :isShowMore="notOnList.length>=pageSize">
                                     <div slot="content">
                                         <source-list
+                                            @addedSource="addedSource"
+                                            @editSource="editSource"
+                                            @delSource="delSource"
                                             :sourceList="notOnList"
                                             >    
                                         </source-list>
@@ -154,6 +160,8 @@
                                     :isShowMore="failureList.length>=pageSize">
                                     <div slot="content">
                                         <source-list
+                                            @editSource="editSource"
+                                            @delSource="delSource"
                                             :sourceList="failureList"
                                             >    
                                         </source-list>
@@ -356,6 +364,22 @@
                 this.soldList= [];
                 this.notOnList= [];
                 this.failureList= [];
+            },
+            // 上架车源(当已是上架时，刷新置顶，每天一次)
+            addedSource(id,status){
+                console.log("上架车源")
+            },
+            // 编辑车源 
+            editSource(id){
+                console.log("编辑车源")
+            },
+            // 下架车源 
+            soldOutSource(id,status){
+                console.log("下架车源")
+            },
+            // 删除车源
+            delSource(id){
+               console.log("删除车源")
             }
         },
         

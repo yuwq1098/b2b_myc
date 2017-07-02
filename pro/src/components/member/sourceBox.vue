@@ -78,9 +78,15 @@
                         </div><!-- 在售 -->
                         
                         <div class="btn-wrap three f__clearfix" v-if="sourceInfo.status == '1'">
-                            <a href="javascript:;" class="u-btn">置顶</a>
-                            <a href="javascript:;" class="u-btn">编辑</a>
-                            <a href="javascript:;" class="u-btn">下架</a>
+                            <a class="u-btn" 
+                                @click="addedSource(sourceInfo.id,sourceInfo.status)"
+                                >置顶</a>
+                            <a class="u-btn" 
+                                @click="editSource(sourceInfo.id)"
+                                >编辑</a>
+                            <a class="u-btn" 
+                                @click="soldOutSource(sourceInfo.id,sourceInfo.status)"
+                                >下架</a>
                         </div><!-- 交易中 -->
 
                         <div class="on-btn" v-if="sourceInfo.status == '0'">
@@ -93,14 +99,26 @@
                             </router-link>
                         </div><!-- 交易成功 -->
 
-                        <div class="btn-wrap two f__clearfix"
+                        <div class="btn-wrap three f__clearfix"
                             v-if="sourceInfo.status == '-1'">
-                            <a href="javascript:;" class="u-btn">编辑</a>
-                            <a href="javascript:;" class="u-btn">重新上架</a>
+                            <a class="u-btn tiny"
+                                @click="editSource(sourceInfo.id)"
+                                style="width: 56px">编辑</a>
+                            <a class="u-btn tiny" 
+                                @click="addedSource(sourceInfo.id,sourceInfo.status)"
+                                style="width: 77px">再次上架</a>
+                            <a class="u-btn tiny"
+                                @click="delSource(sourceInfo.id)"
+                                style="width: 56px">删除</a>
                         </div><!-- 已下架 -->
 
-                        <div class="btn-wrap one f__clearfix" v-if="sourceInfo.status == '-2'">
-                            <a href="javascript:;" class="u-btn">重新编辑</a>
+                        <div class="btn-wrap two f__clearfix" v-if="sourceInfo.status == '-2'">
+                            <a class="u-btn"
+                                @click="editSource(sourceInfo.id)"
+                                style="width: 120px">重新编辑</a>
+                            <a class="u-btn"
+                                @click="delSource(sourceInfo.id)"
+                                style="width: 72px">删除</a>
                         </div><!-- 审核失败 -->
 
                     </div><!-- 信息内容 -->
@@ -136,7 +154,22 @@
         },
         // 自定义函数(方法)
         methods: {
-            
+            // 上架车源(当已是上架时，刷新置顶，每天一次)
+            addedSource(id,status){
+                this.$emit("addedSource",id,status);
+            },
+            // 编辑车源 
+            editSource(id){
+                this.$emit("editSource",id);
+            },
+            // 下架车源 
+            soldOutSource(id,status){
+                this.$emit("soldOutSource",id,status);
+            },
+            // 删除车源
+            delSource(id){
+                this.$emit("delSource",id);
+            }
         },    
     }
 </script>
@@ -291,6 +324,9 @@
                             _borderRadius(2px)
                             font-size 13px
                             float left
+                            &.tiny
+                                font-size 12px
+                                _spacingPlus(3px)
                             &:hover
                                 background #293135
                         &.one
@@ -324,7 +360,6 @@
                             height 21px
                             color #91989c
                             _border(bottom,#d2d2d2)
-
 
             &:hover
                 _boxShadow(15px,rgba(0,0,0,.10),-4px,4px)

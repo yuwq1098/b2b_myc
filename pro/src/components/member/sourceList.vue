@@ -9,6 +9,10 @@
                 <template v-for="item in sourceList">
                     <li class="m-item">
                         <source-box
+                            @addedSource="addedSource"
+                            @editSource="editSource"
+                            @soldOutSource="soldOutSource"
+                            @delSource="delSource"
                             :sourceInfo="item"
                             ><!-- 车源组件 -->
                         </source-box>
@@ -48,7 +52,22 @@
         },
         // 自定义函数(方法)
         methods: {
-            
+            // 上架车源(当已是上架时，刷新置顶，每天一次)
+            addedSource(id,status){
+                this.$emit("addedSource",id,status);
+            },
+            // 编辑车源 
+            editSource(id){
+                this.$emit("editSource",id);
+            },
+            // 下架车源 
+            soldOutSource(id,status){
+                this.$emit("soldOutSource",id,status);
+            },
+            // 删除车源
+            delSource(id){
+                this.$emit("delSource",id);
+            }
         },    
     }
 </script>
