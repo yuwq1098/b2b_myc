@@ -59,7 +59,8 @@ const merchantCollect = r => require.ensure([], () => r(require('page/member/col
 
 // 账户设置 => 个人资料设置
 const personalSetting = r => require.ensure([], () => r(require('page/member/setting/personal')), 'personalSetting')
-
+// 账户设置 => 银行卡管理
+const bankCardManage = r => require.ensure([], () => r(require('page/member/setting/bank-card')), 'bankCardManage')
 
 // 账户设置 => 安全中心 => 内容主页
 const safetyCenter = r => require.ensure([], () => r(require('page/member/setting/safety')), 'safetyCenter')
@@ -244,6 +245,14 @@ export default[{
                 // 个人资料设置
                     path: 'personal',
                     component: personalSetting,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 银行卡管理
+                    path: 'cardManage',
+                    component: bankCardManage,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },

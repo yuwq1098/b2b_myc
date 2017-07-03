@@ -82,6 +82,13 @@ export const crumbsHash = {
             path:"/member/personal",
         }
     ],
+    // 绑定银行卡
+    '/member/cardManage':[
+        {
+            pathName:"绑定银行卡",
+            path:"/member/cardManage",
+        }
+    ],
 	// 安全中心页
     '/member/safetyCenter':[
         {

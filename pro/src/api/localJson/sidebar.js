@@ -87,6 +87,10 @@ export const sidebarMenu = [
 	        	'hash': '/member/personal',
             },
             {
+                'title': '绑定银行卡',
+                'hash': '/member/cardManage',
+            },
+            {
             	'title': '安全中心',
 	        	'hash': '/member/safetyCenter',
             },

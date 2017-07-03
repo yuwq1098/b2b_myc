@@ -210,11 +210,11 @@
                     &.audit
                         background #5972EA
                     &.soldOut
-                        background #F13353
+                        background #f45
                     &.success
                         background #06AB9B
                     &.error
-                        background #F82E34
+                        background #f45
                 .u-pic
                     width @width
                     height @height
