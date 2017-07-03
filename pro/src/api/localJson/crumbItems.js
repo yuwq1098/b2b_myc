@@ -61,6 +61,39 @@ export const crumbsHash = {
             path:"/member/wallet",
         }
     ],
+    // 账单详情
+    '/member/billDetails':[
+        {
+            pathName:"现金账户",
+            path:"/member/wallet",
+        },
+        {
+            pathName:"账单详情",
+            path:"/member/billDetails",
+        },
+    ],
+    // 充值
+    '/member/recharge':[
+        {
+            pathName:"现金账户",
+            path:"/member/wallet",
+        },
+        {
+            pathName:"充值",
+            path:"/member/recharge",
+        },
+    ],
+    // 提现
+    '/member/withdraw':[
+        {
+            pathName:"现金账户",
+            path:"/member/wallet",
+        },
+        {
+            pathName:"提现",
+            path:"/member/withdraw",
+        },
+    ],
     // 车辆收藏页
     '/member/collectCar':[
         {

@@ -10,48 +10,37 @@
                     <div class="m-wallet-wrap">
                         <div class="m-wallet-hd">
                             <div class="m-top f__clearfix">
-                                <p class="u-greet">您好，{{memberData.name}}！</p><!-- 问候 -->
+                                <p class="u-greet">您好，不羁的狂鱼！</p><!-- 问候 -->
                                 <p class="u-payPass f__clearfix">
-                                    <a href="javascript:;" class="lk">管理银行卡</a>
-                                    <span class="cut">|</span>
-                                    <template v-if="!memberData.hasPaypwd">
+                                    <template v-if="true">
                                         <a href="javascript:;" class="lk">开启支付密码</a>
-                                        <p class="tips"><i class="iconfont icon-xinxi2"></i>开启支付密码后，账户资金更安全！</p>
+                                        <p class="tips"><i class=""></i>开启支付密码后，账户资金更安全！</p>
                                     </template>
-                                    <template v-if="memberData.hasPaypwd">
-                                        <a href="javascript:;" class="lk">修改支付密码</a>
+                                    <template v-if="true">
+                                        <a href="javascript:;" class="lk"><i></i>修改支付密码</a>
                                     </template>
                                 </p><!-- 支付密码 -->
                             </div><!-- 头部内容 -->
                             <div class="m-mn">
-                                <div class="u-balance">
-                                    <div class="balance">
-                                        现金余额：￥{{accountData.balance | priceFormat(2)}}
-                                        <router-link :to="{path:'/member/recharge',query:{type:1}}" class="u-btn">充值</router-link>
+                                <div class="">
+                                    <div>
+                                        现金余额：￥0.00
+                                        <a>充值</a>
                                     </div>
-                                    <div class="credit">
-                                        信誉保证金余额：￥{{accountData.xinyu | priceFormat(2)}}
-                                        <router-link :to="{path:'/member/recharge',query:{type:2}}" class="u-btn">充值</router-link>
+                                    <div>
+                                        信誉保证金余额：￥0.00
+                                        <a>充值</a>
                                     </div>
                                 </div><!-- 余额 -->
-                                <div class="u-deposit">
-                                    <ul class="deposit-list">
-                                        <li class="u-item">
-                                            <span class="u-attr">买车保证金：</span>
-                                            <span class="u-data">{{accountData.buyDeposit}}元</span>
-                                        </li>
-                                        <li class="u-item">
-                                            <span class="u-attr">卖车保证金：</span>
-                                            <span class="u-data">{{accountData.sellDeposit}}元</span>
-                                        </li>
-                                        <li class="u-item">
-                                            <span class="u-attr">买车委托款：</span>
-                                            <span class="u-data">{{accountData.managed}}元</span>
-                                        </li>
+                                <div class="">
+                                    <ul>
+                                        <li>买车保证金: 6000.00元</li>
+                                        <li>卖车保证金：0.00元</li>
+                                        <li>买车委托款：0.00元</li>
                                     </ul>
                                 </div><!-- 冻结金信息 -->
-                                <div class="u-withdraw">
-                                    <router-link :to="{path:'/member/withdraw'}" class="u-btn">提现</router-link>
+                                <div class="">
+                                    <a>提现</a>
                                     <p>每次提现额度最少为￥100.00</p>
                                 </div><!-- 提现 -->
                             </div><!-- 主要内容 -->
@@ -106,19 +95,6 @@
 
 <script>
 
-    // 获取数据的api
-    import api from 'api/getData.js'
-    // 引入系统变量
-    import * as SYSTEM from 'api/system.js'
-    // vuex状态管理
-    import {mapGetters,mapActions} from 'vuex'
-    // 工具类
-    import {dataToJson} from "assets/js/util.js"
-    // 用户信息的构造类
-    import {memberInfo} from 'base/class/member.js'
-    // 账户余额的构造类
-    import {balanceData} from 'base/class/account.js'
-
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
     // 会员中心子内容组件
@@ -135,12 +111,6 @@
         // 数据
         data() {
             return{
-
-                // 用户信息
-                memberData: {},
-                // 账户余额
-                accountData: {},
-
                 // 选项卡显示
                 tabShowIndex: "",
 
@@ -176,12 +146,6 @@
 
         },
         activated(){
-            // 获取用户信息
-            this.getMemberInfo();
-            // 获取账户余额
-            this.getUserAccount();
-
-            // 获取当前选项卡索引并显示对应的数据
             this.tabShowIndex = this.$router.currentRoute.query.tabIndex||1;
             this.tabChange(this.tabShowIndex);
         },
@@ -192,44 +156,14 @@
         },
         // 属性值计算
         computed:{
-            ...mapGetters(['userData']),
+
         },
         // 数据侦听
         watch:{
-            userData:{
-                handler(curVal,oldVal){
-                    this.getMemberInfo();
-                },
-                deep:true
-            }
+
         },
         // 自定义函数(方法)
         methods: {
-            // 获取用户信息
-            getMemberInfo(){
-                this.memberData = new memberInfo(this.userData);
-            },
-            // 格式化账户余额
-            _normalizeBalance(data) {
-                return new balanceData(data);
-            },
-            // 获取账户余额
-            getUserAccount(){
-                let data = {}
-                api.getUserAccount(data).then(res => {
-                    if(res.code==SYSTEM.CODE_IS_OK){
-                        this.accountData = this._normalizeBalance(res.data);
-                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                        this.$notify({
-                            title: '信息获取失败',
-                            message: res.msg,
-                            type: 'error',
-                            duration: 1500,
-                        });
-                    }
-                })   
-            },
-
             // 选项卡切换方法
             tabChange(index){
                 // 清除所有数据

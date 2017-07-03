@@ -49,6 +49,12 @@ const editSource = r => require.ensure([], () => r(require('page/member/car-sour
 
 // 我的钱包 => 钱包主页
 const walletHome = r => require.ensure([], () => r(require('page/member/wallet/home')), 'walletHome')
+// 我的钱包 => 账单详情
+const billDetails = r => require.ensure([], () => r(require('page/member/wallet/bill-details')), 'billDetails')
+// 我的钱包 => 充值
+const recharge = r => require.ensure([], () => r(require('page/member/wallet/recharge')), 'recharge')
+// 我的钱包 => 提现
+const withdraw = r => require.ensure([], () => r(require('page/member/wallet/withdraw')), 'withdraw')
 
 
 // 我的收藏 => 车辆收藏                                     
@@ -219,6 +225,31 @@ export default[{
                     path: 'wallet-home',
                     component: walletHome,
                     alias: 'wallet',            // 使用别名
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 账单详情页
+                    path: 'bill-details',
+                    component: billDetails,
+                    alias: 'billDetails',       // 使用别名
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 充值
+                    path: 'recharge',
+                    component: recharge,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 提现
+                    path: 'withdraw',
+                    component: withdraw,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },

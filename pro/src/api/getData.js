@@ -283,7 +283,11 @@ export default {
     /*
      * 支付、交易、金额类
      */
-
+    
+    // 我的账户余额 
+    getUserAccount(params){
+        return fetchSign('/action2/UserAccount.ashx',dataToJson(params));
+    },
 
     /*
      * B2B核心业务

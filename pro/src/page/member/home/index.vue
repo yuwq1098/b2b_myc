@@ -88,6 +88,7 @@
     import {dataToJson} from "assets/js/util.js"
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
+
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
     // 会员中心子内容组件
@@ -141,7 +142,7 @@
                 let data = {}
                 api.getMyMemberInfo(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
-                        this.memberData = new memberInfo(res.data);
+                        this.memberData = this._normalizeMember(res.data);
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',
