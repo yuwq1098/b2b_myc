@@ -10,7 +10,7 @@
                     <div class="m-wallet-wrap">
                         <div class="m-wallet-hd">
                             <div class="m-top f__clearfix">
-                                <p class="u-greet">您好，<span class="vital">{{memberData.name}}</span></p><!-- 问候 -->
+                                <p class="u-greet">欢迎来到<span class="vital">{{memberData.name}}</span>的小金库！</p><!-- 问候 -->
                                 <p class="u-payPass f__clearfix">
                                     <router-link 
                                         :to="{path:'/member/cardManage'}" 
@@ -41,34 +41,47 @@
                             </div><!-- 头部内容 -->
                             <div class="m-mn">
                                 <div class="u-balance">
-                                    <div class="balance">
-                                        现金余额：￥{{accountData.balance | priceFormat(2)}}
-                                        <router-link :to="{path:'/member/recharge',query:{type:1}}" class="u-btn">充值</router-link>
+                                    <div class="u-gp balance">
+                                        <div class="u-attr">现金余额：</div>
+                                        <div class="u-info">
+                                            <span class="u-data"><i class="unit">￥</i>{{accountData.balance | priceFormat(2)}}</span>
+                                            <router-link :to="{path:'/member/recharge',query:{type:1}}" class="u-btn">充值</router-link>
+                                        </div>
                                     </div>
-                                    <div class="credit">
-                                        信誉保证金余额：￥{{accountData.xinyu | priceFormat(2)}}
-                                        <router-link :to="{path:'/member/recharge',query:{type:2}}" class="u-btn">充值</router-link>
+                                    <div class="u-gp credit">
+                                        <div class="u-attr">信誉保证金余额：</div>
+                                        <div class="u-info">
+                                            <span class="u-data"><i class="unit">￥</i>{{accountData.xinyu | priceFormat(2)}}</span>
+                                            <router-link :to="{path:'/member/recharge',query:{type:2}}" class="u-btn">充值</router-link>
+                                        </div>
+                                        
                                     </div>
                                 </div><!-- 余额 -->
                                 <div class="u-deposit">
-                                    <ul class="deposit-list">
+                                    <ul class="deposit-list f__clearfix">
                                         <li class="u-item">
-                                            <span class="u-attr">买车保证金：</span>
-                                            <span class="u-data">{{accountData.buyDeposit | priceFormat(2)}}元</span>
+                                            <span class="u-attr">买车保证金</span>
+                                            <p class="u-data">{{accountData.buyDeposit | priceFormat(2)}}
+                                                <span class="unit">元</span>
+                                            </p>
                                         </li>
                                         <li class="u-item">
-                                            <span class="u-attr">卖车保证金：</span>
-                                            <span class="u-data">{{accountData.sellDeposit | priceFormat(2)}}元</span>
+                                            <span class="u-attr">卖车保证金</span>
+                                            <p class="u-data">{{accountData.sellDeposit | priceFormat(2)}}
+                                                <span class="unit">元</span>
+                                            </p>
                                         </li>
                                         <li class="u-item">
-                                            <span class="u-attr">买车委托款：</span>
-                                            <span class="u-data">{{accountData.managed | priceFormat(2)}}元</span>
+                                            <span class="u-attr">买车委托款</span>
+                                            <p class="u-data">{{accountData.managed | priceFormat(2)}}
+                                                <span class="unit">元</span>
+                                            </p>
                                         </li>
                                     </ul>
                                 </div><!-- 冻结金信息 -->
                                 <div class="u-withdraw">
-                                    <router-link :to="{path:'/member/withdraw'}" class="u-btn">提现</router-link>
-                                    <p>每次提现额度最少为￥100.00</p>
+                                    <router-link :to="{path:'/member/withdraw'}" class="u-btn" tag="a">提现</router-link>
+                                    <p class="tips">每次提现额度最少为￥100.00</p>
                                 </div><!-- 提现 -->
                             </div><!-- 主要内容 -->
                             
@@ -110,7 +123,24 @@
                                     :class="{'on':tabShowIndex==7}"
                                     class="u-tab-lk">交易保证金
                                 </a>
+                                <el-select class="m-sort-sel" v-model="sortType" placeholder="按交易时间排序">
+                                    <el-option
+                                      key="DESC"
+                                      label="交易时间正序"
+                                      value="DESC">
+                                    </el-option>
+                                    <el-option
+                                      key="ASC"
+                                      label="交易时间倒序"
+                                      value="ASC">
+                                    </el-option>
+                                </el-select>
                             </div><!-- 切换 -->
+                            <div class="m-con-box">
+                                <bill-list>
+                                    
+                                </bill-list>
+                            </div><!-- 内容盒子 -->
                         </div><!-- 账单列表容器 -->
                     </div><!-- 我的钱包 -->
                 </member-inner>
@@ -138,7 +168,10 @@
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
     // 会员中心子内容组件
-    import memberInner from 'components/layout/memberInner.vue' 
+    import memberInner from 'components/layout/memberInner.vue'
+    // 账单信息列表组件
+    import billList from 'components/member/billList.vue'
+
 
 	export default {
 
@@ -147,6 +180,7 @@
         components: {
             memberLayout,
             memberInner,
+            billList,
         },
         // 数据
         data() {
@@ -217,6 +251,10 @@
                     this.getMemberInfo();
                 },
                 deep:true
+            },
+            // 排序规则切换
+            sortType(val){
+                console.log("切换了数据",val)
             }
         },
         // 自定义函数(方法)
@@ -313,6 +351,27 @@
         },
 	}
 </script>
+
+
+<style lang="stylus" rel="stylesheet/stylus">
+    @import '~assets/css/mixin.styl'
+    .m-bill-wrap
+        .m-tab-box
+            .m-sort-sel
+                width 145px
+                height 48px
+                _completeCenter(auto,5px,auto,-4px)
+                .el-input__inner
+                    _borderAll(#d2d2d2)
+                    _borderRadius(2px)
+                    height 36px
+                    line-height 36px
+                    color #40474a
+                .el-input__icon,
+                .el-select .el-input .el-input__icon
+                    color #DEDFE0
+</style>
+
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>

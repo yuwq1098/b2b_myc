@@ -6,7 +6,7 @@
         .m-top
             height 48px
             line-height 48px
-            _border(bottom,#ededed,2px)
+            _border(bottom,#E5E8EB,2px)
             position relative
             color #40474a
             .u-greet,.u-payPass
@@ -14,9 +14,10 @@
             .u-greet
                 font-size 13px
                 .vital
-                    font-size 20px
+                    font 16px "Microsoft Yahei"
                     font-weight bold
-                    color #ff6533
+                    color #2E98E2
+                    margin 0 4px
                     _spacingPlus()
             .u-payPass
                 width 550px
@@ -44,8 +45,132 @@
                     .txt
                         _display(inline-block)
                         _translate3d(0,2px)
+        .m-mn
+            width 948px - 2px
+            height 140px
+            margin 20px 0
+            position relative
+            _borderAll(#E5E8EB)
+            .u-balance
+                width 245px - 15px
+                height @height - 24px
+                _completeCenter(15px,auto,0,auto)
+                padding 12px 5px 12px 15px
+                .u-gp
+                    height 56px
+                    .u-attr
+                        height 20px
+                        line-height 20px
+                        font-size 13px
+                        color #40474a
+                    .u-info
+                        height 36px
+                        line-height 36px
+                        font-size 18px
+                        .u-data
+                            font-size 20px
+                            _display(inline-block)
+                            color #FD453a
+                            font-weight bold
+                            font-family "Microsoft Yahei"
+                            .unit
+                                font-size 14px
+                                font-weight normal
+                        .u-btn
+                            _display(inline-block)
+                            margin 0 0 0 8px
+                            padding 0 7px
+                            height 22px
+                            line-height 22px
+                            font-size 12px
+                            _spacingPlus(2px)
+                            _borderRadius(2px)
+                            color #f2f2f2
+                            background #2e98e2
+                            vertical-align text-bottom
+                            &:hover
+                                background @background - 10%
+                .balance
+                    margin 0 0 4px 0
+            .u-deposit
+                width @width - 245px - 220px -40px
+                margin 0 220px 0 255px
+                .deposit-list
+                    width @width - 30px + 14px
+                    padding 42px 15px
+                    margin 0 0 0 -14px
+                    .u-item
+                        float left
+                        width 135px
+                        margin 0 0 0 14px
+                        text-align center
+                        .u-attr
+                            _display(inline-block)
+                            color #40474a
+                            height 24px
+                            line-height 24px
+                            margin 0 0 8px 0
+                        .u-data
+                            height 24px
+                            line-height 24px
+                            font-size 17px
+                            color #FD453a
+                            font-family "Microsoft Yahei"
+                            .unit
+                                font-size 12px
+                                
+            .u-withdraw
+                width 220px - 25px
+                height @height - 40px
+                padding 40px 25px 0 0
+                _completeCenter(auto,0,auto,0)
+                .u-btn
+                    _display()
+                    width 140px
+                    height 38px
+                    line-height 38px
+                    text-align center
+                    float right
+                    font-size 17px
+                    _spacingPlus(7px)
+                    _borderRadius(2px)
+                    color #f2f2f2
+                    background #2e98e2
+                    &:hover
+                        background @background - 10%
+                .tips
+                    float right
+                    line-height 22px
+                    height 22px
+                    margin 8px 0 0
+                    color #959595
+                    font-size 13px
+    .m-bill-wrap
+        padding 10px 0 0 
+        .m-tab-box
+            height 42px
+            padding 0 12px
+            _border(bottom,#e2e2e2)
+            position relative
+            .u-tab-lk
+                _display()
+                float left
+                margin 0 15px 0 0
+                padding 0 5px
+                line-height 42px
+                font-size 15px
+                color #40474a
+                _spacingPlus()
+                position relative
+                &:hover
+                    color #2e98e2 - 10%
+                &.on
+                    color #2e98e2
+                    font-weight bold
+                    &:before
+                        content ""
+                        _display()
+                        background #2e98e2
+                        height 3px
+                        _completeCenter(20px,20px,auto,-1px)
 
-	    .m-mn
-	        height 160px
-	        background #ededed
-	        margin 15px 0 0

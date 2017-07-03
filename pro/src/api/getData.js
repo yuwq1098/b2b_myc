@@ -283,6 +283,16 @@ export default {
     /*
      * 支付、交易、金额类
      */
+
+    // 各类金额流水账单
+    getBillList(params){
+        return fetchSign('/action2/MyB2BCreditPoint.ashx',dataToJson(params));
+    },
+
+    // 账单交易详情页
+    getBillDetails(params){
+        return fetchSign('/action2/TradeDetail.ashx',dataToJson(params));
+    },
     
     // 我的账户余额 
     getUserAccount(params){
