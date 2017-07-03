@@ -162,4 +162,15 @@ export const crumbsHash = {
             path:"/member/safetyTel",
         }
     ],
+    // 设置支付密码
+    '/member/payPass':[
+        {
+            pathName:"安全中心",
+            path:"/member/safetyCenter",
+        },
+        {
+            pathName:"设置支付密码",
+            path:"/member/payPass",
+        }
+    ],
 }

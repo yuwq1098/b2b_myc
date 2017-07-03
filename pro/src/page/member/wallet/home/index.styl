@@ -1,19 +1,50 @@
 @import '~assets/css/mixin.styl'
 
 .m-wallet-wrap
+    color #666
     .m-wallet-hd
         .m-top
-            height 60px
-            line-height 60px
-            background #f0f0f0
+            height 48px
+            line-height 48px
+            _border(bottom,#ededed,2px)
             position relative
+            color #40474a
             .u-greet,.u-payPass
                 float left
+            .u-greet
+                font-size 13px
+                .vital
+                    font-size 20px
+                    font-weight bold
+                    color #ff6533
+                    _spacingPlus()
             .u-payPass
-                width 500px
+                width 550px
+                margin 0 0 0 30px
 	            .lk,.cut,.tips
 	                _display(block)
 	                float left
+                .cut
+                    margin 0 8px
+                    color #c2c2c2
+                .lk
+                    color #2e98e2
+                    &:hover
+                        color @color - 10%
+                        text-decoration underline
+                .tips
+                    margin 0 0 0 20px
+                    position relative
+                    padding 0 0 0 20px
+                    font-size 12px
+                    .iconfont
+                        color #2e98e2
+                        font-size 18px
+                        _completeCenter(0,auto,2px)
+                    .txt
+                        _display(inline-block)
+                        _translate3d(0,2px)
+
 	    .m-mn
 	        height 160px
 	        background #ededed

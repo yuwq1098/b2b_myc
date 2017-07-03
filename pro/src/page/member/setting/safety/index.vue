@@ -21,7 +21,7 @@
                                     tag="a"
                                     title="密码修改"
                                     >
-                                    修改&gt;&gt;
+                                    修改&gt;
                                 </router-link>
                             </div>
                         </li>
@@ -36,7 +36,7 @@
                                     tag="a"
                                     title="找回密码"
                                     >
-                                    找回&gt;&gt;
+                                    找回&gt;
                                 </router-link>
                             </div>
                         </li>
@@ -51,7 +51,22 @@
                                     tag="a"
                                     title="更改手机绑定"
                                     >
-                                    更换&gt;&gt;
+                                    更换&gt;
+                                </router-link>
+                            </div>
+                        </li>
+                        <li class="m-item">
+                            <div class="m-bar-box f__clearfix">
+                                <span class="u-tit">设置支付密码</span>
+                                <div class="u-data">谨防泄露</div>
+                                <p class="u-tips">设置或者修改您的支付密码</p><!-- 说明 -->
+                                <router-link 
+                                    :to="{path:'/member/payPass'}"
+                                    class="u-lk"
+                                    tag="a"
+                                    title="设置支付密码"
+                                    >
+                                    去设置&gt;
                                 </router-link>
                             </div>
                         </li>

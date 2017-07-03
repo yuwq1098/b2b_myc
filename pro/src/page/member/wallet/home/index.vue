@@ -10,16 +10,32 @@
                     <div class="m-wallet-wrap">
                         <div class="m-wallet-hd">
                             <div class="m-top f__clearfix">
-                                <p class="u-greet">您好，{{memberData.name}}！</p><!-- 问候 -->
+                                <p class="u-greet">您好，<span class="vital">{{memberData.name}}</span></p><!-- 问候 -->
                                 <p class="u-payPass f__clearfix">
-                                    <a href="javascript:;" class="lk">管理银行卡</a>
+                                    <router-link 
+                                        :to="{path:'/member/cardManage'}" 
+                                        class="lk" tag="a" 
+                                        title="绑定或者修改您的银行卡"
+                                        >管理银行卡
+                                    </router-link>
                                     <span class="cut">|</span>
                                     <template v-if="!memberData.hasPaypwd">
-                                        <a href="javascript:;" class="lk">开启支付密码</a>
-                                        <p class="tips"><i class="iconfont icon-xinxi2"></i>开启支付密码后，账户资金更安全！</p>
+                                        <router-link
+                                            :to="{path:'/member/payPass',query:{showType:1}}" 
+                                            class="lk" tag="a"
+                                            title="设置或者修改您的支付密码"
+                                            >开启支付密码
+                                        </router-link>
+                                        <p class="tips"><i class="iconfont icon-xinxi2"></i>
+                                        <span class="txt">开启支付密码后，账户资金更安全！</span></p>
                                     </template>
                                     <template v-if="memberData.hasPaypwd">
-                                        <a href="javascript:;" class="lk">修改支付密码</a>
+                                        <router-link
+                                            :to="{path:'/member/payPass',query:{showType:2}}" 
+                                            class="lk" tag="a"
+                                            title="设置或者修改您的支付密码"
+                                            >修改支付密码
+                                        </router-link>
                                     </template>
                                 </p><!-- 支付密码 -->
                             </div><!-- 头部内容 -->
@@ -38,15 +54,15 @@
                                     <ul class="deposit-list">
                                         <li class="u-item">
                                             <span class="u-attr">买车保证金：</span>
-                                            <span class="u-data">{{accountData.buyDeposit}}元</span>
+                                            <span class="u-data">{{accountData.buyDeposit | priceFormat(2)}}元</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">卖车保证金：</span>
-                                            <span class="u-data">{{accountData.sellDeposit}}元</span>
+                                            <span class="u-data">{{accountData.sellDeposit | priceFormat(2)}}元</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">买车委托款：</span>
-                                            <span class="u-data">{{accountData.managed}}元</span>
+                                            <span class="u-data">{{accountData.managed | priceFormat(2)}}元</span>
                                         </li>
                                     </ul>
                                 </div><!-- 冻结金信息 -->
@@ -139,7 +155,7 @@
                 // 用户信息
                 memberData: {},
                 // 账户余额
-                accountData: {},
+                accountData: new balanceData({}),
 
                 // 选项卡显示
                 tabShowIndex: "",

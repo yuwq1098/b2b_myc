@@ -76,6 +76,8 @@ const safetyPass = r => require.ensure([], () => r(require('page/member/setting/
 const safetyForget = r => require.ensure([], () => r(require('page/member/setting/safety/forget')), 'safetyForget')
 // 账户设置 => 安全中心 => 手机号绑定修改
 const safetyTel = r => require.ensure([], () => r(require('page/member/setting/safety/telephone')), 'safetyTel')
+// 账户设置 => 安全中心 => 设置支付密码
+const payPass = r => require.ensure([], () => r(require('page/member/setting/safety/payPass')), 'payPass')
 
 
 
@@ -316,6 +318,14 @@ export default[{
                 // 手机号绑定修改
                     path: 'safetyTel',
                     component: safetyTel,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 设置支付密码
+                    path: 'payPass',
+                    component: payPass,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
