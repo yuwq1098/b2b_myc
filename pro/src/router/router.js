@@ -22,6 +22,9 @@ const b2bCarDetails = r => require.ensure([], () => r(require('page/car-details/
 // b2c车辆详情
 const b2cCarDetails = r => require.ensure([], () => r(require('page/car-details/b2cCar.vue')), 'b2cCarDetails')
 
+// 车商详情页
+const merchantDetails = r => require.ensure([], () => r(require('page/merchant-details')), 'merchantDetails')
+
 
 // 会员中心
 const member = r => require.ensure([], () => r(require('page/member/member')), 'member')
@@ -79,6 +82,8 @@ const safetyTel = r => require.ensure([], () => r(require('page/member/setting/s
 // 账户设置 => 安全中心 => 设置支付密码
 const payPass = r => require.ensure([], () => r(require('page/member/setting/safety/payPass')), 'payPass')
 
+// 404空页面
+const page404 = r => require.ensure([], () => r(require('page/other/404')), 'page404')
 
 
 // 定义路由
@@ -121,6 +126,14 @@ export default[{
             component: b2cCarDetails,
             alias: '/b2cCar',           // 使用别名
             meta: { }
+        },
+        {
+        //
+            path: '/merchantDetails',
+            component: merchantDetails,
+            meta: {
+                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+            },   
         },
         {   
         // 卖车大厅
@@ -335,7 +348,13 @@ export default[{
                     },
                 },
             ]
-        }
+        },
+        {   
+        // 404页面
+            path: '/page404',
+            component: page404,
+            meta: { }
+        },
     ],
 
 }]
