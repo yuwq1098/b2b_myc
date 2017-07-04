@@ -860,6 +860,11 @@
 
             //根据传入的对应值，删除对应的 用户搜索记录，然后重新渲染
             clearFilterDataTheOne(key){
+                // 如果只剩一个条件，那么就清空
+                if(this.filterShowDataItems.length<=1){
+                    this.clearFilterData();
+                    return;
+                }
                 this.userFilterData[key] = '';
                 this.searchFilterList[key] = '';
                 let dataObj = this.userFilterData;
