@@ -144,7 +144,9 @@
             },
             // 进入车行详情
             enterCdg(id){
-                console.log("进入车行");
+                this.$router.push({path:'/merchantDetails',query:{
+                    cid: id
+                }})
             },
             // 删除车行
             delCdg(id,index){

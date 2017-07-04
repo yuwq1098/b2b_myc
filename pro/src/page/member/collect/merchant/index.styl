@@ -2,13 +2,13 @@
 
 //列表过渡效果
 .cdg-list-enter-active
-    _transitionAll(.3s)
+    _transitionAll(.25s)
 .cdg-list-leave-active
-    _transitionAll(.4s,cubic-bezier(0.22, 0.61, 0.21, 0.92))
+    _transitionAll(.3s,cubic-bezier(0.22, 0.61, 0.21, 0.92))
 
 .cdg-list-enter
     _opacity(0)
-    _translate3d(4px,15px)
+    _translate3d(2px,12px)
 .cdg-list-leave-active
     _opacity(0)
     _translate3d(15px,-50px)
@@ -22,8 +22,8 @@
         .m-item
             width 465px - 2px
             margin 0 0 15px 18px
-            _boxShadow(8px,rgba(0,0,0,.05),1px,1px)
-            _borderAll(#e8e8e8)
+            _boxShadow(8px,rgba(0,0,0,.05),0,0)
+            _borderAll(#ededed)
             _overflow()
             position relative
             float left
@@ -85,9 +85,9 @@
                 .u-address
                     _ellipsis()
             &:hover
-                _transitionAll(.25s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
-                _boxShadow(8px,rgba(0,0,0,.08),-3px,3px)
+                _boxShadow(12px,rgba(0,0,0,.08),-3px,3px)
+                _borderAll(#e2e2e2)
                 .m-info
                     .u-cdg
-                        color $c_blue
+                        color #222
 
