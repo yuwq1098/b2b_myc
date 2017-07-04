@@ -122,6 +122,7 @@
                 float left
         .m-tb-con
             .m-tb-lst
+                min-height 208px
                 .m-tb-row
                     height 40px
                     _border(bottom,#E5E8EB)

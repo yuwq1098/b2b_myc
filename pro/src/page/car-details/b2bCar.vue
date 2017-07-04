@@ -245,7 +245,7 @@
         data() {
             return{
                 carDetailsImgList:{
-                    merchantName : "无形",
+                    merchantName : "暂无数据",
                     imgItems:[]
                 },
 

@@ -5,11 +5,26 @@
                 <section class="f__w1200">
                     <div class="m-merchant-hd">
                         
-                        <div class="m-cdgName">
+                        <div class="u-cdgName">
                             {{merchantData.name}}
-                        </div><!-- 车行名称 -->
-                        <div class="m-collect">
-                            <div class="">
+                        </div>
+                        <!-- <div class="u-cdgName f__clearfix">
+                            <span class="u-name">{{merchantData.name}}</span>
+                            <span class="u-type">{{merchantData.authType}}</span>
+                        </div> --><!-- 车行名称 -->
+
+                        <div class="u-info">
+                            <p class="txt">
+                                <span>联系人：{{merchantData.username}}</span>
+                                <span>联系电话：{{merchantData.tel}}</span>
+                            </p>
+                            <p class="txt">
+                                <span>地址：{{merchantData.address}}</span>
+                            </p>
+                        </div><!-- 联系人信息 -->
+
+                        <div class="u-grade">
+                            <div>
                                 <el-rate
                                     v-model="gradeNum"
                                     disabled
@@ -19,22 +34,10 @@
                                     >
                                 </el-rate>
                             </div>
-                            <div class="">
-                                <i class="iconfont"></i>已关注
-                            </div>
-                        </div><!-- 评分与收藏 -->
-                        <div class="m-contact">
-                            <span>{{merchantData.username}}</span>
-                            <span>{{merchantData.tel}}</span>
-                        </div><!-- 联系人信息 -->
-                        <div class="">
-                            <p>在售 {{merchantData.fixtureNumber}}</p>
-                            <p>已成交 {{merchantData.onSale}}</p>
-                        </div><!-- 在售及已成交 -->
-                        <div class="">
-                            <p>地址 {{merchantData.address}}</p>
-                        </div><!-- 地址 -->
+                            <div>成交数：120单</div>
+                        </div><!-- 车行成绩 -->
 
+                        <div><i class="iconfont"></i>已关注</div><!-- 关注 -->
 
                     </div><!-- 头部车商信息 -->
                     <div class="m-merchant-con">

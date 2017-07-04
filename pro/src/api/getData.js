@@ -379,6 +379,27 @@ export default {
         return fetchSign('/action2/LastHallCarList.ashx', dataToJson(params))
     },
 
+    // 管理我的购物车
+    manageShoppingCart(params){
+        return fetchSign('/action2/ShoppingCartMng.ashx', dataToJson(params))
+    },
+
+    // 平台交易历史记录
+    tradeHistory(params){
+        return fetchSign('/action2/B2BOrderHistory.ashx', dataToJson(params))
+    },
+
+    // 车行详情页
+    CDGStoreDetails(params){
+        return fetchSign('/action2/CDGStore.ashx', dataToJson(params))
+    },
+
+
+    
+
+
+    
+
     /*
      * 首页相关
      */
