@@ -3,7 +3,7 @@
 	    <div class="m-lst-con">
             <ul class="m-lst f__clearfix">
                 <li class="m-item" v-for="item in carlist">
-                    <router-link :to="{path:carToPath, query: { CarId: item.id }}" class="u-box">
+                    <router-link :to="{path:carToPath, query: { CarId: item.id }}" target="_blank"  class="u-box" tag="a">
                         <div class="u-pic">
                             <img v-lazy="item.imgUrl" :alt="item.name"/>
                         </div>

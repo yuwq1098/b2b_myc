@@ -111,14 +111,16 @@ export default[{
             path: '/b2bCarDetails',
             component: b2bCarDetails,
             alias: '/b2bCar',           // 使用别名
-            meta: { }    
+            meta: {
+                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+            },      
         },
         {
         // b2c车辆详情
-            path: '/b2bCarDetails',
-            component: b2bCarDetails,
+            path: '/b2cCarDetails',
+            component: b2cCarDetails,
             alias: '/b2cCar',           // 使用别名
-            meta: { }    
+            meta: { }
         },
         {   
         // 卖车大厅
@@ -132,7 +134,9 @@ export default[{
             path: '/sendCar',
             component: sendCar,
             alias: '/sellSend',         // 使用别名
-            meta: { }
+            meta: {
+                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+            },
         },
         {
         // 木有车服务

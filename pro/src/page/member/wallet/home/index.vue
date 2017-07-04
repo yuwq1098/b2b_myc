@@ -269,9 +269,25 @@
         },
         // 自定义函数(方法)
         methods: {
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
             // 获取用户信息
             getMemberInfo(){
-                this.memberData = new memberInfo(this.userData);
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
             },
             // 格式化账户余额
             _normalizeBalance(data) {

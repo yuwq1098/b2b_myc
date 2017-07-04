@@ -67,7 +67,7 @@
         },
         // 生命周期被创建时
         created() {
-            this.memberInfo = new sidebarMember(this.userData);
+
         },
         // 切换回本组件时
         activated() {
@@ -93,7 +93,7 @@
         },
         // 自定义函数(方法)
         methods: {
-            ...mapActions(['getUserData']),
+            
         },
 	}
 </script>
