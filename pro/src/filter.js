@@ -84,10 +84,17 @@ export const dateYearFormat = (data) => {
     return data.toString();
 }
 
-// 年份转换
+// 日期转换
 export const dateDayFormat = (data) => {
     if(!data&&data!=0) return;
     var data = data&&data.substr(0,10);
+    return data.toString();
+}
+
+// 分钟转换
+export const dateMinuteFormat = (data) => {
+    if(!data&&data!=0) return;
+    var data = data&&data.substr(0,16);
     return data.toString();
 }
 

@@ -137,8 +137,12 @@
                                 </el-select>
                             </div><!-- 切换 -->
                             <div class="m-con-box">
-                                <bill-list>
-                                    
+                                <bill-list
+                                    @getMoreData="getMoreData()"
+                                    :billList= "billList"
+                                    :isNotMore="isNotMore"
+                                    :isShowMore="billList.length>=pageSize">
+                                    >
                                 </bill-list>
                             </div><!-- 内容盒子 -->
                         </div><!-- 账单列表容器 -->
@@ -162,8 +166,9 @@
     import {dataToJson} from "assets/js/util.js"
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
-    // 账户余额的构造类
-    import {balanceData} from 'base/class/account.js'
+    // 账户余额及账单信息的构造类
+    import {balanceData,billInfo} from 'base/class/account.js'
+
 
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
@@ -209,13 +214,17 @@
                 // 交易保证金（账单列表）
                 dealList: [],
 
+                // 显示在列表的数据
+                billList: [],
+
 
                 // 我的分页（每页数据大小）
                 pageSize: 15,
                 
                 sortType: 'DESC',  // 排序规则，按交易时间正序(DESC)，倒序(ASC)
                 // 是否有更多的集合
-                isNotMoreItems:[false,false,false,false,false,false,false]
+                isNotMoreItems:[false,false,false,false,false,false,false],
+                isNotMore: false,
             }
         },
         //生命周期,开始的时候
@@ -254,7 +263,8 @@
             },
             // 排序规则切换
             sortType(val){
-                console.log("切换了数据",val)
+                // 刷新数据
+                this.tabChange(this.tabShowIndex);
             }
         },
         // 自定义函数(方法)
@@ -332,9 +342,63 @@
             getBillListData(index){
                 let me = this;
                 let _index = index.toString();
-
                 let status = this._getStatusByIndex(_index);
 
+                // 获取数据，然后回调赋值
+                this.getData(status,1,(res) => {
+                    this.billList = this._normalizeBill(res);
+                })
+            },
+
+            // 格式化车源列表
+            _normalizeBill(list){
+                let arr = []
+                list.forEach((item, index) => {
+                    arr.push(new billInfo(item));
+                });
+                return arr;
+            },
+            // 获取数据
+            getData(status,curPage=1,callBack){
+                let data = {
+                    TradeSource : status,
+                    SortDir : this.sortType,
+                    pageIndex : curPage,
+                    pageSize : this.pageSize,
+                }
+                api.getBillList(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        if(callBack){
+                            callBack(res.data);
+                        }
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+
+            // 获取更多数据
+            getMoreData(){
+                let index = this.tabShowIndex;
+                let status = this._getStatusByIndex(index.toString());
+
+                let listSize = this.billList.length;
+                if(listSize%this.pageSize!=0) return;
+
+                let nextPageNo = Math.ceil(listSize/this.pageSize) + 1;
+
+                // 获取数据，然后回调赋值
+                this.getData(status,nextPageNo,(res) => {
+                    if(res.length==0||res.length<this.pageSize){
+                        this.isNotMore = true;     
+                    }
+                    this.billList.push(...this._normalizeBill(res));
+                })
             },
 
             // 清空所有列表数据
@@ -347,6 +411,7 @@
                 this.managedList= [];
                 this.dealList= [];
                 this.isNotMoreItems = [false,false,false,false,false,false,false];
+                this.isNotMore = false;
             },
         },
 	}
@@ -366,7 +431,7 @@
                     _borderRadius(2px)
                     height 36px
                     line-height 36px
-                    color #40474a
+                    color #2e98e2
                 .el-input__icon,
                 .el-select .el-input .el-input__icon
                     color #DEDFE0
