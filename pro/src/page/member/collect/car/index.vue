@@ -9,10 +9,7 @@
                 
                 <member-inner>
                     <div class="m-collect-wrap" v-if="carCollectList.length>=0">
-                        <transition-group 
-                            name="car-list" 
-                            class="m-car-lst f__clearfix" tag="ul"
-                            >
+                        <ul class="m-car-lst f__clearfix">
                             <template v-for="(item,index) in carCollectList">
                                 <li class="u-item" :key="item">
                                     <a class="u-lk-box" @click="enterCar(item.id)">
@@ -21,22 +18,29 @@
                                             <div class="u-pic">
                                                 <img :src="item.imgUrl" :alt="item.title"/>
                                             </div><!-- 图片容器 -->
-                                            <a class="u-lk cancel" 
-                                                @click.stop="delCar(item.id,index)" 
-                                                title="取消收藏">取消收藏</a>
                                         </div><!-- 图片容器 -->
-                                        <div class="u-con">
-                                            <div class="u-tit">{{item.title}}</div><!-- 标题 -->
-                                            <div class="u-price">批发价：
-                                                <em class="vital">{{item.price | priceToFixed(2)}}</em>
-                                            </div><!-- 价格 -->
-                                            <div class="u-merchant">车商：{{item.cdgName}}</div><!-- 车商 -->
-                                            <div class="u-other">{{item.city}} · {{item.plateDate | dateYearFormat}} · {{item.mileage | mileFn(1)}}</div><!-- 其他 -->
-                                        </div><!-- 内容 -->
+                                        <div class="u-con-box">
+                                            <div class="u-mask">
+                                            </div><!-- 遮罩内容-->
+                                            <div class="u-con">
+                                                <div class="u-tit">{{item.title}}</div><!-- 标题 -->
+                                                <div class="u-price">批发价：
+                                                    <em class="vital">{{item.price | priceToFixed(2)}}</em>
+                                                </div><!-- 价格 -->
+                                                <div class="u-merchant">车商：{{item.cdgName}}</div><!-- 车商 -->
+                                                <div class="u-other">{{item.city}} · {{item.plateDate | dateYearFormat}} · {{item.mileage | mileFn(1)}}</div><!-- 其他 -->
+                                                <div class="btn-wrap">
+                                                    <a class="u-btn cancel" 
+                                                        @click.stop="delCar(item.id,index)" 
+                                                        title="取消收藏">取消收藏
+                                                    </a>
+                                                </div>
+                                            </div><!-- 内容 -->
+                                        </div><!-- 内容容器 -->
                                     </a>
                                 </li>
                             </template>
-                        </transition-group>
+                        </ul>
                     </div>
 
                     <not-content
