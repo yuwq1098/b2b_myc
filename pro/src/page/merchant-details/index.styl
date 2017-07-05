@@ -1,5 +1,18 @@
 @import '~assets/css/mixin.styl'
 
+// 车行收藏过渡效果
+.tips-enter-active
+    _transitionAll(.1s)
+.tips-leave-active
+    _transitionAll(.4s,cubic-bezier(0.22, 0.61, 0.21, 0.92))
+
+.tips-enter
+    _opacity(1)
+    _translate3d(0,12px)
+.tips-leave-active
+    _opacity(0)
+    _translate3d(0,-18px)
+
 .g-doc
     background #fff
     .g-bd
@@ -41,6 +54,7 @@
                     height 28px
                     line-height 28px
                     margin 0 auto 5px
+                    position relative
                     .grade
                         float left
                     .attention
@@ -54,6 +68,11 @@
                             line-height 38px
                             text-align center
                             _completeCenter(auto,-36px,-6px,auto)
+                    .attention-tips
+                        width 108px
+                        font-size 13px
+                        color #2f98e2
+                        _completeCenter(auto,-148px,0,auto)
                 .m-contact,.m-result,.m-address
                     height 24px
                     line-height 24px

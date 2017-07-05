@@ -1,4 +1,4 @@
-// b2b车辆信息构造类
+// 车行信息构造类
 class merchantInfo{
 	constructor(data) {
 	    this.id = data.MemberId||""                                 // 车行的会员 MemberId

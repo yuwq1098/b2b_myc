@@ -26,19 +26,25 @@
                                 <div class="attention not"
                                     @mouseover="attentionFn(0,1)"
                                     @mouseleave="attentionFn(0,2)"
-                                    v-if="merchantData.isFavorite"
+                                    v-if="!merchantData.isFavorite"
                                     >
                                     <span class="txt">{{attentionNot.text}}</span><i class="iconfont"
+                                        @click="setAttention(1,merchantData.id)"
                                         :class="[attentionNot.isHover?'icon-like_fill':'icon-like']"></i>
                                 </div>
                                 <div class="attention yes"
                                     @mouseover="attentionFn(1,1)"
                                     @mouseleave="attentionFn(1,2)"
-                                    v-if="!merchantData.isFavorite"
+                                    v-if="merchantData.isFavorite"
                                     >
                                     <span class="txt">{{attentionYes.text}}</span><i class="iconfont"
+                                        @click="setAttention(2,merchantData.id)"
                                         :class="[attentionYes.isHover?'icon-like':'icon-like_fill']"></i>
                                 </div>
+                                <transition name="tips">
+                                    <div class="attention-tips" v-if="tipsShow.isShow">{{tipsShow.tipsText}}</div>
+                                </transition>
+                                
                             </div><!-- 评分与收藏 -->
 
                             <div class="m-contact">
@@ -74,9 +80,6 @@
                                         <li>车信息</li>
                                     </template>
                                 </ul><!-- 车辆列表 -->
-                                <div class="u-more">
-                                    <p>更多车源</p>
-                                </div><!-- 更多车源 -->
                             </div><!-- 列表容器 -->
                         </div><!-- 所属车辆列表信息 -->
                     </div><!-- 盒子 -->
@@ -131,6 +134,13 @@
                     text: "已关注",
                     isHover: false,
                 },
+                // 关注提示
+                tipsShow: {
+                    tipsText: "",
+                    isShow: false,
+                }, 
+                // 我的延时器
+                mySetTimeOut: null,
             }
         },
         //生命周期,开始的时候
@@ -179,6 +189,7 @@
                     }
                 })   
             },
+            // 鼠标悬浮在关注图标上触发的效果事件
             attentionFn(isFavorite,mouseFn){
                 if(isFavorite==0){
                     if(mouseFn==1){
@@ -205,6 +216,50 @@
                         }
                     }
                 }
+            },
+            // 关注和取消关注的事件
+            setAttention(type,id){
+                let act = "";
+                let tips = "";
+                if(type==1){
+                    act="Add";
+                    tips = "关注成功";
+                }else{
+                    act="Delete"
+                    tips = "成功取消关注";
+                }
+                
+                let data = {
+                    ActType: act,
+                    SellerId: id
+                }
+                
+                // 关注和取消关注
+                api.myFavoriteCdg(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        // 清除我的延时器
+                        clearTimeout(this.mySetTimeOut);
+                        this.tipsShow.tipsText = tips;
+                        this.tipsShow.isShow = true;
+                        // 假刷新
+                        if(type==1){
+                            this.merchantData.isFavorite = true;
+                        }else{
+                            this.merchantData.isFavorite = false;
+                        }
+                        this.mySetTimeOut = setTimeout(()=>{
+                            this.tipsShow.isShow = false;   
+                        },300)
+
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '操作失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
             }
         },
         

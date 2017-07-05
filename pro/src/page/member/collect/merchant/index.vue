@@ -21,7 +21,7 @@
                                             <img :src="item.faceUrl" :alt="item.cdgName">
                                         </div><!-- 头像 -->
                                         <div class="m-info">
-                                            <a class="u-close" @click.stop="delCdg(item.id,index)" title="取消收藏"><i class="iconfont icon-delete1"></i></a><!-- 删除 -->
+                                            <a class="u-close" @click.stop="delCdg(item.id,index)" title="取消收藏"><i class="iconfont icon-quxiaoshoucang1"></i></a><!-- 删除 -->
                                             <div class="u-hd f__clearfix">
                                                 <p class="u-cdg f__fl">
                                                     {{item.cdgName}}</p>
