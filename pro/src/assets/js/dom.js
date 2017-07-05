@@ -33,6 +33,22 @@ export function getBase64FromImgFile(file,callBack){
 
 
 /** 
+* @description 数组数据倍增
+* @param array,num  数组  翻几倍
+* @param array 数组
+*/ 
+
+export function doubleArray(array,num=2){
+    
+    let arr = array; 
+    // arr.push(...array);
+    for(let i = 0; i<num; i++){
+        arr = arr.concat(arr);
+    }
+    return arr;
+}
+
+/** 
 * @description 使用canvas裁剪/压缩图片
 * @param img,theW,theH,realW,realH  Number/String 传值 图片及各种canvas信息
 * @param callBack Function 回调方法

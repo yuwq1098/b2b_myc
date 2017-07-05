@@ -76,11 +76,43 @@
                                 <p class="u-tit">在售车辆</p>
                             </div><!-- 标题 -->
                             <div class="m-lst-wrap">
-                                <ul class="m-car-lst">
-                                    <template v-for="(item,index) in merchantCarList">
-                                        <li>{{item.title}}</li>
-                                    </template>
-                                </ul><!-- 车辆列表 -->
+                                <div class="merchantCar-swiper">
+                                    <swiper :options="swiperOption"  ref="mySwiper">  
+                                       <!-- 这部分放你要渲染的那些内容 -->  
+                                       <template v-for="(group,index) in slideCarList">
+                                            <swiper-slide>  
+                                                <ul class="m-car-lst f__clearfix">
+                                                    <template v-for="(item,index) in group">
+                                                        <li class="u-item">
+                                                            <merchant-car-Box
+                                                                :carInfo="item"
+                                                                >
+                                                            </merchant-car-Box>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </swiper-slide>
+                                            
+                                        </template>
+                                       
+                                        <!-- 这是轮播的小圆点 -->  
+                                        <div class="swiper-pagination"
+                                            v-show="merchantCarList.length>8"
+                                            slot="pagination">
+                                        </div>
+
+                                    </swiper>  
+                                </div><!-- 卖车大厅的轮播图 -->
+                                <div class="not-content-wrap">
+                                    <not-content
+                                        v-if="merchantCarList.length==0"
+                                        speak="该车行比较懒，已经没有在售车辆了，我们去别处瞅瞅!"
+                                        >
+                                        <router-link :to="{path:'/'}" class="u-lk" tag="a">网站首页&gt;</router-link>
+                                        <router-link :to="{path:'/b2bHall'}" class="u-lk" tag="a">B2B大厅&gt;</router-link>
+                                    </not-content><!-- 缺省组件 -->
+                                </div><!-- 缺省组件容器 -->
+                                
                             </div><!-- 列表容器 -->
                         </div><!-- 所属车辆列表信息 -->
                     </div><!-- 盒子 -->
@@ -92,7 +124,7 @@
 </template>
 
 <script>
-    
+
     // 获取数据的api
     import api from 'api/getData.js'
     // 引入系统变量
@@ -107,6 +139,13 @@
     import * as geekDom from 'assets/js/dom.js'
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
+    // 车行车辆信息盒子组件
+    import merchantCarBox from "components/common/merchantCarBox.vue"
+    // 会员中心缺省组件
+    import notContent from 'components/member/notCon.vue' 
+
+    // swiper轮播组件
+    import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 
     export default {
@@ -116,6 +155,10 @@
         // 在当前模块注册组件
         components:{
             gkBreadCrumb,
+            merchantCarBox,
+            notContent,
+            swiperSlide,
+            swiper,
         },
         // 数据
         data() {
@@ -123,11 +166,13 @@
                 // 车行（或卖家）ID
                 merchantId: "",
                 // 车行数据
-                merchantData: "",
+                merchantData: new merchantInfo({}),
                 // 分数
                 gradeNum: 5,
                 // 车行车辆的信息列表
                 merchantCarList: [],
+                // 焦点图列表
+                slideCarList: [],
                  
                 // 未关注的信息
                 attentionNot:{
@@ -146,6 +191,22 @@
                 }, 
                 // 我的延时器
                 mySetTimeOut: null,
+                
+                // 焦点图设置
+                swiperOption: {  
+                    //是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true  
+                    notNextTick: true,  
+                    pagination: '.swiper-pagination',  
+                    slidesPerView: 'auto',  
+                    centeredSlides: true,  
+                    paginationClickable: true,  
+                    spaceBetween: 30,  
+                    onSlideChangeEnd: swiper => {  
+                        //这个位置放swiper的回调方法  
+                        this.page = swiper.realIndex+1;  
+                        this.index = swiper.realIndex;  
+                    }  
+                }  
             }
         },
         //生命周期,开始的时候
@@ -160,6 +221,7 @@
             this.merchantId = this.$router.currentRoute.query.cid||0;
             // 获取卖家信息
             this.getMerchantInfo(this.merchantId);
+
         },
         //退出的生命周期钩子
         deactivated(){
@@ -167,6 +229,14 @@
         },
         // 数据侦听
         watch:{
+
+        },
+        // 属性计算
+        computed:{
+            slidePage(){
+                let page = Math.ceil(this.merchantCarList.length/8);
+                return page; 
+            },
 
         },
         // 自定义函数(方法)
@@ -181,8 +251,22 @@
                 list.forEach((item,index) => {
                     arr.push(new merchantCarInfo(item));
                 })
-                
+                // 数组翻倍的方法
+                // arr = geekDom.doubleArray(arr,5);
                 return arr;
+            },
+            // 格式化焦点图车辆列表
+            _normalizeSlideCarList(list) {
+                let map = [];
+                list.forEach((item,index)=>{
+                    let key = Math.floor((index)/8);
+                    if (!map[key]) {
+                        map[key] = [item];
+                    }else{
+                        map[key].push(item);
+                    }
+                })
+                return map;
             },
 
             // 获取卖家信息
@@ -194,8 +278,10 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.merchantData = this._normalizeMerchant(res.data);
                         this.merchantCarList = this._normalizeCarList(this.merchantData.carList);
-                        console.log(this.merchantCarList);
-                        console.log("劳资看看你",this.merchantData)
+                        setTimeout(()=>{
+                            this.slideCarList = this._normalizeSlideCarList(this.merchantCarList);
+                            console.log("我的结果",this.slideCarList);
+                        })
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',
@@ -298,6 +384,11 @@
                     _spacingPlus(-1px)
                 .el-rate__text
                     font-size 15px
+</style>
+
+<!-- 修改外部插件（组件）的样式时，不要加scoped，最好文件分成两个 -->
+<style lang="stylus" rel="stylesheet/stylus">
+    @import './swiper.styl'
 </style>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->

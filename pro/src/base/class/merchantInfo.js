@@ -2,7 +2,7 @@
 class merchantInfo{
 	constructor(data) {
 	    this.id = data.MemberId||""                                 // 车行的会员 MemberId
-	    this.name = data.CdgName||""                                // 车行名
+	    this.name = data.CdgName||"暂无数据"                                // 车行名
 	    this.authType = data.AuthType||"暂无数据"                   // 认证类别（企业车行、个人车行）
 	    this.username = data.UserName||"暂无数据"                   // 联系人
 	    this.tel = data.Mobile||"18700000000"                       // 联系人电话
