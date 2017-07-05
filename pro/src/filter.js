@@ -134,3 +134,9 @@ export const telFormat = (str) => {
     if(!str&&str!=0) return;
     return str.substr(0,3) + "****" + str.substr(7,4)
 }
+
+//---用户姓名式转换 => *文强
+export const usernameFormat = (str) => {
+    if(!str&&str!=0) return;
+    return '*'+str.substr(1,str.length)
+}

@@ -28,5 +28,20 @@ class b2cCarInfo{
 	}
 }
 
-export {b2bCarInfo,b2cCarInfo};
+// 车行车辆信息的构造类
+class merchantCarInfo{
+	constructor(data) {
+	    this.id = data.CarId||""                        // 车辆id
+	    this.imgUrl = data.TitlePhoto||""               // 首图链接
+	    this.title = data.Title||""                     // 标题
+	    this.city = data.CarInCity||""                  // 所在城市
+	    this.plateDate = data.OnLicensePlateDate||""    // 上牌时间
+	    this.mileage = data.Mileage||""                 // 里程
+	    this.price = data.B2BPrice||""                  // 批发价
+	    this.retailPrice = data.RetailPrice||""         // 普通市场价
+	}
+}
+
+
+export {b2bCarInfo,b2cCarInfo,merchantCarInfo};
 

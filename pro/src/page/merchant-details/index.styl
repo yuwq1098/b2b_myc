@@ -80,7 +80,7 @@
                     text-align center
                     margin 0 0 5px
                     .name
-                        margin 0 12px 0 0
+                        margin 0 20px 0 0
                     .tel
                         font-size 15px
                 .m-result
@@ -94,8 +94,16 @@
                             font-size 14px
                             margin 0 5px 0 0
                         .data
+                            _display(inline-block)
                             font-size 20px
                             color #2f98e2
+                            _translate3d(0,2px)
+                            .unit
+                                font-size 12px
+                                color #f2f2f2
+                                margin 0 0 0 3px
+                                _display(inline-block)
+                                _translate3d(0,-2px)
                 .m-address
                     text-align center
                     margin 0 0 5px
@@ -103,6 +111,34 @@
                         margin 0 15px 0 0
 
             .m-merchant-con
-                height 540px
+                width @width - 30px
+                padding 15px
                 background rgba(255,255,255,.88)
                 _borderRadius(3px)
+                .m-hd
+                    height 54px
+                    width 380px
+                    margin 0 auto 5px
+                    text-align center
+                    .u-tit
+                        _display(inline-block)
+                        height @height
+                        line-height @height
+                        font-size 26px
+                        _spacingPlus(4px)
+                        padding 0 12px
+                        position relative
+                        &::before,&::after
+                            width 5px
+                            height 5px
+                            _borderRadius(3px)
+                            content ""
+                            _display()
+                            background #2f98e2
+                        &::before
+                            _completeCenter(0,auto,2px)
+                        &::after
+                            _completeCenter(auto,0,2px)
+                .m-lst-wrap
+                    width @width
+                    height 520px

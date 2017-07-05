@@ -48,18 +48,19 @@
                             </div><!-- 评分与收藏 -->
 
                             <div class="m-contact">
-                                <span class="name">{{merchantData.username}}</span>
-                                <span class="tel">{{merchantData.tel}}</span>
+                                <span class="name">{{merchantData.username | usernameFormat}}</span>
+                                <span class="tel">{{merchantData.tel | telFormat}}</span>
                             </div><!-- 联系人信息 -->
 
                             <div class="m-result f__clearfix">
                                 <p class="u-info">
                                     <span class="attr">在售：</span>
-                                    <span class="data">{{merchantData.fixtureNumber}}</span>
+                                    <span class="data">{{merchantData.onSale}}<em class="unit">（辆）</em></span>
+
                                 </p>
                                 <p class="u-info">
                                     <span class="attr">已成交：</span>
-                                    <span class="data">{{merchantData.onSale}}</span>
+                                    <span class="data">{{merchantData.fixtureNumber}}<em class="unit">（单）</em></span>
                                 </p>
                             </div><!-- 在售及已成交 -->
 
@@ -76,8 +77,8 @@
                             </div><!-- 标题 -->
                             <div class="m-lst-wrap">
                                 <ul class="m-car-lst">
-                                    <template v-for="n in 10">
-                                        <li>车信息</li>
+                                    <template v-for="(item,index) in merchantCarList">
+                                        <li>{{item.title}}</li>
                                     </template>
                                 </ul><!-- 车辆列表 -->
                             </div><!-- 列表容器 -->
@@ -100,6 +101,8 @@
     import {dataToJson} from "assets/js/util.js"
     // 车行信息的构造类
     import {merchantInfo} from 'base/class/merchantInfo.js'
+    // 车行车辆信息的构造类
+    import {merchantCarInfo} from "base/class/carInfo.js"
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
     // 面包屑组件
@@ -123,6 +126,8 @@
                 merchantData: "",
                 // 分数
                 gradeNum: 5,
+                // 车行车辆的信息列表
+                merchantCarList: [],
                  
                 // 未关注的信息
                 attentionNot:{
@@ -170,6 +175,16 @@
             _normalizeMerchant(data) {
                 return new merchantInfo(data);
             },
+            // 格式化车行车辆信息列表
+            _normalizeCarList(list) {
+                let arr = [];
+                list.forEach((item,index) => {
+                    arr.push(new merchantCarInfo(item));
+                })
+                
+                return arr;
+            },
+
             // 获取卖家信息
             getMerchantInfo(id){
                 let data = {
@@ -178,6 +193,8 @@
                 api.CDGStoreDetails(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.merchantData = this._normalizeMerchant(res.data);
+                        this.merchantCarList = this._normalizeCarList(this.merchantData.carList);
+                        console.log(this.merchantCarList);
                         console.log("劳资看看你",this.merchantData)
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
