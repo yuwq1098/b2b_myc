@@ -76,7 +76,7 @@
                                 <p class="u-tit">在售车辆</p>
                             </div><!-- 标题 -->
                             <div class="m-lst-wrap">
-                                <div class="merchantCar-swiper">
+                                <div class="merchantCar-swiper" v-if="merchantCarList.length>0">
                                     <swiper :options="swiperOption"  ref="mySwiper">  
                                        <!-- 这部分放你要渲染的那些内容 -->  
                                        <template v-for="(group,index) in slideCarList">
@@ -103,9 +103,9 @@
 
                                     </swiper>  
                                 </div><!-- 卖车大厅的轮播图 -->
-                                <div class="not-content-wrap">
+                                <div class="not-content-wrap" 
+                                    v-if="merchantCarList.length==0">
                                     <not-content
-                                        v-if="merchantCarList.length==0"
                                         speak="该车行比较懒，已经没有在售车辆了，我们去别处瞅瞅!"
                                         >
                                         <router-link :to="{path:'/'}" class="u-lk" tag="a">网站首页&gt;</router-link>
@@ -278,9 +278,9 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.merchantData = this._normalizeMerchant(res.data);
                         this.merchantCarList = this._normalizeCarList(this.merchantData.carList);
+                        // 延迟获取焦点图列表
                         setTimeout(()=>{
                             this.slideCarList = this._normalizeSlideCarList(this.merchantCarList);
-                            console.log("我的结果",this.slideCarList);
                         })
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({

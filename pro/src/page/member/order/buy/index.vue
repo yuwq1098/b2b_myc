@@ -7,7 +7,60 @@
             <div slot="content">
                 
                 <member-inner>
-                    <p>买车订单</p>
+                    <div class="m-order-con">
+                        <div class="m-tab-box">
+                            <ul class="m-tab-lst f__clearfix">
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">全部订单
+                                    </a>
+                                </li>
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">带卖方发起合同
+                                    </a>
+                                </li>
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">待签署合同
+                                    </a>
+                                </li>
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">待支付保证金
+                                    </a>
+                                </li>
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">待卖方支付保证金
+                                    </a>
+                                </li>
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">待支付托管车款
+                                    </a>
+                                </li>
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">待卖方过户
+                                    </a>
+                                </li>
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">待验收
+                                    </a>
+                                </li>
+                                <li class="m-item">
+                                    <a href="javascript:;"
+                                        class="u-tab-lk">过户成功
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="m-tab-wrap">
+
+                        </div>
+                    </div>
                 </member-inner>
 
             </div><!-- 买车订单内容 -->
