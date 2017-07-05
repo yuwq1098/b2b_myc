@@ -125,6 +125,7 @@ export const gradeFormat = (num) => {
 
 //---地址格式转换 / => 点
 export const addressFormat = (str) => {
+    if(!str&&str!=0) return;
     return str.replace(/[/]/g,' · ')
 }
 

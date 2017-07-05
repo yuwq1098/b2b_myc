@@ -3,62 +3,87 @@
 .g-doc
     background #fff
     .g-bd
-        padding 40px 0
+        padding 0 0 60px
         color #40474a
-        .m-merchant-hd
-            width 720px
-            min-height 180px
-            margin 0 auto 20px
-            background #f0f0f0
-            .m-cdgName
-                height 48px
-                line-height 48px
-                font-size 32px
-                _spacingPlus()
-                text-align center
+        .m-merchant-box
+            margin 5px 0 0
+            width 1200px - 50px
+            background url(".././../assets/img/merchant-details_bg.jpg") 0 0 no-repeat
+            padding 25px
+            _overflow()
+            .m-merchant-hd
+                width 850px
+                height 192px
+                margin 0 auto 20px
+                background rgba(3,27,51,.55)
+                color #f2f2f2
+                _borderRadius(90px)
+                .m-cdgName
+                    height 48px
+                    line-height 48px
+                    font-size 30px
+                    _spacingPlus()
+                    padding 12px 0 0
+                    text-align center
+                    .u-type
+                        font-size 13px
+                        height 20px
+                        line-height 20px
+                        background #ff6533
+                        color #f2f2f2
+                        padding 0 8px 1px
+                        _display(inline-block)
+                        vertical-align top
+                        margin 10px 0 0
+                        _borderRadius(2px)
+                .m-collect
+                    width 210px
+                    height 28px
+                    line-height 28px
+                    margin 0 auto 5px
+                    .grade
+                        float left
+                    .attention
+                        float right
+                        position relative
+                        .iconfont
+                            width 38px
+                            height 38px
+                            cursor pointer
+                            font-size 28px
+                            line-height 38px
+                            text-align center
+                            _completeCenter(auto,-36px,-6px,auto)
+                .m-contact,.m-result,.m-address
+                    height 24px
+                    line-height 24px
+                .m-contact
+                    text-align center
+                    margin 0 0 5px
+                    .name
+                        margin 0 12px 0 0
+                    .tel
+                        font-size 15px
+                .m-result
+                    width 380px
+                    margin 0 auto 5px
+                    text-align center
+                    .u-info
+                        _display(inline-block)
+                        padding 0 12px
+                        .attr
+                            font-size 14px
+                            margin 0 5px 0 0
+                        .data
+                            font-size 20px
+                            color #2f98e2
+                .m-address
+                    text-align center
+                    margin 0 0 5px
+                    .attr
+                        margin 0 15px 0 0
 
-            // height 210px - 30px
-            // margin 20px 0 25px 0
-            // position relative
-            // .u-cdgName
-            //     height 54px
-            //     line-height 54px
-            //     margin-bottom 5px
-            //     .u-name,.u-type
-            //         _display()
-            //         float left
-            //     .u-name
-            //         font-size 38px
-            //         _spacingPlus()
-            //         max-width 600px
-            //     .u-type
-            //         _borderAll(#2f98e2);
-            //         color #2f98e2
-            //         vertical-align middle
-            //         height 24px
-            //         line-height 24px
-            //         margin 16px 0 0 15px
-            //         padding 0 8px 1px
-            //         _borderRadius(4px)
-            // .u-tel
-            //     height 54px
-            //     line-height 54px
-            //     _completeCenter(auto,0,0,auto)
-            //     color #2f98e2
-            //     font-size 24px
-            //     padding 0 0 0 34px
-            //     .iconfont
-            //         width 32px
-            //         height 32px
-            //         line-height 32px
-            //         text-align center
-            //         font-size 32px
-            //         _completeCenter(0,auto,13px,auto)
-            // .u-info
-            //     line-height 24px
-            //     .txt
-            //         font-size 13px
-
-        .m-merchant-con
-            height 540px
-            background #e2e2e2
+            .m-merchant-con
+                height 540px
+                background rgba(255,255,255,.88)
+                _borderRadius(3px)
