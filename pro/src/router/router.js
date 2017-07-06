@@ -44,6 +44,12 @@ const buyOrder = r => require.ensure([], () => r(require('page/member/order/buy'
 const sellOrder = r => require.ensure([], () => r(require('page/member/order/sell')), 'sellOrder')
 
 
+// 买车订单 => 订单详情
+const buyOrderDetails = r => require.ensure([], () => r(require('page/member/order/details/buy')), 'buyOrderDetails')
+// 卖车订单 => 订单详情
+const sellOrderDetails = r => require.ensure([], () => r(require('page/member/order/details/sell')), 'sellOrderDetails')
+
+
 // 车源管理 => 我的车源
 const mySource = r => require.ensure([], () => r(require('page/member/car-source/manage')), 'mySource')
 // 车源管理 => 编辑车源
@@ -220,6 +226,23 @@ export default[{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
                 },
+                {
+                // 买车订单-详情页
+                    path: 'buyOrderDetails',
+                    component: buyOrderDetails,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 卖车订单-详情页
+                    path: 'sellOrderDetails',
+                    component: sellOrderDetails,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+
                 {
                 // 我的车源
                     path: 'car-source',

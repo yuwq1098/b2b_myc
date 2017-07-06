@@ -1,9 +1,9 @@
 <!--  
- **  @description 订单列表组件
+ **  @description 买车 订单列表组件
  --> 
 
  <template>
-    <div class="orderList">
+    <div class="buyOrderList">
         <div class="m-order-lst">
             <div class="m-tb-hd f__clearfix">
                 <span class="m-hd-item w-373 text-lt">订单信息</span>
@@ -40,11 +40,11 @@
     // 会员中心缺省组件
     import notContent from 'components/member/notCon.vue' 
     // 订单信息盒子组件
-    import orderBox from 'components/member/orderBox.vue' 
+    import orderBox from 'components/member/buyOrderBox.vue' 
 
     export default {
 
-        name: "orderList",
+        name: "buyOrderList",
         // 在当前模块注册组件
         components:{
             notContent,

@@ -95,14 +95,14 @@
     import * as geekDom from 'assets/js/dom.js'
 
     // 订单信息的构造类
-    import {orderInfo} from 'base/class/order.js'
+    import {buyOrderInfo} from 'base/class/order.js'
 
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue'
     // 会员中心子内容组件
     import memberInner from 'components/layout/memberInner.vue'
     // 账单信息列表组件
-    import orderList from 'components/member/orderList.vue'
+    import orderList from 'components/member/buyOrderList.vue'
 
     export default {
         
@@ -127,7 +127,7 @@
             
         },
         mounted(){
-            
+
         },
         activated(){
             // 获取当前选项卡索引并显示对应的数据
@@ -166,33 +166,6 @@
 
             // 根据tabIndex 获取 status
             _getStatusByIndex(index){
-                // let status;
-                /*switch(index.toString()){
-                    case "1":   // 待卖方发起合同
-                        return status = "0";
-                        break;
-                    case "2":   // 待签署合同
-                        return status = "1";
-                        break;
-                    case "3":   // 待支付保证金
-                        return status = "2";
-                        break;
-                    case "4":   // 待卖方支付保证金
-                        return status = "3";
-                        break;
-                    case "5":   // 待支付托管车款
-                        return status = "4";
-                        break;
-                    case "6":   // 待卖方过户
-                        return status = "5";
-                        break;
-                    case "7":   // 待验收
-                        return status = "6";
-                        break;
-                    case "8":   // 过户成功
-                        return status = "7";
-                        break;
-                }*/
                 return ((+index)-1).toString();
             },
             
@@ -200,7 +173,7 @@
             _normalizeOrder(list){
                 let arr = []
                 list.forEach((item, index) => {
-                    arr.push(new orderInfo(item));
+                    arr.push(new buyOrderInfo(item));
                 });
                 return arr;
             },
@@ -214,7 +187,6 @@
                 // 获取数据，然后回调赋值
                 this.getData(status,1,(res) => {
                     this.buyerOrderList = this._normalizeOrder(res);
-                    console.log(this.buyerOrderList);
                 })
             },
 

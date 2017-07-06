@@ -36,6 +36,30 @@ export const crumbsHash = {
             path:"/member/sellOrder",
         }
     ],
+    
+    // 买车订单-详情页
+    '/member/buyOrderDetails':[
+        {
+            pathName:"买车订单",
+            path:"/member/buyOrder",
+        },
+        {
+            pathName:"订单详情",
+            path:"/member/buyOrderDetails",
+        }
+    ],
+    // 卖车订单-详情页
+    '/member/sellOrderDetails':[
+        {
+            pathName:"卖车订单",
+            path:"/member/sellOrder",
+        },
+        {
+            pathName:"订单详情",
+            path:"/member/sellOrderDetails",
+        }
+    ],
+    
     // 我的车源
     '/member/sourceHome':[
         {
