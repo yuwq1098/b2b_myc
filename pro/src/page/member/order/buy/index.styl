@@ -3,11 +3,24 @@
 .m-order-con
     width 948px
     .m-tab-box
-        height 48px
-        line-height 48px
+        height 42px
+        line-height 42px
         .m-tab-lst
             width @width
+            height @height
+            line-height 38px
+            _border(bottom,#e2e2e2)
             .m-item
                 float left
+                height @height
                 _display(inline-block)
                 padding 0 10px
+                position relative
+                .on
+                    &::after
+                        content ""
+                        _display()
+                        height 3px
+                        background #2e98e2
+                        max-width 60px
+                        _completeCenter(15px,15px,auto,-1px)
