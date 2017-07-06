@@ -49,6 +49,31 @@ export function doubleArray(array,num=2){
 }
 
 /** 
+* @description 数组数据裁切
+* @param array,num  数组  几个一组
+* @param array 数组
+*/ 
+
+export function sliceArray(array,num=8){
+    let arr2 = [];
+    // 方法二
+    // array.forEach((item,index)=>{
+    //     let key = Math.floor((index)/num);
+    //     if (!arr2[key]) {
+    //         arr2[key] = [item];
+    //     }else{
+    //         arr2[key].push(item);
+    //     }
+    // })
+    for(var i=0;i<array.length;i++){
+        if(array.length){
+            arr2.push(array.splice(0,num)); 
+        }
+    }   
+    return arr2;
+}
+
+/** 
 * @description 使用canvas裁剪/压缩图片
 * @param img,theW,theH,realW,realH  Number/String 传值 图片及各种canvas信息
 * @param callBack Function 回调方法

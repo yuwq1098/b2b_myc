@@ -6,15 +6,15 @@
     <div class="orderList">
         <div class="m-order-lst">
             <div class="m-tb-hd f__clearfix">
-                <span class="m-hd-item w-423 text-lt">订单信息</span>
-                <span class="m-hd-item w-140 text-cr">实付金额</span>
-                <span class="m-hd-item w-155 text-cr">交易状态</span>
-                <span class="m-hd-item w-110 text-rt">操作</span>
+                <span class="m-hd-item w-373 text-lt">订单信息</span>
+                <span class="m-hd-item w-140 text-rt">支付金额</span>
+                <span class="m-hd-item w-165 text-rt">交易状态</span>
+                <span class="m-hd-item w-150 text-rt">操作</span>
             </div>
             <div class="m-tb-con">
                 <ul class="m-tb-lst" v-if="orderList.length>0">
                     <template v-for="(item,index) in orderList">
-                        <li class="m-tb-row f__clearfix">
+                        <li class="m-tb-row">
                             <order-box
                                 :orderInfo="item"
                                 >
@@ -77,7 +77,7 @@
     @import '~assets/css/mixin.styl'
     .m-order-lst
         width 948px
-        padding 15px 0 30px
+        padding 15px 0 0
         .m-tb-hd
             width @width
             height 42px
@@ -86,21 +86,26 @@
             color #e2e2e2
             .m-hd-item
                 _display()
-                width 120px
+                width 140px
                 padding 0 15px
                 font-size 14px
                 _spacingPlus(2px)
                 float left
+        .m-tb-con
+            .m-tb-lst
+                .m-tb-row
+                    margin 10px 0 0
+
         .m-tb-hd,
         .m-tb-con .m-tb-lst .m-tb-row
-            .w-423
-                width 423px
+            .w-373
+                width 373px
             .w-140
                 width 140px
-            .w-155
-                width 155px
-            .w-110
-                width 110px
+            .w-165
+                width 165px
+            .w-150
+                width 150px
             .text-lt
                 text-align left
             .text-rt

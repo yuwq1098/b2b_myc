@@ -125,7 +125,6 @@
                         spellCityList.push(value)
                     })
                     this.citys = this._normalizeCity(spellCityList);
-                    console.log(this.citys);
                 }
             },
             //格式化城市列表

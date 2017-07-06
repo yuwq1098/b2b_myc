@@ -5,7 +5,78 @@
  <template>
     <div class="orderBox">
         <div class="m-order-box">
-            还蛋疼不
+            <div class="m-info-hd f__clearfix">
+                <div class="u-item no">
+                    订单号：<em class="vital">{{orderInfo.id}}</em>
+                </div>
+                <div class="u-item create-time">
+                    创建时间：{{orderInfo.createTime}}
+                </div>
+                <div class="u-item seller-name">
+                    卖家：{{orderInfo.sellerName}}<em class="vital">（{{orderInfo.sellerTel}}）</em>
+                </div>
+            </div><!-- 订单信息头部 -->
+            <div class="m-info-con">
+                <div class="m-order-info">
+                    <div class="u-pic">
+                        <img :src="orderInfo.imgUrl" :alt="orderInfo.carTitle"/>
+                    </div>
+                    <div class="u-con">
+                        <div class="tit">{{orderInfo.carTitle}}</div>
+                        <div class="city">{{orderInfo.inCity | addressFormat}}</div>
+                        <div class="other">{{orderInfo.plateDate | dateFn}} · {{orderInfo.mileage | mileFn(2)}}</div>
+                    </div>
+                </div><!-- 车辆信息 -->
+                <div class="m-pay-info">
+                    <div class="u-line u-money"
+                        v-if="orderInfo.status==4||
+                                orderInfo.status==5||
+                                orderInfo.status==6||
+                                orderInfo.status==7"
+                        >
+                        <div class="data">￥<em class="vital">{{orderInfo.price | priceFormat(2)}}</em>万元</div>
+                        <p class="tips">
+                            <template
+                                v-if="orderInfo.status==4"
+                                >（共需支付）
+                            </template>
+                            <template
+                                v-if="orderInfo.status==5||
+                                        orderInfo.status==6||
+                                        orderInfo.status==7"
+                                >（已托管支付全款）
+                            </template>
+                        </p>
+                    </div><!-- 支付金额 -->
+
+                    <div class="u-line u-deposit">
+                        <div class="data">￥<em class="vital">3000</em>元</div>
+                        <p class="tips">
+                            <template
+                                v-if="orderInfo.status==0||
+                                        orderInfo.status==1||
+                                        orderInfo.status==2"
+                                >（需支付保证金）
+                            </template>
+                            <template
+                                v-if="orderInfo.status==3||
+                                        orderInfo.status==4||
+                                        orderInfo.status==5||
+                                        orderInfo.status==6||
+                                        orderInfo.status==7"
+                                >（已支付保证金）
+                            </template>
+                        </p>
+                    </div><!-- 支付金额 -->
+
+                </div><!-- 支付信息 -->
+                <div class="m-status">
+                    
+                </div><!-- 交易状态 -->
+                <div class="m-operate">
+                    
+                </div><!-- 操作 -->
+            </div><!-- 订单信息内容 -->
         </div>
     </div>
 </template>
@@ -47,6 +118,89 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
+    .m-order-box
+        width 948px
+        color #4B5861
+        .m-info-hd
+            width @width - 30px - 2px
+            height 30px
+            line-height 30px
+            background #ECEFF1
+            _borderAll(#C1C9CE)
+            padding 0 15px
+            font-size 12px
+            position relative
+            .u-item
+                float left
+                .vital
+                    color #2E98E2
+                    font-size 13px
+                &.no
+                    float left
+                &.create-time
+                    _completeCenter(420px,auto,0,auto)
+                &.seller-name
+                    float right
+        .m-info-con
+            width @width - 30px - 2px
+            margin 6px 0 0
+            height 122px
+            padding 0 15px
+            background #fff
+            _borderAll(#e2e2e2)
+            position relative
+            .m-order-info
+                width 360px
+                height 102px
+                margin 10px 0 0
+                position relative
+                .u-pic
+                    width 136px
+                    height @height
+                    _overflow()
+                    _completeCenter(0,auto,0,auto)
+                    img
+                        width @width
+                        height auto
+                .u-con
+                    width @width - 136px - 12px
+                    height @height
+                    margin 0 0 0 136px
+                    padding 0 6px
+                    .tit
+                        height 44px
+                        line-height 22px
+                        margin 0 0 5px 0
+                        padding 4px 0 0
+                        _ellipsis(2)
+                    .city,.other
+                        height 22px
+                        line-height 22px
+                        color #959595
+                        font-size 13px
+            .m-pay-info
+                width 165px
+                height 102px
+                _completeCenter(393px,auto)
+                .u-line
+                    height 46px
+                    padding 3px 0 1px
+                    text-align right
+                    .data
+                        height 28px
+                        line-height 22px
+                        font-size 12px
+                        color #ff6533
+                        .vital
+                            _display(inline-block)
+                            font-size 22px
+                            margin 0 3px 0 0
+                            _translate3d(0,2px)
+                    .tips
+                        height 18px
+                        line-height 18px
+                        color #959595
+                        font-size 12px
 
 
 </style>

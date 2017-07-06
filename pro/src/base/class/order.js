@@ -11,7 +11,8 @@ class orderInfo{
 
 	    this.carId = data.CarId||""                        // 车辆id
 	    this.carTitle = data.Title||""                     // 订单标题（一般就是车型名）
-	    this.imgUrl = data.FirstImg||""                    // 车辆首图链接
+	    // 车辆首图链接
+	    this.imgUrl = data.FirstImg?data.FirstImg+"?imageView2/3/w/136/h/102":"";                   
 	    this.inCity = data.CarInCity||""                   // 车身所在地
 	    this.plateDate = data.OnLicensePlateDate||""       // 上牌时间
 	    this.mileage = data.Mileage||0                     // 里程数

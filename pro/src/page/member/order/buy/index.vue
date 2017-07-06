@@ -91,6 +91,9 @@
     // 工具类
     import {dataToJson} from "assets/js/util.js"
 
+    // dom操作类
+    import * as geekDom from 'assets/js/dom.js'
+
     // 订单信息的构造类
     import {orderInfo} from 'base/class/order.js'
 
@@ -124,7 +127,7 @@
             
         },
         mounted(){
-
+            
         },
         activated(){
             // 获取当前选项卡索引并显示对应的数据
@@ -251,5 +254,5 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import 'index.styl'
-    
+
 </style>
