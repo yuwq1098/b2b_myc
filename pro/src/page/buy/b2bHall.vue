@@ -298,7 +298,6 @@
                             <div class="m-carlist-true" v-if="b2bCarList.length>0">
                                 <b2b-car-listbox
                                     :carlist="b2bCarList"
-                                    car-to-path="/b2bCar"
                                     >
                                 </b2b-car-listbox>
 

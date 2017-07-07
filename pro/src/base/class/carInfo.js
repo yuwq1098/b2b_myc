@@ -14,7 +14,7 @@ class b2bCarInfo{
 	    
 	    this.cName = data.CDGName||""                     // 车行名
         this.authType = data.AuthType||""                 // 车行认证类别： 个人车行、企业车行
-	    this.hasInCart = data.HasInCart||0                // 是否加入购物车
+	    this.hasInCart = data.HasInCart||""                // 是否加入购物车
 	}
 }
 

@@ -184,8 +184,8 @@
         position relative
         .m-lk
             _display()
-            width 100%
-            height 100%
+            width @width
+            height @height
             _overflow()
             position relative
             .m-pic-box
@@ -194,7 +194,7 @@
                 position relative
                 .u-label
                     _display()
-                    z-index 9
+                    z-index 10
                     height 26px
                     line-height 26px
                     font-size 12px
@@ -221,7 +221,7 @@
                     _completeCenter()
                     _imgwrap()
             .m-con-box
-                width 100%
+                width @width
                 height 170px
                 z-index 15
                 _completeCenter(,,165px,auto)

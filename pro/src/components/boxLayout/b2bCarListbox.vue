@@ -5,6 +5,7 @@
                 <template>
                     <li class="m-item" v-for="(item,index) in carlist">
                         <b2b-car-box
+                            :carInfo="item"
                             >
                         </b2b-car-box>
                     </li>
@@ -29,16 +30,16 @@
         // 数据
         props:{
             carlist: Array,
-            carToPath: String,
-            boxType: {
-            	type: String,
-            	default: 'b2b'
-            },
         },
         data() {
             return{
                 
             }
+        },
+        created(){
+            setTimeout(()=>{
+                console.log("我再看看列表",this.carlist)
+            })
         },
         mounted(){
             
@@ -61,7 +62,6 @@
             .m-item
                 float left
                 width 285px
-                height 400px
                 margin 20px 20px 0 0
                 // .m-lk
                 //     _display()
