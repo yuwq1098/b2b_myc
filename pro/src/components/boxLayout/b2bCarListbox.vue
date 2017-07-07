@@ -37,9 +37,7 @@
             }
         },
         created(){
-            setTimeout(()=>{
-                console.log("我再看看列表",this.carlist)
-            })
+
         },
         mounted(){
             

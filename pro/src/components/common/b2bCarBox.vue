@@ -49,26 +49,6 @@
                     </div><!-- 车辆信息内容 -->
                 </div>
 
-                <!-- <div class="u-pic">
-                    <img v-lazy="carInfo.imgUrl" :alt="carInfo.name"/>
-                </div>
-                <div class="u-con">
-                    <h5 class="u-tit">
-                        {{carInfo.name}}
-                    </h5>
-                    <p class="u-des">{{carInfo.city}}/{{carInfo.plateDate | dateFnToYear }}/{{carInfo.mileage | mileFn}}</p>
-                    <div class="u-price">
-                        <em>{{carInfo.retailPrice | priceToFixed(1)}}</em>
-                    </div>
-
-                    <a href="javascript:;" class="u-lk" v-if="boxType=='b2b'">
-                        <p class="u-count">
-                            <strong>215</strong>
-                            次
-                        </p>
-                        <p>围观</p>
-                    </a>
-                </div> -->
             </router-link>
         </div>
     </div>
@@ -198,7 +178,7 @@
                         text-align center
                         height 28px
                         line-height 25px
-                        _completeCenter(auto,10px,65px,auto)
+                        _completeCenter(auto,10px,68px,auto)
                         .u-btn
                             _display()
                             width @width

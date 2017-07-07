@@ -13,16 +13,15 @@ class sidebarMember{
 	    this.imgUrl = data.PhotoURL?data.PhotoURL:require('assets/img/none-face.png')
 	    this.tel = data.Mobile||""
 	    // 认证状态
-	    this.auth = ""
-        
-        //如果未认证，那么身份标识为未认证
-        if(!data.CdgAuth){
-            this.auth = "未认证"
-        }else{
-        	if(!data.CdgAuth.AuthType){
-        		this.auth = "未认证"
-        	}else{
-        		this.auth = data.CdgAuth.AuthType
+	    this.auth = "未认证"
+	    //如果未认证，那么身份标识为未认证
+        if(data.CdgAuth&&data.CdgAuth.length>0){
+        	if(data.CdgAuth.length==2){
+                this.auth = "企业车行" 
+                return;
+        	}
+        	if(data.CdgAuth[0].CdgInfo.AuthType){
+        		this.auth = data.CdgAuth[0].CdgInfo.AuthType;
         	}
         }
 	    
@@ -43,11 +42,13 @@ class memberInfo{
 	    this.cdgAuth = data.CdgAuth||""        // 车行认证信息数组，没时为[]数组
 	    // 认证状态
 	    this.authName = "未实名认证"           // 真实姓名
-        
+	    this.authStatus = false                // 未认证
+
         //如果未认证，那么身份标识为未认证
-        if(data.CdgAuth){
-        	if(data.CdgAuth.CertificateName){
-        		this.authName = data.CdgAuth.CertificateName;
+        if(data.CdgAuth.length>0){
+        	if(data.CdgAuth[0].AuthInfo.CertificateName){
+        		this.authName = data.CdgAuth[0].AuthInfo.CertificateName;
+        		this.authStatus = true
         	}
         }
 	    

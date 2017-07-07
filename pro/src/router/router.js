@@ -15,6 +15,8 @@ const service = r => require.ensure([], () => r(require('page/service/service.vu
 const usinghelp = r => require.ensure([], () => r(require('page/help')), 'usinghelp')
 // 关于股东
 const partner = r => require.ensure([], () => r(require('page/partner/partner.vue')), 'usinghelp')
+// APP下载
+const download = r => require.ensure([], () => r(require('page/download')), 'download')
 
 
 // b2b车辆详情
@@ -175,6 +177,12 @@ export default[{
         // 关于股东
             path: '/partner',
             component: partner,
+            meta: { }
+        },
+        {
+        // APP下载页
+            path: '/download',
+            component: download,
             meta: { }
         },
         {

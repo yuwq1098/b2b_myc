@@ -27,11 +27,17 @@
                                 <div class="m-line-box f__clearfix">
                                     <span class="u-attr">真实姓名：</span>
                                     <div class="u-data">
-                                        <span class="data">{{memberData.authName}}</span>
+                                        <span class="data">{{memberData.authName | usernameFormat}}</span>
                                         <router-link :to="{path:'/member/apply'}" 
                                             class="u-lk operate"
                                             tag="a"
+                                            v-if="!memberData.authStatus"
                                             >立即认证</router-link>
+                                        <router-link :to="{path:'/member/apply'}" 
+                                            class="u-lk operate"
+                                            tag="a"
+                                            v-if="memberData.authStatus"
+                                            >管理我的认证</router-link>
                                     </div>
                                 </div>
                                 <div class="m-line-box f__clearfix">

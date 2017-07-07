@@ -10,9 +10,14 @@ export const navItemList = [
         pathName: "我要卖车",
         path: "/sellHome"
     },{
+        pathName: "APP下载",
+        path: "/download"
+    }/*
+    {
         pathName: "木有车服务",
         path: "/siteServer"
-    }/*,{
+    },
+    {
         pathName: "使用帮助",
         path: "/helpHome"
         
