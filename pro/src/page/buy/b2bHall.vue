@@ -45,14 +45,14 @@
                                     <brand-more-box class="m-cld-box" id="js__brand_more_list"
                                         :brandList="allCarBrandList"
                                         @brandFilterMore="brandFilterMore"
-                                        v-if="allCarBrandList.length>0"
+                                        v-if="allCarBrandList&&allCarBrandList.length>0"
                                         >
                                     </brand-more-box>
                                 </div><!-- 子信息 -->
                             </div>
                             <a href="javascript:;" class="u-more"
                                 @click="isShowMoreBrand=!isShowMoreBrand" 
-                                v-if="allCarBrandList.length>=13"
+                                v-if="allCarBrandList&&allCarBrandList.length>=13"
                                 :class="{'on':isShowMoreBrand}" 
                                 >
                                 更多<i class="iconfont icon-arrowdown1"></i>
@@ -91,7 +91,7 @@
                             </div>
                             <a href="javascript:;" class="u-more" 
                                 @click="isShowMoreSeries=!isShowMoreSeries" 
-                                v-if="allsearchCarSeries.length>=12"
+                                v-if="allsearchCarSeries&&allsearchCarSeries.length>=12"
                                 :class="{'on':isShowMoreSeries}" 
                                 >
                                 更多<i class="iconfont icon-arrowdown1"></i>
@@ -295,9 +295,10 @@
                         </div>
                         <div class="m-con">
 
-                            <div class="m-carlist-true" v-if="b2bCarList.length>0">
+                            <div class="m-carlist-true" v-if="b2bCarList&&b2bCarList.length>0">
                                 <b2b-car-listbox
                                     :carlist="b2bCarList"
+                                    :loginStatus="loginStatus"
                                     >
                                 </b2b-car-listbox>
 
@@ -313,7 +314,7 @@
                                 </div>
                             </div><!-- 当搜索到数据时 -->
  
-                            <div class="m-carlist-null"  v-if="b2bCarList.length==0">
+                            <div class="m-carlist-null"  v-if="b2bCarList&&b2bCarList.length==0">
                                 <div class="m-not-srh">
                                     <div class="m-pic">
                                         <img class="u-img" :src="errorPic" />
@@ -321,9 +322,10 @@
                                     <div class="m-srh-info">
                                         <div class="u-hd">
                                             <span class="txt">暂时没有</span>
-                                            <span class="label" v-if="filterShowDataItems.length>0">
+                                            <span class="label" v-if="filterShowDataItems&&filterShowDataItems.length>0">
                                                 <template v-for="(item,index) in filterShowDataItems">
-                                                    <template>{{item.label}}</template><template v-if="index!=filterShowDataItems.length-1"><em class="symbol">/</em>
+                                                    <template>{{item.label}}</template>
+                                                    <template v-if="filterShowDataItems&&index!=filterShowDataItems.length-1"><em class="symbol">/</em>
                                                     </template>
                                                 </template>
                                             </span>
@@ -350,6 +352,8 @@
     import $ from 'jquery'
     // 获取数据的api
     import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
     // vuex状态管理
     import { mapGetters,mapActions } from 'vuex'
     // 本地数据搜索价格
@@ -362,6 +366,8 @@
     import * as hashData from "api/localJson/hashData.js"
     // b2b条件过滤相关构造类
     import {filterShowData,filterDataClass,searchFilterClass} from "base/class/b2bFilter.js"
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 更多车品牌组件
@@ -392,6 +398,9 @@
         // 数据
         data() {
             return{
+                
+                // 用户信息
+                memberData: null,
 
                 errorPic: require("assets/img/error_pic2.png"),
 
@@ -466,7 +475,7 @@
 
         },
         computed:{
-            ...mapGetters(['getUserFilterData','getSearchFilterList']),
+            ...mapGetters(['getUserFilterData','getSearchFilterList','loginStatus']),
             //已选条件框控制显示隐藏
             isShowByHasFilter(){
                 return geekDom.isObjHasValue(this.userFilterData);
@@ -490,6 +499,9 @@
                 //用户条件筛选数据
                 this._initUserFilterData();
             }
+            
+            // 获取用户信息
+            this.getMemberInfo();
 
             let me = this;
             //如果还没有开锁
@@ -532,12 +544,51 @@
                 },
                 deep:true
             },
+
+            // 登录状态改变
+            loginStatus(val){
+                if(val){
+                    // 获取用户信息
+                    this.getMemberInfo();
+                }else{
+                    this.memberData = null;
+                }
+                // 重新渲染页面
+                this.carListResultRender();
+
+            },
         },
         // 自定义函数(方法)
         methods: {
             
             //vuex的actions
             ...mapActions(["setUserFilterData",'setSearchFilterList']),
+
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+
+            // 获取用户信息
+            getMemberInfo(){
+                if(!this.loginStatus){
+                    console.log("没登录")
+                    return;
+                }
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
              
             //初始化用户条件筛选数据
             _initUserFilterData(){
@@ -639,6 +690,12 @@
                     js__series_list.find(">.u-item").removeClass("on");
                     js__series_list.find(">.u-item").eq(0).addClass("on");
                 }
+                if(id==-1){
+                    // 设置真实向api请求的字段 汽车车系的id
+                    this.searchFilterList.CarSeriesId = -1; 
+                    //操作完毕后隐藏更多车系
+                    this.isShowMoreSeries = false;
+                }
 
                 // 设置展示给界面  用户所选条件集合中 汽车品牌的lable
                 this.userFilterData.brand = value; 
@@ -676,6 +733,7 @@
                 // 设置真实向api请求的字段 汽车品牌的id
                 this.searchFilterList.CarBrandId = id; 
 
+
                 //操作完毕后隐藏更多品牌
                 this.isShowMoreBrand = false;
             },
@@ -690,6 +748,7 @@
                 this.userFilterData.series = value; 
                 // 设置真实向api请求的字段 汽车车系的id
                 this.searchFilterList.CarSeriesId = id; 
+                
 
             },
 
@@ -865,7 +924,6 @@
                     return;
                 }
                 this.userFilterData[key] = '';
-                this.searchFilterList[key] = '';
                 let dataObj = this.userFilterData;
                 
                 //遍历对象, 删除对应属性值
@@ -873,6 +931,8 @@
                     switch(key){
                         case 'brand':                 // 车品牌
                             this.searchFilterList.CarBrandId = "";
+                            this.userFilterData['series'] = '';
+                            this.searchFilterList.CarSeriesId = "";
                             break;
                         case 'series':                // 车系
                             this.searchFilterList.CarSeriesId = "";
@@ -958,8 +1018,8 @@
             
             // 根据筛选数据渲染页面
             renderByData(data){
-                this.resultPage.currentPage = parseInt(data.PageIndex);
-                this.resultPage.pageSize = parseInt(RESULE_PAGE_SIZE);
+                // this.resultPage.currentPage = parseInt(data.PageIndex);
+                // this.resultPage.pageSize = parseInt(RESULE_PAGE_SIZE);
 
                 //获取数据并设置分页条数
                 this._getB2bCarList(data);
@@ -968,6 +1028,17 @@
 
             //获取B2B大厅车辆列表
             _getB2bCarList(data){
+                // 当用户信息存在的时候
+                /*if(this.memberData){
+                    data.MemberId = this.memberData.id;
+                }*/
+                if(data.CarBrandId==-1) data.CarBrandId = ""; 
+                if(data.B2BPriceFrom==-1) data.B2BPriceFrom = ""; 
+                if(data.CarSeriesId==-1) data.CarSeriesId = ""; 
+                
+                // if(data.PageIndex==1){
+                //     data.TS = +new Date();   
+                // }
                 let me = this;
                 api.getB2BCarList(data).then((res) => {
                     this.b2bCarList = this._normalizeB2bCarInfo(res.data)

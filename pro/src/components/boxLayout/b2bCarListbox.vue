@@ -6,6 +6,7 @@
                     <li class="m-item" v-for="(item,index) in carlist">
                         <b2b-car-box
                             :carInfo="item"
+                            :loginStatus="loginStatus"
                             >
                         </b2b-car-box>
                     </li>
@@ -30,6 +31,10 @@
         // 数据
         props:{
             carlist: Array,
+            loginStatus: {
+                type: Boolean,
+                default: false,
+            }
         },
         data() {
             return{

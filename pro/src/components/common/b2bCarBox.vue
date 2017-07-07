@@ -25,17 +25,22 @@
                     <div class="u-con">
                         <div class="u-tit">{{carInfo.name}}</div>
                         <div class="u-price">
-                            <span class="price"><em class="vital">{{carInfo.price | priceFormat(2)}}</em>万</span>
+                            <span class="price"
+                                v-if="loginStatus"
+                                ><em class="vital">{{carInfo.price | priceFormat(2)}}</em>万</span>
+                            <span class="price"
+                                v-if="!loginStatus"
+                                ><em class="info">未登录</em></span>
                             <span class="retail"><em class="data">{{carInfo.retailPrice | priceFormat(2)}}万</em></span>
                         </div>
                         <div class="u-addCart">
                             <a href="javascript:;" class="u-btn"
-                                v-if="carInfo.hasInCart">
+                                v-if="carInfo.hasInCart||!loginStatus">
                                 <i class="iconfont icon-addCart"></i>
                                 <span class="txt">加入购物车</span>
                             </a>
                             <a href="javascript:;" class="u-btn not"
-                                v-if="!carInfo.hasInCart" title="加入购物车">
+                                v-if="!carInfo.hasInCart&&loginStatus" title="加入购物车">
                                 <i class="iconfont icon-addCart"></i>
                                 <span class="txt">加入购物车</span>
                             </a>
@@ -79,10 +84,14 @@
                     return new b2bCarInfo({});
                 }
             },
+            loginStatus: {
+                type: Boolean,
+                default: false,
+            }
         },
         // 自定义函数(方法)
         methods: {
-
+             
         },    
     }
 </script>
@@ -168,6 +177,8 @@
                             color #ff6533
                             .vital
                                 font-size 21px
+                            .info
+                                font-size 15px
                         .retail
                             color #a5a5a5
                             margin 0 0 0 5px

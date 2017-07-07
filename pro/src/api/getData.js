@@ -336,12 +336,12 @@ export default {
 
     //B2B车辆大厅列表
     getB2BCarList(params){
-        return fetch('/action2/B2BCarList.ashx', dataToJson(params))
+        return fetchSign('/action2/B2BCarList.ashx', dataToJson(params))
     },
 
     //B2B车辆大厅列表详情
     getCarDetalis(params){
-        return fetch('/action2/B2BCarDetail.ashx', dataToJson(params))
+        return fetchSign('/action2/B2BCarDetail.ashx', dataToJson(params))
     },
     
     //秒杀立即下单接口
