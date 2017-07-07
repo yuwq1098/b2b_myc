@@ -146,6 +146,28 @@ export const crumbsHash = {
             path:"/member/cardManage",
         }
     ],
+    // 银行卡修改
+    '/member/cardEdit':[
+        {
+            pathName:"绑定银行卡",
+            path:"/member/cardManage",
+        },
+        {
+            pathName:"编辑银行卡",
+            path:"/member/cardEdit",
+        },
+    ],
+    // 银行卡新增
+    '/member/cardAdd':[
+        {
+            pathName:"绑定银行卡",
+            path:"/member/cardManage",
+        },
+        {
+            pathName:"新增银行卡",
+            path:"/member/cardAdd",
+        },
+    ],
 	// 安全中心页
     '/member/safetyCenter':[
         {
@@ -195,6 +217,28 @@ export const crumbsHash = {
         {
             pathName:"设置支付密码",
             path:"/member/payPass",
+        }
+    ],
+    // 修改支付密码
+    '/member/editPayPass':[
+        {
+            pathName:"安全中心",
+            path:"/member/safetyCenter",
+        },
+        {
+            pathName:"修改支付密码",
+            path:"/member/editPayPass",
+        }
+    ],
+    // 找回（忘记）支付密码
+    '/member/forgetPayPass':[
+        {
+            pathName:"安全中心",
+            path:"/member/safetyCenter",
+        },
+        {
+            pathName:"找回支付密码",
+            path:"/member/forgetPayPass",
         }
     ],
 }

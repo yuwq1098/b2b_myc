@@ -1,5 +1,5 @@
 <template>
-    <div class="payPass">
+    <div class="forgetPayPass">
 
         <!-- 会员中心内容布局组件 -->
         <member-layout
@@ -9,7 +9,7 @@
             <div slot="content">
                 <member-inner>
                     <div>
-                        设置支付密码
+                        忘记支付密码
                     </div>
                 </member-inner>
             </div><!-- 设置支付密码页面内容 -->
@@ -39,7 +39,7 @@
 
     export default {
 
-        name: "payPass",
+        name: "forgetPayPass",
         // 在当前模块注册组件
         components:{
             memberLayout,

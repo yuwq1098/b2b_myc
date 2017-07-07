@@ -55,11 +55,11 @@
                                 </router-link>
                             </div>
                         </li>
-                        <li class="m-item">
+                        <li class="m-item" v-if="!memberData.hasPaypwd">
                             <div class="m-bar-box f__clearfix">
                                 <span class="u-tit">设置支付密码</span>
                                 <div class="u-data">谨防泄露</div>
-                                <p class="u-tips">设置或者修改您的支付密码</p><!-- 说明 -->
+                                <p class="u-tips">设置您的支付密码</p>
                                 <router-link 
                                     :to="{path:'/member/payPass'}"
                                     class="u-lk"
@@ -67,6 +67,21 @@
                                     title="设置支付密码"
                                     >
                                     去设置&gt;
+                                </router-link>
+                            </div>
+                        </li>
+                        <li class="m-item" v-if="memberData.hasPaypwd">
+                            <div class="m-bar-box f__clearfix">
+                                <span class="u-tit">修改支付密码</span>
+                                <div class="u-data">谨防泄露</div>
+                                <p class="u-tips">可以修改或者找回您的支付密码</p>
+                                <router-link 
+                                    :to="{path:'/member/editPayPass'}"
+                                    class="u-lk"
+                                    tag="a"
+                                    title="修改支付密码"
+                                    >
+                                    修改&gt;
                                 </router-link>
                             </div>
                         </li>

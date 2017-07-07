@@ -45,7 +45,7 @@ class memberInfo{
 	    this.authStatus = false                // 未认证
 
         //如果未认证，那么身份标识为未认证
-        if(data.CdgAuth.length>0){
+        if(data.CdgAuth&&data.CdgAuth.length>0){
         	if(data.CdgAuth[0].AuthInfo.CertificateName){
         		this.authName = data.CdgAuth[0].AuthInfo.CertificateName;
         		this.authStatus = true

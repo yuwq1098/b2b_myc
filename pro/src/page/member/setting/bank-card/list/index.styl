@@ -1,0 +1,57 @@
+@import '~assets/css/mixin.styl'
+
+.m-bankCard-wrap
+    width 948px
+    min-height 400px
+    .m-member-tips
+        height 32px
+        line-height 32px
+        width @width - 2px - 20px
+        background #f0f3f5
+        padding 0 10px
+        _borderAll(#e0e5e8)
+        color #4b5861
+    .m-card-wrap
+        padding 15px 0 0
+        width @width
+        .m-card-lst
+            width @width + 15px
+            margin -15px 0 0 -15px
+            .m-item
+                width 306px - 2px
+                height 160px - 2px
+                float left
+                margin 15px 0 0 15px
+                position relative 
+                _borderAll(#ededed)
+                color #4b5861
+                &.add
+                    .icon
+                        width 60px
+                        text-align center
+                        height 60px
+                        line-height 60px
+                        margin 32px auto 0
+                        .iconfont
+                            font-size 48px
+                            color #d2d2d2
+                    .tit
+                        text-align center
+                        color #a5a5a5
+                        height 28px
+                        line-height 28px
+                        font-size 16px
+                        _spacingPlus()
+                    &:hover
+                        _borderAll(#53AEEF + 50%)
+                        _borderAll(#a9d6f7)
+                        .icon .iconfont
+                            color #a9d6f7
+                        .tit
+                            color #53AEEF
+                .u-lk
+                    _display()
+                    width @width
+                    height @height
+                    color @color
+                    _completeCenter()

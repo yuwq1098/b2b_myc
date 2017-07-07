@@ -77,7 +77,11 @@ const merchantCollect = r => require.ensure([], () => r(require('page/member/col
 // 账户设置 => 个人资料设置
 const personalSetting = r => require.ensure([], () => r(require('page/member/setting/personal')), 'personalSetting')
 // 账户设置 => 银行卡管理
-const bankCardManage = r => require.ensure([], () => r(require('page/member/setting/bank-card')), 'bankCardManage')
+const bankCardManage = r => require.ensure([], () => r(require('page/member/setting/bank-card/list')), 'bankCardManage')
+// 账户设置 => 银行卡修改
+const bankCardEdit = r => require.ensure([], () => r(require('page/member/setting/bank-card/edit')), 'bankCardEdit')
+// 账户设置 => 银行卡添加
+const bankCardAdd = r => require.ensure([], () => r(require('page/member/setting/bank-card/add')), 'bankCardAdd')
 
 // 账户设置 => 安全中心 => 内容主页
 const safetyCenter = r => require.ensure([], () => r(require('page/member/setting/safety')), 'safetyCenter')
@@ -87,8 +91,13 @@ const safetyPass = r => require.ensure([], () => r(require('page/member/setting/
 const safetyForget = r => require.ensure([], () => r(require('page/member/setting/safety/forget')), 'safetyForget')
 // 账户设置 => 安全中心 => 手机号绑定修改
 const safetyTel = r => require.ensure([], () => r(require('page/member/setting/safety/telephone')), 'safetyTel')
+
 // 账户设置 => 安全中心 => 设置支付密码
 const payPass = r => require.ensure([], () => r(require('page/member/setting/safety/payPass')), 'payPass')
+// 账户设置 => 安全中心 => 修改支付密码
+const editPayPass = r => require.ensure([], () => r(require('page/member/setting/safety/editPayPass')), 'editPayPass')
+// 账户设置 => 安全中心 => 忘记支付密码                                                   
+const forgetPayPass = r => require.ensure([], () => r(require('page/member/setting/safety/forgetPayPass')), 'forgetPayPass')
 
 // 404空页面
 const page404 = r => require.ensure([], () => r(require('page/other/404')), 'page404')
@@ -339,6 +348,22 @@ export default[{
                     },
                 },
                 {
+                // 银行卡修改
+                    path: 'cardEdit',
+                    component: bankCardEdit,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 银行卡添加
+                    path: 'cardAdd',
+                    component: bankCardAdd,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
                 // 中心内容
                     path: 'safetyCenter',
                     component: safetyCenter,
@@ -378,6 +403,23 @@ export default[{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
                 },
+                {
+                // 修改支付密码
+                    path: 'editPayPass',
+                    component: editPayPass,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 忘记支付密码
+                    path: 'forgetPayPass',
+                    component: forgetPayPass,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+
             ]
         },
         {   

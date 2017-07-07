@@ -1,26 +1,26 @@
 <template>
-	<div class="bankCardManage">
+    <div class="editPayPass">
 
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="绑定银行卡"
+            title="安全中心"
+            :isSafety="true"
             >
             <div slot="content">
                 <member-inner>
-                    <div class="m-bankCard-wrap">
-                     <div class="">
-                            木有车携手农业银行，为了方便您的交易，我们强烈建议您绑定农业银行卡！
-                        </div><!-- 银行卡绑定 -->
-                    </div><!-- 银行卡容器 -->
+                    <div>
+                        修改支付密码
+                    </div>
                 </member-inner>
-            </div><!-- 银行卡管理内容 -->
+            </div><!-- 修改支付密码页面内容 -->
         </member-layout>
 
-	</div>
+        
+    </div>
 </template>
 
 <script>
-    
+
     // 获取数据的api
     import api from 'api/getData.js'
     // 引入系统变量
@@ -37,12 +37,9 @@
     // 会员中心子内容组件
     import memberInner from 'components/layout/memberInner.vue'
 
+    export default {
 
-
-	export default {
-        name: "bankCardManage",
-        // 自定义表单验证
-        validator: null,
+        name: "editPayPass",
         // 在当前模块注册组件
         components:{
             memberLayout,
@@ -51,7 +48,6 @@
         // 数据
         data() {
             return{
-
 
             }
         },
@@ -69,21 +65,19 @@
         deactivated(){
 
         },
-        // 数据侦听
+        //数据侦听
         watch:{
 
         },
         // 自定义函数(方法)
         methods: {
 
-        },
-        
-	}
+        },    
+    }
 </script>
-
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import 'index.styl'
-
+    
 </style>

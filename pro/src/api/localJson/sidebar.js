@@ -86,10 +86,10 @@ export const sidebarMenu = [
             	'title': '个人资料设置',
 	        	'hash': '/member/personal',
             },
-            {
-                'title': '绑定银行卡',
-                'hash': '/member/cardManage',
-            },
+            // {
+            //     'title': '绑定银行卡',
+            //     'hash': '/member/cardManage',
+            // },
             {
             	'title': '安全中心',
 	        	'hash': '/member/safetyCenter',
