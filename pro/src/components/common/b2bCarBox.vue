@@ -5,11 +5,9 @@
  <template>
     <div class="b2bCarBox">
         <div class="m-car-box">
-            <router-link 
-                :to="{path:'/b2bCar', query: { CarId: carInfo.id }}" 
-                target="_blank"  
-                class="m-lk" 
-                tag="a"
+
+            <a class="m-lk" target="_blank"
+                @click="enterCarDetails(carInfo.id)"
                 >
                 <div class="m-pic-box">
                     <p class="u-label">
@@ -37,16 +35,20 @@
                             <span class="retail"><em class="data">{{carInfo.retailPrice | priceFormat(2)}}万</em></span>
                         </div>
                         <div class="u-addCart">
-                            <a href="javascript:;" class="u-btn"
-                                v-if="carInfo.hasInCart||!loginStatus">
-                                <i class="iconfont icon-addCart"></i>
-                                <span class="txt">加入购物车</span>
-                            </a>
-                            <a href="javascript:;" class="u-btn not"
-                                v-if="!carInfo.hasInCart&&loginStatus" title="加入购物车">
-                                <i class="iconfont icon-addCart"></i>
-                                <span class="txt">加入购物车</span>
-                            </a>
+                            <template v-if="loginStatus">
+                                <a href="javascript:;" class="u-btn"
+                                    v-if="carInfo.hasInCart||!loginStatus">
+                                    <i class="iconfont icon-addCart"></i>
+                                    <span class="txt">已加入购物车</span>
+                                </a>
+                                <a href="javascript:;" class="u-btn not"
+                                    @click.stop="inShopingCart(carInfo.id)"
+                                    v-if="!carInfo.hasInCart&&loginStatus" title="加入购物车">
+                                    <i class="iconfont icon-addCart"></i>
+                                    <span class="txt">加入购物车</span>
+                                </a>
+                            </template>
+                            
                         </div><!-- 加入购物车 -->
                         <div class="u-other">{{carInfo.inCity}} | {{carInfo.plateDate | dateYearFormat}} | {{carInfo.mileage | mileFn(1)}}</div><!-- 其他 -->
                         <div class="u-cdg-info f__clearfix">
@@ -56,14 +58,19 @@
 
                     </div><!-- 车辆信息内容 -->
                 </div>
+            </a>
 
-            </router-link>
         </div>
     </div>
 </template>
 
 <script>
     
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
+
     // b2b车辆信息构造类
     import {b2bCarInfo} from "base/class/carInfo.js"
 
@@ -95,7 +102,35 @@
         },
         // 自定义函数(方法)
         methods: {
-             
+            // 加入购物车
+            inShopingCart(id){
+                let data = {
+                    ActType: 'Add',
+                    CarId: id,
+                }
+                api.manageShoppingCart(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.carInfo.hasInCart = true;
+                        this.$notify({
+                            title: '成功加入购物车',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '加入购物车失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+            // 进入车辆详情
+            enterCarDetails(id){
+                this.$router.push({path:'/b2bCar', query: { CarId: id }})
+            },
         },    
     }
 </script>
