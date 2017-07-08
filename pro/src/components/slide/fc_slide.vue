@@ -1,20 +1,20 @@
 <template>
-    <div class="focusSlide" v-show="carDetailsList">
+    <div class="focusSlide" v-show="carImgData">
         <div class="m-sld-wrap" id="cSlide">
             <div class="m-sld" id="ban_pic">
                 <div class="prev1" id="prev"></div>
 		        <div class="next1" id="next"></div>
                 <ul class="m-sld-lst">
-                    <li slot="sld-item" class="u-sld-item" v-for="item in carDetailsList.imgItems">
-                        <img :src="item.imgurl" :alt="item.title" />
+                    <li slot="sld-item" class="u-sld-item" v-for="item in carImgData.imgItems">
+                        <img :src="item.fileUrl" :alt="item.title" />
                     </li>
                 </ul>
             </div><!-- 主轮播 -->
             <div class="m-info-bar">
-                <p class="u-info">{{carDetailsList.merchantName}}</p>
+                <p class="u-info">{{carImgData.merchantName}}</p>
                 <section class="u-pages">
                     <i class="i-img-thumb"></i><!-- 缩略图小icon -->
-                    <span class="u-page">{{curSildeNumber}}/{{carDetailsList.imgItems.length}}</span>
+                    <span class="u-page">{{curSildeNumber}}/{{carImgData.imgItems.length}}</span>
                 </section>
             </div>
         </div><!-- 主轮播容器 -->
@@ -25,8 +25,8 @@
             </a>
             <div class="m-sld-cd" id="ban_num">
                 <ul class="m-sld-cd-lst">
-                    <li slot="sld-cd-item" class="u-sld-cd-item" v-for="item in carDetailsList.imgItems">
-                        <img :src="item.imgurl" :alt="item.title" />
+                    <li slot="sld-cd-item" class="u-sld-cd-item" v-for="item in carImgData.imgItems">
+                        <img :src="item.fileUrl" :alt="item.title" />
                     </li>
                 </ul>
             </div><!-- 小轮播（焦点） -->
@@ -51,19 +51,19 @@
                 defaultImgItem: [
                     {
                         title:'没有信息',
-                        imgurl: require('../../assets/img/car-default.jpg'),
+                        fileUrl: require('assets/img/car-default.jpg'),
                     }],
 			}
 		},
 		props: {
-            carDetailsList:{
+            carImgData:{
                 type: Object,
                 default: {
                     merchantName:"暂无信息",
                     imgItems:[
                         {
                             title:'没有信息',
-                            imgurl: require('../../assets/img/car-default.jpg'),
+                            fileUrl: require('assets/img/car-default.jpg'),
                         },
                     ]
                 },
@@ -77,7 +77,7 @@
 		},
         //数据侦听
         watch:{
-            carDetailsList: function(val){
+            carImgData: function(val){
                 if(val.imgItems.length==0){
                     val.imgItems = this.defaultImgItem;
                 }

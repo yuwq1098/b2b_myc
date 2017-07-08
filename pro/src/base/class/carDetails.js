@@ -17,11 +17,11 @@ class basicInfo{
         this.plateInCity = data.LicensePlateInCity||""
         // 排放标准
         this.dischargeStandard = data.DischargeStandard||""
-        this.color = data.Color||""                        // 颜色
+        this.color = data.Color||"暂无数据"                        // 颜色
         this.plateDate = data.OnLicensePlateDate||""       // 上牌日期
         this.outFactoryDate = data.OutFactoryDate||""      // 出厂日期
 
-        this.mileage = data.Mileage||""                    // 里程
+        this.mileage = data.Mileage||0                     // 里程
         this.price = data.B2BPrice||""                     // B2b平台价格
         this.retailPrice = data.RetailPrice||""            // 普通二手车价格
         
@@ -33,8 +33,8 @@ class basicInfo{
         this.compulsoryData = data.CompulsoryInsuranceExpiration||""            
         // 配置信息
         this.configuration = data.VehicleConfiguration||""            
-        this.transferTimes = data.TransferTimes||""         // 过户次数
-        this.canTransfer = data.CanTransfer||""             // 能否过户
+        this.transferTimes = data.TransferTimes||0          // 过户次数
+        this.canTransfer = data.CanTransfer||true           // 能否过户
         this.keyCount = data.KeyCount||""                   // 车钥匙数
 
         this.desc = data.CarDescription||""                 // 车辆描述
@@ -69,9 +69,9 @@ class fileInfoList{
         this.id = data.FileId||""                           // 文件id
         this.mid = data.MemberId||""                        // 客户id
         this.type = data.FileType||""                       // 文件类型img,sound
-        this.userName = data.Title||""                      // 文件标题
+        this.title = data.Title||""                      // 文件标题
         this.filePath = data.FilePath||""                   // 文件路径(忽略）
-        this.fileUri = data.FileUri||""                     // 文件uri
+        this.fileUrl = data.FileUri||""                     // 文件uri
         this.groupName = data.GroupName||""                 // 分组名（车辆照片，录音描述、出厂铭牌）
         this.orderId = data.OrderId||""                     // carID
         this.submitTime = data.SubmitTime||""               // 提交时间
@@ -81,15 +81,17 @@ class fileInfoList{
 // 其他信息的构造类
 class otherInfo{
     constructor(data) {
-
-        this.faceImgUrl = data.SellerPhotoUrl||""            // 卖家头像
+        
+        // 卖家头像
+        this.faceImgUrl = data.SellerPhotoUrl?data.SellerPhotoUrl+"?imageView2/3/w/144/h/144":require("assets/img/logos-pic2.png")            
         this.tel = data.Mobile||""                           // 联系电话
         this.browseCount = data.CountBrowse||""              // 浏览量
         this.authType = data.AuthType||""                    // 企业车行，个人车行（认证类别）
         this.contacter = data.ContactMan||""                 // 联系人
         this.cdgName = data.CdgName||""                      // 车行名
         this.address = data.CdgAddress||""                   // 车行地址
-        this.desc = data.CdgDescription||""                  // 车行描述
+        // 车行描述
+        this.desc = data.CdgDescription||"该车行比较懒，啥也没有说"                  
         this.type = data.CdgType||""                         // 车行类别（4S店，企业车行，批发市场等）
         this.isInCart = data.HasInCart||""                   // 购物车：0=未收藏，1=已收藏
         this.isInFavorite = data.HasInFavorite||""           // 收藏夹：0=未收藏，1=已收藏

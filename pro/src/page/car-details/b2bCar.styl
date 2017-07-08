@@ -41,7 +41,7 @@
                         line-height 28px
                         padding 11px 0 0
                         font-size 13px
-                        color #959595
+                        color #a5a5a5
                         text-decoration line-through
                     .u-lk
                         position absolute
@@ -51,48 +51,69 @@
                             font-size 20px
                             margin-right 5px
                             color #fbad42
+                    .u-view
+                        _completeCenter(auto,0,0,auto)
+                        font-size 18px
+                        color #FF6533
+                        padding 0 3px 0 25px
+                        .iconfont
+                            width 24px
+                            height 24px
+                            line-height 24px
+                            text-align center
+                            font-size 20px
+                            color #FF6533
+                            _completeCenter(0,auto,10px,auto)
+
 
                 .m-des
                     width 510px
-                    height 180px
+                    height 170px
                     padding 15px 0
-                    .m-des-lst
+                    .m-lst-wrap
                         width @width
                         height @height
                         position relative
-                        &::before
+                        &::before,&::after
                             content ""
                             _display(block)
-                            width 100%
+                            width @width
                             height 1px
                             background #e2e2e2
                             position absolute
                             left 0
-                            top 50%
                             z-index 99
-                        .u-item
-                            width 170px
-                            height 90px
-                            text-align center
-                            position relative
-                            float left
-                            .u-tit
-                                font-size 18px
-                                line-height 32px
-                                margin-top 18px
-                            .u-des
-                                font-size 12px
-                                line-height 18px
-                                color #959595
-                            &:not(:nth-child(3n))::before
-                                content ""
-                                _display(block)
-                                width 1px
-                                height 54px
-                                background #e2e2e2
-                                position absolute
-                                _verticalLayout(,-1px)
-                                z-index 99
+                        &::before
+                            top 50%
+                        &::after
+                            _display(none)
+                            bottom 33.33%
+                        .m-des-lst
+                            width @width
+                            height @height
+                            .u-item
+                                width 170px
+                                height 85px
+                                text-align center
+                                position relative
+                                float left
+                                .u-tit
+                                    font-size 18px
+                                    line-height 32px
+                                    margin 16px 0 0
+                                .u-des
+                                    font-size 12px
+                                    line-height 18px
+                                    color #a5a5a5
+                                &:not(:nth-child(3n))::before
+                                    content ""
+                                    _display(block)
+                                    width 1px
+                                    height 42px
+                                    background #e2e2e2
+                                    position absolute
+                                    _verticalLayout(,-1px)
+                                    z-index 99
                 .m-intro
                     width 100%
                     height 72px
@@ -115,8 +136,16 @@
                         padding 0 15px
                         color #FFF
                         background #ff6533
+                        &:hover
+                            background @background - 12%
                         &.v2
                             background #fbad42
+                            &:hover
+                                background @background - 12%
+                        &.not
+                            background #c2c2c2
+                            &:hover
+                                background @background
                     .u-btn-a
                         width 135px
                         height 48px
@@ -156,14 +185,11 @@
                             margin-right 4px
                             color #ff6533
 
-
-
-
         .m-car-info
-            height 320px
-            margin-top 15px
+            height 330px
+            margin 10px 0 0
             .m-mn
-                height 260px
+                height 270px
                 width 1100px
                 position relative
                 margin-left 50px
@@ -171,83 +197,135 @@
                 .m-basic
                     width 550px
                     .u-tit
-                        margin-top 15px
-                        height 72px
-                        line-height 72px
+                        padding 20px 0 5px
+                        height 48px
                         text-align center
-                        font-size 18px
-                        font-weight bold
-                        _spacingPlus(1px)
+                        .txt
+                            line-height 38px
+                            _display(inline-block)
+                            font-size 18px
+                            _spacingPlus(2px)
+                            position relative
+                            &::after
+                                content ""
+                                _display()
+                                height 2px
+                                _completeCenter(25px,25px,auto,-2px)
+                                background #2e98e2
                     .u-con
                         .u-list
                             width 225px
                             margin 0 25px
                             .u-item
-                                height 32px
-                                line-height 32px
+                                height 42px
+                                line-height 42px
                                 span
                                     _display(inline-block)
                                 .u-attr
                                     width 90px
+                                    color #a5a5a5
 
                 .m-merchant
                     width 550px
                     .m-mct-box
                         width 400px
-                        height 190px
-                        margin 35px auto
+                        height 230px
+                        margin 40px auto 0
                         .m-mct-hd
                             height 90px
                             width 305px
                             padding-left 90px
                             position relative
+                            .u-box
+                                _display()
+                                width @width
+                                height @height
+                                color #40474a
                             .u-icon
                                 width 78px
                                 height 78px
-                                position absolute
-                                top 0
-                                left 0
-                                background #e2e2e2
+                                _completeCenter(0,auto,0,auto)
+                                _borderAll(#e2e2e2)
                                 _borderRadius()
+                                _imgwrap()
                                 img 
-                                    height 100%
-                                    width 100%
+                                    _borderRadius()
+                                    width @width - 6px
+                                    height @height - 6px
+                                    _completeCenter()
                             .u-tit
-                                font-size 18px
+                                font-size 17px
                                 line-height 28px
-                                margin-bottom 5px
+                                margin 0 0 8px
+                                .name
+                                    color #40474a
+                                    &:hover
+                                        text-decoration underline
                                 .u-prove
-	                                margin-left 12px
-	                                height 22px
-	                                font-size 12px
-	                                text-align center
-	                                width 60px
-	                                line-height 22px
-	                                _borderRadius(3px)
-	                                background #fbad42
-	                                color #f4f4f4
-	                                _display(inline-block)
-	                                vertical-align middle
-	                                position relative
-	                                top -2px
+                                    margin-left 12px
+                                    height 22px
+                                    font-size 12px
+                                    text-align center
+                                    width 60px
+                                    line-height 22px
+                                    _borderRadius(3px)
+                                    background #fbad42
+                                    color #f4f4f4
+                                    _display(inline-block)
+                                    vertical-align middle
+                                    position relative
+                                    top -2px
                             .u-tel,.u-adss
-                                font-size 12px
-                                line-height 18px
-                                color #959595
+                                font-size 13px
+                                line-height 22px
+                                color #a5a5a5
                             .u-tel
                                 span.name
                                     margin-right 5px
+                            .u-attention
+                                width 80px
+                                text-align left
+                                height 22px
+                                line-height 22px
+                                _completeCenter(250px,auto,32px,auto)
+                                padding 0 0 0 28px
+                                font-size 13px
+                                color #a5a5a5
+                                .iconfont
+                                    height 28px
+                                    line-height 28px
+                                    width 28px
+                                    text-align center
+                                    font-size 24px
+                                    _completeCenter(0,auto)
+                                    color #FD4B3D
+
+                            .u-adss
+                                .tit
+                                    margin 0 15px 0 0
 
                         .u-mct-txt
                             margin-top 4px
-                            line-height 24px
-                            height 96px
-                            overflow hidden
+                            .tit
+                                _display()
+                                font-size 14px
+                                height 22px
+                                line-height 22px
+                                margin 0 0 5px
+                                color #545454
+                                font-weight bold
+                                _spacingPlus()
+                            .desc
+                                font-size 13px
+                                line-height 24px
+                                height 96px
+                                _ellipsis(4)
+                                color #a5a5a5
                 .u-line-y
-                    height 220px
+                    height 180px
                     width 1px
                     background #e2e2e2
-                    _completeCenter();
+                    _completeCenter(,,55px,auto);
 
         .m-process
             height 180px
@@ -306,7 +384,7 @@
                                     color #ff6533
                                     margin-right 3px
                                 .u-separator
-                                    color #959595
+                                    color #a5a5a5
                                     margin 0 5px
                             .u-price
                                 width 130px
@@ -354,11 +432,8 @@
                                         width 114px
                                         height 114px
 
-
                         &:not(:last-child)
                             _border(bottom,#f0f0f0)
-
-
 
         .m-remd
             height 370px
@@ -402,7 +477,7 @@
                             .u-des
                                 height 22px
                                 line-height 22px
-                                color #959595
+                                color #a5a5a5
                             .u-price
                                 margin-top 15px
                                 height 22px
