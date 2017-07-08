@@ -15,7 +15,10 @@
                             <div class="u-gp-con" :class="{'last-item':n==gpLength}">
                                 <ul class="u-gp-lst f__clearfix" v-for="(group,index) in brandList" v-if="index>=(7*(n-1))&&index<=(7*n)-1" :class="{'active':index==(7*(n-1))}">
                                     <li class="u-gp-item" v-for="item in group.items">
-                                        <router-link :to="{path:'/b2bHall'}" class="u-lk">{{item.name}}</router-link>
+                                        <a class="u-lk"
+                                            target="_blank" 
+                                            @click.stop="goSearchBrand(item.id,item.name)">{{item.name}}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -24,15 +27,14 @@
                 </div>
                 <div class="u-con f__clearfix" v-if="hotBrand.length>0">
                     <template v-for="item in hotBrand">
-                        <router-link class="u-lk"
-                            :data-brand-id="item.id"
-                            :to="{path:'/b2bHall'}"
-                            >
+                        <a class="u-lk"
+                            target="_blank" 
+                            @click.stop="goSearchBrand(item.id,item.name)">
                             <img :src="item.imgUrl" :alt="item.name" />
                             <p class="u-tit">{{item.name}}</p>
-                        </router-link>
+                        </a>
                     </template>
-                </div>
+                </div><!-- 热门品牌显示 -->
                 
             </div>
             <div class="m-price-wrap f__fl">
@@ -41,13 +43,12 @@
                 </div>
                 <div class="u-con f__clearfix">
                     <template v-for="(item,index) in priceList">
-                        <router-link class="u-lk"
+                        <a class="u-lk"
+                            target="_blank" 
                             :class="{'light':item.isHot}"
-                            :min="item.min" :max="item.max"
-                            :to="{path:'/b2bHall'}"
-                            >
-                            {{item.title}}
-                        </router-link>
+                            @click.stop="goSearchPrice(item.min,item.max,item.title)">
+                            <p class="u-tit">{{item.title}}</p>
+                        </a>
                     </template>
                 </div>
             </div>
@@ -59,9 +60,21 @@
 <script>
     
     import $ from "jquery"
+    // 获取数据的api
     import api from "api/getData.js"
+    // 工具函数
     import {dataToJson} from "assets/js/util.js"
+    // vuex状态管理
+    import { mapGetters,mapActions } from 'vuex'
+    // 车辆品牌信息构造类
     import {brandInfo} from "base/class/brand.js"
+    // 数据hash匹配
+    import * as hashData from "api/localJson/hashData.js"
+    // b2b条件过滤相关构造类
+    import {filterShowData,filterDataClass,searchFilterClass} from "base/class/b2bFilter.js"
+    //本地的过滤筛选数据
+    import * as filterData from "api/localJson/filter.js"
+
     // 本地数据搜索价格
     import {searchPriceList} from "api/localJson/home.js"
 
@@ -96,6 +109,10 @@
         },
         // 自定义函数(方法)
         methods: {
+
+            //vuex的actions
+            ...mapActions(["setUserFilterData",'setSearchFilterList']),
+
             //获取B2B车辆品牌列表
             _getB2BCarBrandList(){
                 api.getCarBrand().then((res) => {
@@ -106,6 +123,7 @@
                     this._allBrandevent();
                 })
             },
+
             //使用b2c抽象类完成brandInfo
             _normalizeBrandInfo(list){
                 let map = { }
@@ -181,7 +199,61 @@
                     });
                 },20)
             },
+            
+            // 按车辆品牌查询，进入b2b车辆大厅页
+            goSearchBrand(id,label){
+                // 清空本地存储中的搜索记录
+                this.clearFilterData();
+                setTimeout(() => {
+
+                    // 设置展示给界面  用户所选条件集合中 汽车品牌的lable
+                    this.userFilterData.brand = label; 
+                    // 设置展示给界面  用户所选条件集合中 汽车车系的lable 为空
+                    this.userFilterData.series = ""; 
+                    // 设置真实向api请求的字段 汽车品牌的id
+                    this.searchFilterList.CarBrandId = id; 
+
+                    this.setUserFilterData(this.userFilterData);
+                    this.setSearchFilterList(this.searchFilterList);
+                })
+                setTimeout(() => {
+                    this.$router.push({path:'/b2bHall'});
+                },20)
+            },
+            
+            // 按车辆价格查询，进入b2b车辆大厅页
+            goSearchPrice(min,max,title){
+                // 清空本地存储中的搜索记录
+                this.clearFilterData();
+                setTimeout(() => {
+
+                    // 设置展示给界面  用户所选条件集合中 价格的lable
+                    this.userFilterData.price = title; 
+                    // 设置真实向api请求的字段 价格区间
+                    this.searchFilterList.B2BPriceFrom = min||'';
+                    this.searchFilterList.B2BPriceTo = max||''; 
+
+                    this.setUserFilterData(this.userFilterData);
+                    this.setSearchFilterList(this.searchFilterList);
+                })
+                setTimeout(() => {
+                    this.$router.push({path:'/b2bHall'});
+                },20)
+            },
+            
+            // 清空本地存储中的搜索记录
+            clearFilterData(){
+                //清空用户展示记录
+                let data  = {}
+                this.userFilterData = new filterDataClass(data);
+                this.searchFilterList = new searchFilterClass(data);
+                //将用户选中的数据都存在本地中
+                this.setUserFilterData(this.userFilterData);
+                //将用户选中的 向后台发起api请求数据 存在本地中
+                this.setSearchFilterList(this.searchFilterList);
+            },
         },
+
         // 在当前模块注册组件
         components:{
             

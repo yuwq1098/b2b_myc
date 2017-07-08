@@ -350,6 +350,7 @@
 </template>
 
 <script>
+
     import $ from 'jquery'
     // 获取数据的api
     import api from 'api/getData.js'
