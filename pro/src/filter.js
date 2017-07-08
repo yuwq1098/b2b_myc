@@ -117,6 +117,12 @@ export const priceFormat = (data,num=1) => {
     return parseFloat(number).toFixed(num)
 }
 
+//---城市单位去空，江西省=>江西
+export const cityFn = (str) => {
+    if(!str&&str!=0) return;
+    return str.replace(/['省'|'市']/g,'')
+}
+
 //---评分格式转换
 export const gradeFormat = (num) => {
     let number = parseInt(num);

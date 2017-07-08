@@ -7,61 +7,63 @@
                     <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
 
                     <div class="m-mn-hd f__clearfix">
-                        <div class="f__fl" v-if="false">
-                            <!-- <fc-slide :carDetailsList="carDetailsImgList"></fc-slide> -->
+                        <div class="f__fl" v-if="carDetailsImgList">
+                            <fc-slide :carDetailsList="carDetailsImgList"></fc-slide>
                         </div>
 
                         <div class="m-mn-info f__fr">
-                            <div class="m-tit">{{basicInfo.title}}</div>
+                            <div class="m-tit">{{carDetailsInfo.Title}}</div>
                             <div class="m-pic f__clearfix">
-                                <span class="u-price">￥<em class="vital">{{basicInfo.price| priceFormat(2)}}</em>万</span>
-                                <span class="u-del">零售价：{{basicInfo.retailPrice| priceFormat(2)}}万</span>
-                                <!-- <a href="javascript:;" class="u-lk record">
+                                <span class="u-price"><em class="tit">批发价</em><em class="vital">4.50万</em></span>
+                                <span class="u-del">零售价：5.60万</span>
+                                <a href="javascript:;" class="u-lk record">
                                     <i class="iconfont icon-activity_fill"></i>查询维修保养记录
-                                </a> -->
+                                </a>
                             </div><!-- 价格 -->
                             <div class="m-des">
                                 <ul class="m-des-lst f__clearfix">
                                     <li class="u-item">
-                                        <p class="u-tit">{{basicInfo.mileage | mileFn(2)}}</p>
+                                        <p class="u-tit">3.92万公里</p>
                                         <p class="u-des">表显里程</p>
                                     </li>
                                     <li class="u-item">
-                                        <p class="u-tit">{{basicInfo.transferTimes}}次</p>
+                                        <p class="u-tit">1次</p>
                                         <p class="u-des">过户次数</p>
                                     </li>
                                     <li class="u-item">
-                                        <p class="u-tit">{{basicInfo.dischargeStandard}}</p>
+                                        <p class="u-tit">欧3</p>
                                         <p class="u-des">排放标准</p>
                                     </li>
                                     <li class="u-item">
-                                        <p class="u-tit">{{basicInfo.plateDate | dateFn}}</p>
+                                        <p class="u-tit">2014年01月</p>
                                         <p class="u-des">上牌时间</p>
                                     </li>
                                     <li class="u-item">
-                                        <p class="u-tit">{{basicInfo.inProvince | cityFn}}{{basicInfo.inCity | cityFn}}</p>
+                                        <p class="u-tit">江西南昌</p>
                                         <p class="u-des">牌照归属</p>
                                     </li>
                                     <li class="u-item">
-                                        <p class="u-tit">{{basicInfo.serviceType}}</p>
+                                        <p class="u-tit">非营运</p>
                                         <p class="u-des">使用性质</p>
                                     </li>
                                 </ul>
                             </div><!-- 产品描述 -->
-                            <!-- <div class="m-intro"></div> --><!-- 说明 -->
+                            <div class="m-intro"></div><!-- 说明 -->
                             <div class="m-opra f__clearfix">
-                                <a href="javascript:;" class="u-btn v2">收藏车辆</a>
-                                <a href="javascript:;" class="u-btn v3">加入购物车</a>
-                                <!-- <router-link :to="{path : '/payment'}" class="u-btn v3">立即秒杀</router-link> -->
+                                <a href="javascript:;" class="u-btn-a v1">
+                                    <i class="i-phone"></i>电话咨询
+                                </a> 
+                                <a href="javascript:;" class="u-btn v2">关注车辆</a>
+                                <router-link :to="{path : '/payment'}" class="u-btn v3">立即秒杀</router-link>
                             </div><!-- 操作 -->
-                            <!-- <div class="m-collect">
+                            <div class="m-collect">
                                 <a href="javascript:;" class="u-lk collect">
                                     <i class="iconfont icon-heart"></i>收藏
                                 </a>
                                 <a href="javascript:;" class="u-lk share">
                                     <i class="iconfont icon-fenxiang"></i>分享给好友
                                 </a>
-                            </div> --><!-- 收藏 -->
+                            </div><!-- 收藏 -->
                         </div><!-- 主要信息 -->
                     </div><!-- 主要的头部信息 -->
 
@@ -76,7 +78,7 @@
                                     <ul class="u-list f__fl">
                                         <li class="u-item">
                                             <span class="u-attr">表显里程</span><!-- 属性 -->
-                                            <span class="u-val">{{basicInfo.mileage}}万公里</span><!-- 值 -->
+                                            <span class="u-val">{{carDetailsInfo.Mileage}}万公里</span><!-- 值 -->
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">过户次数</span><!-- 属性 -->
@@ -105,24 +107,24 @@
                             </div><!-- 基本信息 -->
                             <div class="u-line-y"></div><!-- 垂直分割线 -->
                             <div class="m-merchant f__fr">
-                                <!-- <div class="m-mct-box">
+                                <div class="m-mct-box">
                                     <div class="m-mct-hd">
                                         <div class="u-icon">
                                             <img src="../../assets/img/businesses-face.png" alt="头像" />
-                                        </div>服务商头像
+                                        </div><!-- 服务商头像 -->
                                         <div class="u-tit">{{carOtherInfo.CdgName}}
-                                           <div class="u-prove" v-if="carOtherInfo.AuthType=='企业车行'">车商认证</div>认证标识
-                                           <div class="u-prove" v-else>{{carOtherInfo.AuthType}}</div>认证标识
-                                        </div>服务商名字
+                                           <div class="u-prove" v-if="carOtherInfo.AuthType=='企业车行'">车商认证</div><!-- 认证标识 -->
+                                           <div class="u-prove" v-else>{{carOtherInfo.AuthType}}</div><!-- 认证标识 -->
+                                        </div><!-- 服务商名字 -->
                                         <div class="u-tel">
                                             <span class="name">{{carOtherInfo.ContactMan}}</span>
                                             <span class="tel">{{carOtherInfo.Mobile}}</span>
-                                        </div>电话
-                                        <div class="u-adss">地址：{{carOtherInfo.CdgAddress}}</div>地址
+                                        </div><!-- 电话 -->
+                                        <div class="u-adss">地址：{{carOtherInfo.CdgAddress}}</div><!-- 地址 -->
                                         
-                                    </div>头部
-                                    <div class="u-mct-txt">{{carOtherInfo.CdgDescription}}</div>文本介绍   
-                                </div> -->
+                                    </div><!-- 头部 -->
+                                    <div class="u-mct-txt">{{carOtherInfo.CdgDescription}}</div><!-- 文本介绍 -->   
+                                </div>
                                 
                             </div><!-- 车商认证信息 -->
                         </div>
@@ -137,6 +139,50 @@
                             <img src="../../assets/img/img-flow.png" alt="购车流程图" />
                         </div>
                     </div><!-- 购车流程 -->
+
+                    <div class="m-his-trade">
+                        <div class="m-box-hd">
+                            <div class="u-adorn"></div><!-- 装饰物 -->
+                            <h3 class="u-tit">历史交易</h3>
+                        </div>
+
+                        <div class="m-lst-gp-a">
+                            <ul class="m-lst">
+                                <li class="m-item" v-for="(n,index) in 6">
+                                    <div class="m-item-box f__clearfix">
+                                        <div class="u-pic">
+                                            <img src="../../assets/img/deal_car_01.jpg" alt="成交车辆" />
+                                            <p class="u-state">已下架</p>
+                                        </div>
+                                        <div class="m-info">
+                                            <span class="u-vital">[1天前成交]</span>
+                                            <span class="u-mode">长城-M4 2012款 1.5L 手动豪华型</span>
+                                            <span class="u-separator">|</span>
+                                            <span class="u-time">2014年-01</span><!-- 时间 -->
+                                            <span class="u-mileage">4.8万公里</span><!-- 里程 -->
+                                        </div><!-- 信息 -->
+                                        <div class="u-price">
+                                            成交价：<em class="price">**万</em>
+                                        </div><!-- 价格 -->
+                                        <div class="u-code" id="js_ewm_code">
+                                            <a href="javascript:;" @mouseover="codeEwmShow(index)" @mouseleave="codeEwmHide(index)" class="u-lk">
+                                                <i class="iconfont icon-shouji4"></i>
+                                            </a>
+                                            <div class="u-con">
+                                                <p class="u-tit v1">扫码下载APP</p>
+                                                <p class="u-tit">查看成交价</p>   
+                                            </div>
+                                            <div class="m-hvr-box" ref="hvrewm">
+                                                <img src="../../assets/img/wechat-ewm.jpg" alt="二维码"/>
+                                            </div><!-- 悬浮显示的二维码框 -->
+                                        </div><!-- 扫码下载APP -->
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div><!-- 列表组a -->
+                        
+                    </div><!-- 历史交易 -->
 
                     <div class="m-remd">
                         <div class="m-box-hd">
@@ -171,41 +217,6 @@
                             </ul>
                         </div><!-- 列表组b -->
                     </div><!-- 相似推荐 -->
-                    
-                    <div class="m-remd">
-                        <div class="m-box-hd">
-                            <div class="u-adorn"></div><!-- 装饰物 -->
-                            <h3 class="u-tit">猜你喜欢</h3>
-                        </div>
-                        <div class="m-lst-gp-b">
-                            <ul class="m-lst f__clearfix">
-                                <li class="m-item" v-for="n in 4">
-                                    <a href="javascript:;" class="u-box">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                        </div>
-                                        <div class="u-con">
-                                            <h5 class="u-tit">
-                                                大众朗逸 2011款 1.6L手动品悠版
-                                            </h5>
-                                            <p class="u-des">南昌/2006年/10.0万里</p>
-                                            <div class="u-price">
-                                                批发价:<em>5.0万</em>
-                                            </div>
-                                            <a href="javascript:;" class="u-lk">
-                                                <p class="u-count">
-                                                    <strong>215</strong>
-                                                    次
-                                                </p>
-                                                <p>围观</p>
-                                            </a>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div><!-- 列表组b -->
-                    </div><!-- 相似推荐 -->
-
                 </section><!-- 1200px布局 -->
             </div><!-- 网页主体 -->
 		</div>
@@ -216,24 +227,12 @@
 
     // 引入jq
     import $ from "jquery"
-    // 获取数据的api
-    import api from 'api/getData.js'
-    // 引入系统变量
-    import * as SYSTEM from 'api/system.js'
-    // vuex状态管理
-    import { mapGetters,mapActions } from 'vuex'
-    // 工具类
-    import {dataToJson} from "assets/js/util.js"
-    // dom操作类
-    import * as geekDom from 'assets/js/dom.js'
-    // 车行信息的构造类
-    import {basicInfo,carDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
+    // api获取数据
+    import api from "api/getData.js"
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
-
     // 双向控制焦点图组件
     import fcSlide from "components/slide/fc_slide.vue"
-
 
 	export default {
         name: "b2bCarDetails",
@@ -245,83 +244,63 @@
         // 数据
         data() {
             return{
-                // 车辆ID
-                carId: 0,
+                carDetailsImgList:{
+                    merchantName : "暂无数据",
+                    imgItems:[]
+                },
 
-                // 车辆基本信息
-                basicInfo:{},
-                // 车况信息列表
-                carDetails: [],
-                // 文件列表
-                fileInfoList:[],
-                // 其他信息
-                otherInfo:{},
-
+                carDetailsInfo:{},
+                carOtherInfo:{},
+                carFiles:{},
             }
         },
-        //生命周期,开始的时候
-        created(){
-
-        },
         mounted(){
-
+            
         },
+        //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated(){
-            // 获取hash 带参中的车辆ID
-            this.carId = this.$router.currentRoute.query.CarId;
-            // 获取车辆信息
-            this.getCarDetailsInfo();
-        },
-        //退出的生命周期钩子
-        deactivated(){
-              
-        },
-        // 数据侦听
-        watch:{
-
-        },
-        // 属性计算
-        computed:{
-
-        },
-        methods:{
-            // 格式化车辆基本信息
-            _normalizeBasicInfo(data) {
-                return new basicInfo(data);
-            },
-            // 格式化车行车辆信息列表
-            _normalizeCarList(list) {
-                let arr = [];
-                list.forEach((item,index) => {
-                    arr.push(new merchantCarInfo(item));
-                })
-                return arr;
-            },
-            // 格式化车辆其他信息
-            _normalizeOtherInfo(data) {
-                return new otherInfo(data);
-            },
-            // 获取车辆详情信息
-            getCarDetailsInfo(){
+            setTimeout(() => {
+                var query = this.$router.currentRoute.query;
                 var data = {
-                    CarId : this.carId,
+                    CarId : query.CarId
                 }
                 api.getCarDetalis(data).then((res) => {
-                    if(res.code==SYSTEM.CODE_IS_OK){
-                        // 获取车辆详情基本信息
-                        this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
-                        // 获取车辆详情基本信息
-                        this.otherInfo = this._normalizeOtherInfo(res.data.OtherInfo)
-
-                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                        this.$notify({
-                            title: '信息获取失败',
-                            message: res.msg,
-                            type: 'error',
-                            duration: 1500,
-                        });
-                    }
+                    console.log(res);
+                    this.carDetailsInfo = res.data.CarInfo;
+                    this.carOtherInfo = res.data.OtherInfo;
+                    this.carFiles = res.data.CarFiles;
+                    //获取车辆图片信息
+                    this.carDetailsImgList = this._getCarImgsInfo(this.carFiles,this.carOtherInfo);
+                    
+                    console.log("车辆图片信息",this.carDetailsImgList)
                 })
+            },20)
+        },
+        methods:{
+            //历史交易二维码显示
+            codeEwmShow(index){
+                this.$refs.hvrewm[index].style.display = "block";
+            },
+            //历史交易二维码隐藏
+            codeEwmHide(index){
+                this.$refs.hvrewm[index].style.display = "none";
+            },
+            //获取车辆图片列表
+            _getCarImgsInfo(list,otherInfo){
+                let map = {
+                    merchantName : "",
+                    imgItems:[]
+                }
+                map.merchantName = otherInfo.CdgName;
+                if(list.length<=0) return map;
+                list.forEach((item, index) => {
+                    let obj = {
+                        title: item.Title,
+                        imgurl: item.FileUri,
+                    }
+                    map.imgItems.push(obj)
+                });
+                return map;
             }
         }
 	}
