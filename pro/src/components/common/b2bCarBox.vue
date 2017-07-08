@@ -26,11 +26,14 @@
                         <div class="u-tit">{{carInfo.name}}</div>
                         <div class="u-price">
                             <span class="price"
-                                v-if="loginStatus"
+                                v-if="loginStatus&&hasDeposit"
                                 ><em class="vital">{{carInfo.price | priceFormat(2)}}</em>万</span>
                             <span class="price"
                                 v-if="!loginStatus"
                                 ><em class="info">未登录</em></span>
+                            <span class="price"
+                                v-if="!hasDeposit&&loginStatus"
+                                ><em class="info">信誉保证金不足</em></span>
                             <span class="retail"><em class="data">{{carInfo.retailPrice | priceFormat(2)}}万</em></span>
                         </div>
                         <div class="u-addCart">
@@ -87,7 +90,8 @@
             loginStatus: {
                 type: Boolean,
                 default: false,
-            }
+            },
+            hasDeposit: Boolean,
         },
         // 自定义函数(方法)
         methods: {

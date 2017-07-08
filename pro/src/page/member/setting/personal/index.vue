@@ -27,7 +27,12 @@
                                 <div class="m-line-box f__clearfix">
                                     <span class="u-attr">真实姓名：</span>
                                     <div class="u-data">
-                                        <span class="data">{{memberData.authName | usernameFormat}}</span>
+                                        <span class="data">
+                                            <template v-if="memberData.authStatus"
+                                                >{{memberData.authName | usernameFormat}}</template>
+                                            <template v-if="!memberData.authStatus"
+                                                >{{memberData.authName}}</template>
+                                        </span>
                                         <router-link :to="{path:'/member/apply'}" 
                                             class="u-lk operate"
                                             tag="a"

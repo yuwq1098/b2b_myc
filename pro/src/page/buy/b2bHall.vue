@@ -297,8 +297,9 @@
 
                             <div class="m-carlist-true" v-if="b2bCarList&&b2bCarList.length>0">
                                 <b2b-car-listbox
-                                    :carlist="b2bCarList"
+                                    :carList="b2bCarList"
                                     :loginStatus="loginStatus"
+                                    :memberData="memberData"
                                     >
                                 </b2b-car-listbox>
 

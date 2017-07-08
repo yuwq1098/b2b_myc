@@ -3,10 +3,11 @@
 	    <div class="m-lst-con">
             <ul class="m-lst f__clearfix">
                 <template>
-                    <li class="m-item" v-for="(item,index) in carlist">
+                    <li class="m-item" v-for="(item,index) in carList">
                         <b2b-car-box
                             :carInfo="item"
                             :loginStatus="loginStatus"
+                            :hasDeposit="hasDeposit"
                             >
                         </b2b-car-box>
                     </li>
@@ -29,20 +30,37 @@
             b2bCarBox,
         },
         // 数据
+        data() {
+            return{
+                // 是否有保证金
+                hasDeposit: false,
+            }
+        },
         props:{
-            carlist: Array,
+            carList: Array,
             loginStatus: {
                 type: Boolean,
                 default: false,
-            }
+            },
+            memberData: Object,
         },
-        data() {
-            return{
-                
+        //数据侦听
+        watch:{
+            memberData:{
+                handler(curVal,oldVal){
+                    if(curVal){
+                        this.hasDeposit = +(curVal.credit)>1000;
+                    }
+                },
+                deep:true
             }
         },
         created(){
-
+            setTimeout(() => {
+                if(this.memberData){
+                    this.hasDeposit = +(this.memberData.credit)>1000;
+                }
+            })
         },
         mounted(){
             
