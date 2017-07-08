@@ -868,9 +868,8 @@
             _setSearchFilterList(dataObj){
                 //没有数据时加锁
                 if(!this.dataChangeOnOff) return;
-                
                 //遍历对象
-                for (var key of Object.keys(dataObj)) {
+                for (let key of Object.keys(dataObj)) {
                     //如果是空值，跳出本次循环
                     if(!dataObj[key]) continue;
                     //hashData是使用，return是一个方法所以最后要加()   hashData.userFilterData[key][value]()
@@ -1009,6 +1008,7 @@
             carListResultRender(){
                 //没有数据时加锁
                 if(!this.dataChangeOnOff) return;
+                this.userFilterData = geekDom.changeObjError(this.userFilterData);
                 //将用户选中的数据都存在本地中
                 this.setUserFilterData(this.userFilterData);
                 //将用户选中的 向后台发起api请求数据 存在本地中
