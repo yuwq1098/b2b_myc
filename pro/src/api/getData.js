@@ -257,6 +257,20 @@ export default {
         return fetchSign('/action2/ReplaceMobile.ashx',dataToJson(params));
     },
     
+    // 忘记支付密码
+    forgetPayPass(params){
+        return fetchSign('/action2/EditPayPassword.ashx',dataToJson(params));
+    },
+
+    // 设置支付密码
+    setPayPass(params){
+        return fetchSign('/action2/SetPayPassword.ashx',dataToJson(params));
+    },
+
+    // 修改支付密码
+    editPayPass(params){
+        return fetchSign('/action2/ForgotPasswordByOrg.ashx',dataToJson(params));
+    },
     
 
     /*

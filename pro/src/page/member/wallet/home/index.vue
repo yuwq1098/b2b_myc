@@ -22,7 +22,7 @@
                                     <span class="cut">|</span> -->
                                     <template v-if="!memberData.hasPaypwd">
                                         <router-link
-                                            :to="{path:'/member/payPass',query:{showType:1}}" 
+                                            :to="{path:'/member/payPass'}" 
                                             class="lk" tag="a"
                                             title="设置或者修改您的支付密码"
                                             >开启支付密码
@@ -32,7 +32,7 @@
                                     </template>
                                     <template v-if="memberData.hasPaypwd">
                                         <router-link
-                                            :to="{path:'/member/payPass',query:{showType:2}}" 
+                                            :to="{path:'/member/editPayPass'}" 
                                             class="lk" tag="a"
                                             title="设置或者修改您的支付密码"
                                             >修改支付密码

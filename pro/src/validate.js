@@ -197,6 +197,22 @@ const dictionary = {
                 min:(field)=> field+'由2~12个字符组成',
                 max:(field)=> field+'由2~12个字符组成',
             },
+            payPass:{
+                min:(field)=> '输入6位数字组成的'+field,
+                max:(field)=> '输入6位数字组成的'+field,
+            },
+            oldPayPass:{
+                min:(field)=> '输入6位数字组成的'+field,
+                max:(field)=> '输入6位数字组成的'+field,
+            },
+            newPayPass:{
+                min:(field)=> '输入6位数字组成的'+field,
+                max:(field)=> '输入6位数字组成的'+field,
+            },
+            checkPayPass:{
+                confirmed:(field)=> '请再次输入以确认您的密码',
+            },
+            
         },
         attributes:{
             tel: '手机号码',
@@ -224,6 +240,10 @@ const dictionary = {
             imgCodeReg: "图形验证码",
             smsCodeReg: "短信验证码",
             nickname: "昵称",
+            payPass: "支付密码",
+            checkPayPass: "确认支付密码",
+            newPayPass: "新支付密码",
+            oldPayPass: "旧支付密码",
         }
     }
 };
@@ -237,6 +257,15 @@ Validator.extend('mobile', {
     },
     validate: (value, args) => {
        return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
+    }
+});
+
+Validator.extend('number', {
+    messages: {
+        zh_CN:(field, args) => '您不能输入数字以外的字符',
+    },
+    validate: (value, args) => {
+       return /^([0-9]+)$/.test(value)
     }
 });
 

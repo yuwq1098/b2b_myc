@@ -299,7 +299,7 @@
                 api.forgotPassword(data).then((res)=>{
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.$notify({
-                            title: '密码找回成功',
+                            title: '成功设置新密码',
                             message: '请重新登录！',
                             type: 'success',
                             duration: 1500,

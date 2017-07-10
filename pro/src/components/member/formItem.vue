@@ -1,5 +1,5 @@
 <!--  
- **  @description Ö÷ÒªÓÃÓÚ»áÔ±ÖĞĞÄµÄ±íµ¥item×é¼ş
+ **  @description ä¸»è¦ç”¨äºä¼šå‘˜ä¸­å¿ƒçš„è¡¨å•itemç»„ä»¶
  --> 
 
 
@@ -16,7 +16,7 @@
                     <slot></slot>
                     <div class="smsCode" v-if="isCode">
                         <slot name="code"></slot>    
-                    </div><!-- ÊÖ»úÑéÖ¤Âë -->
+                    </div><!-- æ‰‹æœºéªŒè¯ç  -->
                 </div>
             </div>
         </div>
@@ -27,33 +27,33 @@
 
     export default {
         name: "gkFormItem",
-        // ÔÚµ±Ç°Ä£¿é×¢²á×é¼ş
+        // åœ¨å½“å‰æ¨¡å—æ³¨å†Œç»„ä»¶
         components:{
 
         },
-        // Êı¾İ
+        // æ•°æ®
         data() {
             return{
                 inputVal: "",
             }
         },
         props:{
-            // ´íÎóÌáÊ¾ÎÄ±¾
+            // é”™è¯¯æç¤ºæ–‡æœ¬
             errorText:{
                 type: String,
-                default: 'ÕâÊÇÒ»Ìõ´íÎóÌáÊ¾'
+                default: 'è¿™æ˜¯ä¸€æ¡é”™è¯¯æç¤º'
             },
-            // ´íÎóÌáÊ¾ÎÄ±¾µÄÏÔÒş
+            // é”™è¯¯æç¤ºæ–‡æœ¬çš„æ˜¾éš
             errorShow:{
                 type: Boolean,
                 default: false
             },
-            // µ±Ç°ÊäÈë¿òµÄ±êÌâ
+            // å½“å‰è¾“å…¥æ¡†çš„æ ‡é¢˜
             title:{
                 type: String,
-                default: 'ÕâÊÇÒ»¸ö±êÌâ'
+                default: 'è¿™æ˜¯ä¸€ä¸ªæ ‡é¢˜'
             },
-            // ÊÇ²»ÊÇÑéÖ¤ÂëÇøÓò 
+            // æ˜¯ä¸æ˜¯éªŒè¯ç åŒºåŸŸ 
             isCode:{
                 type: Boolean,
                 default: false
@@ -62,18 +62,18 @@
         watch:{
 
         },
-        //ÍË³öµÄÉúÃüÖÜÆÚ¹³×Ó
+        //é€€å‡ºçš„ç”Ÿå‘½å‘¨æœŸé’©å­
         deactivated(){
 
         },
-        // ×Ô¶¨Òåº¯Êı(·½·¨)
+        // è‡ªå®šä¹‰å‡½æ•°(æ–¹æ³•)
         methods: {
 
         },    
     }
 </script>
 
-<!-- ÏŞ¶¨×÷ÓÃÓò"scoped" ²»ÒªÎóĞ´³Éscope -->
+<!-- é™å®šä½œç”¨åŸŸ"scoped" ä¸è¦è¯¯å†™æˆscope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
     .m-form-item
@@ -128,6 +128,12 @@
                     _borderAll(#e2e2e2)
                     &:disabled
                         background #f0f2f4
+                .u-txt
+                    height @height
+                    line-height @height
+                    font-size 16px
+                    font-weight bold
+                    color #666
                 .smsCode
                     width @width
                     height @height
@@ -152,7 +158,7 @@
                         _spacingPlus(2px)
                         _completeCenter(auto,0)
                         &:hover
-                            background @background + 12%
+                            background @background - 10%
                         &.disable
                             width @width - 2px
                             height @height - 2px

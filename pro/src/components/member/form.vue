@@ -60,7 +60,7 @@
                     background #2F98E2
                     color #f0f0f0
                     &:hover
-                        background @background + 12%
+                        background @background - 10%
                 &.hollow
                     height @height - 2px
                     _borderAll(#e2e2e2)
