@@ -14,6 +14,11 @@ import store from './store/store'
 //引入vue图片懒加载插件
 import VueLazyload from 'vue-lazyload'
 
+// dom操作方法
+import * as geekDom from "assets/js/dom.js"
+// url请求根路经
+import {rootURL} from 'api/rootUrl.js'
+
 //引入vue字段过滤器
 import * as filters from './filter'
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k])) //注册过滤器
@@ -49,6 +54,11 @@ const router = new VueRouter({
 	routes,
 	mode: 'hash',
 })
+
+// 线上环境，暴力ban掉console.log/dir/info
+if(rootURL!="/api"){
+    geekDom.setNullConsole(['log','dir','info'])
+}
 
 // 路由导航钩子beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {

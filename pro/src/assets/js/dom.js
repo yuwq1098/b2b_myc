@@ -31,6 +31,17 @@ export function getBase64FromImgFile(file,callBack){
     reader.readAsDataURL(file);  
 }
 
+/** 
+* @description 置空某类型控制台输出
+* @param array  数组
+* @param array 数组
+*/ 
+
+export function setNullConsole(arr){
+    arr.forEach((item,index)=>{
+        window.console[item]= function(){};
+    });
+}
 
 /** 
 * @description 数组数据倍增

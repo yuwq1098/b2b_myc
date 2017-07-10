@@ -19,7 +19,7 @@
                                 <!-- <a href="javascript:;" class="u-lk record">
                                     <i class="iconfont icon-activity_fill"></i>查询维修保养记录
                                 </a> -->
-                                <p class="u-view">
+                                <p class="u-view" v-if="otherInfo.browseCount&&otherInfo.browseCount>0">
                                     <i class="iconfont icon-yuedu"></i>{{otherInfo.browseCount}}
                                 </p>
                             </div><!-- 价格 -->
@@ -139,6 +139,9 @@
                                         <div class="u-tel">
                                             <span class="name">{{otherInfo.contacter}}</span>
                                             <span class="tel">{{otherInfo.tel}}</span>
+                                            <span class="onSell"
+                                                v-if="otherInfo.onSellCount&&otherInfo.onSellCount>0"
+                                                >在售<em class="data">{{otherInfo.onSellCount}}</em>辆</span>
                                         </div><!-- 电话 -->
                                         <!-- <div class="u-attention">
                                             <template v-if="!otherInfo.isInFavorite">
@@ -343,10 +346,6 @@
                         setTimeout(() => {
                             this.carImgData = this.getCarImgsData(this.fileInfoList,this.otherInfo);
                         })
-
-                        // 其他信息
-                        console.log(this.otherInfo);
-                        
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
