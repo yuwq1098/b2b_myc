@@ -235,16 +235,12 @@
             
             //获取/更新用户基本数据
             _updateUserData(){
-                let data = {
-                    a:'0'
-                };
+                let data = {};
                 let me = this;
                 this.getUserData({
                     data:data,
-                    callBack: function(code){
-                        if(code==SYSTEM.CODE_IS_OUT){
-                            me._signPast();
-                        }
+                    callBack: function(){
+                        me._signPast();
                     }
                 });
             },

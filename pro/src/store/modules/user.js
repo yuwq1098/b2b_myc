@@ -37,8 +37,10 @@ const actions = {
     setSignOut({ commit }) {
         store.remove('loginStatus')
         store.remove('loginInfo')
+        store.remove('userData')
         commit(types.SET_LOGIN_STATUS, false)
         commit(types.SET_LOGIN_INFO, {})
+        commit(types.GET_USER_DATA, {})
     },
 
     /**
@@ -47,12 +49,15 @@ const actions = {
     getUserData({ commit }, params) {
         api.getMyMemberInfo(params.data)
             .then(res => {
-                if(params.callBack){
-                    params.callBack(res.code)
-                }
                 if(res.code==SYSTEM.CODE_IS_OK){
+                    store.set('userData', res.data)
                     commit(types.GET_USER_DATA, res.data)
+                }else if(res.code==SYSTEM.CODE_IS_OUT){
+                    if(params.callBack){
+                        params.callBack()
+                    }
                 }
+                
             })
     }
 }

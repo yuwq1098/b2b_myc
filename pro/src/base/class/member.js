@@ -38,7 +38,7 @@ class memberInfo{
 	    this.blance = data.Blance||0          // 余额
 	    this.credit = data.CreditPoint||0     // 信誉保证金
 	    this.regDate = data.RegDate||""        // 注册时间
-	    this.hasPaypwd = data.CreditPoint||""  // 是否有交易密码
+	    this.hasPaypwd = data.HasPaypwd||""  // 是否有交易密码
 	    this.cdgAuth = data.CdgAuth||""        // 车行认证信息数组，没时为[]数组
 	    // 认证状态
 	    this.authName = "未实名认证"           // 真实姓名
