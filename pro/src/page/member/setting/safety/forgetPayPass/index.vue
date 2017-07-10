@@ -285,9 +285,8 @@
                 }).then(() => {
                     // 密码修改的数据
                     let data = {
-                        Mobile: this.memberData.tel,
                         SMSCode: me.smsCode,
-                        NewPwd: me.newPass
+                        NewPayPwd: me.newPayPass
                     }
                     me.putCommit(data);
                     
@@ -311,7 +310,7 @@
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.errors.remove('newPayPass');
-                        this.errors.add('newPayPass', "无效的短信验证码", 'auth');
+                        this.errors.add('newPayPass', res.msg, 'auth');
                     }
                 });
             },
