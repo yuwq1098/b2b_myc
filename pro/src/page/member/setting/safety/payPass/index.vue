@@ -271,12 +271,6 @@
             smsCode(val){
                 this.validator.validate('smsCode',val);
             },
-            userData:{
-                handler(curVal,oldVal){
-                    this.getMemberInfo();
-                },
-                deep:true
-            },
             hasSetPayPass(val){
                 if(val){
                     this.$notify({

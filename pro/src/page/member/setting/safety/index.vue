@@ -142,12 +142,7 @@
         },
         // 数据侦听
         watch:{
-            userData:{
-                handler(curVal,oldVal){
-                    this.getMemberInfo();
-                },
-                deep:true
-            },
+
         },
         // 自定义函数(方法)
         methods: {
@@ -162,7 +157,6 @@
                 api.getMyMemberInfo(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.memberData = this._normalizeMember(res.data);
-                        console.log(this.memberData);
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',

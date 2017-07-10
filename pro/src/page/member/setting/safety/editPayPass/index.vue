@@ -288,12 +288,6 @@
             smsCode(val){
                 this.validator.validate('smsCode',val);
             },
-            userData:{
-                handler(curVal,oldVal){
-                    this.getMemberInfo();
-                },
-                deep:true
-            },
         },
         // 自定义函数(方法)
         methods: {

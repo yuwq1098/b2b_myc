@@ -258,7 +258,9 @@
         watch:{
             userData:{
                 handler(curVal,oldVal){
-                    this.getMemberInfo();
+                    if(curVal!={}){
+                        this.getMemberInfo();
+                    }
                 },
                 deep:true
             },
