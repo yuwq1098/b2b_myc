@@ -96,6 +96,10 @@
 
 <script>
     
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
     // vuex状态管理
     import {mapGetters,mapActions} from 'vuex'
     // 用户信息的构造类
@@ -133,20 +137,41 @@
         },
         //退出的生命周期钩子
         deactivated(){
-            this.isInfoShow = true;
+            // 获取用户信息
+            this.getMemberInfo();
         },
         // 数据侦听
         watch:{
-            userData(val){
-                // 获取用户信息
-                this.getMemberInfo();
+            userData:{
+                handler(curVal,oldVal){
+                    this.getMemberInfo();
+                },
+                deep:true
             },
         },
         // 自定义函数(方法)
         methods: {
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+
+            // 获取用户信息
             getMemberInfo(){
-                this.memberData = new memberInfo(this.userData);
-            }
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
         },
         
     }
