@@ -211,7 +211,6 @@
             },
             //点击城市link
             gotoLink(cityName,cityCode){
-                console.log("怎么会点两下")
                 let data = {
                     name: cityName,
                     code: cityCode

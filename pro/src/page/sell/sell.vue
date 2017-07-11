@@ -1,39 +1,46 @@
 <!--
--  @description 我要卖车的大厅（仿造第一车网），放一些海报，还有几个入口(包括填写卖车单子)
+-  @description 我要卖车的大厅
 -->
 
 <template>
 	<div class="sellHome">
 	    <div class="g-doc">
-            <div class="g-bd">
+            <div class="g-bd">    
                 <section class="f__w1200">
                     <gk-bread-crumb
                         :crumbItems="crumbItems"
                         ></gk-bread-crumb><!-- 面包屑组件 -->
-
-                    <div class="m-sell-hall">
-                        <div class="m-sell-swiper">
-                            <swiper :options="swiperOption" ref="sellSwiper">  
-                                <!-- 这部分放你要渲染的那些内容 -->  
-                                <template v-for="item in sellSwiperItems">
-                                    <swiper-slide >
-                                        <a :href="item.href?item.href:'javascript:;'">
-                                            <img :src="item.imgUrl" :alt="item.title"/>
-                                        </a>
-                                    </swiper-slide>  
-                                </template>
-                                <!-- 这是轮播的小圆点 -->  
-                                <div class="swiper-pagination swiper-pagination1" slot="pagination"></div>
-                            </swiper>
-
-                        </div><!-- 卖车大厅的轮播图 -->
-                        
-                        <div class="m-sell-func">
-                            <sell-box :dataList="sellFunctionList"></sell-box><!-- 卖车大厅功能卡片信息盒子组件 -->
-                        </div><!-- 卖车大厅的主要功能 -->
-
-                    </div><!-- 卖车大厅内容主体 -->
                 </section><!-- 1200px布局 -->
+                <div class="m-hall-mn">
+                    <div class="m-center">
+                        <section class="f__w1200 inner">
+                            <div class="m-tb">
+                                <router-link  class="u-btn fill" :to="{path:'/sellSend'}" 
+                                    >立即发车
+                                </router-link>
+                                <a href="javascript:;" class="u-btn hollow"
+                                    >免费询价
+                                </a>
+                                <div class="u-info">
+                                    <span class="tips">咨询热线</span>
+                                    <div class="data">400-9009-936</div>
+                                </div>
+                            </div>
+                            <div class="m-tit">
+                                <div class="u-tit">直卖全国，高价成交</div>
+                                <div class="u-desc">
+                                    <span class="txt">二手车交易一条龙服务极速成交</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div><!-- 中心内容 -->
+                    <div class="m-hall-other">
+                        <section class="f__w1200 inner">
+                            <div class="u-svr-bg"></div><!-- 买车服务保障/优势 -->
+                        </section>
+                    </div><!-- 其他内容 -->
+                </div><!-- 卖车大厅主要内容 -->
+                
             </div><!-- 网页主体 -->
 		</div>
 	</div>
@@ -42,24 +49,14 @@
 <script>
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
-    // swiper轮播组件
-    import { swiper, swiperSlide } from 'vue-awesome-swiper'  
-    // 卖车大厅功能卡片group组件
-    import sellBox from "components/boxLayout/sellFuncBox.vue"
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
-
-    // 获取卖车大厅的本地相关数据
-    import {sellSwiperItems,sellFunctionList} from "api/localJson/sell.js"
 
 	export default {
         name: "sellHome",
         // 在当前模块注册组件
         components:{
             gkBreadCrumb,
-            swiperSlide,
-            swiper,
-            sellBox,
         },
         // 数据
         data() {
@@ -68,31 +65,6 @@
                 // 面包屑列表信息
                 crumbItems: crumbsInfo['sellHome'],
                 
-                // 卖车大厅轮播图数据集合
-                sellSwiperItems: sellSwiperItems,    
-                //  卖车大厅功能信息列表信息         
-                sellFunctionList: sellFunctionList,            
-
-                swiperOption: {  
-                    //是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true  
-                    notNextTick: true,  
-                    slidesPerView: 'auto',  
-                    centeredSlides: true,  
-                    speed: 400,                         //速度
-                    loop: true,                         //环路
-                    paginationClickable: true,          //分页点击
-                    pagination: '.swiper-pagination',   //分页器
-                    // 关闭淡出，保留淡入
-                    fade: {
-                        crossFade: false,
-                    },
-                    spaceBetween: 0,                    //间隔  
-                    onSlideChangeEnd: swiper => {  
-                        //这个位置放swiper的回调方法  
-                        this.page = swiper.realIndex+1;  
-                        this.index = swiper.realIndex;  
-                    }   
-                },
             }
         },
         // 计算数据
@@ -127,13 +99,9 @@
 	}
 </script>
 
-<!-- 修改外部插件（组件）的样式时，不要加scoped，最好文件分成两个 -->
-<style lang="stylus" rel="stylesheet/stylus">
-    @import './sellSwiper.styl'
-</style>
-
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import './sell.styl'
+    @import 'sell.styl'
+
 </style>
 

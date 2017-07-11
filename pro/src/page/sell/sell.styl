@@ -2,7 +2,100 @@
 
 .g-doc
     background #fff
+    color #40474a
     .g-bd
-        width 100%
-        .m-sell-hall
-            width 100%
+        .m-hall-mn
+            .m-center
+                width 100%
+                height 442px
+                position relative
+                background url("../../assets/img/sell-bg-01.jpg") no-repeat center center
+                background-size auto 100%
+                .inner
+                    height 442px
+                    .m-tb
+                        width 340px - 60px
+                        height 350px - 90px
+                        background rgba(255,255,255,.92)
+                        _borderRadius(3px)
+                        _completeCenter(100px,auto,46px,auto)
+                        padding 55px 30px 35px
+                        .u-btn
+                            _display()
+                            height 54px
+                            line-height 54px
+                            text-align center
+                            font-size 22px
+                            _spacingPlus(8px)
+                            width @width - 4px
+                            _borderRadius(6px)
+                            margin 0 0 30px
+                            &.fill
+                                background #2e98e2
+                                _borderAll(#2e98e2,2px)
+                                color #f2f2f2
+                            &.hollow
+                                _borderAll(#2e98e2,2px)
+                                background #fff
+                                color #2e98e2
+                            &:hover
+                                _boxShadow(10px,#2e98e2,2px,2px)
+                            &:active
+                                _boxShadow(6px,#2e98e2 - 15%,0px,0px,true)
+                        .u-info
+                            color #777
+                            .tips
+                                font-size 17px
+                                height 28px
+                                line-height 28px
+                                _spacingPlus(2px)
+                            .data
+                                font-size 40px
+                                height 60px
+                                line-height 60px
+                    .m-tit
+                        width 500px
+                        height 120px
+                        _completeCenter(auto,60px,100px,auto)
+                        .u-tit
+                            height 72px
+                            line-height 72px
+                            font-size 52px
+                            _spacingPlus(2px)
+                        .u-desc
+                            height 36px
+                            line-height 36px
+                            text-align center
+                            margin 5px 0 0
+                            position relative
+                            &::after,&::before
+                                _display()
+                                content ""
+                                width 75px
+                                height 2px
+                                background #40474a + 20%
+
+                            &::after
+                                _completeCenter(25px,auto)
+                            &::before
+                                _completeCenter(auto,25px)
+                            .txt
+                                font-size 18px
+                                _spacingPlus(2px)
+                                _display(inline-block)
+
+            .m-hall-other
+                height 300px
+                width 100%
+                .inner
+                    height @height
+                    .u-svr-bg
+                        width 1054px
+                        height 169px
+                        _completeCenter(,,50px,auto)
+                        background url("../../assets/img/sell-svr-01.jpg") no-repeat center center
+                        background-size auto 100%
+
+
+
+
