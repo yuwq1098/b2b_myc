@@ -48,8 +48,8 @@
                             </div><!-- 评分与收藏 -->
 
                             <div class="m-contact">
-                                <span class="name">{{merchantData.username | usernameFormat}}</span>
-                                <span class="tel">{{merchantData.tel | telFormat}}</span>
+                                <span class="name">{{merchantData.username}}</span>
+                                <span class="tel">{{merchantData.tel}}</span>
                             </div><!-- 联系人信息 -->
 
                             <div class="m-result f__clearfix">

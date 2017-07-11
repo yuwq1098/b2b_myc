@@ -2,7 +2,7 @@
      <!-- @mousewheel="_stopBubble($event)" -->
     <transition name="zoom-in-top">
         <div class="m-ci-box" ref="citySelBox">
-        	<div class="m-sch-box"  v-if="false">
+        	<div class="m-sch-box" v-if="false">
         		<div class="m-sch-bar f__clearfix">
                     <div class="m-sch-ipt f__fl">
                         <input type="text" class="u-ipt" v-model="schValue" placeholder="请输入城市名称" />
@@ -24,6 +24,19 @@
             <!-- @mousewheel="_stopBubble($event)" -->
             <div class="m-ci-con" ref="cityListBox">
                 <ul class="m-ci-lst">
+                    <li class="m-ci-item location">
+                        <span class="u-ci-tit vital">定位城市</span>
+                        <div class="u-text" 
+                            v-show="myLocation==''"
+                            >
+                            {{'定位中'}}
+                        </div>
+                        <div class="u-text u-lk" 
+                            v-show="myLocation!=''"
+                            @click="gotoLink(myLocation)"
+                            >{{myLocation}}
+                        </div>
+                    </li> 
                     <li class="m-ci-item f__clearfix" ref="cityItem" v-for="group in citys">
                         <span class="u-ci-tit" :class="{'vital':group.title=='周边'}">{{group.title}}</span>
                         <div class="u-gp-con">
@@ -41,6 +54,7 @@
 </template>
 
 <script>
+    import $ from 'jquery';
     import {pinyin} from 'assets/js/pinyin.js'; 
     import api from 'api/getData.js'
     import CityInfo from 'base/getter/city'
@@ -51,8 +65,23 @@
 
 	export default {
 		name: 'cityChoose',
-		created(){
-        	//所有城市列表
+		
+        data(){
+        	return{
+                citys:[],
+                currentIndex: 0,
+                schValue: '',
+                schList: [],       // 搜索结果列表
+                myLocation: "",    // 我的位置
+        	}
+        },
+        props:{
+            // 显隐状态
+            isShow: Boolean,
+        },
+        //生命周期,开始的时候
+        created(){
+            //所有城市列表
             this.allCityList = [];
             //仅仅所有城市列表
             this.onlyCityList = [];
@@ -61,21 +90,26 @@
             //-获取城市信息列表
             this._getAllCityList();
         },
-        data(){
-        	return{
-                citys:[],
-                currentIndex: 0,
-                schValue: '',
-                schList: [],  //搜索结果列表
-        	}
-        },
-        props:{
-            // 显隐状态
-            isShow: Boolean,
-        },
         mounted(){
-            // let cityBoxDom = this.$refs.citySelBox;
-            // this._preventScroll(cityBoxDom);
+
+        },
+        activated(){
+            
+            // 变换指针指向
+            let me = this;
+            // 获取所在城市
+            $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',function(){
+                if(remote_ip_info.city){
+                    me.myLocation = remote_ip_info.city;
+                    return;
+                }
+                me.myLocation = remote_ip_info.province;
+            }); 
+
+        },
+        //退出的生命周期钩子
+        deactivated(){
+
         },
         computed:{
             //城市索引列表
@@ -85,6 +119,19 @@
                 })
             },
 
+        },
+        watch: {
+            schValue: function (val) {
+                this._resListBySch(val);
+            },
+            // 侦听显隐值
+            isShow: function (val) {
+                if(val){
+                    let cityListDom = this.$refs.cityListBox;
+                    cityListDom.scrollTop = 0,
+                    this.currentIndex = 0;
+                }
+            }
         },
         methods:{
             ...mapActions([
@@ -211,9 +258,10 @@
             },
             //点击城市link
             gotoLink(cityName,cityCode){
+
                 let data = {
                     name: cityName,
-                    code: cityCode
+                    code: cityCode||""
                 }
                 this.setCurrentCity(data);
                 this.currentIndex = 0;
@@ -225,20 +273,7 @@
             },
             //匹配搜索结果
             _resListBySch(val){
-                console.log("匹配搜索结果");
-            }
-        },
-        watch: {
-            schValue: function (val) {
-                this._resListBySch(val);
-            },
-            // 侦听显隐值
-            isShow: function (val) {
-                if(val){
-                    let cityListDom = this.$refs.cityListBox;
-                    cityListDom.scrollTop = 0,
-                    this.currentIndex = 0;
-                }
+
             }
         },
 	}

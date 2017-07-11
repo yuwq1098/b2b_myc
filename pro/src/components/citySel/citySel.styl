@@ -113,9 +113,7 @@
                     _display()
                     width 40px
                     height 48px
-                    position absolute
-                    top 0
-                    left 0
+                    _completeCenter(0,auto,0,auto)
                     text-align center
                     color #a8a8a8
                     &.vital
@@ -131,6 +129,18 @@
                         cursor pointer
                         &:hover
                             color $c_blue
+                &.location
+                    .u-ci-tit
+                        width 68px
+                    .u-text
+                        margin-left 75px  
+                        &.u-lk
+                            _display(inline-block)
+                            padding 0 10px
+                            cursor pointer
+                            &:hover
+                                color $c_blue
+
 
 
 

@@ -100,7 +100,7 @@
 
         },
         activated(){
-            // 获取我收藏的车行列表
+            // 获取我收藏的车辆列表
             this.getMerchantCollect();
         },
         //退出的生命周期钩子
@@ -109,7 +109,7 @@
         },
         // 自定义函数(方法)
         methods: {
-            // 获取我收藏的车行列表
+            // 获取我收藏的车辆列表
             getMerchantCollect(){
                 let data = {
                     ActType: 'MyList',
@@ -124,7 +124,7 @@
                     }
                 })
             },
-            // 格式化车行信息列表
+            // 格式化车辆信息列表
             _normalizeCar(list) {
                 let arr = []
                 list.forEach(item => {
@@ -132,11 +132,11 @@
                 });
                 return arr;
             },
-            // 进入车行详情
+            // 进入车辆详情
             enterCar(id){
                 this.$router.push({ path: '/b2bCar', query: { CarId: id }})
             },
-            // 删除车行
+            // 取消车辆收藏
             delCar(id,index){
                 let data = {
                     ActType: 'Delete',
@@ -144,6 +144,12 @@
                 }
                 api.myFavoriteCar(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '成功取消收藏',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
                         // 删除对应车行，同步数据
                         this.carCollectList.splice(index, 1)
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){

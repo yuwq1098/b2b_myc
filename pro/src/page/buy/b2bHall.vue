@@ -495,9 +495,6 @@
             this.dataChangeOnOff = true;
         },
         mounted() {
-            setTimeout(() => {
-                console.log("略卡",this.crumbItems);
-            })
             
         },
         //再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
@@ -583,10 +580,8 @@
 
             // 获取用户信息
             getMemberInfo(){
-                if(!this.loginStatus){
-                    console.log("没登录")
-                    return;
-                }
+                if(!this.loginStatus) return;
+
                 let data = {}
                 api.getMyMemberInfo(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
@@ -638,6 +633,7 @@
                 
                 //设置分页控件的分页大小
                 this.searchFilterList.PageSize = RESULE_PAGE_SIZE;
+                this.searchFilterList.PageIndex = 1;
 
                 //页面渲染
                 this.renderByData(this.searchFilterList)

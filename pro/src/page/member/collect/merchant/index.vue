@@ -159,6 +159,12 @@
                 }
                 api.myFavoriteCdg(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '成功取消收藏',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
                         // 删除对应车行，同步数据
                         this.mCollectList.splice(index, 1)
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
