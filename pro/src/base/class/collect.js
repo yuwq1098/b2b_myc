@@ -6,8 +6,8 @@ class cdgClass{
 	    this.faceUrl = data.PhotoURL||""      // 头像
 	    this.userName = data.UserName||""     // 联系人名称
 	    this.address = data.Address||""       // 地址
-	    this.volume = data.OrderPercent||""   // 成交数
-	    this.grade = data.GoodEvaluate||""    // 分数
+	    this.volume = data.OrderPercent||0   // 成交数
+	    this.grade = data.GoodEvaluate||0    // 分数
 	}
 }
 
@@ -20,7 +20,7 @@ class carClass{
 	    this.city = data.CarInCity||""                  // 所在城市
 	    this.plateDate = data.OnLicensePlateDate||""    // 上牌时间
 	    this.mileage = data.Mileage||""                 // 里程
-	    this.price = data.B2BPrice||""                   // 批发价
+	    this.price = data.B2BPrice||0                   // 批发价
 	    this.cdgName = data.CDGName||""                 // 车行名
 	    this.authType = data.AuthType||""               // 车行类别
 	    this.status = data.Status||""                   // 车辆状态

@@ -34,8 +34,14 @@ const member = r => require.ensure([], () => r(require('page/member/member')), '
 const memberHome = r => require.ensure([], () => r(require('page/member/home')), 'memberHome')
 
 
-// 用户中心 => 车行认证
-const authApply = r => require.ensure([], () => r(require('page/member/center/apply')), 'authApply')
+// 用户中心 => 我的认证 => 认证首页
+const applyHome = r => require.ensure([], () => r(require('page/member/center/apply/home')), 'applyHome')
+// 用户中心 => 我的认证 => 上传认证资料
+const putApply = r => require.ensure([], () => r(require('page/member/center/apply/put')), 'putApply')
+// 用户中心 => 我的认证 => 补交认证资料
+const merchantApply = r => require.ensure([], () => r(require('page/member/center/apply/merchant')), 'merchantApply')
+
+
 // 用户中心 => 我的购物车
 const shoppingCart = r => require.ensure([], () => r(require('page/member/center/shopping-cart')), 'shoppingCart')
 
@@ -83,6 +89,7 @@ const bankCardEdit = r => require.ensure([], () => r(require('page/member/settin
 // 账户设置 => 银行卡添加
 const bankCardAdd = r => require.ensure([], () => r(require('page/member/setting/bank-card/add')), 'bankCardAdd')
 
+
 // 账户设置 => 安全中心 => 内容主页
 const safetyCenter = r => require.ensure([], () => r(require('page/member/setting/safety')), 'safetyCenter')
 // 账户设置 => 安全中心 => 密码修改
@@ -92,12 +99,14 @@ const safetyForget = r => require.ensure([], () => r(require('page/member/settin
 // 账户设置 => 安全中心 => 手机号绑定修改
 const safetyTel = r => require.ensure([], () => r(require('page/member/setting/safety/telephone')), 'safetyTel')
 
+
 // 账户设置 => 安全中心 => 设置支付密码
 const payPass = r => require.ensure([], () => r(require('page/member/setting/safety/payPass')), 'payPass')
 // 账户设置 => 安全中心 => 修改支付密码
 const editPayPass = r => require.ensure([], () => r(require('page/member/setting/safety/editPayPass')), 'editPayPass')
 // 账户设置 => 安全中心 => 忘记支付密码                                                   
 const forgetPayPass = r => require.ensure([], () => r(require('page/member/setting/safety/forgetPayPass')), 'forgetPayPass')
+
 
 // 404空页面
 const page404 = r => require.ensure([], () => r(require('page/other/404')), 'page404')
@@ -212,9 +221,25 @@ export default[{
                     },
                 },
                 {
-                // 车行认证
-                    path: 'apply',
-                    component: authApply,
+                // 认证主页
+                    path: 'applyHome',
+                    component: applyHome,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 上传认证资料
+                    path: 'putApply',
+                    component: putApply,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 补交认证资料
+                    path: 'merchantApply',
+                    component: merchantApply,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },

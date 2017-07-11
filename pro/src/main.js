@@ -55,9 +55,9 @@ const router = new VueRouter({
 })
 
 // 线上环境，暴力ban掉console.log/dir/info
-// if(rootURL!="/api"){
-//     geekDom.setNullConsole(['log','dir','info','warn'])
-// }
+if(rootURL!="/api"){
+    geekDom.setNullConsole(['log','dir','info','warn'])
+}
 
 // 路由导航钩子beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {

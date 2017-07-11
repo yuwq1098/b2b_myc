@@ -9,10 +9,32 @@
 export const crumbsHash = {
     
     // 我的认证
-    '/member/apply':[
+    '/member/applyHome':[
         {
-            pathName:"我的认证",
-            path:"/member/apply",
+            pathName:"认证主页",
+            path:"/member/applyHome",
+        }
+    ],
+    // 认证资料提交
+    '/member/putApply':[
+        {
+            pathName:"认证主页",
+            path:"/member/applyHome",
+        },
+        {
+            pathName:"认证资料提交",
+            path:"/member/putApply",
+        }
+    ],
+    // 车行认证营业执照补交
+    '/member/merchantApply':[
+        {
+            pathName:"认证主页",
+            path:"/member/applyHome",
+        },
+        {
+            pathName:"营业执照补交",
+            path:"/member/merchantApply",
         }
     ],
     // 我的购物车

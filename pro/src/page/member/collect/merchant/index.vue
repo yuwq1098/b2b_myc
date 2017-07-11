@@ -29,7 +29,10 @@
                                             </div>
                                             <div class="u-grade f__clearfix">
                                                 <p class="volume f__fl">
-                                                    <span class="u-attr">成交数：</span><em class="vital">{{item.volume}}</em>单
+                                                    <span class="u-attr">成交数：
+                                                        <template v-if="(+item.volume)>0"><em class="vital">{{item.volume}}</em>单</template>
+                                                        <template v-if="(+item.volume)==0">无</template>
+                                                    </span>
                                                 </p>
                                                 <p class="grade f__fl">
                                                     <span class="u-attr">评分：</span><em class="vital">{{item.grade | gradeFormat}}</em>分

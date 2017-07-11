@@ -17,7 +17,7 @@ export const sidebarMenu = [
             },
             {
             	'title': '我的认证',
-	        	'hash': '/member/apply',
+	        	'hash': '/member/applyHome',
             },
           //   {
           //   	'title': '我的购物车',
