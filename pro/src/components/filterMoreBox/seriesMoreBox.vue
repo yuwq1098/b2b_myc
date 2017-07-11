@@ -76,7 +76,7 @@
                     color $c_blue
             &.on
                 .u-lk
-                    background #0479cc
+                    background #2e98e2
                     color #f4f4f4
                     &:hover
                         color @color

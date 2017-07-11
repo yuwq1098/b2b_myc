@@ -123,7 +123,7 @@
                     .u-lk
                         width 85px
                         height 42px
-                        background #0479cc
+                        background #2e98e2
                         color #fff
                         text-align center
                         position absolute

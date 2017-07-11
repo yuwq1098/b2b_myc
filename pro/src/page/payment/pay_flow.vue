@@ -36,7 +36,7 @@
         data(){
            return{
                 flowgray: "#e2e2e2",
-                flowfill: "#0479cc",
+                flowfill: "#2e98e2",
                 fontpure: "#f4f4f4",
                 fontdark: "#545454",
            }
