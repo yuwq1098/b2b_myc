@@ -8,7 +8,19 @@
                 
                 <member-inner>
                     <div class="m-apply-wrap">
-                        认证主页
+                        <div class="m-mn">
+                            <div class="u-tit">您尚未认证</div><!-- 标题 -->
+                            <div class="u-speak">无法在B2B进行交易</div><!-- 说些什么 -->
+                            <a href="javascript:;" class="u-btn open-up"></a><!-- 开通认证 -->
+                            <a href="javascript:;" class="u-btn download"></a><!-- 下载APP -->
+                        </div><!-- 认证内容 -->
+                        <div class="m-other">
+                            <div class="u-info">
+                                <div class="u-tit">认证资料更新上传</div><!-- 标题 -->
+                                <div class="u-speak">营业执照补交</div><!-- 说些什么 -->
+                            </div><!-- 信息区 -->
+                            <a href="javascript:;" class="u-btn replenish">立即上传</a>
+                        </div><!-- 认证资料补充 -->
                     </div><!-- 认证容器 -->
                 </member-inner>
 
@@ -82,4 +94,5 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import 'index.styl'
+
 </style>
