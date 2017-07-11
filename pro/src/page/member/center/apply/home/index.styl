@@ -4,17 +4,14 @@
     min-height 400px
     color #40474a
     .m-mn
-        width 948px - 24px
+        width 948px - 30px
         height 294px - 20px
-        background url("../../../../../assets/img/apply-bg01.jpg") no-repeat center center
-        background-size auto 100%
         position relative
-        padding 10px 12px
-        .u-tit,.u-speak
-            color #FF6533
+        padding 10px 15px
+        margin 0 0 14px
         .u-tit
-            height 42px
-            line-height 42px
+            height 48px
+            line-height 48px
             font-size 30px
             font-weight bold
             _spacing(2px)
@@ -22,23 +19,45 @@
             height 28px
             line-height 28px
             font-size 16px
-        .u-btn
-            _display()
-            width 155px
-            height 37px
-            _borderRadius(2px)
-            &.open-up
-                _completeCenter(161px,auto,130px,auto)
-                &:hover
-                    _boxShadow(10px,#219C0E,2px,2px)
-                &:active
-                    _boxShadow(10px,#219C0E - 15%,1px,0)
-            &.download
-                _completeCenter(auto,195px,130px,auto)
-                &:hover
-                    _boxShadow(10px,#0D778D,2px,2px)
-                &:active
-                    _boxShadow(10px,#0D778D - 15%,1px,0)
+        &.not
+            background url("../../../../../assets/img/apply-bg01.jpg") no-repeat center center
+            background-size auto 100%
+            .u-tit,.u-speak
+                color #FF6533
+            .u-btn
+                _display()
+                width 155px
+                height 37px
+                _borderRadius(2px)
+                &.open-up
+                    _completeCenter(161px,auto,130px,auto)
+                    &:hover
+                        _boxShadow(10px,#219C0E,2px,2px)
+                    &:active
+                        _boxShadow(10px,#219C0E - 15%,1px,0)
+                &.download
+                    _completeCenter(auto,195px,130px,auto)
+                    &:hover
+                        _boxShadow(10px,#0D778D,2px,2px)
+                    &:active
+                        _boxShadow(10px,#0D778D - 15%,1px,0)
+
+        &.success
+            background url("../../../../../assets/img/apply-bg02.jpg") no-repeat center center
+            background-size auto 100%
+            .u-tit,.u-speak
+                color #20AD86
+            .u-btn
+                _display()
+                width 155px
+                height 37px
+                _borderRadius(2px)
+                &.download
+                    _completeCenter(auto,195px,129px,auto)
+                    &:hover
+                        _boxShadow(10px,#0D778D,2px,2px)
+                    &:active
+                        _boxShadow(10px,#0D778D - 15%,1px,0)
             
 
     .m-other
@@ -47,7 +66,6 @@
         background url("../../../../../assets/img/apply_bg03.jpg") no-repeat center center
         background-size 100% auto
         // background #CFF3B9
-        margin 14px 0 0
         position relative
         padding 10px 15px
         .u-info

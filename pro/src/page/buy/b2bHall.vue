@@ -3,7 +3,9 @@
         <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
-                    <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
+                    <gk-bread-crumb
+                        :crumbItems="crumbItems"
+                        ></gk-bread-crumb><!-- 面包屑组件 -->
                     
                     <div class="m-sch-wrap f__clearfix">
                         <div class="m-sch f__fr">
@@ -364,6 +366,8 @@
     import * as geekDom from "assets/js/dom.js"
     // 工具函数
     import {dataToJson,strToJson} from "assets/js/util.js"
+    // 网站外层面包屑列表本地化资源
+    import {crumbsInfo} from "api/localJson/homeCrumb.js"
     // 数据hash匹配
     import * as hashData from "api/localJson/hashData.js"
     // b2b条件过滤相关构造类
@@ -400,6 +404,9 @@
         // 数据
         data() {
             return{
+                
+                // 面包屑列表信息
+                crumbItems: crumbsInfo['b2bHall'],
                 
                 // 用户信息
                 memberData: null,
@@ -488,6 +495,9 @@
             this.dataChangeOnOff = true;
         },
         mounted() {
+            setTimeout(() => {
+                console.log("略卡",this.crumbItems);
+            })
             
         },
         //再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
@@ -750,7 +760,6 @@
                 this.userFilterData.series = value; 
                 // 设置真实向api请求的字段 汽车车系的id
                 this.searchFilterList.CarSeriesId = id; 
-                
 
             },
 
@@ -822,8 +831,8 @@
                 }
 
                 // 设置真实向api请求的字段 价格区间
-                this.searchFilterList.B2BPriceFrom = min||'';
-                this.searchFilterList.B2BPriceTo = max||'';
+                this.searchFilterList.B2BPriceFrom = minPrice||'';
+                this.searchFilterList.B2BPriceTo = maxPrice||'';
 
             },
 

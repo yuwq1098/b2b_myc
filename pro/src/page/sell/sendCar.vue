@@ -7,7 +7,10 @@
 	    <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
-                    <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
+                    <gk-bread-crumb
+                        :crumbItems="crumbItems">
+                    </gk-bread-crumb><!-- 面包屑组件 -->
+
                 </section><!-- 1200px布局 -->
                 <div class="m-send-con">
                     <div class="m-banner-box">
@@ -420,6 +423,8 @@
     import * as SYSTEM from 'api/system.js'
     // dom操作方法
     import * as geekDom from "assets/js/dom.js"
+    // 网站外层面包屑列表本地化资源
+    import {crumbsInfo} from "api/localJson/homeCrumb.js"
     // 发布订单的向后端请求的构造类
     import {sendCarForm} from "base/class/sendCar.js"
     // 面包屑组件
@@ -484,6 +489,9 @@
         // 数据
         data() {
             return{
+                
+                // 面包屑列表信息
+                crumbItems: crumbsInfo['sendCar'],
                 
                 //是不是表单提交的状态
                 isSubmitState: false,

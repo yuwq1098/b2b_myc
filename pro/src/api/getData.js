@@ -201,9 +201,11 @@ export default {
         return get('/action2/AllCarColor.ashx')
     },
 
+
     /*
      * 验证注册类
      */
+
 
     // 获取图形验证码
     getImgRandomCode(){
@@ -231,6 +233,7 @@ export default {
     /*
      * 个人中心
      */
+
     
     // 修改个人信息
     editMemberInfo(params){
@@ -277,6 +280,7 @@ export default {
      * 收藏夹
      */
     
+
     // 操作收藏的车辆
     myFavoriteCar(params){
         return fetchSign('/action2/FavoriteB2BCar.ashx',dataToJson(params));
@@ -294,9 +298,21 @@ export default {
      */
 
 
+    // 获取认证详情信息
+    getAuthDetails(params){
+        return fetchSign('/action2/AuthDetail.ashx',dataToJson(params));
+    },
+
+    // 车行认证
+    authApply(params){
+        return fetchSign('/action2/B2BAuthApply.ashx',dataToJson(params));
+    },
+    
+
     /*
      * 支付、交易、金额类
      */
+
 
     // 各类金额流水账单
     getBillList(params){
@@ -312,6 +328,7 @@ export default {
     getUserAccount(params){
         return fetchSign('/action2/UserAccount.ashx',dataToJson(params));
     },
+
 
     /*
      * B2B核心业务
@@ -409,14 +426,10 @@ export default {
     },
 
 
-    
-
-
-    
-
     /*
      * 首页相关
      */
+
 
     // 猜你喜欢
     getGuessYouLike(){

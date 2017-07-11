@@ -4,7 +4,9 @@
             <div class="g-bd">
                 <section class="f__w1200">
 
-                    <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
+                    <gk-bread-crumb
+                        :crumbItems="crumbItems"
+                        ></gk-bread-crumb><!-- 面包屑组件 -->
 
                     <div class="m-mn-hd f__clearfix">
                         <div class="f__fl" v-if="carImgData">
@@ -246,6 +248,8 @@
     import * as geekDom from 'assets/js/dom.js'
     // 车行信息的构造类
     import {basicInfo,carDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
+    // 网站外层面包屑列表本地化资源
+    import {crumbsInfo} from "api/localJson/homeCrumb.js"
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
 
@@ -263,6 +267,7 @@
         // 数据
         data() {
             return{
+
                 // 车辆ID
                 carId: 0,
                 
@@ -294,6 +299,7 @@
 
         },
         activated(){
+
             // 获取hash 带参中的车辆ID
             this.carId = this.$router.currentRoute.query.CarId;
             // 获取车辆信息
@@ -309,7 +315,12 @@
         },
         // 属性计算
         computed:{
-
+            // 面包屑列表信息
+            crumbItems(){
+                if(this.basicInfo){
+                    return crumbsInfo['b2bCar'](this.basicInfo.title)
+                }
+            } 
         },
         methods:{
             // 格式化车辆基本信息

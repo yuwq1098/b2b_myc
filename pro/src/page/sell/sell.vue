@@ -7,7 +7,10 @@
 	    <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
-                    <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
+                    <gk-bread-crumb
+                        :crumbItems="crumbItems"
+                        ></gk-bread-crumb><!-- 面包屑组件 -->
+
                     <div class="m-sell-hall">
                         <div class="m-sell-swiper">
                             <swiper :options="swiperOption" ref="sellSwiper">  
@@ -43,6 +46,8 @@
     import { swiper, swiperSlide } from 'vue-awesome-swiper'  
     // 卖车大厅功能卡片group组件
     import sellBox from "components/boxLayout/sellFuncBox.vue"
+    // 网站外层面包屑列表本地化资源
+    import {crumbsInfo} from "api/localJson/homeCrumb.js"
 
     // 获取卖车大厅的本地相关数据
     import {sellSwiperItems,sellFunctionList} from "api/localJson/sell.js"
@@ -59,6 +64,10 @@
         // 数据
         data() {
             return{
+
+                // 面包屑列表信息
+                crumbItems: crumbsInfo['sellHome'],
+                
                 // 卖车大厅轮播图数据集合
                 sellSwiperItems: sellSwiperItems,    
                 //  卖车大厅功能信息列表信息         
