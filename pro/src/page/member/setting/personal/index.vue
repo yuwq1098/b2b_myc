@@ -33,16 +33,20 @@
                                             <template v-if="!memberData.authStatus"
                                                 >{{memberData.authName}}</template>
                                         </span>
-                                        <router-link :to="{path:'/member/apply'}" 
+                                        <router-link :to="{path:'/member/applyHome'}" 
                                             class="u-lk operate"
                                             tag="a"
                                             v-if="!memberData.authStatus"
-                                            >立即认证</router-link>
-                                        <router-link :to="{path:'/member/apply'}" 
-                                            class="u-lk operate"
-                                            tag="a"
-                                            v-if="memberData.authStatus"
-                                            >管理我的认证</router-link>
+                                            >
+                                            <template 
+                                                v-if="!memberData.authStatus"
+                                                >立即认证
+                                            </template>
+                                            <template 
+                                                v-if="memberData.authStatus"
+                                                >管理我的认证
+                                            </template>
+                                        </router-link>
                                     </div>
                                 </div>
                                 <div class="m-line-box f__clearfix">

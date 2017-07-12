@@ -34,6 +34,7 @@
                                     </div>
                                 </div>
                             </div><!-- 流程进度 -->
+
                             <div class="m-flow-con">
                                 <div class="m-tb-con" 
                                     v-if="tabShowIndex==1">
@@ -199,7 +200,7 @@
     // 会员中心子内容组件
     import memberInner from 'components/layout/memberInner.vue'
 
-    //引入表单验证
+    // 引入表单验证
     import { Validator } from 'vee-validate';
     // 最大等待秒数
     const MAX_WAIT_SECONDS = 120;

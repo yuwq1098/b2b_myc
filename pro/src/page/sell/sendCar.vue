@@ -556,8 +556,6 @@
         //生命周期,开始的时候
         created(){
             this.validator = new Validator({
-                // email: 'required|email',
-                // name: 'required|alpha|min:3',
                 carInCity: 'required',
                 selectedModel: 'required',
                 plateInCity: 'required',

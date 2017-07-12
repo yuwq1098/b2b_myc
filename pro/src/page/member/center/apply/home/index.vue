@@ -8,12 +8,12 @@
                 
                 <member-inner>
                     <div class="m-apply-wrap">
-                        <p>是否已开始认证: {{isApplyStart}}</p>
+                        <!-- <p>是否已开始认证: {{isApplyStart}}</p>
                         <p>认证id: {{authId}}</p>
                         <p>认证类型: {{authApply}}</p>
                         <p>认证状态: {{authStatus}}</p>
                         <p>至少认证成功一条: {{hasApplySuccess}}</p>
-                        <p>认证记录数: {{hasApplyCount}}</p>
+                        <p>认证记录数: {{hasApplyCount}}</p> -->
                         <div class="m-mn not"
                             v-if="!hasApplySuccess"
                             >
@@ -269,7 +269,16 @@
 
             // 进入认证，查看认证等
             enterApply(){
-                
+                setTimeout(() => {
+                    if(!this.authId==""){
+                        this.$router.push({
+                            path:'/member/putApply',
+                            query:{authId:this.authId}
+                        });
+                    }else{
+                        this.$router.push({path:'/member/putApply'});
+                    }
+                });
             }, 
             
             // 数据重置

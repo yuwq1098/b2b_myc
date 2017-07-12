@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="f__w1200">
-                        <div class="m-b2c-svr">
+                        <!-- <div class="m-b2c-svr">
                             <ul class="m-svr-lst f__clearfix">
                                 <li class="u-svr-item" v-for="(item,index) in serverList" :class="{lastItem:index==serverList.length - 1}">
                                     <a href="javascript:;" class="u-lk">
@@ -52,7 +52,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div><!-- 付费服务 -->
+                        </div> --><!-- 付费服务 -->
 
                         <div class="m-svr-box">
                             <server-box></server-box>
@@ -72,7 +72,7 @@
 
                     <div class="f__w1200">
 
-                        <div class="m-notice-bar-warp">
+                        <div class="m-notice-bar-warp" v-if="false">
                             <notice-bar
                                 :noticeList="noticeBarList" 
                                 >

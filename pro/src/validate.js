@@ -212,7 +212,9 @@ const dictionary = {
             checkPayPass:{
                 confirmed:(field)=> '请再次输入以确认您的密码',
             },
-            
+            cdgCity:{
+                required:()=> '请选择车行所在地'
+            },
         },
         attributes:{
             tel: '手机号码',
@@ -244,6 +246,12 @@ const dictionary = {
             checkPayPass: "确认支付密码",
             newPayPass: "新支付密码",
             oldPayPass: "旧支付密码",
+            authName: "真实姓名",
+            authNumber: "身份证号",
+            cdgName: "车行名称",
+            cdgCity: "车行所在地",
+            cdgAddress: "车行详细地址",
+            cdgDesc: "车行描述",
         }
     }
 };
@@ -260,12 +268,40 @@ Validator.extend('mobile', {
     }
 });
 
+/*
+* @description 只允许用户输入数字规则
+*/
 Validator.extend('number', {
     messages: {
         zh_CN:(field, args) => '您不能输入数字以外的字符',
     },
     validate: (value, args) => {
        return /^([0-9]+)$/.test(value)
+    }
+});
+
+/*
+* @description 身份证号验证规则
+*/
+Validator.extend('identity', {
+    messages: {
+        zh_CN:(field, args) => '请输入正确的身份证号码',
+    },
+    validate: (value, args) => {
+       // return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)
+       return /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/.test(value)
+    }
+});
+
+/*
+* @description 只能输入中文和英文
+*/
+Validator.extend('CN_EN', {
+    messages: {
+        zh_CN:(field, args) => '请输入中英文的组合',
+    },
+    validate: (value, args) => {
+       return /^[\u4E00-\u9FA5A-Za-z]+$/.test(value)
     }
 });
 

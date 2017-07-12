@@ -12,6 +12,7 @@
                 v-model="selectedOptions"
                 style="width: 100%"
                 :placeholder="placeholder"
+                ref="cityCascader"
                 >
             </el-cascader>
         </div>
@@ -47,6 +48,7 @@
         watch:{
             // 当用户选中的值变化了，再将事件派发给父组件
             selectedOptions: function(val){
+                this._getCityAllName()
                 this.$emit("valChangeEnd",this.selectedOptions)
             }
         },
@@ -61,21 +63,16 @@
                 default: "请选择城市"
             }
         },
+
         // 不使用keep-alive时,走这个生命周期
         created(){
-            // 如果不启用keep-alive
-            if(this.isNotKeepAlive){
-                this._getProvinceOptions();   //获取省份级联选择框的初始选项 
-            }
-        },
-        // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
-        activated(){
-            // 如果启用keep-alive
-            if(!this.isNotKeepAlive){
-                this._getProvinceOptions();   //获取省份级联选择框的初始选项 
-            }
+            this._getProvinceOptions();   //获取省份级联选择框的初始选项 
         },
 
+        // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
+        activated(){
+
+        },
         // 自定义函数(方法)
         methods: {
 
@@ -119,7 +116,24 @@
                         return;
                     }
                 })
-            }  
+            },
+            
+            // 获取城市全名
+            _getCityAllName(){
+                let arr = this.$refs.cityCascader.flatOptions[0];
+                let allName = "";
+                if(arr.length==2){
+                    arr.forEach((item,index)=>{
+                        let {label:name} = item;
+                        if(index==arr.length-1){
+                            allName = allName + name
+                        }else{
+                            allName = allName + name + "/"
+                        }
+                    });
+                    return allName;
+                };
+            }
         },
         // 在当前模块注册组件
         components:{
