@@ -22,15 +22,9 @@
                                 />
                         </g-form-item>
                         <g-form-item
-                            :errorText="errors.first('tel')"
-                            :errorShow="errors.has('tel')"
-                            title="手机号"
+                            title="已验证手机号"
                             >
-                            <input placeholder="请输入您的手机号"
-                                class="u-ipt" 
-                                v-model="telephone"
-                                type="text" 
-                                />
+                            <div class="u-txt">{{memberData.tel | telFormat}}</div>
                         </g-form-item>
                         <g-form-item
                             :errorText="errors.first('imgCode')"
@@ -110,6 +104,13 @@
     import * as SYSTEM from 'api/system.js'
     // vuex状态管理
     import {mapActions} from 'vuex'
+    // 工具类
+    import {dataToJson} from "assets/js/util.js"
+    // dom操作类
+    import * as geekDom from 'assets/js/dom.js'
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
+
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
     // 引入会员中心 表单组件
@@ -138,6 +139,9 @@
         // 数据
         data() {
             return{
+                // 用户数据
+                memberData: {},
+
                 newPass: '',
                 telephone: '',
                 imgCode: '',
@@ -156,7 +160,6 @@
             
             this.validator = new Validator({
                 newPass: 'required|alpha_dash|min:6|max:22',
-                tel: 'required|mobile',
                 imgCode: 'required|min:4|max:4',
                 smsCode: 'required|min:4|max:4',
             });
@@ -164,12 +167,14 @@
             
         },
         activated(){
-            this.errors.clear();
-            
+            // 重置
+            this.reset();
+            // 获取用户信息
+            this.getMemberInfo();
         },
         //退出的生命周期钩子
         deactivated(){
-            this.errors.clear();
+
         },
         //数据侦听
         watch:{
@@ -189,53 +194,60 @@
         // 自定义函数(方法)
         methods: {
             ...mapActions(['setSignOut']),
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+
+            // 获取用户信息
+            getMemberInfo(){
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
+
             // 获取图形验证码
             getImgCode(){
                 this.timestamp = (+new Date()).valueOf();
             },
             // 获取验证码
             getCode(){
-                if(this.telephone==""||this.errors.first('tel')){
-                    this.errors.remove('tel');
-                    this.errors.add('tel', "请正确输入您的手机号", 'auth');
-                }else{
-                    if(this.imgCode==""||this.errors.first('imgCode')){
-                        this.errors.remove('imgCode');
-                        this.errors.add('imgCode', "请输入图形验证码", 'auth');
-                        return;
-                    }
-                    //验证手机号是否已被注册
-                    this.verifyPhone(this.telephone,(res)=>{
 
-                        if(res){    // 已注册（平台已有）
-                            
-                            // 获取短信验证码
-                            this.getSMSCode('text',(state,msg)=>{
-
-                                if(state){ //成功
-
-                                    this.waitSeconds = MAX_WAIT_SECONDS;
-                                    this.myInterval = setInterval(() => {
-                                        this.waitSeconds--;
-                                        if(this.waitSeconds==0){
-                                            clearInterval(this.myInterval)
-                                        }
-                                    },1000);
-
-                                }else{  //失败
-                                    this.errors.remove('imgCode');
-                                    this.errors.add('imgCode', msg, 'auth');
-                                }
-                            });
-
-                        }else{      // 未注册（平台没有）
-                            this.errors.remove('tel');
-                            this.errors.add('tel', "此手机号未被注册", 'auth');
-                        }
-                        
-                    })
-                    
+                if(this.imgCode==""||this.errors.first('imgCode')){
+                    this.errors.remove('imgCode');
+                    this.errors.add('imgCode', "请输入图形验证码", 'auth');
+                    return;
                 }
+ 
+                // 获取短信验证码
+                this.getSMSCode('text',(state,msg)=>{
+
+                    if(state){ //成功
+
+                        this.waitSeconds = MAX_WAIT_SECONDS;
+                        this.myInterval = setInterval(() => {
+                            this.waitSeconds--;
+                            if(this.waitSeconds==0){
+                                clearInterval(this.myInterval)
+                            }
+                        },1000);
+
+                    }else{  //失败
+                        this.errors.remove('imgCode');
+                        this.errors.add('imgCode', msg, 'auth');
+                    }
+                });
+                    
             },
             // 验证手机号是否重复
             verifyPhone(mobile,callBack){
@@ -257,7 +269,7 @@
             // 向后台获取短信验证码，发送到用户手机上
             getSMSCode(type,callBack){
                 let data = {
-                    Mobile: this.telephone,
+                    Mobile: this.memberData.tel,
                     ImgCode: this.imgCode,
                     CodeType: type||'text',
                 }
@@ -278,13 +290,12 @@
                 let me = this;
                 this.validator.validateAll({
                     newPass: this.newPass,
-                    tel: this.telephone,
                     imgCode: this.imgCode,
                     smsCode: this.smsCode,
                 }).then(() => {
                     // 密码修改的数据
                     let data = {
-                        Mobile: me.telephone,
+                        Mobile: me.memberData.tel,
                         SMSCode: me.smsCode,
                         NewPwd: me.newPass
                     }
@@ -317,14 +328,12 @@
             // 重置（清空）
             reset(){
                 this.newPass = "";
-                this.telephone = "";
                 this.imgCode = "";
                 this.smsCode = "";
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 setTimeout(() => {
                     this.errors.clear();
                 })
-                
             }
         },
 

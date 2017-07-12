@@ -11,15 +11,9 @@
                 <div class="m-form-wrap">
                     <g-form>
                         <g-form-item
-                            :errorText="errors.first('oldTel')"
-                            :errorShow="errors.has('oldTel')"
                             title="原手机号"
                             >
-                            <input placeholder="请输入您上次绑定的手机号"
-                                class="u-ipt" 
-                                v-model="oldTelephone"
-                                type="text" 
-                                />
+                            <div class="u-txt">{{memberData.tel | telFormat}}</div>
                         </g-form-item>
                         <g-form-item
                             :errorText="errors.first('oldImgCode')"
@@ -157,6 +151,13 @@
     import * as SYSTEM from 'api/system.js'
     // vuex状态管理
     import {mapActions} from 'vuex'
+    // 工具类
+    import {dataToJson} from "assets/js/util.js"
+    // dom操作类
+    import * as geekDom from 'assets/js/dom.js'
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
+
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue' 
     // 引入会员中心 表单组件
@@ -184,6 +185,9 @@
         // 数据
         data() {
             return{
+                // 用户数据
+                memberData: {},
+
                 oldTelephone: '',
                 oldImgCode: '',
                 oldCode: '',
@@ -219,11 +223,14 @@
             
         },
         activated(){
-            this.errors.clear();
+            // 数据重置
+            this.reset();
+            // 获取用户信息
+            this.getMemberInfo();
         },
         //退出的生命周期钩子
         deactivated(){
-            this.errors.clear();
+
         },
         //数据侦听
         watch:{
@@ -248,6 +255,29 @@
         },
         // 自定义函数(方法)
         methods: {
+
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+
+            // 获取用户信息
+            getMemberInfo(){
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
+
             // 获取图形验证码(对应旧手机号)
             getOldImgCode(){
                 this.oldTimestamp = (+new Date()).valueOf();
@@ -259,51 +289,37 @@
             
             // (旧手机号)获取短信验证码
             getOldCode(){
-                if(this.oldTelephone==""||this.errors.first('oldTel')){
-                    this.errors.remove('oldTel');
-                    this.errors.add('oldTel', "请正确输入您的原手机号", 'auth');
-                }else{
-                    if(this.oldImgCode==""||this.errors.first('oldImgCode')){
-                        this.errors.remove('oldImgCode');
-                        this.errors.add('oldImgCode', "请输入(旧)图形验证码", 'auth');
-                        return;
-                    }
-                    //验证手机号是否已被注册
-                    this.verifyPhone(this.oldTelephone,(res)=>{
 
-                        if(res){    // 已注册（平台已有）
-                            let data = {
-                                telephone: this.oldTelephone,
-                                imgCode: this.oldImgCode,
-                                type: 'text'
-                            }
-                            // 获取短信验证码
-                            this.getSMSCode(data,(state,msg)=>{
-
-                                if(state){ //成功
-
-                                    this.oldWaitSeconds = MAX_WAIT_SECONDS;
-                                    this.oldInterval = setInterval(() => {
-                                        this.oldWaitSeconds--;
-                                        if(this.oldWaitSeconds==0){
-                                            clearInterval(this.oldInterval)
-                                        }
-                                    },1000);
-
-                                }else{  //失败
-                                    this.errors.remove('oldImgCode');
-                                    this.errors.add('oldImgCode', msg, 'auth');
-                                }
-                            });
-
-                        }else{      // 未注册（平台没有）
-                            this.errors.remove('oldTel');
-                            this.errors.add('oldTel', "此手机号未被注册", 'auth');
-                        }
-                        
-                    })
-                    
+                if(this.oldImgCode==""||this.errors.first('oldImgCode')){
+                    this.errors.remove('oldImgCode');
+                    this.errors.add('oldImgCode', "请输入(旧)图形验证码", 'auth');
+                    return;
                 }
+
+                let data = {
+                    telephone: this.memberData.tel,
+                    imgCode: this.oldImgCode,
+                    type: 'text'
+                }
+                // 获取短信验证码
+                this.getSMSCode(data,(state,msg)=>{
+
+                    if(state){ //成功
+
+                        this.oldWaitSeconds = MAX_WAIT_SECONDS;
+                        this.oldInterval = setInterval(() => {
+                            this.oldWaitSeconds--;
+                            if(this.oldWaitSeconds==0){
+                                clearInterval(this.oldInterval)
+                            }
+                        },1000);
+
+                    }else{  //失败
+                        this.errors.remove('oldImgCode');
+                        this.errors.add('oldImgCode', msg, 'auth');
+                    }
+                });
+                    
             },
 
             // (新手机号)获取短信验证码
@@ -402,7 +418,6 @@
             onSubmit(){
                 let me = this;
                 this.validator.validateAll({
-                    oldTel: this.oldTelephone,
                     oldImgCode: this.oldImgCode,
                     oldCode: this.oldCode,
                     newTel: this.newTelephone,
@@ -411,7 +426,7 @@
                 }).then(() => {
                     // 密码修改的数据
                     let data = {
-                        OldMobile: me.oldTelephone,
+                        OldMobile: me.memberData.tel,
                         OldMobileCode: me.oldCode,
                         NewMobile: me.newTelephone,
                         NewMobileCode: me.newCode,
@@ -430,7 +445,7 @@
                             title: '更改手机绑定成功',
                             message: res.msg,
                             type: 'success',
-                            duration: 1500,
+                            duration: 2000,
                         });
                         this.reset();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
@@ -438,7 +453,7 @@
                             title: '更改手机绑定失败',
                             message: res.msg,
                             type: 'error',
-                            duration: 2500,
+                            duration: 2000,
                         });
                     }
                 });

@@ -172,6 +172,8 @@
             
         },
         activated(){
+            
+            // 重置
             this.reset();
             // 获取用户信息
             this.getMemberInfo();

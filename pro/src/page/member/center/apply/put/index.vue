@@ -139,7 +139,17 @@
                                 <div class="m-tb-con"
                                     v-if="tabShowIndex==2">
                                     <div class="u-upload-wrap">
-                                        
+                                        <div class="box-inner">
+                                            <div class="">
+                                                
+                                            </div><!-- 上传身份证正面照 -->
+                                            <div class="">
+                                                
+                                            </div><!-- 上传身份证反面照 -->
+                                            <div class="">
+                                                
+                                            </div><!-- 上传营业执照容器盒子 -->
+                                        </div><!-- 盒子内容 -->
                                     </div><!-- 上传容器 -->
                                 </div>
 
