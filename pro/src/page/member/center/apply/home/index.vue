@@ -65,6 +65,8 @@
     import {dataToJson} from "assets/js/util.js"
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
+    // vuex状态管理
+    import {mapGetters} from 'vuex'
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
 
@@ -113,6 +115,8 @@
         },
         // 属性值计算
         computed:{
+            // vuex 状态字段
+            ...mapGetters(['loginStatus']),
             // 开通认证按钮的显示文本
             btnText(){
                 let txt = "";
@@ -180,7 +184,13 @@
         },
         // 数据侦听
         watch:{
-
+            // 退出登录时，清除数据
+            loginStatus(val){
+                if(!val){
+                    // 数据重置
+                    this.reset();
+                }
+            },
         },
         // 自定义函数(方法)
         methods: {
@@ -260,6 +270,18 @@
             // 进入认证，查看认证等
             enterApply(){
                 
+            }, 
+            
+            // 数据重置
+            reset(){
+                this.memberData= {};
+                this.isApplyStart= false;
+                this.authId= "";
+                this.authApply= "";
+                this.authStatus= "";
+                this.hasApplySuccess= false;
+                this.hasApplyCount= 0;
+                this.isShowMerchant= false;
             },
         },
         

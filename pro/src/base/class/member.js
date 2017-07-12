@@ -14,17 +14,36 @@ class sidebarMember{
 	    this.tel = data.Mobile||""
 	    // 认证状态
 	    this.auth = "未认证"
+	    
 	    //如果未认证，那么身份标识为未认证
-        if(data.CdgAuth&&data.CdgAuth.length>0){
-        	if(data.CdgAuth.length==2){
-                this.auth = "企业车行" 
+	    if(data.CdgAuth&&data.CdgAuth.length>0){
+	    	let arr = data.CdgAuth;
+	    	if(arr.length==2){
+	    		arr.forEach((item,index)=>{
+                    // 有认证成功，不管是车行还是个人认证
+                    if(arr[index].AuthInfo.AuthType=='企业车行'){
+                        if(arr[index].AuthInfo.AuthStatus==1){
+                            this.auth = "企业车行";
+                        }else{
+                        	this.auth = "个人车行";
+                        }
+                    }
+                })
                 return;
         	}
-        	if(data.CdgAuth[0].CdgInfo.AuthType){
-        		this.auth = data.CdgAuth[0].CdgInfo.AuthType;
+        	if(arr.length==1){
+                // 有认证成功，不管是车行还是个人认证
+                if(arr[0].AuthInfo.AuthStatus==1){
+                    this.auth = "个人车行";
+                }else if(arr[0].AuthInfo.AuthStatus==0){
+                	this.auth = "认证中";
+                }else{
+                	this.auth = "未认证";
+                }
+                return;
         	}
-        }
-	    
+	    }
+
 	}
 }
 
