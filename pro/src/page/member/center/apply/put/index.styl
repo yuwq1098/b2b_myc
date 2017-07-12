@@ -1,1 +1,70 @@
 @import '~assets/css/mixin.styl'
+
+.m-apply-wrap
+    width 520px
+    min-height 280px
+    padding 40px 0 40px 180px
+    _unUserSelect()
+    .m-box-inner
+        min-height 300px
+        .m-flow-hd
+            height 80px
+            background #fff
+            .u-flow-box
+                height @height
+                position relative
+                .u-progress-wrap
+                    height 6px
+                    width @width
+                    background #c2c2c2
+                    _completeCenter(,,25px,auto)
+                    _borderRadius(3px)
+                    z-index 1
+                    _overflow()
+                    .progress-bar
+                        width 0
+                        height 100%
+                        background #2f98e2
+                        _transitionAll(.28s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
+                    &.flow1
+                        .progress-bar
+                            width 34%
+                    &.flow2
+                        .progress-bar
+                            width 66%
+                    &.flow3
+                        .progress-bar
+                            width 100%
+                .u-part
+                    height 80px
+                    width 100px
+                    z-index 2
+                    &.v1
+                        _completeCenter(40px,auto)
+                    &.v2
+                        _completeCenter(0,0)
+                    &.v3
+                        _completeCenter(auto,40px)
+                    .part-no
+                        width 54px
+                        text-align center
+                        height 54px
+                        line-height 54px
+                        background #c2c2c2
+                        _borderRadius()
+                        font-size 18px
+                        color #f2f2f2
+                        _completeCenter(,,0,auto)
+                    .txt
+                        padding 60px 0 0
+                        height 20px
+                        line-height 20px
+                        text-align center 
+                        font-size 13px
+                        color #a5a5a5
+                        _spacingPlus()
+                    &.on
+                        .part-no
+                            background #2f98e2
+                        .txt
+                            color #2f98e2

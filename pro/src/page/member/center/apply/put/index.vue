@@ -8,7 +8,34 @@
                 
                 <member-inner>
                     <div class="m-apply-wrap">
-                        认证资料提交
+
+                        <div class="m-box-inner">
+                            <div class="m-flow-hd">
+                                <div class="u-flow-box">
+                                    <div class="u-progress-wrap"
+                                        :class="'flow'+tabShowIndex">
+                                        <div class="progress-bar"></div>
+                                    </div><!-- 进度条 -->
+
+                                    <div class="u-part v1" 
+                                        :class="{'on':tabShowIndex>=1}">
+                                        <div class="part-no">1</div>
+                                        <div class="txt">验证身份</div>
+                                    </div>
+                                    <div class="u-part v2"
+                                        :class="{'on':tabShowIndex>=2}">
+                                        <div class="part-no">2</div>
+                                        <div class="txt">修改支付密码</div>
+                                    </div>
+                                    <div class="u-part v3"
+                                        :class="{'on':tabShowIndex==3}">
+                                        <div class="part-no">3</div>
+                                        <div class="txt">完成</div>
+                                    </div>
+                                </div>
+                            </div><!-- 流程进度 -->
+                        </div>
+
                     </div><!-- 认证容器 -->
                 </member-inner>
 
@@ -46,7 +73,8 @@
         // 数据
         data() {
             return{
-                
+                // 选项卡显示
+                tabShowIndex: "",
             }
         },
         //生命周期,开始的时候
@@ -57,7 +85,7 @@
 
         },
         activated(){
-
+            this.tabShowIndex = 3;
         },
         // 退出的生命周期钩子
         deactivated(){

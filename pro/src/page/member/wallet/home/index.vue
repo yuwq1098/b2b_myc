@@ -256,14 +256,6 @@
         },
         // 数据侦听
         watch:{
-            userData:{
-                handler(curVal,oldVal){
-                    if(curVal!={}){
-                        this.getMemberInfo();
-                    }
-                },
-                deep:true
-            },
             // 排序规则切换
             sortType(val){
                 // 刷新数据

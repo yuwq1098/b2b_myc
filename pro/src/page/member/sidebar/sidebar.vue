@@ -44,8 +44,12 @@
 
 <script>
     
-    // vuex状态管理
-    import {mapGetters,mapActions} from 'vuex'
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
+    // 工具类
+    import {dataToJson} from "assets/js/util.js"
     // 会员中心侧边栏用户信息构造类
     import {sidebarMember} from "base/class/member.js"
     //本地的会员中心侧导航信息
@@ -71,7 +75,8 @@
         },
         // 切换回本组件时
         activated() {
-            this.memberInfo = new sidebarMember(this.userData);
+            // 获取用户信息
+            this.getMemberInfo();
         },
         //退出的生命周期钩子
         deactivated(){
@@ -79,21 +84,34 @@
         },
         // 属性计算
         computed:{
-            // vuex扩展运算
-            ...mapGetters(['loginStatus','userData']),
         },
         //数据侦听
         watch:{
-            //侦听vuex的userData数据变化
-            userData(val){
-                if(val){
-                    this.memberInfo = new sidebarMember(val);
-                }
-            }
+
         },
         // 自定义函数(方法)
         methods: {
-            
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new sidebarMember(data);
+            },
+            // 获取用户信息
+            getMemberInfo(){
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        // 格式化用户信息
+                        this.memberInfo = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
         },
 	}
 </script>

@@ -4,7 +4,6 @@
         <!-- 会员中心内容布局组件 -->
         <member-layout
             title="安全中心"
-            :isSafety="true"
             >
             <div slot="content">
                 <member-inner>
