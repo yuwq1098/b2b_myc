@@ -3,7 +3,9 @@
         <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
-                    <gk-bread-crumb></gk-bread-crumb><!-- 面包屑组件 -->
+                    <gk-bread-crumb
+                        :crumbItems="crumbItems"
+                        ></gk-bread-crumb><!-- 面包屑组件 -->
                     <div class="m-merchant-box">
                         <div class="m-merchant-hd">
 
@@ -131,6 +133,9 @@
     import * as SYSTEM from 'api/system.js'
     // 工具类
     import {dataToJson} from "assets/js/util.js"
+    // 网站外层面包屑列表本地化资源
+    import {crumbsInfo} from "api/localJson/homeCrumb.js"
+
     // 车行信息的构造类
     import {merchantInfo} from 'base/class/merchantInfo.js'
     // 车行车辆信息的构造类
@@ -163,6 +168,7 @@
         // 数据
         data() {
             return{
+
                 // 车行（或卖家）ID
                 merchantId: "",
                 // 车行数据
@@ -236,6 +242,12 @@
             slidePage(){
                 let page = Math.ceil(this.merchantCarList.length/8);
                 return page; 
+            },
+            // 面包屑列表信息
+            crumbItems(){
+                if(this.merchantData){
+                    return crumbsInfo['merchantInfoDetails'](this.merchantData.name)
+                }
             },
 
         },
@@ -388,7 +400,7 @@
 
 <!-- 修改外部插件（组件）的样式时，不要加scoped，最好文件分成两个 -->
 <style lang="stylus" rel="stylesheet/stylus">
-    @import './swiper.styl'
+    @import 'swiper.styl'
 </style>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->

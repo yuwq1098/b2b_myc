@@ -9,7 +9,19 @@
                     
                     <div class="m-sch-wrap f__clearfix">
                         <div class="m-sch f__fr">
-                            <input class="u-sch-ipt" type="text" placeholder="请输入关键词，如宝马X3" />
+                            <div class="m-srh-result-box" v-show="isShowSchResultBox" ref="schResultBox">
+                                <srh-result-box
+                                    :selectList="srhResultList"
+                                    >
+                                </srh-result-box>
+                            </div><!-- 查询结果列表盒子 -->
+
+                            <input class="u-sch-ipt" type="text" 
+                                placeholder="请输入关键词，如宝马X3"
+                                @input="theSearchInput"
+                                v-model="theSearchInputVal"
+                                ref="theSearchInputBox"
+                                />
                             <button class="u-sch-btn">
                                 <i class="iconfont icon-search"></i>
                             </button>
@@ -374,6 +386,8 @@
     import {filterShowData,filterDataClass,searchFilterClass} from "base/class/b2bFilter.js"
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
+    // 搜索车辆结果的构造类
+    import {searchCarResult} from "base/class/searchResult.js"
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 更多车品牌组件
@@ -384,6 +398,9 @@
     import {b2bCarInfo} from "base/class/carInfo.js"
     // b2b车辆信息列表盒子
     import b2bCarListBox from "components/boxLayout/b2bCarListBox.vue"
+    
+    // 搜索结果盒子
+    import srhResultBox from "components/common/srhResultBox.vue"
 
 
     //本地的过滤筛选数据
@@ -391,6 +408,8 @@
 
     //每页显示八条
     const RESULE_PAGE_SIZE = 8
+    //搜索延迟
+    const SEARCH_DELAY = 150
     
     export default {
         name: "buy-car-list",
@@ -400,6 +419,7 @@
             brandMoreBox,
             seriesMoreBox,
             b2bCarListBox,
+            srhResultBox,
         },
         // 数据
         data() {
@@ -407,6 +427,15 @@
                 
                 // 面包屑列表信息
                 crumbItems: crumbsInfo['b2bHall'],
+                
+                isShowSchResultBox: false,       // 是否显示查询结果列表
+
+                // 搜索框的绑定值
+                theSearchInputVal: "",
+                //用户缓暂搜索值的集合，当用户清空时，也同时清空
+                srhValItems : [],
+                srhResultList: [],               // 搜索结果列表
+                isOkSearch: true,                // 是否允许用户触发搜索
                 
                 // 用户信息
                 memberData: null,
@@ -529,6 +558,38 @@
         },
         //数据侦听
         watch:{
+            
+            //侦听用户搜索的值，当其为空时，清空搜索结果集
+            theSearchInputVal(val){
+                if(val==""){
+                    this.srhValItems = [];
+                    this.srhResultList = [];
+                }
+            },
+
+            //搜索结果列表
+            srhResultList(val){
+                this.isShowSchResultBox = val.length<=0 ? false : true;
+            },
+
+            // 侦听结果框显示的状态
+            isShowSchResultBox(val){
+                let [schResultBox,theSearchInputBox] = [
+                    this.$refs.schResultBox,
+                    this.$refs.theSearchInputBox
+                ]
+                if(val){
+                    this._searchCancelBubble();
+                }else{
+                    //清空首页的 文档点击事件
+                    document.onclick = null;
+                    schResultBox.onclick = null;
+                    theSearchInputBox.onclick = null;
+                }
+            },
+
+            
+
             //限制用户输入最小价格（只能输入后两位小数点的数字）
             minPriceIptVal(val){
                 this.minPriceIptVal = geekDom.valReplace(val,2);
@@ -568,7 +629,6 @@
                     }
                 },20)
                 
-                
             },
 
             // 侦听路由变化
@@ -584,6 +644,61 @@
             
             //vuex的actions
             ...mapActions(["setUserFilterData",'setSearchFilterList']),
+
+            //通过用户输入获取对应信息
+            theSearchInput(){
+                if(this.theSearchInputVal=="") return;
+                this.srhValItems.push(this.theSearchInputVal);
+
+                //如果没有过延缓搜索规定的时间，那么久延迟搜索
+                if(!this.isOkSearch) return;
+
+                //获取用户最后一次输入的值
+                let lastSrhVal = this.srhValItems[this.srhValItems.length-1];
+                let data = {
+                    "PageSize": 20,
+                    "PageIndex": 1,
+                    "LikeKey": lastSrhVal,
+                }
+                api.getB2BCarList(data).then((res) => {
+                    this.srhResultList = this._normalizeSearchCarResult(res.data)
+                })
+                setTimeout(() => {
+                    this.isOkSearch = true;
+                    if(this.theSearchInputVal=="") return;
+                    api.getB2BCarList(data).then((res) => {
+                        this.srhResultList = this._normalizeSearchCarResult(res.data)
+                    })
+                },SEARCH_DELAY)
+                if(this.isOkSearch) this.isOkSearch = false;
+
+            },
+
+            //使用b2c抽象类完成carResult
+            _normalizeSearchCarResult(list){
+                let carResultList = [];
+                list.forEach((item) => {
+                    carResultList.push(new searchCarResult(item))
+                });
+                return carResultList;
+            },
+
+            //处理事件冒泡
+            _searchCancelBubble(){
+                let me = this;
+                let [schResultBox,theSearchInputBox] = [
+                    this.$refs.schResultBox,
+                    this.$refs.theSearchInputBox
+                ]
+                // 事件冒泡
+                geekDom.cancelBubbleTwo(
+                    schResultBox,
+                    theSearchInputBox,
+                    function(){
+                        me.theSearchInputVal = "";
+                    }
+                );
+            },
 
             // 格式化用户信息
             _normalizeMember(data) {

@@ -10,7 +10,9 @@
                 type="date"
                 :placeholder="placeholder"
                 style="width:100%"
-                :picker-options="pickerOptions">
+                :picker-options="pickerOptions"
+                ref="datePicke"
+                >
             </el-date-picker>
         </div>
     </div>

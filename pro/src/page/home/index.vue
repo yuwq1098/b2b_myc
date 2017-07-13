@@ -141,8 +141,8 @@
     // b2b车辆信息列表盒子
     import b2bCarListBox from "components/boxLayout/b2bCarListBox.vue"
     
-    //搜索延迟,300ms
-    const SEARCH_DELAY = 500
+    //搜索延迟,150ms
+    const SEARCH_DELAY = 150
 
     export default {
         name: 'home',
@@ -328,10 +328,7 @@
 
                 this.srhValItems.push(this.allSearchInputVal);
                 //如果没有过延缓搜索规定的时间，那么久延迟搜索
-                if(!this.isOkSearch){
-                    console.log("不能触发搜索了");
-                    return;
-                }
+                if(!this.isOkSearch) return;
                 //获取用户最后一次输入的值
                 let lastSrhVal = this.srhValItems[this.srhValItems.length-1];
                 let data = {

@@ -60,5 +60,17 @@ export const crumbsInfo = {
             title:'发布新车',
             path:'',
         },
-    ]
+    ],
+    'merchantInfoDetails':function(name){
+        return [
+            {
+                title:'首页',
+                path:'/',
+            },
+            {
+                title:name,
+                path:'',
+            },
+        ]
+    },
 }

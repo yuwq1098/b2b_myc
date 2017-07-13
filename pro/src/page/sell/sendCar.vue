@@ -89,6 +89,25 @@
                                             <el-col :span="8">
                                                 <div class="m-item">
                                                     <gk-input-error
+                                                        title="出厂日期"
+                                                        :errorTetx="sendError.first('outFactoryDate')"
+                                                        :isShow="sendError.has('outFactoryDate')"
+                                                        >
+                                                    </gk-input-error>
+                                                    <input type="hidden" name="outFactoryDate" v-model="form.outFactoryDate"/>
+                                                    <div class="u-item-box">
+                                                        <date-picke
+                                                            @dateChangeEnd="outFactoryDateEnd"
+                                                            :disabledPrevYear="30"
+                                                            placeholder="请选择出厂日期"
+                                                            >
+                                                        </date-picke>
+                                                    </div>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <div class="m-item">
+                                                    <gk-input-error
                                                         title="上牌时间"
                                                         :errorTetx="sendError.first('plateDate')"
                                                         :isShow="sendError.has('plateDate')"
@@ -104,6 +123,11 @@
                                                     </div>
                                                 </div>
                                             </el-col>
+                                        </el-row>
+                                    </div>
+
+                                    <div class="m-gp-wrap f__clearfix">
+                                        <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
                                                 <div class="m-item">
                                                     <gk-input-error
@@ -119,29 +143,6 @@
                                                             :options="selectData.changeNumList"
                                                             >
                                                         </gk-select>
-                                                    </div>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-
-                                    <div class="m-gp-wrap f__clearfix">
-                                        <el-row :gutter="formStyleData.gutter">
-                                            <el-col :span="8">
-                                                <div class="m-item">
-                                                    <gk-input-error
-                                                        title="出厂日期"
-                                                        :errorTetx="sendError.first('outFactoryDate')"
-                                                        :isShow="sendError.has('outFactoryDate')"
-                                                        >
-                                                    </gk-input-error>
-                                                    <div class="u-item-box">
-                                                        <date-picke
-                                                            @dateChangeEnd="outFactoryDateEnd"
-                                                            :disabledPrevYear="30"
-                                                            placeholder="请选择出厂日期"
-                                                            >
-                                                        </date-picke>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -423,6 +424,8 @@
     import * as SYSTEM from 'api/system.js'
     // dom操作方法
     import * as geekDom from "assets/js/dom.js"
+    // vin验证匹配
+    import {getCheckCode} from "assets/js/verifyVIN.js"
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
     // 发布订单的向后端请求的构造类
@@ -516,7 +519,7 @@
                     changeNum: "",          // 过户次数
                     outFactoryDate: "",     // 出厂日期
                     fixedPrice: "",         // 一口价/最低价   对应api字段 => B2BPrice
-                    retailPrice: "",             // 零售价   对应api字段 => RetailPrice
+                    retailPrice: "",        // 零售价   对应api字段 => RetailPrice
                     mileage: "",            // 行驶里程
                     dischargeStandard: "",  // 排放标准
                     liter: "",              // 排量
@@ -559,9 +562,9 @@
                 carInCity: 'required',
                 selectedModel: 'required',
                 plateInCity: 'required',
-                plateDate: 'required',
+                outFactoryDate: 'required|date_format:YYYY-MM-DD',
+                plateDate: 'required|date_format:YYYY-MM-DD|after:outFactoryDate,true',
                 changeNum: 'required',
-                outFactoryDate: 'required',
                 fixedPrice: 'required|between:1,3000|decimal:2',
                 retailPrice: 'required|between:1,3000|decimal:2',
                 mileage: 'required|between:0,200|decimal:2',
@@ -585,7 +588,7 @@
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-            
+
         },
 
         //退出的生命周期钩子
@@ -744,6 +747,12 @@
                     this.issue();
 
                 }).catch(() => {
+                    this.$notify.error({
+                        title: '填写不完整',
+                        message: '请认真填写完所有车辆信息',
+                        type: 'error',
+                        duration: 2000,
+                    });
                     document.body.scrollTop = 500
                 });
 
@@ -762,6 +771,7 @@
                             me.$notify.error({
                                 title: '发布失败',
                                 message: res.msg,
+                                type: 'success',
                                 duration: 2000,
                             });
                             setTimeout(() => {
