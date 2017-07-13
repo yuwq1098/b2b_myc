@@ -107,7 +107,7 @@
                                     <ul class="m-lk-list c__clearfix" id="js__price_list">
                                         <li class="u-item" 
                                             :class="{'on':!curPriceVal&&!userFilterData.price}"  
-                                            @click.stop="priceFilter($event.target,'','','')"
+                                            @click.stop="priceFilter($event.target,-1,-1,-1)"
                                             >
                                             <a href="javascript:;" class="u-lk">不限</a>
                                         </li>
@@ -783,18 +783,12 @@
 
             //价格切换
             priceFilter(e,min,max,value){
+                // 清除用户自定义的价格
+                [this.minPriceIptVal,this.maxPriceIptVal] = ["",""];
+                
                 var js__price_list = $("#js__price_list");
                 js__price_list.find(">.u-item").removeClass("on");
                 $(e).parent(".u-item").addClass("on");
-
-                if(value==""){
-                    // 设置展示给界面  用户所选条件集合中 价格的lable
-                    this.userFilterData.price = value; 
-                    // 设置真实向api请求的字段 价格区间
-                    this.searchFilterList.B2BPriceFrom = min||'';
-                    this.searchFilterList.B2BPriceTo = max||''; 
-                    return;
-                }
 
                 // 设置展示给界面  用户所选条件集合中 价格的lable
                 this.userFilterData.price = value; 
@@ -1049,7 +1043,10 @@
                     data.MemberId = this.memberData.id;
                 }*/
                 if(data.CarBrandId==-1) data.CarBrandId = ""; 
-                if(data.B2BPriceFrom==-1) data.B2BPriceFrom = ""; 
+                if(data.B2BPriceFrom==-1) {
+                    data.B2BPriceFrom = ""; 
+                    data.B2BPriceTo = "";  
+                }
                 if(data.CarSeriesId==-1) data.CarSeriesId = ""; 
                 
                 // if(data.PageIndex==1){
