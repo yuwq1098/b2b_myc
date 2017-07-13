@@ -44,7 +44,12 @@
                                 <i class="iconfont icon-jinggao1"></i>{{errors.first('passOne')}}</p>
                         </div><!-- 错误验证 -->
                 	    <div class="u-ipt-box">
-                		    <input class="u-ipt" v-model="passOne" auto-complete="off" name="password" type="password" placeholder="由6~22位数字、字母的组合" />
+                		    <input class="u-ipt" 
+                                v-model="passOne"
+                                @focus="verifyName()"
+                                @keyup.13="onSubmitOne"
+                                auto-complete="off" name="password" 
+                                type="password" placeholder="由6~22位数字、字母的组合" />
                 		</div>
                 	</div>
                 	<div class="m-gp-line m-btn-oper">
@@ -220,6 +225,12 @@
             goForget(){
                 this.$emit('openForget');
             },
+            
+            // 当密码框获取焦点时，验证账户的正误
+            verifyName(){
+                this.errors.remove('nameOne');
+                this.validator.validate('nameOne',this.nameOne);
+            },
 
 
             //登录表单提交(普通登录)
@@ -260,7 +271,7 @@
                             this.resetOne();
 
                         }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                            this.resetOne();
+                            this.resetOne_notName();
                             setTimeout(() => {
                                 this.errors.remove('nameOne');
                                 this.errors.add('nameOne', res.msg, 'auth');
@@ -276,6 +287,15 @@
             //重置普通登录表单数据
             resetOne(){
                 this.nameOne = "";
+                this.passOne = "";
+                // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
+                setTimeout(() => {
+                    this.errors.clear();
+                })
+            },
+
+            //重置普通登录表单数据(不清除用户名)
+            resetOne_notName(){
                 this.passOne = "";
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 setTimeout(() => {

@@ -14,7 +14,7 @@
                 </section><!-- 1200px布局 -->
                 <div class="m-send-con">
                     <div class="m-banner-box">
-                        <img :src="bannerInfo.imgUrl" :alt="bannerInfo.title"/>
+                        <!-- <img :src="bannerInfo.imgUrl" :alt="bannerInfo.title"/> -->
                     </div><!-- 填写表单的小广告图 -->
                     <section class="f__w1200">
                         <div class="m-bill-wrap">
