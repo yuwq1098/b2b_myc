@@ -274,18 +274,6 @@
                 }
             },
 
-            // 登录状态改变
-            loginStatus(val){
-                if(val){
-                    // 获取用户信息
-                    this.getMemberInfo();
-                }else{
-                    this.memberData = null;
-                }
-                // 重新渲染页面
-                this.carListResultRender();
-            },
-
         },
         methods:{
 

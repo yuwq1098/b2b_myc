@@ -561,9 +561,23 @@
                 }else{
                     this.memberData = null;
                 }
-                // 重新渲染页面
-                this.carListResultRender();
+                setTimeout(() => {
+                    if(this.$router.currentRoute.path=="/b2bHall"){
+                        // 重新渲染页面
+                        this.carListResultRender();
+                    }
+                },20)
+                
+                
             },
+
+            // 侦听路由变化
+            $route (to, from) {
+                if(to.path!=from.path){
+                    this.$destroy();
+                }
+            },
+
         },
         // 自定义函数(方法)
         methods: {
