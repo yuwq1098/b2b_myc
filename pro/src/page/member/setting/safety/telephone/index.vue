@@ -32,7 +32,7 @@
                                     @click="getOldImgCode()"
                                     >
                                     <img class="u-pic" 
-                                        :src="'http://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+oldTimestamp"/>
+                                        :src="'https://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+oldTimestamp"/>
                                 </a>
                             </div>
                             
@@ -92,7 +92,7 @@
                                     @click="getNewImgCode()"
                                     >
                                     <img class="u-pic" 
-                                        :src="'http://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+newTimestamp"/>
+                                        :src="'https://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+newTimestamp"/>
                                 </a>
                             </div>
                             

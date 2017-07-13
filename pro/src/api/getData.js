@@ -208,11 +208,11 @@ export default {
 
 
     // 获取图形验证码
-    getImgRandomCode(){
-        let timestamp = (+new Date()).valueOf();
-        let url = '/action2/ImgRandomCode.ashx'+'?FS=18&a='+timestamp;
-        return get(url)
-    },
+    // getImgRandomCode(){
+    //     let timestamp = (+new Date()).valueOf();
+    //     let url = '/action2/ImgRandomCode.ashx'+'?FS=18&a='+timestamp;
+    //     return get(url)
+    // },
 
     // 获取手机验证码(语音或者短信)
     getSMSCode(params){
