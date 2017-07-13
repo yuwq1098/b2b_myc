@@ -157,7 +157,7 @@
                                             </template>
                                             
                                         </div> --><!-- 关注 -->
-                                        <div class="u-adss"><span class="tit">车行地址</span>{{otherInfo.address}}</div><!-- 地址 -->
+                                        <div class="u-adss"><span class="tit">车行地址</span>{{otherInfo.address | addressFormat}}</div><!-- 地址 -->
                                         
                                         
                                     </div><!-- 头部 -->
@@ -192,36 +192,38 @@
                         </div>
                     </div><!-- 购车流程 -->
                     
-                    <div class="m-remd">
-                        <div class="m-box-hd">
-                            <div class="u-adorn"></div><!-- 装饰物 -->
+                    <div class="m-remd" v-show="similarList&&similarList.length>0">
+                        <!-- <div class="m-box-hd">
+                            <div class="u-adorn"></div>装饰物
+                            <h3 class="u-tit">相似推荐</h3>
+                        </div> -->
+                        <div class="m-box-hd-c">
                             <h3 class="u-tit">相似推荐</h3>
                         </div>
                         <div class="m-lst-gp-b">
                             <ul class="m-lst f__clearfix">
-                                <li class="m-item" v-for="n in 4">
-                                    <a href="javascript:;" class="u-box">
-                                        <div class="u-pic">
-                                            <img src="../../assets/img/car_02.jpg" alt="大众朗逸 2011款 1.6L手动品悠版"/>
-                                        </div>
-                                        <div class="u-con">
-                                            <h5 class="u-tit">
-                                                大众朗逸 2011款 1.6L手动品悠版
-                                            </h5>
-                                            <p class="u-des">南昌/2006年/10.0万里</p>
-                                            <div class="u-price">
-                                                批发价:<em>5.0万</em>
-                                            </div>
-                                            <a href="javascript:;" class="u-lk">
-                                                <p class="u-count">
-                                                    <strong>215</strong>
-                                                    次
-                                                </p>
-                                                <p>围观</p>
-                                            </a>
-                                        </div>
-                                    </a>
-                                </li>
+                                <remd-list-box
+                                    :carList="similarList"
+                                    :loginStatus="loginStatus"
+                                    :memberData="memberData"
+                                    >
+                                </remd-list-box>
+                            </ul>
+                        </div><!-- 列表组b -->
+                    </div><!-- 相似推荐 -->
+
+                    <div class="m-remd" v-show="!similarList||similarList.length==0">
+                        <div class="m-box-hd-c">
+                            <h3 class="u-tit">相似推荐</h3>
+                        </div>
+                        <div class="m-lst-gp-b">
+                            <ul class="m-lst f__clearfix">
+                                <remd-list-box
+                                    :carList="b2bCarList"
+                                    :loginStatus="loginStatus"
+                                    :memberData="memberData"
+                                    >
+                                </remd-list-box>
                             </ul>
                         </div><!-- 列表组b -->
                     </div><!-- 相似推荐 -->
@@ -256,6 +258,11 @@
     // 双向控制焦点图组件
     import fcSlide from "components/slide/fc_slide.vue"
 
+    // b2b车辆信息构造类
+    import {b2bCarInfo} from "base/class/carInfo.js"
+    // 相似推荐信息列表盒子
+    import remdListBox from "components/boxLayout/remdListBox.vue"
+
 
 	export default {
         name: "b2bCarDetails",
@@ -263,10 +270,14 @@
         components:{
             gkBreadCrumb,
             fcSlide,
+            remdListBox,
         },
         // 数据
         data() {
             return{
+                
+                // 用户信息
+                memberData: null,
 
                 // 车辆ID
                 carId: 0,
@@ -291,8 +302,8 @@
                 
                 // 相似推荐列表
                 similarList: [],
-                
-
+                // 车辆列表
+                b2bCarList: [],                       
             }
         },
         //生命周期,开始的时候
@@ -303,11 +314,14 @@
 
         },
         activated(){
-
+            console.log("什么鬼？");
             // 获取hash 带参中的车辆ID
             this.carId = this.$router.currentRoute.query.CarId;
             // 获取车辆信息
             this.getCarDetailsInfo();
+            // 获取车辆列表信息
+            this.getCarList();
+
         },
         //退出的生命周期钩子
         deactivated(){
@@ -315,18 +329,63 @@
         },
         // 数据侦听
         watch:{
-
+            // 登录状态改变
+            loginStatus(val){
+                if(val){
+                    // 获取用户信息
+                    this.getMemberInfo();
+                }else{
+                    this.memberData = null;
+                }
+                // 重新渲染页面
+                this.carListResultRender();
+            },
+            // 侦听路由变化
+            $route (to, from) {
+                // 获取hash 带参中的车辆ID
+                this.carId = to.query.CarId;
+                // 获取车辆信息
+                this.getCarDetailsInfo();
+                // 获取车辆列表信息
+                this.getCarList();
+            },
         },
         // 属性计算
         computed:{
+            ...mapGetters(['loginStatus']),
             // 面包屑列表信息
             crumbItems(){
                 if(this.basicInfo){
                     return crumbsInfo['b2bCar'](this.basicInfo.title)
                 }
-            } 
+            },
         },
         methods:{
+
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+
+            // 获取用户信息
+            getMemberInfo(){
+                if(!this.loginStatus) return;
+
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
+
             // 格式化车辆基本信息
             _normalizeBasicInfo(data) {
                 return new basicInfo(data);
@@ -361,7 +420,7 @@
                         setTimeout(() => {
                             this.carImgData = this.getCarImgsData(this.fileInfoList,this.otherInfo);
                             // 获取相似推荐数据
-                            this.similarList = this.getSimilar(basicInfo.id)
+                            this.similarList = this._normalizeB2bCarInfo(res.data.SimilarRecommend)
                         })
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
@@ -471,10 +530,30 @@
                     }
                 })
             },
+            
+            // 获取车辆信息
+            getCarList(){
+                let data = {
+                    PageIndex : '1',
+                    PageSize: '4',
+                }
+                api.getB2BCarList(data).then((res) => {
+                    this.b2bCarList = this._normalizeB2bCarInfo(res.data)
+                });
+            },
 
             // 获取相似推荐的数据
             getSimilar(id){
                 console.log("获取相似推荐")
+            },
+
+            //使用b2b抽象类完成carInfo
+            _normalizeB2bCarInfo(list){
+                let carInfo = [];
+                list.forEach((item, index) => {
+                    carInfo.push(new b2bCarInfo(item))
+                });
+                return carInfo;
             },
         }
 	}

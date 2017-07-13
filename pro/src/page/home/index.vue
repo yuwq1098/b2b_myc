@@ -172,7 +172,8 @@
                     pagination: '.swiper-pagination',  
                     slidesPerView: 'auto',  
                     centeredSlides: true,  
-                    speed: 400,                         //速度
+                    autoplay : 3500,
+                    speed: 500,                         //速度
                     loop: true,                         //环路
                     paginationClickable: true,          //分页点击
                     pagination: '.swiper-pagination',   //分页器
@@ -185,7 +186,10 @@
                         //这个位置放swiper的回调方法  
                         this.page = swiper.realIndex+1;  
                         this.index = swiper.realIndex;  
-                    }   
+                    },
+                    onAutoplayStop: swiper => {
+                        swiper.startAutoplay();
+                    }
                 },
             }
         },

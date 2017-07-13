@@ -298,12 +298,12 @@
                         <div class="m-con">
 
                             <div class="m-carlist-true" v-if="b2bCarList&&b2bCarList.length>0">
-                                <b2b-car-listbox
+                                <b2b-car-list-box
                                     :carList="b2bCarList"
                                     :loginStatus="loginStatus"
                                     :memberData="memberData"
                                     >
-                                </b2b-car-listbox>
+                                </b2b-car-list-box>
 
                                 <div class="m-page" v-show="resultPage.totalPage>0">
                                     <el-pagination
@@ -382,8 +382,8 @@
     import seriesMoreBox from "components/filterMoreBox/seriesMoreBox.vue"
     // b2b车辆信息构造类
     import {b2bCarInfo} from "base/class/carInfo.js"
-    // b2b车辆信息盒子
-    import b2bCarListbox from "components/boxLayout/b2bCarListbox.vue"
+    // b2b车辆信息列表盒子
+    import b2bCarListBox from "components/boxLayout/b2bCarListBox.vue"
 
 
     //本地的过滤筛选数据
@@ -399,7 +399,7 @@
             gkBreadCrumb,
             brandMoreBox,
             seriesMoreBox,
-            b2bCarListbox,
+            b2bCarListBox,
         },
         // 数据
         data() {
@@ -489,7 +489,6 @@
             isShowByHasFilter(){
                 return geekDom.isObjHasValue(this.userFilterData);
             }
-            
         },
         created(){
             this.dataChangeOnOff = true;
@@ -564,7 +563,6 @@
                 }
                 // 重新渲染页面
                 this.carListResultRender();
-
             },
         },
         // 自定义函数(方法)

@@ -9,7 +9,7 @@
         padding-bottom 25px
         .m-mn-hd
             height 520px
-            margin-top 15px
+            margin 0 0 25px
             .m-mn-info
                 width 510px
                 height 100%
@@ -187,13 +187,12 @@
 
         .m-car-info
             height 330px
-            margin 10px 0 0
+            margin 0 0 25px
             .m-mn
-                height 270px
+                height 258px
                 width 1100px
                 position relative
                 margin-left 50px
-                _border(top,#e2e2e2)
                 .m-basic
                     width 550px
                     .u-tit
@@ -209,9 +208,9 @@
                             &::after
                                 content ""
                                 _display()
-                                height 2px
-                                _completeCenter(25px,25px,auto,-2px)
-                                background #2e98e2
+                                height 3px
+                                _completeCenter(32px,32px,auto,-2px)
+                                background #ff6533
                     .u-con
                         .u-list
                             width 225px
@@ -224,13 +223,12 @@
                                 .u-attr
                                     width 90px
                                     color #a5a5a5
-
                 .m-merchant
                     width 550px
                     .m-mct-box
                         width 400px
-                        height 230px
-                        margin 40px auto 0
+                        height 220px
+                        margin 35px auto 0
                         .m-mct-hd
                             height 90px
                             width 305px
@@ -321,8 +319,8 @@
                             .desc
                                 font-size 13px
                                 line-height 24px
-                                height 96px
-                                _ellipsis(4)
+                                height 72px
+                                _ellipsis(3)
                                 color #a5a5a5
                 .u-line-y
                     height 180px
@@ -331,116 +329,22 @@
                     _completeCenter(,,55px,auto);
 
         .m-process
-            height 180px
-            margin-top 15px
+            height 210px
+            margin 0 0 25px
             .u-pic
                 width 100%
                 height 120px
-                background #e2e2e2
+                padding 18px 0 12px
                 img
                     width 100%
                     height 100%
-        .m-his-trade
-            height 650px
-            margin-top 25px
-            .m-lst-gp-a
-                width 100%
-                .m-lst
-                    width 1164px
-                    height 435px
-                    margin-left 18px
-                    padding 0 0 10px 0 
-                    .m-item
-                        width 100%
-                        height 72px
-                        position relative
-                        padding 10px 0
-                        .m-item-box
-                            width 100%
-                            height 72px
-                            line-height 72px
-                            position relative
-	                        .u-pic
-                                width 115px
-                                height 72px
-                                position relative
-                                img
-                                    width 100%
-                                    height 100%
-                                .u-state
-                                    position absolute
-                                    bottom 0
-                                    left 0
-                                    width 100%
-                                    height 24px
-                                    line-height 24px
-                                    font-size 12px
-                                    text-align center
-                                    _spacingPlus(2px)
-                                    color #e5e5e5
-                                    background rgba(0,0,0,.35)
-                            .m-info
-                                width 680px
-                                height 72px
-                                _verticalLayout(132px)
-                                .u-vital
-                                    color #ff6533
-                                    margin-right 3px
-                                .u-separator
-                                    color #a5a5a5
-                                    margin 0 5px
-                            .u-price
-                                width 130px
-                                height 72px
-                                _verticalLayout(,185px)
-                                text-align right     
-                                .price
-                                    color #ff6533
-                                    font-size 16px
-                                    margin-left 3px           
-                            .u-code
-                                width 145px
-                                height 72px
-                                _verticalLayout(,0)
-                                .u-lk
-                                    height 36px
-                                    line-height 36px
-                                    width 25px
-                                    _completeCenter(0,auto)
-                                    color #b2b2b2
-                                    .iconfont
-                                        font-size 30px
-                                    &:hover
-                                        color $c_blue
-
-                                .u-con
-                                    width 105px
-                                    margin-left 40px
-                                    .u-tit
-                                        line-height 24px
-                                        font-size 13px
-                                        &.v1
-                                           margin-top 12px
-                                .m-hvr-box
-                                    width 120px
-                                    height 120px
-                                    _completeCenter(38px,auto)
-                                    z-index 10
-                                    _display(none)
-                                    _borderRadius(3px)
-                                    background #fff
-                                    _borderAll($c_blue)
-                                    img
-                                        _completeCenter()
-                                        width 114px
-                                        height 114px
-
-                        &:not(:last-child)
-                            _border(bottom,#f0f0f0)
-
         .m-remd
-            height 370px
-            margin-top 25px
+            min-height 380px
+            margin 25px 0 20px
+            .m-box-hd
+                margin 0 0 10px
+            .m-box-hd-c
+                margin 0 0 20px
             .m-lst-gp-b
                 height 310px
                 width 1200px
@@ -515,20 +419,34 @@
             padding-left 15px
             .u-adorn
                 width 4px
-                height 25px
+                height 21px
                 background $c_blue
                 _verticalLayout(0)
             .u-tit
                 font-size 20px
                 font-weight normal
-                _spacingPlus()
+                _spacingPlus(2)
 
         .m-box-hd-c
             height 60px
             line-height 60px
+            text-align center
             .u-tit
-                text-align center
+                width 360px
+                _display(inline-block)
+                height 60px
                 font-size 24px
                 font-weight bold
                 _spacingPlus(5px)
+                position relative
+                &::before,&::after
+                    width 95px
+                    height 1px
+                    content ""
+                    _display()
+                    background #b2b2b2
+                &::before
+                    _completeCenter(0,auto,2px)
+                &::after
+                    _completeCenter(auto,0,2px)
 
