@@ -172,14 +172,22 @@
 
                     </div><!-- 车辆信息 -->
 
-                    <div class="m-carPhoto" v-if="carImgData.imgItems>=2">
+                    <div class="m-carPhoto" 
+                        v-if="carImgData.imgItems&&carImgData.imgItems.length>=2"
+                        >
                         <div class="m-box-hd-c">
                             <h3 class="u-tit">车辆图片</h3>
                         </div>
-
-
-                        <div class="u-photo-con">
-                            
+                        <div class="m-photo-con">
+                            <ul class="m-photo-lst f__clearfix">
+                                <template v-for="(item,index) in carImgData.imgItems">
+                                    <li class="m-item">
+                                        <div class="u-pic">
+                                            <img :src="item.fileUrl" :alt="item.title" />
+                                        </div>
+                                    </li>
+                                </template>
+                            </ul>    
                         </div><!-- 图片内容 -->
                     </div><!-- 车辆图片信息 -->
 
@@ -204,8 +212,6 @@
                             <ul class="m-lst f__clearfix">
                                 <remd-list-box
                                     :carList="similarList"
-                                    :loginStatus="loginStatus"
-                                    :memberData="memberData"
                                     >
                                 </remd-list-box>
                             </ul>
@@ -314,7 +320,6 @@
 
         },
         activated(){
-            console.log("什么鬼？");
             // 获取hash 带参中的车辆ID
             this.carId = this.$router.currentRoute.query.CarId;
             // 获取车辆信息
@@ -325,7 +330,7 @@
         },
         //退出的生命周期钩子
         deactivated(){
-              
+            
         },
         // 数据侦听
         watch:{
@@ -342,12 +347,17 @@
             },
             // 侦听路由变化
             $route (to, from) {
-                // 获取hash 带参中的车辆ID
-                this.carId = to.query.CarId;
-                // 获取车辆信息
-                this.getCarDetailsInfo();
-                // 获取车辆列表信息
-                this.getCarList();
+                // if(to.path=="/b2bCar"){
+                if(to.path==from.path){
+                    // 获取hash 带参中的车辆ID
+                    this.carId = to.query.CarId;
+                    // 获取车辆信息
+                    this.getCarDetailsInfo();
+                    // 获取车辆列表信息
+                    this.getCarList();
+                }else{
+                    this.$destroy();
+                }
             },
         },
         // 属性计算

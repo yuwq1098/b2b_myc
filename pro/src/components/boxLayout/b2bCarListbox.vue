@@ -80,9 +80,11 @@
         width 1200px
         .m-lst
             width 1220px
+            _translate3d(0,-20px)
+            margin 0 0 0 -20px
             .m-item
                 float left
                 width 285px
-                margin 20px 20px 0 0
+                margin 20px 0 0 20px
 
 </style>

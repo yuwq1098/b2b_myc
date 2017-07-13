@@ -61,43 +61,35 @@
                     </div><!-- B2B专区大厅入口 -->
 
                     <div class="f__w1200">
-                        <div class="m-lst-mn">
+                        <div class="m-notice-bar-warp" v-if="false">
+                            <notice-bar
+                                :noticeList="noticeBarList" 
+                                >
+                            </notice-bar><!-- 公告条 -->
+                        </div><!-- 今日成交公告条 -->
 
-                            <div class="m-lst-wrap v1">
-                                <div class="m-lst-hd f__clearfix">
-                                    <h3 class="f__fl">
-                                        <span class="u-tit">热门好车</span>
-                                        <span class="u-sep">/</span>
-                                        <span class="u-des">最全的二手车资源，农行合作，交易安全无忧</span>
-                                    </h3>
-                                </div><!-- 列表头 -->
-                                <div class="m-lst-con f__clearfix">
-                                    <b2b-car-list-box
-                                        :carList="b2bCarList"
-                                        :loginStatus="loginStatus"
-                                        :memberData="memberData"
-                                        >
-                                    </b2b-car-list-box>
-                                </div><!-- 列表内容 -->
-                            </div><!-- 热门好车 -->
+                        <div class="m-lst-group">
+                            <div class="m-lst-hd f__clearfix">
+                                <h3 class="f__fl">
+                                    <span class="u-tit">全国二手车B2C交易市场</span>
+                                    <span class="u-sep">/</span>
+                                    <span class="u-des">最全的二手车资源，农行合作，交易安全无忧</span>
+                                </h3>
+                                <!-- <a href="javascript:;" class="u-more f__fr">
+                                    更多<i class="iconfont icon-fanhui6"></i>
+                                </a> -->
+                            </div>
+                            <div class="carListWrap" v-if="b2cCarList.length>0">
+                                <car-list-box
+                                    :carlist="b2cCarList"
+                                    car-to-path="/b2cCar"
+                                    boxType="b2c"
+                                    >
+                                </car-list-box>    
+                            </div>
+                        </div><!-- 列表信息展示组 -->
 
-                            <div class="m-lst-wrap v2">
-                                <div class="m-lst-hd f__clearfix">
-                                    <h3 class="f__fl">
-                                        <span class="u-tit">猜你喜欢</span>
-                                    </h3>
-                                </div><!-- 列表头 -->
-                                <div class="m-lst-con f__clearfix">
-                                    <remd-list-box
-                                        :carList="youLikeList"
-                                        >
-                                    </remd-list-box>
-                                </div><!-- 列表内容 -->
-                            </div><!-- 猜你喜欢 -->
-                        </div><!-- 主要的信息列表盒子 -->
-                        
                     </div><!-- 1200布局 -->
-
                     
                 </div><!-- 网页内容 -->
 
@@ -114,18 +106,14 @@
     
     import $ from 'jquery'
     import { swiper, swiperSlide } from 'vue-awesome-swiper'  
-    // vuex状态管理
-    import { mapGetters,mapActions } from 'vuex'
 
+    import {mapActions} from 'vuex'
     import cFootServer from "components/foot/foot-svr.vue"
     import {dataToJson} from "assets/js/util.js"
     import * as geekDom from "assets/js/dom.js"
     import api from "api/getData.js"
     import {serverList,noticeBarList,swiperItems} from "api/localJson/home.js"
-    // 用户信息的构造类
-    import {memberInfo} from 'base/class/member.js'
-    // b2b/b2c车辆信息构造类
-    import {b2bCarInfo,b2cCarInfo} from "base/class/carInfo.js"
+    import {b2cCarInfo} from "base/class/carInfo.js"
     import {searchCarResult} from "base/class/searchResult.js"
 
     import srhSelect from "components/common/srhSelect.vue"
@@ -135,11 +123,6 @@
     import noticeBar from "components/common/noticeBar.vue"
     // 平台特色服务
     import serverBox from "components/common/serverBox.vue"
-
-    // 相似推荐信息列表盒子
-    import remdListBox from "components/boxLayout/remdListBox.vue"
-    // b2b车辆信息列表盒子
-    import b2bCarListBox from "components/boxLayout/b2bCarListBox.vue"
     
     //搜索延迟,300ms
     const SEARCH_DELAY = 500
@@ -156,27 +139,17 @@
             srhSelect,
             noticeBar,
             serverBox,
-            // 猜你喜欢/相似推荐的信息盒子
-            remdListBox,
-            // b2b车辆信息列表盒子
-            b2bCarListBox,
         },
         data () {
             return {
-                // 用户信息
-                memberData: null,
-
                 //全部搜索的绑定值
                 allSearchInputVal: "",
                 //用户缓暂搜索值的集合，当用户清空时，也同时清空
                 srhValItems : [],
-                srhResultList: [],               // 搜索结果列表
-                isShowSchResultBox: false,       // 是否显示查询结果列表
-                isOkSearch: true,                // 是否允许用户触发搜索
-                // 普通市场车辆列表
+                srhResultList: [],            // 搜索结果列表
+                isShowSchResultBox: false,    // 是否显示查询结果列表
+                isOkSearch: true,             // 是否允许用户触发搜索
                 b2cCarList: [],
-                // b2b交易大厅列表数据
-                b2bCarList: [],
 
                 serverList: serverList,          //网站b2c收费服务
                 noticeBarList: noticeBarList,    //公告滚动条的信息列表
@@ -207,12 +180,12 @@
                         swiper.startAutoplay();
                     }
                 },
-
-                youLikeList: [],     // 猜你喜欢
             }
         },
         created () {
-            
+            // this.$store.dispatch('getAllProvince');
+            //获取b2b二手车大厅列表
+            this._getB2cCarList();
 
         },
         mounted(){
@@ -220,15 +193,15 @@
         },
         //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated() {
-            //获取b2b二手车大厅列表
-            this._getB2bCarList();
-
             //更新swiper(强制初始化)
             if(this.mySwiper){
                 this.mySwiper.init()
             }
-            // 获取猜你喜欢的数据
-            this.getYouLike();
+        },
+        computed:{
+            mySwiper() {  
+                return this.$refs.mySwiper.swiper;  
+            }  
         },
         //退出的生命周期钩子
         deactivated(){
@@ -237,102 +210,25 @@
             this.isShowSchResultBox = false;
             this.allSearchInputVal = "";
         },
-        computed:{
-            ...mapGetters(['loginStatus']),
-            mySwiper() {  
-                return this.$refs.mySwiper.swiper;  
-            }  
-        },
-        watch:{
-
-            //侦听用户搜索的值，当其为空时，清空搜索结果集
-            allSearchInputVal(val){
-                if(val==""){
-                    this.srhValItems = [];
-                    this.srhResultList = [];
-                }
-            },
-
-            //搜索结果列表
-            srhResultList(val){
-                this.isShowSchResultBox = val.length<=0 ? false : true;
-            },
-
-            // 侦听结果框显示的状态
-            isShowSchResultBox(val){
-                let [schResultBox,allSearchInputBox] = [
-                    this.$refs.schResultBox,
-                    this.$refs.allSearchInputBox
-                ]
-                if(val){
-                    this._searchCancelBubble();
-                }else{
-                    //清空首页的 文档点击事件
-                    document.onclick = null;
-                    schResultBox.onclick = null;
-                    allSearchInputBox.onclick = null;
-                }
-            },
-
-            // 登录状态改变
-            loginStatus(val){
-                if(val){
-                    // 获取用户信息
-                    this.getMemberInfo();
-                }else{
-                    this.memberData = null;
-                }
-                // 重新渲染页面
-                this.carListResultRender();
-            },
-
-        },
         methods:{
-
-            // 格式化用户信息
-            _normalizeMember(data) {
-                return new memberInfo(data);
-            },
-
-            // 获取用户信息
-            getMemberInfo(){
-                if(!this.loginStatus) return;
-
-                let data = {}
-                api.getMyMemberInfo(data).then(res => {
-                    if(res.code==SYSTEM.CODE_IS_OK){
-                        this.memberData = this._normalizeMember(res.data);
-                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                        this.$notify({
-                            title: '信息获取失败',
-                            message: res.msg,
-                            type: 'error',
-                            duration: 1500,
-                        });
-                    }
-                })   
-            },
-
-            //使用b2b抽象类完成carInfo
-            _normalizeB2bCarInfo(list){
-                let carInfo = [];
-                list.forEach((item, index) => {
-                    carInfo.push(new b2bCarInfo(item))
-                });
-                return carInfo;
-            },
-
-            //获取B2B大厅车辆列表
-            _getB2bCarList(){
+            //获取B2C大厅车辆列表
+            _getB2cCarList(){
                 var data = {
                     "PageSize": 8,
                     "PageIndex": 1,
                 }
                 api.getB2BCarList(data).then((res) => {
-                    this.b2bCarList = this._normalizeB2bCarInfo(res.data)
+                    this.b2cCarList = this._normalizeB2cCarInfo(res.data)
                 })
             },
-
+            //使用b2c抽象类完成carInfo
+            _normalizeB2cCarInfo(list){
+                let carInfo = [];
+                list.forEach((item, index) => {
+                    carInfo.push(new b2cCarInfo(item))
+                });
+                return carInfo;
+            },
             //通过用户输入获取对应信息
             allSearchInput(){
                 
@@ -364,7 +260,6 @@
                 if(this.isOkSearch) this.isOkSearch = false;
 
             },
-
             //使用b2c抽象类完成carResult
             _normalizeSearchCarResult(list){
                 let carResultList = [];
@@ -389,28 +284,37 @@
                         me.allSearchInputVal = "";
                     }
                 );
-            },
-
-            // 获取猜你喜欢的数据
-            getYouLike(){
-                api.getGuessYouLike().then((res) => {
-                    this.youLikeList = this._normalizeYouLike(res.data)
-                });
-            },
-
-            //使用b2b抽象类完成carInfo
-            _normalizeYouLike(list){
-                let carInfo = [];
-                list.forEach((item, index) => {
-                    if(index<4){
-                        carInfo.push(new b2bCarInfo(item))
-                    }
-                });
-                return carInfo;
-            },
+            }
 
         },
-        
+        watch:{
+            //侦听用户搜索的值，当其为空时，清空搜索结果集
+            allSearchInputVal(val){
+                if(val==""){
+                    this.srhValItems = [];
+                    this.srhResultList = [];
+                }
+            },
+            //搜索结果列表
+            srhResultList(val){
+                this.isShowSchResultBox = val.length<=0 ? false : true;
+            },
+            // 侦听结果框显示的状态
+            isShowSchResultBox(val){
+                let [schResultBox,allSearchInputBox] = [
+                    this.$refs.schResultBox,
+                    this.$refs.allSearchInputBox
+                ]
+                if(val){
+                    this._searchCancelBubble();
+                }else{
+                    //清空首页的 文档点击事件
+                    document.onclick = null;
+                    schResultBox.onclick = null;
+                    allSearchInputBox.onclick = null;
+                }
+            }
+        }
     }
 </script>
 
