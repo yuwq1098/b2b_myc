@@ -429,13 +429,20 @@ export default {
     /*
      * 首页相关
      */
-
+    
+    // 获取首页信息
+    getHomeInfo(){
+        return get('/action2/HomePageInfo.ashx')
+    },
 
     // 猜你喜欢
     getGuessYouLike(){
         return get('/action2/GuessYouLike.ashx')
     },
-
-
+    
+    // 相似推荐
+    getSimilarRecommend(params){
+        return fetchSign('/action2/SimilarRecommend.ashx', dataToJson(params))
+    },
 
 }

@@ -33,8 +33,8 @@
                         </div>
                         <div class="u-text u-lk" 
                             v-show="myLocation!=''"
-                            @click="gotoLink(myLocation)"
-                            >{{myLocation}}
+                            @click="gotoLink(myLocation.name,myLocation.code)"
+                            >{{myLocation.name}}
                         </div>
                     </li> 
                     <li class="m-ci-item f__clearfix" ref="cityItem" v-for="group in citys">
@@ -72,7 +72,7 @@
                 currentIndex: 0,
                 schValue: '',
                 schList: [],       // 搜索结果列表
-                myLocation: "",    // 我的位置
+                myLocation: {},    // 我的位置
         	}
         },
         props:{
@@ -98,13 +98,15 @@
             // 变换指针指向
             let me = this;
             // 获取所在城市
-            $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',function(){
-                if(remote_ip_info.city){
-                    me.myLocation = remote_ip_info.city;
-                    return;
-                }
-                me.myLocation = remote_ip_info.province;
-            }); 
+            this.getCurCity();
+
+            // $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',function(){
+            //     if(remote_ip_info.city){
+            //         me.myLocation = remote_ip_info.city;
+            //         return;
+            //     }
+            //     me.myLocation = remote_ip_info.province;
+            // }); 
 
         },
         //退出的生命周期钩子
@@ -137,6 +139,16 @@
             ...mapActions([
                 'setCurrentCity', //映射 this.setCurrentCity() 为 this.$store.dispatch('setCurrentCity')
             ]),
+            // 获取当前城市
+            getCurCity(){
+                // 获取首页
+                api.getHomeInfo().then((res) => {
+                    this.myLocation = {
+                        name: res.data.UserInCity.Name,
+                        code: res.data.UserInCity.Code,
+                    }
+                })
+            },
         	//获取所有城市的列表
         	_getAllCityList(){
         		api.getAllCityList().then((res) => {

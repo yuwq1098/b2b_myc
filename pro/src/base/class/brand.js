@@ -4,7 +4,8 @@ class brandInfo{
 	    this.id = data.brand_id
 	    this.name = data.brand_name
 	    this.key = data.key_word
-	    this.imgUrl = data.img_path||""
+	    // this.imgUrl = data.img_path||""
+	    this.imgUrl = `https://www.muyouche.com/carbrandimg/${data.brand_id}.png`
 	}
 }
 

@@ -195,7 +195,7 @@
                     <div class="m-remd">
                         <div class="m-box-hd">
                             <div class="u-adorn"></div><!-- 装饰物 -->
-                            <h3 class="u-tit">猜你喜欢</h3>
+                            <h3 class="u-tit">相似推荐</h3>
                         </div>
                         <div class="m-lst-gp-b">
                             <ul class="m-lst f__clearfix">
@@ -287,7 +287,11 @@
                 carImgData:{
                     merchantName : "暂无数据",
                     imgItems:[]
-                }
+                },
+                
+                // 相似推荐列表
+                similarList: [],
+                
 
             }
         },
@@ -356,6 +360,8 @@
                         //获取车辆图片数据
                         setTimeout(() => {
                             this.carImgData = this.getCarImgsData(this.fileInfoList,this.otherInfo);
+                            // 获取相似推荐数据
+                            this.similarList = this.getSimilar(basicInfo.id)
                         })
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
@@ -464,6 +470,11 @@
                         });
                     }
                 })
+            },
+
+            // 获取相似推荐的数据
+            getSimilar(id){
+                console.log("获取相似推荐")
             },
         }
 	}
