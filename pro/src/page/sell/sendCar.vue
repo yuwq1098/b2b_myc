@@ -560,8 +560,8 @@
                 carInCity: 'required',
                 selectedModel: 'required',
                 plateInCity: 'required',
-                outFactoryDate: 'required|date_format:YYYY-MM-DD',
-                plateDate: 'required|date_format:YYYY-MM-DD|after:outFactoryDate,true',
+                outFactoryDate: 'required',
+                plateDate: 'required',
                 changeNum: 'required',
                 fixedPrice: 'required|between:1,3000|decimal:2',
                 retailPrice: 'required|between:1,3000|decimal:2',
@@ -649,6 +649,28 @@
             retailPriceEnd(val){
                 this.form.retailPrice = val;
                 this.validator.validate('retailPrice',val);
+                if(this.form.fixedPrice==""){
+                    this.validator.validate('fixedPrice',this.form.fixedPrice);
+                }else if(!this.sendError.has('fixedPrice')&&!this.sendError.has('fixedPrice')){
+                    let [rPrice,price] = [ parseFloat(this.form.retailPrice),parseFloat(this.form.fixedPrice)];
+                    if(rPrice>price){
+                        console.log("零售价大于批发价，合适")
+                    }else{
+                        console.log("零售价小于批发价，不合适")
+                    }
+                }
+            },
+            
+            // 价格比较
+            comparePrice(retailPrice,fixedPrice){
+                console.log("蛋疼")
+                /*let [rPrice,price] = [ parseFloat(retailPrice),parseFloat(fixedPrice)];
+                console.log("蛋疼");
+                if(rPrice>price){
+                    console.log("零售价大于批发价，合适")
+                }else{
+                    console.log("零售价小于批发价，不合适")
+                }*/
             },
             
             // 行驶里程

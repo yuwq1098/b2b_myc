@@ -1,0 +1,67 @@
+@import '~assets/css/mixin.styl'
+
+.g-doc
+    background #fff
+    .g-bd
+        width 100% 
+        .m-404-wrap
+            width 1200px
+            height 640px
+            padding 35px 0
+            .m-bg-box
+                width 908px
+                height 249px
+                margin 50px auto 30px
+                background url('../../../assets/img/404-error-bg.png') center center no-repeat
+                background auto 100%
+            .m-tips-box
+                height 110px
+                text-align center
+                .u-hd
+                    height 68px
+                    line-height 68px
+                    font-size 36px
+                    _spacingPlus(2px)
+                .u-desc
+                    height 42px
+                    line-height 42px
+                    font-size 17px
+                    color #666
+                    _spacingPlus()
+                    .vital
+                        color #f43
+                        font-size 22px
+            .m-btn-box
+                text-align center
+                margin 50px 0 0
+                .u-btn
+                    _display(inline-block)
+                    padding 0 15px
+                    width 200px
+                    height 60px
+                    line-height @height
+                    _borderRadius(5px)
+                    background #34aee1
+                    color #fff
+                    text-align center 
+                    position relative
+                    font-size 24px
+                    _spacingPlus(4px)
+                    _boxShadowByText(inset -1px -1px 2px rgba(0,0,0,.18),1px 1px 4px rgba(0,0,0,.24))
+                    .u-txt
+                        margin 0 0 0 48px
+                    .iconfont
+                        width 40px
+                        height 40px
+                        _display(block)
+                        _completeCenter(15px,auto)
+                        &.home
+                            background url('../../../assets/img/404-fanhui.png') center center no-repeat
+                            background-size 100% 100%
+                        &.back
+                            background url('../../../assets/img/404-shouye.png') center center no-repeat
+                            background-size 100% 100%
+                    &.home
+                        margin 0 35px 0 0
+
+

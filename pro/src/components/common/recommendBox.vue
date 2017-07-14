@@ -24,7 +24,7 @@
                     <div class="u-con">
                         <div class="u-tit">[{{carInfo.inCity}}]{{carInfo.name}}</div><!-- 标题 -->
 
-                        <div class="u-other">上牌 {{carInfo.plateDate | dateYearFormat}}年 | 里程{{carInfo.mileage | mileFn(1)}}</div><!-- 其他 -->
+                        <div class="u-other">上牌 {{carInfo.plateDate | dateYearFormat}}年 | 里程 {{carInfo.mileage | mileFn(1)}}</div><!-- 其他 -->
 
                         <div class="u-price">
                             <span class="retail"><em class="attr">零售价：</em><em class="vital">{{carInfo.retailPrice | priceFormat(2)}}</em><em>万元</em></span>

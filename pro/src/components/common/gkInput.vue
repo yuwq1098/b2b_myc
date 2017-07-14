@@ -47,6 +47,9 @@
         methods: {
             inputChangeEnd(){
                 this.$emit("inputChangeEnd",this.inputVal)
+            },
+            inputBlur(){
+                this.$emit("inputBlur")
             }
         },
     }

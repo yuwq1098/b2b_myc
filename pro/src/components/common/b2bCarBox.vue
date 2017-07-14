@@ -19,7 +19,12 @@
                 </div><!-- 图片盒子 -->
 
                 <div class="m-con-box">
-                    <div class="u-mask"></div><!-- 朦灰层 -->
+                    <div class="u-mask">
+                        <div class="u-icon-box">
+                            <div class="view-icon"><i class="iconfont icon-yuedu"></i></div>
+                            <p class="txt">预览详情</p>
+                        </div><!-- 图标容器 -->
+                    </div><!-- 朦灰层 -->
                     <div class="u-con">
                         <div class="u-tit">{{carInfo.name}}</div>
                         <div class="u-price">
@@ -193,6 +198,18 @@
                     _completeCenter(0,auto,0,auto)
                     background rgba(0,0,0,.65)
                     _transitionAll(.25s)
+                    .u-icon-box
+                        color #f0f0f0
+                        text-align center
+                        .view-icon
+                            margin 36px 0 0
+                            line-height 42px 
+                            .iconfont
+                                font-size 42px
+                        .txt
+                            margin -2px 0 0
+                            font-size 14px
+                            _spacingPlus(2px)
                 .u-con
                     width @width - 16px
                     height @height - 10px

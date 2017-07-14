@@ -255,6 +255,11 @@ _boxShadow(range=10px,color=$c_black,x=0,y=0,ins=false)
         -webkit-box-shadow inset x y range color
         -moz-box-shadow inset x y range color
         box-shadow inset x y range color
+//---盒子阴影颜色(自定义文本)
+_boxShadowByText(insetShadow,shadow)
+    -webkit-box-shadow insetShadow , shadow
+    -moz-box-shadow insetShadow , shadow
+    box-shadow insetShadow , shadow
 
 //---透明度写法
 _opacity(n)
