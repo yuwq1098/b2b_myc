@@ -32,8 +32,8 @@
                                 </div><!-- 查询结果列表 -->
                                 
                                 <input type="text" ref="allSearchInputBox" @input="allSearchInput" class="u-ipt" placeholder="请输入感兴趣的品牌、车系" id="brandSearch" v-model="allSearchInputVal" autocomplete="off"/>
-                                <a href="javascript:;" class="u-btn">立即搜索</a>
-                                <router-link :to="{path:'/sellCar'}" class="u-btn v2">我要卖车</router-link>
+                                <router-link :to="{path:'/b2bHall'}" class="u-btn">我要卖车</router-link>
+                                <router-link :to="{path:'/sellHome'}" class="u-btn v2">我要卖车</router-link>
                             </section>
                             
                         </div><!-- 搜索框 -->

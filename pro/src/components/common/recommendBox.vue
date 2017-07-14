@@ -14,7 +14,7 @@
                         <span class="txt">{{carInfo.authType}}</span>
                     </p><!-- 标签 -->
                     <div class="u-pic">
-                        <img :src="carInfo.imgUrl" :alt="carInfo.name"/>
+                        <img v-lazy="carInfo.imgUrl" :alt="carInfo.name"/>
                     </div>
                 </div><!-- 图片盒子 -->
 

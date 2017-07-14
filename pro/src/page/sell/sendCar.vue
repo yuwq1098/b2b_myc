@@ -424,8 +424,6 @@
     import * as SYSTEM from 'api/system.js'
     // dom操作方法
     import * as geekDom from "assets/js/dom.js"
-    // vin验证匹配
-    import {getCheckCode} from "assets/js/verifyVIN.js"
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
     // 发布订单的向后端请求的构造类
