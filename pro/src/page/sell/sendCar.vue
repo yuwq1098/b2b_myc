@@ -428,6 +428,8 @@
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
     // 发布订单的向后端请求的构造类
     import {sendCarForm} from "base/class/sendCar.js"
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 温馨提示组件
@@ -586,16 +588,72 @@
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-
+            // 获取用户信息
+            this.getMemberInfo();
         },
 
         //退出的生命周期钩子
         deactivated(){
-            // this.$destroy();
-            // this.clearErrors();
+            // 清空数据
+            this.reset();
+            // 由于绑定的是一些组件，所以要用vue实例销毁才有真实的作用
+            this.$destroy();
         },
         // 自定义函数(方法)
         methods: {
+            
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+
+            // 获取用户信息
+            getMemberInfo(){
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                        // 判断是不是有相关的权限
+                        this.judgeHasPrivilege(this.memberData);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
+            
+            // 判断是不是有相关的权限
+            judgeHasPrivilege(memberInfo){
+                if(!memberInfo.isAuthSuccess){
+                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定保证的保证金方可在我司平台办理业务，谢谢！', '您尚未进行认证', {
+                        confirmButtonText: '前往认证',
+                        cancelButtonText: '返回上一页',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往车行认证页面
+                        this.$router.push({path:'/member/applyHome'});
+                    }).catch(() => {
+                        // 返回上一页
+                        this.$router.go(-1);
+                    });
+                }else if(!memberInfo.hasEnoughCredit){
+                    this.$confirm('尊贵的用户，您好！您的保证金余额不足1000元，我司部分业务无法为您展开，请前往充值！', '保证金不足', {
+                        confirmButtonText: '前往充值',
+                        cancelButtonText: '返回上一页',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往保证金充值页面
+                        this.$router.push({path:'/member/recharge',query:{type:2}});
+                    }).catch(() => {
+                        // 返回上一页
+                        this.$router.go(-1);
+                    });
+                }
+            },
 
             // 车型级联()
             modelChangeEnd(selected){
@@ -815,6 +873,36 @@
             // 清除表单验证的错误
             clearErrors() {
                 this.sendError.clear();
+            },
+             
+            // 重置数据
+            reset(){
+                this.form = {
+                    carInCity: "",          // 车辆所在地
+                    selectedModel: "",      // 品牌车型选择的结果
+                    plateInCity: "",        // 车牌归属地
+                    plateDate: "",          // 上牌日期
+                    changeNum: "",          // 过户次数
+                    outFactoryDate: "",     // 出厂日期
+                    fixedPrice: "",         // 一口价/最低价   对应api字段 => B2BPrice
+                    retailPrice: "",        // 零售价   对应api字段 => RetailPrice
+                    mileage: "",            // 行驶里程
+                    dischargeStandard: "",  // 排放标准
+                    liter: "",              // 排量
+                    insuranceDate: "",      // 交强险日期
+                    serviceType: "",        // 使用性质（运营类型）
+                    vin: "",                // 车架号
+                    color: "",              // 颜色
+                    desc: "",               // 车主留言
+                    nameplate: [],          // 铭牌图片
+                    photo: [],              // 车辆图片
+                    isPostRetail: false,    // 是否发布到二手市场
+                }
+                this.isSubmitState = false;
+                // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
+                setTimeout(() => {
+                    this.sendError.clear();
+                })
             },
 
         },

@@ -21,8 +21,6 @@ const download = r => require.ensure([], () => r(require('page/download')), 'dow
 
 // b2b车辆详情
 const b2bCarDetails = r => require.ensure([], () => r(require('page/car-details/b2bCar.vue')), 'b2bCarDetails')
-// b2c车辆详情
-const b2cCarDetails = r => require.ensure([], () => r(require('page/car-details/b2cCar.vue')), 'b2cCarDetails')
 
 // 车商详情页
 const merchantDetails = r => require.ensure([], () => r(require('page/merchant-details')), 'merchantDetails')
@@ -145,13 +143,6 @@ export default[{
             meta: {
                 requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
             },      
-        },
-        {
-        // b2c车辆详情
-            path: '/b2cCarDetails',
-            component: b2cCarDetails,
-            alias: '/b2cCar',           // 使用别名
-            meta: { }
         },
         {
         //

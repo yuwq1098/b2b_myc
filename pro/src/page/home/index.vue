@@ -113,6 +113,9 @@
 <script>
     
     import $ from 'jquery'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
+    // 轮播组件
     import { swiper, swiperSlide } from 'vue-awesome-swiper'  
     // vuex状态管理
     import { mapGetters,mapActions } from 'vuex'
@@ -220,6 +223,10 @@
         },
         //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated() {
+            
+            // 获取用户信息
+            this.getMemberInfo();
+
             //获取b2b二手车大厅列表
             this._getB2bCarList();
 
@@ -271,6 +278,14 @@
                     document.onclick = null;
                     schResultBox.onclick = null;
                     allSearchInputBox.onclick = null;
+                }
+            },
+
+            // 侦听登录状态
+            loginStatus(val){
+                if(val){
+                    // 获取用户信息
+                    this.getMemberInfo();
                 }
             },
 

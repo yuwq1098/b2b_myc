@@ -28,33 +28,75 @@
                     <div class="u-con">
                         <div class="u-tit">{{carInfo.name}}</div>
                         <div class="u-price">
-                            <span class="price"
-                                v-if="loginStatus&&hasDeposit"
-                                ><em class="vital">{{carInfo.price | priceFormat(2)}}</em>万</span>
-                            <span class="price"
-                                v-if="!loginStatus"
-                                ><em class="info">未登录</em></span>
-                            <span class="price"
-                                v-if="!hasDeposit&&loginStatus"
-                                ><em class="info">信誉保证金不足</em></span>
+                            <template v-if="!loginStatus">
+                                <span class="price"
+                                    ><em class="info">未登录</em>
+                                </span>
+                            </template>
+                            <template v-else="loginStatus">
+                                <template v-if="!isAuthSuccess">
+                                    <span class="price"
+                                        ><em class="info">您尚未认证</em>
+                                    </span>
+                                </template>
+                                <template v-else-if="!hasEnoughCredit">
+                                    <span class="price"
+                                        ><em class="info">信誉保证金不足</em>
+                                    </span>
+                                </template>
+                                <template v-else>
+                                    <span class="price"
+                                        ><em class="vital">{{carInfo.price | priceFormat(2)}}</em>万
+                                    </span>
+                                </template>
+                            </template>
                             <span class="retail"><em class="data">{{carInfo.retailPrice | priceFormat(2)}}万</em></span>
                         </div>
                         <div class="u-addCart">
-                            <template v-if="loginStatus">
-                                <a href="javascript:;" class="u-btn"
-                                    v-if="carInfo.hasInCart||!loginStatus">
-                                    <i class="iconfont icon-addCart"></i>
-                                    <span class="txt">已加入购物车</span>
-                                </a>
+
+                            <template v-if="!loginStatus">
                                 <a href="javascript:;" class="u-btn not"
-                                    @click.stop="inShopingCart(carInfo.id)"
-                                    v-if="!carInfo.hasInCart&&loginStatus" title="加入购物车">
-                                    <i class="iconfont icon-addCart"></i>
+                                    ><i class="iconfont icon-addCart"></i>
                                     <span class="txt">加入购物车</span>
                                 </a>
                             </template>
-                            
+
+                            <template v-else="loginStatus">
+                                <template v-if="!isAuthSuccess||!hasEnoughCredit"
+                                    >
+                                    <a class="u-btn not"
+                                        v-if="!carInfo.isInCart"
+                                        @click.stop="judgeHasPrivilege(isAuthSuccess,hasEnoughCredit)"
+                                        >
+                                        <i class="iconfont icon-addCart"></i>
+                                        <span class="txt">加入购物车</span>
+                                    </a>
+                                    <a href="javascript:;" class="u-btn"
+                                        v-if="carInfo.isInCart"
+                                        >
+                                        <i class="iconfont icon-addCart"></i>
+                                        <span class="txt">已加入购物车</span>
+                                    </a>
+                                </template>
+                                <template v-else>
+                                    <a class="u-btn not"
+                                        v-if="!carInfo.isInCart"
+                                        @click.stop="inShopingCart(carInfo.id)"
+                                        >
+                                        <i class="iconfont icon-addCart"></i>
+                                        <span class="txt">加入购物车</span>
+                                    </a>
+                                    <a href="javascript:;" class="u-btn"
+                                        v-if="carInfo.isInCart"
+                                        >
+                                        <i class="iconfont icon-addCart"></i>
+                                        <span class="txt">已加入购物车</span>
+                                    </a>
+                                </template>
+                            </template>
+
                         </div><!-- 加入购物车 -->
+
                         <div class="u-other">{{carInfo.inCity}} | {{carInfo.plateDate | dateYearFormat}} | {{carInfo.mileage | mileFn(1)}}</div><!-- 其他 -->
                         <div class="u-cdg-info f__clearfix">
                             <p class="cname">{{carInfo.cName}}</p>
@@ -103,10 +145,41 @@
                 type: Boolean,
                 default: false,
             },
-            hasDeposit: Boolean,
+            // 是否有足够的保证金
+            hasEnoughCredit: Boolean,
+            // 是否成功认证
+            isAuthSuccess: Boolean,
+
         },
         // 自定义函数(方法)
         methods: {
+            // 判断是不是有相关的权限
+            judgeHasPrivilege(isAuthSuccess,hasEnoughCredit){
+                if(!isAuthSuccess){
+                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定保证的保证金方可在我司平台办理业务，谢谢！', '您尚未进行认证', {
+                        confirmButtonText: '前往认证',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往车行认证页面
+                        this.$router.push({path:'/member/applyHome'});
+                    }).catch(() => {
+                        
+                    });
+                }else if(!hasEnoughCredit){
+                    this.$confirm('尊贵的用户，您好！您的保证金余额不足1000元，我司部分业务无法为您展开，请前往充值！', '保证金不足', {
+                        confirmButtonText: '前往充值',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往保证金充值页面
+                        this.$router.push({path:'/member/recharge',query:{type:2}});
+                    }).catch(() => {
+                        
+                    });
+                }
+            },
+
             // 加入购物车
             inShopingCart(id){
                 let data = {

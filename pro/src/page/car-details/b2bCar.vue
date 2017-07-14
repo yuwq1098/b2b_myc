@@ -16,7 +16,15 @@
                         <div class="m-mn-info f__fr">
                             <div class="m-tit">{{basicInfo.title}}</div>
                             <div class="m-pic f__clearfix">
-                                <span class="u-price">￥<em class="vital">{{basicInfo.price| priceFormat(2)}}</em>万</span>
+                                <template v-if="memberData&&!memberData.isAuthSuccess">
+                                    <span class="u-txt">您尚未认证</span>
+                                </template>
+                                <template v-else-if="memberData&&!memberData.hasEnoughCredit">
+                                    <span class="u-txt">信誉保证金不足</span>
+                                </template>
+                                <template v-else>
+                                    <span class="u-price">￥<em class="vital">{{basicInfo.price| priceFormat(2)}}</em>万</span>
+                                </template>
                                 <span class="u-del">零售价：{{basicInfo.retailPrice| priceFormat(2)}}万</span>
                                 <!-- <a href="javascript:;" class="u-lk record">
                                     <i class="iconfont icon-activity_fill"></i>查询维修保养记录
@@ -63,12 +71,26 @@
                                     >收藏车辆</a>
                                 <a href="javascript:;" class="u-btn not"
                                     v-if="otherInfo.isInFavorite">已收藏</a>
-                                <a class="u-btn v3"
-                                    v-if="!otherInfo.isInCart"
-                                    @click="inShopingCart(basicInfo.id)"
-                                    >加入购物车</a>
-                                <a href="javascript:;" class="u-btn not"
-                                    v-if="otherInfo.isInCart">已加入购物车</a>
+
+                                <template v-if="(memberData&&!memberData.isAuthSuccess)||
+                                    (memberData&&!memberData.hasEnoughCredit)"
+                                    >
+                                    <a class="u-btn v3"
+                                        v-if="!otherInfo.isInCart"
+                                        @click="judgeHasPrivilege(memberData)"
+                                        >加入购物车</a>
+                                    <a href="javascript:;" class="u-btn not"
+                                        v-if="otherInfo.isInCart">已加入购物车</a>
+                                </template>
+                                <template v-else>
+                                    <a class="u-btn v3"
+                                        v-if="!otherInfo.isInCart"
+                                        @click="inShopingCart(basicInfo.id)"
+                                        >加入购物车</a>
+                                    <a href="javascript:;" class="u-btn not"
+                                        v-if="otherInfo.isInCart">已加入购物车</a>
+                                </template>
+                                
 
                                 <!-- <router-link :to="{path : '/payment'}" class="u-btn v3">立即秒杀</router-link> -->
                             </div><!-- 操作 -->
@@ -128,35 +150,54 @@
                             <div class="m-merchant f__fr">
                                 <div class="m-mct-box">
                                     <div class="m-mct-hd">
-
-                                        <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="u-icon" tag="a">
-                                            <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
-                                        </router-link><!-- 车商商头像 -->
+                                        
+                                        <template v-if="(memberData&&!memberData.isAuthSuccess)||
+                                            (memberData&&!memberData.hasEnoughCredit)"
+                                            >
+                                            <a class="u-icon"
+                                                @click="judgeHasPrivilege(memberData)"
+                                                >
+                                                <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
+                                            </a><!-- 车商商头像 -->
+                                        </template>
+                                        <template v-else>
+                                            <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="u-icon" tag="a">
+                                                <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
+                                            </router-link><!-- 车商商头像 -->
+                                        </template>
 
                                         <div class="u-tit">
-                                            <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="name" tag="a">{{otherInfo.cdgName}}</router-link>
-                                            <div class="u-prove" v-if="otherInfo.authType=='企业车行'">车商认证</div><!-- 认证标识 -->
-                                           <div class="u-prove" v-else>{{otherInfo.authType}}</div><!-- 认证标识 -->
+                                            <template v-if="(memberData&&!memberData.isAuthSuccess)||
+                                                (memberData&&!memberData.hasEnoughCredit)"
+                                                >
+                                                <a class="name" 
+                                                    @click="judgeHasPrivilege(memberData)">{{otherInfo.cdgName}}
+                                                </a>
+                                            </template>
+                                            <template v-else>
+                                                <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="name" tag="a">{{otherInfo.cdgName}}</router-link>
+                                            </template>
+                                            <div class="u-prove">{{otherInfo.authType}}</div><!-- 认证标识 -->
                                         </div><!-- 车商名字 -->
                                         <div class="u-tel">
-                                            <span class="name">{{otherInfo.contacter}}</span>
-                                            <span class="tel">{{otherInfo.tel}}</span>
+                                            
+                                            <!-- 未认证及保证金不足的用户不允许看车商的信息 -->
+                                            <template v-if="(memberData&&!memberData.isAuthSuccess)||
+                                                (memberData&&!memberData.hasEnoughCredit)"
+                                                >
+                                                <span class="name">{{otherInfo.contacter | usernameFormat}}</span>
+                                                <span class="tel">{{otherInfo.tel | telFormat}}</span>
+                                            </template>
+                                            <template v-else>
+                                                <span class="name">{{otherInfo.contacter}}</span>
+                                                <span class="tel">{{otherInfo.tel}}</span>
+                                            </template>
+                                            
                                             <span class="onSell"
                                                 v-if="otherInfo.onSellCount&&otherInfo.onSellCount>0"
                                                 >在售<em class="data">{{otherInfo.onSellCount}}</em>辆</span>
                                         </div><!-- 电话 -->
-                                        <!-- <div class="u-attention">
-                                            <template v-if="!otherInfo.isInFavorite">
-                                                <i class="iconfont icon-like"
-                                                    @click.stop="setAttention(1,basicInfo.mid)"></i>关注车行
-                                            </template>
-                                            
-                                            <template v-if="otherInfo.isInFavorite">
-                                                <i class="iconfont icon-like_fill"
-                                                    @click.stop="setAttention(2,basicInfo.mid)"></i>取消关注
-                                            </template>
-                                            
-                                        </div> --><!-- 关注 -->
+
                                         <div class="u-adss"><span class="tit">车行地址</span>{{otherInfo.address | addressFormat}}</div><!-- 地址 -->
                                         
                                         
@@ -254,8 +295,11 @@
     import {dataToJson} from "assets/js/util.js"
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
     // 车行信息的构造类
     import {basicInfo,carDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
+
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
     // 面包屑组件
@@ -320,12 +364,17 @@
 
         },
         activated(){
+
+            // 获取用户信息
+            this.getMemberInfo();
+
             // 获取hash 带参中的车辆ID
             this.carId = this.$router.currentRoute.query.CarId;
             // 获取车辆信息
             this.getCarDetailsInfo();
             // 获取车辆列表信息
             this.getCarList();
+            
 
         },
         //退出的生命周期钩子
@@ -334,17 +383,7 @@
         },
         // 数据侦听
         watch:{
-            // 登录状态改变
-            loginStatus(val){
-                if(val){
-                    // 获取用户信息
-                    this.getMemberInfo();
-                }else{
-                    this.memberData = null;
-                }
-                // 重新渲染页面
-                this.carListResultRender();
-            },
+
             // 侦听路由变化
             $route (to, from) {
                 // if(to.path=="/b2bCar"){
@@ -394,6 +433,34 @@
                         });
                     }
                 })   
+            },
+
+            // 判断是不是有相关的权限
+            judgeHasPrivilege(memberInfo){
+                if(!memberInfo) return;
+                if(!memberInfo.isAuthSuccess){
+                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定保证的保证金方可在我司平台办理业务，谢谢！', '您尚未进行认证', {
+                        confirmButtonText: '前往认证',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往车行认证页面
+                        this.$router.push({path:'/member/applyHome'});
+                    }).catch(() => {
+                        
+                    });
+                }else if(!memberInfo.hasEnoughCredit){
+                    this.$confirm('尊贵的用户，您好！您的保证金余额不足1000元，我司部分业务无法为您展开，请前往充值！', '保证金不足', {
+                        confirmButtonText: '前往充值',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往保证金充值页面
+                        this.$router.push({path:'/member/recharge',query:{type:2}});
+                    }).catch(() => {
+                        
+                    });
+                }
             },
 
             // 格式化车辆基本信息
@@ -504,6 +571,12 @@
                 api.manageShoppingCart(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.otherInfo.isInCart = true;
+                        this.$notify({
+                            title: '成功加入购物车',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '加入购物车失败',

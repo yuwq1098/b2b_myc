@@ -7,7 +7,8 @@
                         <b2b-car-box
                             :carInfo="item"
                             :loginStatus="loginStatus"
-                            :hasDeposit="hasDeposit"
+                            :hasEnoughCredit="memberData&&memberData.hasEnoughCredit"
+                            :isAuthSuccess="memberData&&memberData.isAuthSuccess"
                             >
                         </b2b-car-box>
                     </li>
@@ -32,8 +33,7 @@
         // 数据
         data() {
             return{
-                // 是否有保证金
-                hasDeposit: false,
+
             }
         },
         props:{
@@ -46,21 +46,10 @@
         },
         //数据侦听
         watch:{
-            memberData:{
-                handler(curVal,oldVal){
-                    if(curVal){
-                        this.hasDeposit = +(curVal.credit)>1000;
-                    }
-                },
-                deep:true
-            }
+
         },
         created(){
-            setTimeout(() => {
-                if(this.memberData){
-                    this.hasDeposit = +(this.memberData.credit)>1000;
-                }
-            })
+
         },
         mounted(){
             
