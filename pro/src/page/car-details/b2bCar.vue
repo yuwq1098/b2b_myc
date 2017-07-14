@@ -519,10 +519,9 @@
                 map.merchantName = otherInfo.cdgName;
                 if(list.length<=0) return map;
                 list.forEach((item, index) => {
-                    if(item.type=="img"){
+                    if(item.type=="img"&&item.groupName=="车辆照片"){
                         map.imgItems.push(item)
                     }
-                    
                 });
                 return map;
             },

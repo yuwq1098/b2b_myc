@@ -26,14 +26,18 @@
         // 数据
         data() {
             return{
-                switchVal: "",
+                switchVal: this.switchValue,
             }
         },
         props:{
             text:{
                 type: String,
                 default: "这是一个开关Switch"
-            }
+            },
+            switchValue: {
+                type: Boolean,
+                default: false,
+            },
         },
         // 数据侦听
         watch:{

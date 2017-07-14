@@ -386,6 +386,7 @@
                                             <gk-switch
                                                 text="是否发布到普通二手车市场"
                                                 @switchEnd="postRetailEnd"
+                                                :switchValue="form.isPostRetail"
                                                 >
                                             </gk-switch>
                                         </div>
@@ -530,7 +531,7 @@
                     desc: "",               // 车主留言
                     nameplate: [],          // 铭牌图片
                     photo: [],              // 车辆图片
-                    isPostRetail: false,    // 是否发布到二手市场
+                    isPostRetail: true,    // 是否发布到二手市场
                 },
 
                 // 数据源（下拉选择的数据）
@@ -614,7 +615,7 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.memberData = this._normalizeMember(res.data);
                         // 判断是不是有相关的权限
-                        this.judgeHasPrivilege(this.memberData);
+                        // this.judgeHasPrivilege(this.memberData);
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',
@@ -676,11 +677,36 @@
                 this.validator.validate('plateInCity',curCityCode);
             },
 
+            // 出厂日期
+            outFactoryDateEnd(selected){
+                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
+                this.form.outFactoryDate = curDateTime;
+                this.validator.validate('outFactoryDate',curDateTime);
+                if(!this.sendError.has('plateDate')&&!this.sendError.has('outFactoryDate')){
+                    let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
+                    if(peDate<ofDate){
+                        this.sendError.remove('plateDate');
+                        this.sendError.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
+                    }
+                }else{
+                    this.sendError.remove('plateDate');
+                }
+            },
+
             // 上牌日期
             plateDateEnd(selected){
                 let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
                 this.form.plateDate = curDateTime;
                 this.validator.validate('plateDate',curDateTime);
+                if(this.form.outFactoryDate==""){
+                    this.validator.validate('outFactoryDate',this.form.fixedPrice);
+                }else if(!this.sendError.has('plateDate')&&!this.sendError.has('outFactoryDate')){
+                    let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
+                    if(peDate<ofDate){
+                        this.sendError.remove('plateDate');
+                        this.sendError.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
+                    }
+                }
             },
 
             // 过户次数
@@ -689,18 +715,20 @@
                 this.form.changeNum = curNumber;
                 this.validator.validate('changeNum',curNumber);
             },
-
-            // 出厂日期
-            outFactoryDateEnd(selected){
-                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
-                this.form.outFactoryDate = curDateTime;
-                this.validator.validate('outFactoryDate',curDateTime);
-            },
             
             // 一口价
             fixedPriceEnd(val){
                 this.form.fixedPrice = val;
                 this.validator.validate('fixedPrice',val);
+                if(!this.sendError.has('retailPrice')&&!this.sendError.has('fixedPrice')){
+                    let [rPrice,price] = [ parseFloat(this.form.retailPrice),parseFloat(this.form.fixedPrice)];
+                    if(rPrice<=price){
+                        this.sendError.remove('retailPrice');
+                        this.sendError.add('retailPrice', "零售价必须大于批发价", 'auth');
+                    }
+                }else{
+                    this.sendError.remove('retailPrice');
+                }
             },
 
             // 零售价
@@ -709,26 +737,13 @@
                 this.validator.validate('retailPrice',val);
                 if(this.form.fixedPrice==""){
                     this.validator.validate('fixedPrice',this.form.fixedPrice);
-                }else if(!this.sendError.has('fixedPrice')&&!this.sendError.has('fixedPrice')){
+                }else if(!this.sendError.has('retailPrice')&&!this.sendError.has('fixedPrice')){
                     let [rPrice,price] = [ parseFloat(this.form.retailPrice),parseFloat(this.form.fixedPrice)];
-                    if(rPrice>price){
-                        console.log("零售价大于批发价，合适")
-                    }else{
-                        console.log("零售价小于批发价，不合适")
+                    if(rPrice<=price){
+                        this.sendError.remove('retailPrice');
+                        this.sendError.add('retailPrice', "零售价必须大于批发价", 'auth');
                     }
                 }
-            },
-            
-            // 价格比较
-            comparePrice(retailPrice,fixedPrice){
-                console.log("蛋疼")
-                /*let [rPrice,price] = [ parseFloat(retailPrice),parseFloat(fixedPrice)];
-                console.log("蛋疼");
-                if(rPrice>price){
-                    console.log("零售价大于批发价，合适")
-                }else{
-                    console.log("零售价小于批发价，不合适")
-                }*/
             },
             
             // 行驶里程
@@ -820,7 +835,7 @@
                     photo: this.form.photo.length,
                 }).then(() => {
 
-                    //验证通过那么久将按钮设置为提交中状态
+                    //验证通过那么就将按钮设置为提交中状态
                     this.isSubmitState = true;
                     this.issue();
 
@@ -840,24 +855,39 @@
             issue(){
                 let me = this;
                 // 获取数据
-                this._normalizeData(this.form,function(data){
+                this._normalizeData(this.form,(data)=>{
 
                     api.addOrEditB2BCar(data).then(res => {
-                        if(res.code==SYSTEM.CODE_IS_OK){
-                            console.log("去你妹的，我发成功了",res)
-                        }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                            me.$notify.error({
-                                title: '发布失败',
-                                message: res.msg,
+                        // 请求成功将接触按钮的提交中状态
+                        this.isSubmitState = false;
+                        if(res.code==0){
+                            me.$notify({
+                                title: '新车发布成功',
+                                message: "恭喜发布新车成功，前往车源管理界面",
                                 type: 'success',
                                 duration: 2000,
                             });
                             setTimeout(() => {
-                                me.$router.push('/member');
-                            },2000)
+                                me.$router.push({path:'/member/sourceHome',query:{tabIndex:3}});
+                            },800)
+                        }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                            me.$notify({
+                                title: '发布失败',
+                                message: res.msg,
+                                type: 'error',
+                                duration: 2000,
+                            });
                         }
                     }).catch(error => {
-                        console.log(error)
+
+                        // 请求成功将接触按钮的提交中状态
+                        this.isSubmitState = false;
+                        me.$notify({
+                            title: '发布失败',
+                            message: error,
+                            type: 'error',
+                            duration: 2000,
+                        });
                     });
                 });
             },
