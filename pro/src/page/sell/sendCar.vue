@@ -615,7 +615,7 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.memberData = this._normalizeMember(res.data);
                         // 判断是不是有相关的权限
-                        // this.judgeHasPrivilege(this.memberData);
+                        this.judgeHasPrivilege(this.memberData);
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',
@@ -834,10 +834,40 @@
                     nameplate: this.form.nameplate.length,
                     photo: this.form.photo.length,
                 }).then(() => {
+                    
+                    // 验证上牌日期
+                    if(!this.sendError.has('plateDate')&&!this.sendError.has('outFactoryDate')){
+                        let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
+                        if(peDate<ofDate){
+                            this.sendError.remove('plateDate');
+                            this.sendError.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
+                            return;
+                        }
+                    }
+
+                    // 验证零售价
+                    if(!this.sendError.has('retailPrice')&&!this.sendError.has('fixedPrice')){
+                        let [rPrice,price] = [ parseFloat(this.form.retailPrice),parseFloat(this.form.fixedPrice)];
+                        if(rPrice<=price){
+                            this.sendError.remove('retailPrice');
+                            this.sendError.add('retailPrice', "零售价必须大于批发价", 'auth');
+                            return;
+                        }
+                    }
 
                     //验证通过那么就将按钮设置为提交中状态
                     this.isSubmitState = true;
-                    this.issue();
+                    
+                    this.$confirm('尊贵的用户，您好！请确保您发布车辆信息的真实性，这将审核的通过率！', '温馨提示', {
+                        confirmButtonText: '确认发布',
+                        cancelButtonText: '再仔细看看',
+                        type: 'warning'
+                    }).then(() => {
+                        // 立即发布
+                        this.issue();
+                    }).catch(() => {
+                        return;
+                    });
 
                 }).catch(() => {
                     this.$notify.error({
@@ -854,9 +884,10 @@
             //整理数据并发布
             issue(){
                 let me = this;
+
                 // 获取数据
                 this._normalizeData(this.form,(data)=>{
-
+                    
                     api.addOrEditB2BCar(data).then(res => {
                         // 请求成功将接触按钮的提交中状态
                         this.isSubmitState = false;
