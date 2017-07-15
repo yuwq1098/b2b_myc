@@ -334,6 +334,7 @@
                                         </div>
                                         <div class="m-nameplate-upload">
                                             <nameplate-upload
+                                                :maxUploadSize="3"
                                                 @changeFiles="nameplateEnd"
                                                 >
                                             </nameplate-upload>
@@ -352,6 +353,7 @@
                                         </div>
                                         <div class="m-photo-upload">
                                             <photo-upload
+                                                :maxUploadSize="12"
                                                 @changeFiles="photoEnd"
                                                 >    
                                             </photo-upload>
@@ -576,8 +578,8 @@
                 vin: 'required|alpha_dash|min:17|max:17',
                 color: 'required',
                 desc: 'required|min:10|max:300',
-                nameplate: 'between:1,6|max:6',
-                photo: 'between:2,6|max:6',
+                nameplate: 'between:1,3|max:3',
+                photo: 'between:2,12|max:12',
             });
             this.$set(this, 'sendError', this.validator.errorBag);
         },
@@ -841,6 +843,8 @@
                         if(peDate<ofDate){
                             this.sendError.remove('plateDate');
                             this.sendError.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
+                            // 不合理填写提示
+                            this.issueErrorTips();
                             return;
                         }
                     }
@@ -851,6 +855,8 @@
                         if(rPrice<=price){
                             this.sendError.remove('retailPrice');
                             this.sendError.add('retailPrice', "零售价必须大于批发价", 'auth');
+                            // 不合理填写提示
+                            this.issueErrorTips();
                             return;
                         }
                     }
@@ -879,6 +885,17 @@
                     document.body.scrollTop = 500
                 });
 
+            },
+
+            // 发布车辆信息填写不合逻辑
+            issueErrorTips(){
+                this.$notify.error({
+                    title: '部分信息填写不合理',
+                    message: '请认真填写完所有车辆信息',
+                    type: 'error',
+                    duration: 2000,
+                });
+                document.body.scrollTop = 500
             },
             
             //整理数据并发布

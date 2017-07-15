@@ -160,10 +160,10 @@ const dictionary = {
                 max:(field,params) => '请填写10 ~ 300字的'+field
             },
             nameplate:{
-                between:() => '请最少上传1张车铭牌图片'
+                between:() => '请上传1~3张车铭牌图片'
             },
             photo:{
-                between:() => '请最少上传2张车辆图片'
+                between:() => '请上传2~12张车辆图片'
             },
             pass:{
                 min:()=> '密码由6-22位数字与字母组成,暂不支持符号',

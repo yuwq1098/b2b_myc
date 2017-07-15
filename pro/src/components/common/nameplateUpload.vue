@@ -9,7 +9,7 @@
             <!-- 文件上传(button区域)组件 -->
             <upload-input
                 btnText="上传车辆铭牌"
-                uploadTip="上传车辆铭牌图片，图片比例为4:3，支持jpg/gif/png格式，每张最大2M，为保证铭牌有效辨识度，您可以尝试上传2-3张不同角度的铭牌照片！"
+                uploadTip="上传车辆铭牌图片，图片比例为4:3，支持jpg/gif/png格式，每张最大2M，为保证铭牌有效辨识度，您可以尝试上传1~3张不同角度的铭牌照片！"
                 :files="nameplateFiles"
                 @uploadChange="nameplateFilesChange"
                 >
@@ -113,9 +113,6 @@
                 nameplateExamples: nameplateExamples,
                 // 用户选择的铭牌图片文件集合
                 nameplateFiles: [],
-
-                // 最大上传数量
-                maxUploadSize: 4,
                 
                 // 图片放大对话框
                 dialogImageUrl: '',
@@ -123,7 +120,11 @@
             }
         },
         props:{
-            
+            // 最大上传数量
+            maxUploadSize:{
+                type: Number,
+                default: 2,
+            }
         },
         // 数据侦听
         watch:{

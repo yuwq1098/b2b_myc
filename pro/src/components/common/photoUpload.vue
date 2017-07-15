@@ -113,8 +113,6 @@
                 photoExamples: photoExamples,
                 // 用户选择的图片文件集合
                 photoFiles: [],
-                // 最大上传数量
-                maxUploadSize: 6,
                 
                 // 图片放大对话框
                 dialogImageUrl: '',
@@ -122,7 +120,11 @@
             }
         },
         props:{
-            
+            // 最大上传数量
+            maxUploadSize:{
+                type: Number,
+                default: 6,
+            }
         },
         // 数据侦听
         watch:{
@@ -140,7 +142,6 @@
             // 用户选择图片（选择后的回调）
             photoFilesChange(files){
                 let me = this;
-                
                 //当图片上传总数大于 约定的上传上限
                 if(this.photoFiles.length + files.length > this.maxUploadSize){
                     this.$message.error('最多只能上传'+this.maxUploadSize+"张");
