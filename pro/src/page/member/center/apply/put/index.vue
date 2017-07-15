@@ -138,18 +138,71 @@
 
                                 <div class="m-tb-con"
                                     v-if="tabShowIndex==2">
-                                    <div class="u-upload-wrap">
-                                        <div class="box-inner">
-                                            <div class="">
-                                                
-                                            </div><!-- 上传身份证正面照 -->
-                                            <div class="">
-                                                
-                                            </div><!-- 上传身份证反面照 -->
-                                            <div class="">
-                                                
-                                            </div><!-- 上传营业执照容器盒子 -->
-                                        </div><!-- 盒子内容 -->
+                                    <div class="m-upload-wrap">
+                                        <div class="u-line-box">
+                                            <div class="upload-inner">
+                                                <div class="u-con">
+                                                    <div class="u-upload">
+                                                        <voucher-upload
+                                                            tips="上传身份证正面照"
+                                                            @changeFiles="voucherOne"
+                                                            >
+                                                        </voucher-upload><!-- 文件上传组件 -->
+                                                    </div><!-- 上传盒子按钮 -->
+                                                    <div class="u-example v1">
+                                                        <span class="tit">示例</span>
+                                                        <div class="u-pic"></div>
+                                                    </div><!-- 图片示例 -->
+                                                </div>
+                                            </div>
+                                        </div><!-- 上传身份证正面照 -->
+                                        <div class="u-line-box">
+                                            <div class="upload-inner">
+                                                <div class="u-con">
+                                                    <div class="u-upload">
+                                                        <voucher-upload
+                                                            tips="上传身份证反面照"
+                                                            @changeFiles="voucherTwo"
+                                                            >
+                                                        </voucher-upload><!-- 文件上传组件 -->
+                                                    </div><!-- 上传盒子按钮 -->
+                                                    <div class="u-example v2">
+                                                        <span class="tit">示例</span>
+                                                        <div class="u-pic"></div>
+                                                    </div><!-- 图片示例 -->
+                                                </div>
+                                            </div>
+                                        </div><!-- 上传身份证反面照 -->
+                                        <div class="u-line-box">
+                                            <div class="other-box">
+                                                <el-checkbox v-model="hasMerchantApply">是否同时上传营业执照（认证企业车行）</el-checkbox>
+                                            </div><!-- 其他信息 -->
+                                            <transition name="slide-top">
+                                                <div class="upload-inner" v-show="hasMerchantApply">
+                                                    <div class="u-con">
+                                                        <div class="u-upload">
+                                                            <voucher-upload
+                                                                tips="上传营业执照"
+                                                                @changeFiles="voucherThree"
+                                                                >
+                                                            </voucher-upload><!-- 文件上传组件 -->
+                                                        </div><!-- 上传盒子按钮 -->
+                                                        <div class="u-example v3">
+                                                            <span class="tit">示例</span>
+                                                            <div class="u-pic"></div>
+                                                        </div><!-- 图片示例 -->
+                                                    </div>
+                                                </div>
+                                            </transition>
+                                        </div><!-- 上传营业执照容器盒子 -->
+                                        <div class="u-btn-box">
+                                            <a class="u-btn" 
+                                                @click="onSubmit()"
+                                                >上传完毕，立即提交</a>
+                                            <a class="u-btn hollow" 
+                                                @click="onBack()"
+                                                >返回上一步</a>
+                                        </div><!-- 提交按钮 -->
                                     </div><!-- 上传容器 -->
                                 </div>
 
@@ -188,10 +241,11 @@
     import memberLayout from 'components/layout/memberCon.vue' 
     // 会员中心子内容组件
     import memberInner from 'components/layout/memberInner.vue'
+    // 证件上传组件
+    import voucherUpload from 'components/member/voucherUpload.vue'
 
     // 引入表单验证
     import { Validator } from 'vee-validate';
-
 
     export default {
         
@@ -204,6 +258,9 @@
             memberInner,
             // 城市级联选择组件
             cityCascader,
+            // 证件上传组件
+            voucherUpload,
+
         },
         // 数据
         data() {
@@ -231,6 +288,13 @@
 
                 // 表单验证报错集合
                 errors: null,
+
+                voucherId__1:"",           // 身份证正面
+                voucherId__2:"",           // 身份证背面
+                voucherId__3:"",           // 营业执照
+
+                // 是否需要上传营业执照，认证企业车行
+                hasMerchantApply: false,
                 
             }
         },
@@ -318,11 +382,145 @@
                 this.cdgCity = "";
                 this.cdgAddress = "";
                 this.cdgDesc = "";
+                this.voucherId__1 = "";
+                this.voucherId__2 = "";
+                this.voucherId__3 = "";
+                this.hasMerchantApply = false;
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 setTimeout(() => {
                     this.errors.clear();
                 })
             },
+            
+            // 身份证正面
+            voucherOne(id){
+                this.voucherId__1 = id;
+            },
+
+            // 身份证背面
+            voucherTwo(id){
+                this.voucherId__2 = id;
+            },
+
+            // 营业执照
+            voucherThree(id){
+                this.voucherId__3 = id;
+            },
+            
+            // 提交
+            onSubmit(){
+                // 如果想企业认证
+                if(this.hasMerchantApply){
+                    let condition = this.voucherId__1!=""&&
+                                    this.voucherId__2!=""&&
+                                    this.voucherId__3!="";
+                    if(!condition){
+                        this.$alert('您尚未上传相关证件，无法进行下一步操作', '未上传相关证件', {
+                            confirmButtonText: '确定',
+                            type: 'error'
+                        });
+                        return;
+                    }
+                }else{
+                    let condition = this.voucherId__1!=""&&
+                                    this.voucherId__2!="";
+                    if(!condition){
+                        this.$alert('您尚未上传相关证件，无法进行下一步操作', '未上传相关证件', {
+                            confirmButtonText: '确定',
+                            type: 'error'
+                        });
+                        return;
+                    }
+                }
+
+                this.validator.validateAll({
+                    authName: this.authName,
+                    authNumber: this.authNumber,
+                    cdgName: this.cdgName,
+                    cdgCity: this.cdgCity,
+                    cdgAddress: this.cdgAddress,
+                    cdgDesc: this.cdgDesc,
+                }).then(() => {
+                    
+                    // 提交给后台的信息
+                    let data = {
+                        AuthType: this.hasMerchantApply?'企业车行':'个人车行',
+                        CertificateType: "身份证",              // 证件类别：身份证
+                        CertificateNumber: this.authNumber,     // 证件号码
+                        SubmitDescription: this.cdgDesc,        // 申请备注内容，后台审核时可做参考
+                        CertificateName: this.authName,         // 证件持有人
+                        data: {
+                            Name: this.cdgName,
+                            cdgCity: this.cdgCity,
+                            Type: this.hasMerchantApply?'企业':'个人',
+                            Address: this.cdgCity + "/" + this.cdgAddress,
+                            Description: this.cdgDesc,
+                        }
+                    }
+                    if(this.hasMerchantApply){
+                        data.ImgInfo = [
+                            {
+                                imgId : this.voucherId__1,
+                                imgTitle : "身份证正面",
+                            },
+                            {
+                                imgId : this.voucherId__2,
+                                imgTitle : "身份证背面",
+                            },
+                            {
+                                imgId : this.voucherId__3,
+                                imgTitle : "营业执照",
+                            }
+                        ] 
+                    }else{
+                        data.ImgInfo = [
+                            {
+                                imgId : this.voucherId__1,
+                                imgTitle : "身份证正面",
+                            },
+                            {
+                                imgId : this.voucherId__2,
+                                imgTitle : "身份证背面",
+                            }
+                        ] 
+                    }
+
+                    // 向后台提交审核申请
+                    this.putCommit(data);
+
+                }).catch(error => {
+                    this.$notify({
+                        title: '数据丢失',
+                        message: "您之前填写的数据已不存在，请重新填写",
+                        type: 'error',
+                        duration: 1500,
+                    });
+                    this.tabShowIndex = 1;
+                });
+
+            },
+
+            // 提交操作（与后台交互）
+            putCommit(data){
+                api.authApply(data).then(res=>{
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '成功提交审核',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '提交审核失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                }) 
+            },
+
         },
         
     }
@@ -351,6 +549,18 @@
                     _borderAll(#e2e2e2)
             .el-input__icon
                 color #dedede
+    .m-upload-wrap
+        .el-checkbox__input
+            vertical-align top
+            _translate3d(0,7px)
+            margin 0 2px 0 0
+            cursor pointer
+            .el-checkbox__inner
+                cursor @cursor
+        .el-checkbox__label
+            color #777
+            font-size 13px
+            _spacingPlus()
 
 </style>
 

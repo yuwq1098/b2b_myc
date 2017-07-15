@@ -7,7 +7,7 @@
             >
             <div slot="content">
                 <member-inner>
-                    我要充值
+                    该功能正在开发中，敬请期待!
                 </member-inner>
             </div><!-- 充值页面内容 -->
         </member-layout>

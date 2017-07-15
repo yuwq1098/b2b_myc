@@ -7,7 +7,7 @@
             >
             <div slot="content">
                 <member-inner>
-                    账单详情
+                    该功能正在开发中，敬请期待!
                 </member-inner>
             </div><!-- 账单详情页面内容 -->
         </member-layout>

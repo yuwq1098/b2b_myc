@@ -167,9 +167,9 @@
                 // 表单验证报错集合
                 errors: null,
 
-                
-                // 编辑时双向绑定的昵称
+                // 头像图片
                 faceImg: "",
+                // 编辑时双向绑定的昵称
                 nickname: "",
                 sex: "",
                 // 上传的文件信息
@@ -358,8 +358,13 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.imgFileId = res.data.FileId;
                         this.uploadTips = "图片上传成功";
-                    }else if(res.code==SYSTEM.CODE_IS_OUT){
-                        console.log("身份过期");
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '上传失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 2000,
+                        });
                     }
                 })
             },
@@ -408,7 +413,6 @@
 
             // 提交操作（与后台交互）
             putCommit(data){
-                
                 api.editMemberInfo(data).then(res=>{
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.goBack();
@@ -423,7 +427,12 @@
                             duration: 1500,
                         });
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                        
+                        this.$notify({
+                            title: '修改失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
                     }
                 }) 
             },

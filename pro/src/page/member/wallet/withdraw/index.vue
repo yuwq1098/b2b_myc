@@ -7,7 +7,7 @@
             >
             <div slot="content">
                 <member-inner>
-                    我要提现
+                    该功能正在开发中，敬请期待!
                 </member-inner>
             </div><!-- 提现页面内容 -->
         </member-layout>

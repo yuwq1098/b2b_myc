@@ -7,7 +7,7 @@
             <div slot="content">
                 
                 <member-inner>
-                    我是编辑车源页面
+                    该功能正在开发中，敬请期待!
                 </member-inner>
 
             </div><!-- 编辑车源内容 -->
