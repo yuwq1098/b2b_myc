@@ -1,1 +1,83 @@
 @import '~assets/css/mixin.styl'
+
+.m-apply-wrap
+    width 520px
+    margin 60px 0 40px 120px
+    .m-upload-wrap
+        width 460px
+        margin 0 0 0 30px
+        .u-hd
+            height 42px
+            line-height 42px
+            margin 0 0 30px
+            font-size 16px
+            _spacingPlus()
+            _border(bottom,#e2e2e2)
+            position relative
+            text-align center
+            &::after
+                content ""
+                _display()
+                width 155px
+                height 2px
+                background $c_blue
+                _completeCenter(0,0,auto,-1px)
+        .u-line-box
+            @width @width
+            margin 0 0 18px
+            .upload-inner
+                width @width
+                .u-hd
+                    height 32px
+                    line-height 32px
+                .u-con
+                    width @width
+                    height 150px
+                    position relative
+                    .u-upload
+                        width 200px - 4px
+                        height 150px - 4px
+                        _borderRadius(3px)
+                        _borderAll(#e2e2e2,2px)
+                        _completeCenter(0,auto)
+                    .u-example
+                        width @width - 220px
+                        height 150px
+                        margin 0 0 0 220px
+                        position relative
+                        .tit
+                            height 28px
+                            line-height 28px
+                            _display()
+                            _spacingPlus(1px)
+                            font-size 13px
+                            _completeCenter(10px,auto)
+                        .u-pic
+                            width 176px
+                            height 132px
+                            _completeCenter(auto,12px,9px,auto)
+                        for n in 1 2 3
+                            &.v{n}
+                                .u-pic
+                                    background url("../../../../../assets/img/apply-example_0"+n+".jpg") center center no-repeat
+                                    background-size auto 100%
+        .u-btn-box
+            height 42px
+            line-height 42px
+            position relative
+            margin 50px 0 0
+            .u-btn
+                width 280px
+                text-align center
+                height 38px
+                line-height 38px
+                _display(inline-block)
+                background #2f98e2
+                color #f2f2f2
+                _borderRadius(2px)
+                _spacingPlus(3px)
+                font-size 16px
+                vertical-align top
+                _completeCenter(,,2px,auto)
+                &:hover
+                    background @background - 10%

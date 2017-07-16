@@ -93,6 +93,7 @@
                                                         @valChangeEnd="cdgCityChangeEnd"
                                                         placeholder="车行所在地"
                                                         ref="cdgCityDom"
+                                                        :myValue="cdgCity"
                                                         >
                                                     </city-cascader>
                                                 </div>
@@ -146,6 +147,7 @@
                                                         <voucher-upload
                                                             tips="上传身份证正面照"
                                                             @changeFiles="voucherOne"
+                                                            ref="voucherOne"
                                                             >
                                                         </voucher-upload><!-- 文件上传组件 -->
                                                     </div><!-- 上传盒子按钮 -->
@@ -163,6 +165,7 @@
                                                         <voucher-upload
                                                             tips="上传身份证反面照"
                                                             @changeFiles="voucherTwo"
+                                                            ref="voucherTwo"
                                                             >
                                                         </voucher-upload><!-- 文件上传组件 -->
                                                     </div><!-- 上传盒子按钮 -->
@@ -184,6 +187,7 @@
                                                             <voucher-upload
                                                                 tips="上传营业执照"
                                                                 @changeFiles="voucherThree"
+                                                                ref="voucherThree"
                                                                 >
                                                             </voucher-upload><!-- 文件上传组件 -->
                                                         </div><!-- 上传盒子按钮 -->
@@ -209,7 +213,80 @@
                                 <div class="m-tb-con"
                                     v-if="tabShowIndex==3">
                                     <div class="m-res-box">
-                                        结果页
+                                        <div class="sign">
+                                            <template v-if="memberData.authStatus==0">
+                                                <i class="iconfont v1 icon-shenhe01"></i>
+                                            </template><!-- 审核中 -->
+                                            <template v-if="memberData.authStatus==-1">
+                                                <i class="iconfont v2 icon-shenheweitongguo1"></i>
+                                            </template><!-- 审核失败 -->
+                                            <template v-if="memberData.authStatus==1">
+                                                <i class="iconfont v3 icon-approved"></i>
+                                            </template><!-- 审核失败 -->
+                                        </div><!-- 标记(审核中、审核失败) -->
+                                        <div class="m-hd">
+                                            
+                                        </div><!-- 头部信息 -->
+                                        <div class="m-info" v-if="applyData">
+                                            <div class="u-line-box">
+                                                <span class="attr">车行名称：</span>
+                                                <p class="data">{{applyData.CdgInfo.Name}}</p>
+                                            </div>
+                                            <div class="u-line-box">
+                                                <span class="attr">认证类型：</span>
+                                                <p class="data">{{applyData.AuthInfo.AuthType}}</p>
+                                            </div>
+                                            <div class="u-line-box">
+                                                <span class="attr">认证人：</span>
+                                                <p class="data">{{applyData.AuthInfo.CertificateName}}</p>
+                                            </div>
+                                            <div class="u-line-box">
+                                                <span class="attr">车行地址：</span>
+                                                <p class="data">{{applyData.CdgInfo.Address}}</p>
+                                            </div>
+                                            <div class="u-line-box">
+                                                <span class="attr">证件号码：</span>
+                                                <p class="data">{{applyData.AuthInfo.CertificateNumber}}</p>
+                                            </div>
+                                        </div><!-- 文本信息 -->
+                                        <div class="m-voucher-photo" v-if="applyData">
+                                            <div class="u-hd"
+                                                ><span>您提交的相关证件照</span>
+                                            </div>
+                                            <ul class="m-photo-inner f__clearfix"
+                                                :class="[applyData.AuthImgs.length==2?'v2':'',applyData.AuthImgs.length==3?'v3':'']"
+                                                >
+                                                <template v-for="(item,index) in applyData.AuthImgs"
+                                                    >
+                                                    <li class="u-item">
+                                                        <div class="u-pic">
+                                                            <img :src="item.ImgPath" :title="item.Title" />
+                                                        </div>
+                                                        <p class="tit">· {{item.Title}} · </p>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div><!-- 证件图信息 -->
+                                        <div class="u-btn-box" 
+                                            v-if="(memberData.curApplyType=='个人车行'&&memberData.authStatus!=-1)||
+                                                    (memberData.authStatus==-1)">
+                                            <template
+                                                v-if="memberData.curApplyType=='个人车行'&&memberData.authStatus!=-1"
+                                                >
+                                                <router-link class="u-btn" 
+                                                    :to="{path:'/member/merchantApply'}"
+                                                    >升级认证为企业车行</router-link>
+                                            </template>
+                                            <template
+                                                v-if="memberData.authStatus==-1"
+                                                >
+                                                <a class="u-btn"
+                                                    @click="anewApply(applyData)"
+                                                    >重新发起认证</a>
+                                            </template>
+                                            
+                                        </div><!-- 按钮容器 -->
+
                                     </div><!-- 结果 -->
                                 </div>
 
@@ -234,6 +311,9 @@
     import {dataToJson} from "assets/js/util.js"
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
+    
     // 城市级联选择组件
     import cityCascader from "components/cascader/citySelect.vue"
 
@@ -266,11 +346,17 @@
         data() {
             return{
 
+                // 用户信息
+                memberData: "",
+                // 认证信息
+                applyData: "",
                 // 选项卡显示
                 tabShowIndex: "",
                 // 结果流程的文本显示
                 lastFlowTetx: "上传完毕",
-                
+
+                // 认证id
+                authId: "",
                 // 认证人真实姓名
                 authName: "",
                 // 身份证号
@@ -315,9 +401,13 @@
 
         },
         activated(){
+            
             // 重置数据
             this.reset();
-            this.tabShowIndex = 2;
+            this.authId = this.$router.currentRoute.query.authId||false;
+            // 获取用户信息
+            this.getMemberInfo();
+            this.tabShowIndex = 1;
         },
         // 退出的生命周期钩子
         deactivated(){
@@ -351,6 +441,71 @@
 
         // 自定义函数(方法)
         methods: {
+            
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+
+            // 获取用户信息
+            getMemberInfo(){
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        // 格式化用户信息
+                        this.memberData = this._normalizeMember(res.data);
+                        if(this.memberData.authStatusText!=""){
+                            // 获取当前认证的信息
+                            this.getApplyInfo(this.memberData.curApplyId);
+
+                            this.tabShowIndex = 3;
+                            if(this.memberData.authStatus==0){
+                                this.lastFlowTetx = "请等待审核"
+                            }else if(this.memberData.authStatus==-1){
+                                this.lastFlowTetx = "审核失败"
+                                this.theErrorApply();
+                            }else if(this.memberData.authStatus==1){
+                                this.lastFlowTetx = "认证成功"
+                            }
+                        }
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
+            
+            // 审核失败，展示用户理由
+            theErrorApply(){
+                this.$alert('后台人员备注：'+this.memberData.errorApplyText, '未通过审核', {
+                    confirmButtonText: '确定',
+                    type: 'error'
+                });
+            },
+
+            // 获取认证信息
+            getApplyInfo(authId){
+                let data = {
+                    AuthId : authId,
+                }
+                api.getAuthDetails(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        // 格式化认证信息
+                        this.applyData = res.data;
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '认证信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
 
             // 城市级联(车行所在地)
             cdgCityChangeEnd(selected){
@@ -442,51 +597,78 @@
                     cdgDesc: this.cdgDesc,
                 }).then(() => {
                     
-                    // 提交给后台的信息
-                    let data = {
-                        AuthType: this.hasMerchantApply?'企业车行':'个人车行',
-                        CertificateType: "身份证",              // 证件类别：身份证
-                        CertificateNumber: this.authNumber,     // 证件号码
-                        SubmitDescription: this.cdgDesc,        // 申请备注内容，后台审核时可做参考
-                        CertificateName: this.authName,         // 证件持有人
-                        data: {
-                            Name: this.cdgName,
-                            cdgCity: this.cdgCity,
-                            Type: this.hasMerchantApply?'企业':'个人',
-                            Address: this.cdgCity + "/" + this.cdgAddress,
-                            Description: this.cdgDesc,
+                    let myAuthId = "";
+
+                    // 如果用户想要认证企业车行
+                    if(this.hasMerchantApply){
+                        myAuthId = (this.authId&&this.memberData.curApplyType!='个人车行')?this.authId:'';
+                    }else{
+                        // 如果用户想要认证个人车行
+                        if(this.memberData.curApplyType=='个人车行'){
+                            myAuthId = this.authId;
+                        }else{
+                            if(this.memberData.hasApplyCount==1){
+                                myAuthId = "";
+                            }else{
+                                this.memberData.cdgAuth.forEach((item,index)=>{
+                                    if(this.memberData.cdgAuth[index].AuthInfo.AuthType=="个人车行"){
+                                        myAuthId = this.memberData.cdgAuth[index].AuthInfo.AuthId;
+                                        
+                                    }
+                                })
+                            }
                         }
                     }
-                    if(this.hasMerchantApply){
-                        data.ImgInfo = [
-                            {
-                                imgId : this.voucherId__1,
-                                imgTitle : "身份证正面",
-                            },
-                            {
-                                imgId : this.voucherId__2,
-                                imgTitle : "身份证背面",
-                            },
-                            {
-                                imgId : this.voucherId__3,
-                                imgTitle : "营业执照",
+                    
+                    // 回调
+                    setTimeout(()=>{
+                        // 提交给后台的信息
+                        let data = {
+                            AuthId: myAuthId,
+                            AuthType: this.hasMerchantApply?'企业车行':'个人车行',
+                            CertificateType: "身份证",              // 证件类别：身份证
+                            CertificateNumber: this.authNumber,     // 证件号码
+                            SubmitDescription: this.cdgDesc,        // 申请备注内容，后台审核时可做参考
+                            CertificateName: this.authName,         // 证件持有人
+                            data: {
+                                Name: this.cdgName,
+                                Type: this.hasMerchantApply?'企业':'个人',
+                                Address: this.cdgCity + "/" + this.cdgAddress,
+                                Description: this.cdgDesc,
                             }
-                        ] 
-                    }else{
-                        data.ImgInfo = [
-                            {
-                                imgId : this.voucherId__1,
-                                imgTitle : "身份证正面",
-                            },
-                            {
-                                imgId : this.voucherId__2,
-                                imgTitle : "身份证背面",
-                            }
-                        ] 
-                    }
+                        }
+                        if(this.hasMerchantApply){
+                            data.ImgInfo = [
+                                {
+                                    imgId : this.voucherId__1,
+                                    imgTitle : "身份证正面",
+                                },
+                                {
+                                    imgId : this.voucherId__2,
+                                    imgTitle : "身份证背面",
+                                },
+                                {
+                                    imgId : this.voucherId__3,
+                                    imgTitle : "营业执照",
+                                }
+                            ] 
+                        }else{
+                            data.ImgInfo = [
+                                {
+                                    imgId : this.voucherId__1,
+                                    imgTitle : "身份证正面",
+                                },
+                                {
+                                    imgId : this.voucherId__2,
+                                    imgTitle : "身份证背面",
+                                }
+                            ] 
+                        }
 
-                    // 向后台提交审核申请
-                    this.putCommit(data);
+                        // 向后台提交审核申请
+                        this.putCommit(data);
+                    });
+                    
 
                 }).catch(error => {
                     this.$notify({
@@ -496,6 +678,8 @@
                         duration: 1500,
                     });
                     this.tabShowIndex = 1;
+                    // 清空证件信息
+                    this.flowTwoReset();
                 });
 
             },
@@ -510,6 +694,10 @@
                             type: 'success',
                             duration: 1500,
                         });
+                        this.tabShowIndex = 3;
+                        // 刷新数据
+                        this.getMemberInfo();
+
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '提交审核失败',
@@ -520,6 +708,44 @@
                     }
                 }) 
             },
+            
+            // 返回上一步
+            onBack(){
+                this.tabShowIndex = 1;
+                // 清空证件信息
+                this.flowTwoReset();
+            },
+
+            // 清空步骤二的数据
+            flowTwoReset(){
+                this.hasMerchantApply = false;
+                this.voucherId__1 = "";
+                this.voucherId__2 = "";
+                this.voucherId__3 = "";
+                this.$refs.voucherOne.clearImg();
+                this.$refs.voucherTwo.clearImg();
+                this.$refs.voucherThree.clearImg();
+            },
+            
+            // 重新发起认证
+            anewApply(applyInfo){
+                this.tabShowIndex = 1;
+                this.lastFlowTetx = "上传完毕"
+                this.authName = applyInfo.AuthInfo.CertificateName;
+                this.authNumber = applyInfo.AuthInfo.CertificateNumber;
+                this.cdgName = applyInfo.CdgInfo.Name;
+                
+                
+                let arr = applyInfo.CdgInfo.Address.split("/");
+                this.cdgCity = arr[0] + " / " + arr[1];
+                this.cdgAddress = arr[2];
+
+                this.cdgDesc = applyInfo.CdgInfo.Description;
+                this.voucherId__1 = "";
+                this.voucherId__2 = "";
+                this.voucherId__3 = "";
+                this.hasMerchantApply = false;
+            }
 
         },
         

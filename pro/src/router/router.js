@@ -444,6 +444,11 @@ export default[{
             component: page404,
             meta: { }
         },
+        {
+        // 所有未匹配到的页面
+            path: "*",
+            redirect: "/page404"
+        },
     ],
 
 }]

@@ -255,8 +255,17 @@
             
             // 重置数据
             reset(){
-              
-            }
+                this.fileImg = "";
+                // 上传的文件信息
+                this.imgFileId = "";        // 上传图片的id
+                this.myFile = {};
+            },
+            
+            // 清除图片信息
+            clearImg(){
+                // this.reset();
+                this.$destroy;
+            },
         },
     }
 </script>

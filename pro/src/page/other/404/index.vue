@@ -97,7 +97,7 @@
             // 返回上一页
             goBack(){
                 // 中间层遇到阻塞，所以需要返回两层
-                this.$router.go(-2);
+                this.$router.go(-1);
             },
             // 倒计时自动跳转
             autoGoto(){
@@ -105,7 +105,7 @@
                     this.secondLast--;
                     if(this.secondLast==1){
                         this.myTimeOut = setTimeout(()=>{
-                            this.$router.go(-2);
+                            this.$router.go(-1);
                         },800);
                     }
                 },1000);

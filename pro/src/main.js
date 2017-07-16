@@ -64,10 +64,10 @@ if(rootURL!="/api"){
 router.beforeEach((to, from, next) => {
 
   // 如果想去的页面不存在，即matched为空数组,那么就跳转至404页面
-  if(to.matched.length==0){
-      next({path: '/page404'});
-      return;
-  }
+  // if(to.matched.length==0){
+  //     next({path: '/page404'});
+  //     return;
+  // }
   
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
       if (store.state.user.loginStatus) {  // 通过vuex state获取当前的token是否存在
