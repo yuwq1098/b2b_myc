@@ -287,7 +287,10 @@
 
                     <div class="m-lst-gp-sel">
                         <div class="m-hd f__clearfix">
-                            <h3 class="u-tit f__fl">全部车源</h3>
+                            <h3 class="u-tit f__fl">
+                                <span class="tit">全部车源</span>
+                                <span class="data" v-show="resultPage.totalPage>0">(共<em class="vital">{{resultPage.totalPage}}</em>条搜索结果)</span>
+                            </h3>
                             <div class="m-filtrate f__fr">
                                 <ul class="m-filter-lst f__clearfix" id="js__sort_list">
                                     

@@ -486,12 +486,17 @@
                 }
                 api.getCarDetalis(data).then((res) => {
                     if(res.code==SYSTEM.CODE_IS_OK){
+                        
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
+                        // 车辆异常状态提示
+                        this.abnormalStatusTips(this.basicInfo.status);
+
                         // 获取车辆图片列表信息
                         this.fileInfoList = this._normalizeFileList(res.data.CarFiles)
-                        // 获取车辆详情基本信息
+                        // 获取车辆其他相关信息
                         this.otherInfo = this._normalizeOtherInfo(res.data.OtherInfo);
+                         
 
                         //获取车辆图片数据
                         setTimeout(() => {
@@ -510,7 +515,76 @@
                     }
                 })
             },
-            //获取车辆图片列表
+            
+            // 车辆异常状态提示
+            abnormalStatusTips(status){
+                
+                // 提示类型
+                let tipsType = "";
+                // 提示状态
+                let tipsStatus = "";
+
+                switch(status){
+                    case 1:       // 在售
+                        tipsType = "success";
+                        break;
+                    case -1:      // 已下架
+                        tipsType = "1";
+                        tipsStatus = "已下架"
+                        break;
+                    case 0:       // 审核中
+                        tipsType = "1";
+                        tipsStatus = "正在审核中"
+                        break;
+                    case 2:       // 交易中
+                        tipsType = "2";
+                        tipsStatus = "正在交易中"
+                        break;
+                    case 3:       // 交易成功
+                        tipsType = "1";
+                        tipsStatus = "已成功交易"
+                        break;
+                    case -2:      // 审核失败
+                        tipsType = "1";
+                        tipsStatus = "未通过审核"
+                        break;
+                }
+
+                setTimeout(()=>{
+                    // 如果该车辆在售，啥也不提示
+                    if(tipsType=="success") return;
+                    if(tipsType=="1"){
+                        this.$alert('很抱歉，该车辆的信息或无效或过期，我们希望您尝试访问别的车辆信息', '此车源'+tipsStatus, {
+                            confirmButtonText: '我知道了',
+                            type: 'error',
+                            callback: () => {
+                                this.$router.go(-1);
+                            }
+                        });
+                    }else if(tipsType=="2"){
+                        this.$alert('该车源正在交易中，您可以继续查看车辆详情，但您无购买权限', '此车源'+tipsStatus, {
+                            confirmButtonText: '我知道了',
+                            type: 'warning'
+                        });
+                    }
+                })
+                
+
+                
+
+                /*this.$confirm('尊贵的用户，您好！请确保您发布车辆信息的真实性，这将审核的通过率！', '温馨提示', {
+                    confirmButtonText: '确认发布',
+                    cancelButtonText: '再仔细看看',
+                    type: 'warning'
+                }).then(() => {
+                    // 立即发布
+                    this.issue();
+                }).catch(() => {
+                    return;
+                });*/
+            },
+
+            // 获取车辆图片列表
             getCarImgsData(list,otherInfo){
                 let map = {
                     merchantName : "",
