@@ -1,0 +1,61 @@
+@import '~assets/css/mixin.styl'
+
+.m-sidebar-wrap
+    background #33393E
+    min-height 550px
+    height 100%
+    width 40px
+    position fixed
+    top 0
+    bottom 0
+    right 0
+    z-index 999
+    // 启用硬件加速
+    _willAccelerate()
+    margin auto 0
+    .m-expand-bg
+        background #33393E
+        height 2020px
+        width @width
+        _completeCenter(0,auto,,)
+    .m-sidebar-con
+        height 220px
+        width @width
+        background rgba(0,0,0,.42)
+        _completeCenter(0,auto,120px,auto)
+    .m-sidebar-other
+        height 90px
+        width @width
+        _completeCenter(0,auto,auto,40px)
+        color #e2e2e2
+        .u-side-item
+            width @width
+            height @width
+            position relative
+            cursor pointer
+            & *
+                cursor @cursor
+            &:hover
+                background #F96268
+        .u-ewm
+            .icon
+                width 30px
+                text-align center
+                height 30px
+                line-height 30px
+                _completeCenter(,,4px)
+                .iconfont
+                    font-size 25px
+        .u-backTop
+            _completeCenter(,,auto,0)
+            .icon
+                width 30px
+                text-align center
+                height 30px
+                line-height 30px
+                _completeCenter(,,4px)
+                .iconfont
+                    font-size 24px
+
+
+

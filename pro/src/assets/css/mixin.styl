@@ -214,12 +214,24 @@ _borderRadiusAll(pixel)
     border-radius pixel
 
 
-//禁止用户对该区域进入选中
+//---禁止用户对该区域进入选中
 _unUserSelect()
     -webkit-user-select none
     -moz-user-select none
     -o-user-select none
     user-select none
+
+
+//---启用硬件加速
+_willAccelerate()
+    /*提醒浏览器提前准备硬件加速,兼容性不行*/
+    will-change transform
+    /*触发硬件加速 CPU 转 GPU*/
+    -webkit-transform translate3d(0,0,0)
+    -moz-transform translate3d(0,0,0)
+    -o-transform translate3d(0,0,0)
+    transform translate3d(0,0,0)
+    
 
 //---线性渐变
 _gradient(bColor,eColor,direction=null)
