@@ -132,7 +132,6 @@
     import {searchCarResult} from "base/class/searchResult.js"
 
     import srhSelect from "components/common/srhSelect.vue"
-    import carListBox from "components/boxLayout/carListBox.vue"
     import brandSelect from "components/brandSel/brandSelect.vue"
     // 公告条
     import noticeBar from "components/common/noticeBar.vue"
@@ -154,7 +153,6 @@
             swiper,  
             swiperSlide,
             cFootServer,
-            carListBox,
             brandSelect,
             srhSelect,
             noticeBar,
@@ -334,8 +332,10 @@
                     "PageSize": 8,
                     "PageIndex": 1,
                 }
+                // 获取b2b大厅车辆数据
                 api.getB2BCarList(data).then((res) => {
                     this.b2bCarList = this._normalizeB2bCarInfo(res.data)
+                    console.log("首页列表信息",dataToJson(this.b2bCarList));
                 })
             },
 

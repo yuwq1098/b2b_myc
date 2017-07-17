@@ -77,15 +77,14 @@
                             </router-link>
                         </div><!-- 在售 -->
                         
-                        <div class="btn-wrap three f__clearfix" v-if="sourceInfo.status == '1'">
+                        <div class="btn-wrap two f__clearfix" v-if="sourceInfo.status == '1'">
                             <a class="u-btn" 
                                 @click="addedSource(sourceInfo.id,'置顶')"
-                                >置顶</a>
-                            <a class="u-btn" 
-                                @click="editSource(sourceInfo.id)"
-                                >编辑</a>
+                                style="width: 120px"
+                                >置顶/刷新</a>
                             <a class="u-btn" 
                                 @click="soldOutSource(sourceInfo.id)"
+                                style="width: 72px"
                                 >下架</a>
                         </div><!-- 交易中 -->
 

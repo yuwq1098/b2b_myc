@@ -713,6 +713,8 @@
                 this.tabShowIndex = 1;
                 // 清空证件信息
                 this.flowTwoReset();
+                // 清空城市选择信息
+                this.cdgCity = "";
             },
 
             // 清空步骤二的数据

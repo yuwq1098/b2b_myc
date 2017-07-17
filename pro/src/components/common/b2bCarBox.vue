@@ -65,14 +65,14 @@
                                 <template v-if="!isAuthSuccess||!hasEnoughCredit"
                                     >
                                     <a class="u-btn not"
-                                        v-if="!carInfo.isInCart"
+                                        v-if="carInfo.hasInCart==''"
                                         @click.stop="judgeHasPrivilege(isAuthSuccess,hasEnoughCredit)"
                                         >
                                         <i class="iconfont icon-addCart"></i>
                                         <span class="txt">加入购物车</span>
                                     </a>
                                     <a href="javascript:;" class="u-btn"
-                                        v-if="carInfo.isInCart"
+                                        v-if="!carInfo.hasInCart==''"
                                         >
                                         <i class="iconfont icon-addCart"></i>
                                         <span class="txt">已加入购物车</span>
@@ -80,14 +80,14 @@
                                 </template>
                                 <template v-else>
                                     <a class="u-btn not"
-                                        v-if="!carInfo.isInCart"
+                                        v-if="carInfo.hasInCart==''"
                                         @click.stop="inShopingCart(carInfo.id)"
                                         >
                                         <i class="iconfont icon-addCart"></i>
                                         <span class="txt">加入购物车</span>
                                     </a>
                                     <a href="javascript:;" class="u-btn"
-                                        v-if="carInfo.isInCart"
+                                        v-if="!carInfo.hasInCart==''"
                                         >
                                         <i class="iconfont icon-addCart"></i>
                                         <span class="txt">已加入购物车</span>
