@@ -50,9 +50,12 @@
             selectedOptions: function(val){
                 
                 // 有默认值时，删除这个dom
-                if(this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].children[0].className=="theValue"){
-                    this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].children[0].remove();
+                if(this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].children.length==2){
+                    if(this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].children[0].className=="theValue"){
+                        this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].children[0].remove();
+                    }
                 }
+                
                 this._getCityAllName()
                 this.$emit("valChangeEnd",this.selectedOptions)
             }

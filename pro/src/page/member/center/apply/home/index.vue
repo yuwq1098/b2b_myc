@@ -114,7 +114,7 @@
         },
         // 退出的生命周期钩子
         deactivated(){
-
+            this.$destroy();
         },
         // 属性值计算
         computed:{
@@ -133,7 +133,6 @@
                         return "查看失败原因"
                         break;
                 }
-                
             },
 
             // 开通认证的信息
@@ -235,7 +234,8 @@
             
             // 数据重置
             reset(){
-                
+                this.memberData = {};                 // 用户信息
+                this.isApplyStart = false;            // 是否开始认证
             },
         },
         
