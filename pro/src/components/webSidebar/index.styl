@@ -10,7 +10,7 @@
     bottom 0
     right 0
     z-index 999
-    // ÂêØÁî®Á°¨‰ª∂Âä†ÈÄü
+    // ∆Ù”√”≤º˛º”ÀŸ
     _willAccelerate()
     margin auto 0
     .m-expand-bg
@@ -18,36 +18,24 @@
         height 2020px
         width @width
         _completeCenter(0,auto,,)
-    .m-sidebar-con
-        height 220px
-        width @width
-        background rgba(0,0,0,.42)
-        _completeCenter(0,auto,120px,auto)
-    .m-sidebar-other
-        height 90px
-        width @width
-        _completeCenter(0,auto,auto,40px)
-        color #e2e2e2
+    .u-side-lst
         .u-side-item
+            float left
             width @width
             height @width
             position relative
             cursor pointer
+            color #d2d2d2
+            .u-lk
+                _display()
+                color #d2d2d2
             & *
                 cursor @cursor
             &:hover
                 background #F96268
-        .u-ewm
-            .icon
-                width 30px
-                text-align center
-                height 30px
-                line-height 30px
-                _completeCenter(,,4px)
-                .iconfont
-                    font-size 25px
-        .u-backTop
-            _completeCenter(,,auto,0)
+                color #f2f2f2
+                .u-lk
+                    color #f2f2f2
             .icon
                 width 30px
                 text-align center
@@ -56,6 +44,24 @@
                 _completeCenter(,,4px)
                 .iconfont
                     font-size 24px
+    .m-sidebar-con
+        width @width
+        _completeCenter(0,auto,120px,auto)
+        .u-side-item
+            margin 0 0 15px
+    .m-sidebar-other
+        width @width
+        _completeCenter(0,auto,auto,40px)
+        .u-side-item
+            margin 15px 0 0 
+        .u-ewm
+            .icon
+                .iconfont
+                    font-size 24px
+        .u-backTop
+            .icon
+                .iconfont
+                    font-size 26px
 
 
 
