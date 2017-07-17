@@ -1,13 +1,13 @@
 <template>
-	<div class="partner">
-	    <p class="">股东人一家</p>
+	<div class="service">
+	    <p class="">木有车服务</p>
 	</div>
 </template>
 
 <script>
 
 	export default {
-        name: "partner",
+        name: "service",
         // 数据
         data() {
             return{
@@ -27,5 +27,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import 'partner.styl'
+    @import './index.styl'
 </style>
