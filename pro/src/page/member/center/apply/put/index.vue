@@ -93,7 +93,6 @@
                                                         @valChangeEnd="cdgCityChangeEnd"
                                                         placeholder="车行所在地"
                                                         ref="cdgCityDom"
-                                                        :myValue="cdgCity"
                                                         >
                                                     </city-cascader>
                                                 </div>
@@ -737,7 +736,8 @@
                 
                 
                 let arr = applyInfo.CdgInfo.Address.split("/");
-                this.cdgCity = arr[0] + " / " + arr[1];
+                this.cdgCity = "";
+
                 this.cdgAddress = arr[2];
 
                 this.cdgDesc = applyInfo.CdgInfo.Description;

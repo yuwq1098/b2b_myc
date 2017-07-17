@@ -48,14 +48,7 @@
         watch:{
             // 当用户选中的值变化了，再将事件派发给父组件
             selectedOptions: function(val){
-                
-                // 有默认值时，删除这个dom
-                if(this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].children.length==2){
-                    if(this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].children[0].className=="theValue"){
-                        this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].children[0].remove();
-                    }
-                }
-                
+
                 this._getCityAllName()
                 this.$emit("valChangeEnd",this.selectedOptions)
             }
@@ -80,13 +73,6 @@
         created(){
             this._getProvinceOptions();   //获取省份级联选择框的初始选项
             // 当有用户默认指定的值时
-            if(this.selectedOptions.length==0&&this.myValue!=""){
-                setTimeout(()=>{
-                    this.$refs.cityCascader.$el.getElementsByClassName("el-input__inner")[0].removeAttribute("placeholder");
-                    this.$refs.cityCascader.$el.getElementsByClassName("el-cascader__label")[0].innerHTML = '<span class="theValue">'+this.myValue+'</span>';
-                })
-                
-            }
         },
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
@@ -153,7 +139,13 @@
                     });
                     return allName;
                 };
-            }
+            },
+            
+            // 清除值
+            clearVal(){
+                      
+            },
+
         },
         // 在当前模块注册组件
         components:{
