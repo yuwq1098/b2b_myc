@@ -415,6 +415,16 @@ export default {
         return fetchSign('/action2/ShoppingCartMng.ashx', dataToJson(params))
     },
 
+    // 获取购物车数量
+    getMyShoppingCartNumber(){
+        let data = {
+            ActType: 'MyList',
+            PageSize: 999,
+            PageIndex:  1
+        }
+        return fetchSign('/action2/ShoppingCartMng.ashx', dataToJson(data))
+    },
+
     // 平台交易历史记录
     tradeHistory(params){
         return fetchSign('/action2/B2BOrderHistory.ashx', dataToJson(params))

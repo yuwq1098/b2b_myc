@@ -120,6 +120,8 @@
 
     // b2b车辆信息构造类
     import {b2bCarInfo} from "base/class/carInfo.js"
+    // vuex状态管理
+    import { mapActions } from 'vuex'
 
     export default {
 
@@ -153,6 +155,7 @@
         },
         // 自定义函数(方法)
         methods: {
+            ...mapActions(['getMyShoppingNumber']),
             // 判断是不是有相关的权限
             judgeHasPrivilege(isAuthSuccess,hasEnoughCredit){
                 if(!isAuthSuccess){
@@ -189,12 +192,15 @@
                 api.manageShoppingCart(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.carInfo.hasInCart = true;
+                        // 重新获取购物车内车辆数量
+                        this.getMyShoppingNumber();
                         this.$notify({
                             title: '成功加入购物车',
                             message: res.msg,
                             type: 'success',
                             duration: 1500,
                         });
+
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '加入购物车失败',

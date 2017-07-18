@@ -1,7 +1,7 @@
 @import '~assets/css/mixin.styl'
 
 .m-sidebar-wrap
-    background #33393E
+    background #27333C
     min-height 550px
     height 100%
     width 40px
@@ -14,7 +14,7 @@
     _willAccelerate()
     margin auto 0
     .m-expand-bg
-        background #33393E
+        background #27333C
         height 2020px
         width @width
         _completeCenter(0,auto,,)
@@ -28,11 +28,13 @@
             cursor pointer
             .u-lk
                 _display()
+                width @width
+                height @height
                 color #d2d2d2
             & *
                 cursor @cursor
             &:hover
-                background #9864F3
+                background #A470F7
                 color #f2f2f2
                 .u-lk
                     color #f2f2f2
@@ -49,6 +51,41 @@
         _completeCenter(0,auto,120px,auto)
         .u-side-item
             margin 0 0 10px
+            &.u-shopCart
+                height 150px
+                background #A470F7
+                .u-lk
+                    color #f2f2f2
+                .icon
+                    _completeCenter(,,16px,auto)
+                .tit
+                    margin 50px auto 0
+                    width 18px
+                    line-height 18px
+                    font-size 14px
+                    text-align center
+                .data
+                    _display()
+                    margin 8px auto 0
+                    width 22px
+                    text-align center
+                    height @width
+                    line-height @width
+                    background #f2f2f2
+                    color #A470F7
+                    font-size 13px
+                    _borderRadius(12px)
+                    &.v3
+                        margin 10px auto 0
+                        height 18px
+                        width 32px
+                        line-height 18px
+                &:hover
+                    background @background
+                    color #f2f2f2
+                    .u-lk
+                        color #f2f2f2
+
     .m-sidebar-other
         width @width
         _completeCenter(0,auto,auto,40px)

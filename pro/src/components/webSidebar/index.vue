@@ -16,6 +16,10 @@
                             <div class="icon">
                                 <i class="iconfont icon-gouwuche8"></i>
                             </div>
+                            <p class="tit">购物车</p>
+                            <span class="data"
+                                :class="{'v3':myShopingNumber>99}"
+                                >{{myShopingNumber}}</span>
                         </a>
                     </li><!-- 购物车 -->
                     <li class="u-side-item u-collect">
@@ -59,7 +63,15 @@
 </template>
 
 <script>
+    
+    // 获取数据的api
+    import api from "api/getData.js"
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
+    // dom操作类
     import * as geekDom from "assets/js/dom.js"
+    // vuex状态管理
+    import { mapGetters } from 'vuex'
 
 	export default {
         name: "webSidebar",
@@ -70,37 +82,79 @@
         // 数据
         data() {
             return{
+                // 返回顶部的定时器
                 timer: null,
+                // 返回顶部的方法是否已结束
                 tf: true,
+                
+                // 购物车数量
+                myShopingNumber: 0,
             }
         },
         created () {
-            
+
         },
         mounted(){
             
         },
         //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated() {
-
+            
             setTimeout(()=>{
+                if(this.loginStatus){
+                    if(val){
+                        // 获取购物车数量
+                        this.getShoppingNumber();
+                    }else{
+                        this.myShopingNumber = 0;
+                    }
+                }
                 // 页面初始化
                 this.init();
             },20);
+
         },
         //退出的生命周期钩子
         deactivated(){
 
         },
         computed:{
-
+            ...mapGetters(['loginStatus','shopingCartNumber']),
         },
+        // 数据侦听
         watch:{
-            
+            // 侦听购物车数量的变化
+            shopingCartNumber(val){
+                this.myShopingNumber = val;
+            },
+            // 侦听登录状态
+            loginStatus(val){
+                if(val){
+                    // 获取购物车数量
+                    this.getShoppingNumber();
+                }else{
+                    this.myShopingNumber = 0;
+                }
+            },
         },
         // 自定义函数(方法)
         methods: {
-
+            
+            // 获取购物车数量
+            getShoppingNumber(){
+                api.getMyShoppingCartNumber().then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.myShopingNumber = res.data.length;
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
             // 页面初始化
             init(){
                 this.gotop = this.$refs.js__gotop;

@@ -116,6 +116,8 @@
 <script>
     
     import $ from 'jquery'
+    // 获取数据的api
+    import api from "api/getData.js"
     // 引入系统变量
     import * as SYSTEM from 'api/system.js'
     // 轮播组件
@@ -126,7 +128,6 @@
     import cFootServer from "components/foot/foot-svr.vue"
     import {dataToJson} from "assets/js/util.js"
     import * as geekDom from "assets/js/dom.js"
-    import api from "api/getData.js"
     import {serverList,noticeBarList,swiperItems} from "api/localJson/home.js"
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
@@ -296,7 +297,6 @@
                     this.memberData = null;
                 }
             },
-            
 
         },
         methods:{
@@ -343,7 +343,6 @@
                 // 获取b2b大厅车辆数据
                 api.getB2BCarList(data).then((res) => {
                     this.b2bCarList = this._normalizeB2bCarInfo(res.data)
-                    console.log("首页列表信息",dataToJson(this.b2bCarList));
                 })
             },
 

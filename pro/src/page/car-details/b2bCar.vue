@@ -410,6 +410,7 @@
             },
         },
         methods:{
+            ...mapActions(['getMyShoppingNumber']),
 
             // 格式化用户信息
             _normalizeMember(data) {
@@ -569,9 +570,6 @@
                     }
                 })
                 
-
-                
-
                 /*this.$confirm('尊贵的用户，您好！请确保您发布车辆信息的真实性，这将审核的通过率！', '温馨提示', {
                     confirmButtonText: '确认发布',
                     cancelButtonText: '再仔细看看',
@@ -644,6 +642,8 @@
                 api.manageShoppingCart(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.otherInfo.isInCart = true;
+                        // 重新获取购物车内车辆数量
+                        this.getMyShoppingNumber();
                         this.$notify({
                             title: '成功加入购物车',
                             message: res.msg,
