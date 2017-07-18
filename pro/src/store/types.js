@@ -8,7 +8,14 @@ export const SET_LOGIN_INFO     =   'SET_LOGIN_INFO'
 // 设置登录状态        
 export const SET_LOGIN_STATUS   =   'SET_LOGIN_STATUS'
 // 获取用户信息        
-export const GET_USER_DATA      =   'GET_USER_DATA'           
+export const GET_USER_DATA      =   'GET_USER_DATA'       
+
+/** 
+* @description 登录框控制
+*/ 
+
+// 设置登录框的状态
+export const SET_SIGN_IN_BOX_SHOW_STATUS     =   'SET_SIGN_IN_BOX_SHOW_STATUS'          
 
 
 

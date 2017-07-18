@@ -106,8 +106,6 @@
             <!-- 引入底部站点服务图示 -->
             <c-foot-server></c-foot-server>
             
-            <!-- 引入侧边条 -->
-            <web-side></web-side>
             
         </div><!-- 文档 -->
     </div>
@@ -135,8 +133,7 @@
     import {b2bCarInfo,b2cCarInfo} from "base/class/carInfo.js"
     // 车辆搜索结果的构造类
     import {searchCarResult} from "base/class/searchResult.js"
-    // 网站侧边导航
-    import webSide from "components/webSidebar"
+    
     // 搜索结果选择组件
     import srhSelect from "components/common/srhSelect.vue"
     // 车辆品牌选择组件
@@ -161,7 +158,7 @@
             swiper,  
             swiperSlide,
             cFootServer,
-            webSide,
+            
             brandSelect,
             srhSelect,
             noticeBar,

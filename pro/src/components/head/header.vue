@@ -23,8 +23,9 @@
 
 		            </div><!-- 城市 -->
 
-		            <div class="m-site-lk f__fr">
-		                <ul class="m-lk-list">
+		            <div class="m-site-lk f__fr" 
+                        :class="{'addMR':hasWebSide}">
+		                <ul class="m-lk-list f__clearfix">
 		                    <li class="u-item login" v-if="!loginStatus">
 		                        <a href="javascript:;" class="u-lk lg" @click="openSignIn(1)">hi,请登录</a>
 		                        <span class="u-join">|</span>
@@ -107,7 +108,7 @@
     	name: 'c-header',
     	data () {
     		return {
-
+            
                 siteLogo: require("assets/img/logo.png"),   //网站LOGO
 
     			signInShow: false,         //是否显示登录框
@@ -118,6 +119,9 @@
                 memberInfo: {},            //用户信息
                 navItemList: navItemList,  
                 memberDropdown: memberDropdown,   // 下拉扩展
+                
+                // 是否有网站侧栏
+                hasWebSide: false,
 
     		}
     	},
@@ -150,13 +154,14 @@
             });
 
         },
-        //切换会当前组件
+        // 切换会当前组件
         activated() {
-              
+            // 是否含有网站侧栏
+            this.hasWebSide = this.$router.currentRoute.meta.hasWebSide;
         },
         //退出的生命周期钩子
         deactivated(){
-            
+
         },
         //属性值计算
         computed:{
@@ -164,6 +169,7 @@
                 loginStatus: 'loginStatus',
                 curCityName: 'currentCityName',
                 userData: 'userData',
+                isOpenSignInBox: 'isOpenSignInBox',
             }),
         },
         //数据侦听
@@ -177,15 +183,26 @@
                     this._updateUserData();
                 }
             },
-            //侦听vuex的userData数据变化
+            // 侦听vuex的userData数据变化
             userData(val){
                 if(val){
                     this.memberInfo = new headMember(val);
                 }
-            }
+            },
+            // 侦听vuex的isOpenSignInBox数据变化
+            isOpenSignInBox(val){
+                if(val){
+                    this.openSignIn(1);
+                    this.changeSignInBox(false);
+                }
+            },
+            $route (to, from) {
+                this.hasWebSide = to.meta.hasWebSide;
+            },
         },
         methods:{
-            ...mapActions(['getUserData','setSignOut']),
+            ...mapActions(['getUserData','setSignOut','changeSignInBox']),
+
         	//打开/关闭登录框
         	openSignIn(type,closeThat=false){
         		//关闭忘记密码的输入框

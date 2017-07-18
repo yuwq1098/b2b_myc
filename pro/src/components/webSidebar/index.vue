@@ -5,12 +5,26 @@
             <div class="m-sidebar-con">
                 <ul class="u-side-lst f__clearfix">
                     <li class="u-side-item u-member">
-                        <a href="javascript:;" class="u-lk">
-                            <div class="icon">
-                                <i class="iconfont icon-huiyuanguanli1"></i>
-                            </div>
-                        </a>
+                        <template v-if="loginStatus">
+                            <router-link class="u-lk"
+                                :to="{path:'/member/home'}"
+                                >
+                                <div class="icon">
+                                    <i class="iconfont icon-huiyuanguanli1"></i>
+                                </div>
+                            </router-link>
+                        </template>
+                        <template v-else="!loginStatus">
+                            <a class="u-lk"
+                                @click="openSignIn()"
+                                >
+                                <div class="icon">
+                                    <i class="iconfont icon-huiyuanguanli1"></i>
+                                </div>
+                            </a>
+                        </template>
                     </li><!-- 会员中心 -->
+
                     <li class="u-side-item u-shopCart">
                         <a href="javascript:;" class="u-lk">
                             <div class="icon">
@@ -23,18 +37,46 @@
                         </a>
                     </li><!-- 购物车 -->
                     <li class="u-side-item u-collect">
-                        <a href="javascript:;" class="u-lk">
-                            <div class="icon">
-                                <i class="iconfont icon-shoucang5"></i>
-                            </div>
-                        </a>
+                        <template v-if="loginStatus">
+                            <router-link class="u-lk"
+                                :to="{path:'/member/collectCar'}"
+                                >
+                                <div class="icon">
+                                    <i class="iconfont icon-shoucang5"></i>
+                                </div>
+                            </router-link>
+                        </template>
+                        <template v-else="!loginStatus">
+                            <a class="u-lk"
+                                @click="noLoginTips()"
+                                >
+                                <div class="icon">
+                                    <i class="iconfont icon-shoucang5"></i>
+                                </div>
+                            </a>
+                        </template>
                     </li><!-- 收藏 -->
+
                     <li class="u-side-item u-wallet">
-                        <a href="javascript:;" class="u-lk">
-                            <div class="icon">
-                                <i class="iconfont icon-qianbao2"></i>
-                            </div>
-                        </a>
+                        <template v-if="loginStatus">
+                            <router-link class="u-lk"
+                                :to="{path:'/member/wallet'}"
+                                >
+                                <div class="icon">
+                                    <i class="iconfont icon-qianbao2"></i>
+                                </div>
+                            </router-link>
+                        </template>
+                        <template v-else="!loginStatus">
+                            <a class="u-lk"
+                                @click="noLoginTips()"
+                                >
+                                <div class="icon">
+                                    <i class="iconfont icon-qianbao2"></i>
+                                </div>
+                            </a>
+                        </template>
+                        
                     </li><!-- 钱包 -->
                 </ul>
             </div><!-- 真实的导航条内容 -->
@@ -59,6 +101,7 @@
                 </ul>
             </div><!-- 其他内容 -->
         </div>
+        
 	</div>
 </template>
 
@@ -71,13 +114,16 @@
     // dom操作类
     import * as geekDom from "assets/js/dom.js"
     // vuex状态管理
-    import { mapGetters } from 'vuex'
+    import {mapGetters,mapActions} from 'vuex'
+    
+    // 网页头部
+    import cHead from "components/head/header.vue"
 
 	export default {
         name: "webSidebar",
         // 在当前模块注册组件
         components:{
-
+            cHead,
         },
         // 数据
         data() {
@@ -93,14 +139,8 @@
         },
         created () {
 
-        },
-        mounted(){
-            
-        },
-        //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
-        activated() {
-            
             setTimeout(()=>{
+
                 if(this.loginStatus){
                     // 获取购物车数量
                     this.getShoppingNumber();
@@ -110,7 +150,14 @@
                 // 页面初始化
                 this.init();
             },20);
-
+            
+        },
+        mounted(){
+            
+        },
+        //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
+        activated() {
+            
         },
         //退出的生命周期钩子
         deactivated(){
@@ -137,7 +184,7 @@
         },
         // 自定义函数(方法)
         methods: {
-            
+            ...mapActions(['changeSignInBox']),
             // 获取购物车数量
             getShoppingNumber(){
                 api.getMyShoppingCartNumber().then(res => {
@@ -203,6 +250,22 @@
                     // 函数执行中 
                     this.tf = true;
                 },20);         
+            },
+
+            // 打开登录框
+            openSignIn(){
+                // 打开头部组件中的登录框
+                this.changeSignInBox(true);
+            },
+            
+            // 未登录提示
+            noLoginTips(){
+                this.$notify({
+                    title: '您尚未登录',
+                    message: "请先登录，登录后可进行相关操作",
+                    type: 'error',
+                    duration: 2000,
+                });
             }
             
         },

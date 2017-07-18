@@ -127,13 +127,16 @@ export default[{
             alias: '/home',             // 使用别名
             meta: {
                 notGoTop: true,
+                hasWebSide: true,       // 是否有网站侧栏条 
             }
         },
         {   
         // b2b大厅(买车)
             path: '/b2bHall',
             component: b2bHall,
-            meta: { }
+            meta: { 
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
         },
         {
         // b2b车辆详情
@@ -142,6 +145,7 @@ export default[{
             alias: '/b2bCar',           // 使用别名
             meta: {
                 requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+                hasWebSide: true,       // 是否有网站侧栏条 
             },      
         },
         {
@@ -150,6 +154,7 @@ export default[{
             component: merchantDetails,
             meta: {
                 requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+                hasWebSide: true,       // 是否有网站侧栏条 
             },   
         },
         {   
@@ -157,7 +162,9 @@ export default[{
             path: '/sell',
             component: sell,
             alias: '/sellHome',         // 使用别名
-            meta: { }
+            meta: { 
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
         },
         {
         // 发布车辆订单填写页
@@ -166,6 +173,7 @@ export default[{
             alias: '/sellSend',         // 使用别名
             meta: {
                 requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+                hasWebSide: true,       // 是否有网站侧栏条 
             },
         },
         {
@@ -173,31 +181,41 @@ export default[{
             path: '/service',
             component: service,
             alias: '/siteServer',       // 使用别名
-            meta: { }
+            meta: {
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
         },
         {
         // 帮助手册
             path: '/usinghelp',
             component: usinghelp,
-            meta: { }
+            meta: { 
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
         },
         {
         // 视频操作演示
             path: '/practice',
             component: practice,
-            meta: { }
+            meta: { 
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
         },
         {
         // 关于股东
             path: '/partner',
             component: partner,
-            meta: { }
+            meta: {
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
         },
         {
         // APP下载页
             path: '/download',
             component: download,
-            meta: { }
+            meta: { 
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
         },
         {
         // 会员中心

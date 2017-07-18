@@ -9,19 +9,25 @@ import * as types from '../types'
 import {store} from 'assets/js/store.js'
 
 const state = {
-
+    // 是否打开登录框
+    isOpenSignInBox: false,
 }
 
 const actions = {
-
+    changeSignInBox({ commit }, params) {
+        commit(types.SET_SIGN_IN_BOX_SHOW_STATUS, params)   
+    }
 }
 
 const getters = {
-
+    isOpenSignInBox: state => state.isOpenSignInBox,
 }
 
 const mutations = {
-    
+    // 设置购物车数量
+    [types.SET_SIGN_IN_BOX_SHOW_STATUS](state, res) {
+        state.isOpenSignInBox = res
+    }
 }
 
 export default {
