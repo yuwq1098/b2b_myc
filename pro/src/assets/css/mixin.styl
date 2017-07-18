@@ -334,6 +334,13 @@ _transitionAll(duration=.3s,timingFn=linear,delay=0s)
     -o-transition all duration delay timingFn
     transition all duration delay timingFn
 
+//---过渡(补充)
+_transitionCustom()
+    -webkit-transition arguments
+    -moz-transition arguments
+    -o-transition arguments
+    transition arguments
+
 //---动画
 _animationSingle(name,duration,timingFn=linear,delay=0s,count=infinite)
     -webkit-animation name duration delay timingFn count

@@ -62,7 +62,7 @@ export function doubleArray(array,num=2){
 /** 
 * @description 数组数据裁切
 * @param array,num  数组  几个一组
-* @param array 数组
+* @return array 数组
 */ 
 
 export function sliceArray(array,num=8){
@@ -83,6 +83,49 @@ export function sliceArray(array,num=8){
     }   
     return arr2;
 }
+
+/** 
+* @description 获取值类型
+* @return String 类型名
+*/ 
+export function getValClass(x) {
+    var str = Object.prototype.toString.call(x);
+    return /^\[object (.*)\]$/.exec(str)[1]; 
+} 
+
+/** 
+* @description 获取滚动条高度
+* @return number 滚动条高度，无单位
+*/ 
+export function getScrollTop(){
+    let ostop=document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+    return ostop;
+}
+
+/** 
+* @description 设置滚动条高度
+* @param number 滚动条高度，无单位
+*/ 
+export function setScrollTop(top){
+    document.documentElement.scrollTop=document.body.scrollTop=top;
+}
+
+/** 
+* @description 获取页面可视内容的高度
+* @param number 页面高度，无单位
+*/ 
+export function getClientHeight(){
+    let ch;
+    if(arguments.length>0&&getValClass(arguments[0])=='Number'){
+      console.log("进来了")
+        ch = document.body.clientHeight||document.activeElement.clientHeight||arguments[0];
+    }else{
+        ch = document.body.clientHeight||document.activeElement.clientHeight||600;
+    }
+    return ch;
+    
+}
+
 
 /** 
 * @description 使用canvas裁剪/压缩图片

@@ -7,21 +7,28 @@
                     <li class="u-side-item u-member">
                         <a href="javascript:;" class="u-lk">
                             <div class="icon">
-                                <i class="iconfont icon-huiyuanzhongxin"></i>
+                                <i class="iconfont icon-huiyuanguanli1"></i>
                             </div>
                         </a>
                     </li><!-- 会员中心 -->
+                    <li class="u-side-item u-shopCart">
+                        <a href="javascript:;" class="u-lk">
+                            <div class="icon">
+                                <i class="iconfont icon-gouwuche8"></i>
+                            </div>
+                        </a>
+                    </li><!-- 购物车 -->
                     <li class="u-side-item u-collect">
                         <a href="javascript:;" class="u-lk">
                             <div class="icon">
-                                <i class="iconfont icon-shoucang11"></i>
+                                <i class="iconfont icon-shoucang5"></i>
                             </div>
                         </a>
                     </li><!-- 收藏 -->
                     <li class="u-side-item u-wallet">
                         <a href="javascript:;" class="u-lk">
                             <div class="icon">
-                                <i class="iconfont icon-qianbao8"></i>
+                                <i class="iconfont icon-qianbao2"></i>
                             </div>
                         </a>
                     </li><!-- 钱包 -->
@@ -36,8 +43,10 @@
                             </div>
                         </a>
                     </li><!-- 二维码 -->
-                    <li class="u-side-item u-backTop">
-                        <a href="javascript:;" class="u-lk">
+                    <li class="u-side-item u-backTop" ref="js__gotop">
+                        <a href="javascript:;" class="u-lk" id="js__gotop" 
+                            @click="goTop()"
+                            >
                             <div class="icon">
                                 <i class="iconfont icon-fanhuidingbu"></i>
                             </div>
@@ -50,23 +59,102 @@
 </template>
 
 <script>
+    import * as geekDom from "assets/js/dom.js"
 
 	export default {
         name: "webSidebar",
-        // 数据
-        data() {
-            return{
-                
-            }
-        },
-        // 自定义函数(方法)
-        methods: {
-            
-        },
         // 在当前模块注册组件
         components:{
 
         },
+        // 数据
+        data() {
+            return{
+                timer: null,
+                tf: true,
+            }
+        },
+        created () {
+            
+        },
+        mounted(){
+            
+        },
+        //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
+        activated() {
+
+            setTimeout(()=>{
+                // 页面初始化
+                this.init();
+            },20);
+        },
+        //退出的生命周期钩子
+        deactivated(){
+
+        },
+        computed:{
+
+        },
+        watch:{
+            
+        },
+        // 自定义函数(方法)
+        methods: {
+
+            // 页面初始化
+            init(){
+                this.gotop = this.$refs.js__gotop;
+                document.documentElement.scrollTop=document.body.scrollTop = 0;
+                this.gotop.style.display="none";
+                // 绑定该页面的滚动条事件
+                window.onscroll = this.onScrollEvent;
+            },
+            // 滚动事件
+            onScrollEvent(){
+                //获取滚动条高度
+                let ostop=geekDom.getScrollTop();
+                let ch = geekDom.getClientHeight();
+                
+                //如果页面超过一屏高度按钮显示，否则隐藏
+                if(ostop>=ch){
+                    this.gotop.style.display="block";
+                }else{
+                    this.gotop.style.display="none";
+                }
+                // 如果滚动方法执行结束，那么就清除定时器
+                if(!this.tf){
+                    clearInterval(this.timer);             
+                }
+                this.tf = false;
+            },
+            // 返回顶部
+            goTop(){
+                //创建定时器
+                this.timer = setInterval(() => {
+                    //获取滚动条高度
+                    let ostop=geekDom.getScrollTop();
+                    //每次上升高度的20%
+                    let speed;
+                    if(ostop<10){
+                        speed=Math.ceil(ostop/2);
+                    }else if(ostop<=2){
+                        speed=Math.floor(ostop);
+                    }else{
+                        speed=Math.ceil(ostop/5);
+                    }
+                    // 每次上升当前高度的80%
+                    geekDom.setScrollTop(ostop-speed);
+                    //如果滚动条高度为0，清除定时器
+                    if(ostop<=0){
+                        clearInterval(this.timer);
+                    }
+                    // 函数执行中 
+                    this.tf = true;
+                },20);         
+            }
+            
+        },
+        
 	}
 </script>
 
