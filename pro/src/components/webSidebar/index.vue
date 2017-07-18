@@ -102,12 +102,10 @@
             
             setTimeout(()=>{
                 if(this.loginStatus){
-                    if(val){
-                        // 获取购物车数量
-                        this.getShoppingNumber();
-                    }else{
-                        this.myShopingNumber = 0;
-                    }
+                    // 获取购物车数量
+                    this.getShoppingNumber();
+                }else{
+                    this.myShopingNumber = 0;
                 }
                 // 页面初始化
                 this.init();
