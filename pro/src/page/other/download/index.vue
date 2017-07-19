@@ -75,7 +75,7 @@
                 // 二维码下载
                 ewmInfo:{
                     title: "二维码下载",
-                    url:require("assets/img/wechat-ewm.jpg"),
+                    url:require("assets/img/myc_ewm_app.jpg"),
                 }
             }
         },

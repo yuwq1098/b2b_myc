@@ -170,13 +170,17 @@ em,i,strong
 .f__pb
     bottom 0
 
-//del样式
+// del样式
 .f__del
     text-decoration line-through
 
-//内联
+// 内联
 .f__di
     display inline-block
+
+// 怪异盒模型
+.f__boxSizing
+    box-sizing border-box
 
 /* ==========================================================================
    布局（grid）（.g-）布局类
@@ -192,6 +196,10 @@ em,i,strong
 
 input,select,button
     font-family $f_family_yh
+
+input
+    // 继承怪异盒模型
+    @extend .f__boxSizing
 
 .g-doc
     background #f4f4f4

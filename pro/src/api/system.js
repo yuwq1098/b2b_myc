@@ -9,6 +9,11 @@ export const CODE_IS_ERROR = -1
 //身份过期,需要重新登录
 export const CODE_IS_OUT = -4000
 
+
+
+// 信誉保证金
+export const MIN_CREDIT_GOLD = 200
+
 /**
  * B2B订单状态
  */

@@ -25,14 +25,13 @@
                         </div>
                     </div><!-- 链接区 -->
                     <div class="m-ewm-wrap f__clearfix">
-                        <div class="u-ewm-box">
-                            <img class="u-pic" src="../../assets/img/wechat-ewm.jpg" alt="微信公众号" />
-                            <p class="u-txt">微信公众号</p>
-                        </div>
-                        <div class="u-ewm-box v2">
-                            <img class="u-pic" src="../../assets/img/wechat-ewm.jpg" alt="微信公众号" />
-                            <p class="u-txt">下载APP</p>
-                        </div>
+                        <template v-for="(item,index) in ewmItems">
+                            <div class="u-ewm-box"
+                                :class="{'v2': index==1}">
+                                <img class="u-pic" :src="item.imgUrl" :alt="item.title" />
+                                <p class="u-txt">{{item.title}}</p>
+                            </div>
+                        </template>
                     </div><!-- 二维码区域 -->
                     <div class="m-tel-box">
                         <div class="u-tit"><i class="iconfont icon-biaoqianlanbodianhua"></i>{{counseling.title}}</div>
@@ -43,11 +42,19 @@
                 </div><!-- 底部主要内容 -->
                 <div class="m-ft-cprt">
                     <div class="m-info">
-                        <template v-for="(item,index) in cprtInfo">
-                            <span class="span" :class="{'last':index==cprtInfo.length-1}">{{item}}</span>
-                        </template>
-                        <span></span>
+                        <p class="info">
+                            <template v-for="(item,index) in cprtInfo[0].txtItems">
+                                <span class="span" 
+                                    :class="{'last':index==cprtInfo[0].txtItems.length-1}"
+                                    >{{item}}
+                                </span>
+                            </template>
+                        </p>
+                        <p class="info">
+                            <span class="span last">{{cprtInfo[1].txt}}</span>
+                        </p>
                     </div>
+                    
                     <div class="m-pic">
                         <template v-for="(item,index) in cprtImgs">
                             <a :href="item.href?item.href:'javascript:;'" class="u-lk" :class="{'last':index==cprtInfo.length-1}">
@@ -73,6 +80,7 @@
     		return {
                 //咨询服务
                 counseling: footData.counseling,       // 咨询服务
+                ewmItems: footData.ewmItems,           // 二维码图片信息
                 cprtInfo: footData.cprtInfo,           // 版权信息
                 lkInfoItems: footData.lkInfoItems,     // 底部链接区
                 cprtImgs: footData.footCprtImgItems,   // 诚信网站图片

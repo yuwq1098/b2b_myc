@@ -1,3 +1,6 @@
+// 引入系统变量
+import * as SYSTEM from 'api/system.js'
+
 class headMember{
 	constructor(data) {
 	    this.id = data.MemberID
@@ -25,7 +28,15 @@ class sidebarMember{
                         if(arr[index].AuthInfo.AuthStatus==1){
                             this.auth = "企业车行";
                         }else{
-                        	this.auth = "个人车行";
+                            if(index==0){
+                                if(arr[1].AuthInfo.AuthStatus==1){
+                                    this.auth = "个人车行";
+                                }
+                            }else if(index==1){
+                                if(arr[0].AuthInfo.AuthStatus==1){
+                                    this.auth = "个人车行";
+                                }
+                            }
                         }
                     }
                 })
@@ -92,13 +103,6 @@ class memberInfo{
                     this.authStatusText = "审核失败";   
                     break;
             }
-
-            if(data.CdgAuth[0].AuthInfo.AuthStatus==1){
-                this.authName = data.CdgAuth[0].AuthInfo.CertificateName;
-            }
-            if(data.CdgAuth[0].AuthInfo.AuthStatus==0){
-                this.authName = "认证中";
-            }	
             
             // 是否已认证个人车行
             data.CdgAuth.forEach((item,index)=>{
@@ -110,7 +114,7 @@ class memberInfo{
         }
    
         // 是否有足够的保证金
-        this.hasEnoughCredit = this.credit>=1000
+        this.hasEnoughCredit = this.credit>=SYSTEM.MIN_CREDIT_GOLD
         // 是否认证成功  
         this.isAuthSuccess = false                  
          
@@ -123,19 +127,48 @@ class memberInfo{
             this.curApplyInfo = data.CdgAuth[0];
             this.curApplyId = data.CdgAuth[0].AuthInfo.AuthId;
             this.errorApplyText = data.CdgAuth[0].AuthInfo.CheckDescription;
+            
+            // 认证标识
+            if(data.CdgAuth[0].AuthInfo.AuthStatus==1){
+                this.authName = data.CdgAuth[0].AuthInfo.CertificateName;
+            }else if(data.CdgAuth[0].AuthInfo.AuthStatus==0){
+                this.authName = "认证中";
+            }
 
         }else if(data.CdgAuth&&data.CdgAuth.length==2){
             this.hasApplyCount = 2
         	this.isAuthSuccess = true;
+            let isAuthSuccessNumber = 0;
+            
             data.CdgAuth.forEach((item,index)=>{
+                if(data.CdgAuth[index].AuthInfo.AuthStatus==1){
+                    isAuthSuccessNumber++;
+                }
                 if(data.CdgAuth[index].AuthInfo.AuthType=="企业车行"){
                     // 当前认证类型
                     this.curApplyType = "企业车行";
                     this.curApplyInfo = data.CdgAuth[index];
                     this.curApplyId = data.CdgAuth[index].AuthInfo.AuthId;
                     this.errorApplyText = data.CdgAuth[index].AuthInfo.CheckDescription;
+                    // 认证名
+                    this.authName = data.CdgAuth[index].AuthInfo.CertificateName;
                 }
             })
+            // 有几个认证成功的
+            if(isAuthSuccessNumber==0){
+                switch(this.authStatus){
+                    case 0:
+                        this.authName = "认证中";
+                        break;
+                    case -1:
+                        this.authName = "未通过认证";
+                        break;
+                    default:
+                        this.authName = "未实名认证";
+                        break;
+                }
+                
+            }
             
         }
 

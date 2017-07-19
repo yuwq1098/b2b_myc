@@ -451,7 +451,7 @@
                         
                     });
                 }else if(!memberInfo.hasEnoughCredit){
-                    this.$confirm('尊贵的用户，您好！您的保证金余额不足1000元，我司部分业务无法为您展开，请前往充值！', '保证金不足', {
+                    this.$confirm('尊贵的用户，您好！您的保证金余额不足'+SYSTEM.MIN_CREDIT_GOLD+'元，我司部分业务无法为您展开，请前往充值！', '保证金不足', {
                         confirmButtonText: '前往充值',
                         cancelButtonText: '取消',
                         type: 'warning'

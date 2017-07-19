@@ -4,7 +4,7 @@ export const swiperItems = [
     {
         title: '轮播图一',
         href: '',
-        imgUrl: require("assets/img/hall-figure03.jpg"),
+        imgUrl: require("assets/img/hall-figure01.jpg"),
     },
     {
         title: '轮播图二',
@@ -14,7 +14,17 @@ export const swiperItems = [
     {
         title: '轮播图三',
         href: '',
-        imgUrl: require("assets/img/hall-figure01.jpg"),
+        imgUrl: require("assets/img/hall-figure03.jpg"),
+    },
+    {
+        title: '轮播图四',
+        href: '',
+        imgUrl: require("assets/img/hall-figure04.jpg"),
+    },
+    {
+        title: '轮播图五',
+        href: '',
+        imgUrl: require("assets/img/hall-figure05.jpg"),
     }
 ]
 

@@ -8,8 +8,17 @@
 
 //版权信息
 export const cprtInfo = [
-    "Copyright © 2016-2017 木有车 All Rights Reserved",
-    "版权所有： 南昌小目标车网科技发展股份有限公司",
+    {
+        title: "部分一",
+        txtItems:[
+            "Copyright © 2016-2017 木有车 All Rights Reserved",
+            "赣ICP备17000387号-1",
+        ]
+    },
+    {
+        title: "部分二",
+        txt: "版权所有： 南昌小目标车网科技发展股份有限公司"
+    }
 ]
 
 //咨询服务
@@ -19,6 +28,20 @@ export const counseling = {
     desc: '免费咨询（咨询、投诉、建议）',
     workTime: '周一至周六 9:00-18:00（工作时间）',
 }
+
+// 二维码信息
+export const ewmItems = [
+    {
+        title: '微信公众号',
+        imgUrl: require('assets/img/myc_ewm_wechat.jpg'),
+    },
+    {
+        title: '下载APP',
+        imgUrl: require('assets/img/myc_ewm_app.jpg'),
+    }
+]
+
+
 
 //诚信网站图片
 export const footCprtImgItems = [

@@ -31,7 +31,7 @@
         },
         data() {
             return{
-                imgCodeUrl: require("assets/img/wechat-ewm.jpg"),
+                imgCodeUrl: require("assets/img/myc_ewm_app.jpg"),
             }
         },
         mounted(){
