@@ -6,17 +6,18 @@
     <div class="billList">
         <div class="m-bill-lst">
             <div class="m-tb-hd f__clearfix">
-                <span class="m-hd-item w-238">流水号</span>
-                <span class="m-hd-item w-150 text-rt">交易类别</span>
-                <span class="m-hd-item text-cr">交易金额</span>
-                <span class="m-hd-item w-195">交易明细</span>
+                <span class="m-hd-item w-188">交易流水号</span>
+                <span class="m-hd-item w-125 text-rt">交易类别</span>
+                <span class="m-hd-item w-110 text-cr">交易金额</span>
+                <span class="m-hd-item w-80 text-cr">交易状态</span>
+                <span class="m-hd-item w-170">交易明细</span>
                 <span class="m-hd-item w-95 text-rt">交易时间</span>
             </div>
             <div class="m-tb-con">
                 <ul class="m-tb-lst" v-if="billList.length>0">
                     <template v-for="(item,index) in billList">
                         <li class="m-tb-row f__clearfix">
-                            <div class="u-item w-238 u-no">
+                            <div class="u-item w-188 u-no">
                                 <router-link 
                                     :to="{path:'/member/billDetails',query:{cid:item.cid}}" 
                                     class="u-lk" 
@@ -25,11 +26,12 @@
                                     >{{item.cid}}
                                 </router-link>
                             </div>
-                            <div class="u-item w-150 text-rt u-type">（{{item.belong}}）{{item.type}}</div>
-                            <div class="u-item text-cr u-price">
+                            <div class="u-item w-125 text-rt u-type">（{{item.belong}}）{{item.type}}</div>
+                            <div class="u-item w-110 text-cr u-price">
                                 <span class="vital">{{item.price | priceFormat(2)}}</span>
                             </div>
-                            <div class="u-item w-195 u-desc">{{item.desc}}</div>
+                            <div class="u-item w-80 text-cr u-status">{{item.statusText}}</div>
+                            <div class="u-item w-170 u-desc">{{item.desc}}</div>
                             <div class="u-item w-95 text-rt u-time">{{item.timeEnd | dateMinuteFormat}}
                             </div>
                         </li>
@@ -139,10 +141,19 @@
 
                         .vital
                             color #ff6533
+                        &.u-type
+                            padding 0 15px 0 5px
+                            width 135px
+                        &.u-price
+                            padding 0 7px
+                            width 126px
+                        &.u-status
+                            padding 0 7px
+                            width 96px
                         &.u-time
                             font-size 12px
                             color #959595
-                            padding 0 15px 0 0px
+                            padding 0 15px 0 0
                             width 110px
                     &:hover
                         background #eff0f3
@@ -173,14 +184,18 @@
                     _spacingPlus(2px)
         .m-tb-hd,
         .m-tb-con .m-tb-lst .m-tb-row
+            .w-188
+                width 188px
+            .w-125
+                width 125px
+            .w-110
+                width 110px
+            .w-80
+                width 80px
+            .w-170
+                width 170px
             .w-95
                 width 95px
-            .w-238
-                width 238px
-            .w-150
-                width 150px
-            .w-195
-                width 195px
             .text-lt
                 text-align left
             .text-rt

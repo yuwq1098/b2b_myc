@@ -18,6 +18,7 @@ class billInfo{
 	    this.price = data.TradeAmount||""            // 交易金额
 	    this.desc = data.TradeDescription||""        // 交易明细
 	    this.status =  data.TradeStatus||""          // 交易状态
+	    this.statusText =  data.StatusText||""       // 文本
 	    this.timeStart = data.PayTimeStart||""            // 交易开始时间
 	    this.timeEnd = data.PayTimeEnd||""                // 交易结束时间
 

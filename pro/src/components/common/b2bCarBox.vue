@@ -100,7 +100,7 @@
                         <div class="u-other">{{carInfo.inCity}} | {{carInfo.plateDate | dateYearFormat}} | {{carInfo.mileage | mileFn(1)}}</div><!-- 其他 -->
                         <div class="u-cdg-info f__clearfix">
                             <p class="cname">{{carInfo.cName}}</p>
-                            <p class="time">{{carInfo.shelveTime}}</p>
+                            <p class="time">{{carInfo.shelveTime | dateFormatRemoverYear}}</p>
                         </div><!-- 商家车行信息 -->
 
                     </div><!-- 车辆信息内容 -->
@@ -355,6 +355,8 @@
                         color #a5a5a5
                         .cname
                             float left
+                            width 165px
+                            _ellipsis()
                         .time
                             float right
 

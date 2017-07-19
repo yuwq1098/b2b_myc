@@ -84,6 +84,14 @@ export const dateYearFormat = (data) => {
     return data.toString();
 }
 
+// 去除年份日期转换
+export const dateFormatRemoverYear = (data) => {
+    if(!data&&data!=0) return;
+    var data = data&&data.substr(5,);
+    var str = data.substr(0,2)+"/"+data.substr(3,2)+"  "+data.substr(6,)
+    return str.toString();
+}
+
 // 日期转换
 export const dateDayFormat = (data) => {
     if(!data&&data!=0) return;
