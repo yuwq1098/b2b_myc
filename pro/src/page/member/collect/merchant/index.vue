@@ -15,7 +15,7 @@
                             >
                             <template v-for="(item,index) in mCollectList">
 
-                                <li class="m-item" v-bind:key="item">
+                                <li class="m-item" :key="item.id">
                                     <a href="javascript:;" @click="enterCdg(item.id)" class="u-lk-box">
                                         <div class="m-face">
                                             <img :src="item.faceUrl" :alt="item.cdgName">

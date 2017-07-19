@@ -11,7 +11,7 @@
                     <div class="m-collect-wrap" v-if="carCollectList.length>=0">
                         <ul class="m-car-lst f__clearfix">
                             <template v-for="(item,index) in carCollectList">
-                                <li class="u-item" :key="item">
+                                <li class="u-item" :key="item.id">
                                     <a class="u-lk-box" @click="enterCar(item.id)">
                                         <div class="u-pic-box">
                                             <span class="u-mark">{{item.authType}}</span>
