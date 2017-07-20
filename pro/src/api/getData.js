@@ -55,7 +55,7 @@ export function fetch(url, params) {
     })
 }
 
-// 自定义请求数据方法(post请求)
+// 自定义请求数据方法(post请求/签名)
 export function fetchSign(url, params) {
     return new Promise((resolve, reject) => {
         let newUrl = joinUrl(url);
@@ -74,6 +74,40 @@ export function fetchSign(url, params) {
             })
     })
 }
+
+// 自定义请求支付(post请求/签名)
+export function payFetchSign(url, params) {
+    return new Promise((resolve, reject) => {
+        
+        let newUrl = joinUrl(url);
+        let [timestamp,token,secret,sign] = getSignHeaders();
+        
+        let Json = params;
+        
+        //支付宝支付
+        if(Json.payType=='alipay'){ 
+            let url = newUrl+'?token='+token+'&timestamp='+timestamp+'&sign='+sign+
+                        '&payType='+Json.payType+
+                        '&payAmount='+Json.payAmount+
+                        '&amountType='+Json.amountType+
+                        '&orderId='+Json.orderId;
+            window.open(url); 
+        }
+
+        //农行支付或银联支付
+        if(Json.payType=='abc'||Json.payType=='union_pay'){
+            let url_bank = newUrl+'?token='+token+'&timestamp='+timestamp+'&sign='+sign+
+                                '&payType='+Json.payType+
+                                '&payAmount='+Json.payAmount+
+                                '&amountType='+Json.amountType+
+                                '&orderId='+Json.orderId+
+                                '&clientType='+Json.clientType||1;
+            window.open(url_bank); 
+        }
+    })
+}
+
+
 
 // 自定义拉取数据方法(get请求)
 export function get(url) {
@@ -312,7 +346,16 @@ export default {
     /*
      * 支付、交易、金额类
      */
-
+    
+    // 各类常规充值(支付)接口
+    payAmount(params){
+        return fetchSign('/action2/pay/payB2BCreditPoint.ashx',dataToJson(params));
+    },
+    
+    // 充值接口
+    rechargeAmount(params){
+        return payFetchSign('/action2/pay/payB2BCreditPoint.ashx',dataToJson(params));
+    },
 
     // 各类金额流水账单
     getBillList(params){
@@ -419,7 +462,7 @@ export default {
     getMyShoppingCartNumber(){
         let data = {
             ActType: 'MyList',
-            PageSize: 999,
+            PageSize: 1,
             PageIndex:  1
         }
         return fetchSign('/action2/ShoppingCartMng.ashx', dataToJson(data))

@@ -1,1 +1,164 @@
 @import '~assets/css/mixin.styl'
+
+.m-recharge-box
+    width 100%
+    min-height 480px
+    // background #f8f8f8
+    .m-info
+        .u-hd
+            height 32px
+            position relative
+            margin 0 0 15px
+            .tit
+                _display(inline-block)
+                height @height
+                line-height @height - 2px
+                font-size 14px
+                text-align center
+                _spacingPlus(2px)
+                padding 0 12px
+                background #4b5861 + 90%
+                color #4b5861
+                position relative
+                &::after
+                    content ""
+                    _display()
+                    height 2px
+                    background #53aeef
+                    _completeCenter(,,auto,0)
+        .u-con,.u-line-gp
+            margin 0 0 15px
+        .u-con    
+            .u-line-info
+                height 30px
+                .attr,.data
+                    line-height @height
+                    _display(inline-block)
+                .attr
+                    color #959595
+                    font-size 13px
+                .data
+                    font-size 13px
+                    color $c_blue
+                    .vital
+                        font-size 16px
+        .u-line-gp
+            .u-line-box
+                margin 0 0 12px
+                .box-inner
+                    min-height 38px
+                    position relative
+                    .attr
+                        _display(inline-block)
+                        width 108px
+                        text-align right
+                        height 38px
+                        line-height @height
+                        color #959595
+                        _completeCenter(0,auto,0,auto)
+                    .ipt
+                        _display(inline-block)
+                        width 280px
+                        margin 0 0 0 120px
+                        vertical-align bottom
+                        .user-input
+                            width @width
+                            height 38px
+                            line-height 38px
+                            padding 0 12px
+                            _borderAll(#4B5861 + 75%)
+                            font-size 14px
+                            _spacingPlus()
+                            &:hover,&:focus
+                                _borderAll(#4B5861)
+                        &.radio-ipt
+                            height 38px
+                            line-height 38px
+                    .line-error
+                        _display(inline-block)
+                        height 28px
+                        line-height 28px
+                        margin 0 0 0 12px
+                        background #FBEBE6
+                        _borderAll(#ff6533)
+                        _borderRadius(1px)
+                        color #777
+                        font-size 12px
+                        .error-txt
+                            margin-left 10px
+                            position relative
+                            height 30px
+                            line-height 30px
+                            padding 0 12px 0 22px
+                            _overflow()
+                            .iconfont
+                                width 20px
+                                height 20px
+                                line-height 20px
+                                font-size 18px
+                                color #ff6533
+                                _completeCenter(0,auto)
+                    .pay-method
+                        margin 0 0 0 120px
+                        .pay-md-lst
+                            .u-item
+                                float left
+                                width 150px
+                                height 42px
+                                _borderAll(#4B5861 + 75%)
+                                margin 0 15px 0 0
+                                .u-box
+                                    _display()
+                                    width @width
+                                    height @height
+                                    .pay-bg
+                                        width @width
+                                        height @height
+                                        &.zfb
+                                            background url('../../../../assets/img/pay_bg_zfb.jpg') center center no-repeat
+                                            background-size auto 37px
+                                        &.wx
+                                            background url('../../../../assets/img/pay_bg_wx.jpg') center center no-repeat
+                                            background-size auto 28px 
+                                        &.nh
+                                            background url('../../../../assets/img/pay_bg_nh.jpg') center center no-repeat
+                                            background-size auto 35px
+                                        &.union
+                                            background url('../../../../assets/img/pay_bg_union.jpg') center center no-repeat
+                                            background-size auto 39px
+
+                                .icon
+                                    _display(none)
+                                &.on,&:hover
+                                    _borderAll(#ff6533)
+                                &.on
+                                    position relative
+                                    .icon
+                                        _display()
+                                        width 20px
+                                        height @width
+                                        _completeCenter(auto,0,auto,0)
+                                        background #fff url('../../../../assets/img/corner_mark_check.png') center center no-repeat
+                                        background auto 20px
+
+                &.last
+                    margin 0 0 30px 
+            .u-btn-box
+                height 38px
+                .u-btn
+                    _display(inline-block)
+                    height 38px
+                    line-height 38px
+                    padding 0 20px
+                    width 150px
+                    text-align center
+                    _spacingPlus(5px)
+                    color #f2f2f2
+                    margin 0 0 0 120px
+                    background $c_blue
+                    _borderRadius(1px)
+                    &:hover
+                        background @background - 10%
+        &.m-pay-operate
+            padding 0 0 15px
+

@@ -252,6 +252,7 @@ const dictionary = {
             cdgCity: "车行所在地",
             cdgAddress: "车行详细地址",
             cdgDesc: "车行描述",
+            rMoney: "充值金额",
         }
     }
 };

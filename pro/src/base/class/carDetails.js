@@ -69,9 +69,10 @@ class fileInfoList{
         this.id = data.FileId||""                           // 文件id
         this.mid = data.MemberId||""                        // 客户id
         this.type = data.FileType||""                       // 文件类型img,sound
-        this.title = data.Title||""                      // 文件标题
+        this.title = data.Title||""                         // 文件标题
         this.filePath = data.FilePath||""                   // 文件路径(忽略）
-        this.fileUrl = data.FileUri||""                     // 文件uri
+        // 文件uri
+        this.fileUrl = data.FileUri?data.FileUri+"?imageView2/3/w/640/h/480":""                     
         this.groupName = data.GroupName||""                 // 分组名（车辆照片，录音描述、出厂铭牌）
         this.orderId = data.OrderId||""                     // carID
         this.submitTime = data.SubmitTime||""               // 提交时间

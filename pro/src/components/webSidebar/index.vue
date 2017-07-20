@@ -205,7 +205,7 @@
             getShoppingNumber(){
                 api.getMyShoppingCartNumber().then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
-                        this.myShopingNumber = res.data.length;
+                        this.myShopingNumber = res.count;
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',

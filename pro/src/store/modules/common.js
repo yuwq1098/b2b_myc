@@ -23,7 +23,7 @@ const actions = {
     getMyShoppingNumber({ commit }, params) {
         api.getMyShoppingCartNumber().then(res => {
             if(res.code==SYSTEM.CODE_IS_OK){
-                commit(types.GET_MY_SHOPPING_NUMBER, res.data.length)
+                commit(types.GET_MY_SHOPPING_NUMBER, res.count)
             }else if(res.code==SYSTEM.CODE_IS_ERROR){
                 this.$notify({
                     title: '信息获取失败',
