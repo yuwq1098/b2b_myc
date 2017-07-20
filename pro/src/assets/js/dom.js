@@ -117,13 +117,15 @@ export function setScrollTop(top){
 export function getClientHeight(){
     let ch;
     if(arguments.length>0&&getValClass(arguments[0])=='Number'){
-      console.log("进来了")
         ch = document.body.clientHeight||document.activeElement.clientHeight||arguments[0];
     }else{
         ch = document.body.clientHeight||document.activeElement.clientHeight||600;
     }
+    // 如果在document上获取的高不合理，那么就用window上的高
+    if(ch>window.innerHeight){
+        ch = window.innerHeight;
+    }
     return ch;
-    
 }
 
 

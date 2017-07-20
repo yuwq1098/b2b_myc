@@ -138,9 +138,7 @@
             }
         },
         created () {
-
             setTimeout(()=>{
-
                 if(this.loginStatus){
                     // 获取购物车数量
                     this.getShoppingNumber();
@@ -155,13 +153,22 @@
         mounted(){
             
         },
-        //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
+        // keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated() {
             
         },
-        //退出的生命周期钩子
+        // keep-alive时使用，退出的生命周期钩子
         deactivated(){
 
+        },
+        // 实例销毁之前调用
+        beforeDestroy(){
+
+        },
+        // 实例销毁之后
+        destroyed(){
+            // 实例销毁之后
+            window.onscroll = null;
         },
         computed:{
             ...mapGetters(['loginStatus','shopingCartNumber']),
@@ -181,6 +188,15 @@
                     this.myShopingNumber = 0;
                 }
             },
+            // 侦听路由变化
+            $route (to, from) {
+                // 如果路由地址发生了变化
+                if(to.path!=from.path){
+                    // 销毁实例
+                    window.onscroll = null;
+                    this.init();
+                }
+            }
         },
         // 自定义函数(方法)
         methods: {
@@ -203,13 +219,16 @@
             // 页面初始化
             init(){
                 this.gotop = this.$refs.js__gotop;
-                document.documentElement.scrollTop=document.body.scrollTop = 0;
-                this.gotop.style.display="none";
+                if(document.body.scrollTop>10){
+                    document.documentElement.scrollTop=document.body.scrollTop = 0;
+                    this.gotop.style.display="none";
+                }
                 // 绑定该页面的滚动条事件
                 window.onscroll = this.onScrollEvent;
             },
             // 滚动事件
             onScrollEvent(){
+
                 //获取滚动条高度
                 let ostop=geekDom.getScrollTop();
                 let ch = geekDom.getClientHeight();
