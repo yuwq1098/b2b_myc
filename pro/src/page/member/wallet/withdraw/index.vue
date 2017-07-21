@@ -100,6 +100,20 @@
                                             </div><!-- 错误验证 -->
                                         </div>
                                     </div>
+                                    <div class="u-line-box" >
+                                        <div class="box-inner">
+                                            <span class="attr">真实姓名：</span>
+                                            <div class="ipt">
+                                                <input type="text" class="user-input"
+                                                    v-model="realName" 
+                                                    placeholder="请输入您的真实姓名" />
+                                            </div>
+                                            <div class="line-error" v-if="errors.has('realName')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('realName')}}</p>
+                                            </div><!-- 错误验证 -->
+                                        </div>
+                                    </div>
                                 </template><!-- 支付宝提现 -->
                                 
                                 <template v-if="wPayType=='2'">
@@ -258,7 +272,8 @@
     // 引入表单验证
     import { Validator } from 'vee-validate';
 
-
+    // 最大等待秒数
+    const MAX_WAIT_SECONDS = 120;
 
     export default {
         name: "withdraw",
@@ -286,7 +301,9 @@
                 wPayType: "1",
                 
                 // 支付宝账号
-                alipayAccount: "",   
+                alipayAccount: "",
+                // 真实姓名   
+                realName: "",
                 // 农行卡号
                 nBankCard: "",
                 // 农行开户名
@@ -318,6 +335,7 @@
                 wMoney: 'required|number|between:1,1000000|decimal:2',     // 提现金额
                 alipayAccount: 'required|alpha_dash',                   // 支付宝账号
                 nBankCard: 'required|alpha_dash',                       // 农行卡号
+                realName: 'required|CN_EN',                        // 真实姓名
                 nOpenAccountName: 'required|CN_EN',                // 农行开户名
                 imgCode: 'required|min:4|max:4',
                 smsCode: 'required|min:4|max:4',
@@ -353,6 +371,10 @@
             // 支付宝账号
             alipayAccount(val){
                 this.validator.validate('alipayAccount',val);
+            },
+            // 真实姓名
+            realName(val){
+                this.validator.validate('realName',val);
             },
             // 农行卡号
             nBankCard(val){
@@ -483,6 +505,7 @@
 
                 this.withdrawAmount= "";
                 this.alipayAccount = "";
+                this.realName = "";
                 this.nBankCard = "";
                 this.nOpenAccountName = "";
                 this.imgCode = '';
@@ -507,6 +530,7 @@
                     this.validator.validateAll({
                         wMoney: this.withdrawAmount,
                         alipayAccount: this.alipayAccount,
+                        realName: this.realName,
                         imgCode: this.imgCode,
                         smsCode: this.smsCode,
                         payPass: this.payPass,
@@ -555,20 +579,23 @@
                 }
 
                 let data = {
-                    Account: this.wMoney,        // 提现金额
+                    
+                    Amount: this.withdrawAmount,        // 提现金额
                     PayPwd: this.payPass,        // 支付密码
                     SMSCode: this.smsCode,       // 短信验证码
                     AmountType: this.wPayType=='1'?'平台余额':'信誉保证金',    // 提现类别
-                    FullName: this.nOpenAccountName,    // 开户名
+                    
                 };
 
                 // 提现目标
                 if(this.wPayType=='1'){
                     data.Account = this.alipayAccount;       // 支付宝账号
                     data.AccountType = "alipay";
+                    data.FullName = this.realName;    // 真实姓名
                 }else if(this.wPayType=='2'){
                     data.Account = this.nBankCard;           // 农行卡号
                     data.AccountType = "abc";                
+                    data.FullName = this.nOpenAccountName;    // 开户名
                 }
 
                 api.withdrawCashApply(data).then((res)=>{
@@ -601,10 +628,12 @@
                 this.withdrawType= "1";
                 this.wPayType = "1";
                 this.alipayAccount = "";
+                this.realName = "";
                 this.nBankCard = "";
                 this.nOpenAccountName = "";
                 this.imgCode = '';
                 this.smsCode = '';
+                this.payPass = '';
                 // 时间戳
                 this.timestamp = (+new Date()).valueOf();
 

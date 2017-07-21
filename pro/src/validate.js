@@ -257,6 +257,7 @@ const dictionary = {
             alipayAccount: "支付宝账号",
             nBankCard: "农行卡号",
             nOpenAccountName: "开户名",
+            realName: "真实姓名",
         }
     }
 };
