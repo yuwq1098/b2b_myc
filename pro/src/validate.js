@@ -253,6 +253,10 @@ const dictionary = {
             cdgAddress: "车行详细地址",
             cdgDesc: "车行描述",
             rMoney: "充值金额",
+            wMoney: "提现金额",
+            alipayAccount: "支付宝账号",
+            nBankCard: "农行卡号",
+            nOpenAccountName: "开户名",
         }
     }
 };

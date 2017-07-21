@@ -223,6 +223,7 @@
             getImgCode(){
                 this.timestamp = (+new Date()).valueOf();
             },
+            
             // 获取验证码
             getCode(){
                 if(this.imgCode==""||this.errors.first('imgCode')){

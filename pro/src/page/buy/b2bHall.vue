@@ -195,7 +195,7 @@
                                                 </el-option>
                                             </el-select>
                                         </li>
-                                        <li class="u-item">
+                                        <!-- <li class="u-item">
                                             <el-select 
                                                 :class="{'on':userFilterData.gearType!=''&&userFilterData.gearType!='-1'}" 
                                                 v-model="userFilterData.gearType" placeholder="手/自动挡">
@@ -206,7 +206,19 @@
                                                   :value="item.value">
                                                 </el-option>
                                             </el-select>
-                                        </li>
+                                        </li> -->
+                                        <!-- <li class="u-item">
+                                            <el-select 
+                                                :class="{'on':userFilterData.inCity!=''&&userFilterData.inCity!='-1'}" 
+                                                v-model="userFilterData.inCity" placeholder="所在城市">
+                                                <el-option
+                                                  v-for="(item,index) in carInCity"
+                                                  :key="item.value"
+                                                  :label="item.label"
+                                                  :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </li> -->
                                         <li class="u-item">
                                             <el-select 
                                                 :class="{'on':userFilterData.color!=''&&userFilterData.color!='-1'}" 
@@ -219,6 +231,7 @@
                                                 </el-option>
                                             </el-select>
                                         </li>
+
                                         <li class="u-item">
                                             <el-select 
                                                 :class="{'on':userFilterData.transferCount!=''&&userFilterData.transferCount!='-1'}" 
@@ -463,9 +476,10 @@
                 minPriceIptFocus: false,
                 maxPriceIptFocus: false,
 
-                allCarBrandList: [],                 //全部的汽车品牌列表
-                allsearchCarSeries: [],              //全部的根据汽车品牌查询到的车系
-                carColor: [],                        //车体颜色
+                allCarBrandList: [],                 // 全部的汽车品牌列表
+                allsearchCarSeries: [],              // 全部的根据汽车品牌查询到的车系
+                carColor: [],                        // 车体颜色
+                carInCity: [],                       // 车辆所在地
 
                 isNotBrand: true,                    //品牌不限时 不显示车系
                 

@@ -101,7 +101,7 @@
                                                         <div class="pay-bg union"></div>
                                                         <i class="icon"></i>
                                                     </a>
-                                                </li><!-- 农行支付 -->
+                                                </li><!-- 银联支付 -->
                                             </ul>
                                         </div><!-- 支付方式选择 -->
                                     </div>

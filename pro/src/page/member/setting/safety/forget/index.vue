@@ -220,6 +220,7 @@
             getImgCode(){
                 this.timestamp = (+new Date()).valueOf();
             },
+
             // 获取验证码
             getCode(){
 
@@ -228,7 +229,6 @@
                     this.errors.add('imgCode', "请输入图形验证码", 'auth');
                     return;
                 }
- 
                 // 获取短信验证码
                 this.getSMSCode('text',(state,msg)=>{
 

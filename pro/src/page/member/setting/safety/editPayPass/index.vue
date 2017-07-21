@@ -80,7 +80,7 @@
                                                         auto-complete="off" placeholder="请输入短信验证码" />
                                                     <a href="javascript:;"
                                                         class="code-btn" 
-                                                        @click="getSmsCode()"
+                                                        @click="getSMSCode()"
                                                         v-if="!waitSeconds"
                                                         >获取验证码
                                                     </a>
@@ -91,7 +91,7 @@
                                                         {{waitSeconds}}s后重新发送
                                                     </a>
                                                     <a class="u-lk"
-                                                        @click="getSmsCode(getSmsCode('voice'))" 
+                                                        @click="getSMSCode('voice')" 
                                                         >没有收到短信？</a>
                                                 </div>
                                             </div>

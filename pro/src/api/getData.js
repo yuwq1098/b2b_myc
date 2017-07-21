@@ -520,7 +520,11 @@ export default {
     checkPayStatus(params){
         return fetchSign('/action2/pay/chkPayStatus.ashx',dataToJson(params));
     },
-    
+
+    // 提现接口
+    withdrawCashApply(params){
+        return fetchSign('/action2/WithdrawCashApply.ashx',dataToJson(params));
+    },
 
     // 各类金额流水账单
     getBillList(params){
