@@ -835,7 +835,9 @@
                     desc: this.form.desc,
                     nameplate: this.form.nameplate.length,
                     photo: this.form.photo.length,
-                }).then(() => {
+                }).then((res) => {
+                    // 如果验证不成功
+                    if(!res) return;
                     
                     // 验证上牌日期
                     if(!this.sendError.has('plateDate')&&!this.sendError.has('outFactoryDate')){

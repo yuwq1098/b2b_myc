@@ -521,8 +521,11 @@
                     cdgCity: this.cdgCity,
                     cdgAddress: this.cdgAddress,
                     cdgDesc: this.cdgDesc,
-                }).then(() => {
-                    this.tabShowIndex = 2
+                }).then((res) => {
+                    // 如果验证成功
+                    if(res){
+                        this.tabShowIndex = 2
+                    }
                 }).catch(error => {
                     console.log(error);
                 });
@@ -594,8 +597,11 @@
                     cdgCity: this.cdgCity,
                     cdgAddress: this.cdgAddress,
                     cdgDesc: this.cdgDesc,
-                }).then(() => {
+                }).then((res) => {
                     
+                    // 如果验证不成功
+                    if(!res) return;
+
                     let myAuthId = "";
 
                     // 如果用户想要认证企业车行

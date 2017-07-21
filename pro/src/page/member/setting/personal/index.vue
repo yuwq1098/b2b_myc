@@ -407,8 +407,11 @@
                 if(this.nickname!=this.memberData.name){
                     this.validator.validateAll({
                         nickname: this.nickname,
-                    }).then(() => {
+                    }).then((res) => {
                          
+                        // 如果验证不成功
+                        if(!res) return;
+                        
                         this.putCommit(data);
                         
                     }).catch(error => {

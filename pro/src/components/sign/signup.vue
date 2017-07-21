@@ -286,15 +286,18 @@
                     passReg: this.passReg,
                     imgCodeReg: this.imgCodeReg,
                     smsCodeReg: this.smsCodeReg,
-                }).then(() => {
-                    // 密码修改的数据
-                    let data = {
-                        mobile: me.telReg,
-                        password: me.passReg,
-                        vcode: me.smsCodeReg,
-                        channel: 'H5',
+                }).then((res) => {
+                    // 如果验证成功
+                    if(res){
+                        // 密码修改的数据
+                        let data = {
+                            mobile: me.telReg,
+                            password: me.passReg,
+                            vcode: me.smsCodeReg,
+                            channel: 'H5',
+                        }
+                        me.putCommit(data);
                     }
-                    me.putCommit(data);
                     
                 }).catch(error => {
                     console.log(error);

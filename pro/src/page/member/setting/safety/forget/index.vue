@@ -292,7 +292,10 @@
                     newPass: this.newPass,
                     imgCode: this.imgCode,
                     smsCode: this.smsCode,
-                }).then(() => {
+                }).then((res) => {
+                    // 如果验证不成功
+                    if(!res) return;
+                    
                     // 密码修改的数据
                     let data = {
                         Mobile: me.memberData.tel,

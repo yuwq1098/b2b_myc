@@ -196,13 +196,16 @@
 
         },
         activated(){
+            // 数据重置
+            this.reset();
             // 获取账户余额
             this.getUserAccount();
             this.rechargeType = this.$router.currentRoute.query.type.toString()||"1";
         },
-        //退出的生命周期钩子
+        // 退出的生命周期钩子
         deactivated(){
-
+            // 重置数据
+            this.reset();
         },
         // 数据侦听
         watch:{
@@ -249,10 +252,6 @@
                 
                 // 指定指针
                 let me = this; 
-
-
-                    
-                    
                 
                 this.validator.validate('rMoney', this.payAmount).then((res) => {
                     // 如果验证成功
@@ -286,7 +285,7 @@
                                 data.payType = "alipay"
                                 break;
                             case '2':
-                                data.payType = "wxpay_jsapi"
+                                data.payType = "wxpay_native"    // 微信扫码支付
                                 break;
                             case '3':
                                 data.payType = "abc"
@@ -298,9 +297,14 @@
                         
                         // 农行或网银支付接入方式; 1-电脑接入 2-手机网页接入
                         data.clientType = "1";
-
+                        
                         me.putCommit(data,function(){
-                            console.log("正在进行充值操作")
+                            if(data.payType=="alipay"||data.payType=="abc"||data.payType=="union_pay"){
+                                console.log("正在进行充值操作，使用支付宝、银联、农行")
+                            }else if(data.payType=="使用微信扫码支付"){
+                                console.log("使用微信扫码支付");
+                            }
+                            
                         });
                     }
                 }).catch(error => {
@@ -314,7 +318,14 @@
 
                 // 请求充值接口
                 api.rechargeAmount(data).then(res => {
+                    console.log(res.code)
+                    console.log(SYSTEM.CODE_IS_OK)
+                    console.log(typeof res.code)
+                    console.log(typeof SYSTEM.CODE_IS_OK)
+                    console.log(res.code==SYSTEM.CODE_IS_OK)
                     if(res.code==SYSTEM.CODE_IS_OK){
+
+                        console.log("进来了不");
                         // 回调
                         if(callBack){
                             callBack()
@@ -328,6 +339,16 @@
                         });
                     }
                 })
+            },
+
+            // 数据重置
+            reset(){
+                // 充值类型
+                this.rechargeType = "";
+                // 充值金额
+                this.payAmount = "";
+                // 支付方式选择  1.支付宝支付，2.微信支付，3.农行支付
+                this.payType = "1";
             },
 
         },

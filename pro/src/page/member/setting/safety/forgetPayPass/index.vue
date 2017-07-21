@@ -278,7 +278,11 @@
                     newPayPass: this.newPayPass,
                     imgCode: this.imgCode,
                     smsCode: this.smsCode,
-                }).then(() => {
+                }).then((res) => {
+
+                    // 如果验证不成功
+                    if(!res) return;
+                    
                     // 密码修改的数据
                     let data = {
                         SMSCode: me.smsCode,

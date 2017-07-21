@@ -1,8 +1,9 @@
 import axios from 'axios'
 import qs from 'qs'
 import {joinUrl,dataToJson,strToJson} from 'assets/js/util.js'
-import {store} from 'assets/js/store.js'; 
-import {md5} from 'assets/js/md5.js';
+import {store} from 'assets/js/store.js'
+import cookie from 'assets/js/cookie.js'
+import {md5} from 'assets/js/md5.js'
 
 
 //获取headers签名字段
@@ -77,24 +78,108 @@ export function fetchSign(url, params) {
 
 // 自定义请求支付(post请求/签名)
 export function payFetchSign(url, params) {
+
     return new Promise((resolve, reject) => {
-        
         let newUrl = joinUrl(url);
         let [timestamp,token,secret,sign] = getSignHeaders();
         
         let Json = params;
         
-        //支付宝支付
+        // 支付宝支付
         if(Json.payType=='alipay'){ 
             let url = newUrl+'?token='+token+'&timestamp='+timestamp+'&sign='+sign+
                         '&payType='+Json.payType+
                         '&payAmount='+Json.payAmount+
                         '&amountType='+Json.amountType+
                         '&orderId='+Json.orderId;
+             
             window.open(url); 
+            resolve({code:0});
+            // return new Promise((resolve, reject) => {
+            //     console.log("很恶心")
+            //     resolve({code: 1});
+            // })
+            
+        }
+        
+        //微信支付
+        if(Json.payType=='wxpay_jsapi'){
+            
+            var hash = window.location.hash;
+            var path = hash.substring(1,hash.indexOf('?')!=-1?hash.indexOf('?'):hash.length);
+            let url = 'http://localhost:8080/static/page/o_oWXZF.html'+
+                            '?json={"orderId":"'+Json.orderId+
+                            '","payAmount":"'+Json.payAmount+
+                            '","amountType":"'+Json.amountType+
+                            '","origin":"'+window.location.origin+
+                            '","path":"'+path+
+                            '"}';
+            
+            getOpenId(url,function(data){
+                //console.log(data);
+                Json.openid=cookie.get('yydOpenId');
+                //console.log(json);
+                
+                /*微信支付后端集成后数据接口*/
+                // $.ajax({
+                //     headers:{timestamp:timestamp,token:token,sign:sign},
+                //     url:URL+'/action2/pay/payB2BCreditPoint.ashx',     
+                //     data:JSON.stringify(Json),
+                //     type:'POST',
+                //     dataType:'json',
+                //     success:function(data1){
+                //         //console.log(data1);
+                //         if(data1.code==0){
+                //             json.appId=data1.data.appId;
+                //             json.timeStamp=data1.data.timeStamp;
+                //             json.nonceStr=data1.data.nonceStr;
+                //             json.package=data1.data.package;
+                //             json.signType=data1.data.signType;
+                //             json.paySign=data1.data.paySign;
+                            
+                //             if(json.amountType=='信誉保证金'||json.amountType=='平台余额'){
+                //                 json.url=endUrl||'/mo1/?#'+arr[0];
+                //             }else{
+                //                 json.url=endUrl||'/mo1/?#'+arr[1];
+                //             }                                       
+                //             WXFZ(json);
+                //         }else{
+                //             alerts(data1.msg);
+                //         }
+                //     }
+                // });
+            }); 
         }
 
-        //农行支付或银联支付
+        // 微信扫码支付
+        if(Json.payType=='wxpay_native'){ 
+
+            let [timestamp,token,secret,sign] = getSignHeaders();
+            const config = {
+                headers: {timestamp:timestamp,token:token,sign:sign},
+            }
+            
+            let params = {
+                payType: Json.payType,
+                payAmount: Json.payAmount,
+                amountType: Json.amountType,
+                orderId: Json.orderId,
+            }
+
+            axios.post(newUrl, params,config)
+                .then(response => {
+                    resolve(response.data);
+                }, err => {
+                    reject(err);
+                })
+                .catch((error) => {
+                    reject(error)
+                })
+        }
+
+
+
+        // 农行支付或银联支付
         if(Json.payType=='abc'||Json.payType=='union_pay'){
             let url_bank = newUrl+'?token='+token+'&timestamp='+timestamp+'&sign='+sign+
                                 '&payType='+Json.payType+
@@ -107,7 +192,84 @@ export function payFetchSign(url, params) {
     })
 }
 
+// 获取微信openId 
+export function getOpenId(url,callBack){
+        
+    //获得微信基本权限的code（无需授权）
+    var snsapi_base = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd9b3d678e7ae9181&redirect_uri='+
+                        url+'&response_type=code&scope=snsapi_base#wechat_redirect';
 
+    //获得微信最高权限的code（需要授权）
+    var snsapi_userinfo = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd9b3d678e7ae9181&redirect_uri='+
+                                url+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+
+    // 如果在本地存储中没有发现openId再进行获取操作
+    console.log(cookie.get('yydOpenId'));
+    if(cookie.get('yydOpenId')=="undefined"){
+        console.log("进来了不,没有openid");
+        if(!window.location.href.match('code=')){
+            window.location.href=snsapi_base;   
+        }else{
+            var json={};
+            var str=window.location.href;
+            
+            json.wxcode=strToJson(str.substr(str.indexOf('?')+1,str.length)).code;
+            json.appid='wxd9b3d678e7ae9181';
+            console.log(json);
+            // $.ajax({
+            //     url:URL+'/action/GetWXOpenID.ashx',    
+            //     data:json,
+            //     type:'POST',
+            //     dataType:'json',
+            //     success:function(data){
+            //         if(data.code=='sucess'){
+            //             cookie.set('yydOpenId',data.openid);
+            //         }
+            //         // 如果回调存在，name执行回调
+            //         if(callBack) callBack(data);
+            //     }
+            // });
+        }
+    }else{
+        // 如果回调存在，name执行回调
+        callBack&&callBack();
+    }            
+}
+
+// 微信内置对象封装
+export function WXFZ(json,callBall){
+    function onBridgeReady(){
+       WeixinJSBridge.invoke(
+           'getBrandWCPayRequest',{
+               "appId":json.appId,                  //公众号名称，由商户传入     
+               "timeStamp":json.timeStamp,          //时间戳，自1970年以来的秒数     
+               "nonceStr":json.nonceStr,            //随机串     
+               "package":json.package,     
+               "signType":json.signType,            //微信签名方式：     
+               "paySign":json.paySign               //微信签名 
+           },
+           function(res){ 
+                //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+               if(res.err_msg=='get_brand_wcpay_request:ok') {
+                    window.location.href=json.url;
+               }else{
+                    console.log("微信支付失败");
+               }
+               callBall&&callBall(res);
+           }
+       ); 
+    }
+    if(typeof WeixinJSBridge=="undefined"){
+       if(document.addEventListener){
+           document.addEventListener('WeixinJSBridgeReady',onBridgeReady,false);
+       }else if(document.attachEvent){
+           document.attachEvent('WeixinJSBridgeReady',onBridgeReady); 
+           document.attachEvent('onWeixinJSBridgeReady',onBridgeReady);
+       }
+    }else{
+       onBridgeReady();
+    } 
+};
 
 // 自定义拉取数据方法(get请求)
 export function get(url) {
@@ -133,6 +295,7 @@ const setpromise = data => {
         resolve(data)
     })
 }
+
 
 export default {
     
@@ -351,7 +514,7 @@ export default {
     payAmount(params){
         return fetchSign('/action2/pay/payB2BCreditPoint.ashx',dataToJson(params));
     },
-    
+
     // 充值接口
     rechargeAmount(params){
         return payFetchSign('/action2/pay/payB2BCreditPoint.ashx',dataToJson(params));

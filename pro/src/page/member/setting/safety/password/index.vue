@@ -155,8 +155,11 @@
                     pass: this.pass,
                     newPass: this.newPass,
                     checkPass: this.checkPass
-                }).then(() => {
-                     
+                }).then((res) => {
+                    
+                    // 如果验证不成功
+                    if(!res) return;
+
                     // 密码修改的数据
                     let data = {
                         OldPwd: me.pass,

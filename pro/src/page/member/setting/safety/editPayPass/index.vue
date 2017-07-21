@@ -320,7 +320,10 @@
                 this.validator.validateAll({
                     imgCode: this.imgCode,
                     smsCode: this.smsCode,
-                }).then(() => {
+                }).then((res) => {
+                    // 如果验证不成功
+                    if(!res) return;
+
                     this.tabShowIndex = 2
                 }).catch(error => {
                     console.log(error);
@@ -334,7 +337,10 @@
                     oldPayPass: this.oldPayPass,
                     newPayPass: this.newPayPass,
                     checkPayPass: this.checkPayPass,
-                }).then(() => {
+                }).then((res) => {
+                    // 如果验证不成功
+                    if(!res) return;
+                    
                     // 密码修改的数据
                     let data = {
                         OldPayPwd: me.oldPayPass,

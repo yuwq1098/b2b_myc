@@ -239,15 +239,17 @@
                 this.validator.validateAll({
                     nameOne: this.nameOne,
                     passOne: this.passOne,
-                }).then(() => {
-                    
-                    let data = {
-                        username: this.nameOne,
-                        userpass: this.passOne,
-                        loginType: 'BusinessPC'
+                }).then((res) => {
+                    // 如果验证成功
+                    if(res){
+                        let data = {
+                            username: this.nameOne,
+                            userpass: this.passOne,
+                            loginType: 'BusinessPC'
+                        }
+                        // 第一步提交操作
+                        me.putCommitOne(data);
                     }
-                    me.putCommitOne(data);
-                    
                 }).catch(error => {
                     console.log(error);
                 });
@@ -310,14 +312,16 @@
                     telTwo: this.telTwo,
                     imgCodeTwo: this.imgCodeTwo,
                     smsCodeTwo: this.smsCodeTwo,
-                }).then(() => {
-                    let data = {
-                        username: this.nameOne,
-                        userpass: this.passOne,
-                        loginType: 'BusinessPC'
+                }).then((res) => {
+                    // 如果验证成功
+                    if(res){
+                        let data = {
+                            username: this.nameOne,
+                            userpass: this.passOne,
+                            loginType: 'BusinessPC'
+                        }
+                        me.putCommitOne(data);
                     }
-                    me.putCommitOne(data);
-                    
                 }).catch(error => {
                     console.log(error);
                 });
