@@ -44,6 +44,43 @@ export function setNullConsole(arr){
 }
 
 /** 
+* @description 定时器增强requestAnimationFrame与setInterval兼容
+* @param callBack  回调函数
+* @param msec 毫秒
+*/ 
+
+export function yydTimer(callBack,msec){
+    var id=null;
+    var lastT=null;
+    var msec=msec||1000/60;
+    
+    if(window.requestAnimationFrame){
+        function animate(time){ 
+            id=requestAnimationFrame(animate);
+              
+            if(lastT==null){
+                lastT=parseInt(time);
+            } 
+            if(parseInt(time)%msec<lastT){
+                function clear(){
+                    cancelAnimationFrame(id);
+                };
+                callBack&&callBack(clear,id);       
+            }
+            lastT=parseInt(time)%msec;      
+        };  
+        id=requestAnimationFrame(animate);
+    }else{
+        id=setInterval(function(){
+            function clear(){
+                clearInterval(id);
+            };
+            callBack&&callBack(clear,id); 
+        },msec);
+    }   
+}
+
+/** 
 * @description 数组数据倍增
 * @param array,num  数组  翻几倍
 * @param array 数组

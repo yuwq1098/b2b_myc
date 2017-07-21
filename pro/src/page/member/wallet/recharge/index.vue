@@ -125,6 +125,43 @@
                 </member-inner>
             </div><!-- 充值页面内容 -->
         </member-layout>
+        
+        <div class="m-gk-alerts" 
+            v-if="isShow_WX_code"
+            >
+            <div class="m-mask"></div><!-- 遮罩层 -->
+            <div class="m-alert-box">
+                <div class="inner">
+                    <div class="u-hd">
+                        <p class="txt">支付
+                            <span class="data"
+                                >￥<em class="vital">{{payAmount | priceFormat(2)}}</em>
+                            </span>
+                        </p>
+                        <a class="u-btn close"
+                            @click="closeAlertsBox()"
+                            >
+                            <i class="iconfont icon-guanbi1"></i></a>
+                    </div><!-- 头部 -->
+                    <div class="u-con">
+                        <div class="wx-code" v-show="!isWX_success">
+                            <img class="u-code" :src="WX_codeBase64" alt="扫码支付" />
+                        </div>
+                        <div class="success" v-show="isWX_success">
+                            <div class="u-icon">
+                                <i class="iconfont icon-chenggong"></i>
+                            </div>
+                            <p class="txt">支付成功</p>
+                        </div>
+
+                    </div><!-- 内容 -->
+                    <div class="u-other">
+                        <div class="txt" v-show="!isWX_success">正在微信支付中...</div>
+                        <div class="txt" v-show="isWX_success">支付成功，正在自动关闭...</div>
+                    </div><!-- 提示 -->
+                </div><!-- 内容容器 -->
+            </div>
+        </div><!-- 扫码支付 -->
 
 	</div>
 </template>
@@ -152,6 +189,9 @@
 
     // 引入表单验证
     import { Validator } from 'vee-validate';
+    
+    // 引入二维码转换器
+    import QRCode from 'qrcode';
 
 
 	export default {
@@ -177,6 +217,21 @@
                 payType: "1",
                 // 表单验证报错集合
                 errors: null,
+                
+                // 是否显示微信扫码支付
+                isShow_WX_code: false,
+                
+                // 微信二维码
+                WX_codeBase64: "",
+                
+                // 微信交易流水号
+                WX_tradeId: "",
+                
+                // 微信轮询定时器 清除函数
+                clearWX_check: null,
+                
+                // 微信支付成功
+                isWX_success: false,
 
             }
         },
@@ -187,10 +242,8 @@
             this.validator = new Validator({
                 rMoney: 'required|between:1,100000|decimal:2',
             });
-
             this.$set(this, 'errors', this.validator.errorBag);
 
-            
         },
         mounted(){
 
@@ -201,24 +254,51 @@
             // 获取账户余额
             this.getUserAccount();
             this.rechargeType = this.$router.currentRoute.query.type.toString()||"1";
+
         },
         // 退出的生命周期钩子
         deactivated(){
+            this.clearWX_check&&this.clearWX_check();
             // 重置数据
             this.reset();
         },
         // 数据侦听
         watch:{
+
             // 充值金额
             payAmount(val){
                 // 充值类型 余额充值 or 信誉保证金
                 this.validator.validate('rMoney',val);
             },
+
+            WX_tradeId(val){
+                if(val){
+                    geekDom.yydTimer((clear)=>{
+                        this.checkWXPayStatus(val);
+                        this.clearWX_check = clear;
+                    },5000);
+                }else{
+                    this.clearWX_check&&this.clearWX_check();
+                }
+            }
             
         },
 
         // 自定义函数(方法)
         methods: {
+            
+            // 禁止滚动冒泡
+            disScroll(ev){
+                console.log(ev);
+            },
+
+            // 关闭提示框
+            closeAlertsBox(){
+                this.isShow_WX_code= false;
+                this.WX_codeBase64 = "";
+                // 清空支付流水号
+                this.WX_tradeId= "";
+            },
 
             // 格式化账户余额
             _normalizeBalance(data) {
@@ -298,11 +378,30 @@
                         // 农行或网银支付接入方式; 1-电脑接入 2-手机网页接入
                         data.clientType = "1";
                         
-                        me.putCommit(data,function(){
+                        me.putCommit(data,function(res){
                             if(data.payType=="alipay"||data.payType=="abc"||data.payType=="union_pay"){
-                                console.log("正在进行充值操作，使用支付宝、银联、农行")
-                            }else if(data.payType=="使用微信扫码支付"){
-                                console.log("使用微信扫码支付");
+                                me.$confirm('正在进行充值操作，完成充值后请确认成功充值', '充值操作中', {
+                                    confirmButtonText: '确认成功充值',
+                                    cancelButtonText: '取消',
+                                    }).then(() => {
+                                        // 重置数据
+                                        me.rechargeType = me.$router.currentRoute.query.type.toString()||"1";
+                                        me.reset();
+                                        // 重新获取账户信息
+                                        me.getUserAccount();
+                                    }).catch(() => {
+                                        
+                                    });
+                            }else if(data.payType=="wxpay_native"){
+                                
+                                // 打开二维码扫码提示框
+                                me.isShow_WX_code = true;
+                                me.WX_tradeId = res.data.TradeId;
+                                // 微信二维码
+                                QRCode.toDataURL(res.data.QRCodeUrl, function (err, url) {
+                                    me.WX_codeBase64 = url
+                                })
+                                // me.WX_codeBase64 = QRCode.makeCode(res.QRCodeUrl);
                             }
                             
                         });
@@ -310,7 +409,6 @@
                 }).catch(error => {
                     console.log(error);
                 });
-                
             },
 
             // 提交提现请求
@@ -318,21 +416,47 @@
 
                 // 请求充值接口
                 api.rechargeAmount(data).then(res => {
-                    console.log(res.code)
-                    console.log(SYSTEM.CODE_IS_OK)
-                    console.log(typeof res.code)
-                    console.log(typeof SYSTEM.CODE_IS_OK)
-                    console.log(res.code==SYSTEM.CODE_IS_OK)
                     if(res.code==SYSTEM.CODE_IS_OK){
-
-                        console.log("进来了不");
                         // 回调
                         if(callBack){
-                            callBack()
+                            callBack(res);
                         }
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '充值失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+            
+            // 微信支付状态查询
+            checkWXPayStatus(tradeId){
+                let data = {
+                    TradeId: tradeId,
+                }
+                // 支付状态查询
+                api.checkPayStatus(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        if(res.data){
+                            this.WX_codeBase64 = "";
+                            // 清空支付流水号
+                            this.WX_tradeId= "";
+                            setTimeout(()=>{
+                                // 重置数据
+                                this.rechargeType = this.$router.currentRoute.query.type.toString()||"1";
+                                this.reset();
+                                // 重新获取账户信息
+                                this.getUserAccount();
+                            },2000)
+                            return;
+                        }
+
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '查询失败',
                             message: res.msg,
                             type: 'error',
                             duration: 1500,
@@ -349,6 +473,18 @@
                 this.payAmount = "";
                 // 支付方式选择  1.支付宝支付，2.微信支付，3.农行支付
                 this.payType = "1";
+                // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
+                this.isShow_WX_code = false;
+                // 微信二维码
+                this.WX_codeBase64 = "";
+                this.WX_tradeId = "";
+                this.clearWX_check = "";
+
+                this.isWX_success = false;
+
+                setTimeout(() => {
+                    this.errors.clear();
+                })
             },
 
         },
@@ -375,9 +511,13 @@
 
 </style>
 
+<!-- 二维码提示弹窗组件 -->
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+    @import 'gk_alerts.styl'
+</style>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import 'index.styl'
-    
+
 </style>

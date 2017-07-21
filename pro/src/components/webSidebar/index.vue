@@ -148,7 +148,6 @@
                 // 页面初始化
                 this.init();
             },20);
-            
         },
         mounted(){
             
@@ -219,7 +218,7 @@
             // 页面初始化
             init(){
                 this.gotop = this.$refs.js__gotop;
-                if(document.body.scrollTop>10){
+                if(document.body.scrollTop>=0){
                     document.documentElement.scrollTop=document.body.scrollTop = 0;
                     this.gotop.style.display="none";
                 }

@@ -95,11 +95,6 @@ export function payFetchSign(url, params) {
              
             window.open(url); 
             resolve({code:0});
-            // return new Promise((resolve, reject) => {
-            //     console.log("很恶心")
-            //     resolve({code: 1});
-            // })
-            
         }
         
         //微信支付
@@ -188,6 +183,7 @@ export function payFetchSign(url, params) {
                                 '&orderId='+Json.orderId+
                                 '&clientType='+Json.clientType||1;
             window.open(url_bank); 
+            resolve({code:0});
         }
     })
 }
@@ -519,6 +515,12 @@ export default {
     rechargeAmount(params){
         return payFetchSign('/action2/pay/payB2BCreditPoint.ashx',dataToJson(params));
     },
+
+    // 支付状态查询
+    checkPayStatus(params){
+        return fetchSign('/action2/pay/chkPayStatus.ashx',dataToJson(params));
+    },
+    
 
     // 各类金额流水账单
     getBillList(params){

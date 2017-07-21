@@ -16,6 +16,7 @@
     "fastclick": "^1.0.6",
     "jquery": "^1.12.4",
     "jr-qrcode": "^1.1.0",
+    "qrcode": "^0.8.2",
     "slick-carousel": "^1.6.0",
     "swiper": "^3.4.2",
     "vee-validate": "^2.0.0-rc.5",
