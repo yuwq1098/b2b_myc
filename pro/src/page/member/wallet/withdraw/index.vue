@@ -616,7 +616,6 @@
                     data.FullName = this.nOpenAccountName;    // 开户名
                 }
                 
-                return;
                 api.withdrawCashApply(data).then((res)=>{
                     if(res.code==SYSTEM.CODE_IS_OK){
                         me.$confirm('提现申请成功，审核需要一定时间，请耐心等待，未审核通过资金将原路返回！点击我知道了返回我的钱包', '提现申请成功', {
@@ -625,7 +624,7 @@
                             }).then(() => {
                                 me.$router.push({path:'/member/wallet'})
                             }).catch(() => {
-                                
+                                this.reset();
                             });
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.reset();
