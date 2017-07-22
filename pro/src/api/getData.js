@@ -661,6 +661,12 @@ export default {
     getGuessYouLike(){
         return get('/action2/GuessYouLike.ashx')
     },
+
+    // 广告帮助等视频
+    getAdVideos(){
+        return get('/action2/AdvertisementVideo.ashx')
+    },
+    
     
     // 相似推荐
     getSimilarRecommend(params){

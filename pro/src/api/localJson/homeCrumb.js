@@ -61,6 +61,17 @@ export const crumbsInfo = {
             path:'',
         },
     ],
+    // 视频帮助页
+    'practice':[
+        {
+            title:'首页',
+            path:'/',
+        },
+        {
+            title:'视频教程（帮助）',
+            path:'',
+        },
+    ],
     'merchantInfoDetails':function(name){
         return [
             {

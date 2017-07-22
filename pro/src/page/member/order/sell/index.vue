@@ -14,7 +14,7 @@
                                     <a href="javascript:;"
                                         @click="tabChange(1)"
                                         :class="{'on':tabShowIndex==1}"
-                                        class="u-tab-lk">待发起合同
+                                        class="u-tab-lk">发起合同
                                     </a>
                                 </li>
                                 <li class="m-item">

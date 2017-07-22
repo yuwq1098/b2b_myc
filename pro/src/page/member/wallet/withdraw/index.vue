@@ -219,7 +219,7 @@
                                         <div class="ipt">
                                             <input type="password" class="user-input"
                                                 v-model="payPass" 
-                                                placeholder="请输入支付密码" />
+                                                placeholder="请输入平台支付密码" />
                                         </div>
                                         <div class="line-error" v-if="errors.has('payPass')">
                                             <p class="error-txt">
@@ -504,13 +504,10 @@
             changeWPayMethod(type){
                 this.wPayType = type;
 
-                this.withdrawAmount= "";
                 this.alipayAccount = "";
                 this.realName = "";
                 this.nBankCard = "";
                 this.nOpenAccountName = "";
-                this.imgCode = '';
-                this.smsCode = '';
                 // 时间戳
                 this.timestamp = (+new Date()).valueOf();
 
@@ -601,7 +598,7 @@
                     Amount: this.withdrawAmount,        // 提现金额
                     PayPwd: this.payPass,        // 支付密码
                     SMSCode: this.smsCode,       // 短信验证码
-                    AmountType: this.wPayType=='1'?'平台余额':'信誉保证金',    // 提现类别
+                    AmountType: this.withdrawType=='1'?'平台余额':'信誉保证金',    // 提现类别
                     
                 };
 

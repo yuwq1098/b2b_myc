@@ -1,2 +1,101 @@
 @import '~assets/css/mixin.styl'
 
+.g-doc
+    background #f4f4f4
+    .g-bd
+        .m-practice-box
+            width 1200px
+            padding 0 0 30px
+            .m-pic-wrap
+                width @width
+                height 380px
+                margin 0 0 30px
+                background url('../../../assets/img/m-practice-bg.jpg') center center no-repeat
+                background-size contain
+            .m-video-wrap
+                width @width
+                min-height 380px
+                background #fff
+                margin 10px 0 0
+                .m-hd
+                    height 60px
+                    line-height 60px
+                    background #fafafa
+                    _border(bottom,#ededed)
+                    .tit
+                        padding 0 0 0 20px
+                        font-size 18px
+                        color #333
+                .m-con
+                    width 1200px
+                    position relative
+                    &::after
+                        content ""
+                        _display()
+                        width @width
+                        height 1px
+                        background #ededed
+                        _completeCenter(0,auto,50%,auto)
+                    .u-video-lst
+                        .u-item
+                            float left
+                            width 300px
+                            height 320px
+                            position relative
+                            .u-box
+                                _display()
+                                width @width
+                                height @height
+                                _completeCenter(0,auto,0,auto)
+                                .u-video-box
+                                    width 240px
+                                    height 150px
+                                    margin 30px auto 20px
+                                    _borderRadius(5px)
+                                    _overflow()
+                                    position relative
+                                    .u-pic,.u-video
+                                        width @width
+                                        height @height
+                                        _borderRadius(5px)
+                                        _overflow()
+                                    .video-btn
+                                        width 36px
+                                        height 20px
+                                        _completeCenter(10px,auto,auto,10px)
+                                        background url("../../../assets/img/u-video-btn.png") 0 0 no-repeat
+                                        background-size contain
+                                .u-con
+                                    width @width - 40px
+                                    padding 0 20px
+                                    text-align center
+                                    .issuer
+                                        height 32px
+                                        line-height @height
+                                        font-size 18px
+                                        color #333
+                                        margin 0 0 12px
+                                    .title
+                                        line-height 28px
+                                        font-size 16px
+                                        color #959595
+                                        font-weight normal
+                                &:hover
+                                    _boxShadow(38px,rgba(0,0,0,.08),0,0,true)
+                                    _transitionAll(.15s,ease)
+                                    .u-video-box
+                                        .video-btn
+	                                        background url("../../../assets/img/u-video-btn-hover.png") 0 0 no-repeat
+	                                        background-size contain
+                            &:not(:nth-child(4n))::after
+                                content ""
+                                _display()
+                                width 1px
+                                height @height
+                                background #ededed
+                                _completeCenter(auto,0,0,auto)
+                            
+
+
+
+
