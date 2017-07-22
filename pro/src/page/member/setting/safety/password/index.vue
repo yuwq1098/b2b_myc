@@ -114,7 +114,6 @@
                 checkPass: 'required|confirmed:newPass'
             });
             this.$set(this, 'errors', this.validator.errorBag);
-            this.validator.validate('pass', this.pass).then((res) => {});
             
         },
         mounted(){
@@ -122,16 +121,10 @@
         },
         activated(){
             this.reset();
-            setTimeout(()=>{
-                this.validator.validate('pass', this.pass).then((res) => {});
-            });
         },
         //退出的生命周期钩子
         deactivated(){
             this.reset();
-            setTimeout(()=>{
-                this.validator.validate('pass', this.pass).then((res) => {});
-            });
         },
         //数据侦听
         watch:{

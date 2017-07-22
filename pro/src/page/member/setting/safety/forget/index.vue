@@ -243,6 +243,7 @@
                         },1000);
 
                     }else{  //失败
+                        this.timestamp = (+new Date()).valueOf();
                         this.errors.remove('imgCode');
                         this.errors.add('imgCode', msg, 'auth');
                     }
@@ -323,6 +324,7 @@
                         this.setSignOut();
                         this.reset();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.timestamp = (+new Date()).valueOf();
                         this.errors.remove('newPass');
                         this.errors.add('newPass', "无效的短信验证码", 'auth');
                     }

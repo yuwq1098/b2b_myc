@@ -315,6 +315,7 @@
                         },1000);
 
                     }else{  //失败
+                        this.timestamp = (+new Date()).valueOf();
                         this.errors.remove('oldImgCode');
                         this.errors.add('oldImgCode', msg, 'auth');
                     }
@@ -361,12 +362,14 @@
                                     },1000);
 
                                 }else{  //失败
+                                    this.timestamp = (+new Date()).valueOf();
                                     this.errors.remove('newImgCode');
                                     this.errors.add('newImgCode', msg, 'auth');
                                 }
                             });
 
                         }else{      // 未注册（平台没有）
+                            this.timestamp = (+new Date()).valueOf();
                             this.errors.remove('newTel');
                             this.errors.add('newTel', "此手机号未被注册", 'auth');
                         }
@@ -452,6 +455,7 @@
                         });
                         this.reset();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.timestamp = (+new Date()).valueOf();
                         this.$notify({
                             title: '更改手机绑定失败',
                             message: res.msg,

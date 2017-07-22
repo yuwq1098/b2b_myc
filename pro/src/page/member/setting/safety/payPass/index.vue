@@ -418,6 +418,7 @@
                             }
                         },1000);
                     }else{  //失败
+                        this.timestamp = (+new Date()).valueOf();
                         this.errors.remove('imgCode');
                         this.errors.add('imgCodeR', msg, 'auth');
                     }

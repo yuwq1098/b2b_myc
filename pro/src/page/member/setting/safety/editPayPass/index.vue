@@ -222,8 +222,10 @@
                 memberData: {},
                 // 选项卡显示
                 tabShowIndex: "",
-                // 支付密码
-                payPass: "",
+                // 旧支付密码
+                oldPayPass: "",
+                // 新支付密码
+                newPayPass: "",
                 // 确认支付密码
                 checkPayPass: "",
                 // 图形验证码

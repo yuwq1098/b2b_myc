@@ -164,7 +164,7 @@
         created(){
             
             this.validator = new Validator({
-                newPayPass: 'required|alpha_dash|min:6|max:22',
+                newPayPass: 'required|number|min:6|max:22',
                 imgCode: 'required|min:4|max:4',
                 smsCode: 'required|min:4|max:4',
             });
@@ -246,6 +246,7 @@
                         },1000);
 
                     }else{  //失败
+                        this.timestamp = (+new Date()).valueOf();
                         this.errors.remove('imgCode');
                         this.errors.add('imgCode', msg, 'auth');
                     }
@@ -310,6 +311,7 @@
                         this.$router.push({path:'/member/safetyCenter'})
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.timestamp = (+new Date()).valueOf();
                         this.errors.remove('newPayPass');
                         this.errors.add('newPayPass', res.msg, 'auth');
                     }
