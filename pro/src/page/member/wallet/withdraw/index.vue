@@ -568,10 +568,27 @@
 
             // 提交提现申请
             putCommit(){
-                
                 let me = this;
-                if(this.withdrawType=='2'&&this.payAmount>1500){
+                // 提现金额限定
+                if(this.withdrawType=="1"&&this.withdrawAmount>this.accountData.balance){
+                    this.$alert('提现数额不能大于您的现金余额', '违规提现', {
+                        confirmButtonText: '我知道了',
+                        type: 'error',
+                    });
+                    return;
+                }
+                
+                // 提现保证金限额
+                if(this.withdrawType=='2'&&this.withdrawAmount>1500){
                     this.$alert('我司平台规则规定，信誉保证金的提现数额不能高于1500元。', '违规提现', {
+                        confirmButtonText: '我知道了',
+                        type: 'error',
+                    });
+                    return;
+                }else if(this.withdrawType=="2"&&this.withdrawAmount>this.accountData.xinyu){
+
+                    // 提现金额限额
+                    this.$alert('提现数额不能大于您的信誉保证金余额', '违规提现', {
                         confirmButtonText: '我知道了',
                         type: 'error',
                     });
@@ -597,7 +614,8 @@
                     data.AccountType = "abc";                
                     data.FullName = this.nOpenAccountName;    // 开户名
                 }
-
+                
+                return;
                 api.withdrawCashApply(data).then((res)=>{
                     if(res.code==SYSTEM.CODE_IS_OK){
                         me.$confirm('提现申请成功，审核需要一定时间，请耐心等待，未审核通过资金将原路返回！点击我知道了返回我的钱包', '提现申请成功', {
@@ -636,6 +654,13 @@
                 this.payPass = '';
                 // 时间戳
                 this.timestamp = (+new Date()).valueOf();
+                // 我的定时器
+                this.myInterval&&clearInterval(this.myInterval);
+                setTimeout(()=>{
+                    this.myInterval = null;
+                    // 验证码等待时间
+                    this.waitSeconds =  0;
+                })
 
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 setTimeout(() => {

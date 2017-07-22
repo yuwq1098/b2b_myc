@@ -308,6 +308,16 @@
                 this.telephone = "";
                 this.imgCode = "";
                 this.smsCode = "";
+                // 时间戳
+                this.timestamp = (+new Date()).valueOf();
+                // 我的定时器
+                this.myInterval&&clearInterval(this.myInterval);
+                setTimeout(()=>{
+                    this.myInterval = null;
+                    // 验证码等待时间
+                    this.waitSeconds =  0;
+                })
+
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 setTimeout(() => {
                     this.errors.clear();

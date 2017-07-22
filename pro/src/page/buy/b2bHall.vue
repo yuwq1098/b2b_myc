@@ -1045,7 +1045,11 @@
                             this.searchFilterList.GearType = _gearTypeVal;
                             break;
                         case 'color':                 // 颜色
-                            this.searchFilterList.Color = dataObj[key];
+                            if(dataObj[key]==-1){
+                                this.searchFilterList.Color = "";
+                            }else{
+                                this.searchFilterList.Color = dataObj[key];
+                            }
                             break;
                         case 'transferCount':         // 过户次数
                             let _transferCountVal = hashData.userFilterData[key][dataObj[key]]();
