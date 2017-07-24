@@ -988,6 +988,7 @@
                 this.userFilterData.sortType = label; 
                 // 设置真实向api请求的字段 排序类型
                 this.searchFilterList.SortType = value||'';
+
             },
 
             //获取用以展示的用户所选条件集合
@@ -1069,6 +1070,7 @@
                 }
                 // 当搜索条件发生变化时，页号变为1
                 this.searchFilterList.PageIndex = 1;
+                this.resultPage.currentPage = 1;
                 // 重新渲染页面
                 this.carListResultRender();
             },
@@ -1131,7 +1133,6 @@
                             break;
                     }
                 }
-
                 // 重新渲染页面
                 this.carListResultRender();
             },

@@ -5,7 +5,7 @@
     .g-bd
         .m-practice-box
             width 1200px
-            padding 0 0 30px
+            padding 0 0 40px
             .m-pic-wrap
                 width @width
                 height 380px
@@ -17,6 +17,7 @@
                 min-height 380px
                 background #fff
                 margin 10px 0 0
+                _boxShadow(18px,rgba(0,0,0,.10),5px,5px)
                 .m-hd
                     height 60px
                     line-height 60px
@@ -29,19 +30,35 @@
                 .m-con
                     width 1200px
                     position relative
-                    &::after
+                    &.v2::after
                         content ""
                         _display()
                         width @width
                         height 1px
                         background #ededed
                         _completeCenter(0,auto,50%,auto)
+                    &.v3::after,&.v4::before
+                        content ""
+                        _display()
+                        width @width
+                        height 320px
+                        _border(top,#ededed)
+                        _border(bottom,#ededed)
+                        _completeCenter(0,auto,319px,auto)
+                    &.v4::after
+                        content ""
+                        _display()
+                        width @width
+                        height 1px
+                        background #ededed
+                        _completeCenter(0,auto,959px,auto)
                     .u-video-lst
                         .u-item
                             float left
                             width 300px
                             height 320px
                             position relative
+                            z-index 2
                             .u-box
                                 _display()
                                 width @width
@@ -81,7 +98,7 @@
                                         color #959595
                                         font-weight normal
                                 &:hover
-                                    _boxShadow(38px,rgba(0,0,0,.08),0,0,true)
+                                    _boxShadow(28px,rgba(0,0,0,.10),-6px,0,true)
                                     _transitionAll(.15s,ease)
                                     .u-video-box
                                         .video-btn

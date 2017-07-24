@@ -50,6 +50,8 @@
     import * as SYSTEM from 'api/system.js'
     // 工具类
     import {dataToJson} from "assets/js/util.js"
+    // vuex状态管理
+    import { mapGetters } from 'vuex'
     // 会员中心侧边栏用户信息构造类
     import {sidebarMember} from "base/class/member.js"
     //本地的会员中心侧导航信息
@@ -84,10 +86,17 @@
         },
         // 属性计算
         computed:{
+            ...mapGetters(['userData','loginStatus']),
         },
         //数据侦听
         watch:{
-
+            // vuex的用户数据变化
+            userData(val){
+                // 如果是登录的状态才重新拉取用户信息
+                if(this.loginStatus){
+                    this.getMemberInfo();
+                }
+            },
         },
         // 自定义函数(方法)
         methods: {

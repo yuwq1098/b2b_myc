@@ -18,7 +18,10 @@
                                 <p class="tit">木有车视频</p>
                             </div><!-- 头部标题 -->
                             <div class="m-con"
-                                :class="{'v2':videoItems.length>4,'v3':videoItems.length>8}"
+                                :class="{'v2':videoItems.length>4&&
+                                            videoItems.length<=8,
+                                        'v3':videoItems.length>8&&videoItems.length<=12,
+                                        'v4':videoItems.length>12}"
                                 >
                                 <ul class="u-video-lst f__clearfix">
                                     <template v-for="(item,index) in videoItems">
@@ -156,7 +159,7 @@
             
         },
         mounted(){
-
+            
         },
         activated(){
             // 获取视频信息
@@ -170,11 +173,11 @@
         },
         // 计算数据
         computed:{
-
+            
         },
         //数据侦听
         watch:{
-
+            
         },
         // 自定义函数(方法)
         methods: {
