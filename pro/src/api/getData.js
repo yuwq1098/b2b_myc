@@ -160,7 +160,7 @@ export function payFetchSign(url, params) {
                 amountType: Json.amountType,
                 orderId: Json.orderId,
             }
-
+            
             axios.post(newUrl, params,config)
                 .then(response => {
                     resolve(response.data);
@@ -172,7 +172,34 @@ export function payFetchSign(url, params) {
                 })
         }
 
+        // 余额支付
+        if(Json.payType=='wxpay_balance'){ 
 
+            let [timestamp,token,secret,sign] = getSignHeaders();
+            const config = {
+                headers: {timestamp:timestamp,token:token,sign:sign},
+            }
+
+            let params = {
+                PayType: Json.amountType,
+                PayPwd: Json.payPass,
+                payAmount: Json.payAmount,
+            }
+            
+            let newUrl = joinUrl("/action2/BlancePay.ashx");
+
+            axios.post(newUrl, params,config)
+                .then(response => {
+                    console.log("充值怎么说",response)
+                    resolve(response.data);
+                }, err => {
+                    reject(err);
+                })
+                .catch((error) => {
+                    reject(error)
+                })
+
+        }
 
         // 农行支付或银联支付
         if(Json.payType=='abc'||Json.payType=='union_pay'){
@@ -426,7 +453,6 @@ export default {
     /*
      * 个人中心
      */
-
     
     // 修改个人信息
     editMemberInfo(params){
@@ -524,6 +550,11 @@ export default {
     // 提现接口
     withdrawCashApply(params){
         return fetchSign('/action2/WithdrawCashApply.ashx',dataToJson(params));
+    },
+
+    // 使用余额进行各类支付
+    blancePay(params){
+        return fetchSign('/action2/BlancePay.ashx',dataToJson(params));
     },
 
     // 各类金额流水账单

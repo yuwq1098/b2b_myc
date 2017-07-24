@@ -5,6 +5,7 @@
     min-height 480px
     // background #f8f8f8
     .m-info
+        _unUserSelect()
         .u-hd
             height 32px
             position relative
@@ -106,7 +107,7 @@
                                 width 150px
                                 height 42px
                                 _borderAll(#4B5861 + 75%)
-                                margin 0 15px 0 0
+                                margin 0 15px 15px 0
                                 .u-box
                                     _display()
                                     width @width
@@ -114,6 +115,9 @@
                                     .pay-bg
                                         width @width
                                         height @height
+                                        &.ye
+                                            background url('../../../../assets/img/pay_bg_ye.jpg') center center no-repeat
+                                            background-size auto 42px
                                         &.zfb
                                             background url('../../../../assets/img/pay_bg_zfb.jpg') center center no-repeat
                                             background-size auto 37px
@@ -142,7 +146,9 @@
                                         background auto 20px
 
                 &.last
-                    margin 0 0 30px 
+                    margin 0 0 15px
+                &.last-new
+                    margin -12px 0 30px 
             .u-btn-box
                 height 38px
                 .u-btn

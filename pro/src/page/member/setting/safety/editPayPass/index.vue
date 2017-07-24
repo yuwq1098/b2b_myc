@@ -218,6 +218,7 @@
         // 数据
         data() {
             return{
+                
                 // 用户数据
                 memberData: {},
                 // 选项卡显示

@@ -38,7 +38,8 @@
                                     <div class="box-inner">
                                         <span class="attr">充值金额(元)：</span>
                                         <div class="ipt">
-                                            <input type="number" class="user-input" step="10" min="1" 
+                                            <input type="text" 
+                                                class="user-input" 
                                                 v-model="payAmount" 
                                                 placeholder="请输入充值金额" />
                                         </div>
@@ -57,11 +58,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="u-line-box last">
+                                <div class="u-line-box"
+                                    :class="{'last':payType!='5'}">
                                     <div class="box-inner">
                                         <span class="attr">选择支付方式：</span>
                                         <div class="pay-method">
                                             <ul class="pay-md-lst f__clearfix">
+                                                <li class="u-item"
+                                                    :class="{'on':payType=='5'}"
+                                                    v-show="rechargeType=='2'"
+                                                    >
+                                                    <a class="u-box"
+                                                        @click="changePayMethod('5')"
+                                                        >
+                                                        <div class="pay-bg ye"></div>
+                                                        <i class="icon"></i>
+                                                    </a>
+                                                </li><!-- 余额支付 -->
                                                 <li class="u-item"
                                                     :class="{'on':payType=='1'}"
                                                     >
@@ -104,6 +117,23 @@
                                                 </li><!-- 银联支付 -->
                                             </ul>
                                         </div><!-- 支付方式选择 -->
+                                    </div>
+                                </div>
+                                <div class="u-line-box"
+                                    :class="{'last-new':payType=='5'}"
+                                    v-show="payType=='5'"
+                                    >
+                                    <div class="box-inner">
+                                        <span class="attr">支付密码：</span>
+                                        <div class="ipt">
+                                            <input type="password" class="user-input" step="10" min="1" 
+                                                v-model="payPass" 
+                                                placeholder="请输入您的支付密码" />
+                                        </div>
+                                        <div class="line-error" v-if="errors.has('payPass')">
+                                            <p class="error-txt">
+                                                <i class="iconfont icon-jinggao1"></i>{{errors.first('payPass')}}</p>
+                                        </div><!-- 错误验证 -->
                                     </div>
                                 </div>
                                 <div class="u-btn-box">
@@ -213,8 +243,11 @@
                 rechargeType: "",
                 // 充值金额
                 payAmount: "",
-                // 支付方式选择  1.支付宝支付，2.微信支付，3.农行支付
+                // 支付方式选择  1.支付宝支付，2.微信支付，3.农行支付，4.银联支付 5.余额支付
                 payType: "1",
+                // 支付密码
+                payPass: "",          
+
                 // 表单验证报错集合
                 errors: null,
                 
@@ -239,8 +272,9 @@
         //生命周期,开始的时候
         created(){
             
-            this.validator = new Validator({
-                rMoney: 'required|between:1,100000|decimal:2',
+            this.validator = new Validator({ 
+                rMoney: 'required|between:1,100000|decimal:2',     // 充值金额
+                payPass: 'required|number|min:6|max:6',            // 支付密码
             });
             this.$set(this, 'errors', this.validator.errorBag);
 
@@ -270,7 +304,13 @@
                 // 充值类型 余额充值 or 信誉保证金
                 this.validator.validate('rMoney',val);
             },
-
+            
+            // 支付密码
+            payPass(val){
+                this.validator.validate('payPass',val);
+            },
+            
+            // 交易流水id
             WX_tradeId(val){
                 if(val){
                     geekDom.yydTimer((clear)=>{
@@ -280,7 +320,21 @@
                 }else{
                     this.clearWX_check&&this.clearWX_check();
                 }
-            }
+            },
+            
+            // 充值类型
+            rechargeType(val){
+                if(val=='1'){
+                    this.payType = '1';
+                    // 切会余额充值则清空支付密码的错误提示及数据
+                    this.payPass = "";
+                    setTimeout(()=>{
+                        this.errors.remove("payPass");
+                    })
+                }else if(val=='2'){
+                    this.payType = '5'
+                }
+            },
             
         },
 
@@ -332,12 +386,30 @@
                 
                 // 指定指针
                 let me = this; 
-                
-                this.validator.validate('rMoney', this.payAmount).then((res) => {
+                let thePayPass = (this.payType == '5'&&
+                                this.rechargeType == '2')?this.payPass:'111111';
+
+                this.validator.validateAll({
+                    rMoney: this.payAmount,
+                    payPass: thePayPass,
+                }).then((res) => {
                     // 如果验证成功
                     if(res){
+                        // 信誉保证金限额充值
                         if(this.rechargeType=="2"&&this.payAmount>1000){
                             this.$alert('我司平台规则规定，信誉保证金的充值数额不能高于1000元。', '违规充值', {
+                                confirmButtonText: '我知道了',
+                                type: 'error',
+                            });
+                            return;
+                        }
+                        
+                        // 信誉保证金通过余额充值，但是余额必须足额
+                        if(this.rechargeType=="2"&&
+                                this.payType=="5"&&
+                                this.payAmount>parseFloat(this.accountData.balance)
+                        ){
+                            this.$alert('余额不足，无法继续使用余额充值信誉保证金', '余额不足', {
                                 confirmButtonText: '我知道了',
                                 type: 'error',
                             });
@@ -347,6 +419,7 @@
                         let data = {
                             // 充值金额
                             payAmount : this.payAmount,
+                            payPass : this.payPass,
                         }
 
                         // 充值类型选择
@@ -373,6 +446,9 @@
                             case '4':
                                 data.payType = "union_pay"
                                 break;
+                            case '5':
+                                data.payType = "wxpay_balance"
+                                break;
                         }
                         
                         // 农行或网银支付接入方式; 1-电脑接入 2-手机网页接入
@@ -385,8 +461,8 @@
                                     cancelButtonText: '取消',
                                     }).then(() => {
                                         // 重置数据
-                                        me.rechargeType = me.$router.currentRoute.query.type.toString()||"1";
                                         me.reset();
+                                        me.rechargeType = me.$router.currentRoute.query.type.toString()||"1";
                                         // 重新获取账户信息
                                         me.getUserAccount();
                                     }).catch(() => {
@@ -401,7 +477,17 @@
                                 QRCode.toDataURL(res.data.QRCodeUrl, function (err, url) {
                                     me.WX_codeBase64 = url
                                 })
-                                // me.WX_codeBase64 = QRCode.makeCode(res.QRCodeUrl);
+                            }else if(data.payType=="wxpay_balance"){  // 微信支付
+                                me.$notify({
+                                    title: '充值成功',
+                                    message: "充值成功，正在跳转至我的钱包！",
+                                    type: 'success',
+                                    duration: 2000,
+                                });
+                                // 跳转至账单列表
+                                setTimeout(()=>{
+                                    me.$router.push({path:'/member/wallet'})
+                                },300)
                             }
                             
                         });
@@ -473,6 +559,8 @@
                 this.payAmount = "";
                 // 支付方式选择  1.支付宝支付，2.微信支付，3.农行支付
                 this.payType = "1";
+                // 支付密码
+                this.payPass = "";
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 this.isShow_WX_code = false;
                 // 微信二维码
