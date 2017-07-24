@@ -16,6 +16,60 @@ export function addClass(el, className) {
 }
 
 /** 
+* @description 阻止鼠标滚轮事件冒泡
+* @param event 事件作用对象
+*/ 
+export function preventScroll(ev){
+    var _this = ev;
+    if(navigator.userAgent.indexOf("Firefox")>0){
+        _this.addEventListener('DOMMouseScroll',function(e){
+            _this.scrollTop += e.detail > 0 ? 60 : -60;   
+            e.preventDefault();
+        },false); 
+    }else{
+        _this.onmousewheel = function(e){   
+            e = e || window.event;   
+            _this.scrollTop += e.wheelDelta > 0 ? -60 : 60;   
+            return false;
+        };
+    }
+    return this;
+}
+
+
+/**  
+ * @description 事件绑定，兼容各浏览器  
+ * @param target 事件触发对象   
+ * @param type   事件  
+ * @param func   事件处理函数  
+ */  
+export function addEvents(target, type, func) {  
+    if (target.addEventListener){    //非ie 和ie9  
+        target.addEventListener(type, func, false);
+    }  
+    else if (target.attachEvent){   //ie6到ie8  
+        target.attachEvent("on" + type, func);
+    }  
+    else{ target["on" + type] = func; }  //ie5  
+}
+
+
+/**  
+ * @description 事件移除，兼容各浏览器  
+ * @param target 事件触发对象  
+ * @param type   事件  
+ * @param func   事件处理函数  
+ */  
+export function removeEvents(target, type, func){  
+    if (target.removeEventListener)  
+        target.removeEventListener(type, func, false);  
+    else if (target.detachEvent)  
+        target.detachEvent("on" + type, func);  
+    else target["on" + type] = null;  
+}
+
+
+/** 
 * @description 将图片文件转换成Base64格式
 * @param file Object 图片文件对象
 * @param callBack Function 回调方法

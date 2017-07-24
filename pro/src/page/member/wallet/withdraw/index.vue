@@ -137,7 +137,7 @@
                                             <div class="ipt">
                                                 <input type="text" class="user-input"
                                                     v-model="nOpenAccountName" 
-                                                    placeholder="请输入您的农行开户名" />
+                                                    placeholder="请输入农行开户人姓名" />
                                             </div>
                                             <div class="line-error" v-if="errors.has('nOpenAccountName')">
                                                 <p class="error-txt">

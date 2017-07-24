@@ -63,7 +63,8 @@
         </div>
         
 
-        <div class="m-player-wrap" v-show="isShowVideoBox">
+        <div class="m-player-wrap" v-show="isShowVideoBox"
+            ref="myPlayerWrap">
             <div class="m-mask"></div><!-- 遮罩层 -->
             <div class="m-player-box">
                 <div class="m-hd">
@@ -75,14 +76,9 @@
                     </a>
                 </div>
                 <div class="m-con">
-                    <video-player  ref="videoPlayer"
-                        :options="playerOptions"
-                        @play="onPlayerPlay($event)"
-                        @pause="onPlayerPause($event)"
-                        @ended="onPlayerEnded($event)"
-                        @playing="onPlayerPlaying($event)"
-                        @statechanged="playerStateChanged($event)"
-                        @ready="playerReadied">
+                    <video-player
+                        ref="videoPlayer"
+                        :options="playerOptions">
                     </video-player>
                 </div>
             </div><!-- 播放器盒子 -->
@@ -135,14 +131,13 @@
 
                 playerOptions: {
 
-                    // component options
+                    // 组件配置
                     start: 0,                 // 第几秒开始播放
                     playsinline: false,
-                    height: 450,
-                    
+                    height: 450,              // 视频盒子高度
                     autoplay: true,           // 是否自动播放
 
-                    // videojs options
+                    // 播放js配置
                     muted: false,             // 是否静音
                     percentAsDecimal: 2,      // 音量百分比
                     language: 'en',
@@ -158,14 +153,16 @@
         },
         //生命周期,开始的时候
         created(){
-          
+            
         },
         mounted(){
-            console.log('this is current player instance object', this.player)
+
         },
         activated(){
             // 获取视频信息
             this.getVideosData();
+            // 鼠标滚轮事件
+            geekDom.preventScroll(this.$refs.myPlayerWrap);
         },
         //退出的生命周期钩子
         deactivated(){
@@ -208,30 +205,12 @@
                 }) 
             },
 
-            // 播放器事件侦听
-            onPlayerPlay(player) {
-
-            },
-            onPlayerPause(player) {
-
-            },
-            onPlayerEnded(player) {
-
-            },
-            onPlayerPlaying(player) {
-
-            },
-            // 侦听播放器状态
-            playerStateChanged(playerCurrentState) {
-
-            },
-            // 播放是否就绪
-            playerReadied(player) {
-                
-            },
-
             // 视频播放
             playVideo(tit,videoUrl){
+                // 如果请求的视频资源没有加载出来，播放自然也不能走
+                let bool = this.videoItems&&this.videoItems.length>0;
+                if(!bool) return;
+
                 // 获取播放器对象
                 this.player = this.getPlayerObj();
                 // 播放器标题
