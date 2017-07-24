@@ -8,9 +8,11 @@
                 <member-inner>
                     <div class="m-home-wrap">
                         <div class="m-hd-box">
-                            <div class="m-pic">
+                            <router-link class="m-pic"
+                                :to="{path:'/member/safetyTel'}"
+                                >
                                 <img :src="memberData.imgUrl" :alt="memberData.name" />
-                            </div><!-- 头像 -->
+                            </router-link><!-- 头像 -->
                             <div class="m-con">
                                 <div class="m-info">
                                     <div class="u-name">

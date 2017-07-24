@@ -26,7 +26,9 @@
                     </li><!-- 会员中心 -->
 
                     <li class="u-side-item u-shopCart">
-                        <a href="javascript:;" class="u-lk">
+                        <router-link class="u-lk"
+                            :to="{path:'/shoppingCart'}"
+                            >
                             <div class="icon">
                                 <i class="iconfont icon-gouwuche8"></i>
                             </div>
@@ -34,7 +36,7 @@
                             <span class="data"
                                 :class="{'v3':myShopingNumber>99}"
                                 >{{myShopingNumber}}</span>
-                        </a>
+                        </router-link>
                     </li><!-- 购物车 -->
                     <li class="u-side-item u-collect">
                         <template v-if="loginStatus">

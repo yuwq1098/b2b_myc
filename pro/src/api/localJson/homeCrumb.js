@@ -35,6 +35,21 @@ export const crumbsInfo = {
             },
         ]
     },
+    // 我的购物车
+    'shoppingCart':[
+        {
+            title:'首页',
+            path:'/',
+        },
+        {
+            title:'二手车B2B大厅',
+            path:'/b2bHall',
+        },
+        {
+            title:'购物车',
+            path:'',
+        },
+    ],
     // 卖车大厅
     'sellHome':[
         {

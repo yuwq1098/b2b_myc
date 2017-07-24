@@ -5,10 +5,16 @@ import App from '../App'
 const index = r => require.ensure([], () => r(require('page/home')), 'index')
 // b2b大厅(买车)
 const b2bHall = r => require.ensure([], () => r(require('page/buy/b2bHall')), 'b2bHall')
+// 购物车
+const shoppingCart = r => require.ensure([], () => r(require('page/shoppingCart')), 'shoppingCart')
+
+
 // 卖车大厅
 const sell = r => require.ensure([], () => r(require('page/sell/sell.vue')), 'sell')
 // 发布车辆订单填写页
 const sendCar = r => require.ensure([], () => r(require('page/sell/sendCar.vue')), 'sendCar')
+
+
 // 其他 => 木有车服务
 const service = r => require.ensure([], () => r(require('page/other/service')), 'service')
 // 其他 => 使用帮助
@@ -45,7 +51,7 @@ const merchantApply = r => require.ensure([], () => r(require('page/member/cente
 
 
 // 用户中心 => 我的购物车
-const shoppingCart = r => require.ensure([], () => r(require('page/member/center/shopping-cart')), 'shoppingCart')
+const m_shoppingCart = r => require.ensure([], () => r(require('page/member/center/shopping-cart')), 'm_shoppingCart')
 
 
 // 买车订单
@@ -145,6 +151,14 @@ export default[{
             alias: '/b2bCar',           // 使用别名
             meta: {
                 requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+                hasWebSide: true,       // 是否有网站侧栏条 
+            },      
+        },
+        {
+        // 购物车
+            path: '/shoppingCart',
+            component: shoppingCart,
+            meta: {
                 hasWebSide: true,       // 是否有网站侧栏条 
             },      
         },
@@ -259,8 +273,8 @@ export default[{
                     },
                 },
                 {
-                // 我的购物车
-                    path: 'shopCart',
+                // 我的购物车(会员中心)
+                    path: 'mCart',
                     component: shoppingCart,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
