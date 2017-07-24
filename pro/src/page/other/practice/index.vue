@@ -24,7 +24,8 @@
                                     <template v-for="(item,index) in videoItems">
                                         <li class="u-item"
                                             :class="'column3'">
-                                            <a href="javascript:;" class="u-box">
+                                            <a href="javascript:;" class="u-box"
+                                                @click="playVideo(item.title,item.videoUrl)">
                                                 <div class="u-video-box">
                                                     <img class="u-pic" src="../../../assets/img/u-video-ditu.png" alt="蛋疼" />
                                                     <!-- <video class="u-video" id="video" controls="controls">
@@ -62,11 +63,16 @@
         </div>
         
 
-        <div class="m-player-wrap" v-show="true">
+        <div class="m-player-wrap" v-show="isShowVideoBox">
             <div class="m-mask"></div><!-- 遮罩层 -->
             <div class="m-player-box">
                 <div class="m-hd">
-                    <div class="tit">我笑了</div>
+                    <p class="tit">{{vBoxTitle}}</p>
+                    <a href="javascript:;" class="u-btn close"
+                        title="关闭播放器" 
+                        @click="closePlayer()"
+                        ><i class="iconfont icon-closecircle"></i>
+                    </a>
                 </div>
                 <div class="m-con">
                     <video-player  ref="videoPlayer"
@@ -121,20 +127,29 @@
                 crumbItems: crumbsInfo['practice'],
                 // 视频资源集合
                 videoItems: [],
+                // 视频播放盒子
+                isShowVideoBox: false,
+                
+                // 视频播放器标题
+                vBoxTitle: "",
 
                 playerOptions: {
 
                     // component options
-                    start: 0,
+                    start: 0,                 // 第几秒开始播放
                     playsinline: false,
+                    height: 450,
+                    
+                    autoplay: true,           // 是否自动播放
 
                     // videojs options
-                    muted: true,
+                    muted: false,             // 是否静音
+                    percentAsDecimal: 2,      // 音量百分比
                     language: 'en',
                     playbackRates: [0.7, 1.0, 1.5, 2.0],
                     sources: [{
                         type: "video/mp4",
-                        src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
+                        src: ""
                     }],
                     poster: require("assets/img/u-video-ditu.png"),
                 }
@@ -158,9 +173,7 @@
         },
         // 计算数据
         computed:{
-            player() {
-                return this.$refs.videoPlayer.player
-            }
+
         },
         //数据侦听
         watch:{
@@ -195,12 +208,12 @@
                 }) 
             },
 
-            // listen event
+            // 播放器事件侦听
             onPlayerPlay(player) {
-                // console.log('player play!', player)
+
             },
             onPlayerPause(player) {
-                // console.log('player pause!', player)
+
             },
             onPlayerEnded(player) {
 
@@ -208,43 +221,73 @@
             onPlayerPlaying(player) {
 
             },
-            // or listen state event
+            // 侦听播放器状态
             playerStateChanged(playerCurrentState) {
-                // console.log('player current update state', playerCurrentState)
+
+            },
+            // 播放是否就绪
+            playerReadied(player) {
+                
             },
 
-              // player is ready
-            playerReadied(player) {
-                console.log('the player is readied', player)
-                // you can use it to do something...
-                // player.[methods]
+            // 视频播放
+            playVideo(tit,videoUrl){
+                // 获取播放器对象
+                this.player = this.getPlayerObj();
+                // 播放器标题
+                this.vBoxTitle = tit;
+                this.isShowVideoBox = true;
+                // 指定开始播放的时间
+                this.player.currentTime(0);
+                // 开始播放
+                this.player.play();
+                
+                // 指定播放路径
+                this.playerOptions.sources[0].src = videoUrl;
+            },
+            // 关闭播放器盒子
+            closePlayer(){
+                // 获取播放器对象
+                this.player = this.getPlayerObj();
+                this.isShowVideoBox = false;
+                // this.player.dispose();  // 销毁视频播放器
+                // 暂停播放
+                this.player.pause();
+            },
+
+            // 重新获取播放器对象
+            getPlayerObj(){
+                return this.$refs.videoPlayer.player;
             }
         },
 	}
 </script>
 
-<!-- 视频播放盒子 -->
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+
+<style lang="stylus" rel="stylesheet/stylus">
     @import '~assets/css/mixin.styl'
     .m-player-wrap
-        width 100%
-        height 100%
-        position fixed
-        left 0
-        top 0
-        right 0
-        bottom 0
-        z-index 20170721
-        .m-mask
-            width @width
-            height @height
-            background rgba(0,0,0,.55)
-    
+        .video-js.vjs-custom-skin
+            &:focus
+                outline none
+        .video-js .vjs-control-bar
+            background #1D2A33
+            _translate3d(0,72px)
+        .vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar
+            visibility visible
+            _opacity(1)
+        .vjs-load-progress,
+        .vjs-play-progress,
+        .vjs-mouse-display
+            cursor pointer
 </style>
 
+<!-- 视频播放盒子的样式 -->
+<style lang="stylus" rel="stylesheet/stylus" scoped>
+    @import 'video.styl'    
+</style>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import 'index.styl'
-
 </style>
