@@ -11,9 +11,11 @@
                     <gk-bread-crumb
                         :crumbItems="crumbItems"
                         ></gk-bread-crumb><!-- 面包屑组件 -->
-                    <div class="m-cart-box">
-                        
-                    </div><!-- 购物车内容 -->
+                    <div class="m-cart-wrap">
+                        <div class="m-cart-con">
+                            
+                        </div><!-- 购物车内容 -->
+                    </div><!-- 购物车容器 -->
 
                 </section><!-- 1200px布局 -->
             </div><!-- 网页主体 -->
