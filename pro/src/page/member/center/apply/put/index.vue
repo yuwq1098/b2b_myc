@@ -774,10 +774,12 @@
                     _borderRadius(2px)
                     _placeholder(#a5a5a5,13px)
                     line-height 38px
+                    vertical-align top
             span
                 color @color
             .el-cascader__label
-                line-height 40px
+                height 38px
+                line-height 38px
             &:hover
                 .el-input__inner
                     _borderAll(#e2e2e2)

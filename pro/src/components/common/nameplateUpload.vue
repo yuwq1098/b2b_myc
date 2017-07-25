@@ -16,7 +16,7 @@
             </upload-input>
 
             <div class="m-file-box">
-                <div class="m-file-example" v-show="nameplateFiles.length==0">
+                <div class="m-file-example" v-show="newFiles.length==0">
                     <ul class="m-pic-lst f__clearfix">
                         <template v-for="item in nameplateExamples">
                             <li class="u-item">
@@ -33,14 +33,14 @@
                     </ul>
                 </div><!-- 文件上传例子(当没有上传文件，文件列表为空时显示) -->
 
-                <div class="m-files-gp" v-show="nameplateFiles.length>0">
+                <div class="m-files-gp" v-show="newFiles.length>0">
                     <transition-group 
                         name="img-list" 
                         class="m-pic-lst f__clearfix"
                         id="js__nameplate_files" tag="ul"
                         >
-                        <template v-for="(item,index) in nameplateFiles">
-                            <li class="u-item"  v-bind:key="item">
+                        <template v-for="(item,index) in newFiles">
+                            <li class="u-item" :key="index">
                                 <div class="u-pic">
                                     <img :src="item.base64Img" @load="fileUpload(index,item.name,item.base64Img)" alt="上传的图片名"/>
                                 </div>
@@ -113,7 +113,7 @@
                 nameplateExamples: nameplateExamples,
                 // 用户选择的铭牌图片文件集合
                 nameplateFiles: [],
-                
+                newFiles: [],
                 // 图片放大对话框
                 dialogImageUrl: '',
                 dialogVisible: false
@@ -126,9 +126,8 @@
                 default: 2,
             }
         },
-        // 数据侦听
-        watch:{
-            
+        created(){
+
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
@@ -136,6 +135,10 @@
         },
         computed:{
                 
+        },
+        // 数据侦听
+        watch:{
+
         },
         // 自定义函数(方法)
         methods: {
@@ -158,19 +161,31 @@
                     }   
                 }
 
+
                 // 对选择的图片进行处理
                 this._setPhotoFiles(files,function(myFile,base64Img){
+                    //调用压缩图片的方法
+                    let theFile = {
+                        lastModified: myFile.lastModified,
+                        name: myFile.name,
+                        type: myFile.type,
+                    }
+
                     // 选择的图片文件大于100kb就进入压缩
                     if(base64Img.length>MAX_FILE_SIZE_100KB){
-                        //调用压缩图片的方法
                         me._compressBase64Image(base64Img,function(base64str){
-                            me.nameplateFiles.push(Object.assign(myFile,{
-                                base64Img: base64str,
-                                isLoad: true,
-                            }));
+                            
+                            //调用压缩图片的方法
+                            me._compressBase64Image(base64Img,function(base64str){
+                                me.newFiles.push(Object.assign(theFile,{
+                                    base64Img: base64str,
+                                    isLoad: true,
+                                }));
+                            });
+                            
                         });
                     }else{
-                        me.nameplateFiles.push(Object.assign(myFile,{
+                        me.newFiles.push(Object.assign(theFile,{
                             base64Img: base64Img,
                             isLoad: true,
                         }));
@@ -180,7 +195,17 @@
             },
 
             // 循环处理我们的图片
-            _setPhotoFiles(files,callBack){  
+            _setPhotoFiles(files,callBack){ 
+
+                // for( let i=0; i<files.length; i++){
+                //     let myFile = files[i];
+                //     geekDom.getBase64FromImgFile(myFile,function(base64Img){
+                //         if(callBack){  
+                //             callBack(myFile,base64Img);  
+                //         }  
+                //     })
+                // }
+
                 for (var key of Object.keys(files)) {
                     let myFile = files[key];
                     geekDom.getBase64FromImgFile(myFile,function(base64Img){
@@ -241,6 +266,7 @@
             
             //图片上传
             fileUpload(index,name,base64str){
+
                 let me = this;
                 let data = {
                     title: name,
@@ -248,11 +274,11 @@
                 }
                 var js__nameplate_files = $("#js__nameplate_files");
                 var curLoadingDom = js__nameplate_files.find(".u-item").eq(index).find(".u-loading");
-
+                
                 api.uploadPublicFileBatch(data).then(res=>{
                     if(res.code==0){
                         curLoadingDom.remove();
-                        me.nameplateFiles[index].fileId = res.data.FileId;
+                        me.newFiles[index].fileId = res.data.FileId;
                         //将新的用户选择的图片文件集合派发给父组件
                         me.changeFiles();
                     }else if(res.code==-4000){
@@ -260,6 +286,7 @@
                     }
                 })
             },
+
             // 放大查看对应图片
             picturePreview(base64Img) {
                 this.dialogImageUrl = base64Img;
@@ -267,11 +294,13 @@
             },
             // 用户选择的图片文件集合派发给父组件
             changeFiles(){
-                this.$emit('changeFiles',this.nameplateFiles);
+                this.$emit('changeFiles',this.newFiles);
             },
+
             // 删除对应图片
             removePictureFile(index){
-                this.nameplateFiles.splice(index, 1)
+                this.nameplateFiles.splice(index, 1);
+                this.newFiles.splice(index, 1);
                 this.changeFiles();
             }
 

@@ -173,7 +173,7 @@ export function payFetchSign(url, params) {
         }
 
         // 余额支付
-        if(Json.payType=='wxpay_balance'){ 
+        if(Json.payType=='balance_pay'){ 
 
             let [timestamp,token,secret,sign] = getSignHeaders();
             const config = {
@@ -187,10 +187,10 @@ export function payFetchSign(url, params) {
             }
             
             let newUrl = joinUrl("/action2/BlancePay.ashx");
-
+            
+            // 请求充值api接口
             axios.post(newUrl, params,config)
                 .then(response => {
-                    console.log("充值怎么说",response)
                     resolve(response.data);
                 }, err => {
                     reject(err);

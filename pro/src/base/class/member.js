@@ -5,7 +5,7 @@ class headMember{
 	constructor(data) {
 	    this.id = data.MemberID
 	    this.name = data.NickName
-	    this.imgUrl = data.PhotoURL?data.PhotoURL:require('assets/img/none-face.png')
+	    this.imgUrl = data.PhotoURL?data.PhotoURL+"?imageView2/3/w/48/h/48":require('assets/img/none-face.png')
 	}
 }
 
@@ -13,7 +13,7 @@ class sidebarMember{
     constructor(data) {
 	    this.id = data.MemberID||""
 	    this.name = data.NickName||""
-	    this.imgUrl = data.PhotoURL?data.PhotoURL:require('assets/img/none-face.png')
+	    this.imgUrl = data.PhotoURL?data.PhotoURL+"?imageView2/3/w/64/h/64":require('assets/img/none-face.png')
 	    this.tel = data.Mobile||""
 	    // 认证状态
 	    this.auth = "未认证"
@@ -62,7 +62,7 @@ class memberInfo{
     constructor(data) {
 	    this.id = data.MemberID||""
 	    this.name = data.NickName||""
-	    this.imgUrl = data.PhotoURL?data.PhotoURL:require('assets/img/none-face.png')
+	    this.imgUrl = data.PhotoURL?data.PhotoURL+"?imageView2/3/w/100/h/100":require('assets/img/none-face.png')
 	    this.tel = data.Mobile||""
 	    this.sex = data.Sex||"暂未设置"
 	    this.blance = data.Blance||0           // 余额

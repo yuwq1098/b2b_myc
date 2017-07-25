@@ -16,7 +16,7 @@
             </upload-input>
 
             <div class="m-file-box">
-                <div class="m-file-example" v-show="photoFiles.length==0">
+                <div class="m-file-example" v-show="newFiles.length==0">
                     <ul class="m-pic-lst f__clearfix">
                         <template v-for="item in photoExamples">
                             <li class="u-item">
@@ -33,14 +33,14 @@
                     </ul>
                 </div><!-- 文件上传例子(当没有上传文件，文件列表为空时显示) -->
 
-                <div class="m-files-gp" v-show="photoFiles.length>0">
+                <div class="m-files-gp" v-show="newFiles.length>0">
                     <transition-group 
                         name="img-list" 
                         class="m-pic-lst f__clearfix"
                         id="js__photo_files" tag="ul"
                         >
-                        <template v-for="(item,index) in photoFiles">
-                            <li class="u-item"  v-bind:key="item">
+                        <template v-for="(item,index) in newFiles">
+                            <li class="u-item" :key="index">
                                 <div class="u-pic">
                                     <img :src="item.base64Img" @load="fileUpload(index,item.name,item.base64Img)" alt="上传的图片名"/>
                                 </div>
@@ -113,7 +113,7 @@
                 photoExamples: photoExamples,
                 // 用户选择的图片文件集合
                 photoFiles: [],
-                
+                newFiles: [],
                 // 图片放大对话框
                 dialogImageUrl: '',
                 dialogVisible: false
@@ -163,13 +163,13 @@
                     if(base64Img.length>MAX_FILE_SIZE_100KB){
                         //调用压缩图片的方法
                         me._compressBase64Image(base64Img,function(base64str){
-                            me.photoFiles.push(Object.assign(myFile,{
+                            me.newFiles.push(Object.assign(myFile,{
                                 base64Img: base64str,
                                 isLoad: true,
                             }));
                         });
                     }else{
-                        me.photoFiles.push(Object.assign(myFile,{
+                        me.newFiles.push(Object.assign(myFile,{
                             base64Img: base64Img,
                             isLoad: true,
                         }));
@@ -252,7 +252,7 @@
                 api.uploadPublicFileBatch(data).then(res=>{
                     if(res.code==0){
                         curLoadingDom.remove();
-                        me.photoFiles[index].fileId = res.data.FileId;
+                        me.newFiles[index].fileId = res.data.FileId;
                         //将新的用户选择的图片文件集合派发给父组件
                         me.changeFiles();
                     }else if(res.code==-4000){
@@ -267,11 +267,12 @@
             },
             // 用户选择的图片文件集合派发给父组件
             changeFiles(){
-                this.$emit('changeFiles',this.photoFiles);
+                this.$emit('changeFiles',this.newFiles);
             },
             // 删除对应图片
             removePictureFile(index){
                 this.photoFiles.splice(index, 1)
+                this.newFiles.splice(index, 1);
                 this.changeFiles();
             }
 

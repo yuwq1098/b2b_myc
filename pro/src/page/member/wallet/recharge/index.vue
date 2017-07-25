@@ -447,7 +447,7 @@
                                 data.payType = "union_pay"
                                 break;
                             case '5':
-                                data.payType = "wxpay_balance"
+                                data.payType = "balance_pay"
                                 break;
                         }
                         
@@ -469,7 +469,6 @@
                                         
                                     });
                             }else if(data.payType=="wxpay_native"){
-                                
                                 // 打开二维码扫码提示框
                                 me.isShow_WX_code = true;
                                 me.WX_tradeId = res.data.TradeId;
@@ -477,7 +476,7 @@
                                 QRCode.toDataURL(res.data.QRCodeUrl, function (err, url) {
                                     me.WX_codeBase64 = url
                                 })
-                            }else if(data.payType=="wxpay_balance"){  // 微信支付
+                            }else if(data.payType=="balance_pay"){  // 余额支付
                                 me.$notify({
                                     title: '充值成功',
                                     message: "充值成功，正在跳转至我的钱包！",
@@ -530,6 +529,8 @@
                             this.WX_codeBase64 = "";
                             // 清空支付流水号
                             this.WX_tradeId= "";
+                            // 微信扫码支付成功提示
+                            this.isWX_success= true;
                             setTimeout(()=>{
                                 // 重置数据
                                 this.rechargeType = this.$router.currentRoute.query.type.toString()||"1";

@@ -11,33 +11,17 @@
                     <div class="m-collect-wrap" v-if="carCollectList.length>=0">
                         <ul class="m-car-lst f__clearfix">
                             <template v-for="(item,index) in carCollectList">
-                                <li class="u-item" :key="item.id">
-                                    <a class="u-lk-box" @click="enterCar(item.id)">
-                                        <div class="u-pic-box">
-                                            <span class="u-mark">{{item.authType}}</span>
-                                            <div class="u-pic">
-                                                <img :src="item.imgUrl" :alt="item.title"/>
-                                            </div><!-- 图片容器 -->
-                                        </div><!-- 图片容器 -->
-                                        <div class="u-con-box">
-                                            <div class="u-mask">
-                                            </div><!-- 遮罩内容-->
-                                            <div class="u-con">
-                                                <div class="u-tit">{{item.title}}</div><!-- 标题 -->
-                                                <div class="u-price">批发价：
-                                                    <em class="vital">{{item.price | priceToFixed(2)}}</em>
-                                                </div><!-- 价格 -->
-                                                <div class="u-merchant">车商：{{item.cdgName}}</div><!-- 车商 -->
-                                                <div class="u-other">{{item.city}} · {{item.plateDate | dateYearFormat}} · {{item.mileage | mileFn(1)}}</div><!-- 其他 -->
-                                                <div class="btn-wrap">
-                                                    <a class="u-btn cancel" 
-                                                        @click.stop="delCar(item.id,index)" 
-                                                        title="取消收藏">取消收藏
-                                                    </a>
-                                                </div>
-                                            </div><!-- 内容 -->
-                                        </div><!-- 内容容器 -->
-                                    </a>
+                                <li class="u-item">
+                                    <!-- 车辆收藏信息组件 -->
+                                    <collect-car-box
+                                        :carInfo="item"
+                                        @enterCar="enterCar"
+                                        @delCar="delCar"
+                                        :hasLogin="hasLogin"
+                                        :hasAuth="hasAuth"
+                                        :hasCredit="hasCredit"
+                                        >
+                                    </collect-car-box>
                                 </li>
                             </template>
                         </ul>
@@ -75,6 +59,9 @@
     import memberInner from 'components/layout/memberInner.vue' 
     // 会员中心缺省组件
     import notContent from 'components/member/notCon.vue' 
+    
+    // 车辆收藏信息组件
+    import collectCarBox from 'components/member/collectCarBox.vue' 
 
 	export default {
         
@@ -84,12 +71,25 @@
             memberLayout,
             memberInner,
             notContent,
+            collectCarBox,
         },
         // 数据
         data() {
             return{
+
+                // 用户信息
+                memberData: null,
+
                 // 收藏的车辆列表集合
                 carCollectList: [],
+
+                // 是否登录
+                hasLogin: "",
+                // 是否认证
+                hasAuth: "",
+                // 是否有足额的信誉保证金
+                hasCredit: "",
+
             }
         },
         //生命周期,开始的时候
@@ -100,30 +100,19 @@
 
         },
         activated(){
+
             // 获取我收藏的车辆列表
             this.getMerchantCollect();
         },
+
         //退出的生命周期钩子
         deactivated(){
             this.carCollectList = []
         },
+
         // 自定义函数(方法)
         methods: {
-            // 获取我收藏的车辆列表
-            getMerchantCollect(){
-                let data = {
-                    ActType: 'MyList',
-                }
-                api.myFavoriteCar(data).then(res => {
-                    if(res.code==SYSTEM.CODE_IS_OK){
-                        if(res.data.length==0){
-                            this.carCollectList = [];
-                            return;
-                        }
-                        this.carCollectList = this._normalizeCar(res.data);
-                    }
-                })
-            },
+
             // 格式化车辆信息列表
             _normalizeCar(list) {
                 let arr = []
@@ -132,10 +121,32 @@
                 });
                 return arr;
             },
+
+            // 获取我收藏的车辆列表
+            getMerchantCollect(){
+                let data = {
+                    ActType: 'MyList',
+                }
+                api.myFavoriteCar(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        // 获取权限相关的信息
+                        this.hasLogin = res.HasLogin;
+                        this.hasAuth = res.HasAuth;
+                        this.hasCredit = res.HasCredit;
+                        if(res.data.length==0){
+                            this.carCollectList = [];
+                            return;
+                        }
+                        this.carCollectList = this._normalizeCar(res.data);
+                    }
+                })
+            },
+
             // 进入车辆详情
             enterCar(id){
                 this.$router.push({ path: '/b2bCar', query: { CarId: id }})
             },
+
             // 取消车辆收藏
             delCar(id,index){
                 let data = {

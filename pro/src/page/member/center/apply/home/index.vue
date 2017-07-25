@@ -194,7 +194,6 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         // 格式化用户信息
                         this.memberData = this._normalizeMember(res.data);
-                        console.log("用户信息",dataToJson(this.memberData));
                         // 设置认证信息
                         this.setAuthData(this.memberData.cdgAuth);
 
@@ -245,6 +244,5 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import 'index.styl'
-
 
 </style>

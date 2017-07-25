@@ -386,6 +386,7 @@
 
             // 侦听路由变化
             $route (to, from) {
+
                 // if(to.path=="/b2bCar"){
                 if(to.path==from.path){
                     // 获取hash 带参中的车辆ID
@@ -397,7 +398,9 @@
                 }else{
                     this.$destroy();
                 }
+                
             },
+
         },
         // 属性计算
         computed:{
