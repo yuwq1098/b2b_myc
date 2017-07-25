@@ -12,9 +12,102 @@
                         :crumbItems="crumbItems"
                         ></gk-bread-crumb><!-- 面包屑组件 -->
                     <div class="m-cart-wrap">
-                        <div class="m-cart-con">
-                            
+                        <div class="m-cart-con"
+                            v-if="cartList.length>0">
+                            <div class="m-lst-wrap">
+                                <ul class="m-goods-lst f__clearfix">
+                                    <template v-for="(item,index) in cartList">
+                                        <li class="m-item">
+                                            <div class="u-pic-box">
+                                                <a href="javascript:;" class="u-box"
+                                                    @click="enterCarDetails(item.id,item.status)">
+                                                    <p class="u-label">
+                                                        <span class="txt">{{item.authType}}</span>
+                                                    </p><!-- 标签 -->
+                                                    <div class="u-pic">
+                                                        <img :src="item.imgUrl" :alt="item.title"/>
+                                                    </div>
+                                                </a>
+                                            </div><!-- 图片容器 -->
+                                            <div class="u-con">
+                                                <div class="u-goods-name">
+                                                    <a href="javascript:;" class="u-lk"
+                                                        @click="enterCarDetails(item.id,item.status)"
+                                                        >{{item.title}}
+                                                    </a>
+                                                </div>
+                                                <div class="u-info"
+                                                    >{{item.inCity}} | {{item.plateDate | dateYearFormat}} | {{item.mileage | mileFn(1)}}
+                                                </div><!-- 基本信息 -->
+                                                <div class="u-other"
+                                                    >
+                                                    <span class="u-part cdgName">{{item.cdgName}}</span><!-- 所属车行 -->
+                                                    <span class="u-part refreshTime">{{item.addedTime}}</span><!-- 最后刷新时间 -->
+                                                </div><!-- 其他信息 -->
+                                            </div><!-- 内容 -->
+                                            
+                                            <div class="u-status"
+                                                :class="{'success':item.statusText=='在售'}"
+                                                >{{item.statusText}}
+                                            </div><!-- 状态 -->
+
+                                            <div class="u-price"
+                                                >
+                                                <template v-if="!hasAuth=='1'">
+                                                    <span class="info">请先通过认证</span>
+                                                </template>
+                                                <template v-else-if="!hasCredit">
+                                                    <span class="info">信誉保证金不足</span>
+                                                </template>
+                                                <template v-else>
+                                                    <span class="attr">B2B批发价：</span>
+                                                    <span class="data"
+                                                        >￥<em class="vital">{{item.price | priceFormat(2)}}</em>万
+                                                    </span>
+                                                </template>
+                                            </div><!-- 价格 -->
+
+                                            <div class="u-operate f__clearfix">
+                                                <a class="u-btn remove"
+                                                    title="移出购物车"
+                                                    @click="removeCart(item.id,index)" 
+                                                    >移出购物车</a>
+                                                <a href="javascript:;" class="u-btn buy"
+                                                    title="立即下单" 
+                                                    >立即下单
+                                                </a>
+                                            </div><!-- 操作 -->
+                                        </li>     
+                                    </template>
+                                </ul><!-- 商品列表 -->
+                            </div><!-- 车辆信息列表容器 -->
+
+                            <div class="m-page" v-show="resultPage.totalPage>0">
+                                <el-pagination
+                                    @size-change="handleSizeChange"
+                                    @current-change="handleCurrentChange"
+                                    :current-page.sync="resultPage.currentPage"
+                                    :page-size="resultPage.pageSize"
+                                    layout="prev, pager, next"
+                                    :total="resultPage.totalPage">
+                                </el-pagination>
+                            </div>
                         </div><!-- 购物车内容 -->
+
+                        <div class="m-not-box"
+                            v-if="cartList.length==0"
+                            >
+                            <div class="u-pic">
+                                <img :src="noConImg" alt="缺省车辆图"/>
+                            </div><!-- 图片 -->
+                            <div class="u-con">
+                                <div class="u-speak">您暂时还没有收藏任何车行，赶紧去别地瞅瞅吧!</div><!-- 描述 -->
+                                <div class="u-other f__clearfix">
+                                    <router-link :to="{path:'/b2bHall'}" class="u-lk" tag="a">返回首页&gt;</router-link>
+                                    <router-link :to="{path:'/'}" class="u-lk" tag="a">二手车B2B大厅&gt;</router-link>
+                                </div><!-- 按钮拓展 -->
+                            </div><!-- 内容 -->
+                        </div>
                     </div><!-- 购物车容器 -->
 
                 </section><!-- 1200px布局 -->
@@ -24,10 +117,25 @@
 </template>
 
 <script>
+
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
+    // 购物车商品信息构造类
+    import {goodsInfo} from "base/class/shoppingCart.js"
+    // 工具函数
+    import {dataToJson} from "assets/js/util.js"
+    // vuex状态管理
+    import { mapActions } from 'vuex'
+
     // 面包屑组件
     import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
+
+    //每页显示八条
+    const RESULE_PAGE_SIZE = 8
 
 	export default {
         name: "shoppingCart",
@@ -41,12 +149,30 @@
 
                 // 面包屑列表信息
                 crumbItems: crumbsInfo['shoppingCart'],
-                
+                // 购物车列表
+                cartList: [],
+                // 是否登录
+                hasLogin: "",
+                // 是否认证
+                hasAuth: "",
+                // 是否有足额的信誉保证金
+                hasCredit: "",
+                noConImg: require("assets/img/no-content.jpg"),
+
+                /**
+                  * @description 结果集分页信息
+                  */
+                resultPage:{ 
+                    currentPage : 1,
+                    pageSize : RESULE_PAGE_SIZE,
+                    totalPage : 0
+                },
+
             }
         },
         // 计算数据
         computed:{
-
+            
         },
         // 数据侦听
         watch:{
@@ -54,7 +180,7 @@
         },
         //生命周期,开始的时候
         created(){
-
+            
         },
         // $el 挂载的时候
         mounted() {
@@ -62,7 +188,8 @@
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-
+            // 获取购物车列表信息
+            this.getShoppingCartData();
         },
         //退出的生命周期钩子
         deactivated(){
@@ -70,7 +197,97 @@
         },
         // 自定义函数(方法)
         methods: {
-              
+            ...mapActions(['getMyShoppingNumber']),
+            // 格式化商品列表信息cartList
+            _normalizeGoodsList(list){
+                let goodsList = [];
+                list.forEach((item, index) => {
+                    goodsList.push(new goodsInfo(item))
+                });
+                return goodsList;
+            },
+
+            // 获取购物车列表信息
+            getShoppingCartData(curPage){
+
+                let data = {
+                    ActType: 'MyList',
+                    PageSize: RESULE_PAGE_SIZE,
+                    PageIndex: curPage||1,
+                }
+                api.manageShoppingCart(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        
+                        // 获取权限相关的信息
+                        this.hasLogin = res.HasLogin;
+                        this.hasAuth = res.HasAuth;
+                        this.hasCredit = res.HasCredit;
+
+                        // 分页总数更新
+                        this.resultPage.totalPage = parseInt(res.count);
+                        // 获取购物车列表信息
+                        this.cartList = this._normalizeGoodsList(res.data);
+
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+
+            //分页每页展示数据大小变化后出发
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+
+            //分页页号切换触发
+            handleCurrentChange(val) {
+                // 刷新购物车
+                this.getShoppingCartData(val);
+                // this.searchFilterList.PageIndex = val;
+                // // 重新渲染页面
+                // this.carListResultRender();
+            },
+            
+            // 移出购物车
+            removeCart(carId,index){
+                let data = {
+                    ActType: 'Delete',
+                    CarId: carId,
+                }
+                api.manageShoppingCart(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '成功移出购物车',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                        // 重新获取购物车内车辆数量
+                        this.getMyShoppingNumber();
+                        // 删除对应商品，同步数据
+                        this.cartList.splice(index, 1)
+
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '移出购物车失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+
+            // 进入车辆详情
+            enterCarDetails(id,status){
+                if(!(status == '1')) return;
+                this.$router.push({path:'/b2bCar', query: { CarId: id }})
+            },
         },
 
 	}

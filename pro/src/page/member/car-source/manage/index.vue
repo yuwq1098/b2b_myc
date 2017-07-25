@@ -323,9 +323,9 @@
             },
             // 获取管理列表数据
             getManageListData(index){
+                
                 let me = this;
                 let _index = index.toString();
-
                 let status = this._getStatusByIndex(_index);
 
                 // 获取数据，然后回调赋值

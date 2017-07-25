@@ -1,8 +1,175 @@
 @import '~assets/css/mixin.styl'
 
 .m-cart-wrap
-    height 480px
     padding 0 0 30px
     .m-cart-con
-        height 480px
-        background #e2e2e2
+        min-height 480px
+        .m-lst-wrap
+            width 1200px
+            .m-goods-lst
+                margin 0 0 -10px 
+                .m-item
+                    width @width
+                    height 120px
+                    background #fff
+                    margin 0 0 15px
+                    position relative
+                    _boxShadow(15px,rgba(0,0,0,.05),0,0)
+                    .u-pic-box
+                        width 160px - 20px
+                        height 120px - 20px
+                        _completeCenter(10px,auto,10px,auto)
+                        .u-box
+                            _display()
+                            width @width
+                            height @height
+	                        .u-label
+	                            _display()
+	                            width 48px
+	                            height 47px
+	                            background url('../../assets/img/car-lable-01.png') 0 0 no-repeat
+	                            background-size 100% 100%
+	                            _completeCenter(12px,auto,-5px,auto)
+	                            z-index 10
+	                            _transitionAll(.2s)
+	                            .txt
+	                                color #f2f2f2
+	                                width 38px
+	                                height 36px
+	                                line-height 16px
+	                                _spacingPlus(2px)
+	                                _display()
+	                                font-size 12px
+	                                text-align center
+	                                _completeCenter()
+                        .u-pic
+                            width @width
+                            height @height
+                            _imgwrap()
+                    .u-con
+                        width 550px
+                        height 106px
+                        margin 0 0 0 160px
+                        padding 7px 0
+                        .u-goods-name
+                            height 52px
+                            line-height 26px
+                            margin 0 0 8px
+                            _ellipsis(2)
+                            font-size 16px
+                            color #333
+                            .u-lk
+                                color @color
+                                &:hover
+                                    text-decoration underline
+                        .u-info,.u-other
+                            height 22px
+                            line-height @height
+                            margin 0 0 2px
+                            font-size 13px
+                            color #959595
+                        .u-other
+                            .u-part
+                                margin 0 15px 0 0
+                    .u-status
+                        height 22px
+                        line-height @height
+                        _borderAll(#ff6533)
+                        text-align right
+                        font-size 14px
+                        padding 0 7px
+                        _spacingPlus()
+                        color #ff6533
+                        _completeCenter(auto,12px,12px,auto)
+                        &.success
+                            color #31D691
+                            _borderAll(#31D691)
+                    .u-price
+                        width 210px
+                        height 30px
+                        line-height @height
+                        text-align right
+                        _completeCenter(auto,250px,auto,10px)
+                        .info
+                            font-size 16px
+                            color #ff6533
+                        .attr
+                            font-size 13px
+                            color #777
+                            _spacingPlus()
+                        .data
+                            font-size 12px
+                            color #ff6533
+                            .vital
+                                font-size 18px
+                                font-weight bold
+                                margin 0 3px 0 0
+                    .u-operate
+                        height 30px
+                        _completeCenter(auto,10px,auto,10px)
+                        .u-btn
+                            _display()
+                            float left
+                            height @height
+                            line-height @height
+                            padding 0 12px
+                            background #29d
+                            color #f2f2f2
+                            margin 0 0 0 12px
+                            font-size 13px
+                            _spacingPlus(2px)
+                            _borderRadius(1px)
+                            &.remove
+                                background #F95242
+                                &:hover
+                                    background @background - 8%
+                            &.buy
+                                background $c_blue
+                                &:hover
+                                    background @background - 8%
+                    &:hover
+                        _boxShadow(15px,rgba(0,0,0,.15),4px,4px)
+        .m-page
+            padding 35px 0 20px
+            text-align center
+    .m-not-box
+        width 600px
+        height 220px
+        margin 40px auto
+        padding 100px 100px
+        position relative
+        background #fff
+        .u-pic
+            width 240px
+            height 195px
+            _completeCenter(100px,auto,105px,auto)
+            _imgwrap()
+        .u-con
+            width @width - 255px
+            height @height - 60px
+            margin 0 0 0 255px
+            padding 30px 0
+            position relative
+            .u-speak
+                margin 15px 0 0
+                color #959595
+                font normal 15px/28px "Microsoft YaHei"
+                _spacingPlus()
+            .u-other
+                height 32px
+                width @width
+                _completeCenter(0,auto,auto,55px)
+                .u-lk
+                    _display()
+                    float left
+                    height 32px
+                    line-height 32px
+                    font-size 14px
+                    _spacingPlus()
+                    padding 0 20px
+                    margin-right 15px
+                    _borderRadius(4px)
+                    background #2F98E2
+                    color #f0f0f0
+                    &:hover
+                        background @background - 10%
