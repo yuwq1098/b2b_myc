@@ -3,7 +3,7 @@ class goodsInfo{
 	constructor(data) {
         this.id = data.CarId                                            // 车辆ID
         this.cartId = data.CartId                                       // 购物车ID
-        this.imgUrl = data.FileUri+"?imageView2/3/w/300/h/225"||""      // 首图链接
+        this.imgUrl = data.FileUri?data.FileUri+"?imageView2/3/w/400/h/300":""      // 首图链接
         this.title = data.Title||""                                     // 首图链接
         this.status = data.Status||""                                   // 车辆状态
         this.inCity = data.CarInCity||""                                // 所在城市

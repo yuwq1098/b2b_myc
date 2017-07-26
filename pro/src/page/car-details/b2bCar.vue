@@ -400,11 +400,12 @@
 
             // 获取hash 带参中的车辆ID
             this.carId = this.$router.currentRoute.query.CarId;
+
             // 获取车辆信息
             this.getCarDetailsInfo();
+            
             // 获取车辆列表信息
             this.getCarList();
-            
 
         },
         //退出的生命周期钩子
@@ -463,7 +464,7 @@
                         duration: 2000,
                     });
                 }else if(!this.hasAuth=='1'){
-                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定保证的保证金方可在我司平台办理业务，谢谢！', '您尚未通过认证', {
+                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定的保证金，方可在我司平台办理业务，谢谢！', '您尚未通过认证', {
                         confirmButtonText: '前往认证',
                         cancelButtonText: '取消',
                         type: 'warning'

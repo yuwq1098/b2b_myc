@@ -107,7 +107,7 @@
                                 <el-pagination
                                     @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
-                                    :current-page.sync="resultPage.currentPage"
+                                    :current-page="resultPage.currentPage"
                                     :page-size="resultPage.pageSize"
                                     layout="prev, pager, next"
                                     :total="resultPage.totalPage">
@@ -209,6 +209,7 @@
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
+            this.resultPage.currentPage = 1;
             // 获取购物车列表信息
             this.getShoppingCartData();
         },
@@ -232,7 +233,7 @@
                         duration: 2000,
                     });
                 }else if(!this.hasAuth=='1'){
-                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定保证的保证金方可在我司平台办理业务，谢谢！', '您尚未通过认证', {
+                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定的保证金，方可在我司平台办理业务，谢谢！', '您尚未通过认证', {
                         confirmButtonText: '前往认证',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -283,6 +284,7 @@
 
                         // 分页总数更新
                         this.resultPage.totalPage = parseInt(res.count);
+                        
                         // 获取购物车列表信息
                         this.cartList = this._normalizeGoodsList(res.data);
 
@@ -329,6 +331,10 @@
                         this.getMyShoppingNumber();
                         // 删除对应商品，同步数据
                         this.cartList.splice(index, 1)
+                        setTimeout(()=>{
+                            // 获取购物车列表信息
+                            this.getShoppingCartData();
+                        })
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({

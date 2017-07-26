@@ -17,6 +17,11 @@
                         <li class="m-tb-row">
                             <order-box
                                 :orderInfo="item"
+                                @cancelOrder="cancelOrder"
+                                @safeguard="safeguard"
+                                @sponsorContract="sponsorContract"
+                                @payDeposit="payDeposit"
+                                @delivery="delivery"
                                 >
                             </order-box>
                         </li>
@@ -67,7 +72,27 @@
         },
         // 自定义函数(方法)
         methods: {
-
+            
+            // 取消订单
+            cancelOrder(id){
+                this.$emit("cancelOrder",id);
+            },
+            // 申请维权
+            safeguard(id){
+                this.$emit("safeguard",id);
+            },
+            // 发起合同
+            sponsorContract(id){
+                this.$emit("sponsorContract",id);
+            },
+            // 支付保证金
+            payDeposit(id){
+                this.$emit("payDeposit",id);
+            },
+            // 确认发货
+            delivery(id){
+                this.$emit("delivery",id);
+            },
         },    
     }
 </script>

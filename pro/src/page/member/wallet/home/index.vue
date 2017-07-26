@@ -12,14 +12,6 @@
                             <div class="m-top f__clearfix">
                                 <p class="u-greet">欢迎来到<span class="vital">{{memberData.name}}</span>的小金库！</p><!-- 问候 -->
                                 <p class="u-payPass f__clearfix">
-                                    <!-- 隐藏管理银行卡 -->
-                                    <!-- <router-link 
-                                        :to="{path:'/member/cardManage'}" 
-                                        class="lk" tag="a" 
-                                        title="绑定或者修改您的银行卡"
-                                        >管理银行卡
-                                    </router-link>
-                                    <span class="cut">|</span> -->
                                     <template v-if="!memberData.hasPaypwd">
                                         <router-link
                                             :to="{path:'/member/payPass'}" 
@@ -284,6 +276,7 @@
                     }
                 })   
             },
+            
             // 格式化账户余额
             _normalizeBalance(data) {
                 return new balanceData(data);

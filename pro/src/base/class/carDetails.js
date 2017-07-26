@@ -72,7 +72,7 @@ class fileInfoList{
         this.title = data.Title||""                         // 文件标题
         this.filePath = data.FilePath||""                   // 文件路径(忽略）
         // 文件uri
-        this.fileUrl = data.FileUri?data.FileUri+"?imageView2/3/w/640/h/480":""                     
+        this.fileUrl = data.FileUri?data.FileUri+"?imageView2/3/w/1200/h/900":""                     
         this.groupName = data.GroupName||""                 // 分组名（车辆照片，录音描述、出厂铭牌）
         this.orderId = data.OrderId||""                     // carID
         this.submitTime = data.SubmitTime||""               // 提交时间
@@ -84,7 +84,7 @@ class otherInfo{
     constructor(data) {
         
         // 卖家头像
-        this.faceImgUrl = data.SellerPhotoUrl?data.SellerPhotoUrl+"?imageView2/3/w/144/h/144":require("assets/img/logos-pic2.png")            
+        this.faceImgUrl = data.SellerPhotoUrl?data.SellerPhotoUrl+"?imageView2/3/w/200/h/200":require("assets/img/logos-pic2.png")            
         this.tel = data.Mobile||""                           // 联系电话
         this.browseCount = data.CountBrowse||""              // 浏览量
         this.authType = data.AuthType||""                    // 企业车行，个人车行（认证类别）
@@ -92,7 +92,7 @@ class otherInfo{
         this.cdgName = data.CdgName||""                      // 车行名
         this.address = data.CdgAddress||""                   // 车行地址
         // 车行描述
-        this.desc = data.CdgDescription||"该车行比较懒，啥也没有说"                  
+        this.desc = data.CdgDescription||"该车行比高冷，啥也没有说"                  
         this.type = data.CdgType||""                         // 车行类别（4S店，企业车行，批发市场等）
         this.isInCart = data.HasInCart||""                   // 购物车：0=未收藏，1=已收藏
         this.isInFavorite = data.HasInFavorite||""           // 收藏夹：0=未收藏，1=已收藏

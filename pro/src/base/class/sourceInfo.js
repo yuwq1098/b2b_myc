@@ -3,7 +3,7 @@ class sourceInfo{
     constructor(data) {
 	    this.id = data.CarId||""                  // 车辆id
 	    this.viewPeople = data.BrowserCount||0    // 浏览量
-	    this.imgUrl = data.FirstImg||""           // 首图
+	    this.imgUrl = data.FirstImg?data.FirstImg+"?imageView2/3/w/400/h/300":""           // 首图
 	    // this.imgUrl = require("assets/img/car-details_001.jpg")
 	    this.title = data.Title||""               // 标题
 	    this.checkTime = data.CheckTime||""       // 审核时间

@@ -49,7 +49,7 @@
                                     <a href="javascript:;"
                                         @click="tabChange(6)"
                                         :class="{'on':tabShowIndex==6}"
-                                        class="u-tab-lk">待发货（过户）
+                                        class="u-tab-lk">待发货
                                     </a>
                                 </li>
                                 <li class="m-item">
@@ -71,6 +71,11 @@
                         <div class="m-tab-wrap">
                             <order-list
                                 :orderList= "sellerOrderList"
+                                @cancelOrder="cancelOrder"
+                                @safeguard="safeguard"
+                                @sponsorContract="sponsorContract"
+                                @payDeposit="payDeposit"
+                                @delivery="delivery"
                                 >
                             </order-list>
                         </div>
@@ -192,6 +197,7 @@
 
             // 获取数据
             getData(status,curPage=1,callBack){
+
                 let data = {
                     OrderAscription: 'seller',
                     OrderStatus: status,
@@ -217,6 +223,28 @@
             clearData(){
                 
             },
+
+            // 取消订单
+            cancelOrder(id){
+                console.log("取消订单");
+            },
+            // 申请维权
+            safeguard(id){
+                console.log("申请维权");
+            },
+            // 发起合同
+            sponsorContract(id){
+                console.log("发起合同");
+            },
+            // 支付保证金
+            payDeposit(id){
+                console.log("支付保证金");
+            },
+            // 确认发货
+            delivery(id){
+                console.log("确认发货");
+            },
+
         },
         
     }

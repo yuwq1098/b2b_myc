@@ -71,6 +71,12 @@
                         <div class="m-tab-wrap">
                             <order-list
                                 :orderList= "buyerOrderList"
+                                @cancelOrder="cancelOrder"
+                                @safeguard="safeguard"
+                                @signContract="signContract"
+                                @payDeposit="payDeposit"
+                                @finalPay="finalPay"
+                                @signOff="signOff"
                                 >
                             </order-list>
                         </div>
@@ -216,6 +222,31 @@
             // 清空所有列表数据
             clearData(){
                 
+            },
+
+            // 取消订单
+            cancelOrder(id){
+                console.log("取消订单");
+            },
+            // 申请维权
+            safeguard(id){
+                console.log("申请维权");
+            },
+            // 签合同
+            signContract(id){
+                console.log("签合同");
+            },
+            // 支付保证金
+            payDeposit(id){
+                console.log("支付保证金");
+            },
+            // 支付托管车款(尾款)
+            finalPay(id){
+                console.log("支付托管车款(尾款)");
+            },
+            // 确认签收
+            signOff(id){
+                console.log("确认签收");
             },
 
         },

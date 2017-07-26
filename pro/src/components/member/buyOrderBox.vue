@@ -94,6 +94,14 @@
 
                 <div class="m-status">
                     <div class="u-status-desc">{{orderInfo.statusDesc}}</div><!-- 订单状态描述 -->
+                    <div class="u-enter">
+                        <router-link
+                            :to="{path:'/member/buyOrderDetails',query:{cid:orderInfo.id}}"
+                            class="u-lk" 
+                            title="查看订单详情"
+                            >查看订单详情
+                        </router-link>
+                    </div>
                 </div><!-- 交易状态 -->
 
                 <div class="m-operate">
@@ -106,9 +114,10 @@
                             orderInfo.status==4||
                             orderInfo.status==5||
                             orderInfo.status==6"
-                        title="取消订单" 
                         >
-                        <a href="javascript:;" class="u-lk">取消订单</a>
+                        <a class="u-lk" title="取消订单"
+                            @click="cancelOrder(orderInfo.id)" 
+                            >取消订单</a>
                     </div>
 
                     <div class="u-line f__clearfix"
@@ -119,37 +128,42 @@
                             orderInfo.status==4||
                             orderInfo.status==5||
                             orderInfo.status==6"
-                        title="申请维权" 
                         >
-                        <a href="javascript:;" class="u-lk">申请维权</a>
+                        <a class="u-lk" title="申请维权"
+                            @click="safeguard(orderInfo.id)"
+                            >申请维权仲裁</a>
                     </div>
 
                     <div class="u-line f__clearfix"
                         v-if="orderInfo.status==1"
-                        title="确认已在APP签署" 
                         >
-                        <a href="javascript:;" class="u-lk">确认已在APP签署</a>
+                        <a class="u-lk" title="签署合同"
+                            @click="signContract(orderInfo.id)"
+                            >签署合同</a>
                     </div>
 
                     <div class="u-line f__clearfix"
                         v-if="orderInfo.status==2"
-                        title="确认已在APP支付" 
                         >
-                        <a href="javascript:;" class="u-lk">确认已在APP支付</a>
+                        <a class="u-lk" title="支付保证金"
+                            @click="payDeposit(orderInfo.id)"
+                            >支付保证金</a>
                     </div>
 
                     <div class="u-line f__clearfix"
                         v-if="orderInfo.status==4"
-                        title="确认已在APP支付" 
                         >
-                        <a href="javascript:;" class="u-lk">确认已在APP支付</a>
+                        <a class="u-lk" title="支付尾款"
+                            @click="finalPay(orderInfo.id)"
+                            >支付尾款</a>
                     </div>
 
                     <div class="u-line f__clearfix"
                         v-if="orderInfo.status==6"
-                        title="确认已在APP验收" 
                         >
-                        <a href="javascript:;" class="u-lk">确认已在APP验收</a>
+                        <a class="u-lk" title="确认签收"
+                            @click="signOff(orderInfo.id)"
+                            >确认签收</a>
                     </div>
 
                 </div><!-- 操作 -->
@@ -185,9 +199,33 @@
                 },
             },
         },
+
         // 自定义函数(方法)
         methods: {
-
+            // 取消订单
+            cancelOrder(id){
+                this.$emit("cancelOrder",id);
+            },
+            // 申请维权
+            safeguard(id){
+                this.$emit("safeguard",id);
+            },
+            // 签合同
+            signContract(id){
+                this.$emit("signContract",id);
+            },
+            // 支付保证金
+            payDeposit(id){
+                this.$emit("payDeposit",id);
+            },
+            // 支付托管车款(尾款)
+            finalPay(id){
+                this.$emit("payDeposit",id);
+            },
+            // 确认签收
+            signOff(id){
+                this.$emit("payDeposit",id);
+            },
         },    
     }
 </script>
@@ -310,6 +348,14 @@
                     padding 20px 0 0
                     height 28px
                     line-height 28px
+                .u-enter
+                    height 22px
+                    line-height @height
+                    margin 4px 0 0
+                    .u-lk
+                        font-size 13px
+                        color $c_blue
+                        text-decoration underline
 
             .m-operate
                 width 160px

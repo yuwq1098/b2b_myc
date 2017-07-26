@@ -226,8 +226,8 @@
 
                     // 期望获取裁剪后图片的信息
                     var get_info = {
-                        w: 640,
-                        h: 480,
+                        w: 640*2,
+                        h: 480*2,
                     }
                     // 使用canvas裁剪图片
                     geekDom.drawToCanvas(img,get_info.w,get_info.h,width,height,function(base64str){

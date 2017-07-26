@@ -17,6 +17,12 @@
                         <li class="m-tb-row">
                             <order-box
                                 :orderInfo="item"
+                                @cancelOrder="cancelOrder"
+                                @safeguard="safeguard"
+                                @signContract="signContract"
+                                @payDeposit="payDeposit"
+                                @finalPay="finalPay"
+                                @signOff="signOff"
                                 >
                             </order-box>
                         </li>
@@ -67,7 +73,32 @@
         },
         // 自定义函数(方法)
         methods: {
-
+            
+            // 取消订单
+            cancelOrder(id){
+                this.$emit("cancelOrder",id);
+            },
+            // 申请维权
+            safeguard(id){
+                this.$emit("safeguard",id);
+            },
+            // 签合同
+            signContract(id){
+                this.$emit("signContract",id);
+            },
+            // 支付保证金
+            payDeposit(id){
+                this.$emit("payDeposit",id);
+            },
+            // 支付托管车款(尾款)
+            finalPay(id){
+                this.$emit("payDeposit",id);
+            },
+            // 确认签收
+            signOff(id){
+                this.$emit("payDeposit",id);
+            },
+            
         },    
     }
 </script>

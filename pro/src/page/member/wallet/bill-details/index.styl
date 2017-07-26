@@ -1,1 +1,169 @@
 @import '~assets/css/mixin.styl'
+
+
+.m-details-wrap
+    .m-hd
+        height 48px
+        line-height 48px
+        _border(bottom,#E5E8EB,2px)
+        position relative
+        color #40474a
+        .u-greet,.u-payPass
+            float left
+        .u-greet
+            font-size 13px
+            .vital
+                font 16px "Microsoft Yahei"
+                font-weight bold
+                color #2E98E2
+                margin 0 4px
+                _spacingPlus()
+        .u-payPass
+            width 550px
+            margin 0 0 0 30px
+            .lk,.cut,.tips
+                _display(block)
+                float left
+            .cut
+                margin 0 8px
+                color #c2c2c2
+            .lk
+                color #2e98e2
+                &:hover
+                    color @color - 10%
+                    text-decoration underline
+            .tips
+                margin 0 0 0 20px
+                position relative
+                padding 0 0 0 20px
+                font-size 12px
+                .iconfont
+                    color #2e98e2
+                    font-size 18px
+                    _completeCenter(0,auto,2px)
+                .txt
+                    _display(inline-block)
+                    _translate3d(0,2px)
+    .m-con
+        width 948px
+        padding 20px 0 10px
+        .u-status-tit
+           height 38px
+           width @width
+           background #4b5861
+           margin 0 0 20px
+           .txt
+                height @height
+                line-height @height
+                font-size 15px
+                padding 0 0 0 15px
+                color #e2e2e2
+                _spacingPlus(2px)
+        .u-trade-info
+            width @width - 2px - 24px
+            _borderAll(#E5E8EB)
+            padding 12px
+            position relative
+            margin 0 0 20px
+            .u-price
+                height 28px
+                line-height @height
+                color #ff6533
+                font-size 13px
+                _completeCenter(auto,12px,auto,8px)
+                .price
+                    font-size 13px
+                    .vital
+                        font-size 20px
+            .u-lst
+                .u-item
+                    height 30px
+                    line-height @height
+                    position relative
+                    .attr
+                        _display()
+                        width 115px
+                        height 30px
+                        _completeCenter(0,auto,0,auto)
+                        color #959595
+                        font-size 13px
+                        text-align right
+                    .data
+                        margin 0 0 0 130px
+                        font-size 13px
+                        _spacingPlus()
+                        &.no
+                            _spacingPlus(0)
+                            font-size 15px
+                        &.product
+                            width 600px
+                            _ellipsis()
+        .u-progress-box
+            .u-hd
+                height 32px
+                position relative
+                margin 0 0 15px
+                .tit
+                    _display(inline-block)
+                    height @height
+                    line-height @height - 2px
+                    font-size 14px
+                    text-align center
+                    _spacingPlus(2px)
+                    padding 0 12px
+                    background #E5E8EB
+                    color #4b5861
+                    position relative
+                    &::after
+                        content ""
+                        _display()
+                        height 2px
+                        background #53aeef
+                        _completeCenter(,,auto,0)
+            .u-con
+                .u-item
+                    height 32px
+                    width 948px
+                    position relative
+                    &::after
+                        content ""
+                        _display()
+                        height 1px
+                        _border(bottom,#b1bac3,,dashed)
+                        _completeCenter(,,1px)
+                    .desc,.time
+                        position relative
+                        z-index 2
+                        background #fff
+                    .desc
+                        _display(inline-block)
+                        line-height 32px
+                        max-width @width - 200px
+                        padding 0 20px 0 0
+                        font-size 14px
+                    .time
+                        height 32px
+                        line-height @height
+                        padding 0 0 0 20px
+                        font-size 13px
+                        color #959595
+                        _completeCenter(auto,0,0,auto)
+        .u-result-box
+            margin 20px 0 0
+            height 64px
+            .u-result-lst
+                height @height
+                .u-item
+                    width 380px - 24px
+                    margin 0 20px 0 0
+                    height @height
+                    float left
+                    .attr,.data
+                        padding 0 12px
+                        height @height * 0.5
+                        line-height @height
+                    .attr
+                        background #E5E8EB
+                    .data
+                        _borderAll(#E5E8EB)
+                        border-top none

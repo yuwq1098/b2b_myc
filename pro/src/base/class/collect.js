@@ -4,7 +4,7 @@ class cdgClass{
 	    this.id = data.SellerId||""           // 车商ID
 	    this.cdgName = data.CdgName||""       // 车行名称
 	    // 头像
-	    this.faceUrl = data.PhotoURL+"?imageView2/3/w/64/h/64"||""      
+	    this.faceUrl = data.PhotoURL?data.PhotoURL+"?imageView2/3/w/200/h/200":""      
 	    this.userName = data.UserName||""     // 联系人名称
 	    this.address = data.Address||""       // 地址
 	    this.volume = data.OrderPercent||0   // 成交数
@@ -17,7 +17,7 @@ class carClass{
 	constructor(data) {
 	    this.id = data.CarId||""                        // 车辆ID
 	    // 首图链接
-	    this.imgUrl = data.FileUri+"?imageView2/3/w/200/h/150"||""                  
+	    this.imgUrl = data.FileUri?data.FileUri+"?imageView2/3/w/400/h/300":""                  
 	    this.title = data.Title||""                     // 标题
 	    this.city = data.CarInCity||""                  // 所在城市
 	    this.plateDate = data.OnLicensePlateDate||""    // 上牌时间

@@ -3,7 +3,7 @@ class b2bCarInfo{
 	constructor(data) {
 	    this.id = data.CarId||""                          // 车辆ID
 	    // 首图
-	    this.imgUrl = data.FileUri+"?imageView2/3/w/300/h/225"||""
+	    this.imgUrl = data.FileUri?data.FileUri+"?imageView2/3/w/400/h/300":""
 	    // ?imageMogr2/auto-orient
 	    this.name = data.Title||""                        // 标题
 	    this.inCity = data.CarInCity||""                  // 所在城市
@@ -25,7 +25,7 @@ class b2cCarInfo{
 		
         this.id = data.CarId||""                          // 车辆ID
         // 首图
-        this.imgUrl = data.FileUri+"?imageView2/3/w/300/h/225"||""
+        this.imgUrl = data.FileUri?data.FileUri+"?imageView2/3/w/400/h/300":""
         this.name = data.Title||""                        // 标题
         this.inCity = data.CarInCity||""                  // 所在城市
         this.plateDate = data.OnLicensePlateDate||""      // 上牌时间
@@ -43,7 +43,7 @@ class b2cCarInfo{
 class merchantCarInfo{
 	constructor(data) {
 	    this.id = data.CarId||""                        // 车辆id
-	    this.imgUrl = data.TitlePhoto+"?imageView2/3/w/300/h/225"||""               // 首图链接
+	    this.imgUrl = data.TitlePhoto?data.TitlePhoto+"?imageView2/3/w/400/h/300":""               // 首图链接
 	    this.title = data.Title||""                     // 标题
 	    this.city = data.CarInCity||""                  // 所在城市
 	    this.plateDate = data.OnLicensePlateDate||""    // 上牌时间
