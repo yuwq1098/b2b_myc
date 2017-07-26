@@ -6,8 +6,6 @@
                     <li class="m-item" v-for="(item,index) in carList">
                         <recommend-box
                             :carInfo="item"
-                            :loginStatus="loginStatus"
-                            :hasDeposit="hasDeposit"
                             >
                         </recommend-box>
                     </li>
@@ -38,29 +36,13 @@
         },
         props:{
             carList: Array,
-            loginStatus: {
-                type: Boolean,
-                default: false,
-            },
-            memberData: Object,
         },
         //数据侦听
         watch:{
-            memberData:{
-                handler(curVal,oldVal){
-                    if(curVal){
-                        this.hasDeposit = +(curVal.credit)>1000;
-                    }
-                },
-                deep:true
-            }
+
         },
         created(){
-            setTimeout(() => {
-                if(this.memberData){
-                    this.hasDeposit = +(this.memberData.credit)>1000;
-                }
-            })
+
         },
         mounted(){
             

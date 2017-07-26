@@ -150,7 +150,7 @@ export default[{
             component: b2bCarDetails,
             alias: '/b2bCar',           // 使用别名
             meta: {
-                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+                // requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
                 hasWebSide: true,       // 是否有网站侧栏条 
             },      
         },
@@ -159,6 +159,7 @@ export default[{
             path: '/shoppingCart',
             component: shoppingCart,
             meta: {
+                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
                 hasWebSide: true,       // 是否有网站侧栏条 
             },      
         },

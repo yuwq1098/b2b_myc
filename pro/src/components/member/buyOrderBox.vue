@@ -99,6 +99,32 @@
                 <div class="m-operate">
                     
                     <div class="u-line f__clearfix"
+                        v-if="orderInfo.status==0||
+                            orderInfo.status==1||
+                            orderInfo.status==2||
+                            orderInfo.status==3||
+                            orderInfo.status==4||
+                            orderInfo.status==5||
+                            orderInfo.status==6"
+                        title="取消订单" 
+                        >
+                        <a href="javascript:;" class="u-lk">取消订单</a>
+                    </div>
+
+                    <div class="u-line f__clearfix"
+                        v-if="orderInfo.status==0||
+                            orderInfo.status==1||
+                            orderInfo.status==2||
+                            orderInfo.status==3||
+                            orderInfo.status==4||
+                            orderInfo.status==5||
+                            orderInfo.status==6"
+                        title="申请维权" 
+                        >
+                        <a href="javascript:;" class="u-lk">申请维权</a>
+                    </div>
+
+                    <div class="u-line f__clearfix"
                         v-if="orderInfo.status==1"
                         title="确认已在APP签署" 
                         >
@@ -124,30 +150,6 @@
                         title="确认已在APP验收" 
                         >
                         <a href="javascript:;" class="u-lk">确认已在APP验收</a>
-                    </div>
-                    
-                    <div class="u-line f__clearfix"
-                        v-if="orderInfo.status==0||
-                            orderInfo.status==1||
-                            orderInfo.status==2||
-                            orderInfo.status==3||
-                            orderInfo.status==4||
-                            orderInfo.status==5||
-                            orderInfo.status==6"
-                        title="取消订单" 
-                        >
-                        <a href="javascript:;" class="u-lk">取消订单</a>
-                    </div>
-
-                    <div class="u-line f__clearfix"
-                        v-if="orderInfo.status==3||
-                            orderInfo.status==4||
-                            orderInfo.status==5||
-                            orderInfo.status==6||
-                            orderInfo.status==7"
-                        title="申请维权" 
-                        >
-                        <a href="javascript:;" class="u-lk">申请维权</a>
                     </div>
 
                 </div><!-- 操作 -->
@@ -311,7 +313,7 @@
 
             .m-operate
                 width 160px
-                height 102px - 12px
+                height 124px - 12px
                 padding 6px 0
                 _completeCenter(auto,15px,6px,auto)
                 text-align right
@@ -332,6 +334,12 @@
                         color #e2e2e2
                         &:hover
                             background #4B5861
+                    &:nth-child(1)
+                        _completeCenter(auto,0,auto,12px)
+                    &:nth-child(2)
+                        _completeCenter(auto,0,auto,48px)
+                    &:nth-child(3)
+                        _completeCenter(auto,0,auto,84px)
 
 
 

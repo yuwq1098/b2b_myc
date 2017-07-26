@@ -105,6 +105,10 @@
             }
         },
         props:{
+            index:{
+                type: Number,
+                default: 0,
+            },
             // 车辆信息
             carInfo: Object,
             // 是否登录
@@ -121,7 +125,7 @@
             hasCredit: {
                 type: Boolean,
                 default: false,
-            }
+            },
         },
         // 属性计算
         computed:{

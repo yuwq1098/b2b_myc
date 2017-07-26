@@ -7,6 +7,7 @@
     background #fff
     .g-bd
         padding-bottom 25px
+        _unUserSelect()
         .m-mn-hd
             height 520px
             margin 0 0 25px
@@ -133,12 +134,12 @@
                         float left
                         text-align center
                     .u-btn
-                        height 42px
-                        line-height 42px
-                        _borderRadius(3px)
-                        margin-left 20px
-                        font-size 18px
-                        _spacingPlus(4px)
+                        height 38px
+                        line-height 38px
+                        _borderRadius(2px)
+                        margin-left 15px
+                        font-size 16px
+                        _spacingPlus(3px)
                         padding 0 15px
                         color #FFF
                         background #ff6533
@@ -152,6 +153,10 @@
                             background #c2c2c2
                             &:hover
                                 background @background
+                        &.v3
+                            background $c_blue
+                            &:hover
+                                background @background - 12%
                     .u-btn-a
                         width 135px
                         height 48px

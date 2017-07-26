@@ -72,10 +72,31 @@
                                                     title="移出购物车"
                                                     @click="removeCart(item.id,index)" 
                                                     >移出购物车</a>
-                                                <a href="javascript:;" class="u-btn buy"
-                                                    title="立即下单" 
-                                                    >立即下单
-                                                </a>
+                                                <template v-if="!hasAuth=='1'||!hasCredit"
+                                                    >
+                                                    <a class="u-btn buy" title="秒杀下单"
+                                                        v-if="item.status=='1'"
+                                                        @click="judgeHasPrivilege()"
+                                                        >秒杀下单
+                                                    </a>
+                                                    <a href="javascript:;" class="u-btn not" 
+                                                        title="秒杀下单"
+                                                        v-else
+                                                        >秒杀下单
+                                                    </a>
+                                                </template>
+                                                <template v-else>
+                                                    <a class="u-btn buy" title="秒杀下单" 
+                                                        v-if="item.status=='1'"
+                                                        @click="addOrder(item.id,index)"
+                                                        >秒杀下单
+                                                    </a>
+                                                    <a href="javascript:;" class="u-btn not" 
+                                                        title="秒杀下单"
+                                                        v-else
+                                                        >秒杀下单
+                                                    </a>
+                                                </template>
                                             </div><!-- 操作 -->
                                         </li>     
                                     </template>
@@ -198,6 +219,43 @@
         // 自定义函数(方法)
         methods: {
             ...mapActions(['getMyShoppingNumber']),
+
+            // 判断是不是有相关的权限
+            judgeHasPrivilege(){
+                let bool = !this.hasLogin==""||this.hasAuth=="1"||!this.hasCredit;
+                if(!bool) return;
+                if(!this.hasLogin){
+                    this.$notify({
+                        title: '您尚未登录',
+                        message: "请先登录，登录后可进行相关操作",
+                        type: 'error',
+                        duration: 2000,
+                    });
+                }else if(!this.hasAuth=='1'){
+                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定保证的保证金方可在我司平台办理业务，谢谢！', '您尚未通过认证', {
+                        confirmButtonText: '前往认证',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往车行认证页面
+                        this.$router.push({path:'/member/applyHome'});
+                    }).catch(() => {
+                        
+                    });
+                }else if(!this.hasCredit){
+                    this.$confirm('尊贵的用户，您好！您的保证金余额不足'+SYSTEM.MIN_CREDIT_GOLD+'元，我司部分业务无法为您展开，请前往充值！', '保证金不足', {
+                        confirmButtonText: '前往充值',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往保证金充值页面
+                        this.$router.push({path:'/member/recharge',query:{type:2}});
+                    }).catch(() => {
+                        
+                    });
+                }
+            },
+
             // 格式化商品列表信息cartList
             _normalizeGoodsList(list){
                 let goodsList = [];
@@ -283,10 +341,57 @@
                 })
             },
 
+            // 下单
+            addOrder(carId,index){
+                this.$confirm('您秒杀该车后，该车其他人将无法购买，如您在下单后放弃购买（即取消订单），我司平台将会扣除您一定的信誉保证金，请认真考虑后下单！', '秒杀下单提示', {
+                        confirmButtonText: '确认秒杀',
+                        cancelButtonText: '再考虑看看',
+                        type: 'warning'
+                    }).then(() => {
+                        this.putB2BOrder(carId,index);
+                    }).catch(() => {
+                        
+                    });
+            },
+
+            // 提交下单申请
+            putB2BOrder(carId,index){
+                let data = {
+                    CarId: carId,
+                }
+                api.getAddB2BOrder(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '下单成功',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                        this.cartList[index].status = "2";
+                        setTimeout(()=>{
+                            this.$router.push({path:'/member/buyOrder'})
+                        },300)
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '下单失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+
             // 进入车辆详情
             enterCarDetails(id,status){
-                if(!(status == '1')) return;
-                this.$router.push({path:'/b2bCar', query: { CarId: id }})
+                if(!(status == '1'||status == '2')){
+                    this.$alert('很抱歉，该车辆的信息或无效或过期，我们希望您尝试访问别的车辆信息', '温馨提示', {
+                            confirmButtonText: '我知道了',
+                            type: 'error'
+                        });
+                }else{
+                    this.$router.push({path:'/b2bCar', query: { CarId: id }});
+                }
             },
         },
 

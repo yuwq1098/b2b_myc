@@ -330,6 +330,9 @@
                                     :carList="b2bCarList"
                                     :loginStatus="loginStatus"
                                     :memberData="memberData"
+                                    :hasLogin= "hasLogin"
+                                    :hasAuth= "hasAuth"
+                                    :hasCredit= "hasCredit"
                                     >
                                 </b2b-car-list-box>
 
@@ -441,6 +444,13 @@
         data() {
             return{
                 
+                // 是否登录
+                hasLogin: "",
+                // 是否认证
+                hasAuth: "",
+                // 是否有足额的信誉保证金
+                hasCredit: "",
+
                 // 面包屑列表信息
                 crumbItems: crumbsInfo['b2bHall'],
                 
@@ -605,8 +615,6 @@
                 }
             },
 
-            
-
             //限制用户输入最小价格（只能输入后两位小数点的数字）
             minPriceIptVal(val){
                 this.minPriceIptVal = geekDom.valReplace(val,2);
@@ -756,7 +764,6 @@
                         this.userFilterData = new filterDataClass(this.getUserFilterData);
                     }
                 }
-                
 
                 //如果当从vuex获取的searchFilterList数据是空时
                 if(!this.getSearchFilterList&&!geekDom.isObjHasValue(this.getSearchFilterList)){
@@ -1203,6 +1210,10 @@
                 // }
                 let me = this;
                 api.getB2BCarList(data).then((res) => {
+                    // 获取权限相关的信息
+                    this.hasLogin = res.HasLogin;
+                    this.hasAuth = res.HasAuth;
+                    this.hasCredit = res.HasCredit;
                     this.b2bCarList = this._normalizeB2bCarInfo(res.data)
                     me.resultPage.totalPage = parseInt(res.total);
                 });

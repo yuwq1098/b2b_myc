@@ -14,6 +14,7 @@
                                 <li class="u-item">
                                     <!-- 车辆收藏信息组件 -->
                                     <collect-car-box
+                                        :index="index"
                                         :carInfo="item"
                                         @enterCar="enterCar"
                                         @delCar="delCar"

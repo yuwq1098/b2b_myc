@@ -620,7 +620,7 @@ export default {
     
     //秒杀立即下单接口
     getAddB2BOrder(params){
-        return fetchSign('/action2/B2BCarDetail.ashx', dataToJson(params))
+        return fetchSign('/action2/addB2BOrder.ashx', dataToJson(params))
     },
 
     //B2B订单列表

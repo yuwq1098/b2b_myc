@@ -72,39 +72,9 @@
                     return new b2bCarInfo({});
                 }
             },
-            loginStatus: {
-                type: Boolean,
-                default: false,
-            },
-            hasDeposit: Boolean,
         },
         // 自定义函数(方法)
         methods: {
-            // 加入购物车
-            inShopingCart(id){
-                let data = {
-                    ActType: 'Add',
-                    CarId: id,
-                }
-                api.manageShoppingCart(data).then(res => {
-                    if(res.code==SYSTEM.CODE_IS_OK){
-                        this.carInfo.hasInCart = true;
-                        this.$notify({
-                            title: '成功加入购物车',
-                            message: res.msg,
-                            type: 'success',
-                            duration: 1500,
-                        });
-                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                        this.$notify({
-                            title: '加入购物车失败',
-                            message: res.msg,
-                            type: 'error',
-                            duration: 1500,
-                        });
-                    }
-                })
-            },
             // 进入车辆详情
             enterCarDetails(id){
                 this.$router.push({path:'/b2bCar', query: { CarId: id }})
