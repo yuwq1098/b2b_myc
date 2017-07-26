@@ -101,10 +101,10 @@
                                 <img :src="noConImg" alt="缺省车辆图"/>
                             </div><!-- 图片 -->
                             <div class="u-con">
-                                <div class="u-speak">您暂时还没有收藏任何车行，赶紧去别地瞅瞅吧!</div><!-- 描述 -->
+                                <div class="u-speak">您的购物车现在空空如页，立即去B2B车辆大厅寻找合适自己的爱车吧!</div><!-- 描述 -->
                                 <div class="u-other f__clearfix">
-                                    <router-link :to="{path:'/b2bHall'}" class="u-lk" tag="a">返回首页&gt;</router-link>
-                                    <router-link :to="{path:'/'}" class="u-lk" tag="a">二手车B2B大厅&gt;</router-link>
+                                    <router-link :to="{path:'/'}" class="u-lk" tag="a">返回首页&gt;</router-link>
+                                    <router-link :to="{path:'/b2bHall'}" class="u-lk" tag="a">二手车B2B大厅&gt;</router-link>
                                 </div><!-- 按钮拓展 -->
                             </div><!-- 内容 -->
                         </div>
