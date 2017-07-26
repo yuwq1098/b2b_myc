@@ -28,23 +28,22 @@
                                     <span class="u-attr">真实姓名：</span>
                                     <div class="u-data">
                                         <span class="data">
-                                            <template v-if="hasAuthPass"
+                                            <template v-if="memberData&&memberData.authName=='未实名认证'"
                                                 >{{memberData.authName}}</template>
-                                            <template v-if="!hasAuthPass"
+                                            <template v-else
                                                 >{{memberData.authName | usernameFormat}}</template>
                                         </span>
                                         <router-link :to="{path:'/member/applyHome'}" 
                                             class="u-lk operate"
                                             tag="a"
-                                            v-if="(memberData.hasApplyCount==2||memberData.authStatus==true)"
                                             >
                                             <template 
-                                                v-if="memberData.hasApplyCount>0"
-                                                >管理我的认证
+                                                v-if="memberData&&(memberData.authName=='未实名认证'&&memberData.hasApplyCount==0)"
+                                                >立即认证
                                             </template>
                                             <template 
-                                                v-if="!hasAuthPass&&memberData.hasApplyCount==0"
-                                                >立即认证
+                                                v-else
+                                                >管理我的认证
                                             </template>
                                         </router-link>
                                     </div>
@@ -201,11 +200,7 @@
         },
         // 属性值计算
         computed:{
-            // 是否含有认证通过的状态
-            hasAuthPass(){
-                let judge = this.memberData.authName!='认证中'||this.memberData.authName!='未实名认证';
-                return judge;
-            }
+
         },
         // 数据侦听
         watch:{
@@ -229,6 +224,7 @@
                 api.getMyMemberInfo(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.memberData = new memberInfo(res.data);
+                        console.log(dataToJson(this.memberData))
                         // 为编辑页的信息赋值
                         this.setEditInfo();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){

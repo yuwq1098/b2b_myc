@@ -76,7 +76,13 @@
                                     <li class="u-item" 
                                         v-if="billData.isBuyProduct"
                                         >
-                                        <span class="attr">交易对象：</span><!-- 属性 -->
+                                        <span class="attr">买方：</span><!-- 属性 -->
+                                        <div class="data">{{orderData.buyerName}}（{{orderData.buyerTel}}）</div><!-- 值 -->
+                                    </li>
+                                    <li class="u-item" 
+                                        v-if="billData.isBuyProduct"
+                                        >
+                                        <span class="attr">卖方：</span><!-- 属性 -->
                                         <div class="data">{{orderData.sellerName}}（{{orderData.sellerTel}}）</div><!-- 值 -->
                                     </li>
                                     <li class="u-item"
@@ -89,7 +95,7 @@
                                 <div class="u-price" 
                                     >总计：
                                     <span class="price"
-                                        >￥<em class="vital">200.00</em>
+                                        >￥<em class="vital">{{billData.price | priceFormat(2)}}</em>
                                     </span>
                                 </div>
                             </div><!-- 交易信息 -->
