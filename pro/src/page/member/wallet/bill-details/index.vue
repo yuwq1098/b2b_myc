@@ -93,9 +93,10 @@
                                     </li>
                                 </ul>
                                 <div class="u-price" 
-                                    >总计：
-                                    <span class="price"
-                                        >￥<em class="vital">{{billData.price | priceFormat(2)}}</em>
+                                    >共计：
+                                    <span class="price">
+                                        <em class="vital"
+                                            >{{billData.price | priceFormat(2)}}</em> 元
                                     </span>
                                 </div>
                             </div><!-- 交易信息 -->

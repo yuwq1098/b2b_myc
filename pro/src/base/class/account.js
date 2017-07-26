@@ -49,7 +49,7 @@ class billDetails{
 	    this.source = data.TradeSource||""              // 交易类型
 	    this.direction = data.TradeDirection||""        // 交易动向
 	    this.payType = data.PayType||""                 // 支付方式
-	    this.amount = data.TradeAmount||0               // 交易金额
+	    this.price = data.TradeAmount||0               // 交易金额
 	    this.startTime = data.PayTimeStart||""          // 交易发起时间
 	    this.endTime = data.PayTimeEnd||"暂无数据"      // 交易结束时间
 	    this.orderNo = data.OrderNumber||""             // 订单号
