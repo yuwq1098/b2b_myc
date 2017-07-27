@@ -210,7 +210,7 @@
                                         <li class="u-item">
                                             <gk-city-select
                                                 @valChangeEnd="carInCityChangeEnd"
-                                                placeholder="所在城市"
+                                                placeholder="车辆所在城市"
                                                 ref="carInCity"
                                                 >
                                             </gk-city-select>
