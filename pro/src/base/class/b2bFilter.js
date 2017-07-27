@@ -13,6 +13,7 @@ class filterDataClass{
     constructor(data) {
 	    this.brand = data.brand||""                                 //车牌
 	    this.series = data.series||""                               //车系
+        this.carInCity = data.carInCity||"",                        // 车辆所在市
 	    this.price = data.price||""                                 //价格
 	    this.age = data.age||""                                     //车龄
 	    this.dischargeStandard = data.dischargeStandard||""         //排放标准
@@ -32,7 +33,8 @@ class searchFilterClass{
         this.PageSize = data.PageSize||"8",                            // pageSize页面规格 默认10
         this.PageIndex = data.PageIndex||"1",                          // pageIndex当前页序 默认第1页
         this.CarBrandId = data.CarBrandId||"",                                // 汽车品牌id
-        this.CarSeriesId = data.CarSeriesId||"",                                // 车系id
+        this.CarSeriesId = data.CarSeriesId||"",                              // 车系id
+        this.CarInCity = data.CarInCity||"",                                  // 车辆所在市
         this.DischargeStandard = data.DischargeStandard||"",                  // 排放标准, 国1, 国2, ...
         this.Color = data.Color||"",                                          // 颜色
         this.OnLicensePlateDateFrom = data.OnLicensePlateDateFrom||"",        // 上牌日期起 2016-01-01（通过计算车龄反算出上牌日期）

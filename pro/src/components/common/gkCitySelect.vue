@@ -3,14 +3,15 @@
  --> 
 
 <template>
-    <div class="cityCascader">
-        <div class="m-gk-cascader">
+    <div class="gkCitySelect">
+        <div class="m-city-sel">
             <el-cascader
                 :options="options"
                 @active-item-change="cityChange"
                 :props="props"
                 v-model="selectedOptions"
                 style="width: 100%"
+                :class="{'hasVal':selectedOptions.length>0}"
                 :placeholder="placeholder"
                 ref="cityCascader"
                 >
@@ -27,7 +28,7 @@
     import api from "api/getData.js"
 
     export default {
-        name: "cityCascader",
+        name: "gkCitySelect",
         // 数据
         data() {
             return{
@@ -48,9 +49,11 @@
         watch:{
             // 当用户选中的值变化了，再将事件派发给父组件
             selectedOptions: function(val){
-
-                this._getCityAllName()
-                this.$emit("valChangeEnd",this.selectedOptions)
+                // 当它有值再外传
+                if(val.length>0){
+                    let allName =  this._getCityAllName()
+                    this.$emit("valChangeEnd",this.selectedOptions,allName)
+                }
             }
         },
         computed:{
@@ -77,7 +80,7 @@
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-
+            
         },
         // 自定义函数(方法)
         methods: {
@@ -127,15 +130,13 @@
             // 获取城市全名
             _getCityAllName(){
                 let arr = this.$refs.cityCascader.currentLabels;
-                
                 let allName = "";
                 if(arr&&arr.length==2){
                     arr.forEach((item,index)=>{
-                        let {label:name} = item;
                         if(index==arr.length-1){
-                            allName = allName + name
+                            allName = allName + item
                         }else{
-                            allName = allName + name + "/"
+                            allName = allName + item + "/"
                         }
                     });
                     return allName;
@@ -144,7 +145,7 @@
             
             // 清除值
             clearVal(){
-                      
+                this.selectedOptions = [];          
             },
 
         },
@@ -156,6 +157,50 @@
 </script>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus">
     @import '~assets/css/mixin.styl'
+    .m-city-sel
+        width 170px
+        .el-cascader
+            width @width
+            height 30px
+            .el-cascader__label
+                height 30px
+                line-height @height
+            .el-input
+                .el-input__icon
+                    color #c2c2c2
+                    font-size 12px
+            .el-input__inner
+                _borderAll(#d8d8d8)
+                _borderRadius(2px)
+                height 32px
+                padding 3px 10px
+                color #40474a
+                _placeholder(#a5a5a5)
+            &.hasVal
+                .el-input__icon
+                    _display(none)
+                .el-input__inner
+                    _borderAll($c_blue)
+                .el-cascader__label
+                    color $c_blue
+    .el-cascader-menus
+        margin 7px 0
+    .el-cascader-menu
+        padding 3px 0
+        .el-cascader-menu__item
+            font-size 13px
+            padding 4px 8px
+            height 34px
+            line-height 26px
+        .el-cascader-menu__item:hover
+            background #f2f2f2
+            color $c_blue
+        .el-cascader-menu__item.is-active,
+        .el-cascader-menu__item.is-active:hover
+            background-color $c_blue
+            color #f4f4f4
+
+        
 </style>

@@ -207,18 +207,14 @@
                                                 </el-option>
                                             </el-select>
                                         </li> -->
-                                        <!-- <li class="u-item">
-                                            <el-select 
-                                                :class="{'on':userFilterData.inCity!=''&&userFilterData.inCity!='-1'}" 
-                                                v-model="userFilterData.inCity" placeholder="所在城市">
-                                                <el-option
-                                                  v-for="(item,index) in carInCity"
-                                                  :key="item.value"
-                                                  :label="item.label"
-                                                  :value="item.value">
-                                                </el-option>
-                                            </el-select>
-                                        </li> -->
+                                        <li class="u-item">
+                                            <gk-city-select
+                                                @valChangeEnd="carInCityChangeEnd"
+                                                placeholder="所在城市"
+                                                ref="carInCity"
+                                                >
+                                            </gk-city-select>
+                                        </li>
                                         <li class="u-item">
                                             <el-select 
                                                 :class="{'on':userFilterData.color!=''&&userFilterData.color!='-1'}" 
@@ -413,6 +409,8 @@
     import brandMoreBox from "components/filterMoreBox/brandMoreBox.vue"
     // 更多车系组件
     import seriesMoreBox from "components/filterMoreBox/seriesMoreBox.vue"
+    // 城市级联选择组件
+    import gkCitySelect from "components/common/gkCitySelect.vue"
     // b2b车辆信息构造类
     import {b2bCarInfo} from "base/class/carInfo.js"
     // b2b车辆信息列表盒子
@@ -439,6 +437,7 @@
             seriesMoreBox,
             b2bCarListBox,
             srhResultBox,
+            gkCitySelect,
         },
         // 数据
         data() {
@@ -997,6 +996,16 @@
                 this.searchFilterList.SortType = value||'';
 
             },
+            
+            // 车辆所在城市选择
+            carInCityChangeEnd(val,allName){
+                console.log(allName.split("/")[1])
+                let cityName = allName.split("/")[1];
+                // 设置展示给界面  用户所选条件集合中 排序类型的的lable
+                this.userFilterData.carInCity = cityName; 
+                // 设置真实向api请求的字段 排序类型
+                this.searchFilterList.CarInCity = cityName||'';
+            },
 
             //获取用以展示的用户所选条件集合
             _getFilterShowDataItems(dataObj){
@@ -1103,6 +1112,10 @@
                         case 'series':                // 车系
                             this.searchFilterList.CarSeriesId = "";
                             break;
+                        case 'carInCity':             // 车辆所在地
+                            this.searchFilterList.CarInCity = "";
+                            this.$refs.carInCity.clearVal();
+                            break;
                         case 'price':                 // 价格
                             this.searchFilterList.B2BPriceFrom = "";
                             this.searchFilterList.B2BPriceTo = "";
@@ -1148,10 +1161,14 @@
             clearFilterData(){
                 //清空用户展示记录
                 let data  = {}
+
                 this.userFilterData = new filterDataClass(data);
                 this.searchFilterList = new searchFilterClass(data);
+                // 清空城市级联选择
+                this.$refs.carInCity.clearVal();
                 // 重新渲染页面
                 this.carListResultRender();
+
             },
 
             //分页每页展示数据大小变化后出发

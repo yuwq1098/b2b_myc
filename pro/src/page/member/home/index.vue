@@ -9,7 +9,7 @@
                     <div class="m-home-wrap">
                         <div class="m-hd-box">
                             <router-link class="m-pic"
-                                :to="{path:'/member/safetyTel'}"
+                                :to="{path:'/member/personal'}"
                                 >
                                 <img :src="memberData.imgUrl" :alt="memberData.name" />
                             </router-link><!-- 头像 -->
