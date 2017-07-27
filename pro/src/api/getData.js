@@ -23,7 +23,7 @@ let [timestamp,token,secret,sign] = getSignHeaders();
 
 
 // axios 配置
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 12000;      // 请求超时12s
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 // axios.defaults.baseURL = 'https://www.muyouche.com/';
 // axios.defaults.baseURL = 'http://localhost:8080';

@@ -66,6 +66,22 @@ const buyOrderDetails = r => require.ensure([], () => r(require('page/member/ord
 const sellOrderDetails = r => require.ensure([], () => r(require('page/member/order/details/sell')), 'sellOrderDetails')
 
 
+// 订单管理 => 买车合同
+const contractBuy = r => require.ensure([], () => r(require('page/member/contract/buyCar')), 'contractBuy')
+// 订单管理 => 卖车合同
+const contractSell = r => require.ensure([], () => r(require('page/member/contract/sellCar')), 'contractSell')
+// 订单管理 => 合同详情
+const contractDetails = r => require.ensure([], () => r(require('page/member/contract/details')), 'contractDetails')
+
+
+// 订单管理 => 订单支付
+const orderPay = r => require.ensure([], () => r(require('page/member/payment')), 'orderPay')
+// 订单管理 => 支付托管车款（尾款）
+const fullPayout = r => require.ensure([], () => r(require('page/member/payment/fullPayout')), 'fullPayout')
+// 订单管理 => 买家签收
+const signOff = r => require.ensure([], () => r(require('page/member/payment/signOff')), 'signOff')
+
+
 // 车源管理 => 我的车源
 const mySource = r => require.ensure([], () => r(require('page/member/car-source/manage')), 'mySource')
 // 车源管理 => 编辑车源
@@ -313,7 +329,54 @@ export default[{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },
                 },
-
+                {
+                // 订单管理-买车合同
+                    path: 'contractBuy',
+                    component: contractBuy,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-卖车合同
+                    path: 'contractSell',
+                    component: contractSell,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-合同详情
+                    path: 'contractDetails',
+                    component: contractDetails,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-订单支付
+                    path: 'orderPay',
+                    component: orderPay,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-支付托管车款（尾款）
+                    path: 'fullPayout',
+                    component: fullPayout,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-买家签收
+                    path: 'signOff',
+                    component: signOff,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
                 {
                 // 我的车源
                     path: 'car-source',

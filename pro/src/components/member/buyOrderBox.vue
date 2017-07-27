@@ -65,7 +65,7 @@
                                 v-if="orderInfo.status==5||
                                         orderInfo.status==6||
                                         orderInfo.status==7"
-                                >（已托管支付全款）
+                                >（已支付尾款）
                             </template>
                         </p>
                     </div><!-- 支付金额 -->
@@ -80,11 +80,8 @@
                                 >（需支付保证金）
                             </template>
                             <template
-                                v-if="orderInfo.status==3||
-                                        orderInfo.status==4||
-                                        orderInfo.status==5||
-                                        orderInfo.status==6||
-                                        orderInfo.status==7"
+                                v-if="orderInfo.status>2&&
+                                    orderInfo.status<=7"
                                 >（已支付保证金）
                             </template>
                         </p>
@@ -107,20 +104,15 @@
                 <div class="m-operate">
                     
                     <div class="u-line f__clearfix"
-                        v-if="orderInfo.status==0||
-                            orderInfo.status==1||
-                            orderInfo.status==2||
-                            orderInfo.status==3||
-                            orderInfo.status==4||
-                            orderInfo.status==5||
-                            orderInfo.status==6"
+                        v-if="orderInfo.status>=0&&
+                            orderInfo.status<=6"
                         >
                         <a class="u-lk" title="取消订单"
-                            @click="cancelOrder(orderInfo.id)" 
+                            @click="cancelOrder(orderInfo.id,orderInfo.status)" 
                             >取消订单</a>
                     </div>
 
-                    <div class="u-line f__clearfix"
+                    <!-- <div class="u-line f__clearfix"
                         v-if="orderInfo.status==0||
                             orderInfo.status==1||
                             orderInfo.status==2||
@@ -132,7 +124,7 @@
                         <a class="u-lk" title="申请维权"
                             @click="safeguard(orderInfo.id)"
                             >申请维权仲裁</a>
-                    </div>
+                    </div> -->
 
                     <div class="u-line f__clearfix"
                         v-if="orderInfo.status==1"
@@ -203,8 +195,8 @@
         // 自定义函数(方法)
         methods: {
             // 取消订单
-            cancelOrder(id){
-                this.$emit("cancelOrder",id);
+            cancelOrder(id,status){
+                this.$emit("cancelOrder",id,status);
             },
             // 申请维权
             safeguard(id){

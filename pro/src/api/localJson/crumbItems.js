@@ -81,7 +81,64 @@ export const crumbsHash = {
             path:"/member/sellOrderDetails",
         }
     ],
-    
+    // 订单支付
+    '/member/orderPay':[
+        {
+            pathName:"订单支付",
+            path:"/member/orderPay",
+        }
+    ],
+    // 支付托管车款（尾款）
+    '/member/fullPayout':[
+        {
+            pathName:"买车订单",
+            path:"/member/buyOrder",
+        },
+        {
+            pathName:"支付托管车款（尾款）",
+            path:"/member/fullPayout",
+        }
+    ],
+    // 买家签收
+    '/member/signOff':[
+        {
+            pathName:"买车订单",
+            path:"/member/buyOrder",
+        },
+        {
+            pathName:"买家确认签收",
+            path:"/member/signOff",
+        }
+    ],
+    // 买方签署合同
+    '/member/contractBuy':[
+        {
+            pathName:"买车订单",
+            path:"/member/buyOrder",
+        },
+        {
+            pathName:"买方签署合同",
+            path:"/member/contractBuy",
+        }
+    ],
+    // 卖方发起合同
+    '/member/contractSell':[
+        {
+            pathName:"卖车订单",
+            path:"/member/sellOrder",
+        },
+        {
+            pathName:"卖方发起合同",
+            path:"/member/contractSell",
+        }
+    ],
+    // 合同详情
+    '/member/contractDetails':[
+        {
+            pathName:"合同详情",
+            path:"/member/contractDetails",
+        }
+    ],
     // 我的车源
     '/member/sourceHome':[
         {

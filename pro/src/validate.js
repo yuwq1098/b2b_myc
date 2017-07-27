@@ -215,6 +215,9 @@ const dictionary = {
             cdgCity:{
                 required:()=> '请选择车行所在地'
             },
+            rMoney:{
+                between:()=> '单笔充值最低100元,限额100万'
+            }
         },
         attributes:{
             tel: '手机号码',

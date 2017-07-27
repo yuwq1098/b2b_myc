@@ -74,8 +74,8 @@
         methods: {
             
             // 取消订单
-            cancelOrder(id){
-                this.$emit("cancelOrder",id);
+            cancelOrder(id,status){
+                this.$emit("cancelOrder",id,status);
             },
             // 申请维权
             safeguard(id){

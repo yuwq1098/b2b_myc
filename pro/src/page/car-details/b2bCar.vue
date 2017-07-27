@@ -28,7 +28,7 @@
                                 <template v-else>
                                     <span class="u-price">￥<em class="vital">{{basicInfo.price| priceFormat(2)}}</em>万</span>
                                 </template>
-                                <span class="u-del">零售价：{{basicInfo.retailPrice| priceFormat(2)}}万</span>
+                                <span class="u-del">零售价：{{basicInfo.retailPrice | priceFormat(2)}}万</span>
                                 <!-- <a href="javascript:;" class="u-lk record">
                                     <i class="iconfont icon-activity_fill"></i>查询维修保养记录
                                 </a> -->

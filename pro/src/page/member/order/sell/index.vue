@@ -225,26 +225,96 @@
             },
 
             // 取消订单
-            cancelOrder(id){
-                console.log("取消订单");
+            cancelOrder(id,status){
+                let addStr = (status>2)?'，以及3000元交易保证金':''
+                this.$confirm('您正在进行取消订单的操作，取消订单成功后，我司平台将会扣除您一定的信誉保证金'+addStr+'，请认真考虑后再确认取消订单！', '取消订单提示', {
+                        confirmButtonText: '继续取消订单',
+                        cancelButtonText: '再考虑看看',
+                        type: 'warning'
+                    }).then(() => {
+                        this.cancelSellOrder(id);
+                    }).catch(() => {
+                        
+                    });
             },
+            
+            // 卖方强制取消订单
+            cancelSellOrder(orderId){
+                let data = {
+                    OrderId: orderId,
+                    OrderStatus: "-1",
+                }
+                api.changeB2BOrderStatus(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '成功取消订单',
+                            message: "您已成功取消订单，平台将自动扣取您一定的信誉保证金，祝您生活愉快！",
+                            type: 'success',
+                            duration: 2000,
+                        });
+                        this.tabChange(this.tabShowIndex);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '取消订单失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+            
+
             // 申请维权
             safeguard(id){
                 console.log("申请维权");
             },
-            // 发起合同
+            // 卖家发起合同
             sponsorContract(id){
-                
-                console.log("发起合同");
+                this.$router.push({path:'/member/contractSell',query:{cid:id}})
             },
             // 支付保证金
             payDeposit(id){
-                console.log("支付保证金");
+                this.$router.push({path:'/member/orderPay',query:{cid:id,auth:'seller'}})
             },
             // 确认发货
             delivery(id){
-                console.log("确认发货");
+                this.$confirm('您正在进行取消订单的操作，取消订单成功后，我司平台将会扣除您一定的信誉保证金，请认真考虑后再确认取消订单！', '您确认发货吗？', {
+                        confirmButtonText: '确认发货',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.sellDelivery(id);
+                    }).catch(() => {
+                        
+                    });
             },
+
+            // 卖方确认发货
+            sellDelivery(id){
+                let data = {
+                    OrderId: orderId,
+                    OrderStatus: "-1",
+                }
+                api.changeB2BOrderStatus(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '确认发货成功',
+                            message: "您已成功确认发货，买家有权发起仲裁维权，为保证您的信誉不受影响，请与买家保持沟通，诚信交易！",
+                            type: 'success',
+                            duration: 2000,
+                        });
+                        this.$router.push({path:'/member/buyOrderDetails',query:{cid:id}})
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '确认发货失败失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            } 
 
         },
         
