@@ -1,23 +1,33 @@
 
-
+/** 
+* @description 判断DOM上是否含有指定类名
+* @param el 事件作用对象
+* @param className 类名
+*/ 
 export function hasClass(el, className) {
-  let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
-  return reg.test(el.className)
+    let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
+    return reg.test(el.className)
 }
 
+
+/** 
+* @description 为DOM添加指定类名
+* @param el 事件作用对象
+* @param className 类名
+*/ 
 export function addClass(el, className) {
-  if (hasClass(el, className)) {
-    return
-  }
-
-  let newClass = el.className.split(' ')
-  newClass.push(className)
-  el.className = newClass.join(' ')
+    if (hasClass(el, className)) {
+        return;
+    }
+    let newClass = el.className.split(' ')
+    newClass.push(className)
+    el.className = newClass.join(' ')
 }
+
 
 /** 
 * @description 阻止鼠标滚轮事件冒泡
-* @param event 事件作用对象
+* @param ev 事件作用对象
 */ 
 export function preventScroll(ev){
     var _this = ev;
@@ -69,6 +79,89 @@ export function removeEvents(target, type, func){
 }
 
 
+/**  
+ * @description      判断是否是手机浏览器
+ * @return boolean   true/false    
+ */  
+export function isPhone(){
+    var reg=/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i;  
+    return window.navigator.userAgent.match(reg)?true:false;
+};
+
+
+/**  
+ * @description     绑定事件，可重复绑定('事件名称'必须加引号)
+ * @param obj       绑定对象    
+ * @param evname    事件名
+ * @param fn        回调方法    
+ */  
+export function bind(obj,evname,fn){
+    if(obj.addEventListener){
+        obj.addEventListener(evname,fn,false);
+    }else{
+        obj.attachEvent('on'+evname,function(){
+            fn.call(obj);
+        });
+    }
+};
+
+
+/**  
+ * @description     canvas画笔(兼容手机和电脑端)
+ * @param obj       canvas标签对象    
+ * @param lineWidth 画笔线宽
+ * @param color     画笔颜色
+ * @param endFn     回调方法    
+ */  
+export function brush(obj,lineWidth,color,endFn){  
+    var oGC=obj.getContext('2d');
+    console.dir(oGC);
+    
+    oGC.lineWidth=lineWidth||1;
+    oGC.strokeStyle=color||'#000';
+    
+    // 判断是 移动端 or PC端
+    isPhone()?mo():pc();
+    
+    function mo(){
+        bind(obj,'touchstart',function(ev){     
+            var ev=ev||event;
+            oGC.moveTo(ev.changedTouches[0].clientX-obj.offsetLeft,ev.changedTouches[0].clientY-obj.offsetTop);
+        });
+        
+        bind(obj,'touchmove',function(ev){
+            var ev=ev||event;
+            oGC.lineTo(ev.changedTouches[0].clientX-obj.offsetLeft,ev.changedTouches[0].clientY-obj.offsetTop);
+            oGC.stroke(); 
+        });
+        
+        bind(obj,'touchend',function(){
+            endFn&&endFn(obj.toDataURL());
+        }); 
+    };
+  
+    function pc(){
+        obj.onmousedown=function(ev){
+            var ev=ev||event;
+            oGC.moveTo(ev.clientX-obj.offsetLeft,ev.clientY-obj.offsetTop);
+            
+            if(obj.setCapture)obj.setCapture;
+            document.onmousemove=function(ev){
+                var ev=ev||event;
+                oGC.lineTo(ev.clientX-obj.offsetLeft,ev.clientY-obj.offsetTop);
+                oGC.stroke(); 
+            };
+            document.onmouseup=function(){
+                document.onmousemove=document.onmouseup=null;   
+                if(obj.releaseCapture)obj.releaseCapture;
+                endFn&&endFn(obj.toDataURL());
+            };
+            return false;
+        };      
+    };
+};
+
+
 /** 
 * @description 将图片文件转换成Base64格式
 * @param file Object 图片文件对象
@@ -85,6 +178,7 @@ export function getBase64FromImgFile(file,callBack){
     reader.readAsDataURL(file);  
 }
 
+
 /** 
 * @description 置空某类型控制台输出
 * @param array  数组
@@ -96,6 +190,7 @@ export function setNullConsole(arr){
         window.console[item]= function(){};
     });
 }
+
 
 /** 
 * @description 定时器增强requestAnimationFrame与setInterval兼容
@@ -134,12 +229,12 @@ export function yydTimer(callBack,msec){
     }   
 }
 
+
 /** 
 * @description 数组数据倍增
 * @param array,num  数组  翻几倍
 * @param array 数组
 */ 
-
 export function doubleArray(array,num=2){
     
     let arr = array; 
@@ -150,12 +245,12 @@ export function doubleArray(array,num=2){
     return arr;
 }
 
+
 /** 
 * @description 数组数据裁切
 * @param array,num  数组  几个一组
 * @return array 数组
 */ 
-
 export function sliceArray(array,num=8){
     let arr2 = [];
     // 方法二
@@ -175,6 +270,7 @@ export function sliceArray(array,num=8){
     return arr2;
 }
 
+
 /** 
 * @description 获取值类型
 * @return String 类型名
@@ -182,7 +278,8 @@ export function sliceArray(array,num=8){
 export function getValClass(x) {
     var str = Object.prototype.toString.call(x);
     return /^\[object (.*)\]$/.exec(str)[1]; 
-} 
+}
+
 
 /** 
 * @description 获取滚动条高度
@@ -193,6 +290,7 @@ export function getScrollTop(){
     return ostop;
 }
 
+
 /** 
 * @description 设置滚动条高度
 * @param number 滚动条高度，无单位
@@ -200,6 +298,7 @@ export function getScrollTop(){
 export function setScrollTop(top){
     document.documentElement.scrollTop=document.body.scrollTop=top;
 }
+
 
 /** 
 * @description 获取页面可视内容的高度
@@ -248,6 +347,7 @@ export function drawToCanvas(img,theW,theH,realW,realH,callback){
         callback(base64str,canvas);  
     }  
 }
+
 
 /** 
 * @description 判断用户当前选择的文件是不是已经在之前的文件列表里了 
@@ -316,7 +416,6 @@ export function valReplace(val,type){
 }
 
 
-
 //设置css样式
 export function css(obj,attr,value){
   if(arguments.length==2){
@@ -373,6 +472,7 @@ export function css(obj,attr,value){
   return function(attr_in,value_in){css(obj,attr_in,value_in)};
 };
 
+
 //兼容css3样式
 export function setCss3(obj, attr, value){
   var str='';
@@ -405,6 +505,7 @@ export function setCss3(obj, attr, value){
     obj.style[arr[i]+'Transform']=val;
   } 
 };  
+
 
 //获取元素相对于浏览器的横坐标
 export function getLeftToBrowser(e) {
@@ -443,6 +544,7 @@ export const passByFormatDate = (str) => {
     }
 }
 
+
 // 对Date的扩展，将 Date 转化为指定格式的String   
 // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，   
 // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)   
@@ -471,6 +573,7 @@ export function dateFormat(fmt,timestamp){
   }     
   return fmt;   
 };
+
 
 /** 
 * @description 根据时间对象格式化时间
@@ -518,7 +621,8 @@ export function getDateByInt(int){
     return dateTime;
 }
 
- //获得几年前（int）在昨天这一天的日期   
+
+// 获得几年前（int）在昨天这一天的日期   
 export function getLastYearYestdy(date,num){   
     var yearNum = num||1;
      var strYear = date.getFullYear() - yearNum;     
@@ -543,7 +647,8 @@ export function getLastYearYestdy(date,num){
        
 }
 
-//判断给定日期是否合法
+
+// 判断给定日期是否合法
 export function checkDate(year,month,date){
     var now = new Date(year,month -1,date);
     if(now.getDate()===date&&now.getFullYear()==year&&now.getMonth()===(month-1)){
@@ -579,6 +684,7 @@ export function getDateByAge(minAge,maxAge){
     return [dateFrom,dateTo]
 }
 
+
 /** 
 * @description 判断对象中属性是否含有值（有1个就可以）
 * @param obj 需要遍历的对象
@@ -599,6 +705,7 @@ export function isObjHasValue(obj){
     }
     return onOff;
 }
+
 
 /** 
 * @description 转换对象中属性属性值为-1的变成""
@@ -646,6 +753,7 @@ export function clearObjAllValue(obj){
     return newObj;
 }
 
+
 /** 
 * @description 阻止事件冒泡 
 * @param obj 阻止事件冒泡的对象(1个对象)
@@ -671,6 +779,7 @@ export function cancelBubbleOne(obj,Fn){
     }    
     return;
 };
+
 
 /** 
 * @description 阻止事件冒泡 
@@ -706,6 +815,7 @@ export function cancelBubbleTwo(obj1,obj2,Fn){
     return;
 };
 
+
 /** 
 * @description 首页的公告 
 * @param obj 要滚动的父容器 
@@ -739,6 +849,7 @@ export function autoNoticeHorizontal(obj,onOFF,dis,msec){
   },msec||25);
 };
 
+
 /** 
 * @description 事件绑定，兼容各浏览器 
 * @param target 事件触发对象 
@@ -751,7 +862,8 @@ export function addEvent(target, type, func) {
     else if (target.attachEvent) //ie6到ie8 
         target.attachEvent("on" + type, func); 
     else target["on" + type] = func; //ie5 
-}; 
+};
+
 
 /** 
 * @description 事件移除，兼容各浏览器 
@@ -766,6 +878,7 @@ export function removeEvent(target, type, func){
         target.detachEvent("on" + type, func); 
     else target["on" + type] = null; 
 };  
+
 
 //获取data，拼接
 export function getData(el, name, val) {

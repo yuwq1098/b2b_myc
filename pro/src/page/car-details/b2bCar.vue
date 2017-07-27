@@ -44,7 +44,8 @@
                                             <p class="u-des">表显里程</p>
                                         </li>
                                         <li class="u-item">
-                                            <p class="u-tit">{{basicInfo.transferTimes}}次</p>
+                                            <p class="u-tit" v-if="basicInfo.transferTimes!='0'">{{basicInfo.transferTimes}}次</p>
+                                            <p class="u-tit" v-else>暂无数据</p>
                                             <p class="u-des">过户次数</p>
                                         </li>
                                         <li class="u-item">
@@ -151,7 +152,8 @@
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">过户次数</span>
-                                            <span class="u-val">{{basicInfo.transferTimes}}次</span>
+                                            <span class="u-val" v-if="basicInfo.transferTimes">{{basicInfo.transferTimes}}次</span>
+                                            <span class="u-val" v-else>暂无数据</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">排放标准</span>
@@ -165,11 +167,13 @@
                                     <ul class="u-list f__fl">
                                         <li class="u-item">
                                             <span class="u-attr">上牌时间</span>
-                                            <span class="u-val">{{basicInfo.plateDate | dateFn}}</span>
+                                            <span class="u-val" v-if="basicInfo.plateDate">{{basicInfo.plateDate | dateFn}}</span>
+                                            <span class="u-val" v-else>暂无数据</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">出厂日期</span>
-                                            <span class="u-val">{{basicInfo.outFactoryDate | dateFn}}</span>
+                                            <span class="u-val" v-if="basicInfo.outFactoryDate">{{basicInfo.outFactoryDate | dateFn}}</span>
+                                            <span class="u-val" v-else>暂无数据</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">牌照归属</span>

@@ -195,7 +195,7 @@
                     pagination: '.swiper-pagination',  
                     slidesPerView: 'auto',  
                     centeredSlides: true,  
-                    autoplay : 3500,
+                    autoplay : 4500,
                     speed: 500,                         //速度
                     loop: true,                         //环路
                     paginationClickable: true,          //分页点击

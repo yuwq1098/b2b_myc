@@ -234,6 +234,7 @@
             },
             // 发起合同
             sponsorContract(id){
+                
                 console.log("发起合同");
             },
             // 支付保证金
