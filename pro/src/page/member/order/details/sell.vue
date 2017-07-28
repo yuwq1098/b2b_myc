@@ -83,14 +83,14 @@
                                         >发起合同</a>
                                 </template>
 
-                                <template v-if="orderData.status==2"
+                                <template v-if="orderData.status==3"
                                     >
                                     <a class="u-btn v2" title="支付保证金"
                                         @click="payDeposit(orderData.id)"
                                         >支付保证金</a>
                                 </template>
 
-                                <template v-if="orderData.status==4"
+                                <template v-if="orderData.status==5"
                                     >
                                     <a class="u-btn v2" title="确认发货"
                                         @click="delivery(orderData.id)"
@@ -285,7 +285,7 @@
                         return txt = "待买方(买家)支付尾款，线下交易自行协商，线上交易（资金将托管至平台，交易完成后，尾款自动转入您的账户）";
                         break;
                     case 5:
-                        return txt = "确认买方已付款，待发货，若您迟迟不出货给对方，对方可能会申请仲裁进行维权";
+                        return txt = "买方确认已付款，待我方（卖家）发货，若您迟迟不出货给对方，对方可能会申请仲裁进行维权";
                         break;
                     case 6:
                         return txt = "待买方(买家)签收，若我方如约发货并且保证车辆无问题，对方却迟迟不签收，您可以申请仲裁维权";
@@ -373,11 +373,11 @@
                     });
             },
             
-            // 买方强制取消订单
+            // 卖方强制取消订单
             cancelBuyOrder(orderId){
                 let data = {
                     OrderId: orderId,
-                    OrderStatus: "-2",
+                    OrderStatus: "-1",
                 }
                 api.changeB2BOrderStatus(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
@@ -414,7 +414,7 @@
             },
             // 确认发货
             delivery(id){
-                this.$confirm('您正在进行取消订单的操作，取消订单成功后，我司平台将会扣除您一定的信誉保证金，请认真考虑后再确认取消订单！', '您确认发货吗？', {
+                this.$confirm('确认发货后，请您尽快出货给买方，买方收到交易的车辆后，即完成交易，若买方长时间未收到货或者无法与您取得联系，可能会申请仲裁进行维权！', '您确认发货吗？', {
                         confirmButtonText: '确认发货',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -426,10 +426,10 @@
             },
 
             // 卖方确认发货
-            sellDelivery(id){
+            sellDelivery(orderId){
                 let data = {
                     OrderId: orderId,
-                    OrderStatus: "-1",
+                    OrderStatus: "6",
                 }
                 api.changeB2BOrderStatus(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
@@ -443,7 +443,7 @@
                         this.getOrderDetail();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
-                            title: '确认发货失败失败',
+                            title: '确认发货失败',
                             message: res.msg,
                             type: 'error',
                             duration: 1500,

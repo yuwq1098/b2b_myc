@@ -92,11 +92,11 @@
             },
             // 支付托管车款(尾款)
             finalPay(id){
-                this.$emit("payDeposit",id);
+                this.$emit("finalPay",id);
             },
             // 确认签收
             signOff(id){
-                this.$emit("payDeposit",id);
+                this.$emit("signOff",id);
             },
             
         },    

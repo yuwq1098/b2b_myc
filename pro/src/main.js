@@ -98,8 +98,12 @@ router.afterEach((to) => {
   }
 });
 
-new Vue({
+var app = new Vue({
 	router,
   store,
 }).$mount('#app')
+
+
+var bus = new Vue();
+export {app,bus}
 

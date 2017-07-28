@@ -103,6 +103,8 @@
     import {navItemList,memberDropdown} from 'api/localJson/head.js'
     import {headMember} from 'base/class/member.js'
 
+    // 非父子组件通信--中央事件总线：
+    import {app} from "@/main.js"
     
     export default {
     	name: 'c-header',
@@ -154,10 +156,16 @@
             });
 
         },
+        
         // 切换会当前组件
         activated() {
             // 是否含有网站侧栏
             this.hasWebSide = this.$router.currentRoute.meta.hasWebSide;
+            
+            // 为{app}接收广播事件
+            app.$on('openSignInBox_new',() => {
+                this.openSignIn(1,true);
+            })
         },
         //退出的生命周期钩子
         deactivated(){
@@ -286,6 +294,10 @@
                 this.$router.push({ path: '/'})
                 //调用vuex的注销方法
                 this.setSignOut();
+            },
+
+            aaaa(){
+                this.$emit("oppo",1);
             }
 
         },

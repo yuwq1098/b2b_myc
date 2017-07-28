@@ -28,14 +28,18 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import loading from 'base/loading/loading.vue'
     import cHead from "components/head/header.vue"
     import cFoot from "components/foot/footer.vue"
     // 网站侧边导航
     import webSide from "components/webSidebar"
 
+    
+
 	export default {
 	    name: 'app',
+        bus: new Vue(), //首先建立一个空的Vue实例作为事件的中转
 	    data(){
             return {
 
@@ -48,6 +52,9 @@
             webSide,
         },
         created () {
+
+        },
+        mounted(){
 
         },
         activated() {

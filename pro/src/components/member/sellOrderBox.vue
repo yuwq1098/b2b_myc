@@ -43,7 +43,14 @@
                         </div>
                         <div class="u-con">
                             <div class="tit">{{orderInfo.carTitle}}</div>
-                            <div class="city">{{orderInfo.inCity | addressFormat}}</div>
+                            <div class="city">
+                                <span>{{orderInfo.inCity | addressFormat}}</span>
+                                <span class="price">订单总额：
+                                    <em class="vital"
+                                        >{{orderInfo.price | priceFormat(2)}}</em>
+                                    <em class="unit">万元</em>
+                                </span>
+                            </div>
                             <div class="other">{{orderInfo.plateDate | dateFn}} · {{orderInfo.mileage | mileFn(2)}}</div>
                         </div>
                     </router-link>
@@ -212,16 +219,18 @@
                     .u-lk
                         color #4B5861
                         .vital
-                            color @color
+                            color #2E98E2
+                            text-decoration underline
+                            font-size 14px
                             &:hover
-                                color #2E98E2
+                                color @color
                 &.create-time
                     _completeCenter(420px,auto,0,auto)
                 &.seller-name
                     float right
             &:hover
                 .no .u-lk .vital 
-                    color #222
+                    // color #222
                     text-decoration underline
         .m-info-con
             width @width - 30px - 2px
@@ -267,6 +276,15 @@
                             line-height 22px
                             color #959595
                             font-size 13px
+                        .city
+                            .price
+                                margin 0 0 0 10px
+                                .vital
+                                    color #ff6533
+                                    font-size 15px
+                                .unit
+                                    color #ff6533
+                                    font-size 12px
                     &:hover
                         .u-con
                             .tit

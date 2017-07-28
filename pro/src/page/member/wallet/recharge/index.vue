@@ -248,21 +248,17 @@
                 // 支付密码
                 payPass: "",          
 
+
                 // 表单验证报错集合
                 errors: null,
-                
                 // 是否显示微信扫码支付
                 isShow_WX_code: false,
-                
                 // 微信二维码
                 WX_codeBase64: "",
-                
                 // 微信交易流水号
                 WX_tradeId: "",
-                
                 // 微信轮询定时器 清除函数
                 clearWX_check: null,
-                
                 // 微信支付成功
                 isWX_success: false,
 
@@ -419,7 +415,7 @@
                         let data = {
                             // 充值金额
                             payAmount : this.payAmount,
-                            payPass : this.payPass,
+                            payPass : thePayPass,
                         }
 
                         // 充值类型选择
@@ -496,7 +492,7 @@
                 });
             },
 
-            // 提交提现请求
+            // 提交充值请求
             putCommit(data,callBack){
 
                 // 请求充值接口

@@ -120,6 +120,9 @@
     
     // 网页头部
     import cHead from "components/head/header.vue"
+    
+    // 非父子组件通信--中央事件总线：
+    import {app} from "@/main.js"
 
 	export default {
         name: "webSidebar",
@@ -152,7 +155,7 @@
             },20);
         },
         mounted(){
-            
+
         },
         // keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated() {
@@ -274,8 +277,12 @@
 
             // 打开登录框
             openSignIn(){
+
+                // 新方式实现打开登录框
+                app.$emit('openSignInBox_new') //中转站bus 触发openSignInBox_new
+
                 // 打开头部组件中的登录框
-                this.changeSignInBox(true);
+                // this.changeSignInBox(true);
             },
             
             // 未登录提示

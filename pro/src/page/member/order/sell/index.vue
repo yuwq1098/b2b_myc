@@ -279,7 +279,7 @@
             },
             // 确认发货
             delivery(id){
-                this.$confirm('您正在进行取消订单的操作，取消订单成功后，我司平台将会扣除您一定的信誉保证金，请认真考虑后再确认取消订单！', '您确认发货吗？', {
+                this.$confirm('确认发货后，请您尽快出货给买方，买方收到交易的车辆后，即完成交易，若买方长时间未收到货或者无法与您取得联系，可能会申请仲裁进行维权！', '您确认发货吗？', {
                         confirmButtonText: '确认发货',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -291,10 +291,10 @@
             },
 
             // 卖方确认发货
-            sellDelivery(id){
+            sellDelivery(orderId){
                 let data = {
                     OrderId: orderId,
-                    OrderStatus: "-1",
+                    OrderStatus: "6",
                 }
                 api.changeB2BOrderStatus(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){

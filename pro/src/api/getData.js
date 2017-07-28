@@ -184,6 +184,7 @@ export function payFetchSign(url, params) {
                 PayType: Json.amountType,
                 PayPwd: Json.payPass,
                 payAmount: Json.payAmount,
+                OrderId: Json.orderId,
             }
             
             let newUrl = joinUrl("/action2/BlancePay.ashx");
