@@ -9,8 +9,100 @@
         _border(bottom,#E5E8EB)
         position relative
         .m-progress
-            height 100px
-            margin 0 0 20px
+            width 800px
+            height 80px
+            margin 20px auto 30px
+            position relative
+            .progress-wrap
+                width @width
+                height 8px
+                background #d2d2d2
+                z-index 1
+                _completeCenter(0,auto,20px,auto)
+                .mark
+                    width 34px
+                    height 18px
+                    _completeCenter(-32px,auto,-20px,auto)
+                    background url('../../../../assets/img/i-theNo-car.png') center center no-repeat
+                    background-size 100% auto
+                    _translate3d(800px * 0.042)
+                    _transitionAll(1.2s,cubic-bezier(0.31, 0.51, 0.69, 0.94))
+                    &.v1
+                        _translate3d(800px * 0.042)
+                    &.v2
+                        _translate3d(800px * 0.10)
+                    &.v3
+                        _translate3d(800px * 0.30)
+                    &.v4
+                        _translate3d(800px * 0.40)
+                    &.v5
+                        _translate3d(800px * 0.50)
+                    &.v6
+                        _translate3d(800px * 0.60)
+                    &.v7
+                        _translate3d(800px * 0.70)
+                    &.v8
+                        _translate3d(800px)
+                .progress-gray
+                    width @width
+                    height @height
+                    background @background
+                    _overflow()
+                    _borderRadius(4px)
+                    .progress-bar
+                        width 800px * 0.05
+                        height @height
+                        background #53AEEF
+                        _transitionCustom(width 1.2s cubic-bezier(0.31, 0.51, 0.69, 0.94))
+                        &.v1
+                            width 800px * 0.042
+                        &.v2
+                            width 800px * 0.10
+                        &.v3
+                            width 800px * 0.30
+                        &.v4
+                            width 800px * 0.40
+                        &.v5
+                            width 800px * 0.50
+                        &.v6
+                            width 800px * 0.60
+                        &.v7
+                            width 800px * 0.70
+                        &.v8
+                            width 800px
+            .progress-info
+                width @width
+                height @height
+                z-index 2
+                _completeCenter(0,auto,0,auto)
+                .u-part-lst
+                    .u-item
+                        _display()
+                        text-align center
+                        width 160px
+                        float left
+                        .theNo
+                            width 38px
+                            height @width
+                            background #e2e2e2
+                            margin 5px auto 10px
+                            for num in 1..5
+                                &.v{num}
+                                    background url('../../../../assets/img/i-theNo-0'+num+'.png') center center no-repeat
+                                    background-size auto 100%
+                        .txt
+                            height 27px
+                            line-height @height
+                            color #959595
+                            font-size 15px
+                        &.on
+                            .theNo
+                                for num in 1..5
+                                    &.v{num}
+                                        background url('../../../../assets/img/i-theNo-on-0'+num+'.png') center center no-repeat
+                                        background-size auto 100%
+                            .txt
+                                color $c_blue
         .m-statusText
             .u-txt-box
                 width 720px - 16px
@@ -70,7 +162,7 @@
                         background #53aeef
                         _completeCenter(,,auto,0)
         .m-seller-info
-            width @width
+            width 948px
             min-height 70px
             margin 0 0 15px
             _border(bottom,#E5E8EB)
@@ -92,7 +184,7 @@
                             font-size 15px
                             color $c_blue
         .m-order-info 
-            width @width
+            width 948px
             .u-con
                 width @width
                 .order-info
@@ -113,7 +205,7 @@
                         .data
                             margin 0 0 0 90px
                             font-size 15px
-                            color $c_blue
+                            color #40474a
                 .product-info
                     width @width 
                     height 150px
@@ -137,7 +229,7 @@
                         .u-title
                             height 50px
                             padding 6px 0
-                            margin 0 0 8px 
+                            margin 0 0 28px 
                             line-height 25px
                             _ellipsis(2)
                             font-size 16px
@@ -152,7 +244,7 @@
                             .data
                                 margin 0 0 0 10px
                                 font-size 15px
-                                color $c_blue
+                                color #40474a
                                 _spacingPlus()
                             .cut
                                 margin 0 5px

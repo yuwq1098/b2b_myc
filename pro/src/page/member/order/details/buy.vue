@@ -11,10 +11,68 @@
                         
                         <div class="m-hd">
                             <div class="m-progress">
-                                进度
+                                <div class="progress-wrap"
+                                    >
+                                    <div class="mark"
+                                        :class="{
+                                            'v1':orderData.status==0,
+                                            'v2':orderData.status==1,
+                                            'v3':orderData.status==2,
+                                            'v4':orderData.status==3,
+                                            'v5':orderData.status==4,
+                                            'v6':orderData.status==5,
+                                            'v7':orderData.status==6,
+                                            'v8':orderData.status==7,
+                                            }"
+                                        ></div><!-- 车辆 -->
+                                    <div class="progress-gray"
+                                        >
+                                        <div class="progress-bar"
+                                            :class="{
+                                                'v1':orderData.status==0,
+                                                'v2':orderData.status==1,
+                                                'v3':orderData.status==2,
+                                                'v4':orderData.status==3,
+                                                'v5':orderData.status==4,
+                                                'v6':orderData.status==5,
+                                                'v7':orderData.status==6,
+                                                'v8':orderData.status==7,
+                                                }"
+                                            ></div><!-- 进度条 -->
+                                    </div>
+                                </div><!-- 进度条容器 -->
+                                <div class="progress-info">
+                                    <ul class="u-part-lst f__clearfix">
+                                        <li class="u-item"
+                                            :class="{'on':orderData.status>=1}">
+                                            <div class="theNo v1"></div>
+                                            <p class="txt">签署合同</p>
+                                        </li>
+                                        <li class="u-item"
+                                            :class="{'on':orderData.status>=2}">
+                                            <div class="theNo v2"></div>
+                                            <p class="txt">待支付保证金</p>
+                                        </li>
+                                        <li class="u-item"
+                                            :class="{'on':orderData.status>=4}">
+                                            <div class="theNo v3"></div>
+                                            <p class="txt">支付尾款</p>
+                                        </li>
+                                        <li class="u-item"
+                                            :class="{'on':orderData.status>=6}">
+                                            <div class="theNo v4"></div>
+                                            <p class="txt">待验收</p>
+                                        </li>
+                                        <li class="u-item"
+                                            :class="{'on':orderData.status==7}">
+                                            <div class="theNo v5"></div>
+                                            <p class="txt">交易完成</p>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div><!-- 订单进度 -->
                             <div class="m-statusText">
-                                <div class="u-txt-box">订单状态说明订单状态说明订单状态说明订单状态说明订单状态说明订单状态说明订单状态说明订单状态说明订单状态说明订单状态说明订单状态说明订单状态说明</div>
+                                <div class="u-txt-box">{{statusText}}</div>
                             </div><!-- 订单状态说明 -->
                             <div class="m-operate-box f__clearfix">
                                 
@@ -220,7 +278,37 @@
         },
         // 属性值计算
         computed:{
-
+            statusText(){
+                if(!this.orderData) return "";
+                let txt = "";
+                switch(this.orderData.status){
+                    case 0:
+                        return txt = "已下单，待买方发起合同，若卖方迟迟不发起合同，您可以申请仲裁维权";
+                        break;
+                    case 1:
+                        return txt = "卖家已发起合同，请您认真审阅后，签署合同";
+                        break;
+                    case 2:
+                        return txt = "待我方(买家)支付保证金，缴纳保证金后，主动强制取消订单的一方将被扣除保证金，作为（守约方）对方的补偿";
+                        break;
+                    case 3:
+                        return txt = "待卖方支付保证金，如果对方迟迟未支付保证金，您可以申请仲裁维权";
+                        break;
+                    case 4:
+                        return txt = "待我方支付尾款（资金将托管至平台，我们将保证您的交易安全，直至交易完成）";
+                        break;
+                    case 5:
+                        return txt = "待对方发货，您可以和对方电话联系，若对方迟迟未发货，您可以申请仲裁维权";
+                        break;
+                    case 6:
+                        return txt = "对方已确认发货，等待您的签收，若车辆长时间没到，或者车辆到货时发现有问题，可以先行协商，若对方不配合或者无法协商，请申请仲裁维权， 追加：签收需要支付密码";
+                        break;
+                    case 7:
+                        return txt = "交易完成，有后续问题，请致电平台客服：400-9009-936";
+                        break;
+                    return txt;
+                }
+            }
         },
         // 数据侦听
         watch:{
@@ -245,7 +333,6 @@
                         this.orderData = this._normalizeOrderInfo(res.data[0]);
                         // 获取卖家车行信息
                         this.getCarDetailsInfo(this.orderData.carId);
-                        console.log("订单信息",dataToJson(this.orderData));
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
@@ -278,10 +365,8 @@
                         
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
-                        console.log("车辆详情信息",dataToJson(this.basicInfo));
                         // 获取车辆其他相关信息
                         this.sellerData = this._normalizeOtherInfo(res.data.OtherInfo);
-                        console.log("卖家车行信息",dataToJson(this.sellerData));
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
@@ -322,7 +407,7 @@
                             type: 'success',
                             duration: 2000,
                         });
-                        console.log("取消订单")
+                        this.$router.push({path:"/member/buyOrder"})
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '取消订单失败',

@@ -482,7 +482,10 @@
             theErrorApply(){
                 this.$alert('后台人员备注：'+this.memberData.errorApplyText, '未通过审核', {
                     confirmButtonText: '确定',
-                    type: 'error'
+                    type: 'error',
+                    callback: () => {
+                        return;
+                    }
                 });
             },
 
@@ -574,7 +577,10 @@
                     if(!condition){
                         this.$alert('您尚未上传相关证件，无法进行下一步操作', '未上传相关证件', {
                             confirmButtonText: '确定',
-                            type: 'error'
+                            type: 'error',
+                            callback: () => {
+                                return;
+                            }
                         });
                         return;
                     }
@@ -584,7 +590,10 @@
                     if(!condition){
                         this.$alert('您尚未上传相关证件，无法进行下一步操作', '未上传相关证件', {
                             confirmButtonText: '确定',
-                            type: 'error'
+                            type: 'error',
+                            callback: () => {
+                                return;
+                            }
                         });
                         return;
                     }

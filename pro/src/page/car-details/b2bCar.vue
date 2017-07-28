@@ -601,7 +601,10 @@
                     }else if(tipsType=="2"){
                         this.$alert('该车源正在交易中，您可以继续查看车辆详情，但您无购买权限', '此车源'+tipsStatus, {
                             confirmButtonText: '我知道了',
-                            type: 'warning'
+                            type: 'warning',
+                            callback: () => {
+                                return;
+                            }
                         });
                     }
                 })

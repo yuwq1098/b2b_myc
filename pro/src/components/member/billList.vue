@@ -16,7 +16,10 @@
             <div class="m-tb-con">
                 <ul class="m-tb-lst" v-if="billList.length>0">
                     <template v-for="(item,index) in billList">
-                        <li class="m-tb-row f__clearfix">
+                        <router-link class="m-tb-row f__clearfix"
+                            :to="{path:'/member/billDetails',query:{cid:item.cid}}" 
+                            tag="li"
+                            >
                             <div class="u-item w-188 u-no">
                                 <router-link 
                                     :to="{path:'/member/billDetails',query:{cid:item.cid}}" 
@@ -34,7 +37,7 @@
                             <div class="u-item w-170 u-desc">{{item.desc}}</div>
                             <div class="u-item w-95 text-rt u-time">{{item.timeEnd | dateMinuteFormat}}
                             </div>
-                        </li>
+                        </router-link>
                     </template>
                 </ul>
                 <div class="m-more" v-show="isShowMore">
@@ -128,6 +131,7 @@
                 .m-tb-row
                     height 40px
                     _border(bottom,#E5E8EB)
+                    cursor pointer
                     .u-item
                         line-height 40px
                         _display()
@@ -136,9 +140,7 @@
                         font-size 13px
                         padding 0 15px
                         _ellipsis()
-                        .u-lk:hover
-                            text-decoration underline
-
+                        cursor @cursor
                         .vital
                             color #ff6533
                         &.u-type
@@ -159,6 +161,7 @@
                         background #eff0f3
                         .u-lk
                             color #2e98e2
+                            text-decoration underline
             .m-more
                 margin 30px 0 0
                 height 38px
