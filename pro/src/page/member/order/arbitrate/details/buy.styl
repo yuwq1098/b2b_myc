@@ -5,13 +5,51 @@
     min-height 480px
     .m-hd
         width @width
-        padding 0 0 20px
+        padding 0 0 15px
         _border(bottom,#E5E8EB)
         position relative
         .m-status-info
-            width 280px
-            height 280px
+            width 400px
+            height 180px
+            padding 50px 0
             margin 0 auto
+            _translate3d(-75px)
+            .u-pic
+                width 94px
+                height 94px
+                margin 0 auto
+            .u-tit,.u-desc
+                text-align center
+            .u-tit
+                height 32px
+                line-height @height
+                margin 18px 0 6px
+                font-size 24px
+                font-weight bold
+                _spacingPlus(5px)
+            .u-desc
+                height 24px
+                line-height @height
+                font-size 15px
+                color #959595
+            &.assess
+                .u-pic
+                    background url('../../../../../assets/img/pic-arbitrate-assess.png') center center no-repeat
+                    background-size 100% auto
+                .u-tit
+                    color #FFB716
+            &.cancel
+                .u-pic
+                    background url('../../../../../assets/img/pic-arbitrate-cancel.png') center center no-repeat
+                    background-size 100% auto
+                .u-tit
+                    color #FF5959
+            &.safety
+                .u-pic
+                    background url('../../../../../assets/img/pic-arbitrate-safety.png') center center no-repeat
+                    background-size auto 100%
+                .u-tit
+                    color #3FC5AD
     .m-con
         width @width
         padding 15px 0 0

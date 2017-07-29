@@ -10,11 +10,48 @@
                     <div class="m-arbitrate-con"
                         >
                         <div class="m-hd">
-                            <div class="m-status-info">
-                                <div class="u-pic"></div>
-                                <div class="u-tit">您强制取消</div><!-- 标题 -->
-                                <div class="u-desc">平台扣取相应保证金</div><!-- 描述 -->
-                            </div>
+                            <template v-if="orderData.status=='-10'||
+                                                orderData.status=='-4'||
+                                                orderData.status=='-3'">
+                                <div class="m-status-info assess">
+                                    <div class="u-pic"></div>
+                                    <template v-if="orderData.status=='-10'">
+                                        <div class="u-tit">仲裁维权中...</div><!-- 标题 -->
+                                        <div class="u-desc">维权中，请耐心等待</div><!-- 描述 -->
+                                    </template>
+                                    <template v-else-if="orderData.status=='-4'">
+                                        <div class="u-tit">（仲裁结束）责任为我方</div><!-- 标题 -->
+                                        <div class="u-desc">平台将扣取您相应保证金</div><!-- 描述 -->
+                                    </template>
+                                    <template v-else-if="orderData.status=='-3'">
+                                        <div class="u-tit">（仲裁结束）责任为卖方</div><!-- 标题 -->
+                                        <div class="u-desc">平台将扣取卖方相应保证金</div><!-- 描述 -->
+                                    </template>
+                                </div>
+                            </template>
+                            <template v-else-if="orderData.status=='-1'||
+                                                orderData.status=='-2'">
+                                <div class="m-status-info cancel">
+                                    <div class="u-pic"></div>
+                                    <template v-if="orderData.status=='-1'">
+                                        <div class="u-tit">卖方强制取消</div><!-- 标题 -->
+                                        <div class="u-desc">平台将扣取卖方相应保证金</div><!-- 描述 -->
+                                    </template>
+                                    <template v-else-if="orderData.status=='-2'">
+                                        <div class="u-tit">您强制取消</div><!-- 标题 -->
+                                        <div class="u-desc">平台将扣取您相应保证金</div><!-- 描述 -->
+                                    </template>
+                                    <div class="u-tit"></div><!-- 标题 -->
+                                    <div class="u-desc"></div><!-- 描述 -->
+                                </div>
+                            </template>
+                            <template v-else-if="orderData.status=='-5'">
+                                <div class="m-status-info safety">
+                                    <div class="u-pic"></div>
+                                    <div class="u-tit">双方和平取消</div><!-- 标题 -->
+                                    <div class="u-desc">买卖双方将都不会被扣取保证金</div><!-- 描述 -->
+                                </div>
+                            </template>
                         </div><!-- 头部 -->
                         
                         <div class="m-con">
@@ -179,6 +216,7 @@
         },
         // 自定义函数(方法)
         methods: {
+
             // 格式化订单信息
             _normalizeOrderInfo(data) {
                 return new orderInfo(data);

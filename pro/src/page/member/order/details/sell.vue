@@ -133,7 +133,7 @@
                                         </li>
                                     </ul>
                                 </div><!-- 内容 -->
-                            </div><!-- 卖家信息 -->
+                            </div><!-- 买家信息 -->
                             <div class="u-part m-order-info">
                                 <div class="u-tit"
                                     ><span class="tit">订单信息</span>

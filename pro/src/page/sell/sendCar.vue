@@ -25,7 +25,6 @@
                                 </p>
                             </div><!-- 头部标题 -->
                             <div class="m-bill-con">
-                                <prompt-info :info="promptInfoText"></prompt-info><!-- 温馨提示 -->
                                 
                                 <div class="m-bill-box" ref="sendBill">
                                     <div class="m-gp-wrap f__clearfix">
