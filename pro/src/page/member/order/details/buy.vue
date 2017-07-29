@@ -51,7 +51,7 @@
                                         <li class="u-item"
                                             :class="{'on':orderData.status>=2}">
                                             <div class="theNo v2"></div>
-                                            <p class="txt">待支付保证金</p>
+                                            <p class="txt">支付保证金</p>
                                         </li>
                                         <li class="u-item"
                                             :class="{'on':orderData.status>=4}">

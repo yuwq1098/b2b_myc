@@ -464,7 +464,7 @@
     // 图片上传
     import photoUpload from "components/common/photoUpload.vue"
 
-    // 获取m卖车填单页的本地相关数据
+    // 获取卖车填单页的本地相关数据
     import * as sendCarData from "api/localJson/sendCar.js"
     
     //引入表单验证

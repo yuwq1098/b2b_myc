@@ -262,6 +262,8 @@
     export default {
         
         name: "orderPay",
+        // 自定义表单验证
+        validator: null,
         // 在当前模块注册组件
         components:{
             memberLayout,

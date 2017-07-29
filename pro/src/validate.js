@@ -261,6 +261,7 @@ const dictionary = {
             nBankCard: "农行卡号",
             nOpenAccountName: "开户名",
             realName: "真实姓名",
+            aReplenish: "具体的仲裁理由",
         }
     }
 };

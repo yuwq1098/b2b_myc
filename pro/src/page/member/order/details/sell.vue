@@ -56,12 +56,12 @@
                                         <li class="u-item"
                                             :class="{'on':orderData.status>=3}">
                                             <div class="theNo v3"></div>
-                                            <p class="txt">待我方支付保证金</p>
+                                            <p class="txt">我方支付保证金</p>
                                         </li>
                                         <li class="u-item"
                                             :class="{'on':orderData.status>=5}">
                                             <div class="theNo v4"></div>
-                                            <p class="txt">待发货（过户）</p>
+                                            <p class="txt">发货（过户）</p>
                                         </li>
                                         <li class="u-item"
                                             :class="{'on':orderData.status==7}">

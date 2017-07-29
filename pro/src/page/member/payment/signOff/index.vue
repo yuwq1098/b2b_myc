@@ -158,6 +158,8 @@
     export default {
         
         name: "signOff",
+        // 自定义表单验证
+        validator: null,
         // 在当前模块注册组件
         components:{
             memberLayout,
@@ -179,7 +181,6 @@
                 payPass: "",    
                 // 车辆交易托管尾款
                 payAmount: "",   
-           
                 
                 // 表单验证报错集合
                 errors: null,
