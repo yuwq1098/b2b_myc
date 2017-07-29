@@ -33,7 +33,7 @@
             <div class="m-info-con">
                 <div class="m-order-info">
                     <router-link
-                        :to="{path:'/b2bCar',query:{CarId:orderInfo.carId}}"
+                        :to="{path:'/member/sellOrderDetails',query:{cid:orderInfo.id}}"
                         class="u-box-lk"
                         :title="orderInfo.carTitle"
                         tag="a"

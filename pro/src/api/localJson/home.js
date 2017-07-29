@@ -28,26 +28,6 @@ export const swiperItems = [
     }
 ]
 
-// 网站b2c收费服务
-export const serverList = [
-    {
-        title: '我的保证金',
-        imgUrl: require("assets/img/b2c-svr-bzj.png"),
-    },
-    {
-        title: '查违章',
-        imgUrl: require("assets/img/b2c-svr-cwz.png"),	
-    },
-    {
-    	title: '查保养',
-        imgUrl: require("assets/img/b2c-svr-cby.png"),
-    },
-    {
-        title: '交易记录',
-        imgUrl: require("assets/img/b2c-svr-jyjl.png"),
-    }
-]
-
 // 平台特色服务
 export const serverItems = [
     {

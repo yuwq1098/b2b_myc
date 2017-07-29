@@ -117,36 +117,32 @@ export const crumbsHash = {
             path:"/member/arbitrateApply",
         }
     ],
-    // 买车仲裁列表
+    // 买车仲裁维权列表
     '/member/buyArbitrateList':[
         {
             pathName:"买车订单",
             path:"/member/buyOrder",
         },
         {
-            pathName:"买车仲裁列表",
+            pathName:"买车仲裁维权列表",
             path:"/member/buyArbitrateList",
         }
     ],
-    // 卖车仲裁列表
+    // 卖车仲裁维权列表
     '/member/sellArbitrateList':[
         {
             pathName:"卖车订单",
             path:"/member/sellOrder",
         },
         {
-            pathName:"卖车仲裁列表",
+            pathName:"卖车仲裁维权列表",
             path:"/member/sellArbitrateList",
         }
     ],
     // 买家维权详情页
     '/member/arbitrateBuy':[
         {
-            pathName:"买车订单",
-            path:"/member/buyOrder",
-        },
-        {
-            pathName:"买车仲裁列表",
+            pathName:"仲裁维权列表",
             path:"/member/buyArbitrateList",
         },
         {
@@ -157,11 +153,7 @@ export const crumbsHash = {
     // 卖家维权详情页
     '/member/arbitrateSell':[
         {
-            pathName:"卖车订单",
-            path:"/member/sellOrder",
-        },
-        {
-            pathName:"卖车仲裁列表",
+            pathName:"仲裁维权列表",
             path:"/member/sellArbitrateList",
         },
         {

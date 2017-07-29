@@ -126,7 +126,7 @@
     import cFootServer from "components/foot/foot-svr.vue"
     import {dataToJson} from "assets/js/util.js"
     import * as geekDom from "assets/js/dom.js"
-    import {serverList,noticeBarList,swiperItems} from "api/localJson/home.js"
+    import {noticeBarList,swiperItems} from "api/localJson/home.js"
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
     // b2b/b2c车辆信息构造类
@@ -185,7 +185,6 @@
                 // b2b交易大厅列表数据
                 b2bCarList: [],
 
-                serverList: serverList,          //网站b2c收费服务
                 noticeBarList: noticeBarList,    //公告滚动条的信息列表
                 swiperItems: swiperItems,        //首页轮播图数据集合
 

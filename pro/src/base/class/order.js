@@ -158,6 +158,30 @@ class orderInfo{
 	    this.sellerFace = data.SellerPhoto||""             // 卖家头像
 
 	    this.statusDesc = ""        // 订单状态描述
+
+
+        this.orderDesc = ""         // 订单状态描述
+	    switch(this.status){
+	    	case -10:   // 仲裁中
+                return this.orderDesc = "仲裁中";
+                break;
+            case -5:   // 仲双方不交易
+                return this.orderDesc = "双方和平取消";
+                break;
+            case -4:   // 仲买取消
+                return this.orderDesc = "责任方为买方";
+                break;
+            case -3:   // 仲卖取消
+                return this.orderDesc = "责任方为卖方";
+                break;
+            case -2:   // 买取消
+                return this.orderDesc = "买方强制取消";
+                break;
+            case -1:   // 卖取消
+                return this.orderDesc = "卖方强制取消";
+                break;
+        }
+
 	}
 }
 

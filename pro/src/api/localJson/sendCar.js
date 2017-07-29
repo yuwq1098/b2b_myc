@@ -5,15 +5,6 @@
 * @author Geek.Yu  email:1098654043@qq.com
 */ 
 
-// 卖车填单的banner图信息
-export const sendBanner = {
-    title: '放心交易，快速卖车',
-    imgUrl: require("assets/img/sendCar_banner.jpg"),
-}
-
-// 发补订单的温馨提示
-export const promptInfo = "请完整填写您的车辆信息，您填写的信息越完善，成交率越高哦！"
-
 //过户次数
 export const changeNum = [
     {

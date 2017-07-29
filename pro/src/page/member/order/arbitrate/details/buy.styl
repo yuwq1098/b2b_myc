@@ -1,1 +1,141 @@
 @import '~assets/css/mixin.styl'
+
+.m-arbitrate-con
+    width 948px
+    min-height 480px
+    .m-hd
+        width @width
+        padding 0 0 20px
+        _border(bottom,#E5E8EB)
+        position relative
+        .m-status-info
+            width 280px
+            height 280px
+            margin 0 auto
+    .m-con
+        width @width
+        padding 15px 0 0
+        .u-part
+            .u-tit
+                height 32px
+                position relative
+                margin 0 0 10px
+                .tit
+                    _display(inline-block)
+                    height @height
+                    line-height @height - 2px
+                    font-size 14px
+                    text-align center
+                    _spacingPlus(2px)
+                    padding 0 12px
+                    background #E5E8EB
+                    color #4b5861
+                    position relative
+                    &::after
+                        content ""
+                        _display()
+                        height 2px
+                        background #53aeef
+                        _completeCenter(,,auto,0)
+        .m-seller-info
+            width 948px
+            min-height 70px
+            margin 0 0 15px
+            _border(bottom,#E5E8EB)
+            .u-con
+                height 32px
+                margin 0 0 10px
+                .u-lst
+                    height @height
+                    line-height @height
+                    .u-item
+                        float left
+                        &:not(:last-child)
+                            margin 0 40px 0 0
+                        .attr
+                            color #959595
+                            font-size 13px
+                            margin 0 4px 0 0 
+                        .data
+                            font-size 15px
+                            color $c_blue
+        .m-order-info 
+            width 948px
+            .u-con
+                width @width
+                .order-info
+                    width @width
+                    .u-line
+                        width @width
+                        height 28px
+                        line-height @height
+                        position relative
+                        .attr,.data
+                            _display(inline-block)
+                        .attr
+                            width 78px
+                            height @height
+                            _completeCenter(0,auto)
+                            font-size 13px
+                            color #959595
+                        .data
+                            margin 0 0 0 90px
+                            font-size 15px
+                            color #40474a
+                .product-info
+                    width @width 
+                    height 150px
+                    margin 20px 0 0
+                    position relative
+                    .u-pic-box
+                        width 200px
+                        height @height
+                        _completeCenter(0,auto,0,auto)
+                        .u-pic
+                            width @width
+                            height @height
+                            _overflow()
+                            img
+                               width @width
+                               height auto
+                    .info-con
+                        height @height
+                        width @width - 215px - 20px
+                        margin 0 0 0 215px
+                        .u-title
+                            height 50px
+                            padding 6px 0
+                            margin 0 0 28px 
+                            line-height 25px
+                            _ellipsis(2)
+                            font-size 16px
+                            font-weight bold
+                            _spacingPlus()
+                        .u-other
+                            height 28px
+                            line-height @height
+                            .attr
+                                color #959595
+                                font-size 13px
+                            .data
+                                margin 0 0 0 10px
+                                font-size 15px
+                                color #40474a
+                                _spacingPlus()
+                            .cut
+                                margin 0 5px
+                                color #c2c2c2
+                        .u-price
+                            height 38px
+                            line-height @height
+                            width 250px
+                            text-align right
+                            _completeCenter(auto,10px,auto,0)
+                            color #959595
+                            .price
+                                color #ff6533
+                                .vital
+                                    font-size 22px
+                                    margin 0 4px 0 2px
+
+                    

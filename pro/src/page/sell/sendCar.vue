@@ -502,9 +502,6 @@
                 //是不是表单提交的状态
                 isSubmitState: false,
 
-                bannerInfo: sendCarData.sendBanner,                  // 发布订单页面的banner图信息
-                promptInfoText: sendCarData.promptInfo,              // 发布订单页面的温馨提示
-                
                 // 表单样式集中管理
                 formStyleData:{  
                     gutter: 20,

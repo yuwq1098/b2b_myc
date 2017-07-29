@@ -35,7 +35,7 @@ export const sidebarMenu = [
 	        	'hash': '/member/buyOrder',
             },
             {
-                'title': '买车仲裁列表',
+                'title': '买车仲裁维权',
                 'hash': '/member/buyArbitrateList',
             },
             {
@@ -43,7 +43,7 @@ export const sidebarMenu = [
 	        	'hash': '/member/sellOrder',
             },
             {
-                'title': '卖车仲裁列表',
+                'title': '卖车仲裁维权',
                 'hash': '/member/sellArbitrateList',
             },
         ]

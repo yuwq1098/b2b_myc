@@ -3,7 +3,7 @@
  --> 
 
  <template>
-    <div class="orderBox">
+    <div class="buyOrderBox">
         <div class="m-order-box">
             <div class="m-info-hd f__clearfix">
                 <div class="u-item no">
@@ -33,7 +33,7 @@
             <div class="m-info-con">
                 <div class="m-order-info">
                     <router-link
-                        :to="{path:'/b2bCar',query:{CarId:orderInfo.carId}}"
+                        :to="{path:'/member/buyOrderDetails',query:{cid:orderInfo.id}}"
                         class="u-box-lk"
                         :title="orderInfo.carTitle"
                         tag="a"
@@ -178,7 +178,7 @@
 
     export default {
 
-        name: "orderBox",
+        name: "buyOrderBox",
         // 在当前模块注册组件
         components:{
 
