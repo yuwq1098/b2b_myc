@@ -419,9 +419,9 @@
                 })
             },
 
-            // 申请维权
+            // 买家申请维权
             safeguard(id){
-                console.log("申请维权");
+                this.$router.push({path:'/member/arbitrateApply',query:{cid:id,auth:'buyer'}})
             },
             // 买家签合同
             signContract(id){

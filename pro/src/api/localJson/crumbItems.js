@@ -110,6 +110,66 @@ export const crumbsHash = {
             path:"/member/signOff",
         }
     ],
+    // 维权申请页
+    '/member/arbitrateApply':[
+        {
+            pathName:"维权申请页",
+            path:"/member/arbitrateApply",
+        }
+    ],
+    // 买车仲裁列表
+    '/member/buyArbitrateList':[
+        {
+            pathName:"买车订单",
+            path:"/member/buyOrder",
+        },
+        {
+            pathName:"买车仲裁列表",
+            path:"/member/buyArbitrateList",
+        }
+    ],
+    // 卖车仲裁列表
+    '/member/sellArbitrateList':[
+        {
+            pathName:"卖车订单",
+            path:"/member/sellOrder",
+        },
+        {
+            pathName:"卖车仲裁列表",
+            path:"/member/sellArbitrateList",
+        }
+    ],
+    // 买家维权详情页
+    '/member/arbitrateBuy':[
+        {
+            pathName:"买车订单",
+            path:"/member/buyOrder",
+        },
+        {
+            pathName:"买车仲裁列表",
+            path:"/member/buyArbitrateList",
+        },
+        {
+            pathName:"买家维权详情页",
+            path:"/member/arbitrateBuy",
+        }
+    ],
+    // 卖家维权详情页
+    '/member/arbitrateSell':[
+        {
+            pathName:"卖车订单",
+            path:"/member/sellOrder",
+        },
+        {
+            pathName:"卖车仲裁列表",
+            path:"/member/sellArbitrateList",
+        },
+        {
+            pathName:"卖家维权详情页",
+            path:"/member/arbitrateSell",
+        }
+    ],
+
     // 买方签署合同
     '/member/contractBuy':[
         {
@@ -135,7 +195,7 @@ export const crumbsHash = {
     // 合同详情
     '/member/contractDetails':[
         {
-            pathName:"合同详情",
+            pathName:"查看买卖车合同",
             path:"/member/contractDetails",
         }
     ],

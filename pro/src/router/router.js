@@ -82,6 +82,18 @@ const fullPayout = r => require.ensure([], () => r(require('page/member/payment/
 const signOff = r => require.ensure([], () => r(require('page/member/payment/signOff')), 'signOff')
 
 
+// 订单管理 => 维权申请页
+const arbitrateApply = r => require.ensure([], () => r(require('page/member/order/arbitrate/apply')), 'arbitrateApply')
+// 订单管理 => 买家维权详情页
+const arbitrateBuy = r => require.ensure([], () => r(require('page/member/order/arbitrate/details/buy')), 'arbitrateBuy')
+// 订单管理 => 卖家维权详情页
+const arbitrateSell = r => require.ensure([], () => r(require('page/member/order/arbitrate/details/sell')), 'arbitrateSell')
+// 订单管理 => 买车仲裁列表
+const buyArbitrateList = r => require.ensure([], () => r(require('page/member/order/arbitrate/list/buy')), 'buyArbitrateList')
+// 订单管理 => 卖车仲裁列表
+const sellArbitrateList = r => require.ensure([], () => r(require('page/member/order/arbitrate/list/sell')), 'sellArbitrateList')
+
+
 // 车源管理 => 我的车源
 const mySource = r => require.ensure([], () => r(require('page/member/car-source/manage')), 'mySource')
 // 车源管理 => 编辑车源
@@ -373,6 +385,46 @@ export default[{
                 // 订单管理-买家签收
                     path: 'signOff',
                     component: signOff,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-维权申请页
+                    path: 'arbitrateApply',
+                    component: arbitrateApply,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-买家维权详情页
+                    path: 'arbitrateBuy',
+                    component: arbitrateBuy,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-卖家维权详情页
+                    path: 'arbitrateSell',
+                    component: arbitrateSell,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-买车仲裁列表
+                    path: 'buyArbitrateList',
+                    component: buyArbitrateList,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-卖车仲裁列表
+                    path: 'sellArbitrateList',
+                    component: sellArbitrateList,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },

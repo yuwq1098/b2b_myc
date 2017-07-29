@@ -47,6 +47,7 @@
                 		    <input class="u-ipt" 
                                 v-model="passOne"
                                 @focus="verifyName()"
+                                @input="verifyName()"
                                 @keyup.13="onSubmitOne"
                                 auto-complete="off" name="password" 
                                 type="password" placeholder="由6~22位数字、字母的组合" />
