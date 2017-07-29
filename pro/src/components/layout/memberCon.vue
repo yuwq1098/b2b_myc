@@ -115,7 +115,7 @@
             width @width - 2px
             _borderAll(#E7EaEd)
             margin-top 15px
-            min-height 550px
+            min-height 688px
             background #fff
             .m-safety-con
                 margin 30px 40px 40px

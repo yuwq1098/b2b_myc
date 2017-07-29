@@ -224,7 +224,6 @@
                 api.getMyMemberInfo(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.memberData = new memberInfo(res.data);
-                        console.log(dataToJson(this.memberData))
                         // 为编辑页的信息赋值
                         this.setEditInfo();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
@@ -389,7 +388,6 @@
                     this.errorText = "您尚未修改任何信息";
                     return;
                 }else{
-                    console.log()
                     if(this.nickname!=this.memberData.name){
                         data.NickName = this.nickname;
                     }else if(this.sex != this.memberData.sex){
