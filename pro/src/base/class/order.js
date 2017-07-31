@@ -185,4 +185,26 @@ class orderInfo{
 	}
 }
 
-export {buyOrderInfo,sellOrderInfo,orderInfo};
+// 发起合同信息的构造类
+class sponsorContract{
+    constructor(data) {
+
+    	this.carId = data.CarId||""                        // 车辆id
+    	this.sellerId = data.SellerId||""                  // 卖家id
+    	this.seller = data.Seller||""                      // 卖家
+    	this.sellerIdcNo = data.SellerIdcNo||""            // 卖方身份证号
+    	this.buyerId = data.BuyerId||""                    // 买方id
+    	this.buyer = data.Buyer||""                        // 买家
+    	this.buyerIdcNo = data.BuyerIdcNo||""              // 买方身份证号
+    	this.vin = data.VinNumber||""                      // vin车架号
+    	this.transfer = data.CanTransfer||""               // 能否过户
+    	// 车况描述
+    	this.otherDescription = data.CarOtherDescription||""             
+    	this.finalPrice = data.FinalPrice||0               // 成交价
+    	this.sellerDeposit = data.SellerCashDeposit||0     // 卖方保证金
+    	this.buyerDeposit = data.BuyerCashDeposit||0       // 买方保证金
+
+    }
+}
+
+export {buyOrderInfo,sellOrderInfo,orderInfo,sponsorContract};

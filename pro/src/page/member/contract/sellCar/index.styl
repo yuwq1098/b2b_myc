@@ -1,0 +1,250 @@
+@import '~assets/css/mixin.styl'
+
+.m-sell-con
+    padding 0 0 10px
+    .m-con
+        .m-section
+            margin 0 0 10px
+            .u-hd
+                height 34px
+                line-height @height
+                _border(bottom,#e5e8eb,2px)
+                .tit
+                    _display(inline-block)
+                    height 34px
+                    line-height @height
+                    font-weight bold
+                    font-size 14px
+                    padding 0 4px 0 2px
+                    _spacingPlus()
+                    position relative
+                    &::after
+                        _display()
+                        content ""
+                        height 2px
+                        background #40474a
+                        _completeCenter(,,auto,-1px)
+            .u-con
+                .u-gp-line
+                    .gp-item
+                        float left
+                        height 30px
+                        line-height @height
+                        margin 0 30px 0 0
+                        .attr,.data
+                            _display(inline-block)
+                        .attr
+                            font-size 13px
+                            color #959595
+                        .data
+                            &.no
+                                font-size 16px
+                        &.u-name
+                            width 250px
+                        &.u-identity
+                            width 300px
+                .u-line-box
+                    margin 0 0 12px
+                    .box-inner
+                        min-height 38px
+                        position relative
+                        .attr
+                            _display(inline-block)
+                            width 108px
+                            text-align right
+                            height 38px
+                            line-height @height
+                            color #959595
+                            _completeCenter(0,auto,0,auto)
+                        .ipt
+                            _display(inline-block)
+                            width 280px
+                            margin 0 0 0 120px
+                            vertical-align bottom
+                            .user-input
+                                width @width
+                                height 38px
+                                line-height 38px
+                                padding 0 12px
+                                _borderAll(#4B5861 + 75%)
+                                font-size 14px
+                                _spacingPlus()
+                                _placeholder(#b2b2b2)
+                                &:hover,&:focus
+                                    _borderAll(#4B5861)
+                            &.radio-ipt
+                                height 38px
+                                line-height 38px
+                            &.textarea-ipt
+                                _display(inline-block)
+                                width 450px
+                                .u-textarea
+                                    width @width
+                                    height 56px + 12px
+                                    color $c_blue
+                                    margin 2px 0 0
+                                    padding 6px 10px
+                                    _borderAll(#4B5861 + 75%)
+                                    _borderRadius(0)
+                                    font-family $f_family_yh
+                                    color #40474a
+                                    _boxSizing()
+                                    _placeholder(#b2b2b2)
+                                    line-height 28px
+                                    font-size 14px
+                                    _overflow()
+                                    &:hover,&:focus
+                                        _borderAll(#4B5861)
+                            &.text-show
+                                .txt
+                                    height 38px
+                                    line-height @height
+                                    &.price
+                                        font-size 13px
+                                        .vital
+                                            font-size 18px
+                                            margin 0 3px 0 1px
+                        .u-unit
+                            _display(inline-block)
+                            line-height 28px
+                            height 28px
+                            vertical-align top
+                            _spacingPlus(2px)
+                            margin 0 2px 0 4px
+                            _translate3d(0,10px)
+                        .line-error
+                            _display(inline-block)
+                            height 28px
+                            line-height 28px
+                            margin 0 0 0 12px
+                            background #FBEBE6
+                            _borderAll(#ff6533)
+                            _borderRadius(1px)
+                            color #777
+                            font-size 12px
+                            .error-txt
+                                margin-left 10px
+                                position relative
+                                height 30px
+                                line-height 30px
+                                padding 0 12px 0 22px
+                                _overflow()
+                                .iconfont
+                                    width 20px
+                                    height 20px
+                                    line-height 20px
+                                    font-size 18px
+                                    color #ff6533
+                                    _completeCenter(0,auto)
+                            &.textarea-ipt
+                                vertical-align top
+                                margin 2px 0 0 12px 
+                        &.radio-two
+                            float left
+                            .radio-ipt
+                                width 150px
+                                &.v1
+                                    width 180px
+                                &.v2
+                                    width 200px
+                        &.text-two
+                            float left
+                            width 300px
+                        &.long-attr
+                            .attr
+                                width 168px
+                            .radio-ipt
+                                margin 0 0 0 180px
+                        &.more-box
+                            .attr
+                                width 108px
+                            .text-info
+                                width 768px
+                                margin 0 0 0 120px
+                                .txt
+                                    padding 4px 0
+                                    line-height 30px 
+                                    color #959595
+                            &.v2
+                                .attr
+                                    width 138px
+                                .sign-box
+                                    width 738px
+                                    margin 0 0 0 150px
+                                    .u-pic,.u-btn
+                                        _display(inline-block)
+                                    .u-pic
+                                        width 210px
+                                        height 72px
+                                        _borderCustom(1px dashed #4B5861 + 75%)
+                                        margin 0 20px 0 0
+                                        .sign-img
+                                            width @width
+                                            height @height
+                                        .not-pic
+                                            width @width
+                                            text-align center
+                                            height @height
+                                            line-height @height
+                                            font-size 16px
+                                            _spacingPlus(3px)
+                                            color #959595
+                                    .u-btn
+                                        width 150px
+                                        height 38px
+                                        line-height @height
+                                        background #2f98e2
+                                        font-size 15px
+                                        _borderRadius(2px)
+                                        _spacingPlus(4px)
+                                        color #f2f2f2
+                                        text-align center
+                                        &:hover
+                                            background @background - 12%
+
+                &.sign-all
+                    padding 15px 0 0
+                &.car-details
+                    padding 15px 0 0
+                &.car-other
+                    padding 15px 0 0
+                &.more
+                    padding 15px 0 0
+
+        .m-operate
+            height 38px + 36px + 6px
+            position relative
+            margin 70px 0 10px 120px
+            .u-btn-box
+                width 400px
+                height @height
+                _completeCenter(auto,5px,0,auto)
+                text-align right
+                .agr-info
+                    width 400px
+                    height 36px
+                    line-height @height
+                    margin 0 0 6px 0
+                    .ipt-check,.info
+                        float right
+                    .ipt-check
+                        margin 0 8px 0 0
+                    .info
+                        .u-lk
+                            color #2f98e2
+                            font-size 15px
+                            &:hover
+                                text-decoration underline
+                .u-btn
+                    _display(inline-block)
+                    height 38px
+                    line-height @height
+                    width 150px
+                    font-size 15px
+                    text-align center
+                    background #2f98e2
+                    color #f2f2f2
+                    _spacingPlus(4px)
+                    _borderRadius(2px)
+                    &:hover
+                        background @background - 12%

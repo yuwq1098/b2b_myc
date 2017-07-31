@@ -550,6 +550,7 @@
             
             // 微信支付状态查询
             checkWXPayStatus(tradeId){
+                
                 let data = {
                     TradeId: tradeId,
                 }

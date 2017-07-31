@@ -1,18 +1,18 @@
 <template>
-    <div class="contractSell">
+    <div class="contractBuy">
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="卖方发起合同"
+            title="买方签署合同"
             >
             <div slot="content">
                 
                 <member-inner>
-                    <div class="m-sell-con"
-                        >卖方发起合同
-                    </div><!-- 卖方发起合同 -->
+                    <div class="m-buy-con"
+                        >买方签署合同
+                    </div><!-- 买方签署合同 -->
                 </member-inner>
 
-            </div><!-- 卖方发起合同 -->
+            </div><!-- 买方签署合同 -->
         </member-layout>
     </div>
 </template>
@@ -39,7 +39,7 @@
 
     export default {
         
-        name: "contractSell",
+        name: "contractBuy",
         // 在当前模块注册组件
         components:{
             memberLayout,
@@ -84,5 +84,5 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import 'sellCar.styl'
+    @import 'index.styl'
 </style>

@@ -88,6 +88,7 @@ const vConfig = {
 */
 
 const dictionary = {
+
     zh_CN: {
         // 默认的匹配提示
         messages: {
@@ -262,9 +263,14 @@ const dictionary = {
             nOpenAccountName: "开户名",
             realName: "真实姓名",
             aReplenish: "具体的仲裁理由",
+            plateNumber: "车牌号",
+            engineNumber: "发动机号",
+            finalPrice: "成交价",
+            trusteeMoney: "托管尾款",
         }
     }
 };
+
 
 /*
 * @description 手机号验证规则
@@ -278,6 +284,7 @@ Validator.extend('mobile', {
     }
 });
 
+
 /*
 * @description 只允许用户输入数字规则
 */
@@ -289,6 +296,7 @@ Validator.extend('number', {
        return /^([0-9]+)$/.test(value)
     }
 });
+
 
 /*
 * @description 身份证号验证规则
@@ -302,6 +310,47 @@ Validator.extend('identity', {
        return /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/.test(value)
     }
 });
+
+
+/*
+* @description QQ号验证规则
+*/
+Validator.extend('QQ', {
+    messages: {
+        zh_CN:(field, args) => '请输入正确的QQ号码',
+    },
+    validate: (value, args) => {
+        var reg = new RegExp("/^[1-9]\d{4,11}$/","i");
+        return reg.test(value)
+    }
+});
+
+
+/*
+* @description 车牌号验证规则
+*/
+Validator.extend('plateNumber', {
+    messages: {
+        zh_CN:(field, args) => '请输入正确的车牌号码，例: 赣A6P522',
+    },
+    validate: (value, args) => {
+       return /^[\u4E00-\u9FA5][\da-zA-Z]{6}$/.test(value)
+    }
+});
+
+
+/*
+* @description 发动机号验证规则
+*/
+Validator.extend('engineNumber', {
+    messages: {
+        zh_CN:(field, args) => '请输入正确的发动机号',
+    },
+    validate: (value, args) => {
+       return /^[a-zA-Z0-9]{16}$/.test(value)
+    }
+});
+
 
 /*
 * @description 只能输入中文和英文

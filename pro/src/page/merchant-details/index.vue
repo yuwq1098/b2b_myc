@@ -252,10 +252,12 @@
         },
         // 自定义函数(方法)
         methods: {
+
             // 格式化车行信息
             _normalizeMerchant(data) {
                 return new merchantInfo(data);
             },
+
             // 格式化车行车辆信息列表
             _normalizeCarList(list) {
                 let arr = [];
@@ -266,6 +268,7 @@
                 // arr = geekDom.doubleArray(arr,5);
                 return arr;
             },
+
             // 格式化焦点图车辆列表
             _normalizeSlideCarList(list) {
                 let map = [];
@@ -303,6 +306,7 @@
                     }
                 })   
             },
+
             // 鼠标悬浮在关注图标上触发的效果事件
             attentionFn(isFavorite,mouseFn){
                 if(isFavorite==0){
@@ -331,6 +335,7 @@
                     }
                 }
             },
+            
             // 关注和取消关注的事件
             setAttention(type,id){
                 let act = "";

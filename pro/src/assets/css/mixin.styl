@@ -102,31 +102,40 @@ _colorFn(name,$color,fn=1,count=5)
             else if fn == 3
                 background-color $color + -((i - 1) * 2.5)%
 
+
 //---颜色样式输出
 _color(color)
     color color
+
 
 //---背景颜色样式输出
 _bgColor(bg=$c_white)
     background-color bg
 
+
 //---显示方式
 _display(arg=block)
     display arg
+
 
 //---隐藏
 _box__hide()
     display none
 
+
 //---显示
 _box__show()
     display block
 
+
 //---边框线
 _borderAll(color=$c_white03,pixel=1px)
     border pixel solid color
+_borderCustom()
+    border arguments
 _border(direction,color=$c_white03,pixel=1px,bstyle=solid)
     border-{direction} pixel bstyle color 
+
 
 //---严格盒模型
 _boxSizing(fn=1)
@@ -137,6 +146,7 @@ _boxSizing(fn=1)
         -webkit-box-sizing content-box
         box-sizing content-box
 
+
 //---垂直居中布局
 _verticalLayout(left=auto,right=auto,top=0,bottom=0)
     position absolute
@@ -145,6 +155,7 @@ _verticalLayout(left=auto,right=auto,top=0,bottom=0)
     margin auto 
     left left
     right right
+
 
 //---完全居中布局
 _completeCenter(left=0,right=0,top=0,bottom=0)
@@ -155,29 +166,35 @@ _completeCenter(left=0,right=0,top=0,bottom=0)
     left left
     margin auto
 
+
 //---图片大小控制(被容器填充)
 _imgwrap(x=100%,y=100%)
     & img
         width x
         height y
 
+
 //---盒子溢出处理
 _overflow(method=hidden)
     overflow method
 
+
 //---字体间隔
 _spacing(pixel=1px)
     letter-spacing pixel
+
 
 //---字体间隔升级版
 _spacingPlus(pixel=1px)
     letter-spacing pixel
     text-indent pixel
 
+
 //---删除间隙
 _rmGap(spacing=-4px)
     _spacing(spacing)
     font-size 0
+
 
 //---单行/多行文字溢出省略
 _ellipsis(line=1)
@@ -193,9 +210,11 @@ _ellipsis(line=1)
         -webkit-box-orient vertical
         -webkit-line-clamp line
 
+
 //显示模式，默认为溢出隐藏
 _overflow(mode=hidden)
     overflow mode
+
 
 //---圆角，方向先垂直方向后左右
 _borderRadius(pixel=50%,direction=null)
@@ -208,13 +227,15 @@ _borderRadius(pixel=50%,direction=null)
         -moz-border-{direction}-radius pixel
         border-{direction}-radius pixel
 
+
 _borderRadiusAll(pixel)
     -webkit-border-radius pixel
     -moz-border-radius pixel
     border-radius pixel
 
+
 //---指定盒模型，默认为怪异盒模型
-_boxSizing(args=box-sizing)
+_boxSizing(args=border-box)
     box-sizing args
     
 
@@ -253,6 +274,7 @@ _gradient(bColor,eColor,direction=null)
         background: -o-linear-gradient(left,bColor, eColor);
         background: -webkit-gradient(linear, 0% 0%, 100% 0%, from(bColor), to(eColor));
 
+
 //---按钮颜色
 _btnColor(bgColor,txtColor,h_bgColor,h_txtColor)
     background bgColor
@@ -260,6 +282,7 @@ _btnColor(bgColor,txtColor,h_bgColor,h_txtColor)
     &.actived,&:active
         background h_bgColor
         color h_txtColor
+
 
 //---盒子阴影颜色
 _boxShadow(range=10px,color=$c_black,x=0,y=0,ins=false)
@@ -271,11 +294,14 @@ _boxShadow(range=10px,color=$c_black,x=0,y=0,ins=false)
         -webkit-box-shadow inset x y range color
         -moz-box-shadow inset x y range color
         box-shadow inset x y range color
+
+
 //---盒子阴影颜色(自定义文本)
 _boxShadowByText(insetShadow,shadow)
     -webkit-box-shadow insetShadow , shadow
     -moz-box-shadow insetShadow , shadow
     box-shadow insetShadow , shadow
+
 
 //---透明度写法
 _opacity(n)
@@ -284,12 +310,14 @@ _opacity(n)
     -o-opacity n
     opacity n
 
+
 //---旋转
 _rotate(angle=0)
     -webkit-transform: rotate(angle);
     -moz-transform: rotate(angle);
     -o-transform: rotate(angle);
     transform: rotate(angle);
+
 
 //---缩放
 _scale(zoom=0.8)
@@ -298,11 +326,13 @@ _scale(zoom=0.8)
     -o-transform: scale(zoom);
     transform: scale(zoom);
 
+
 _scaleX(zoom=0.8)
     -webkit-transform: scaleX(zoom)
     -moz-transform: scaleX(zoom)
     -o-transform: scaleX(zoom)
     transform: scaleX(zoom)
+
 
 _scaleY(zoom=0.8)
     -webkit-transform: scaleY(zoom)
@@ -318,11 +348,13 @@ _origin2d(x=0%,y=0%)
     -o-transform-origin: x y
     transform-origin: x y
 
+
 _origin3d(x=0%,y=0%,z=0%)
     -webkit-transform-origin: x y z
     -moz-transform-origin: x y z
     -o-transform-origin: x y z
     transform-origin: x y z
+
 
 //---偏移
 _translate3d(x=0,y=0,z=0)
@@ -331,12 +363,14 @@ _translate3d(x=0,y=0,z=0)
     -o-transform: translate3d(x,y,z);
     transform: translate3d(x,y,z);
 
+
 //---过渡
 _transitionAll(duration=.3s,timingFn=linear,delay=0s)
     -webkit-transition all duration delay timingFn
     -moz-transition all duration delay timingFn
     -o-transition all duration delay timingFn
     transition all duration delay timingFn
+
 
 //---过渡(补充)
 _transitionCustom()
@@ -352,12 +386,14 @@ _animationSingle(name,duration,timingFn=linear,delay=0s,count=infinite)
     -o-animation name duration delay timingFn count
     animation name duration delay timingFn count
 
+
 //---变形中心
 _transformOrigin(x=50%, y=50% , z=0)
     -webkit-transform-origin x y z
     -moz-transform-origin x y z
     -o-transform-origin x y z
     transform-origin x y z
+
 
 //---文本提示样式
 _placeholder(color=#97a8be,pixel=null,lh=1.4)

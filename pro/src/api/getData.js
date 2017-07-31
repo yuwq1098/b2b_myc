@@ -633,6 +633,11 @@ export default {
     getB2BOrderDetail(params){
         return fetchSign('/action2/B2BOrderDetail.ashx', dataToJson(params))
     },
+    
+    // 卖家发起合同模版需要的内容
+    sellerNeedContract(params){
+        return fetchSign('/action2/B2BOrderContractNeedInfo.ashx', dataToJson(params))
+    },
 
     // B2B卖家签合同
     signContractSeller(params){
@@ -643,6 +648,12 @@ export default {
     signContractBuyer(params){
         return fetchSign('/action2/signContractBuyer.ashx', dataToJson(params))
     },
+
+    // 买家或双方查看合同内容
+    orderContractView(params){
+        return fetchSign('/action2/OrderContractView.ashx', dataToJson(params))
+    },
+    
 
     // 更改订单状态
     changeB2BOrderStatus(params){

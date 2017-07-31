@@ -67,11 +67,11 @@ const sellOrderDetails = r => require.ensure([], () => r(require('page/member/or
 
 
 // 订单管理 => 买车合同
-const contractBuy = r => require.ensure([], () => r(require('page/member/contract/buyCar')), 'contractBuy')
+const contractBuy = r => require.ensure([], () => r(require('page/member/contract/buyCar/index')), 'contractBuy')
 // 订单管理 => 卖车合同
-const contractSell = r => require.ensure([], () => r(require('page/member/contract/sellCar')), 'contractSell')
+const contractSell = r => require.ensure([], () => r(require('page/member/contract/sellCar/index')), 'contractSell')
 // 订单管理 => 合同详情
-const contractDetails = r => require.ensure([], () => r(require('page/member/contract/details')), 'contractDetails')
+const contractDetails = r => require.ensure([], () => r(require('page/member/contract/details/index')), 'contractDetails')
 
 
 // 订单管理 => 订单支付

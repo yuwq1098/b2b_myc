@@ -1,0 +1,89 @@
+@import '~assets/css/mixin.styl'
+
+.m-sign-alerts
+    width 100%
+    height 100%
+    position fixed
+    left 0
+    top 0
+    right 0
+    bottom 0
+    z-index 20170731
+    .m-mask
+        width @width
+        height @height
+        background rgba(0,0,0,.55)
+    .m-alert-box
+        width 420px - 20px
+        height 300px - 20px
+        padding 10px
+        _completeCenter()
+        background rgba(255,255,255,.35)
+        .inner
+            width @width
+            height @height
+            background #fff
+            position relative
+            .u-hd
+                width @width
+                height 42px
+                position relative
+                .txt
+                    width @width - 42px - 12px
+                    height @height
+                    line-height @height
+                    padding 0 42px 0 12px
+                    background #58B1F7
+                    color #f2f2f2
+                    font-size 15px
+                    _spacingPlus()
+                .u-btn
+                    width 28px
+                    text-align center
+                    height 28px
+                    line-height @height
+                    background #58B1F7
+                    _completeCenter(auto,7px)
+                    .iconfont
+                        font-size 20px
+                        color #f2f2f2
+                    &:hover
+                        background #58B1F7 - 20%
+
+            .u-con
+                height 180px
+                background #fff
+                position relative
+                .u-sign-wrap
+                    width 220px
+                    height 120px
+                    _borderAll(#c2c2c2)
+                    _completeCenter()
+                    cursor pointer
+            .u-operate-btn
+                height 58px - 20px
+                text-align center
+                background #f2f2f2
+                padding 10px 0
+                .u-btn
+                    _display(inline-block)
+                    width 147px
+                    text-align center
+                    height 38px
+                    line-height @height
+                    _spacingPlus(4px)
+                    background #4aaefd
+                    color #f2f2f2
+                    margin 0 5px
+                    &:hover
+                        background @background - 12%
+                    &.reset
+                        width @width - 2px
+                        height @height - 2px
+                        _borderAll(#e2e2e2)
+                        background #fafafa
+                        color #40474a
+                        &:hover
+                            background #fff
+
+

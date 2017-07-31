@@ -143,20 +143,21 @@ export function brush(obj,lineWidth,color,endFn){
     function pc(){
         obj.onmousedown=function(ev){
             var ev=ev||event;
-            oGC.moveTo(ev.clientX-obj.offsetLeft,ev.clientY-obj.offsetTop);
-            
-            if(obj.setCapture)obj.setCapture;
+            // oGC.moveTo(ev.clientX-obj.offsetLeft,ev.clientY-obj.offsetTop);
+            oGC.moveTo(ev.offsetX,ev.offsetY);
+            if(obj.setCapture) obj.setCapture;
             document.onmousemove=function(ev){
                 var ev=ev||event;
-                oGC.lineTo(ev.clientX-obj.offsetLeft,ev.clientY-obj.offsetTop);
+                // oGC.lineTo(ev.clientX-obj.offsetLeft,ev.clientY-obj.offsetTop);
+                oGC.lineTo(ev.offsetX,ev.offsetY);
                 oGC.stroke(); 
             };
             document.onmouseup=function(){
-                document.onmousemove=document.onmouseup=null;   
-                if(obj.releaseCapture)obj.releaseCapture;
+                document.onmousemove=document.onmouseup=null;  
+                if(obj.releaseCapture) obj.releaseCapture;
                 endFn&&endFn(obj.toDataURL());
             };
-            return false;
+            // return false;
         };      
     };
 };
