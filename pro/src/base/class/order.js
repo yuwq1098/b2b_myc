@@ -207,4 +207,70 @@ class sponsorContract{
     }
 }
 
-export {buyOrderInfo,sellOrderInfo,orderInfo,sponsorContract};
+// 合同详情的构造类
+class contractDetails{
+
+    constructor(data) {
+        
+        this.orderId = data.OrderId||""                    // 订单id
+    	this.carId = data.CarId||""                        // 车辆id
+    	this.contractBody = data.ContractBody||{}          // 合同内容
+    	this.carInfo = data.CarInfo||{}                    // 车辆信息（本对像里返回全为String）
+
+    	this.sellerId = data.SellerId||""                  // 卖家id
+    	this.sellerTel = data.SellMobile||""               // 卖家电话
+    	this.sellerSignImg = data.SellerSignUrl||""        // 卖家签名图片
+    	this.sellerSignTime = data.SellerSignTime||""      // 卖家签署时间
+
+    	this.buyerId = data.BuyerId||""                    // 买方id
+    	this.buyerTel = data.BuyerMobile||""               // 买方电话
+    	this.buyerSignImg = data.BuyerSignUrl||""          // 买方签名图片
+    	this.buyerSignTime = data.BuyerSignTime||""        // 买方签署时间
+        
+        this.waring =  data.Waring||""                     // 警告内容，非常重要，如果合同有异常，会在这里有提示内容，给及时弹窗给客户查看
+        this.timeStamp =  data.ContractTimeStamp||0        // 合同末次时间戳（7月20日起买家签署必须时，必须使用，避免卖家在买家签署期间修改了合同，而不同步）
+
+    }
+
+}
+
+// 合同详情的构造类
+class contractBody{
+
+    constructor(data) {
+
+    	this.seller = data.Seller||""                      // 卖家
+    	this.sellerIdcNo = data.SellerIdcNo||""            // 卖方身份证号
+    	this.buyer = data.Buyer||""                        // 买家
+    	this.buyerIdcNo = data.BuyerIdcNo||""              // 买方身份证号
+
+    	this.plateNumber = data.PlateNumber||""            // 车牌号
+    	this.vin = data.VinNumber||""                      // vin车架号
+    	this.engineNumber = data.EngineNumber||""          // 发动机号
+        
+        // 抵押按揭(有无按揭)
+    	this.hasMortgage = data.HasMortgage!=undefined?data.HasMortgage.toString():""
+    	// 能否过户
+    	this.transfer = data.CanTransfer!=undefined?data.CanTransfer.toString():""        
+
+    	this.pickArchiveDate = data.PickArchiveDate||""    // 提档日期
+    	this.buyerPickCarDate = data.BuyerPickCarDate||""  // 提车日期
+    	this.carOtherDesc = data.CarOtherDescription||""   // 车况描述
+    	this.finalPrice = data.FinalPrice||0               // 成交价
+    	this.sellerDeposit = data.SellerCashDeposit||0     // 卖方保证金
+    	this.buyerDeposit = data.BuyerCashDeposit||0       // 买方保证金
+        // 是否托管车款
+    	this.needEntrust = data.NeedEntrustCarMoney!=undefined?data.NeedEntrustCarMoney.toString():""    
+    	this.entrustMoney = data.CarMoneyValue||0          // 托管的车款金额
+    }
+
+}
+
+export {
+	buyOrderInfo,
+	sellOrderInfo,
+	orderInfo,
+	sponsorContract,
+	contractDetails,
+	contractBody,
+};

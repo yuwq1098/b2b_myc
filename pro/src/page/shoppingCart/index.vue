@@ -349,14 +349,25 @@
 
             // 下单
             addOrder(carId,index){
-                this.$confirm('您秒杀该车后，该车其他人将无法购买，如您在下单后放弃购买（即取消订单），我司平台将会扣除您一定的信誉保证金，请认真考虑后下单！', '秒杀下单提示', {
-                        confirmButtonText: '确认秒杀',
-                        cancelButtonText: '再考虑看看',
-                        type: 'warning'
+                
+                this.$alert(
+                        `1.点击“立即秒杀”键之前，请与卖方对接车况，谈好成交价格
+                         2.一旦确认“立即秒杀”，任何一方反悔，将自动扣除信誉保证金200元给守约方`
+                        , '温馨提示', {
+                        confirmButtonText: '立即秒杀',
+                        type: 'warning',
                     }).then(() => {
-                        this.putB2BOrder(carId,index);
+                        this.$confirm('点击“确认秒杀”后，平台将锁定双方信誉保证金，同时该车辆也将被锁定，并显示正在交易中，卖家将发送电子购车合同，请认真考虑后下单！', '秒杀下单提示', {
+                                confirmButtonText: '确认秒杀',
+                                cancelButtonText: '再考虑看看',
+                                type: 'warning'
+                            }).then(() => {
+                                this.putB2BOrder(carId);
+                            }).catch(() => {
+                                
+                            });
                     }).catch(() => {
-                        
+                        return;
                     });
             },
 

@@ -65,7 +65,7 @@
                                         <div class="box-inner">
                                             <div class="attr">车架号：</div>
                                             <div class="ipt">
-                                                <input type="text" class="user-input" step="10" min="1" 
+                                                <input type="text" class="user-input"
                                                     v-model="vin" 
                                                     placeholder="请输入交易车辆的车架号" />
                                             </div>
@@ -263,7 +263,16 @@
                                                         >请先完成签名
                                                     </p>
                                                 </div><!-- 签名图片 -->
-                                                <a href="javascript:;" class="u-btn">立即签名</a><!-- 签名 -->
+                                                <template v-if="!signImg">
+                                                    <a href="javascript:;" class="u-btn"
+                                                        @click="goSign()">立即签名</a><!-- 签名 -->
+                                                </template>
+                                                <template v-else-if="signImg">
+                                                    <a href="javascript:;" class="u-btn"
+                                                        @click="goSign()">重新签名</a><!-- 签名 -->
+                                                </template>
+                                                
+                                                
                                             </div>
                                         </div>
                                     </div><!-- 有无抵押/能否过户 -->
@@ -301,7 +310,7 @@
         </member-layout>
         
         
-        <div class="m-sign-alerts">
+        <div class="m-sign-alerts" v-if="isShow_signBox">
             <div class="m-mask"></div><!-- 遮罩层 -->
             <div class="m-alert-box">
                 <div class="inner">
@@ -314,8 +323,8 @@
                     </div><!-- 头部 -->
                     <div class="u-con">
                         
-                        <div class="u-sign-wrap">
-                            <canvas id="js__signWrap" ref="signWrap" width="220" height="220"></canvas>
+                        <div class="u-sign-wrap" id="js__signParent">
+                            <canvas id="js__signWrap" ref="signWrap" width="280" height="100"></canvas>
                         </div><!-- 签名区域 -->                        
 
                     </div><!-- 内容 -->
@@ -405,7 +414,12 @@
                 needTrustee: true,
                 // 托管金额
                 trusteeMoney: "",
-
+                
+                // 签名框显示
+                isShow_signBox: false,
+                
+                // canvas签名图片
+                canvasImg: "",
                 // 签名图片
                 signImg: "",
                 // 签名图片Id
@@ -420,6 +434,7 @@
         },
         //生命周期,开始的时候
         created(){
+            
             this.validator = new Validator({ 
                 plateNumber: 'required|plateNumber',              // 车牌号码
                 vin: 'required|alpha_dash|min:17|max:17',         // 车架号
@@ -439,17 +454,20 @@
         },
         activated(){
 
+            // 重置数据
+            this.reset();
+            // canvas画布
+            this.canvasBox = document.getElementById('js__signParent');
             // 获取订单Id
             this.orderId = this.$router.currentRoute.query.cid||"";
             // 获取发起合同模板信息
             this.getContractTemplate();
-
-            this.signBrush();
         
         },
         // 退出的生命周期钩子
         deactivated(){
-
+            // 重置数据
+            this.reset();
         },
         // 属性值计算
         computed:{
@@ -499,12 +517,12 @@
         // 自定义函数(方法)
         methods: {
 
-            // 格式化订单信息
+            // 格式化合同模板信息
             _normalizeSponsorContract(data) {
                 return new sponsorContract(data);
             },
 
-            // 获取订单详情
+            // 获取合同模板详情
             getContractTemplate(){
                 var data = {
                     OrderId : this.orderId,
@@ -519,15 +537,15 @@
                         // 买方保证金
                         this.buyerDeposit = this.contractData.buyerDeposit;
                         // 车架号
-                        this.vin = +this.contractData.vin
+                        this.vin = this.contractData.vin
                         // 能否过户
                         this.canTransfer = this.contractData.transfer
                         // 成交价
                         this.finalPrice = +this.contractData.finalPrice
                         // 车况说明
-                        this.carDesc = this.contractData.otherDescription
+                        this.carDesc = this.contractData.otherDescription                      
 
-                        console.log(dataToJson(this.contractData));                            
+                        console.log(dataToJson(this.contractData));  
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
@@ -574,31 +592,260 @@
             
             // 发起合同
             sponsorContract(){
-                console.log("发起合同");
+                
+                let me = this;
+                // 未同意协议
+                if(!this.isAgree){
+                    this.$alert('请先同意并阅读协议，同意协议后，方可发起合同', '温馨提示', {
+                            confirmButtonText: '我知道了',
+                            type: 'warning',
+                            callback: () => {
+                                return;
+                            }
+                        });
+                    return;
+                }
+                // 未上传签名
+                if(!this.signImg||!this.signImgId){
+                    this.$alert('请先签名并完成签名，完成签名后方可完成签名，方可发起合同', '未上传签名', {
+                            confirmButtonText: '我知道了',
+                            type: 'warning',
+                            callback: () => {
+                                return;
+                            }
+                        });
+                    return;
+                }
+                
+                this.validator.validateAll({
+
+                    plateNumber: this.plateNumber,              // 车牌号码
+                    vin: this.vin,                              // 车架号
+                    engineNumber: this.engineNumber,            // 发动机号
+                    carDesc: this.carDesc,                      // 车况说明
+                    finalPrice: this.finalPrice,                // 成交价/万元
+                    trusteeMoney: this.trusteeMoney,            // 托管金额/元
+
+                }).then((res) => {
+                    // 如果验证不成功
+                    if(!res) {
+                        this.$notify.error({
+                            title: '填写不完整',
+                            message: '请认真填写完所有合同信息',
+                            type: 'error',
+                            duration: 2000,
+                        });
+                        document.body.scrollTop = 320
+                        return;
+                    };
+                    
+                    // 验证提档预计时间
+                    if(!this.errors.has('buyerPickCarDate')&&!this.errors.has('pickArchiveDate')){
+                        let [peDate,ofDate] = [ +new Date(this.buyerPickCarDate),+new Date(this.pickArchiveDate)];
+                        if(peDate<ofDate){
+                            this.errors.remove('buyerPickCarDate');
+                            this.errors.add('buyerPickCarDate', "最晚提档时间不能早于提档预计时间", 'auth');
+                            // 发起合同信息填写错误
+                            this.sponsorErrorTips();
+                            return;
+                        }
+                    }
+                    
+                    this.$confirm('尊贵的用户，您好！请认真确认您发起的合同内容信息的准确性，避免给您带来不必要的麻烦！', '温馨提示', {
+                        confirmButtonText: '确认发起合同',
+                        cancelButtonText: '再仔细看看',
+                        type: 'warning'
+                    }).then(() => {
+                        // 立即发起合同
+                        this.putCommit();
+                    }).catch(() => {
+                        return;
+                    });
+
+                }).catch(() => {
+                    this.$notify.error({
+                        title: '填写不完整',
+                        message: '请认真填写完所有合同信息',
+                        type: 'error',
+                        duration: 2000,
+                    });
+                    document.body.scrollTop = 320
+                });
+
             },
+
+            // 发布车辆信息填写不合逻辑
+            issueErrorTips(){
+                this.$notify.error({
+                    title: '部分信息填写不合理',
+                    message: '请认真填写完所有合同信息',
+                    type: 'error',
+                    duration: 2000,
+                });
+                document.body.scrollTop = 320
+            },
+
+            // 卖家提交发起合同的请求
+            putCommit(){
+
+                let data = {
+                    // 订单ID
+                    OrderId : this.orderId,
+                    // 合同内容
+                    ContractBody: {
+                        Seller: this.contractData.seller,
+                        SellerIdcNo: this.contractData.sellerIdcNo,
+                        Buyer: this.contractData.buyer,
+                        BuyerIdcNo: this.contractData.buyerIdcNo,
+
+                        PlateNumber: this.plateNumber,
+                        VinNumber: this.vin,
+                        EngineNumber: this.engineNumber,
+                        HasMortgage: this.hasMortgage,
+                        CanTransfer: this.canTransfer,
+                        PickArchiveDate: this.pickArchiveDate,
+                        BuyerPickCarDate: this.buyerPickCarDate,
+
+                        CarOtherDescription: this.carDesc,
+                        FinalPrice: this.finalPrice,
+                        SellerCashDeposit: this.sellerDeposit,
+                        BuyerCashDeposit: this.buyerDeposit,
+                        NeedEntrustCarMoney: this.needTrustee,
+                        CarMoneyValue: this.trusteeMoney,
+
+                    },
+                    // 签名文件ID
+                    ContractFileId: this.signImgId,
+                }
+
+                // 请求发起（签）合同接口
+                api.signContractSeller(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '成功发起合同',
+                            message: "恭喜成功发起合同，等待买家签署合同",
+                            type: 'success',
+                            duration: 2000,
+                        });
+                        setTimeout(() => {
+                            this.$router.push({path:'/member/sellOrderDetails',query:{cid:this.orderId}});
+                        },800)
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '发起合同失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+
+
             
+            // 立即去签名
+            goSign(){
+                this.isShow_signBox = true;
+                setTimeout(()=>{
+                    // 开始签名
+                    this.signBrush();
+                })
+                
+            },
+
             // 关闭签名弹出框
             closeAlertsBox(){
-                console.log("关闭签名弹出框");
+                this.isShow_signBox = false;
             },
 
             // 重置签名 
             resetSign(){
-                console.log("重置签名");
+                // 清空签名图片
+                this.canvasImg = "";
+                
+                let signWrap = document.getElementById("js__signWrap");
+                this.canvasBox.removeChild(signWrap);
+                let newCanvas = document.createElement('canvas');
+
+                newCanvas.id = "js__signWrap"; 
+                newCanvas.width = "280"; 
+                newCanvas.height = "100"; 
+                
+                this.canvasBox.appendChild(newCanvas);
+                
+                // 签名方法
+                this.signBrush();
             },
 
             // 完成签名
             signSuccess(){
-                console.log("完成签名");
+                this.fileUpload("甲方签名",this.canvasImg);
+            },
+
+            //图片上传
+            fileUpload(name,base64str){
+                let me = this;
+                let data = {
+                    title: name,
+                    dataUrl: base64str,
+                }
+                // 上传至隐私类图片
+                api.uploadPrivateFileBase64(data).then(res=>{
+                    this.isLoading = false;
+                    if(res.code==SYSTEM.CODE_IS_OK){
+
+                        this.signImg = res.data.imgUrl;
+                        this.signImgId = res.data.imgId;
+                        // 关闭签名框
+                        this.isShow_signBox = false;
+                        
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '签名图片上传失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 2000,
+                        });
+                    }
+                })
             },
             
             // 签名方法
             signBrush(){
-                var signWrap = document.getElementById("js__signWrap");
-                geekDom.brush(signWrap,1,"#ff4455",function(){
-                    console.log("结束了");
+                let me = this;
+                let signWrap = document.getElementById("js__signWrap");
+                // let signWrap = this.$refs.signWrap;
+                geekDom.brush(signWrap,2,"#222",function(base64Img){
+                    me.canvasImg = base64Img;
                 });
+            },
+            
+            // 重置数据
+            reset(){
 
+                this.plateNumber= "";
+                this.vin= "";
+                this.engineNumber= "";
+                this.hasMortgage= false;
+                this.canTransfer= true;
+                this.pickArchiveDate= "";
+                this.buyerPickCarDate= "";
+                this.carDesc= "";
+                this.finalPrice= "";
+                this.sellerDeposit= 3000;
+                this.buyerDeposit= 3000;
+                this.needTrustee= true;
+                this.trusteeMoney= "";
+                this.isShow_signBox= false;
+                this.canvasImg= "";
+                this.signImg= "";
+                this.signImgId= "";
+                this.isAgree= true;
+
+                // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
+                setTimeout(() => {
+                    this.errors.clear();
+                })
             },
             
         },

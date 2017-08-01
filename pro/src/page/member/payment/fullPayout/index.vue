@@ -30,7 +30,7 @@
                                     <div class="attr">支付金额：</div>
                                     <div class="data">
                                         <span class="price"
-                                            ><em class="vital">{{orderData.price | priceFormat(2)}}</em>万元
+                                            ><em class="vital">{{orderData.managedPrice | priceFormat(2)}}</em>元
                                         </span>
                                     </div>
                                 </div>
@@ -177,7 +177,7 @@
                             <div class="u-btn-box">
                                 <div class="u-tips"
                                     >实付：<span class="price"
-                                            >￥<em class="vital">{{payAmount | priceFormat(2)}}</em>万元
+                                            >￥<em class="vital">{{payAmount | priceFormat(2)}}</em>元
                                         </span>
                                 </div>
                                 <a href="javascript:;"
@@ -202,7 +202,7 @@
                     <div class="u-hd">
                         <p class="txt">支付
                             <span class="data"
-                                >￥<em class="vital">{{(payAmount*10000) | priceFormat(2)}}</em>
+                                >￥<em class="vital">{{payAmount | priceFormat(2)}}</em>
                             </span>
                         </p>
                         <a class="u-btn close"
@@ -382,7 +382,7 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
 
                         this.orderData = this._normalizeOrderInfo(res.data[0]);
-                        this.payAmount = this.orderData.price;
+                        this.payAmount = this.orderData.managedPrice;
                         // 获取车辆详情信息
                         this.getCarDetailsInfo(this.orderData.carId);
 
@@ -445,7 +445,7 @@
 
                         let data = {
                             // 充值金额
-                            payAmount : this.payAmount * 10000,
+                            payAmount : this.payAmount,
                             payPass : thePayPass,
                             orderId: this.orderId,
                             // 充值类型选择

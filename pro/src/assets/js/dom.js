@@ -115,7 +115,6 @@ export function bind(obj,evname,fn){
  */  
 export function brush(obj,lineWidth,color,endFn){  
     var oGC=obj.getContext('2d');
-    console.dir(oGC);
     
     oGC.lineWidth=lineWidth||1;
     oGC.strokeStyle=color||'#000';
@@ -160,6 +159,17 @@ export function brush(obj,lineWidth,color,endFn){
             // return false;
         };      
     };
+};
+
+/**  
+ * @description     清空canvas
+ * @param obj       canvas标签对象    
+ */  
+export function clearCanvas(obj){  
+    var oGC=obj.getContext('2d');
+    console.dir(oGC);
+    oGC.clearRect(0,0,280,100);
+    
 };
 
 

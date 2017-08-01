@@ -120,6 +120,14 @@
                                         >申请维权仲裁</a>
                                 </template>
 
+                                <template v-if="orderData.status>=1&&
+                                        orderData.status<=6"
+                                    >
+                                    <a class="u-btn" title="查看合同"
+                                        @click="lookContract(orderData.id)"
+                                        >查看购车合同</a>
+                                </template>
+
                             </div><!-- 操作区域 -->
                         </div><!-- 头部 -->
                         
@@ -418,7 +426,11 @@
                     }
                 })
             },
-
+            
+            // 查看合同
+            lookContract(id){
+                this.$router.push({path:'/member/contractDetails',query:{cid:id,auth:'buyer'}})
+            },
             // 买家申请维权
             safeguard(id){
                 this.$router.push({path:'/member/arbitrateApply',query:{cid:id,auth:'buyer'}})
@@ -439,6 +451,7 @@
             signOff(id){
                 this.$router.push({path:'/member/signOff',query:{cid:id}})
             },
+
 
         },
         

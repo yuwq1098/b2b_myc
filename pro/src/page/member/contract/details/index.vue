@@ -7,9 +7,306 @@
             <div slot="content">
                 
                 <member-inner>
+
                     <div class="m-details-con"
-                        >合同详情
+                        >
+                        <div class="m-hd" v-show="false">
+                            <div class="tit">发起卖车合同</div>
+                        </div><!-- 头部 -->
+                        <div class="m-con">
+                            <div class="m-section">
+                                <div class="u-hd"
+                                    ><span class="tit">签署双方</span>
+                                </div>
+                                <div class="u-con sign-all">
+                                    <div class="u-gp-line f__clearfix">
+                                        <div class="gp-item u-name">
+                                            <div class="attr">甲方（卖方）：</div>
+                                            <div class="data">{{contractBodyData.seller}}</div>
+                                        </div>
+                                        <div class="gp-item u-identity">
+                                            <div class="attr">身份证号码：</div>
+                                            <div class="data no">{{contractBodyData.sellerIdcNo}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="u-gp-line f__clearfix">
+                                        <div class="gp-item u-name">
+                                            <div class="attr">乙方（买方）：</div>
+                                            <div class="data">{{contractBodyData.buyer}}</div>
+                                        </div>
+                                        <div class="gp-item u-identity">
+                                            <div class="attr">身份证号码：</div>
+                                            <div class="data no">{{contractBodyData.buyerIdcNo}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-section">
+                                <div class="u-hd"
+                                    ><span class="tit">车辆基本信息</span>
+                                </div>
+                                <div class="u-con car-details">
+                                    
+                                    <div class="u-line-box">
+                                        <div class="box-inner">
+                                            <div class="attr">车牌号码：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt"
+                                                    >{{contractBodyData.plateNumber}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 车牌号码 -->
+
+                                    <div class="u-line-box">
+                                        <div class="box-inner">
+                                            <div class="attr">车架号：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt no"
+                                                    >{{contractBodyData.vin}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 车架号 -->
+
+                                    <div class="u-line-box">
+                                        <div class="box-inner">
+                                            <div class="attr">发动机号：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt no"
+                                                    >{{contractBodyData.engineNumber}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 发动机号 -->
+                                </div>
+                            </div>
+
+                            <div class="m-section">
+                                <div class="u-hd"
+                                    ><span class="tit">车况描述</span>
+                                </div>
+                                <div class="u-con car-other">
+
+                                    <div class="u-line-box f__clearfix">
+                                        <div class="box-inner radio-two">
+                                            <div class="attr">抵押按揭：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt"
+                                                    >{{contractBodyData.hasMortgage | boolFormat}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-inner radio-two">
+                                            <div class="attr">能否过户：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt"
+                                                    >{{contractBodyData.transfer | canFormat }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 有无抵押/能否过户 -->
+
+                                    <div class="u-line-box">
+                                        <div class="box-inner">
+                                            <div class="attr">提档预计时间：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt no"
+                                                    >{{contractBodyData.pickArchiveDate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 提档预计时间 -->
+
+                                    <div class="u-line-box">
+                                        <div class="box-inner">
+                                            <div class="attr">最晚提档时间：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt no"
+                                                    >{{contractBodyData.buyerPickCarDate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 最晚提档时间 -->
+
+                                    <div class="u-line-box">
+                                        <div class="box-inner">
+                                            <div class="attr">车况说明：</div>
+                                            <div class="ipt long-text">
+                                                <div class="txt"
+                                                    >{{contractBodyData.carOtherDesc}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 车况说明 -->
+
+                                    <div class="u-line-box">
+                                        <div class="box-inner">
+                                            <div class="attr">成交价：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt price"
+                                                    ><em class="vital">{{contractBodyData.finalPrice | priceFormat(2)}}</em>万元
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div><!-- 成交价 -->
+
+                                    <div class="u-line-box f__clearfix">
+                                        <div class="box-inner text-two">
+                                            <div class="attr">卖方保证金：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt price"
+                                                    ><em class="vital">{{contractBodyData.sellerDeposit | priceFormat(2)}}</em>元
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-inner text-two">
+                                            <div class="attr">买方保证金：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt price"
+                                                    ><em class="vital">{{contractBodyData.buyerDeposit | priceFormat(2)}}</em>元
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 卖/买方保证金 -->
+
+                                    <div class="u-line-box">
+                                        <div class="box-inner long-attr">
+                                            <div class="attr">使用平台托管部分尾款：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt"
+                                                    >{{contractBodyData.needEntrust | boolFormat}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 有无抵押/能否过户 -->
+
+                                    <div class="u-line-box" v-if="contractBodyData.needEntrust=='true'">
+                                        <div class="box-inner">
+                                            <div class="attr">托管尾款：</div>
+                                            <div class="ipt text-show">
+                                                <div class="txt price"
+                                                    ><em class="vital">{{contractBodyData.entrustMoney | priceFormat(2)}}</em>元
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 尾款金额 -->
+
+                                </div>
+                            </div>
+                            
+                            <div class="m-section">
+                                <div class="u-hd"
+                                    ><span class="tit">车辆转让协议</span>
+                                </div>
+                                <div class="u-con more">
+                                    <div class="u-line-box margin">
+                                        <div class="box-inner">
+                                            <div class="vital-tips">买卖双方经协商签订以下车辆转让协议书，共同遵守。</div>
+                                        </div>
+                                        <div class="box-inner more-box">
+                                            <div class="attr">办理过户：</div>
+                                            <div class="ipt text-info">
+                                                <div class="txt">
+                                                    <div>买方应主动积极按卖方提供备案过户所需资料，并协助办理过户手续，取得过户受理。</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-inner more-box">
+                                            <div class="attr">违约责任：</div>
+                                            <div class="ipt text-info">
+                                                <div class="txt">
+                                                    <div>1.托运车:买方接车后，与合同描述不符、卖方无条件退还保证金，并承担损失费用，如买方要求退车，卖方无条件接受。
+                                                    </div>
+                                                    <div>2.上门验车:买方验车完成成交后，出现的任何问题和卖方无关。</div>
+                                                    <div>3.买方上门验车如与合同描述不符，卖方无条件退还保证金，并承担损失费用。</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-inner more-box">
+                                            <div class="attr">纠纷解决：</div>
+                                            <div class="ipt text-info">
+                                                <div class="txt">
+                                                    <div>任何因本协议引起的争议，如果无法通过协商解决的，任何一方依法有权向有管辖权的人民法院起诉。</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-inner more-box">
+                                            <div class="attr">法律效力：</div>
+                                            <div class="ipt text-info">
+                                                <div class="txt">
+                                                    <div>本协议经买卖双方共同签署后生效，本协议书原件与传真/扫描件均具有同等法律效力。本协议未尽事宜将由协议双方协商一致并作出书面补充。该书面补充是本协议不可分割的组成部分，与本书面协议具有同等法律效力。</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 有无抵押/能否过户 -->
+                                    <div class="u-line-box">
+                                        <div class="box-inner more-box v2">
+                                            <div class="attr">甲方（卖方）签名：</div>
+                                            <div class="ipt sign-box">
+                                                <div class="u-pic">
+                                                    <img class="sign-img"
+                                                        v-if="contractDetails.sellerSignImg"
+                                                        :src="contractDetails.sellerSignImg" 
+                                                        alt="签名图片" />
+                                                </div><!-- 签名图片 -->
+                                                <div class="other-info">
+                                                    <span class="o-attr">卖方联系电话：</span>
+                                                    <p class="o-data">{{contractDetails.sellerTel}}</p>
+                                                    <span class="o-attr">卖方签署时间：</span>
+                                                    <p class="o-data">{{contractDetails.sellerSignTime}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 有无抵押/能否过户 -->
+                                    <div class="u-line-box">
+                                        <div class="box-inner more-box v2">
+                                            <div class="attr">乙方（买方）签名：</div>
+                                            <div class="ipt sign-box">
+                                                <div class="u-pic">
+                                                    <img class="sign-img"
+                                                        v-if="contractDetails.buyerSignImg"
+                                                        :src="contractDetails.buyerSignImg" 
+                                                        alt="签名图片" />
+                                                    <div class="not-pic"
+                                                        v-if="!contractDetails.buyerSignImg"
+                                                        >乙方未签名
+                                                    </div>
+                                                </div><!-- 签名图片 -->
+                                                <div class="other-info"
+                                                    v-if="contractDetails.buyerSignImg">
+                                                    <span class="o-attr">买方联系电话：</span>
+                                                    <p class="o-data">{{contractDetails.buyerTel}}</p>
+                                                    <span class="o-attr">买方签署时间：</span>
+                                                    <p class="o-data">{{contractDetails.buyerSignTime}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- 有无抵押/能否过户 -->
+                                </div>
+                            </div><!-- 注意事项及合同签名 -->
+
+                            <div class="m-operate">
+                                <div class="u-btn-box">
+                                    <div class="agr-info">
+                                        <div class="info" 
+                                            >买卖双方已同意
+                                            <a href="javascript:;" class="u-lk"
+                                                >《车辆转让协议》
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="javascript:;"
+                                        class="u-btn"
+                                        @click="goBack()"
+                                        >了解了，返回上一页</a>
+                                </div>
+                            </div><!-- 确认发起合同/操作区域 -->
+
+                        </div><!-- 内容 -->
                     </div><!-- 合同详情 -->
+
                 </member-inner>
 
             </div><!-- 合同详情 -->
@@ -29,8 +326,8 @@
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
 
-    // 订单信息的构造类
-    import {sellOrderInfo} from 'base/class/order.js'
+    // 合同详情信息/合同内容信息的构造类
+    import {contractDetails,contractBody} from 'base/class/order.js'
 
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue'
@@ -48,7 +345,12 @@
         // 数据
         data() {
             return{
-
+                // 订单id
+                orderId: "",
+                // 合同详情信息
+                contractDetails: new contractDetails({}),
+                // 合同内容信息
+                contractBodyData: new contractBody({}),
             }
         },
         //生命周期,开始的时候
@@ -59,7 +361,10 @@
 
         },
         activated(){
-
+            // 获取订单Id
+            this.orderId = this.$router.currentRoute.query.cid||"";
+            // 获取合同详情信息
+            this.getContractDetails();
         },
         // 退出的生命周期钩子
         deactivated(){
@@ -76,7 +381,45 @@
 
         // 自定义函数(方法)
         methods: {
+
+            // 格式化合同详情信息
+            _normalizeContractDetails(data) {
+                return new contractDetails(data);
+            },
+
+            // 格式化合同内容信息
+            _normalizeContractBody(data) {
+                return new contractBody(data);
+            },
+
+            // 获取合同详情信息
+            getContractDetails(){
+                var data = {
+                    OrderId : this.orderId,
+                }
+                api.orderContractView(data).then((res) => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        
+                        // 合同详情内容
+                        this.contractDetails = this._normalizeContractDetails(res.data);
+                        // 合同内容信息
+                        this.contractBodyData = this._normalizeContractBody(this.contractDetails.contractBody);
+
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
             
+            // 返回上一步
+            goBack(){
+                this.$router.go(-1);
+            },
         },
         
     }

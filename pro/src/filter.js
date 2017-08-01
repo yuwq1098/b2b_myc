@@ -154,3 +154,15 @@ export const usernameFormat = (str) => {
     if(!str&&str!=0) return;
     return '*'+str.substr(1,str.length)
 }
+
+//---Boolean转换 => 是/否
+export const boolFormat = (str) => {
+    if(!str&&str!="") return;
+    return str=="true"?"是":"否"
+}
+
+//---Boolean转换 => 能/不能
+export const canFormat = (str) => {
+    if(!str&&str!="") return;
+    return str=="true"?"能":"不能"
+}
