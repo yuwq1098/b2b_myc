@@ -57,7 +57,10 @@
         },
         // 自定义函数(方法)
         methods: {
-
+            // 清空日期数据
+            clearDate(){
+                this.selectedDate = "";
+            }
         },
         // 在当前模块注册组件
         components:{

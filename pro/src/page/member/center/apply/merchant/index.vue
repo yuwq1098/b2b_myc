@@ -170,9 +170,9 @@
                 let data = {}
                 api.getMyMemberInfo(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
+                        
                         // 格式化用户信息
                         this.memberData = this._normalizeMember(res.data);
-                        console.log("获取用户信息",dataToJson(this.memberData));
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
@@ -194,7 +194,6 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         // 格式化认证信息
                         this.applyData = res.data;
-                        console.log("获取认证信息",dataToJson(this.applyData));
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({

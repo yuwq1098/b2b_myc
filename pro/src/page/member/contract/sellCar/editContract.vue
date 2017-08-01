@@ -1,13 +1,13 @@
 <template>
-    <div class="contractBuy">
+    <div class="editContract">
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="买方签署合同"
+            title="修改合同内容"
             >
             <div slot="content">
                 
                 <member-inner>
-                    <div class="m-buy-con"
+                    <div class="m-edit-con"
                         >
                         <div class="m-hd" v-show="false">
                             <div class="tit">发起卖车合同</div>
@@ -49,33 +49,45 @@
                                     <div class="u-line-box">
                                         <div class="box-inner">
                                             <div class="attr">车牌号码：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt"
-                                                    >{{contractBodyData.plateNumber}}
-                                                </div>
+                                            <div class="ipt">
+                                                <input type="text" class="user-input" step="10" min="1" 
+                                                    v-model="plateNumber" 
+                                                    placeholder="请输入交易车辆的车牌号" />
                                             </div>
+                                            <div class="line-error" v-if="errors.has('plateNumber')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('plateNumber')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 车牌号码 -->
 
                                     <div class="u-line-box">
                                         <div class="box-inner">
                                             <div class="attr">车架号：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt no"
-                                                    >{{contractBodyData.vin}}
-                                                </div>
+                                            <div class="ipt">
+                                                <input type="text" class="user-input"
+                                                    v-model="vin" 
+                                                    placeholder="请输入交易车辆的车架号" />
                                             </div>
+                                            <div class="line-error" v-if="errors.has('vin')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('vin')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 车架号 -->
 
                                     <div class="u-line-box">
                                         <div class="box-inner">
                                             <div class="attr">发动机号：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt no"
-                                                    >{{contractBodyData.engineNumber}}
-                                                </div>
+                                            <div class="ipt">
+                                                <input type="text" class="user-input" step="10" min="1" 
+                                                    v-model="engineNumber" 
+                                                    placeholder="请输入交易车辆的发动机号" />
                                             </div>
+                                            <div class="line-error" v-if="errors.has('engineNumber')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('engineNumber')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 发动机号 -->
                                 </div>
@@ -90,18 +102,16 @@
                                     <div class="u-line-box f__clearfix">
                                         <div class="box-inner radio-two">
                                             <div class="attr">抵押按揭：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt"
-                                                    >{{contractBodyData.hasMortgage | boolFormat}}
-                                                </div>
+                                            <div class="ipt radio-ipt v1">
+                                                <el-radio class="radio" v-model="hasMortgage" :label="true">有</el-radio>
+                                                <el-radio class="radio" v-model="hasMortgage" :label="false">无</el-radio>
                                             </div>
                                         </div>
                                         <div class="box-inner radio-two">
                                             <div class="attr">能否过户：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt"
-                                                    >{{contractBodyData.transfer | canFormat }}
-                                                </div>
+                                            <div class="ipt radio-ipt v2">
+                                                <el-radio class="radio" v-model="canTransfer" :label="true">能过户</el-radio>
+                                                <el-radio class="radio" v-model="canTransfer" :label="false">不能过户</el-radio>
                                             </div>
                                         </div>
                                     </div><!-- 有无抵押/能否过户 -->
@@ -109,45 +119,70 @@
                                     <div class="u-line-box">
                                         <div class="box-inner">
                                             <div class="attr">提档预计时间：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt no"
-                                                    >{{contractBodyData.pickArchiveDate}}
-                                                </div>
+                                            <div class="ipt date-ipt">
+                                                <date-picke
+                                                    @dateChangeEnd="pickArchiveDateEnd"
+                                                    :disabledPrevYear="0"
+                                                    placeholder="请选择提档预计时间"
+                                                    ref="pickArchiveDate"
+                                                    >
+                                                </date-picke>
                                             </div>
+                                            <div class="line-error" v-if="errors.has('pickArchiveDate')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('pickArchiveDate')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 提档预计时间 -->
 
                                     <div class="u-line-box">
                                         <div class="box-inner">
                                             <div class="attr">最晚提档时间：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt no"
-                                                    >{{contractBodyData.buyerPickCarDate}}
-                                                </div>
+                                            <div class="ipt date-ipt">
+                                                <date-picke
+                                                    @dateChangeEnd="buyerPickCarDateEnd"
+                                                    :disabledPrevYear="0"
+                                                    placeholder="请选择最晚提档时间"
+                                                    ref="buyerPickCarDate"
+                                                    >
+                                                </date-picke>
                                             </div>
+                                            <div class="line-error" v-if="errors.has('buyerPickCarDate')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('buyerPickCarDate')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 最晚提档时间 -->
 
                                     <div class="u-line-box">
                                         <div class="box-inner">
                                             <div class="attr">车况说明：</div>
-                                            <div class="ipt long-text">
-                                                <div class="txt"
-                                                    >{{contractBodyData.carOtherDesc}}
-                                                </div>
+                                            <div class="ipt textarea-ipt">
+                                                <textarea class="u-textarea" 
+                                                    v-model="carDesc" 
+                                                    type="text" placeholder="请在此处输入您正在交易车辆的车况">
+                                                </textarea>
                                             </div>
+                                            <div class="line-error textarea-ipt" v-if="errors.has('carDesc')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('carDesc')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 车况说明 -->
 
                                     <div class="u-line-box">
                                         <div class="box-inner">
                                             <div class="attr">成交价：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt price"
-                                                    ><em class="vital">{{contractBodyData.finalPrice | priceFormat(2)}}</em>万元
-                                                </div>
+                                            <div class="ipt">
+                                                <input type="text" class="user-input" step="10" min="1" 
+                                                    v-model="finalPrice" 
+                                                    placeholder="请输入成交价，单位（万元）" />
                                             </div>
-
+                                            <span class="u-unit">万元</span>
+                                            <div class="line-error" v-if="errors.has('finalPrice')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('finalPrice')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 成交价 -->
 
@@ -156,7 +191,7 @@
                                             <div class="attr">卖方保证金：</div>
                                             <div class="ipt text-show">
                                                 <div class="txt price"
-                                                    ><em class="vital">{{contractBodyData.sellerDeposit | priceFormat(2)}}</em>元
+                                                    ><em class="vital">{{sellerDeposit | priceFormat(2)}}</em>元
                                                 </div>
                                             </div>
                                         </div>
@@ -164,7 +199,7 @@
                                             <div class="attr">买方保证金：</div>
                                             <div class="ipt text-show">
                                                 <div class="txt price"
-                                                    ><em class="vital">{{contractBodyData.buyerDeposit | priceFormat(2)}}</em>元
+                                                    ><em class="vital">{{buyerDeposit | priceFormat(2)}}</em>元
                                                 </div>
                                             </div>
                                         </div>
@@ -173,22 +208,26 @@
                                     <div class="u-line-box">
                                         <div class="box-inner long-attr">
                                             <div class="attr">使用平台托管部分尾款：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt"
-                                                    >{{contractBodyData.needEntrust | boolFormat}}
-                                                </div>
+                                            <div class="ipt radio-ipt">
+                                                <el-radio class="radio" v-model="needTrustee" :label="true">是</el-radio>
+                                                <el-radio class="radio" v-model="needTrustee" :label="false">否</el-radio>
                                             </div>
                                         </div>
                                     </div><!-- 有无抵押/能否过户 -->
 
-                                    <div class="u-line-box" v-if="contractBodyData.needEntrust=='true'">
+                                    <div class="u-line-box" v-if="needTrustee">
                                         <div class="box-inner">
                                             <div class="attr">托管尾款：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt price"
-                                                    ><em class="vital">{{contractBodyData.entrustMoney | priceFormat(2)}}</em>元
-                                                </div>
+                                            <div class="ipt">
+                                                <input type="text" class="user-input" step="10" min="1" 
+                                                    v-model="trusteeMoney" 
+                                                    placeholder="请输入平台托管尾款，单位（元）" />
                                             </div>
+                                            <span class="u-unit">元</span>
+                                            <div class="line-error" v-if="errors.has('trusteeMoney')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('trusteeMoney')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 尾款金额 -->
 
@@ -213,28 +252,9 @@
                                             </div>
                                         </div>
                                     </div><!-- 有无抵押/能否过户 -->
-                                     <div class="u-line-box">
-                                        <div class="box-inner more-box v2">
-                                            <div class="attr">甲方（卖方）签名：</div>
-                                            <div class="ipt sign-box">
-                                                <div class="u-pic">
-                                                    <img class="sign-img"
-                                                        v-show="contractDetails.sellerSignImg"
-                                                        :src="contractDetails.sellerSignImg" 
-                                                        alt="签名图片" />
-                                                </div><!-- 签名图片 -->
-                                                <div class="other-info">
-                                                    <span class="o-attr">卖方联系电话：</span>
-                                                    <p class="o-data">{{contractDetails.sellerTel}}</p>
-                                                    <span class="o-attr">卖方签署时间：</span>
-                                                    <p class="o-data">{{contractDetails.sellerSignTime}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- 有无抵押/能否过户 -->
                                     <div class="u-line-box">
                                         <div class="box-inner more-box v2">
-                                            <div class="attr">乙方（买方）签名：</div>
+                                            <div class="attr">甲方（卖方）签名：</div>
                                             <div class="ipt sign-box">
                                                 <div class="u-pic">
                                                     <img class="sign-img"
@@ -253,6 +273,8 @@
                                                     <a href="javascript:;" class="u-btn"
                                                         @click="goSign()">重新签名</a><!-- 签名 -->
                                                 </template>
+                                                
+                                                
                                             </div>
                                         </div>
                                     </div><!-- 有无抵押/能否过户 -->
@@ -277,25 +299,25 @@
                                     </div>
                                     <a href="javascript:;"
                                         class="u-btn"
-                                        @click="signContract()"
-                                        >确认签署合同</a>
+                                        @click="sponsorContract()"
+                                        >发起合同</a>
                                 </div>
                             </div><!-- 确认发起合同/操作区域 -->
 
                         </div><!-- 内容 -->
-                    </div><!-- 买方签署合同 -->
-                    
+                    </div><!-- 修改合同内容 -->
                 </member-inner>
 
-            </div><!-- 买方签署合同 -->
+            </div><!-- 修改合同内容 -->
         </member-layout>
-
+        
+        
         <div class="m-sign-alerts" v-if="isShow_signBox">
             <div class="m-mask"></div><!-- 遮罩层 -->
             <div class="m-alert-box">
                 <div class="inner">
                     <div class="u-hd">
-                        <p class="txt">乙方（买方）签名</p>
+                        <p class="txt">甲方（卖家）签名</p>
                         <a class="u-btn close"
                             @click="closeAlertsBox()"
                             >
@@ -333,7 +355,6 @@
     import * as SYSTEM from 'api/system.js'
     // 工具类
     import {dataToJson} from "assets/js/util.js"
-
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
 
@@ -345,13 +366,22 @@
     // 会员中心子内容组件
     import memberInner from 'components/layout/memberInner.vue'
 
+    // 日期选择器
+    import datePicke from "components/common/datePicke.vue"
+
+
+    // 引入表单验证
+    import { Validator } from 'vee-validate';
+
     export default {
         
-        name: "contractBuy",
+        name: "editContract",
         // 在当前模块注册组件
         components:{
             memberLayout,
             memberInner,
+            // 日期选择器组件
+            datePicke,
         },
         // 数据
         data() {
@@ -362,6 +392,35 @@
                 contractDetails: new contractDetails({}),
                 // 合同内容信息
                 contractBodyData: new contractBody({}),
+
+                
+                // 车牌号码
+                plateNumber: "",
+                // 车架号
+                vin: "",
+                // 发动机号
+                engineNumber: "",
+                // 是否抵押按揭
+                hasMortgage: false,
+                // 能否过户
+                canTransfer: true,
+                
+                // 提档预计时间
+                pickArchiveDate: "",
+                // 最晚提档时间
+                buyerPickCarDate: "",
+                // 车况信息
+                carDesc: "",
+                // 成交价
+                finalPrice: "",
+                // 卖方保证金
+                sellerDeposit: 3000,
+                // 买方保证金
+                buyerDeposit: 3000,
+                // 是否使用平台托管
+                needTrustee: true,
+                // 托管金额
+                trusteeMoney: "",
                 
                 // 签名框显示
                 isShow_signBox: false,
@@ -372,36 +431,48 @@
                 signImg: "",
                 // 签名图片Id
                 signImgId: "",
-
+                
                 // 同意转让协议
                 isAgree: true,
+
+                // 表单验证报错集合
+                errors: null,
             }
         },
         //生命周期,开始的时候
         created(){
             
+            this.validator = new Validator({ 
+                plateNumber: 'required|plateNumber',              // 车牌号码
+                vin: 'required|alpha_dash|min:17|max:17',         // 车架号
+                engineNumber: 'required',                         // 发动机号
+                pickArchiveDate: 'required',                      // 提档预计时间
+                buyerPickCarDate: 'required',                     // 最晚提档时间
+                carDesc: "required|min:10|max:300",               // 车况说明
+                // 成交价/万元
+                finalPrice: "required|between:1,3000|decimal:2",
+                // 托管金额/元
+                trusteeMoney: "required|between:1,30000000|decimal:2",
+            });
+            this.$set(this, 'errors', this.validator.errorBag);
         },
         mounted(){
-
+            
         },
         activated(){
-            
+
             // 重置数据
             this.reset();
             // canvas画布
             this.canvasBox = document.getElementById('js__signParent');
-            // 签名之前的提示,提示买家留意卖家更改合同
-            this.signBeforeTips();
-            
             // 获取订单Id
             this.orderId = this.$router.currentRoute.query.cid||"";
             // 获取合同详情信息
             this.getContractDetails();
-
+        
         },
         // 退出的生命周期钩子
         deactivated(){
-
             // 重置数据
             this.reset();
         },
@@ -411,22 +482,47 @@
         },
         // 数据侦听
         watch:{
-            
+
+            // 车牌号码
+            plateNumber(val){
+                this.validator.validate('plateNumber',val);
+            },
+
+            // 车架号
+            vin(val){
+                this.validator.validate('vin',val);
+            },
+
+            // 发动机号
+            engineNumber(val){
+                this.validator.validate('engineNumber',val);
+            },
+
+            // 车况说明
+            carDesc(val){
+                this.validator.validate('carDesc',val);
+            },
+
+            // 成交价
+            finalPrice(val){
+                this.validator.validate('finalPrice',val);
+            },
+
+            // 是否使用平台托管车款
+            needTrustee(val){
+                this.trusteeMoney = "";
+                this.errors.remove('trusteeMoney');
+            },
+
+            // 托管尾款
+            trusteeMoney(val){
+                this.validator.validate('trusteeMoney',val);
+            },
+
         },
 
         // 自定义函数(方法)
         methods: {
-            
-            // 签名之前的提示
-            signBeforeTips(){
-                this.$alert('在您完成签署合同之前，卖家随时可能会更改合同，请多加留意，若系统提示卖家已修改合同，请重新认真阅读合同再进行签署，避免带来不必要的麻烦', '签署合同提示', {
-                    confirmButtonText: '我知道了',
-                    type: 'error',
-                    callback: () => {
-                        return;
-                    }
-                });
-            },
 
             // 格式化合同详情信息
             _normalizeContractDetails(data) {
@@ -451,6 +547,33 @@
                         // 合同内容信息
                         this.contractBodyData = this._normalizeContractBody(this.contractDetails.contractBody);
 
+                        // 卖方保证金
+                        this.sellerDeposit = this.contractBodyData.sellerDeposit;
+                        // 买方保证金
+                        this.buyerDeposit = this.contractBodyData.buyerDeposit;
+
+                        // 车牌号码
+                        this.plateNumber = this.contractBodyData.plateNumber;
+                        // 车架号
+                        this.vin = this.contractBodyData.vin;
+                        // 发动机号
+                        this.engineNumber = this.contractBodyData.engineNumber;
+                        // 是否抵押按揭
+                        this.hasMortgage = this.contractBodyData.hasMortgage=='true'?true:false;
+
+                        // 能否过户
+                        this.canTransfer = this.contractBodyData.transfer=='true'?true:false;
+                        // 成交价
+                        this.finalPrice = +this.contractBodyData.finalPrice;
+                        // 车况说明
+                        this.carDesc = this.contractBodyData.carOtherDesc;
+
+                        // 是否使用平台托管
+                        this.needTrustee = this.contractBodyData.needEntrust=='true'?true:false;
+                        // 托管金额
+                        this.trusteeMoney = this.contractBodyData.entrustMoney;
+
+
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',
@@ -461,13 +584,46 @@
                     }
                 })
             },
+
+            // 提档预计时间
+            pickArchiveDateEnd(selected){
+                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
+                this.pickArchiveDate = curDateTime;
+                this.validator.validate('pickArchiveDate',curDateTime);
+                if(!this.errors.has('buyerPickCarDate')&&!this.errors.has('pickArchiveDate')){
+                    let [peDate,ofDate] = [ +new Date(this.buyerPickCarDate),+new Date(this.pickArchiveDate)];
+                    if(peDate<ofDate){
+                        this.errors.remove('buyerPickCarDate');
+                        this.errors.add('buyerPickCarDate', "最晚提档时间不能早于提档预计时间", 'auth');
+                    }
+                }else{
+                    this.errors.remove('buyerPickCarDate');
+                }
+            },
+
+            // 最晚提档时间
+            buyerPickCarDateEnd(selected){
+                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
+                this.buyerPickCarDate = curDateTime;
+                this.validator.validate('buyerPickCarDate',curDateTime);
+                if(this.pickArchiveDate==""){
+                    this.validator.validate('pickArchiveDate',this.pickArchiveDate);
+                }else if(!this.errors.has('buyerPickCarDate')&&!this.errors.has('pickArchiveDate')){
+                    let [peDate,ofDate] = [ +new Date(this.buyerPickCarDate),+new Date(this.pickArchiveDate)];
+                    if(peDate<ofDate){
+                        this.errors.remove('buyerPickCarDate');
+                        this.errors.add('buyerPickCarDate', "最晚提档时间不能早于提档预计时间", 'auth');
+                    }
+                }
+            },
             
-            // 确认签署合同
-            signContract(){
+            // 发起合同
+            sponsorContract(){
+                
                 let me = this;
                 // 未同意协议
                 if(!this.isAgree){
-                    this.$alert('请先同意并阅读协议，同意协议后，方可完成签署合同', '温馨提示', {
+                    this.$alert('请先同意并阅读协议，同意协议后，方可发起合同', '温馨提示', {
                             confirmButtonText: '我知道了',
                             type: 'warning',
                             callback: () => {
@@ -478,7 +634,7 @@
                 }
                 // 未上传签名
                 if(!this.signImg||!this.signImgId){
-                    this.$alert('请先完成签名，签名完成后，方可确认签署合同', '未上传签名', {
+                    this.$alert('请先签名并完成签名，完成签名后方可完成签名，方可修改合同', '未上传签名', {
                             confirmButtonText: '我知道了',
                             type: 'warning',
                             callback: () => {
@@ -487,18 +643,73 @@
                         });
                     return;
                 }
+                
+                this.validator.validateAll({
 
-                this.$confirm('亲爱的买家，您好！请认真确认卖家发起的合同内容信息是否合理，避免给您带来不必要的麻烦！', '温馨提示', {
-                        confirmButtonText: '没问题，可以签了',
+                    plateNumber: this.plateNumber,              // 车牌号码
+                    vin: this.vin,                              // 车架号
+                    engineNumber: this.engineNumber,            // 发动机号
+                    carDesc: this.carDesc,                      // 车况说明
+                    finalPrice: this.finalPrice,                // 成交价/万元
+                    trusteeMoney: this.trusteeMoney,            // 托管金额/元
+
+                }).then((res) => {
+                    // 如果验证不成功
+                    if(!res) {
+                        this.$notify.error({
+                            title: '填写不完整',
+                            message: '请认真填写完所有合同信息',
+                            type: 'error',
+                            duration: 2000,
+                        });
+                        document.body.scrollTop = 320
+                        return;
+                    };
+                    
+                    // 验证提档预计时间
+                    if(!this.errors.has('buyerPickCarDate')&&!this.errors.has('pickArchiveDate')){
+                        let [peDate,ofDate] = [ +new Date(this.buyerPickCarDate),+new Date(this.pickArchiveDate)];
+                        if(peDate<ofDate){
+                            this.errors.remove('buyerPickCarDate');
+                            this.errors.add('buyerPickCarDate', "最晚提档时间不能早于提档预计时间", 'auth');
+                            // 发起合同信息填写错误
+                            this.sponsorErrorTips();
+                            return;
+                        }
+                    }
+                    
+                    this.$confirm('尊贵的用户，您好！请认真确认您发起的合同内容信息的准确性，避免给您带来不必要的麻烦！', '温馨提示', {
+                        confirmButtonText: '确认修改合同',
                         cancelButtonText: '再仔细看看',
                         type: 'warning'
                     }).then(() => {
-                        // 立即签署合同
+                        // 立即发起合同
                         this.putCommit();
                     }).catch(() => {
                         return;
                     });
 
+                }).catch(() => {
+                    this.$notify.error({
+                        title: '填写不完整',
+                        message: '请认真填写完所有合同信息',
+                        type: 'error',
+                        duration: 2000,
+                    });
+                    document.body.scrollTop = 320
+                });
+
+            },
+
+            // 发布车辆信息填写不合逻辑
+            issueErrorTips(){
+                this.$notify.error({
+                    title: '部分信息填写不合理',
+                    message: '请认真填写完所有合同信息',
+                    type: 'error',
+                    duration: 2000,
+                });
+                document.body.scrollTop = 320
             },
 
             // 卖家提交发起合同的请求
@@ -507,27 +718,49 @@
                 let data = {
                     // 订单ID
                     OrderId : this.orderId,
+                    // 合同内容
+                    ContractBody: {
+
+                        Seller: this.contractBodyData.seller,
+                        SellerIdcNo: this.contractBodyData.sellerIdcNo,
+                        Buyer: this.contractBodyData.buyer,
+                        BuyerIdcNo: this.contractBodyData.buyerIdcNo,
+
+                        PlateNumber: this.plateNumber,
+                        VinNumber: this.vin,
+                        EngineNumber: this.engineNumber,
+                        HasMortgage: this.hasMortgage,
+                        CanTransfer: this.canTransfer,
+                        PickArchiveDate: this.pickArchiveDate,
+                        BuyerPickCarDate: this.buyerPickCarDate,
+
+                        CarOtherDescription: this.carDesc,
+                        FinalPrice: this.finalPrice,
+                        SellerCashDeposit: this.sellerDeposit,
+                        BuyerCashDeposit: this.buyerDeposit,
+                        NeedEntrustCarMoney: this.needTrustee,
+                        CarMoneyValue: this.trusteeMoney,
+
+                    },
                     // 签名文件ID
                     ContractFileId: this.signImgId,
-                    // 时间戳
-                    ContractTimeStamp: this.contractDetails.timeStamp,
                 }
 
-                // 请求发起（签）合同接口
-                api.signContractBuyer(data).then(res => {
+                // 请求修改（签）合同接口
+                api.signContractSeller(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.$notify({
-                            title: '成功签署合同',
-                            message: "恭喜您成功成功签署合同，请继续交易流程的下一步吧",
+                            title: '成功修改合同',
+                            message: "恭喜成功修改合同，等待买家签署合同（或通知买家合同已修改）",
                             type: 'success',
                             duration: 2000,
                         });
                         setTimeout(() => {
-                            this.$router.push({path:'/member/buyOrderDetails',query:{cid:this.orderId}});
+                            this.$router.push({path:'/member/sellOrderDetails',query:{cid:this.orderId}});
                         },800)
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
-                            title: '签署合同失败',
+                            title: '修改合同失败',
                             message: res.msg,
                             type: 'error',
                             duration: 1500,
@@ -536,6 +769,8 @@
                 })
             },
 
+
+            
             // 立即去签名
             goSign(){
                 this.isShow_signBox = true;
@@ -553,7 +788,6 @@
 
             // 重置签名 
             resetSign(){
-
                 // 清空签名图片
                 this.canvasImg = "";
                 
@@ -573,7 +807,7 @@
 
             // 完成签名
             signSuccess(){
-                this.fileUpload("乙方（买家）签名",this.canvasImg);
+                this.fileUpload("甲方签名",this.canvasImg);
             },
 
             //图片上传
@@ -616,15 +850,35 @@
             
             // 重置数据
             reset(){
-
+                this.plateNumber= "";
+                this.vin= "";
+                this.engineNumber= "";
+                this.hasMortgage= false;
+                this.canTransfer= true;
+                this.pickArchiveDate= "";
+                // 清空组件数据
+                this.$refs.pickArchiveDate.clearDate();
+                this.buyerPickCarDate= "";
+                // 清空组件数据
+                this.$refs.buyerPickCarDate.clearDate();
+                this.carDesc= "";
+                this.finalPrice= "";
+                this.sellerDeposit= 3000;
+                this.buyerDeposit= 3000;
+                this.needTrustee= true;
+                this.trusteeMoney= "";
                 this.isShow_signBox= false;
                 this.canvasImg= "";
                 this.signImg= "";
                 this.signImgId= "";
                 this.isAgree= true;
 
+                // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
+                setTimeout(() => {
+                    this.errors.clear();
+                })
             },
-
+            
         },
         
     }
@@ -634,7 +888,7 @@
 <!-- 限定作用域"scoped" -->
 <style lang="stylus" rel="stylesheet/stylus">
     @import '~assets/css/mixin.styl'
-    .m-buy-con
+    .m-edit-con
         .u-line-box
             .radio-ipt
                 _display()
@@ -672,5 +926,6 @@
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-    @import 'index.styl'
+    @import 'editContract.styl'
+
 </style>

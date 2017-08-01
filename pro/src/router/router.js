@@ -70,6 +70,8 @@ const sellOrderDetails = r => require.ensure([], () => r(require('page/member/or
 const contractBuy = r => require.ensure([], () => r(require('page/member/contract/buyCar/index')), 'contractBuy')
 // 订单管理 => 卖车合同
 const contractSell = r => require.ensure([], () => r(require('page/member/contract/sellCar/index')), 'contractSell')
+// 订单管理 => 卖方修改合同
+const editContract = r => require.ensure([], () => r(require('page/member/contract/sellCar/editContract')), 'editContract')
 // 订单管理 => 合同详情
 const contractDetails = r => require.ensure([], () => r(require('page/member/contract/details/index')), 'contractDetails')
 
@@ -353,6 +355,14 @@ export default[{
                 // 订单管理-卖车合同
                     path: 'contractSell',
                     component: contractSell,
+                    meta:{
+                        requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                    },
+                },
+                {
+                // 订单管理-卖方修改合同
+                    path: 'editContract',
+                    component: editContract,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                     },

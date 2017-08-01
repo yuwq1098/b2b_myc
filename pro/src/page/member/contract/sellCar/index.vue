@@ -124,6 +124,7 @@
                                                     @dateChangeEnd="pickArchiveDateEnd"
                                                     :disabledPrevYear="0"
                                                     placeholder="请选择提档预计时间"
+                                                    ref="pickArchiveDate"
                                                     >
                                                 </date-picke>
                                             </div>
@@ -142,6 +143,7 @@
                                                     @dateChangeEnd="buyerPickCarDateEnd"
                                                     :disabledPrevYear="0"
                                                     placeholder="请选择最晚提档时间"
+                                                    ref="buyerPickCarDate"
                                                     >
                                                 </date-picke>
                                             </div>
@@ -545,8 +547,6 @@
                         // 车况说明
                         this.carDesc = this.contractData.otherDescription                      
 
-                        console.log(dataToJson(this.contractData));  
-
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',
@@ -580,7 +580,7 @@
                 this.buyerPickCarDate = curDateTime;
                 this.validator.validate('buyerPickCarDate',curDateTime);
                 if(this.pickArchiveDate==""){
-                    this.validator.validate('pickArchiveDate',this.form.fixedPrice);
+                    this.validator.validate('pickArchiveDate',pickArchiveDate);
                 }else if(!this.errors.has('buyerPickCarDate')&&!this.errors.has('pickArchiveDate')){
                     let [peDate,ofDate] = [ +new Date(this.buyerPickCarDate),+new Date(this.pickArchiveDate)];
                     if(peDate<ofDate){
@@ -829,7 +829,11 @@
                 this.hasMortgage= false;
                 this.canTransfer= true;
                 this.pickArchiveDate= "";
+                // 清空组件数据
+                this.$refs.pickArchiveDate.clearDate();
                 this.buyerPickCarDate= "";
+                // 清空组件数据
+                this.$refs.buyerPickCarDate.clearDate();
                 this.carDesc= "";
                 this.finalPrice= "";
                 this.sellerDeposit= 3000;

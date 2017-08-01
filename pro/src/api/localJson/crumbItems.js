@@ -184,6 +184,17 @@ export const crumbsHash = {
             path:"/member/contractSell",
         }
     ],
+    // 卖方修改合同
+    '/member/editContract':[
+        {
+            pathName:"卖车订单",
+            path:"/member/sellOrder",
+        },
+        {
+            pathName:"卖方修改合同",
+            path:"/member/editContract",
+        }
+    ],
     // 合同详情
     '/member/contractDetails':[
         {

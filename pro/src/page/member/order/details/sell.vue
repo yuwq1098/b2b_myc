@@ -121,6 +121,13 @@
                                         >查看购车合同</a>
                                 </template>
 
+                                <template v-if="orderData.status==1"
+                                    >
+                                    <a class="u-btn" title="修改合同"
+                                        @click="editContract(orderData.id)"
+                                        >修改购车合同</a>
+                                </template>
+
                             </div><!-- 操作区域 -->
                         </div><!-- 头部 -->
                         
@@ -407,6 +414,11 @@
                 })
             },
             
+            // 修改购车合同
+            editContract(id){
+                this.$router.push({path:'/member/editContract',query:{cid:id}})
+            },
+
             // 查看合同
             lookContract(id){
                 this.$router.push({path:'/member/contractDetails',query:{cid:id,auth:'seller'}})
