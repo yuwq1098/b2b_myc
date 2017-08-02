@@ -6,7 +6,7 @@ class goodsInfo{
         this.imgUrl = data.FileUri?data.FileUri+"?imageView2/3/w/400/h/300":""      // 首图链接
         this.title = data.Title||""                                     // 首图链接
         this.status = data.Status||""                                   // 车辆状态
-        this.inCity = data.CarInCity||""                                // 所在城市
+        this.inCity = data.CarInCity||""                                // 车辆所在城市
         this.plateDate = data.OnLicensePlateDate||""       // 上牌时间
         this.mileage = data.Mileage||""                    // 里程
 	    this.price = data.B2BPrice||""                     // 批发价

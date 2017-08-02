@@ -9,11 +9,11 @@ class basicInfo{
         this.brandId = data.CarBrandId||""                // 车品牌id
         this.seriesId = data.CarSeriesId||""              // 车系id
         this.modelId = data.CarModelId||""                // 车型id
-        this.inProvince = data.CarInProvince||""          // 车牌所在省
+        this.inProvince = data.CarInProvince||""          // 车辆所在省
         this.inCity = data.CarInCity||""                  // 车辆所在市
-        // 上牌所在省
+        // 车牌所在省
         this.plateInProvince = data.LicensePlateInProvince||""
-        // 上牌所在市
+        // 车牌所在市
         this.plateInCity = data.LicensePlateInCity||""
         // 排放标准
         this.dischargeStandard = data.DischargeStandard||""

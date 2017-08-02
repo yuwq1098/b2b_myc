@@ -13,7 +13,7 @@ class buyOrderInfo{
 	    this.carTitle = data.Title||""                     // 订单标题（一般就是车型名）
 	    // 车辆首图链接
 	    this.imgUrl = data.FirstImg?data.FirstImg+"?imageView2/3/w/200/h/150":"";                   
-	    this.inCity = data.CarInCity||""                   // 车身所在地
+	    this.inCity = data.CarInCity||""                   // 车辆所在地
 	    this.plateDate = data.OnLicensePlateDate||""       // 上牌时间
 	    this.mileage = data.Mileage||0                     // 里程数
 	    this.price = data.B2BPrice||0                      // 一口价
@@ -76,7 +76,7 @@ class sellOrderInfo{
 	    this.carTitle = data.Title||""                     // 订单标题（一般就是车型名）
 	    // 车辆首图链接
 	    this.imgUrl = data.FirstImg?data.FirstImg+"?imageView2/3/w/200/h/150":"";                   
-	    this.inCity = data.CarInCity||""                   // 车身所在地
+	    this.inCity = data.CarInCity||""                   // 车辆所在地
 	    this.plateDate = data.OnLicensePlateDate||""       // 上牌时间
 	    this.mileage = data.Mileage||0                     // 里程数
 	    this.price = data.B2BPrice||0                      // 一口价
@@ -141,7 +141,7 @@ class orderInfo{
 	    this.carTitle = data.Title||""                     // 订单标题（一般就是车型名）
 	    // 车辆首图链接
 	    this.imgUrl = data.FirstImg?data.FirstImg+"?imageView2/3/w/200/h/150":"";                   
-	    this.inCity = data.CarInCity||""                   // 车身所在地
+	    this.inCity = data.CarInCity||""                   // 车辆所在地
 	    this.plateDate = data.OnLicensePlateDate||""       // 上牌时间
 	    this.mileage = data.Mileage||0                     // 里程数
 	    this.price = data.B2BPrice||0                      // 一口价

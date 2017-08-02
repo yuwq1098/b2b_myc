@@ -6,7 +6,7 @@ class b2bCarInfo{
 	    this.imgUrl = data.FileUri?data.FileUri+"?imageView2/3/w/400/h/300":""
 	    // ?imageMogr2/auto-orient
 	    this.name = data.Title||""                        // 标题
-	    this.inCity = data.CarInCity||""                  // 所在城市
+	    this.inCity = data.CarInCity||""                  // 车辆所在城市
 	    this.plateDate = data.OnLicensePlateDate||""      // 上牌时间
 	    this.mileage = data.Mileage||0                    // 里程
 	    this.price = data.B2BPrice||0                     // b2b价格
@@ -27,7 +27,7 @@ class b2cCarInfo{
         // 首图
         this.imgUrl = data.FileUri?data.FileUri+"?imageView2/3/w/400/h/300":""
         this.name = data.Title||""                        // 标题
-        this.inCity = data.CarInCity||""                  // 所在城市
+        this.inCity = data.CarInCity||""                  // 车辆所在城市
         this.plateDate = data.OnLicensePlateDate||""      // 上牌时间
         this.mileage = data.Mileage||0                    // 里程
         this.price = data.B2BPrice||0                     // b2b价格

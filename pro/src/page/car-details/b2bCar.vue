@@ -57,7 +57,7 @@
                                             <p class="u-des">上牌时间</p>
                                         </li>
                                         <li class="u-item">
-                                            <p class="u-tit">{{basicInfo.inProvince | cityFn}}{{basicInfo.inCity | cityFn}}</p>
+                                            <p class="u-tit">{{basicInfo.plateInProvince | cityFn}}{{basicInfo.plateInCity | cityFn}}</p>
                                             <p class="u-des">牌照归属</p>
                                         </li>
                                         <li class="u-item">
@@ -171,13 +171,12 @@
                                             <span class="u-val" v-else>暂无数据</span>
                                         </li>
                                         <li class="u-item">
-                                            <span class="u-attr">出厂日期</span>
-                                            <span class="u-val" v-if="basicInfo.outFactoryDate">{{basicInfo.outFactoryDate | dateFn}}</span>
-                                            <span class="u-val" v-else>暂无数据</span>
+                                            <span class="u-attr">车辆所在地</span>
+                                            <span class="u-val">{{basicInfo.inProvince | cityFn}}{{basicInfo.inCity | cityFn}}</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">牌照归属</span>
-                                            <span class="u-val">{{basicInfo.inProvince | cityFn}}{{basicInfo.inCity | cityFn}}</span>
+                                            <span class="u-val">{{basicInfo.plateInProvince | cityFn}}{{basicInfo.plateInCity | cityFn}}</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">使用性质</span>
@@ -521,6 +520,7 @@
                         
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
+                        console.log(dataToJson(this.basicInfo))
 
                         // 车辆异常状态提示
                         this.abnormalStatusTips(this.basicInfo.status);
