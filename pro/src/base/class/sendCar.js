@@ -4,7 +4,7 @@ class sendCarForm{
 	    this.CarBaseInfo = {
 
 	    	// 修改时必填原先记录主键，如果是新增加则不传
-            CarId: "",                    
+            CarId: data.carId||"",                          // 车辆Id,修改时需带有                    
 
             CarModelId: data.selectedModel||"",             // 车型id
             B2BPrice: data.fixedPrice||"",                  // B2B价格 单位：万元

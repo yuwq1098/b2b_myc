@@ -53,12 +53,26 @@
                     return arr
                 } 
             },
+            // 初始化的值
+            initValue:{
+                type: [String,Number],
+                default: "",
+            },
+
         },
         // 数据侦听
         watch:{
             // 当用户选中的值变化了，再将事件派发给父组件
             selectedVal: function(val){
                 this.$emit("selectedEnd",this.selectedVal)
+            },
+            initValue(val){
+                if(this.options.length==0) return;
+                this.options.forEach((item,index) => {
+                    if(item.value.toString()==val){
+                        this.changeSelected(item.label,item.value);
+                    }
+                })
             }
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
@@ -67,11 +81,13 @@
         },
         // 自定义函数(方法)
         methods: {
-
+            changeSelected(label,value){
+                this.selectedVal = value;
+            }
         },
         // 在当前模块注册组件
         components:{
-
+            
         },
     }
 </script>

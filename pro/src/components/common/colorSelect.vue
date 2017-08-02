@@ -57,7 +57,11 @@
             }
         },
         props:{
-
+            // 初始化的值
+            initValue:{
+                type: String,
+                default: "",
+            }
         },
         computed:{
             isNotKeepAlive(){
@@ -66,8 +70,16 @@
         },
         // 数据侦听
         watch:{
+            initValue(val){
+                if(this.colorItems.length==0) return;
+                this.colorItems.forEach((item,index) => {
+                    if(item.name==val){
+                        this.changeColorSelected(index,item.name,item.code);
+                    }
+                })
+            },
             // 当用户选中的值变化了，再将事件派发给父组件
-            selectedColor: function(val){
+            selectedColor(val){
                 this.$emit("selectedEnd",this.selectedColor)
             }
         },

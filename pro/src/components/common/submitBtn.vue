@@ -7,7 +7,7 @@
         <div class="m-submit-wrap">
             <button
                 class="el-button"
-                :class="{'submiting':submiting}"
+                :class="{'submiting':submiting,'autoRight':autoRight}"
                 @click="submitFn"
                 >
                 <div class="la-line-scale la-sm" v-if="submiting">
@@ -42,7 +42,11 @@
             submiting:{
                 type: Boolean,
                 default: false
-            }
+            },
+            autoRight:{
+                type: Boolean,
+                default: false  
+            } 
         },
         // 数据侦听
         watch:{
@@ -90,11 +94,11 @@
             _spacingPlus(3px)
             _borderRadius(3px)
             _completeCenter()
-            background $c_blue + 5% - 3deg
+            background $c_blue
             border none
-            color #f4f4f4
+            color #f2f2f2
             &:hover
-                background $c_blue + 3%
+                background @background - 12%
             &.submiting
                 background #B8BCBF
                 &:hover
@@ -103,5 +107,10 @@
                     _completeCenter(auto,80px)
                 .text
                     margin-right 30px
+            &.autoRight
+                width 220px
+                _spacingPlus(4px)
+                _borderRadius(2px)
+                _completeCenter(auto,0)
 
 </style>

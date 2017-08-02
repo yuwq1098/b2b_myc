@@ -32,12 +32,19 @@
                 type: String,
                 default: "请填写数据"
             },
+            // 初始化的值
+            initValue:{
+                type: String,
+                default: "",
+            },
             //单位
             unit: String,
         },
         // 数据侦听
         watch:{
-
+            initValue(val){
+                this.inputVal = val;
+            }
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){

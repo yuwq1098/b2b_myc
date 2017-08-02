@@ -26,15 +26,15 @@
                             </div><!-- 头部标题 -->
                             <div class="m-bill-con">
                                 
-                                <div class="m-bill-box" ref="sendBill">
+                                <div class="m-bill-box">
                                     <div class="m-gp-wrap f__clearfix">
                                         <el-row :gutter="formStyleData.gutter">
                                             <el-col :span="8">
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="车辆所在地"
-                                                        :errorTetx="sendError.first('carInCity')"
-                                                        :isShow="sendError.has('carInCity')"
+                                                        :errorTetx="errors.first('carInCity')"
+                                                        :isShow="errors.has('carInCity')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -50,8 +50,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="品牌车型"
-                                                        :errorTetx="sendError.first('selectedModel')"
-                                                        :isShow="sendError.has('selectedModel')"
+                                                        :errorTetx="errors.first('selectedModel')"
+                                                        :isShow="errors.has('selectedModel')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -72,8 +72,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="车牌归属地"
-                                                        :errorTetx="sendError.first('plateInCity')"
-                                                        :isShow="sendError.has('plateInCity')"
+                                                        :errorTetx="errors.first('plateInCity')"
+                                                        :isShow="errors.has('plateInCity')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -89,8 +89,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="出厂日期"
-                                                        :errorTetx="sendError.first('outFactoryDate')"
-                                                        :isShow="sendError.has('outFactoryDate')"
+                                                        :errorTetx="errors.first('outFactoryDate')"
+                                                        :isShow="errors.has('outFactoryDate')"
                                                         >
                                                     </gk-input-error>
                                                     <input type="hidden" name="outFactoryDate" v-model="form.outFactoryDate"/>
@@ -108,8 +108,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="上牌时间"
-                                                        :errorTetx="sendError.first('plateDate')"
-                                                        :isShow="sendError.has('plateDate')"
+                                                        :errorTetx="errors.first('plateDate')"
+                                                        :isShow="errors.has('plateDate')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -131,8 +131,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="过户次数"
-                                                        :errorTetx="sendError.first('changeNum')"
-                                                        :isShow="sendError.has('changeNum')"
+                                                        :errorTetx="errors.first('changeNum')"
+                                                        :isShow="errors.has('changeNum')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -149,8 +149,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="一口价"
-                                                        :errorTetx="sendError.first('fixedPrice')"
-                                                        :isShow="sendError.has('fixedPrice')"
+                                                        :errorTetx="errors.first('fixedPrice')"
+                                                        :isShow="errors.has('fixedPrice')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -167,8 +167,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="零售价"
-                                                        :errorTetx="sendError.first('retailPrice')"
-                                                        :isShow="sendError.has('retailPrice')"
+                                                        :errorTetx="errors.first('retailPrice')"
+                                                        :isShow="errors.has('retailPrice')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -190,8 +190,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="行驶里程"
-                                                        :errorTetx="sendError.first('mileage')"
-                                                        :isShow="sendError.has('mileage')"
+                                                        :errorTetx="errors.first('mileage')"
+                                                        :isShow="errors.has('mileage')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -209,8 +209,8 @@
 
                                                     <gk-input-error
                                                         title="排放标准"
-                                                        :errorTetx="sendError.first('dischargeStandard')"
-                                                        :isShow="sendError.has('dischargeStandard')"
+                                                        :errorTetx="errors.first('dischargeStandard')"
+                                                        :isShow="errors.has('dischargeStandard')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -228,8 +228,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="排量"
-                                                        :errorTetx="sendError.first('liter')"
-                                                        :isShow="sendError.has('liter')"
+                                                        :errorTetx="errors.first('liter')"
+                                                        :isShow="errors.has('liter')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -251,8 +251,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="交强险"
-                                                        :errorTetx="sendError.first('insuranceDate')"
-                                                        :isShow="sendError.has('insuranceDate')"
+                                                        :errorTetx="errors.first('insuranceDate')"
+                                                        :isShow="errors.has('insuranceDate')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -269,8 +269,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="使用性质"
-                                                        :errorTetx="sendError.first('serviceType')"
-                                                        :isShow="sendError.has('serviceType')"
+                                                        :errorTetx="errors.first('serviceType')"
+                                                        :isShow="errors.has('serviceType')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -287,8 +287,8 @@
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="车架号"
-                                                        :errorTetx="sendError.first('vin')"
-                                                        :isShow="sendError.has('vin')"
+                                                        :errorTetx="errors.first('vin')"
+                                                        :isShow="errors.has('vin')"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -308,8 +308,8 @@
                                             <gk-input-error
                                                 title="车身颜色"
                                                 errorAlign="left"
-                                                :errorTetx="sendError.first('color')"
-                                                :isShow="sendError.has('color')"
+                                                :errorTetx="errors.first('color')"
+                                                :isShow="errors.has('color')"
                                                 >
                                             </gk-input-error>
                                         </div>
@@ -326,8 +326,8 @@
                                             <gk-input-error
                                                 title="上传车辆铭牌"
                                                 errorAlign="left"
-                                                :errorTetx="sendError.first('nameplate')"
-                                                :isShow="sendError.has('nameplate')"
+                                                :errorTetx="errors.first('nameplate')"
+                                                :isShow="errors.has('nameplate')"
                                                 >
                                             </gk-input-error>
                                         </div>
@@ -345,8 +345,8 @@
                                             <gk-input-error
                                                 title="上传车辆照片"
                                                 errorAlign="left"
-                                                :errorTetx="sendError.first('photo')"
-                                                :isShow="sendError.has('photo')"
+                                                :errorTetx="errors.first('photo')"
+                                                :isShow="errors.has('photo')"
                                                 >
                                             </gk-input-error>
                                         </div>
@@ -366,8 +366,8 @@
                                             <gk-input-error
                                                 title="车主留言(对车况进行描述)"
                                                 errorAlign="left"
-                                                :errorTetx="sendError.first('desc')"
-                                                :isShow="sendError.has('desc')"
+                                                :errorTetx="errors.first('desc')"
+                                                :isShow="errors.has('desc')"
                                                 >
                                             </gk-input-error>
                                         </div>
@@ -506,7 +506,7 @@
                 },
                 
                 // 发布订单的表单验证报错集合
-                sendError: null,
+                errors: null,
                 
                 // 车辆订单的表单信息（供双向绑定及提交）
                 form:{
@@ -556,6 +556,7 @@
 
         //生命周期,开始的时候
         created(){
+            
             this.validator = new Validator({
                 carInCity: 'required',
                 selectedModel: 'required',
@@ -576,7 +577,8 @@
                 nameplate: 'between:1,3|max:3',
                 photo: 'between:2,12|max:12',
             });
-            this.$set(this, 'sendError', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errorBag);
+
         },
 
         // $el 挂载的时候
@@ -679,14 +681,14 @@
                 let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
                 this.form.outFactoryDate = curDateTime;
                 this.validator.validate('outFactoryDate',curDateTime);
-                if(!this.sendError.has('plateDate')&&!this.sendError.has('outFactoryDate')){
+                if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
                     let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
                     if(peDate<ofDate){
-                        this.sendError.remove('plateDate');
-                        this.sendError.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
+                        this.errors.remove('plateDate');
+                        this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
                     }
                 }else{
-                    this.sendError.remove('plateDate');
+                    this.errors.remove('plateDate');
                 }
             },
 
@@ -697,11 +699,11 @@
                 this.validator.validate('plateDate',curDateTime);
                 if(this.form.outFactoryDate==""){
                     this.validator.validate('outFactoryDate',this.form.fixedPrice);
-                }else if(!this.sendError.has('plateDate')&&!this.sendError.has('outFactoryDate')){
+                }else if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
                     let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
                     if(peDate<ofDate){
-                        this.sendError.remove('plateDate');
-                        this.sendError.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
+                        this.errors.remove('plateDate');
+                        this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
                     }
                 }
             },
@@ -717,14 +719,14 @@
             fixedPriceEnd(val){
                 this.form.fixedPrice = val;
                 this.validator.validate('fixedPrice',val);
-                if(!this.sendError.has('retailPrice')&&!this.sendError.has('fixedPrice')){
+                if(!this.errors.has('retailPrice')&&!this.errors.has('fixedPrice')){
                     let [rPrice,price] = [ parseFloat(this.form.retailPrice),parseFloat(this.form.fixedPrice)];
                     if(rPrice<=price){
-                        this.sendError.remove('retailPrice');
-                        this.sendError.add('retailPrice', "零售价必须大于批发价", 'auth');
+                        this.errors.remove('retailPrice');
+                        this.errors.add('retailPrice', "零售价必须大于批发价", 'auth');
                     }
                 }else{
-                    this.sendError.remove('retailPrice');
+                    this.errors.remove('retailPrice');
                 }
             },
 
@@ -734,11 +736,11 @@
                 this.validator.validate('retailPrice',val);
                 if(this.form.fixedPrice==""){
                     this.validator.validate('fixedPrice',this.form.fixedPrice);
-                }else if(!this.sendError.has('retailPrice')&&!this.sendError.has('fixedPrice')){
+                }else if(!this.errors.has('retailPrice')&&!this.errors.has('fixedPrice')){
                     let [rPrice,price] = [ parseFloat(this.form.retailPrice),parseFloat(this.form.fixedPrice)];
                     if(rPrice<=price){
-                        this.sendError.remove('retailPrice');
-                        this.sendError.add('retailPrice', "零售价必须大于批发价", 'auth');
+                        this.errors.remove('retailPrice');
+                        this.errors.add('retailPrice', "零售价必须大于批发价", 'auth');
                     }
                 }
             },
@@ -835,11 +837,11 @@
                     if(!res) return;
                     
                     // 验证上牌日期
-                    if(!this.sendError.has('plateDate')&&!this.sendError.has('outFactoryDate')){
+                    if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
                         let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
                         if(peDate<ofDate){
-                            this.sendError.remove('plateDate');
-                            this.sendError.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
+                            this.errors.remove('plateDate');
+                            this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
                             // 不合理填写提示
                             this.issueErrorTips();
                             return;
@@ -847,11 +849,11 @@
                     }
 
                     // 验证零售价
-                    if(!this.sendError.has('retailPrice')&&!this.sendError.has('fixedPrice')){
+                    if(!this.errors.has('retailPrice')&&!this.errors.has('fixedPrice')){
                         let [rPrice,price] = [ parseFloat(this.form.retailPrice),parseFloat(this.form.fixedPrice)];
                         if(rPrice<=price){
-                            this.sendError.remove('retailPrice');
-                            this.sendError.add('retailPrice', "零售价必须大于批发价", 'auth');
+                            this.errors.remove('retailPrice');
+                            this.errors.add('retailPrice', "零售价必须大于批发价", 'auth');
                             // 不合理填写提示
                             this.issueErrorTips();
                             return;
@@ -947,7 +949,7 @@
 
             // 清除表单验证的错误
             clearErrors() {
-                this.sendError.clear();
+                this.errors.clear();
             },
              
             // 重置数据
@@ -976,7 +978,7 @@
                 this.isSubmitState = false;
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 setTimeout(() => {
-                    this.sendError.clear();
+                    this.errors.clear();
                 })
             },
 

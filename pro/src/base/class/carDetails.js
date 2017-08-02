@@ -17,7 +17,9 @@ class basicInfo{
         this.plateInCity = data.LicensePlateInCity||""
         // 排放标准
         this.dischargeStandard = data.DischargeStandard||""
-        this.color = data.Color||"暂无数据"                        // 颜色
+        // 排量
+        this.liter = data.Liter||""
+        this.color = data.Color||"暂无数据"                   // 颜色
         this.plateDate = data.OnLicensePlateDate||""       // 上牌日期
         this.outFactoryDate = data.OutFactoryDate||""      // 出厂日期
 

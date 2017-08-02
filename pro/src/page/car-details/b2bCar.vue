@@ -520,7 +520,6 @@
                         
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
-                        console.log(dataToJson(this.basicInfo))
 
                         // 车辆异常状态提示
                         this.abnormalStatusTips(this.basicInfo.status);

@@ -1,1 +1,35 @@
 @import '~assets/css/mixin.styl'
+
+
+.m-edit-con
+    width 948px
+    _unUserSelect()
+    .m-info-box
+        width @width - 50px
+        margin 0 25px
+        .m-gp-wrap
+            margin-bottom 12px
+            .m-item
+                width 100%
+        .m-gp-other
+            &.postRetail
+                text-align right
+                position relative
+                height 36px
+                margin 30px 0 0
+                .post-info
+                    width 400px
+                    height 36px
+                    line-height @height
+                    _completeCenter(auto,5px,0,auto)
+                    .ipt-check,.info
+                        float right
+                    .ipt-check
+                        margin 0 8px 0 0
+                    .info
+                        color #40474a
+
+        .m-gp-btn
+            .u-submit
+                width 80px
+                _display(inline-block)
