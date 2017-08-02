@@ -36,6 +36,7 @@
                                 </div>
                             </div>
                         </div><!-- 提示 -->
+
                         <div class="m-section">
                             <div class="m-tit"
                                 ><span class="tit">商品信息</span>
@@ -91,6 +92,7 @@
                                 </div><!-- 内容 -->
                             </div>
                         </div><!-- 商品信息 -->
+                        
                         <div class="m-section">
                             <div class="m-tit"
                                 ><span class="tit">支付方式</span>

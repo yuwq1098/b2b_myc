@@ -213,7 +213,66 @@
                     padding 15px 0 0
                 &.more
                     padding 15px 0 0
-
+                &.order
+                    padding 15px 0 0
+                .order-con
+                    width 948px
+                    .product-info
+                        width @width 
+                        height 120px
+                        position relative
+                        .u-pic-box
+                            width 160px
+                            height @height
+                            _completeCenter(0,auto,0,auto)
+                            .u-pic
+                                width @width
+                                height @height
+                                _overflow()
+                                img
+                                   width @width
+                                   height auto
+                        .info-con
+                            height @height
+                            width @width - 180px - 20px
+                            margin 0 0 0 180px
+                            .u-title
+                                height 48px
+                                padding 3px 0
+                                margin 0 0 15px 
+                                line-height 24px
+                                _ellipsis(2)
+                                font-size 15px
+                                font-weight bold
+                                _spacingPlus()
+                            .u-other
+                                height 25px
+                                line-height @height
+                                .attr
+                                    color #959595
+                                    font-size 12px
+                                .data
+                                    margin 0 0 0 10px
+                                    font-size 14px
+                                    color #40474a
+                                    _spacingPlus()
+                                .cut
+                                    margin 0 5px
+                                    color #c2c2c2
+                            .u-price
+                                height 34px
+                                line-height @height
+                                width 250px
+                                text-align right
+                                _completeCenter(auto,10px,auto,-2px)
+                                color #959595
+                                font-size 12px
+                                .price
+                                    color #ff6533
+                                    font-size 12px
+                                    .vital
+                                        font-size 20px
+                                        margin 0 3px 0 1px
         .m-operate
             height 38px + 36px + 6px
             position relative

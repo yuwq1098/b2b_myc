@@ -41,9 +41,66 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="m-section">
                                 <div class="u-hd"
                                     ><span class="tit">车辆基本信息</span>
+                                </div>
+                                <div class="u-con order">
+                                    <div class="order-con">
+                                        <div class="product-info">
+                                            <div class="u-pic-box">
+                                                <div class="u-pic">
+                                                    <img :src="orderData.imgUrl" :alt="orderData.carTitle"/>
+                                                </div>
+                                            </div><!-- 图片容器 -->
+                                            <div class="info-con">
+                                                <div class="u-title"
+                                                    >{{orderData.carTitle}}
+                                                </div>
+                                                <div class="u-other"
+                                                    >   <span class="attr">车辆所在地</span>
+                                                        <span class="data">{{orderData.inCity}}</span>
+
+                                                        <span class="cut">|</span>
+                                                      
+                                                        <span class="attr">上牌时间</span>
+                                                        <span class="data">{{orderData.plateDate | dateYearFormat}}</span>
+
+                                                        <span class="cut">|</span>
+
+                                                        <span class="attr">表显里程</span> 
+                                                        <span class="data">{{orderData.mileage | mileFn(2)}}</span>
+                                                </div>
+                                                <div class="u-other"
+                                                    >   <span class="attr">排放标准</span>
+                                                        <span class="data">{{basicInfo.dischargeStandard}}</span>
+
+                                                        <span class="cut">|</span>
+                                                      
+                                                        <span class="attr">营运类型</span>
+                                                        <span class="data">{{basicInfo.serviceType}}</span>
+
+                                                        <span class="cut">|</span>
+                                                        
+                                                        <span class="attr">牌照归属地</span> 
+                                                        <span class="data">{{basicInfo.inProvince}}</span>
+                                                </div>
+                                                <div class="u-price"
+                                                    >订单总额：
+                                                    <span class="price">
+                                                        <em class="vital">{{orderData.price | priceFormat(2)}}</em>万元
+                                                    </span>
+                                                </div>
+                                            </div><!-- 信息内容 -->
+                                        </div><!-- 商品信息 -->
+                                    </div><!-- 内容 -->
+                                </div>
+                            </div><!-- 车辆基本信息 -->
+
+                            <div class="m-section">
+                                <div class="u-hd"
+                                    ><span class="tit">车辆信息补充</span>
                                 </div>
                                 <div class="u-con car-details">
                                     
@@ -80,7 +137,7 @@
                                         </div>
                                     </div><!-- 发动机号 -->
                                 </div>
-                            </div>
+                            </div><!-- 车辆信息补充 -->
 
                             <div class="m-section">
                                 <div class="u-hd"
@@ -194,7 +251,7 @@
                                     </div><!-- 尾款金额 -->
 
                                 </div>
-                            </div>
+                            </div><!-- 车况描述 -->
                             
                             <div class="m-section">
                                 <div class="u-hd"
@@ -327,7 +384,9 @@
     import * as geekDom from 'assets/js/dom.js'
 
     // 合同详情信息/合同内容信息的构造类
-    import {contractDetails,contractBody} from 'base/class/order.js'
+    import {contractDetails,contractBody,orderInfo} from 'base/class/order.js'
+    // 车辆详细信息的构造类
+    import {basicInfo} from 'base/class/carDetails.js'
 
     // 会员中心内容布局组件
     import memberLayout from 'components/layout/memberCon.vue'
@@ -351,6 +410,10 @@
                 contractDetails: new contractDetails({}),
                 // 合同内容信息
                 contractBodyData: new contractBody({}),
+                // 订单详情信息
+                orderData: new orderInfo({}),
+                // 车辆基本信息
+                basicInfo:{},
             }
         },
         //生命周期,开始的时候
@@ -365,6 +428,8 @@
             this.orderId = this.$router.currentRoute.query.cid||"";
             // 获取合同详情信息
             this.getContractDetails();
+            // 获取订单详情信息
+            this.getOrderDetail();
         },
         // 退出的生命周期钩子
         deactivated(){
@@ -381,6 +446,62 @@
 
         // 自定义函数(方法)
         methods: {
+
+            // 格式化订单信息
+            _normalizeOrderInfo(data) {
+                return new orderInfo(data);
+            },
+
+            // 获取订单详情
+            getOrderDetail(){
+                var data = {
+                    OrderId : this.orderId,
+                }
+                api.getB2BOrderDetail(data).then((res) => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+
+                        this.orderData = this._normalizeOrderInfo(res.data[0]);
+                        this.payAmount = this.orderData.managedPrice;
+                        // 获取车辆详情信息
+                        this.getCarDetailsInfo(this.orderData.carId);
+
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+
+            // 格式化车辆基本信息
+            _normalizeBasicInfo(data) {
+                return new basicInfo(data);
+            },
+            
+            // 车辆详情信息
+            getCarDetailsInfo(carId){
+                var data = {
+                    CarId : carId,
+                }
+                api.getCarDetalis(data).then((res) => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        
+                        // 获取车辆详情基本信息
+                        this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
+
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
 
             // 格式化合同详情信息
             _normalizeContractDetails(data) {
