@@ -26,7 +26,7 @@ class sendCarForm{
             CompulsoryInsuranceExpiration:data.insuranceDate||"",
 
             CarDescription: data.desc||"",                  // 车况描述
-            PostToRetailMarket: data.isPostRetail||"",      // 是否发布到普通二手车市场
+            PostToRetailMarket: data.isPostRetail||false,      // 是否发布到普通二手车市场
             Vin: data.vin||"",                              // 车架号
             ServiceCharacteristics: data.serviceType||"",   // 使用性质（非营运，非营运租赁，营运，营转非）
 	    }
