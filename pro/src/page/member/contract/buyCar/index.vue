@@ -347,7 +347,7 @@
             </div><!-- 买方签署合同 -->
         </member-layout>
 
-        <div class="m-sign-alerts" v-if="isShow_signBox">
+        <div class="m-sign-alerts" v-show="isShow_signBox">
             <div class="m-mask"></div><!-- 遮罩层 -->
             <div class="m-alert-box">
                 <div class="inner">
@@ -543,7 +543,7 @@
             signBeforeTips(){
                 this.$alert('在您完成签署合同之前，卖家随时可能会更改合同，请多加留意，若系统提示卖家已修改合同，请重新认真阅读合同再进行签署，避免带来不必要的麻烦', '签署合同提示', {
                     confirmButtonText: '我知道了',
-                    type: 'error',
+                    type: 'warning',
                     callback: () => {
                         return;
                     }

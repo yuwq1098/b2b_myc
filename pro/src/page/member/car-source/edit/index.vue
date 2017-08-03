@@ -25,6 +25,7 @@
                                                 <city-cascader
                                                     @valChangeEnd="carInCityChangeEnd"
                                                     placeholder="请选择车辆所在地"
+                                                    :initValue="iv_carInCity"
                                                     >
                                                 </city-cascader>
                                             </div>
@@ -42,6 +43,7 @@
                                                 <model-cascader
                                                     @valChangeEnd="modelChangeEnd"
                                                     placeholder="请选择车品牌、车系及车型"
+                                                    :initValue="iv_selectedModel"
                                                     >
                                                 </model-cascader>
                                             </div>
@@ -64,28 +66,9 @@
                                                 <city-cascader
                                                     @valChangeEnd="plateInCityChangeEnd"
                                                     placeholder="请选择车牌归属地（城市）"
+                                                    :initValue="iv_plateInCity"
                                                     >
                                                 </city-cascader>
-                                            </div>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="8">
-                                        <div class="m-item">
-                                            <gk-input-error
-                                                title="出厂日期"
-                                                :errorTetx="errors.first('outFactoryDate')"
-                                                :isShow="errors.has('outFactoryDate')"
-                                                >
-                                            </gk-input-error>
-                                            <input type="hidden" name="outFactoryDate" v-model="form.outFactoryDate"/>
-                                            <div class="u-item-box">
-                                                <date-picke
-                                                    @dateChangeEnd="outFactoryDateEnd"
-                                                    :disabledPrevYear="30"
-                                                    placeholder="请选择出厂日期"
-                                                    :initValue="form.outFactoryDate"
-                                                    >
-                                                </date-picke>
                                             </div>
                                         </div>
                                     </el-col>
@@ -103,6 +86,25 @@
                                                     :disabledPrevYear="20"
                                                     placeholder="请选择上牌时间"
                                                     :initValue="form.plateDate"
+                                                    >
+                                                </date-picke>
+                                            </div>
+                                        </div>
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <div class="m-item">
+                                            <gk-input-error
+                                                title="交强险"
+                                                :errorTetx="errors.first('insuranceDate')"
+                                                :isShow="errors.has('insuranceDate')"
+                                                >
+                                            </gk-input-error>
+                                            <div class="u-item-box">
+                                                <date-picke
+                                                    @dateChangeEnd="insuranceDateEnd"
+                                                    :disabledPrevYear="3"
+                                                    placeholder="请选择交强险（到期时间）"
+                                                    :initValue="form.insuranceDate"
                                                     >
                                                 </date-picke>
                                             </div>
@@ -239,25 +241,7 @@
 
                             <div class="m-gp-wrap f__clearfix">
                                 <el-row :gutter="formStyleData.gutter">
-                                    <el-col :span="8">
-                                        <div class="m-item">
-                                            <gk-input-error
-                                                title="交强险"
-                                                :errorTetx="errors.first('insuranceDate')"
-                                                :isShow="errors.has('insuranceDate')"
-                                                >
-                                            </gk-input-error>
-                                            <div class="u-item-box">
-                                                <date-picke
-                                                    @dateChangeEnd="insuranceDateEnd"
-                                                    :disabledPrevYear="3"
-                                                    placeholder="请选择交强险（到期时间）"
-                                                    :initValue="form.insuranceDate"
-                                                    >
-                                                </date-picke>
-                                            </div>
-                                        </div>
-                                    </el-col>
+                                    
                                     <el-col :span="8">
                                         <div class="m-item">
                                             <gk-input-error
@@ -277,7 +261,7 @@
                                             </div>
                                         </div>
                                     </el-col>
-                                    <el-col :span="8">
+                                    <el-col :span="10">
                                         <div class="m-item">
                                             <gk-input-error
                                                 title="车架号"
@@ -510,6 +494,11 @@
                 
                 // 发布订单的表单验证报错集合
                 errors: null,
+            
+                iv_carInCity: "",          // 车辆所在地
+                iv_plateInCity: "",        // 车牌归属地
+                iv_selectedModel: [],      // 品牌车型选择
+
                 
                 // 车辆订单的表单信息（供双向绑定及提交）
                 form:{
@@ -519,7 +508,6 @@
                     plateInCity: "",        // 车牌归属地
                     plateDate: "",          // 上牌日期
                     changeNum: "",          // 过户次数
-                    outFactoryDate: "",     // 出厂日期
                     fixedPrice: "",         // 一口价/最低价   对应api字段 => B2BPrice
                     retailPrice: "",        // 零售价   对应api字段 => RetailPrice
                     mileage: "",            // 行驶里程
@@ -554,7 +542,6 @@
                 carInCity: 'required',
                 selectedModel: 'required',
                 plateInCity: 'required',
-                outFactoryDate: 'required',
                 plateDate: 'required',
                 changeNum: 'required',
                 fixedPrice: 'required|between:1,3000|decimal:2',
@@ -633,7 +620,7 @@
                         this.fileInfoList = this._normalizeFileList(res.data.CarFiles)
                         
                         // 获取车辆详情基本信息
-                        // console.log("获取车辆详情基本信息",dataToJson(this.basicInfo))
+                        console.log("获取车辆详情基本信息",dataToJson(this.basicInfo))
                         // 获取车辆图片列表信息
                         // console.log("获取车辆图片列表信息",dataToJson(this.fileInfoList))
 
@@ -675,12 +662,16 @@
             setInitSourceData(){
                 // 车辆Id
                 this.form.carId = this.carId;
+                // 车辆所在地
+                this.iv_carInCity = this.basicInfo.inProvince+"/"+this.basicInfo.inCity; 
+                // 车辆所在地
+                this.iv_plateInCity = this.basicInfo.plateInProvince+"/"+this.basicInfo.plateInCity; 
+                // 品牌车系车型
+                this.iv_selectedModel = [this.basicInfo.brandId,this.basicInfo.seriesId,this.basicInfo.modelId];
                 // 上牌日期
                 this.form.plateDate = this.basicInfo.plateDate;  
                 // 过户次数
                 this.form.changeNum = this.basicInfo.transferTimes.toString(); 
-                // 出厂日期
-                this.form.outFactoryDate = this.basicInfo.outFactoryDate;  
                 // 一口价/最低价
                 this.form.fixedPrice = this.basicInfo.price.toString();    
                 // 零售价
@@ -710,7 +701,6 @@
                 //     plateInCity: "",        // 车牌归属地
                 //     plateDate: "",          // 上牌日期
                 //     changeNum: "",          // 过户次数
-                //     outFactoryDate: "",     // 出厂日期
                 //     fixedPrice: "",         // 一口价/最低价   对应api字段 => B2BPrice
                 //     retailPrice: "",        // 零售价   对应api字段 => RetailPrice
                 //     mileage: "",            // 行驶里程
@@ -748,35 +738,16 @@
                 this.validator.validate('plateInCity',curCityCode);
             },
 
-            // 出厂日期
-            outFactoryDateEnd(selected){
-                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
-                this.form.outFactoryDate = curDateTime;
-                this.validator.validate('outFactoryDate',curDateTime);
-                if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
-                    let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
-                    if(peDate<ofDate){
-                        this.errors.remove('plateDate');
-                        this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
-                    }
-                }else{
-                    this.errors.remove('plateDate');
-                }
-            },
-
             // 上牌日期
             plateDateEnd(selected){
                 let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
                 this.form.plateDate = curDateTime;
                 this.validator.validate('plateDate',curDateTime);
-                if(this.form.outFactoryDate==""){
-                    this.validator.validate('outFactoryDate',this.form.fixedPrice);
-                }else if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
-                    let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
-                    if(peDate<ofDate){
-                        this.errors.remove('plateDate');
-                        this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
-                    }
+
+                let [theDate,newDate] = [ +new Date(this.form.plateDate),+new Date()];
+                if(theDate>newDate){
+                    this.errors.remove('plateDate');
+                    this.errors.add('plateDate', "上牌日期必须早于当前日期", 'auth');
                 }
             },
 
@@ -891,7 +862,6 @@
                     plateInCity: this.form.plateInCity,
                     plateDate: this.form.plateDate,
                     changeNum: this.form.changeNum,
-                    outFactoryDate: this.form.outFactoryDate,
                     fixedPrice: this.form.fixedPrice,
                     retailPrice: this.form.retailPrice,
                     mileage: this.form.mileage,
@@ -913,21 +883,9 @@
                             type: 'error',
                             duration: 2000,
                         });
-                        document.body.scrollTop = 500
+                        document.body.scrollTop = 200
                         return;
                     };
-                    
-                    // 验证上牌日期
-                    if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
-                        let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
-                        if(peDate<ofDate){
-                            this.errors.remove('plateDate');
-                            this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
-                            // 不合理填写提示
-                            this.issueErrorTips();
-                            return;
-                        }
-                    }
 
                     // 验证零售价
                     if(!this.errors.has('retailPrice')&&!this.errors.has('fixedPrice')){
@@ -941,8 +899,6 @@
                         }
                     }
 
-                    
-                    
                     this.$confirm('尊贵的用户，您好！请确保您发布车辆信息的真实性，这将审核的通过率！', '温馨提示', {
                         confirmButtonText: '确认修改',
                         cancelButtonText: '再仔细看看',
@@ -963,7 +919,7 @@
                         type: 'error',
                         duration: 2000,
                     });
-                    document.body.scrollTop = 500
+                    document.body.scrollTop = 200
                 });
 
             },
@@ -976,7 +932,7 @@
                     type: 'error',
                     duration: 2000,
                 });
-                document.body.scrollTop = 500
+                document.body.scrollTop = 200
             },
             
             //整理数据并发布

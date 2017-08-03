@@ -369,7 +369,7 @@
         </member-layout>
         
         
-        <div class="m-sign-alerts" v-if="isShow_signBox">
+        <div class="m-sign-alerts" v-show="isShow_signBox">
             <div class="m-mask"></div><!-- 遮罩层 -->
             <div class="m-alert-box">
                 <div class="inner">
@@ -443,6 +443,7 @@
         // 数据
         data() {
             return{
+                canvasBox: "",
                 // 订单id
                 orderId: "",
                 // 订单合同信息
@@ -863,7 +864,6 @@
             },
 
 
-            
             // 立即去签名
             goSign(){
                 this.isShow_signBox = true;
@@ -881,16 +881,17 @@
 
             // 重置签名 
             resetSign(){
+                
                 // 清空签名图片
                 this.canvasImg = "";
-                
                 let signWrap = document.getElementById("js__signWrap");
+
                 this.canvasBox.removeChild(signWrap);
                 let newCanvas = document.createElement('canvas');
 
-                newCanvas.id = "js__signWrap"; 
-                newCanvas.width = "280"; 
-                newCanvas.height = "100"; 
+                newCanvas.id = "js__signWrap";
+                newCanvas.width = "280";
+                newCanvas.height = "100";
                 
                 this.canvasBox.appendChild(newCanvas);
                 

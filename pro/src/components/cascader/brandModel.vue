@@ -50,6 +50,39 @@
             // 当用户选中的值变化了，再将事件派发给父组件
             selectedOptions: function(val){
                 this.$emit("valChangeEnd",this.selectedOptions)
+            },
+            // 默认值
+            initValue(val){
+                if(this.options.length==0) return;
+                let _brandId = val[0];
+                let _seriesId = val[1];
+                let _modelId = val[2];
+                let _brandName,_seriesName,_modelName,_bIndex,_sIndex;
+                
+                
+                this.options.forEach((item,index) => {
+                    if(item.value==_brandId){
+                        _brandName = item.label;
+                        _bIndex = index;
+                        this._getSeriesByInitValue(_brandId,_bIndex,(data) => {
+                            data.forEach((item,index) => {
+                                if(item.value==_seriesId){
+                                    _seriesName = item.label;
+                                    _sIndex = index;
+                                    this._getModelInitValue(_seriesId,_bIndex,_sIndex,(m_data) => {
+                                        m_data.forEach((item,index) => {
+                                            if(item.value==_modelId){
+                                                _modelName = item.label;
+                                                this.selectedOptions = [_brandId,_seriesId,_modelId];
+                                            }
+                                        })
+                                    })
+                                }
+                            })
+                        })
+                    }
+                })
+
             }
         },
         props:{
@@ -57,7 +90,14 @@
             placeholder:{
                 type: String,
                 default: "请选择相应车型"
-            }
+            },
+            // 初始化的值
+            initValue:{
+                type: Array,
+                default(){
+                    return [];
+                },
+            },
         },
         computed:{
             isNotKeepAlive(){
@@ -92,7 +132,6 @@
             //根据车品牌获取车系
             _getSeriesOptions(id,index){
                 api.getCarSeriesByBrand(id).then((res) => {
-
                     this.options[index].children = this._normalizes(res.data,2);
                 })
             },
@@ -101,6 +140,22 @@
             _getModelOptions(id,bIndex,sIndex){
                 api.getCarModel(id).then((res) => {
                     this.options[bIndex].children[sIndex].children = this._normalizes(res.data,3);
+                })
+            },
+
+            //根据车品牌获取车系  通过初始化数据
+            _getSeriesByInitValue(id,index,callBack){
+                api.getCarSeriesByBrand(id).then((res) => {
+                    this.options[index].children = this._normalizes(res.data,2);
+                    callBack&&callBack(this._normalizes(res.data,2));
+                })
+            },
+
+            //根据车系获取车型  通过初始化数据
+            _getModelInitValue(id,bIndex,sIndex,callBack){
+                api.getCarModel(id).then((res) => {
+                    this.options[bIndex].children[sIndex].children = this._normalizes(res.data,3);
+                    callBack&&callBack(this._normalizes(res.data,3));
                 })
             },
             

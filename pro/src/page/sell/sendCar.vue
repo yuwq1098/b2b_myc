@@ -88,25 +88,6 @@
                                             <el-col :span="8">
                                                 <div class="m-item">
                                                     <gk-input-error
-                                                        title="出厂日期"
-                                                        :errorTetx="errors.first('outFactoryDate')"
-                                                        :isShow="errors.has('outFactoryDate')"
-                                                        >
-                                                    </gk-input-error>
-                                                    <input type="hidden" name="outFactoryDate" v-model="form.outFactoryDate"/>
-                                                    <div class="u-item-box">
-                                                        <date-picke
-                                                            @dateChangeEnd="outFactoryDateEnd"
-                                                            :disabledPrevYear="30"
-                                                            placeholder="请选择出厂日期"
-                                                            >
-                                                        </date-picke>
-                                                    </div>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="8">
-                                                <div class="m-item">
-                                                    <gk-input-error
                                                         title="上牌时间"
                                                         :errorTetx="errors.first('plateDate')"
                                                         :isShow="errors.has('plateDate')"
@@ -117,6 +98,24 @@
                                                             @dateChangeEnd="plateDateEnd"
                                                             :disabledPrevYear="20"
                                                             placeholder="请选择上牌时间"
+                                                            >
+                                                        </date-picke>
+                                                    </div>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="8">
+                                                <div class="m-item">
+                                                    <gk-input-error
+                                                        title="交强险"
+                                                        :errorTetx="errors.first('insuranceDate')"
+                                                        :isShow="errors.has('insuranceDate')"
+                                                        >
+                                                    </gk-input-error>
+                                                    <div class="u-item-box">
+                                                        <date-picke
+                                                            @dateChangeEnd="insuranceDateEnd"
+                                                            :disabledPrevYear="3"
+                                                            placeholder="请选择交强险（到期时间）"
                                                             >
                                                         </date-picke>
                                                     </div>
@@ -247,24 +246,7 @@
 
                                     <div class="m-gp-wrap f__clearfix">
                                         <el-row :gutter="formStyleData.gutter">
-                                            <el-col :span="8">
-                                                <div class="m-item">
-                                                    <gk-input-error
-                                                        title="交强险"
-                                                        :errorTetx="errors.first('insuranceDate')"
-                                                        :isShow="errors.has('insuranceDate')"
-                                                        >
-                                                    </gk-input-error>
-                                                    <div class="u-item-box">
-                                                        <date-picke
-                                                            @dateChangeEnd="insuranceDateEnd"
-                                                            :disabledPrevYear="3"
-                                                            placeholder="请选择交强险（到期时间）"
-                                                            >
-                                                        </date-picke>
-                                                    </div>
-                                                </div>
-                                            </el-col>
+                                            
                                             <el-col :span="8">
                                                 <div class="m-item">
                                                     <gk-input-error
@@ -283,7 +265,7 @@
                                                     </div>
                                                 </div>
                                             </el-col>
-                                            <el-col :span="8">
+                                            <el-col :span="10">
                                                 <div class="m-item">
                                                     <gk-input-error
                                                         title="车架号"
@@ -561,7 +543,6 @@
                 carInCity: 'required',
                 selectedModel: 'required',
                 plateInCity: 'required',
-                outFactoryDate: 'required',
                 plateDate: 'required',
                 changeNum: 'required',
                 fixedPrice: 'required|between:1,3000|decimal:2',
@@ -676,36 +657,18 @@
                 this.validator.validate('plateInCity',curCityCode);
             },
 
-            // 出厂日期
-            outFactoryDateEnd(selected){
-                let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
-                this.form.outFactoryDate = curDateTime;
-                this.validator.validate('outFactoryDate',curDateTime);
-                if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
-                    let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
-                    if(peDate<ofDate){
-                        this.errors.remove('plateDate');
-                        this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
-                    }
-                }else{
-                    this.errors.remove('plateDate');
-                }
-            },
-
             // 上牌日期
             plateDateEnd(selected){
                 let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
                 this.form.plateDate = curDateTime;
                 this.validator.validate('plateDate',curDateTime);
-                if(this.form.outFactoryDate==""){
-                    this.validator.validate('outFactoryDate',this.form.fixedPrice);
-                }else if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
-                    let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
-                    if(peDate<ofDate){
-                        this.errors.remove('plateDate');
-                        this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
-                    }
+                
+                let [theDate,newDate] = [ +new Date(this.form.plateDate),+new Date()];
+                if(theDate>newDate){
+                    this.errors.remove('plateDate');
+                    this.errors.add('plateDate', "上牌日期必须早于当前日期", 'auth');
                 }
+                
             },
 
             // 过户次数
@@ -819,7 +782,6 @@
                     plateInCity: this.form.plateInCity,
                     plateDate: this.form.plateDate,
                     changeNum: this.form.changeNum,
-                    outFactoryDate: this.form.outFactoryDate,
                     fixedPrice: this.form.fixedPrice,
                     retailPrice: this.form.retailPrice,
                     mileage: this.form.mileage,
@@ -844,18 +806,6 @@
                         document.body.scrollTop = 500
                         return;
                     };
-                    
-                    // 验证上牌日期
-                    if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
-                        let [peDate,ofDate] = [ +new Date(this.form.plateDate),+new Date(this.form.outFactoryDate)];
-                        if(peDate<ofDate){
-                            this.errors.remove('plateDate');
-                            this.errors.add('plateDate', "上牌日期不能早于出厂日期", 'auth');
-                            // 不合理填写提示
-                            this.issueErrorTips();
-                            return;
-                        }
-                    }
 
                     // 验证零售价
                     if(!this.errors.has('retailPrice')&&!this.errors.has('fixedPrice')){
@@ -868,8 +818,6 @@
                             return;
                         }
                     }
-
-                    
                     
                     this.$confirm('尊贵的用户，您好！请确保您发布车辆信息的真实性，这将审核的通过率！', '温馨提示', {
                         confirmButtonText: '确认发布',

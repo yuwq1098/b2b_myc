@@ -44,20 +44,6 @@
                 }
             }
         },
-        // 数据侦听
-        watch:{
-            // 当用户选中的值变化了，再将事件派发给父组件
-            selectedOptions: function(val){
-
-                this._getCityAllName()
-                this.$emit("valChangeEnd",this.selectedOptions)
-            }
-        },
-        computed:{
-            isNotKeepAlive(){
-                return this.$router.currentRoute.meta.notKeepAlive;
-            }
-        },
         props:{
             placeholder:{
                 type: String,
@@ -66,9 +52,49 @@
             myValue:{
                 type: String,
                 default: ""
+            },
+            // 初始化的值
+            initValue:{
+                type: [String,Number],
+                default: "",
+            },
+        },
+        // 属性计算
+        computed:{
+            isNotKeepAlive(){
+                return this.$router.currentRoute.meta.notKeepAlive;
+            },
+
+        },
+        // 数据侦听
+        watch:{
+            // 当用户选中的值变化了，再将事件派发给父组件
+            selectedOptions: function(val){
+                this._getCityAllName()
+                this.$emit("valChangeEnd",this.selectedOptions)
+            },
+            // 默认值
+            initValue(val){
+                if(this.options.length==0) return;
+                let _province = val.split('/')[0];
+                let _city = val.split('/')[1];
+                let _provinceCode,_cityCode;
+
+                this.options.forEach((item,index) => {
+                    if(item.label==_province){
+                        _provinceCode = item.value;
+                        this._getCityByInitValue(_provinceCode,index,(data) => {
+                            data.forEach((item,index) => {
+                                if(item.label==_city){
+                                    _cityCode = item.value;
+                                    this.selectedOptions = [_provinceCode,_cityCode];
+                                }
+                            })
+                        });
+                    }
+                })
             }
         },
-
         // 不使用keep-alive时,走这个生命周期
         created(){
             this._getProvinceOptions();   //获取省份级联选择框的初始选项
@@ -89,10 +115,18 @@
                 })
             },
 
-            //根据车省份获取城市
+            // 根据车省份获取城市
             _getCityOptions(code,index){
                 api.getCityForProvince(code).then((res) => {
                     this.options[index].children = this._normalizes(res.data,2);
+                })
+            },
+
+            // 根据车省份获取城市 通过初始化数据
+            _getCityByInitValue(code,index,callBack){
+                api.getCityForProvince(code).then((res) => {
+                    this.options[index].children = this._normalizes(res.data,2);
+                    callBack&&callBack(this._normalizes(res.data,2));
                 })
             },
             

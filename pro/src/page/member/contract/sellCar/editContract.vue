@@ -369,7 +369,7 @@
         </member-layout>
         
         
-        <div class="m-sign-alerts" v-if="isShow_signBox">
+        <div class="m-sign-alerts" v-show="isShow_signBox">
             <div class="m-mask"></div><!-- 遮罩层 -->
             <div class="m-alert-box">
                 <div class="inner">
@@ -403,6 +403,7 @@
 
     </div>
 </template>
+
 
 <script>
 
@@ -442,9 +443,11 @@
             // 日期选择器组件
             datePicke,
         },
+
         // 数据
         data() {
             return{
+                
                 // 订单id
                 orderId: "",
                 // 合同详情信息
@@ -517,6 +520,7 @@
                 trusteeMoney: "required|between:1,30000000|decimal:2",
             });
             this.$set(this, 'errors', this.validator.errorBag);
+
         },
         mounted(){
             
@@ -537,8 +541,10 @@
         },
         // 退出的生命周期钩子
         deactivated(){
+
             // 重置数据
             this.reset();
+
         },
         // 属性值计算
         computed:{
@@ -889,8 +895,6 @@
                 })
             },
 
-
-            
             // 立即去签名
             goSign(){
                 this.isShow_signBox = true;
@@ -898,7 +902,6 @@
                     // 开始签名
                     this.signBrush();
                 })
-                
             },
 
             // 关闭签名弹出框
