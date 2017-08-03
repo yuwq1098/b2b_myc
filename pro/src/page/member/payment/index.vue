@@ -449,7 +449,7 @@
                     payPass: thePayPass,
                 }).then((res) => {
                     
-                    // 如果验证成功
+                    // 验证成功
                     if(res){
 
                         let data = {

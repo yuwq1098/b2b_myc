@@ -533,10 +533,12 @@
                         smsCode: this.smsCode,
                         payPass: this.payPass,
                     }).then((res) => {
-                        // 如果验证不成功
-                        if(!res) return;
-                        // 提交提现申请
-                        this.putCommit();
+                        
+                        // 验证成功
+                        if(res) {
+                            // 提交提现申请
+                            this.putCommit();
+                        }
 
                     }).catch(error => {
                         console.log(error);
@@ -552,11 +554,13 @@
                         smsCode: this.smsCode,
                         payPass: this.payPass,
                     }).then((res) => {
-                        // 如果验证不成功
-                        if(!res) return;
-                        // 提交提现申请
-                        this.putCommit();
-
+                        
+                        // 验证成功
+                        if(res){
+                            // 提交提现申请
+                            this.putCommit();
+                        }
+                        
                     }).catch(error => {
                         console.log(error);
                     });

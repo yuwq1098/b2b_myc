@@ -241,6 +241,7 @@
                     nameOne: this.nameOne,
                     passOne: this.passOne,
                 }).then((res) => {
+                    
                     // 如果验证成功
                     if(res){
                         let data = {
@@ -314,7 +315,8 @@
                     imgCodeTwo: this.imgCodeTwo,
                     smsCodeTwo: this.smsCodeTwo,
                 }).then((res) => {
-                    // 如果验证成功
+
+                    // 验证成功
                     if(res){
                         let data = {
                             username: this.nameOne,

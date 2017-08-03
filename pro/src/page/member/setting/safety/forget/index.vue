@@ -294,16 +294,16 @@
                     imgCode: this.imgCode,
                     smsCode: this.smsCode,
                 }).then((res) => {
-                    // 如果验证不成功
-                    if(!res) return;
-                    
-                    // 密码修改的数据
-                    let data = {
-                        Mobile: me.memberData.tel,
-                        SMSCode: me.smsCode,
-                        NewPwd: me.newPass
-                    }
-                    me.putCommit(data);
+                    // 验证成功
+                    if(res) {
+                        // 密码修改的数据
+                        let data = {
+                            Mobile: me.memberData.tel,
+                            SMSCode: me.smsCode,
+                            NewPwd: me.newPass
+                        }
+                        me.putCommit(data);
+                    };
                     
                 }).catch(error => {
                     console.log(error);

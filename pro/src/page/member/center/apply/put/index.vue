@@ -609,7 +609,18 @@
                 }).then((res) => {
                     
                     // 如果验证不成功
-                    if(!res) return;
+                    if(!res) {
+                        this.$notify({
+                            title: '数据丢失',
+                            message: "您之前填写的数据已不存在，请重新填写",
+                            type: 'error',
+                            duration: 2000,
+                        });
+                        this.tabShowIndex = 1;
+                        // 清空证件信息
+                        this.flowTwoReset();
+                        return;   
+                    }
 
                     let myAuthId = "";
 

@@ -389,8 +389,10 @@
                     rMoney: this.payAmount,
                     payPass: thePayPass,
                 }).then((res) => {
-                    // 如果验证成功
+
+                    // 验证成功
                     if(res){
+                        
                         // 信誉保证金限额充值
                         if(this.rechargeType=="2"&&this.payAmount>1000){
                             this.$alert('我司平台规则规定，信誉保证金的充值数额不能高于1000元。', '违规充值', {

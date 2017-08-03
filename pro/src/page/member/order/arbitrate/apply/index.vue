@@ -345,7 +345,7 @@
                     aReplenish: this.aReplenish,              
                 }).then((res) => {
                     
-                    // 如果验证成功
+                    // 验证成功
                     if(res){
                         this.$confirm('确认申请仲裁后，系统即判定本次交易终止，将对责任方作出相应的惩罚，请认真考虑后作出决定，祝您生活愉快！', '确认申请仲裁吗？', {
                                 confirmButtonText: '确认仲裁',

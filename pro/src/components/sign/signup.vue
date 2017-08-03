@@ -282,6 +282,7 @@
             },
             // 提交
             onSubmit(){
+                
                 let me = this;
                 this.validator.validateAll({
                     telReg: this.telReg,
@@ -289,7 +290,8 @@
                     imgCodeReg: this.imgCodeReg,
                     smsCodeReg: this.smsCodeReg,
                 }).then((res) => {
-                    // 如果验证成功
+
+                    // 验证
                     if(res){
                         // 密码修改的数据
                         let data = {

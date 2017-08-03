@@ -302,7 +302,7 @@
                     payPass: this.payPass,
                 }).then((res) => {
                     
-                    // 如果验证成功
+                    // 验证成功
                     if(res){
                         this.$confirm('确认签收后，系统即认为交易成功，并返还您的交易保证金，祝您生活愉快！', '您确认签收吗？', {
                                 confirmButtonText: '确认签收',

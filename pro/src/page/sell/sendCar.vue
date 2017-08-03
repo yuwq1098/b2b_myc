@@ -834,7 +834,16 @@
                     photo: this.form.photo.length,
                 }).then((res) => {
                     // 如果验证不成功
-                    if(!res) return;
+                    if(!res) {
+                        this.$notify.error({
+                            title: '填写不完整',
+                            message: '请认真填写完所有车辆信息',
+                            type: 'error',
+                            duration: 2000,
+                        });
+                        document.body.scrollTop = 500
+                        return;
+                    };
                     
                     // 验证上牌日期
                     if(!this.errors.has('plateDate')&&!this.errors.has('outFactoryDate')){
@@ -860,16 +869,19 @@
                         }
                     }
 
-                    //验证通过那么就将按钮设置为提交中状态
-                    this.isSubmitState = true;
+                    
                     
                     this.$confirm('尊贵的用户，您好！请确保您发布车辆信息的真实性，这将审核的通过率！', '温馨提示', {
                         confirmButtonText: '确认发布',
                         cancelButtonText: '再仔细看看',
                         type: 'warning'
                     }).then(() => {
+
+                        //验证通过那么就将按钮设置为提交中状态
+                        this.isSubmitState = true;
                         // 立即发布
                         this.issue();
+
                     }).catch(() => {
                         return;
                     });
@@ -905,7 +917,7 @@
                 this._normalizeData(this.form,(data)=>{
                     
                     api.addOrEditB2BCar(data).then(res => {
-                        // 请求成功将接触按钮的提交中状态
+                        // 请求成功将解除按钮的提交中状态
                         this.isSubmitState = false;
                         if(res.code==0){
                             me.$notify({
@@ -927,7 +939,7 @@
                         }
                     }).catch(error => {
 
-                        // 请求成功将接触按钮的提交中状态
+                        // 发布失败将解除按钮的提交中状态
                         this.isSubmitState = false;
                         me.$notify({
                             title: '发布失败',

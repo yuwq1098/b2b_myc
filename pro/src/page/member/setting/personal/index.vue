@@ -403,10 +403,10 @@
                         nickname: this.nickname,
                     }).then((res) => {
                          
-                        // 如果验证不成功
-                        if(!res) return;
-                        
-                        this.putCommit(data);
+                        // 验证成功
+                        if(res) {
+                            this.putCommit(data);
+                        };
                         
                     }).catch(error => {
                         console.log(error);

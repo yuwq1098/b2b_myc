@@ -150,15 +150,15 @@
                     checkPass: this.checkPass
                 }).then((res) => {
                     
-                    // 如果验证不成功
-                    if(!res) return;
-
-                    // 密码修改的数据
-                    let data = {
-                        OldPwd: me.pass,
-                        NewPwd: me.checkPass
-                    }
-                    me.putCommit(data);
+                    // 验证成功
+                    if(res) {
+                        // 密码修改的数据
+                        let data = {
+                            OldPwd: me.pass,
+                            NewPwd: me.checkPass
+                        }
+                        me.putCommit(data);
+                    };
                     
                 }).catch(error => {
                     console.log(error);

@@ -427,17 +427,18 @@
                     newImgCode: this.newImgCode,
                     newCode: this.newCode,
                 }).then((res) => {
-                    // 如果验证不成功
-                    if(!res) return;
-                    
-                    // 密码修改的数据
-                    let data = {
-                        OldMobile: me.memberData.tel,
-                        OldMobileCode: me.oldCode,
-                        NewMobile: me.newTelephone,
-                        NewMobileCode: me.newCode,
+
+                    // 验证成功
+                    if(res) {
+                        // 密码修改的数据
+                        let data = {
+                            OldMobile: me.memberData.tel,
+                            OldMobileCode: me.oldCode,
+                            NewMobile: me.newTelephone,
+                            NewMobileCode: me.newCode,
+                        }
+                        me.putCommit(data);
                     }
-                    me.putCommit(data);
                     
                 }).catch(error => {
                     console.log(error);

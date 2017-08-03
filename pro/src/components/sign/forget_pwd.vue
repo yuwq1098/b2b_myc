@@ -270,14 +270,18 @@
                     tel: this.telephone,
                     imgCode: this.imgCode,
                     smsCode: this.smsCode,
-                }).then(() => {
-                    // 密码修改的数据
-                    let data = {
-                        Mobile: me.telephone,
-                        SMSCode: me.smsCode,
-                        NewPwd: me.newPass
+                }).then((res) => {
+
+                    // 验证通过
+                    if(res){
+                        // 密码修改的数据
+                        let data = {
+                            Mobile: me.telephone,
+                            SMSCode: me.smsCode,
+                            NewPwd: me.newPass
+                        }
+                        me.putCommit(data);
                     }
-                    me.putCommit(data);
                     
                 }).catch(error => {
                     console.log(error);

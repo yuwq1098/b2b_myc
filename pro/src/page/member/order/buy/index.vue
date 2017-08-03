@@ -63,7 +63,7 @@
                                     <a href="javascript:;"
                                         @click="tabChange(8)"
                                         :class="{'on':tabShowIndex==8}"
-                                        class="u-tab-lk">过户成功
+                                        class="u-tab-lk">交易成功
                                     </a>
                                 </li>
                             </ul>

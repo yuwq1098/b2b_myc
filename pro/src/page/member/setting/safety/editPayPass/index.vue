@@ -324,10 +324,12 @@
                     imgCode: this.imgCode,
                     smsCode: this.smsCode,
                 }).then((res) => {
-                    // 如果验证不成功
-                    if(!res) return;
+                    
+                    // 验证成功
+                    if(res) {
+                        this.tabShowIndex = 2
+                    };
 
-                    this.tabShowIndex = 2
                 }).catch(error => {
                     console.log(error);
                 });
@@ -341,19 +343,20 @@
                     newPayPass: this.newPayPass,
                     checkPayPass: this.checkPayPass,
                 }).then((res) => {
-                    // 如果验证不成功
-                    if(!res) return;
                     
-                    // 密码修改的数据
-                    let data = {
-                        OldPayPwd: me.oldPayPass,
-                        NewPayPwd: me.newPayPass,
-                    }
-                    me.putCommit(data,function(){
-                        me.tabShowIndex = 3
-                        // 成功了就重置
-                        me.reset();
-                    });
+                    // 验证成功
+                    if(res) {
+                        // 密码修改的数据
+                        let data = {
+                            OldPayPwd: me.oldPayPass,
+                            NewPayPwd: me.newPayPass,
+                        }
+                        me.putCommit(data,function(){
+                            me.tabShowIndex = 3
+                            // 成功了就重置
+                            me.reset();
+                        });
+                    };                    
                     
                 }).catch(error => {
                     console.log(error);
