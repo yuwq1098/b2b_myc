@@ -11,7 +11,7 @@
 
                             <div class="m-cdgName f__clearfix">
                                 <span class="u-name">{{merchantData.name}}</span>
-                                <span class="u-type">{{merchantData.authType}}</span>
+                                <span class="u-type">{{theAuthType}}</span>
                             </div><!-- 车行名称 -->
 
                             <div class="m-collect f__clearfix">
@@ -248,6 +248,14 @@
                     return crumbsInfo['merchantInfoDetails'](this.merchantData.name)
                 }
             },
+            theAuthType(){
+                if(this.merchantData.authType=="个人车行"){
+                    return "个人车商";
+                }else if(this.merchantData.authType=="企业车行"){
+                    return "企业车商";
+                }
+            }
+            
 
         },
         // 自定义函数(方法)

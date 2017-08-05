@@ -11,7 +11,7 @@
                 >
                 <div class="m-pic-box">
                     <p class="u-label">
-                        <span class="txt">{{carInfo.authType}}</span>
+                        <span class="txt">{{theAuthType}}</span>
                     </p><!-- 标签 -->
                     <div class="u-pic">
                         <img v-lazy="carInfo.imgUrl" :alt="carInfo.name"/>
@@ -152,6 +152,15 @@
             // 是否成功认证
             isAuthSuccess: Boolean,
 
+        },
+        computed:{
+            theAuthType(){
+                if(this.carInfo.authType=="个人车行"){
+                    return "个人车商";
+                }else if(this.carInfo.authType=="企业车行"){
+                    return "企业车商";
+                }
+            }
         },
         // 自定义函数(方法)
         methods: {

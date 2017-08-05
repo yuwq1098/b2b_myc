@@ -26,15 +26,15 @@ class sidebarMember{
                     // 有认证成功，不管是车行还是个人认证
                     if(arr[index].AuthInfo.AuthType=='企业车行'){
                         if(arr[index].AuthInfo.AuthStatus==1){
-                            this.auth = "企业车行";
+                            this.auth = "企业车商";
                         }else{
                             if(index==0){
                                 if(arr[1].AuthInfo.AuthStatus==1){
-                                    this.auth = "个人车行";
+                                    this.auth = "个人车商";
                                 }
                             }else if(index==1){
                                 if(arr[0].AuthInfo.AuthStatus==1){
-                                    this.auth = "个人车行";
+                                    this.auth = "个人车商";
                                 }
                             }
                         }
@@ -45,7 +45,11 @@ class sidebarMember{
         	if(arr.length==1){
                 // 有认证成功，不管是车行还是个人认证
                 if(arr[0].AuthInfo.AuthStatus==1){
-                    this.auth = arr[0].AuthInfo.AuthType;
+                    if(arr[0].AuthInfo.AuthType=="个人车行"){
+                        this.auth = "个人车商";
+                    }else if(arr[0].AuthInfo.AuthType=="企业车行"){
+                        this.auth = "企业车商";
+                    }
                 }else if(arr[0].AuthInfo.AuthStatus==0){
                 	this.auth = "认证中";
                 }else{

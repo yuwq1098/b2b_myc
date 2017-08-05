@@ -659,6 +659,7 @@
 
             // 上牌日期
             plateDateEnd(selected){
+                this.errors.remove('plateDate');
                 let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
                 this.form.plateDate = curDateTime;
                 this.validator.validate('plateDate',curDateTime);

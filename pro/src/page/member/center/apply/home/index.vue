@@ -144,16 +144,22 @@
                         desc: "未认证，无法在b2b交易",
                     }
                 }
+                let theApplyType = "";
+                if(this.memberData.curApplyType=="个人车行"){
+                    theApplyType = "个人车商"
+                }else if(this.memberData.curApplyType=="企业车行"){
+                    theApplyType = "企业车商"
+                }
                 switch(this.memberData.authStatus){
                     case 0:
                         return obj = {
-                            title: this.memberData.curApplyType+"认证中",
+                            title: theApplyType+"认证中",
                             desc: "认证中，请耐心等待审核",
                         };
                         break;
                     case -1:
                         return obj = {
-                            title: this.memberData.curApplyType+"认证失败",
+                            title: theApplyType+"认证失败",
                             desc: "认证失败，请重新认证",
                         };
                         break;
@@ -162,10 +168,16 @@
 
             // 认证成功的信息
             box2Info(){
+                let theApplyType = "";
+                if(this.memberData.curApplyType=="个人车行"){
+                    theApplyType = "个人车商"
+                }else if(this.memberData.curApplyType=="企业车行"){
+                    theApplyType = "企业车商"
+                }
                 if(this.memberData.authStatus==1){
                     return {
-                        title: "恭喜您，"+this.memberData.curApplyType+"认证已成功！",
-                        desc: "认证类型："+this.memberData.curApplyType,
+                        title: "恭喜您，"+theApplyType+"认证已成功！",
+                        desc: "认证类型："+theApplyType,
                     }
                 }
             },

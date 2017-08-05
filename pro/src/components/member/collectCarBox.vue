@@ -7,7 +7,7 @@
         <div class="m-car-box">
             <a class="u-lk-box" @click="enterCar(carInfo.id,carInfo.status)">
                 <div class="u-pic-box">
-                    <span class="u-label">{{carInfo.authType}}</span>
+                    <span class="u-label">{{theAuthType}}</span>
                     <div class="u-pic">
                         <img :src="carInfo.imgUrl" :alt="carInfo.title"/>
                     </div><!-- 图片容器 -->
@@ -146,6 +146,14 @@
                         break;
                 }
             },
+            theAuthType(){
+                if(this.carInfo.authType=="个人车行"){
+                    return "个人车商";
+                }else if(this.carInfo.authType=="企业车行"){
+                    return "企业车商";
+                }
+            }
+            
         },
         // 自定义函数(方法)
         methods: {

@@ -80,7 +80,7 @@ export const sidebarMenu = [
 	        	'hash': '/member/collectCar',
             },
             {
-            	'title': '车行收藏',
+            	'title': '车商收藏',
 	        	'hash': '/member/merchantCar',
             },
         ]

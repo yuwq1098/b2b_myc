@@ -233,7 +233,7 @@
                                             </div>
                                             <div class="u-line-box">
                                                 <span class="attr">认证类型：</span>
-                                                <p class="data">{{applyData.AuthInfo.AuthType}}</p>
+                                                <p class="data">{{theAuthType}}</p>
                                             </div>
                                             <div class="u-line-box">
                                                 <span class="attr">认证人：</span>
@@ -274,7 +274,7 @@
                                                 >
                                                 <router-link class="u-btn" 
                                                     :to="{path:'/member/merchantApply'}"
-                                                    >升级认证为企业车行</router-link>
+                                                    >升级认证为企业车商</router-link>
                                             </template>
                                             <template
                                                 v-if="memberData.authStatus==-1"
@@ -414,7 +414,14 @@
         },
         // 属性值计算
         computed:{
-
+            theAuthType(){
+                if(this.applyData.AuthInfo.AuthType=="个人车行"){
+                    return "个人车商"
+                }else if(this.applyData.AuthInfo.AuthType=="企业车行"){
+                    return "企业车商"
+                }
+            }
+            
         },
         // 数据侦听
         watch:{

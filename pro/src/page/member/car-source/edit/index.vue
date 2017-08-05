@@ -620,7 +620,7 @@
                         this.fileInfoList = this._normalizeFileList(res.data.CarFiles)
                         
                         // 获取车辆详情基本信息
-                        console.log("获取车辆详情基本信息",dataToJson(this.basicInfo))
+                        // console.log("获取车辆详情基本信息",dataToJson(this.basicInfo))
                         // 获取车辆图片列表信息
                         // console.log("获取车辆图片列表信息",dataToJson(this.fileInfoList))
 
@@ -694,27 +694,6 @@
                 // 是否发布到二手市场
                 this.form.isPostRetail = this.basicInfo.isPostToRetail;         
 
-
-                // form:{
-                //     carInCity: "",          // 车辆所在地
-                //     selectedModel: "",      // 品牌车型选择的结果
-                //     plateInCity: "",        // 车牌归属地
-                //     plateDate: "",          // 上牌日期
-                //     changeNum: "",          // 过户次数
-                //     fixedPrice: "",         // 一口价/最低价   对应api字段 => B2BPrice
-                //     retailPrice: "",        // 零售价   对应api字段 => RetailPrice
-                //     mileage: "",            // 行驶里程
-                //     dischargeStandard: "",  // 排放标准
-                //     liter: "",              // 排量
-                //     insuranceDate: "",      // 交强险日期
-                //     serviceType: "",        // 使用性质（运营类型）
-                //     vin: "",                // 车架号
-                //     color: "",              // 颜色
-                //     desc: "",               // 车主留言
-                //     nameplate: [],          // 铭牌图片
-                //     photo: [],              // 车辆图片
-                //     isPostRetail: true,     // 是否发布到二手市场
-                // },
             },
 
             // 车型级联()
@@ -740,6 +719,7 @@
 
             // 上牌日期
             plateDateEnd(selected){
+                this.errors.remove('plateDate');
                 let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
                 this.form.plateDate = curDateTime;
                 this.validator.validate('plateDate',curDateTime);

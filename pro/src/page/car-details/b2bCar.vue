@@ -214,7 +214,7 @@
                                             <template v-else>
                                                 <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="name" tag="a">{{otherInfo.cdgName}}</router-link>
                                             </template>
-                                            <div class="u-prove">{{otherInfo.authType}}</div><!-- 认证标识 -->
+                                            <div class="u-prove">{{theAuthType}}</div><!-- 认证标识 -->
                                         </div><!-- 车商名字 -->
                                         <div class="u-tel">
                                             
@@ -451,6 +451,14 @@
                     return crumbsInfo['b2bCar'](this.basicInfo.title)
                 }
             },
+            theAuthType(){
+                if(this.otherInfo.authType=="个人车行"){
+                    return "个人车商";
+                }else if(this.otherInfo.authType=="企业车行"){
+                    return "企业车商";
+                }
+            }
+            
         },
         methods:{
             ...mapActions(['getMyShoppingNumber']),

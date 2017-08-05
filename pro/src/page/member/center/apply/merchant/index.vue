@@ -11,7 +11,7 @@
                        
                         <div class="m-upload-wrap">
                             <div class="u-hd">
-                                补交营业执照，升级认证为企业车行
+                                补交营业执照，升级认证为企业车商
                             </div>
                             <div class="u-line-box">
                                 <div class="upload-inner">

@@ -270,7 +270,7 @@ export const crumbsHash = {
     // 车行收藏页
     '/member/merchantCar':[
         {
-            pathName:"车行收藏",
+            pathName:"车商收藏",
             path:"/member/merchantCar",
         }
     ],
