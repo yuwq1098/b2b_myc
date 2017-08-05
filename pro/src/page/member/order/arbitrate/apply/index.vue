@@ -221,7 +221,7 @@
             this.validator = new Validator({ 
                 aReplenish: 'required|min:10|max:300',     // 申请仲裁的原因（的补充）
             });
-            this.$set(this, 'errors', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errors);
 
         },
         mounted(){

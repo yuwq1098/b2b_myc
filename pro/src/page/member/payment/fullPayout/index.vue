@@ -309,7 +309,7 @@
             this.validator = new Validator({ 
                 payPass: 'required|number|min:6|max:6',            // 支付密码
             });
-            this.$set(this, 'errors', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errors);
         },
         mounted(){
 

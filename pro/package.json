@@ -17,7 +17,7 @@
     "jquery": "^1.12.4",
     "jr-qrcode": "^1.1.0",
     "qrcode": "^0.8.2",
-    "vee-validate": "^2.0.0-rc.5",
+    "vee-validate": "^2.0.0-rc.8",
     "vue": "^2.2.2",
     "vue-awesome-swiper": "^2.4.2",
     "vue-lazyload": "^1.0.4",

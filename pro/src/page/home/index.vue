@@ -3,7 +3,7 @@
     <div class="home">
         <div class="g-doc">
             <div class="g-bd">
-                <div class="g-ad">
+                <div class="g-csl">
                     <div class="m-sld">
                         <swiper :options="swiperOption" id="index-carousel" ref="mySwiper">  
                             <!-- 这部分放你要渲染的那些内容 -->  
@@ -18,7 +18,7 @@
                             <div class="swiper-pagination" slot="pagination"></div>  
                         </swiper>
                     </div><!-- 轮播摸块 -->
-                </div><!-- 广告区 -->
+                </div><!-- 轮播区 -->
 
                 <div class="g-bd-ct">
                     <div class="f__w1200">

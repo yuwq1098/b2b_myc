@@ -178,7 +178,7 @@
     	},
         //生命周期,该组件被创建的时候
         created(){
-            
+
             this.validator = new Validator({
                 nameOne: 'required|mobile',
                 passOne: 'required|alpha_dash|min:6|max:22',
@@ -186,14 +186,13 @@
                 imgCodeTwo: 'required|min:4|max:4',
                 smsCodeTwo: 'required|min:4|max:4',
             });
-            this.$set(this, 'errors', this.validator.errorBag);
-            
+            this.$set(this, 'errors', this.validator.errors);
         },
         mounted(){
-            
+                        
         },
         activated(){
-
+            
         },
         deactivated(){
             

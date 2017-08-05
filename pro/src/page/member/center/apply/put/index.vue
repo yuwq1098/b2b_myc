@@ -394,7 +394,7 @@
                 cdgAddress: 'required',
                 cdgDesc: 'required|min:10|max:300',
             });
-            this.$set(this, 'errors', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errors);
         },
         mounted(){
 

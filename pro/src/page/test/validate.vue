@@ -66,7 +66,7 @@
             email: 'required|email',
             name: 'required|alpha|min:3'
         });
-        this.$set(this, 'errorBag1', this.validator.errorBag);
+        this.$set(this, 'errorBag1', this.validator.errors);
       },
       mounted(){
         this.validator.validate('email','foobar.com').then((res) => {

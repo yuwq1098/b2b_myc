@@ -185,7 +185,7 @@
             this.validator = new Validator({
                 nickname: 'required|min:2|max:12',
             });
-            this.$set(this, 'errors', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errors);
         },
         mounted(){
 

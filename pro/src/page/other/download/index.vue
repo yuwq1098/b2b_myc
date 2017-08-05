@@ -1,7 +1,7 @@
 <template>
 	<div class="download">
         <div class="m-app-dwonload">
-            <div class="m-ad">
+            <div class="m-bnr">
             </div>
             <div class="m-mn">
                 <div class="m-dowmload">

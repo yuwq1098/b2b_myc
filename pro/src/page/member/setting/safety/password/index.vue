@@ -113,7 +113,7 @@
                 newPass: 'required|alpha_dash|min:6|max:22',
                 checkPass: 'required|confirmed:newPass'
             });
-            this.$set(this, 'errors', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errors);
             
         },
         mounted(){

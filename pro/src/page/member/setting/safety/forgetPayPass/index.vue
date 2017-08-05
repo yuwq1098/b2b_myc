@@ -168,7 +168,7 @@
                 imgCode: 'required|min:4|max:4',
                 smsCode: 'required|min:4|max:4',
             });
-            this.$set(this, 'errors', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errors);
             
         },
         activated(){

@@ -557,7 +557,7 @@
                 nameplate: 'between:1,3|max:3',
                 photo: 'between:2,12|max:12',
             });
-            this.$set(this, 'errors', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errors);
 
         },
         mounted(){

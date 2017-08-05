@@ -519,7 +519,7 @@
                 // 托管金额/元
                 trusteeMoney: "required|between:1,30000000|decimal:2",
             });
-            this.$set(this, 'errors', this.validator.errorBag);
+            this.$set(this, 'errors', this.validator.errors);
 
         },
         mounted(){
