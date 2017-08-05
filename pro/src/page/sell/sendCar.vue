@@ -681,6 +681,7 @@
             
             // 一口价
             fixedPriceEnd(val){
+                
                 this.form.fixedPrice = val;
                 this.validator.validate('fixedPrice',val);
                 if(!this.errors.has('retailPrice')&&!this.errors.has('fixedPrice')){
@@ -696,6 +697,7 @@
 
             // 零售价
             retailPriceEnd(val){
+                this.errors.remove('retailPrice');
                 this.form.retailPrice = val;
                 this.validator.validate('retailPrice',val);
                 if(this.form.fixedPrice==""){

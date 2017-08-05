@@ -57,7 +57,13 @@
                                             <p class="u-des">上牌时间</p>
                                         </li>
                                         <li class="u-item">
-                                            <p class="u-tit">{{basicInfo.plateInProvince | cityFn}}{{basicInfo.plateInCity | cityFn}}</p>
+                                            <p class="u-tit" v-if="basicInfo.plateInProvince&&basicInfo.plateInCity">
+                                                <template>{{basicInfo.plateInProvince | cityFn}}</template><!--
+                                                --><template v-if="basicInfo.plateInProvince!=basicInfo.plateInCity"
+                                                    >{{basicInfo.plateInCity | cityFn}}
+                                                </template>
+                                            </p>
+                                            <p class="u-tit" v-else>暂无数据</p>
                                             <p class="u-des">牌照归属</p>
                                         </li>
                                         <li class="u-item">
@@ -172,11 +178,23 @@
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">车辆所在地</span>
-                                            <span class="u-val">{{basicInfo.inProvince | cityFn}}{{basicInfo.inCity | cityFn}}</span>
+                                            <span class="u-val" v-if="basicInfo.inProvince&&basicInfo.inCity">
+                                                <template>{{basicInfo.inProvince | cityFn}}</template><!--
+                                                --><template v-if="basicInfo.inProvince!=basicInfo.inCity"
+                                                    >{{basicInfo.inCity | cityFn}}
+                                                </template>
+                                            </span>
+                                            <span class="u-val" v-else>暂无数据</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">牌照归属</span>
-                                            <span class="u-val">{{basicInfo.plateInProvince | cityFn}}{{basicInfo.plateInCity | cityFn}}</span>
+                                            <span class="u-val" v-if="basicInfo.plateInProvince&&basicInfo.plateInCity">
+                                                <template>{{basicInfo.plateInProvince | cityFn}}</template><!--
+                                                --><template v-if="basicInfo.plateInProvince!=basicInfo.plateInCity"
+                                                    >{{basicInfo.plateInCity | cityFn}}
+                                                </template>
+                                            </span>
+                                            <span class="u-val" v-else>暂无数据</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">使用性质</span>
@@ -444,6 +462,7 @@
         },
         // 属性计算
         computed:{
+
             ...mapGetters(['loginStatus']),
             // 面包屑列表信息
             crumbItems(){
@@ -457,7 +476,23 @@
                 }else if(this.otherInfo.authType=="企业车行"){
                     return "企业车商";
                 }
-            }
+            },
+
+            // 车身所在地
+            carInPosition(){
+                if(this.basicInfo.inProvince&&this.basicInfo.inCity){
+                    // if(basicInfo.inProvince==basicInfo.inCity){
+                        
+                    // }
+
+                }else{
+
+                }
+            },
+            // 牌照归属地
+            carInPosition(){
+
+            },
             
         },
         methods:{
