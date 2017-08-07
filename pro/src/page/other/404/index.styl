@@ -1,5 +1,8 @@
 @import '~assets/css/mixin.styl'
 
+// 路径
+$url = "../../../"
+
 .g-doc
     background #fff
     .g-bd
@@ -12,7 +15,7 @@
                 width 908px
                 height 249px
                 margin 50px auto 30px
-                background url('../../../assets/img/404-error-bg.png') center center no-repeat
+                background url($url+'assets/img/404-error-bg.png') center center no-repeat
                 background auto 100%
             .m-tips-box
                 height 110px
@@ -39,7 +42,7 @@
                     padding 0 15px
                     width 200px
                     height 60px
-                    line-height @height
+                    line-height $height
                     _borderRadius(5px)
                     background #34aee1
                     color #fff
@@ -56,10 +59,10 @@
                         _display(block)
                         _completeCenter(15px,auto)
                         &.home
-                            background url('../../../assets/img/404-fanhui.png') center center no-repeat
+                            background url($url+'assets/img/404-fanhui.png') center center no-repeat
                             background-size 100% 100%
                         &.back
-                            background url('../../../assets/img/404-shouye.png') center center no-repeat
+                            background url($url+'assets/img/404-shouye.png') center center no-repeat
                             background-size 100% 100%
                     &.home
                         margin 0 35px 0 0

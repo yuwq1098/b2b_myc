@@ -51,7 +51,7 @@
                                         <div class="product-info">
                                             <div class="u-pic-box">
                                                 <div class="u-pic">
-                                                    <img :src="orderData.imgUrl" :alt="orderData.carTitle"/>
+                                                    <img v-lazy="orderData.imgUrl" :alt="orderData.carTitle"/>
                                                 </div>
                                             </div><!-- 图片容器 -->
                                             <div class="info-con">
@@ -424,6 +424,7 @@
 
         },
         activated(){
+
             // 获取订单Id
             this.orderId = this.$router.currentRoute.query.cid||"";
             // 获取合同详情信息
@@ -487,11 +488,10 @@
                     CarId : carId,
                 }
                 api.getCarDetalis(data).then((res) => {
+
                     if(res.code==SYSTEM.CODE_IS_OK){
-                        
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
-
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',

@@ -6,7 +6,7 @@
 		        <div class="next1" id="next"></div>
                 <ul class="m-sld-lst">
                     <li slot="sld-item" class="u-sld-item" v-for="item in carImgData.imgItems">
-                        <img :src="item.fileUrl" :alt="item.title" />
+                        <img v-lazy="item.fileUrl" :alt="item.title" />
                     </li>
                 </ul>
             </div><!-- 主轮播 -->
@@ -26,7 +26,7 @@
             <div class="m-sld-cd" id="ban_num">
                 <ul class="m-sld-cd-lst">
                     <li slot="sld-cd-item" class="u-sld-cd-item" v-for="item in carImgData.imgItems">
-                        <img :src="item.fileUrl" :alt="item.title" />
+                        <img v-lazy="item.fileUrl" :alt="item.title" />
                     </li>
                 </ul>
             </div><!-- 小轮播（焦点） -->

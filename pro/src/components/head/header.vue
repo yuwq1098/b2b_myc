@@ -118,7 +118,7 @@
     			forgetShow: false,         //是否显示忘记密码框
                 cityChooseLeft: '',        //城市选择left
                 isCityChooseShow: false,   //城市选择框是否显示
-                memberInfo: {},            //用户信息
+                memberInfo: new headMember({}),            //用户信息
                 navItemList: navItemList,  
                 memberDropdown: memberDropdown,   // 下拉扩展
                 

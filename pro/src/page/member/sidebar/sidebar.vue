@@ -67,7 +67,7 @@
         // 数据
         data() {
             return{
-                memberInfo:"",
+                memberInfo: new sidebarMember({}),
                 memberMenu: sidebarMenu,
             }
         },

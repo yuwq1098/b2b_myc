@@ -9,7 +9,7 @@
                 <div class="u-pic-box">
                     <span class="u-label">{{theAuthType}}</span>
                     <div class="u-pic">
-                        <img :src="carInfo.imgUrl" :alt="carInfo.title"/>
+                        <img v-lazy="carInfo.imgUrl" :alt="carInfo.title"/>
                     </div><!-- 图片容器 -->
                 </div><!-- 图片容器 -->
                 <div class="u-con-box">
@@ -206,9 +206,11 @@
                 width @width
                 height @height
                 _overflow()
-                _imgwrap()
+                position relative
                 img
-                    _transitionAll(.3s)
+                    width @width
+                    height auto
+                    _completeCenter()
         .u-con-box
             color #40474a
             width @width

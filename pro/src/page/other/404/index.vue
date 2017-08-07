@@ -84,7 +84,7 @@
         deactivated(){
             clearInterval(this.myInterval);
             this.myInterval = null;
-            clearInterval(this.myTimeOut);
+            clearTimeout(this.myTimeOut);
             this.myTimeOut = null;
             this.$destroy();
         },
@@ -104,7 +104,11 @@
                 this.myInterval = setInterval(()=>{
                     this.secondLast--;
                     if(this.secondLast==1){
+                        // 清除间隔定时器
+                        clearInterval(this.myInterval);
                         this.myTimeOut = setTimeout(()=>{
+                            // 超时定时器
+                            clearTimeout(this.myTimeOut);
                             this.$router.go(-1);
                         },800);
                     }

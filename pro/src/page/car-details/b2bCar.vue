@@ -278,7 +278,7 @@
                                 <template v-for="(item,index) in carImgData.imgItems">
                                     <li class="m-item">
                                         <div class="u-pic">
-                                            <img :src="item.fileUrl" :alt="item.title" />
+                                            <img v-lazy="item.fileUrl" :alt="item.title" />
                                         </div>
                                     </li>
                                 </template>

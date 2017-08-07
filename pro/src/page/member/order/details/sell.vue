@@ -167,7 +167,7 @@
                                     <div class="product-info">
                                         <div class="u-pic-box">
                                             <div class="u-pic">
-                                                <img :src="orderData.imgUrl" :alt="orderData.carTitle"/>
+                                                <img v-lazy="orderData.imgUrl" :alt="orderData.carTitle"/>
                                             </div>
                                         </div><!-- 图片容器 -->
                                         <div class="info-con">

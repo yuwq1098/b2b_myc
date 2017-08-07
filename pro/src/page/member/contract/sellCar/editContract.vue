@@ -50,7 +50,7 @@
                                         <div class="product-info">
                                             <div class="u-pic-box">
                                                 <div class="u-pic">
-                                                    <img :src="orderData.imgUrl" :alt="orderData.carTitle"/>
+                                                    <img v-lazy="orderData.imgUrl" :alt="orderData.carTitle"/>
                                                 </div>
                                             </div><!-- 图片容器 -->
                                             <div class="info-con">
@@ -182,6 +182,7 @@
                                                     :disabledPrevYear="0"
                                                     placeholder="请选择提档预计时间"
                                                     ref="pickArchiveDate"
+                                                    :initValue="pickArchiveDate"
                                                     >
                                                 </date-picke>
                                             </div>
@@ -201,6 +202,7 @@
                                                     :disabledPrevYear="0"
                                                     placeholder="请选择最晚提档时间"
                                                     ref="buyerPickCarDate"
+                                                    :initValue="buyerPickCarDate"
                                                     >
                                                 </date-picke>
                                             </div>
@@ -691,6 +693,10 @@
                         this.canTransfer = this.contractBodyData.transfer=='true'?true:false;
                         // 成交价
                         this.finalPrice = +this.contractBodyData.finalPrice;
+                        // 提档预计时间
+                        this.pickArchiveDate = this.contractBodyData.pickArchiveDate;
+                        // 最晚提档时间
+                        this.buyerPickCarDate = this.contractBodyData.buyerPickCarDate;
                         // 车况说明
                         this.carDesc = this.contractBodyData.carOtherDesc;
 

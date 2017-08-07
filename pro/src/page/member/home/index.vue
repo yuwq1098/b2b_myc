@@ -111,7 +111,7 @@
         // 数据
         data() {
             return{
-                memberData: {},            //用户信息
+                memberData: new memberInfo({}),            //用户信息
             }
         },
         //生命周期,开始的时候

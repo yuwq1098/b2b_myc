@@ -23,7 +23,7 @@
                         v-if="sourceInfo.status == '-2'"
                         >审核失败</p>
                     <div class="u-pic">
-                        <img :src="sourceInfo.imgUrl" :alt="sourceInfo.title"/>
+                        <img v-lazy="sourceInfo.imgUrl" :alt="sourceInfo.title"/>
                     </div>
                 </div>
                 
@@ -218,7 +218,10 @@
                     width @width
                     height @height
                     _completeCenter()
-                    _imgwrap()
+                    img
+                        width @width
+                        height auto
+                        _completeCenter(0,auto)
             .m-con-box
                 width @width
                 height 170px

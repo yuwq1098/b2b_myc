@@ -95,17 +95,19 @@
         .m-member-hd
             width @width
             height 54px
-            line-height 52px
-            background #E5E8Eb
+            line-height 54px
+            color #e2e2e2
+            background #4B5861
+            _gradient(#293135 - 10%,#4B5861 + 10%)
             .tit
                 _display(inline-block)
                 font-size 18px
                 font-weight bold
-                _spacingPlus(3px)
-                padding 0 18px
+                _spacingPlus(6px)
+                padding 0 12px
                 position relative
                 &:before
-                    _display()
+                    _display(none)
                     content ""
                     height 3px
                     background #2F98E2

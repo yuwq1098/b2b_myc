@@ -272,8 +272,8 @@
                     _overflow()
                     img
                         width @width + 10px
-                        height @height + 10px
-                        _completeCenter(-5px,auto,-5px,auto)
+                        height auto
+                        _completeCenter(-5px,auto,0,0)
             .m-con-box
                 width @width
                 height 180px

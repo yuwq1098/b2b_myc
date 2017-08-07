@@ -39,7 +39,7 @@
                         tag="a"
                         >
                         <div class="u-pic">
-                            <img :src="orderInfo.imgUrl" :alt="orderInfo.carTitle"/>
+                            <img v-lazy="orderInfo.imgUrl" :alt="orderInfo.carTitle"/>
                         </div>
                         <div class="u-con">
                             <div class="tit">{{orderInfo.carTitle}}</div>
@@ -259,6 +259,7 @@
                         img
                             width @width
                             height auto
+                            _completeCenter(0,auto)
                     .u-con
                         width @width - 136px - 12px
                         height @height

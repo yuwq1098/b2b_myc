@@ -359,11 +359,17 @@
                         width 588px
                         height 440px
                         margin 20px 0 0 24px
+                        position relative
                         float left
                         .u-pic
                             width @width
                             height @height
-                            _imgwrap()
+                            _completeCenter()
+                            _overflow()
+                            img
+                                width @width + 10px
+                                height auto
+                                _completeCenter(-5px,auto,0,0)
 
         .m-process
             height 210px
