@@ -94,6 +94,7 @@
             }
         },
         mounted(){
+
             //获取汽车品牌列表
             this._getB2BCarBrandList();
 
@@ -106,6 +107,14 @@
             gpLength: function () {
                 return (Math.ceil(this.brandList.length/7))
             },
+        },
+        // keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
+        activated() {
+            
+        },
+        // keep-alive时使用，退出的生命周期钩子
+        deactivated(){
+            this.reset();
         },
         // 自定义函数(方法)
         methods: {
@@ -252,6 +261,11 @@
                 //将用户选中的 向后台发起api请求数据 存在本地中
                 this.setSearchFilterList(this.searchFilterList);
             },
+            
+            // 重置本组件
+            reset(){
+                this.isShowAllBrand = false;
+            }
         },
 
         // 在当前模块注册组件
@@ -268,6 +282,7 @@
         background #fff
         height 284px
         _boxShadow(8px,rgba(0,0,0,.05))
+        _unUserSelect()
         margin-bottom 25px
         & .u-hd
             height 62px

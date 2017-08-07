@@ -45,7 +45,12 @@
                         .u-pic
                             width @width
                             height @height
-                            _imgwrap()
+                            _overflow()
+                            position relative
+                            img
+                                width @width
+                                height auto
+                                _completeCenter(0,auto)
                     .u-con
                         width 550px
                         height 106px

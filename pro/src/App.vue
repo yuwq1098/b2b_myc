@@ -1,6 +1,7 @@
 <template>
     <div id="app">
-        <div class="g-doc">
+        <div class="g-doc" 
+            :class="{'noWebSide':!$router.currentRoute.meta.hasWebSide}">
 	        <!-- 引入网站头部 -->
 	        <keep-alive>
 	            <c-head></c-head>
@@ -88,6 +89,12 @@
     .slide-right-leave-active
         _opacity(0)
         right -40px
-
+    
+    .g-doc
+        _boxSizing()
+        border-right 40px solid transparent
+        &.noWebSide
+            _boxSizing(content-box)
+            border none
 </style>
 

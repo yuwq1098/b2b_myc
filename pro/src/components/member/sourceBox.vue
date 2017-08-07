@@ -127,6 +127,8 @@
     </div>
 </template>
 
+
+
 <script>
 
     export default {
@@ -134,7 +136,7 @@
         name: "sourceBox",
         // 在当前模块注册组件
         components:{
-
+            
         },
         // 数据
         data() {

@@ -25,7 +25,7 @@
                                                         <span class="txt">{{item.authType}}</span>
                                                     </p><!-- 标签 -->
                                                     <div class="u-pic">
-                                                        <img :src="item.imgUrl" :alt="item.title"/>
+                                                        <img v-lazy="item.imgUrl" :alt="item.title"/>
                                                     </div>
                                                 </a>
                                             </div><!-- 图片容器 -->
