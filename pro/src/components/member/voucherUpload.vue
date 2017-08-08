@@ -263,7 +263,7 @@
             
             // 清除图片信息
             clearImg(){
-                // this.reset();
+                this.reset();
                 this.$destroy;
             },
         },

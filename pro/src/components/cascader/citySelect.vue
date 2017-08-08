@@ -100,39 +100,42 @@
                     }
                 })
             },
-        },
-        // 不使用keep-alive时,走这个生命周期
-        created(){
-            if(this.initValue&&this.startTwoInit){
-                console.log("有值",this.initValue)
-                
-                let _province = val.split('/')[0];
-                let _city = val.split('/')[1];
+            // 是否启用初始值
+            startTwoInit(val){
+
+                if(!val) return;
+
+                let _province = this.initValue.split('/')[0];
+                let _city = this.initValue.split('/')[1];
                 let _provinceCode,_cityCode;
 
                 this._getProvinceOptions();   //获取省份级联选择框的初始选项
 
                 setTimeout(() => {
-                    this.options.forEach((item,index) => {
-                        if(item.label==_province){
-                            _provinceCode = item.value;
-                            this._getCityByInitValue(_provinceCode,index,(data) => {
-                                data.forEach((item,index) => {
-                                    if(item.label==_city){
-                                        _cityCode = item.value;
-                                        this.selectedOptions = [_provinceCode,_cityCode];
-                                    }
-                                })
-                            });
-                        }
-                    })
-                },20)
+                    this._getProvinceByInitValue((data) => {
 
-                
-            }else{
-                this._getProvinceOptions();   //获取省份级联选择框的初始选项
-                // 当有用户默认指定的值时
+                        data.forEach((item,index) => {
+                            if(item.label==_province){
+                                _provinceCode = item.value;
+                                this._getCityByInitValue(_provinceCode,index,(data) => {
+                                    data.forEach((item,index) => {
+                                        if(item.label==_city){
+                                            _cityCode = item.value;
+                                            this.selectedOptions = [_provinceCode,_cityCode];
+                                        }
+                                    })
+                                });
+                            }
+                        });
+                        
+                    });
+                },20)
             }
+        },
+        // 不使用keep-alive时,走这个生命周期
+        created(){
+            this._getProvinceOptions();   //获取省份级联选择框的初始选项
+            // 当有用户默认指定的值时
         },
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
@@ -149,6 +152,14 @@
                 })
             },
 
+            // 获取省份级联选择框的初始选项  通过初始化数据
+            _getProvinceByInitValue(callBack){
+                api.getAllProvince().then((res) => {
+                    this.options = this._normalizes(res.data,1);
+                    callBack&&callBack(this._normalizes(res.data,1));
+                })
+            },
+
             // 根据车省份获取城市
             _getCityOptions(code,index){
                 api.getCityForProvince(code).then((res) => {
@@ -156,7 +167,7 @@
                 })
             },
 
-            // 根据车省份获取城市 通过初始化数据
+            // 根据车省份获取城市  通过初始化数据
             _getCityByInitValue(code,index,callBack){
                 api.getCityForProvince(code).then((res) => {
                     this.options[index].children = this._normalizes(res.data,2);
@@ -191,23 +202,12 @@
                     }
                 })
             },
-            
+
             // 获取城市全名
             _getCityAllName(){
                 let arr = this.$refs.cityCascader.currentLabels;
-                
-                let allName = "";
-                if(arr&&arr.length==2){
-                    arr.forEach((item,index)=>{
-                        let {label:name} = item;
-                        if(index==arr.length-1){
-                            allName = allName + name
-                        }else{
-                            allName = allName + name + "/"
-                        }
-                    });
-                    return allName;
-                };
+                if(arr.length<2) return;
+                return arr[0]+"/"+arr[1];
             },
             
             // 清除值

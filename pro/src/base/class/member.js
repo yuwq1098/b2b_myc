@@ -80,6 +80,8 @@ class memberInfo{
         this.authStatusText = ""               // 认证状态码对应文本
         // 是否已认证个人车行
         this.isPassPerson = false
+        // 是否已认证企业车行
+        this.isPassFirm = false
         
         // 当前正在认证的认证Id
         this.curApplyId = ""
@@ -113,6 +115,14 @@ class memberInfo{
                 if(data.CdgAuth[index].AuthInfo.AuthType=="个人车行"&&
                     data.CdgAuth[index].AuthInfo.AuthStatus==1){
                     this.isPassPerson = true;
+                }
+            })
+
+            // 是否已认证个人车行
+            data.CdgAuth.forEach((item,index)=>{
+                if(data.CdgAuth[index].AuthInfo.AuthType=="企业车行"&&
+                    data.CdgAuth[index].AuthInfo.AuthStatus==1){
+                    this.isPassFirm = true;
                 }
             })
         }
@@ -149,15 +159,53 @@ class memberInfo{
                     isAuthSuccessNumber++;
                 }
                 if(data.CdgAuth[index].AuthInfo.AuthType=="企业车行"){
-                    // 当前认证类型
-                    this.curApplyType = "企业车行";
-                    this.curApplyInfo = data.CdgAuth[index];
-                    this.curApplyId = data.CdgAuth[index].AuthInfo.AuthId;
-                    this.errorApplyText = data.CdgAuth[index].AuthInfo.CheckDescription;
-                    // 认证名
-                    this.authName = data.CdgAuth[index].AuthInfo.CertificateName;
+                    let oIndex = index==1?0:1;
+
+                    if(data.CdgAuth[index].AuthInfo.AuthStatus==1){
+                        // 当前认证类型
+                        this.curApplyType = "个人车行";
+                        this.curApplyId = data.CdgAuth[oIndex].AuthInfo.AuthId;
+                        this.curApplyInfo = data.CdgAuth[oIndex];
+                        this.errorApplyText = data.CdgAuth[oIndex].AuthInfo.CheckDescription;
+                        // 认证名
+                        this.authName = data.CdgAuth[oIndex].AuthInfo.CertificateName;
+
+                    }else{
+                        
+                        // 当前认证类型
+                        this.curApplyType = "企业车行";
+                        this.curApplyId = data.CdgAuth[index].AuthInfo.AuthId;
+                        this.curApplyInfo = data.CdgAuth[index];
+                        this.errorApplyText = data.CdgAuth[index].AuthInfo.CheckDescription;
+                        // 认证名
+                        this.authName = data.CdgAuth[index].AuthInfo.CertificateName;
+                    }
+                }
+                if(data.CdgAuth[index].AuthInfo.AuthType=="个人车行"){
+                    let oIndex = index==1?0:1;
+
+                    if(data.CdgAuth[index].AuthInfo.AuthStatus==1){
+                        // 当前认证类型
+                        this.curApplyType = "企业车行";
+                        this.curApplyId = data.CdgAuth[oIndex].AuthInfo.AuthId;
+                        this.curApplyInfo = data.CdgAuth[oIndex];
+                        this.errorApplyText = data.CdgAuth[oIndex].AuthInfo.CheckDescription;
+                        // 认证名
+                        this.authName = data.CdgAuth[oIndex].AuthInfo.CertificateName;
+
+                    }else{
+                        
+                        // 当前认证类型
+                        this.curApplyType = "个人车行";
+                        this.curApplyId = data.CdgAuth[index].AuthInfo.AuthId;
+                        this.curApplyInfo = data.CdgAuth[index];
+                        this.errorApplyText = data.CdgAuth[index].AuthInfo.CheckDescription;
+                        // 认证名
+                        this.authName = data.CdgAuth[index].AuthInfo.CertificateName;
+                    }
                 }
             })
+
             // 有几个认证成功的
             if(isAuthSuccessNumber==0){
                 switch(this.authStatus){

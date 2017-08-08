@@ -569,12 +569,14 @@
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
+
             // 获取用户信息
             this.getMemberInfo();
         },
 
         //退出的生命周期钩子
         deactivated(){
+
             // 清空数据
             this.reset();
             // 由于绑定的是一些组件，所以要用vue实例销毁才有真实的作用
@@ -638,6 +640,7 @@
 
             // 车型级联()
             modelChangeEnd(selected){
+
                 let carModelId = selected[2];
                 this.form.selectedModel = carModelId;
                 this.validator.validate('selectedModel',carModelId);

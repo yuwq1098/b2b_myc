@@ -94,7 +94,7 @@ class otherInfo{
         this.cdgName = data.CdgName||""                      // 车行名
         this.address = data.CdgAddress||""                   // 车行地址
         // 车行描述
-        this.desc = data.CdgDescription||"该车行比高冷，啥也没有说"                  
+        this.desc = data.CdgDescription||"该车行比较高冷，啥也没有说。"                  
         this.type = data.CdgType||""                         // 车行类别（4S店，企业车行，批发市场等）
         this.isInCart = data.HasInCart||""                   // 购物车：0=未收藏，1=已收藏
         this.isInFavorite = data.HasInFavorite||""           // 收藏夹：0=未收藏，1=已收藏

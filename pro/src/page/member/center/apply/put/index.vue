@@ -37,7 +37,7 @@
                             <div class="m-flow-con">
 
                                 <div class="m-tb-con" 
-                                    v-if="tabShowIndex==1">
+                                    v-show="tabShowIndex==1">
                                     <div class="u-tb-wrap">
                                         <div class="u-line-box">
                                             <div class="line-error" v-if="errors.has('authName')">
@@ -94,7 +94,7 @@
                                                         placeholder="车行所在地"
                                                         ref="cdgCityDom"
                                                         :initValue="theCdgCity"
-                                                        :startTwoInit="true"
+                                                        :startTwoInit="startTwoInit"
                                                         >
                                                     </city-cascader>
                                                 </div>
@@ -139,7 +139,7 @@
                                 </div>
 
                                 <div class="m-tb-con"
-                                    v-if="tabShowIndex==2">
+                                    v-show="tabShowIndex==2">
                                     <div class="m-upload-wrap">
                                         <div class="u-line-box">
                                             <div class="upload-inner">
@@ -212,7 +212,7 @@
                                 </div>
 
                                 <div class="m-tb-con"
-                                    v-if="tabShowIndex==3">
+                                    v-show="tabShowIndex==3">
                                     <div class="m-res-box">
                                         <div class="sign">
                                             <template v-if="memberData.authStatus==0">
@@ -261,7 +261,7 @@
                                                     >
                                                     <li class="u-item">
                                                         <div class="u-pic">
-                                                            <img :src="item.ImgPath" :title="item.Title" />
+                                                            <img v-lazy="item.ImgPath" :title="item.Title" />
                                                         </div>
                                                         <p class="tit">· {{item.Title}} · </p>
                                                     </li>
@@ -269,14 +269,20 @@
                                             </ul>
                                         </div><!-- 证件图信息 -->
                                         <div class="u-btn-box" 
-                                            v-if="(memberData.curApplyType=='个人车行'&&memberData.authStatus!=-1)||
-                                                    (memberData.authStatus==-1)">
+                                            v-show="(memberData.authStatus!=0)">
                                             <template
                                                 v-if="memberData.curApplyType=='个人车行'&&memberData.authStatus!=-1"
                                                 >
                                                 <router-link class="u-btn" 
                                                     :to="{path:'/member/merchantApply'}"
                                                     >升级认证为企业车商</router-link>
+                                            </template>
+                                            <template
+                                                v-if="memberData.curApplyType=='企业车行'&&memberData.authStatus==1"
+                                                >
+                                                <a class="u-btn"
+                                                    @click="anewApply(applyData,2)"
+                                                    >更变认证为个人车商</a>
                                             </template>
                                             <template
                                                 v-if="memberData.authStatus==-1"
@@ -374,6 +380,11 @@
                 cdgAddress: "",
                 // 车行描述
                 cdgDesc: "",
+                
+                // 是否重新提交
+                isAgainSubmit: false,
+                // 是否启用初始值(城市级联)
+                startTwoInit: false,
 
                 // 表单验证报错集合
                 errors: null,
@@ -411,6 +422,7 @@
             // 获取用户信息
             this.getMemberInfo();
             this.tabShowIndex = 1;
+
         },
         // 退出的生命周期钩子
         deactivated(){
@@ -465,8 +477,15 @@
                         // 格式化用户信息
                         this.memberData = this._normalizeMember(res.data);
                         if(this.memberData.authStatusText!=""){
-                            // 获取当前认证的信息
-                            this.getApplyInfo(this.memberData.curApplyId);
+                            console.log(dataToJson(this.memberData))
+                            if(this.memberData.hasApplyCount==2){
+                                // 获取当前认证的信息
+                                this.getApplyInfo(this.memberData.curApplyId);
+                            }else{
+                                // 获取当前认证的信息
+                                this.getApplyInfo(this.memberData.curApplyId);
+                            }
+                            
 
                             this.tabShowIndex = 3;
                             if(this.memberData.authStatus==0){
@@ -506,6 +525,7 @@
                     AuthId : authId,
                 }
                 api.getAuthDetails(data).then(res => {
+
                     if(res.code==SYSTEM.CODE_IS_OK){
                         // 格式化认证信息
                         this.applyData = res.data;
@@ -521,8 +541,13 @@
             },
 
             // 城市级联(车行所在地)
-            cdgCityChangeEnd(selected){
-                this.cdgCity = this.$refs.cdgCityDom._getCityAllName();
+            cdgCityChangeEnd(selected,allName){
+                if(allName===undefined){
+                    this.cdgCity = this.$refs.cdgCityDom._getCityAllName();
+                }else{
+                    this.cdgCity = allName;
+                }
+                this.validator.validate('cdgCity',this.cdgCity);
             },
 
             // 前往下一步
@@ -556,7 +581,11 @@
                 this.voucherId__1 = "";
                 this.voucherId__2 = "";
                 this.voucherId__3 = "";
+                // 是否重新提交
+                this.isAgainSubmit= false;
                 this.hasMerchantApply = false;
+                this.startTwoInit = false;
+
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 setTimeout(() => {
                     this.errors.clear();
@@ -635,25 +664,10 @@
 
                     let myAuthId = "";
 
-                    // 如果用户想要认证企业车行
-                    if(this.hasMerchantApply){
-                        myAuthId = (this.authId&&this.memberData.curApplyType!='个人车行')?this.authId:'';
-                    }else{
-                        // 如果用户想要认证个人车行
-                        if(this.memberData.curApplyType=='个人车行'){
-                            myAuthId = this.authId;
-                        }else{
-                            if(this.memberData.hasApplyCount==1){
-                                myAuthId = "";
-                            }else{
-                                this.memberData.cdgAuth.forEach((item,index)=>{
-                                    if(this.memberData.cdgAuth[index].AuthInfo.AuthType=="个人车行"){
-                                        myAuthId = this.memberData.cdgAuth[index].AuthInfo.AuthId;
-                                        
-                                    }
-                                })
-                            }
-                        }
+                    if(this.isAgainSubmit&&this.applyData.AuthInfo.AuthType=="企业车行"&&this.hasMerchantApply){
+                        myAuthId =  this.applyData.AuthInfo.AuthId
+                    }else if(this.isAgainSubmit&&this.applyData.AuthInfo.AuthType=="个人车行"&&!this.hasMerchantApply){
+                        myAuthId =  this.applyData.AuthInfo.AuthId
                     }
                     
                     // 回调
@@ -750,13 +764,10 @@
                 this.tabShowIndex = 1;
                 // 清空证件信息
                 this.flowTwoReset();
-                // 清空城市选择信息
-                this.cdgCity = "";
             },
 
             // 清空步骤二的数据
             flowTwoReset(){
-                this.hasMerchantApply = false;
                 this.voucherId__1 = "";
                 this.voucherId__2 = "";
                 this.voucherId__3 = "";
@@ -766,7 +777,9 @@
             },
             
             // 重新发起认证
-            anewApply(applyInfo){
+            anewApply(applyInfo,pType){
+                
+                console.log(dataToJson(applyInfo))
                 this.tabShowIndex = 1;
                 this.lastFlowTetx = "上传完毕"
                 this.authName = applyInfo.AuthInfo.CertificateName;
@@ -776,16 +789,24 @@
                 // 车行所在城市
                 this.cdgCity = applyInfo.CdgInfo.Province+"/"+applyInfo.CdgInfo.City;
                 this.theCdgCity = this.cdgCity;
-                console.log(this.theCdgCity);
                 // 车行具体地址
                 this.cdgAddress = applyInfo.CdgInfo.Address.split("/")[2];
                 // 车行描述
                 this.cdgDesc = applyInfo.CdgInfo.Description;
+                // 是否企业认证
+                if(pType===2){
+                    this.hasMerchantApply = false;
+                }else{
+                    this.hasMerchantApply = applyInfo.AuthInfo.AuthType=='企业车行'?true:false;
+                }
+                
+                // 是否重新提交
+                this.isAgainSubmit = true;
+                this.startTwoInit = true;
                 
                 this.voucherId__1 = "";
                 this.voucherId__2 = "";
                 this.voucherId__3 = "";
-                this.hasMerchantApply = false;
             }
 
         },
