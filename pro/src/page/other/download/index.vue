@@ -65,11 +65,11 @@
                 linkInfo:[
                     {
                         title:"安卓客户端",
-                        url: "https://www.baidu.com",
+                        url: "http://android.myapp.com/myapp/detail.htm?apkName=com.weiweiche.vvc",
                     },
                     {
                         title:"苹果客户端",
-                        url: "https://www.baidu.com",
+                        url: "https://itunes.apple.com/cn/app/%E6%9C%A8%E6%9C%89%E8%BD%A6/id1176859434?mt=8",
                     },
                 ],
                 // 二维码下载
