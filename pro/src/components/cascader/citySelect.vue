@@ -58,6 +58,11 @@
                 type: [String,Number],
                 default: "",
             },
+            // 是否启用初始值
+            startTwoInit:{
+                type: Boolean,
+                default: false,
+            }
         },
         // 属性计算
         computed:{
@@ -76,6 +81,7 @@
             // 默认值
             initValue(val){
                 if(this.options.length==0) return;
+
                 let _province = val.split('/')[0];
                 let _city = val.split('/')[1];
                 let _provinceCode,_cityCode;
@@ -93,12 +99,40 @@
                         });
                     }
                 })
-            }
+            },
         },
         // 不使用keep-alive时,走这个生命周期
         created(){
-            this._getProvinceOptions();   //获取省份级联选择框的初始选项
-            // 当有用户默认指定的值时
+            if(this.initValue&&this.startTwoInit){
+                console.log("有值",this.initValue)
+                
+                let _province = val.split('/')[0];
+                let _city = val.split('/')[1];
+                let _provinceCode,_cityCode;
+
+                this._getProvinceOptions();   //获取省份级联选择框的初始选项
+
+                setTimeout(() => {
+                    this.options.forEach((item,index) => {
+                        if(item.label==_province){
+                            _provinceCode = item.value;
+                            this._getCityByInitValue(_provinceCode,index,(data) => {
+                                data.forEach((item,index) => {
+                                    if(item.label==_city){
+                                        _cityCode = item.value;
+                                        this.selectedOptions = [_provinceCode,_cityCode];
+                                    }
+                                })
+                            });
+                        }
+                    })
+                },20)
+
+                
+            }else{
+                this._getProvinceOptions();   //获取省份级联选择框的初始选项
+                // 当有用户默认指定的值时
+            }
         },
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)

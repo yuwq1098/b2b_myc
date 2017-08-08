@@ -180,7 +180,7 @@
         created(){
 
             this.validator = new Validator({
-                nameOne: 'required|mobile',
+                nameOne: 'required|uname',
                 passOne: 'required|alpha_dash|min:6|max:22',
                 telTwo: 'required|mobile',
                 imgCodeTwo: 'required|min:4|max:4',

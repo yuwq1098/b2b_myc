@@ -271,6 +271,18 @@ const dictionary = {
     }
 };
 
+/*
+* @description 用户名验证规则
+*/
+Validator.extend('uname', {
+    messages: {
+        zh_CN:(field, args) => '登录名通常是手机号哦！',
+    },
+    validate: (value, args) => {
+       return value.length <= 11 && value.length >= 4
+    }
+});
+
 
 /*
 * @description 手机号验证规则

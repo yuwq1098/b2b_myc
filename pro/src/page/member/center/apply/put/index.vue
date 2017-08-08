@@ -93,6 +93,8 @@
                                                         @valChangeEnd="cdgCityChangeEnd"
                                                         placeholder="车行所在地"
                                                         ref="cdgCityDom"
+                                                        :initValue="theCdgCity"
+                                                        :startTwoInit="true"
                                                         >
                                                     </city-cascader>
                                                 </div>
@@ -366,6 +368,8 @@
                 cdgName: "",
                 // 车行所在城市
                 cdgCity: "",
+                // 车行所在城市(修改)
+                theCdgCity: "",
                 // 车行所在详细地址
                 cdgAddress: "",
                 // 车行描述
@@ -769,13 +773,15 @@
                 this.authNumber = applyInfo.AuthInfo.CertificateNumber;
                 this.cdgName = applyInfo.CdgInfo.Name;
                 
-                
-                let arr = applyInfo.CdgInfo.Address.split("/");
-                this.cdgCity = "";
-
-                this.cdgAddress = arr[2];
-
+                // 车行所在城市
+                this.cdgCity = applyInfo.CdgInfo.Province+"/"+applyInfo.CdgInfo.City;
+                this.theCdgCity = this.cdgCity;
+                console.log(this.theCdgCity);
+                // 车行具体地址
+                this.cdgAddress = applyInfo.CdgInfo.Address.split("/")[2];
+                // 车行描述
                 this.cdgDesc = applyInfo.CdgInfo.Description;
+                
                 this.voucherId__1 = "";
                 this.voucherId__2 = "";
                 this.voucherId__3 = "";
