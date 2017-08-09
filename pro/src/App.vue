@@ -92,6 +92,7 @@
     
     .g-doc
         _boxSizing()
+        min-width 1240px
         border-right 40px solid transparent
         &.noWebSide
             _boxSizing(content-box)
