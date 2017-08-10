@@ -23,8 +23,8 @@ export const cprtInfo = [
 
 //咨询服务
 export const counseling = {
-    title: '木有车客服电话',
-    tel: '400-9009-936',
+    title: '木有车客服热线',
+    tel: '400-900-9936',
     desc: '免费咨询（咨询、投诉、建议）',
     workTime: '周一至周六 9:00-18:00（工作时间）',
 }

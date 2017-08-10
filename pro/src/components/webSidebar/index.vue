@@ -86,8 +86,43 @@
                                 <span class="u-txt">我的钱包</span>
                             </a>
                         </template>
-                        
                     </li><!-- 钱包 -->
+
+                    <li class="u-side-item u-tencent" 
+                        ref="uTencent"
+                        >
+                        <a class="u-lk" 
+                            @click="showQQ(2)"    
+                            >
+                            <div class="icon">
+                                <i class="iconfont icon-qq9"></i>
+                            </div>
+                            <span class="u-txt">QQ在线咨询</span>
+                        </a>
+                    </li><!-- QQ在线咨询 -->
+
+                    <div class="service-box" ref="serviceBox">
+                        <div class="box-inner">
+                            <a class="u-close" title="点击关闭"
+                                @click.stop="showQQ(1)"
+                                ></a>
+                            <div class="qq-box">
+                                <a target="_blank" class="u-box" href="http://wpa.qq.com/msgrd?v=3&uin=1098654043&site=qq&menu=yes">
+                                    <div class="qq-icon">
+                                        <img :src="qqIcon_IMG" alt="QQ在线咨询" />
+                                    </div><!-- qq的ICON -->
+                                    <div class="u-tit">QQ在线咨询</div>
+                                </a>
+                            </div><!-- qq -->
+                            <div class="other-box">
+                                <div class="u-group">
+                                    <div class="tit">客服热线</div>
+                                    <p class="desc">400-900-9936</p>
+                                </div>
+                            </div><!-- 其他内容 -->
+                        </div>
+                    </div><!-- QQ在线咨询 -->
+
                 </ul>
             </div><!-- 真实的导航条内容 -->
             <div class="m-sidebar-other">
@@ -157,6 +192,7 @@
         data() {
             return{
                 ewmWX_IMG: require("assets/img/myc_ewm_wechat.jpg"),
+                qqIcon_IMG: require("assets/img/img-qq.png"),
                 // 返回顶部的定时器
                 timer: null,
                 // 返回顶部的方法是否已结束
@@ -274,9 +310,25 @@
                 this.tf = false;
             },
             
+            // 显示QQ
+            showQQ(type){
+
+                let uTencent = this.$refs.uTencent;
+                let serviceBox = this.$refs.serviceBox;
+                
+                if(type===2){
+                    geekDom.toggleClass(uTencent,"on");
+                    geekDom.toggleClass(serviceBox,"active");
+                }else if(type===1){
+                    geekDom.removeClass(uTencent,"on");
+                    geekDom.removeClass(serviceBox,"active");
+                }
+                
+            },
+
             // 显示二维码
             showEWM(type){
-                
+
                 let ewmBox = this.$refs.ewmBox;
                 if(type===0){
                     geekDom.addClass(ewmBox,"active");                    
