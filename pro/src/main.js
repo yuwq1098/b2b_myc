@@ -32,7 +32,9 @@ Vue.use(VeeValidate, vConfig, validator);
 import * as yyd from 'assets/js/yydjs.js';
 
 // 引入木有车网站的公共样式
-import 'assets/css/index.styl'      
+import 'assets/css/index.styl'
+
+console.dir(document)
 
 // 将axios 改写为 Vue 的原型属性,使得其在其他组件中一样能使用
 Vue.prototype.$ajax = axios

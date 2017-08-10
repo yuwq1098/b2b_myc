@@ -19,10 +19,6 @@ export const sidebarMenu = [
             	'title': '车商认证',
 	        	'hash': '/member/applyHome',
             },
-          //   {
-          //   	'title': '我的购物车',
-	        	// 'hash': '/member/shopCart',
-          //   },
         ]
     },
     {
