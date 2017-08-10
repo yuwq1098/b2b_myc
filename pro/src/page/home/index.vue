@@ -236,12 +236,13 @@
             this._getB2bCarList();
 
             //更新swiper(强制初始化)
-            // if(this.siteHomeSwiper){
-            //     this.siteHomeSwiper.init()
-            // }
+            if(this.siteHomeSwiper){
+                this.siteHomeSwiper.init()
+            }
             // 获取猜你喜欢的数据
             this.getYouLike();
         },
+        
         //退出的生命周期钩子
         deactivated(){
             //清空用户搜索结果集合
