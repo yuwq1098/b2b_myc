@@ -24,6 +24,27 @@ export function addClass(el, className) {
     el.className = newClass.join(' ')
 }
 
+/** 
+* @description 为DOM删除指定类名
+* @param el 事件作用对象
+* @param className 类名
+*/ 
+export function removeClass(el,className) {
+    if (!hasClass(el, className)) {
+        return;
+    }
+    el.classList.remove(className);
+}
+
+/** 
+* @description 类名显隐藏切换
+* @param el 事件作用对象
+* @param className 类名
+*/ 
+export function toggleClass(el,className){
+    el.classList.toggle(className);
+};
+
 
 /** 
 * @description 阻止鼠标滚轮事件冒泡

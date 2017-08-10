@@ -29,12 +29,28 @@
             position relative
             cursor pointer
             .u-lk
-                _display()
                 width @width
                 height @height
+                _display(inline-block)
                 color #d2d2d2
             & *
                 cursor @cursor
+            
+            &.slide
+                width 150px
+                height @height
+                _transitionCustom all .3s cubic-bezier(0.43, 0.61, 0.38, 1.16),background-color .15s linear,border-radius .2s linear
+                .icon
+                    _completeCenter(,110px,2px)
+                    _transitionCustom all .15s linear
+                &:hover
+                    _translate3d(-80px)
+                    background #A470F7
+                    color #f2f2f2
+                    _borderRadiusCustom(@height/8 0 0 @height/8)
+                    .icon
+                        _completeCenter(,103px,2px)
+
             &:hover
                 background #A470F7
                 color #f2f2f2
@@ -48,6 +64,16 @@
                 _completeCenter(,,2px)
                 .iconfont
                     font-size 24px
+            .u-txt
+                _display(inline-block)
+                color #f2f2f2
+                height @height
+                line-height @height
+                width 80px
+                margin 0 0 0 40px
+                font-size 14px
+                _spacingPlus(2px)
+                padding 0 0 0 2px
     .m-sidebar-con
         width @width
         _completeCenter(0,auto,120px,auto)
@@ -93,5 +119,40 @@
         _completeCenter(0,auto,auto,40px)
         .u-side-item
             margin 10px 0 0 
+        .ewm-box
+            width 280px
+            height 115px
+            _completeCenter(-(@width + 6px),auto,-(@height - 90px),auto)
+            _translate3d(@width + 10px)
+            _transitionCustom all .3s cubic-bezier(0.43, 0.61, 0.38, 1.16)
+            z-index -1
+            .box-inner
+                position relative
+                width @width -6px
+                height @height
+                background #fff
+                _borderAll(#e2e2e2)
+                .u-pic
+                    width 95px
+                    height 95px
+                    _imgwrap()
+                    _completeCenter(10px,auto)
+                .u-con
+                    width @width - 135px
+                    margin 0 0 0 120px
+                    padding 12px 0
+                    .tit
+                        font-size 16px
+                        font-weight 700
+                        margin 0 0 5px
+                        color #27333C
+                    .desc
+                        font-size 14px
+                        color #777
+                        _spacingPlus()
+            &.active
+                _translate3d(0)
+
+
 
 

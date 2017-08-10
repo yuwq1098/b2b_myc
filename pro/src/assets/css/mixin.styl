@@ -228,10 +228,18 @@ _borderRadius(pixel=50%,direction=null)
         border-{direction}-radius pixel
 
 
+//---圆角(全方向)
 _borderRadiusAll(pixel)
     -webkit-border-radius pixel
     -moz-border-radius pixel
     border-radius pixel
+
+
+//---圆角(补充)
+_borderRadiusCustom()
+    -webkit-border-radius arguments
+    -moz-border-radius arguments
+    border-radius arguments
 
 
 //---指定盒模型，默认为怪异盒模型

@@ -3,9 +3,9 @@
     <div class="home">
         <div class="g-doc">
             <div class="g-bd">
-                <div class="g-csl">
+                <div class="g-csl" v-if="true">
                     <div class="m-sld">
-                        <swiper :options="swiperOption" id="index-carousel" ref="mySwiper">  
+                        <swiper :options="swiperOption" :not-next-tick="notNextTick" ref="siteHomeSwiper">  
                             <!-- 这部分放你要渲染的那些内容 -->  
                             <template v-for="item in swiperItems">
                                 <swiper-slide >
@@ -151,6 +151,8 @@
     //搜索延迟,150ms
     const SEARCH_DELAY = 150
 
+
+
     export default {
         name: 'home',
         // 注册组件
@@ -187,11 +189,11 @@
 
                 noticeBarList: noticeBarList,    //公告滚动条的信息列表
                 swiperItems: swiperItems,        //首页轮播图数据集合
+                
 
-                swiperOption: {  
-                    //是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true  
-                    notNextTick: true,  
-                    pagination: '.swiper-pagination',  
+                // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
+                notNextTick: true,
+                swiperOption: {
                     slidesPerView: 'auto',  
                     centeredSlides: true,  
                     autoplay : 4500,
@@ -204,12 +206,12 @@
                         crossFade: false,
                     },
                     spaceBetween: 30,  
-                    onSlideChangeEnd: swiper => {  
+                    onSlideChangeEnd: (swiper) => {  
                         //这个位置放swiper的回调方法  
                         this.page = swiper.realIndex+1;  
                         this.index = swiper.realIndex;  
                     },
-                    onAutoplayStop: swiper => {
+                    onAutoplayStop: (swiper) => {
                         swiper.startAutoplay();
                     }
                 },
@@ -234,9 +236,9 @@
             this._getB2bCarList();
 
             //更新swiper(强制初始化)
-            if(this.mySwiper){
-                this.mySwiper.init()
-            }
+            // if(this.siteHomeSwiper){
+            //     this.siteHomeSwiper.init()
+            // }
             // 获取猜你喜欢的数据
             this.getYouLike();
         },
@@ -249,8 +251,8 @@
         },
         computed:{
             ...mapGetters(['loginStatus']),
-            mySwiper() {  
-                return this.$refs.mySwiper.swiper;  
+            siteHomeSwiper() {  
+                return this.$refs.siteHomeSwiper.swiper;  
             }  
         },
         watch:{

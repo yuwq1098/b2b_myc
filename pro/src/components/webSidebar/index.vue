@@ -4,7 +4,7 @@
             <div class="m-expand-bg"></div><!-- 防抖动背景 -->
             <div class="m-sidebar-con">
                 <ul class="u-side-lst f__clearfix">
-                    <li class="u-side-item u-member">
+                    <li class="u-side-item u-member slide">
                         <template v-if="loginStatus">
                             <router-link class="u-lk"
                                 :to="{path:'/member/home'}"
@@ -12,6 +12,7 @@
                                 <div class="icon">
                                     <i class="iconfont icon-huiyuanguanli1"></i>
                                 </div>
+                                <span class="u-txt">会员中心</span>
                             </router-link>
                         </template>
                         <template v-else="!loginStatus">
@@ -21,6 +22,7 @@
                                 <div class="icon">
                                     <i class="iconfont icon-huiyuanguanli1"></i>
                                 </div>
+                                <span class="u-txt">请先登录</span>
                             </a>
                         </template>
                     </li><!-- 会员中心 -->
@@ -38,7 +40,8 @@
                                 >{{myShopingNumber}}</span>
                         </router-link>
                     </li><!-- 购物车 -->
-                    <li class="u-side-item u-collect">
+
+                    <li class="u-side-item u-collect slide">
                         <template v-if="loginStatus">
                             <router-link class="u-lk"
                                 :to="{path:'/member/collectCar'}"
@@ -46,6 +49,7 @@
                                 <div class="icon">
                                     <i class="iconfont icon-shoucang5"></i>
                                 </div>
+                                <span class="u-txt">车辆收藏</span>
                             </router-link>
                         </template>
                         <template v-else="!loginStatus">
@@ -55,11 +59,13 @@
                                 <div class="icon">
                                     <i class="iconfont icon-shoucang5"></i>
                                 </div>
+                                <span class="u-txt">车辆收藏</span>
                             </a>
                         </template>
+
                     </li><!-- 收藏 -->
 
-                    <li class="u-side-item u-wallet">
+                    <li class="u-side-item u-wallet slide">
                         <template v-if="loginStatus">
                             <router-link class="u-lk"
                                 :to="{path:'/member/wallet'}"
@@ -67,6 +73,7 @@
                                 <div class="icon">
                                     <i class="iconfont icon-qianbao2"></i>
                                 </div>
+                                <span class="u-txt">我的钱包</span>
                             </router-link>
                         </template>
                         <template v-else="!loginStatus">
@@ -76,6 +83,7 @@
                                 <div class="icon">
                                     <i class="iconfont icon-qianbao2"></i>
                                 </div>
+                                <span class="u-txt">我的钱包</span>
                             </a>
                         </template>
                         
@@ -83,21 +91,36 @@
                 </ul>
             </div><!-- 真实的导航条内容 -->
             <div class="m-sidebar-other">
+                <div class="ewm-box" ref="ewmBox">
+                    <div class="box-inner">
+                        <div class="u-pic">
+                            <img :src="ewmWX_IMG" alt="木有车官方微信公众号" />
+                        </div><!-- 图片 -->
+                        <div class="u-con">
+                            <div class="tit">木有车官方公众号</div>
+                            <div class="desc">使用微信扫描二维码关注我们，掌握最新车源资讯</div>
+                        </div><!-- 内容 -->
+                    </div>
+                </div><!-- 微信公众号二维码框 -->
                 <ul class="u-side-lst f__clearfix">
                     <li class="u-side-item u-ewm">
-                        <a href="javascript:;" class="u-lk">
+                        <a href="javascript:;" class="u-lk"
+                            @mouseover="showEWM(0)"
+                            @mouseleave="showEWM(1)"
+                            >
                             <div class="icon">
                                 <i class="iconfont icon-erweima3"></i>
                             </div>
                         </a>
                     </li><!-- 二维码 -->
-                    <li class="u-side-item u-backTop" ref="js__gotop">
-                        <a href="javascript:;" class="u-lk" id="js__gotop" 
+                    <li class="u-side-item u-backTop slide" ref="js__gotop">
+                        <a class="u-lk" id="js__gotop" 
                             @click="goTop()"
                             >
                             <div class="icon">
                                 <i class="iconfont icon-fanhuidingbu"></i>
                             </div>
+                            <span class="u-txt">返回顶部</span>
                         </a>
                     </li><!-- 返回顶部 -->
                 </ul>
@@ -133,6 +156,7 @@
         // 数据
         data() {
             return{
+                ewmWX_IMG: require("assets/img/myc_ewm_wechat.jpg"),
                 // 返回顶部的定时器
                 timer: null,
                 // 返回顶部的方法是否已结束
@@ -249,6 +273,19 @@
                 }
                 this.tf = false;
             },
+            
+            // 显示二维码
+            showEWM(type){
+                
+                let ewmBox = this.$refs.ewmBox;
+                if(type===0){
+                    geekDom.addClass(ewmBox,"active");                    
+                }else{
+                    geekDom.removeClass(ewmBox,"active");
+                }
+                
+            },
+
             // 返回顶部
             goTop(){
                 //创建定时器

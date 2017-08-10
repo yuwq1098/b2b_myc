@@ -98,7 +98,8 @@
             line-height 54px
             color #e2e2e2
             background #4B5861
-            _gradient(#293135 - 10%,#4B5861 + 10%)
+            // _gradient(#293135 - 10%,#4B5861 + 10%)
+            _border(bottom,#293135,3px)
             .tit
                 _display(inline-block)
                 font-size 18px
