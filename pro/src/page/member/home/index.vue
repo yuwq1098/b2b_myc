@@ -2,7 +2,7 @@
     <div class="memberHome">
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="个人主页"
+            title="我的主页"
             >
             <div slot="content">
                 <member-inner>

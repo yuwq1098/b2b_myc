@@ -2,7 +2,7 @@
     <div class="applyHome">
         <!-- 会员中心内容布局组件 -->
         <member-layout
-            title="我的认证"
+            title="车商认证"
             >
             <div slot="content">
                 
