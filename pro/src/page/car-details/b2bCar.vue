@@ -137,6 +137,20 @@
                                 </template>
 
                             </div><!-- 操作 -->
+                             
+                            <div class="m-share" ref="jiathis_share">
+                                <!-- JiaThis Button BEGIN -->
+                                <div class="jiathis_style_24x24">
+                                    <a class="jiathis_button_qzone"></a>
+                                    <a class="jiathis_button_tsina"></a>
+                                    <a class="jiathis_button_tqq"></a>
+                                    <a class="jiathis_button_weixin"></a>
+                                    <a class="jiathis_button_renren"></a>
+                                    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+                                    <a class="jiathis_counter_style"></a>
+                                </div>
+                                <!-- JiaThis Button END -->
+                            </div><!-- 友荐分享 -->
 
                         </div><!-- 主要信息 -->
                     </div><!-- 主要的头部信息 -->
@@ -333,6 +347,7 @@
 	</div>
 </template>
 
+
 <script>
 
     // 引入jq
@@ -362,7 +377,6 @@
     import {b2bCarInfo} from "base/class/carInfo.js"
     // 相似推荐信息列表盒子
     import remdListBox from "components/boxLayout/remdListBox.vue"
-
 
 	export default {
         name: "b2bCarDetails",
@@ -415,7 +429,10 @@
 
         },
         mounted(){
-
+            const s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.src = 'http://v3.jiathis.com/code/jia.js';
+            this.$refs.jiathis_share.appendChild(s);
         },
         activated(){
 
@@ -464,34 +481,20 @@
         computed:{
 
             ...mapGetters(['loginStatus']),
+            
             // 面包屑列表信息
             crumbItems(){
                 if(this.basicInfo){
                     return crumbsInfo['b2bCar'](this.basicInfo.title)
                 }
             },
+
             theAuthType(){
                 if(this.otherInfo.authType=="个人车行"){
                     return "个人车商";
                 }else if(this.otherInfo.authType=="企业车行"){
                     return "企业车商";
                 }
-            },
-
-            // 车身所在地
-            carInPosition(){
-                if(this.basicInfo.inProvince&&this.basicInfo.inCity){
-                    // if(basicInfo.inProvince==basicInfo.inCity){
-                        
-                    // }
-
-                }else{
-
-                }
-            },
-            // 牌照归属地
-            carInPosition(){
-
             },
             
         },
