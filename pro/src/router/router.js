@@ -146,6 +146,10 @@ const editPayPass = r => require.ensure([], () => r(require('page/member/setting
 const forgetPayPass = r => require.ensure([], () => r(require('page/member/setting/safety/forgetPayPass')), 'forgetPayPass')
 
 
+// 测试--分享
+const share = r => require.ensure([], () => r(require('page/test/share.vue')), 'share')
+
+
 // 定义路由
 export default[{
     path: '/',
@@ -600,6 +604,12 @@ export default[{
                 },
 
             ]
+        },
+        {
+        // 测试分享
+            path: '/share',
+            component: share,
+            meta: { }
         },
         {   
         // 404页面

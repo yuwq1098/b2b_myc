@@ -282,6 +282,29 @@ _gradient(bColor,eColor,direction=null)
         background: -o-linear-gradient(left,bColor, eColor);
         background: -webkit-gradient(linear, 0% 0%, 100% 0%, from(bColor), to(eColor));
 
+//---过滤
+/**
+  * 高斯模糊 blur(px)   0
+  * 亮度 brightness(%)  1
+  * 对比度 contrast(%)  1
+  * 阴影 drop-shadow(h-shadow v-shadow blur spread color)
+  * 灰度强化 grayscale(%)  0
+  * 色相旋转 hue-rotate(deg)  0
+  * 图像反转 invert(%)  0
+  * 透明度 opacity(%) 1
+  * 饱和度 saturate(%) 1
+  * 褐色强化 sepia(%) 0
+  */
+_boxFilterDemo(){
+    -webkit-filter blur(0px) brightness(100%) contrast(100%) drop-shadow(0px 0px 0px 0px #000) grayscale(0%) hue-rotate(0deg) invert(0) opacity(1) saturate(100%) sepia(0%)
+    filter blur(0px) brightness(100%) contrast(100%) drop-shadow(0px 0px 0px 0px #000) grayscale(0%) hue-rotate(0deg) invert(0) opacity(1) saturate(100%) sepia(0%)
+}
+
+//--自定义过滤
+_filterCustom(){
+    -webkit-filter arguments
+    filter arguments
+}
 
 //---按钮颜色
 _btnColor(bgColor,txtColor,h_bgColor,h_txtColor)

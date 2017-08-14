@@ -86,7 +86,18 @@
         methods: {
             // 进入车辆详情
             enterCarDetails(id){
-                this.$router.push({path:'/b2bCar', query: { CarId: id }})
+                // 获取hash 带参中的车辆ID
+                let carId = this.$router.currentRoute.query.CarId;
+                if(carId===id){
+                    this.$notify({
+                        title: '已是该车源的详情页面',
+                        message: "已是该车源的详情页面，请不要重复点击",
+                        type: 'warning',
+                        duration: 2000,
+                    });
+                }else{
+                    this.$router.push({path:'/b2bCar', query: { CarId: id }})
+                }
             },
         },    
     }

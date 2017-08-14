@@ -137,20 +137,11 @@
                                 </template>
 
                             </div><!-- 操作 -->
-                             
-                            <div class="m-share" ref="jiathis_share">
-                                <!-- JiaThis Button BEGIN -->
-                                <div class="jiathis_style_24x24">
-                                    <a class="jiathis_button_qzone"></a>
-                                    <a class="jiathis_button_tsina"></a>
-                                    <a class="jiathis_button_tqq"></a>
-                                    <a class="jiathis_button_weixin"></a>
-                                    <a class="jiathis_button_renren"></a>
-                                    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-                                    <a class="jiathis_counter_style"></a>
-                                </div>
-                                <!-- JiaThis Button END -->
-                            </div><!-- 友荐分享 -->
+                            
+                            <div class="m-share" v-if="isShareShow">
+                                <gk-share
+                                    :options="shareOptions"></gk-share>
+                            </div><!-- 分享 -->
 
                         </div><!-- 主要信息 -->
                     </div><!-- 主要的头部信息 -->
@@ -378,6 +369,11 @@
     // 相似推荐信息列表盒子
     import remdListBox from "components/boxLayout/remdListBox.vue"
 
+    // 社会分享组件
+    import gkShare from "components/common/gkShare.vue"
+
+    
+    
 	export default {
         name: "b2bCarDetails",
         // 在当前模块注册组件
@@ -385,10 +381,14 @@
             gkBreadCrumb,
             fcSlide,
             remdListBox,
+            gkShare,
         },
         // 数据
         data() {
             return{
+                
+                isShareShow: false,    // 分享组件显示隐藏
+                shareOptions: {},      // 分享组件配置
 
                 // 是否登录
                 hasLogin: "",
@@ -429,10 +429,7 @@
 
         },
         mounted(){
-            const s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.src = 'http://v3.jiathis.com/code/jia.js';
-            this.$refs.jiathis_share.appendChild(s);
+            
         },
         activated(){
 
@@ -458,6 +455,11 @@
 
                 // if(to.path=="/b2bCar"){
                 if(to.path==from.path){
+
+                    // 分享组件显示隐藏
+                    this.isShareShow = false;    
+                    this.shareOptions = {};
+                    
                     // 获取hash 带参中的车辆ID
                     this.carId = to.query.CarId;
                     // 获取车辆信息
@@ -481,7 +483,7 @@
         computed:{
 
             ...mapGetters(['loginStatus']),
-            
+
             // 面包屑列表信息
             crumbItems(){
                 if(this.basicInfo){
@@ -585,6 +587,21 @@
                             this.carImgData = this.getCarImgsData(this.fileInfoList,this.otherInfo);
                             // 获取相似推荐数据
                             this.similarList = this._normalizeB2bCarInfo(res.data.SimilarRecommend)
+                            // 获取分享标题
+                            let carTit = ((this.basicInfo.title).split(" ")).join("_");
+                            let share_tit = "木有车__B2B二手车平台__"+carTit+"__"+this.otherInfo.cdgName;
+                            let share_desc = "扎心了老铁，天大喜讯！"+this.otherInfo.cdgName+"在木有车发布了一辆非常不错的"+carTit+"。喜欢的朋友还犹豫什么，木有车B2B二手车安全放心的交易，您不容错过！";
+
+                            let newObj = {
+                                title: share_tit,
+                                content: share_desc,
+                                pic: this.fileInfoList[0].fileUrl,
+                            }
+                            
+                            // 分享组件配置及显隐
+                            this.shareOptions = Object.assign(newObj,{});
+                            this.isShareShow = true;
+
                         })
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
