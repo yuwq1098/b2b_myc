@@ -153,12 +153,15 @@
             f_weixin(){
                 let me = this;
                 this.share.weixin((url)=>{
+                    
                     // 鼠标滚轮事件
                     geekDom.preventScroll(this.$refs.shareWXBox);
-                    
                     this.isShowWXbox = true;
+
+                    // url解码
+                    let newUrl = decodeURIComponent(url);
                     // 微信二维码
-                    QRCode.toDataURL(url, function (err, url) {
+                    QRCode.toDataURL(newUrl, function (err, url) {
                         me.WXcode = url
                     })
                 });
