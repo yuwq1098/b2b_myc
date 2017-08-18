@@ -94,9 +94,12 @@
         .m-other-box
             height 28px
             line-height 28px
-            color #b2b2b2
+            color #959595
+            .u-info
+                font-size 12px
+                _spacingPlus()
             .u-count
-                font-size 13px
+                font-size 14px
                 .vital
                     color #ff6533
 

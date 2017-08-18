@@ -10,6 +10,8 @@ class merchantInfo{
 	    this.fixtureNumber = data.ShippingCount||"0"                // 总成交单数
 	    this.onSale = data.CarCount||"0"                            // 在售车辆数
 	    this.isFavorite = data.HasFavorite||false                   // 是否收藏了此车行
+        this.favoriteNum = data.CdgFvCount||0                       // 收藏数
+	    this.isPartner =  data.IsB2BPartner||true                   // 是否为合作商省份
 	    this.carList = data.CarList||[]                             // 在售车辆列表
 	}
 }

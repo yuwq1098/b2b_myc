@@ -17,11 +17,6 @@ export const swiperItems = [
         imgUrl: require("assets/img/hall-figure03.jpg"),
     },
     {
-        title: '轮播图四',
-        href: '',
-        imgUrl: require("assets/img/hall-figure04.jpg"),
-    },
-    {
         title: '轮播图五',
         href: '',
         imgUrl: require("assets/img/hall-figure05.jpg"),

@@ -198,10 +198,11 @@
 
                 // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
                 notNextTick: true,
+
                 swiperOption: {
                     slidesPerView: 'auto',  
                     centeredSlides: true,  
-                    autoplay : 4500,
+                    autoplay : 3500,
                     speed: 500,                         //速度
                     loop: true,                         //环路
                     paginationClickable: true,          //分页点击
@@ -240,12 +241,15 @@
             //获取b2b二手车大厅列表
             this._getB2bCarList();
 
-            //更新swiper(强制初始化)
-            if(this.siteHomeSwiper){
-                this.siteHomeSwiper.init()
-            }
             // 获取猜你喜欢的数据
             this.getYouLike();
+            
+            //更新swiper(强制初始化)
+            this.$nextTick(() => {
+                if(this.siteHomeSwiper){
+                    this.siteHomeSwiper.init()
+                }
+            });
         },
         
         //退出的生命周期钩子
@@ -429,7 +433,6 @@
                 });
                 return carInfo;
             },
-
         },
         
     }

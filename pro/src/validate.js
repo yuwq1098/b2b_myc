@@ -267,6 +267,7 @@ const dictionary = {
             engineNumber: "发动机号",
             finalPrice: "成交价",
             trusteeMoney: "托管尾款",
+            sellerDeposit: "双方交易保证金"
         }
     }
 };

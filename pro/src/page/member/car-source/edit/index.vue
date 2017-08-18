@@ -19,6 +19,7 @@
                                                 title="车辆所在地"
                                                 :errorTetx="errors.first('carInCity')"
                                                 :isShow="errors.has('carInCity')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
@@ -37,6 +38,7 @@
                                                 title="品牌车型"
                                                 :errorTetx="errors.first('selectedModel')"
                                                 :isShow="errors.has('selectedModel')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
@@ -60,6 +62,7 @@
                                                 title="车牌归属地"
                                                 :errorTetx="errors.first('plateInCity')"
                                                 :isShow="errors.has('plateInCity')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
@@ -78,6 +81,7 @@
                                                 title="上牌时间"
                                                 :errorTetx="errors.first('plateDate')"
                                                 :isShow="errors.has('plateDate')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
@@ -97,6 +101,7 @@
                                                 title="交强险"
                                                 :errorTetx="errors.first('insuranceDate')"
                                                 :isShow="errors.has('insuranceDate')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
@@ -121,44 +126,28 @@
                                                 title="过户次数"
                                                 :errorTetx="errors.first('changeNum')"
                                                 :isShow="errors.has('changeNum')"
-                                                >
-                                            </gk-input-error>
-                                            <div class="u-item-box">
-                                                <gk-select
-                                                    placeholder="请选择过户次数"
-                                                    @selectedEnd="changeNumEnd"
-                                                    :options="selectData.changeNumList"
-                                                    :initValue="form.changeNum"
-                                                    >
-                                                </gk-select>
-                                            </div>
-                                        </div>
-                                    </el-col>
-                                    <el-col :span="8">
-                                        <div class="m-item">
-                                            <gk-input-error
-                                                title="一口价"
-                                                :errorTetx="errors.first('fixedPrice')"
-                                                :isShow="errors.has('fixedPrice')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
                                                 <gk-input
-                                                    placeholder="请填写一口价, 例：32.88"
-                                                    unit="万元"
-                                                    @inputChangeEnd="fixedPriceEnd"
-                                                    :initValue="form.fixedPrice"
+                                                    placeholder="请输入过户次数，无过户填 0"
+                                                    @inputChangeEnd="changeNumEnd"
+                                                    :initValue="form.changeNum"
+                                                    iptType="number"
                                                     >
                                                 </gk-input>
                                             </div>
                                         </div>
                                     </el-col>
+                                    
                                     <el-col :span="8">
                                         <div class="m-item">
                                             <gk-input-error
                                                 title="零售价"
                                                 :errorTetx="errors.first('retailPrice')"
                                                 :isShow="errors.has('retailPrice')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
@@ -172,6 +161,28 @@
                                             </div>
                                         </div>
                                     </el-col>
+
+                                    <el-col :span="8">
+                                        <div class="m-item">
+                                            <gk-input-error
+                                                title="一口价"
+                                                :errorTetx="errors.first('fixedPrice')"
+                                                :isShow="errors.has('fixedPrice')"
+                                                :must="true"
+                                                >
+                                            </gk-input-error>
+                                            <div class="u-item-box">
+                                                <gk-input
+                                                    placeholder="请填写一口价, 例：32.88"
+                                                    unit="万元"
+                                                    @inputChangeEnd="fixedPriceEnd"
+                                                    :initValue="form.fixedPrice"
+                                                    >
+                                                </gk-input>
+                                            </div>
+                                        </div>
+                                    </el-col>
+                                    
                                 </el-row>
                             </div>
 
@@ -183,6 +194,7 @@
                                                 title="行驶里程"
                                                 :errorTetx="errors.first('mileage')"
                                                 :isShow="errors.has('mileage')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
@@ -196,21 +208,22 @@
                                             </div>
                                         </div>
                                     </el-col>
+                                    
                                     <el-col :span="8">
                                         <div class="m-item">
-
                                             <gk-input-error
-                                                title="排放标准"
-                                                :errorTetx="errors.first('dischargeStandard')"
-                                                :isShow="errors.has('dischargeStandard')"
+                                                title="使用性质"
+                                                :errorTetx="errors.first('serviceType')"
+                                                :isShow="errors.has('serviceType')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
                                                 <gk-select
-                                                    placeholder="请选择排放标准"
-                                                    @selectedEnd="dischargeStandardEnd"
-                                                    :options="selectData.dischargeStandardList"
-                                                    :initValue="form.dischargeStandard"
+                                                    placeholder="请选择使用性质"
+                                                    @selectedEnd="serviceEnd"
+                                                    :options="selectData.ServiceCharacteristics"
+                                                    :initValue="form.serviceType"
                                                     >
                                                 </gk-select>
                                             </div>
@@ -223,6 +236,7 @@
                                                 title="排量"
                                                 :errorTetx="errors.first('liter')"
                                                 :isShow="errors.has('liter')"
+                                                :must="true"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
@@ -244,24 +258,26 @@
                                     
                                     <el-col :span="8">
                                         <div class="m-item">
+
                                             <gk-input-error
-                                                title="使用性质"
-                                                :errorTetx="errors.first('serviceType')"
-                                                :isShow="errors.has('serviceType')"
+                                                title="排放标准"
+                                                :errorTetx="errors.first('dischargeStandard')"
+                                                :isShow="errors.has('dischargeStandard')"
                                                 >
                                             </gk-input-error>
                                             <div class="u-item-box">
                                                 <gk-select
-                                                    placeholder="请选择使用性质"
-                                                    @selectedEnd="serviceEnd"
-                                                    :options="selectData.ServiceCharacteristics"
-                                                    :initValue="form.serviceType"
+                                                    placeholder="请选择排放标准"
+                                                    @selectedEnd="dischargeStandardEnd"
+                                                    :options="selectData.dischargeStandardList"
+                                                    :initValue="form.dischargeStandard"
                                                     >
                                                 </gk-select>
                                             </div>
                                         </div>
                                     </el-col>
-                                    <el-col :span="10">
+                                    
+                                    <el-col :span="11">
                                         <div class="m-item">
                                             <gk-input-error
                                                 title="车架号"
@@ -289,6 +305,7 @@
                                         errorAlign="left"
                                         :errorTetx="errors.first('color')"
                                         :isShow="errors.has('color')"
+                                        :must="true"
                                         >
                                     </gk-input-error>
                                 </div>
@@ -327,6 +344,7 @@
                                         errorAlign="left"
                                         :errorTetx="errors.first('photo')"
                                         :isShow="errors.has('photo')"
+                                        :must="true"
                                         >
                                     </gk-input-error>
                                 </div>
@@ -348,6 +366,7 @@
                                         errorAlign="left"
                                         :errorTetx="errors.first('desc')"
                                         :isShow="errors.has('desc')"
+                                        :must="true"
                                         >
                                     </gk-input-error>
                                 </div>
@@ -383,7 +402,6 @@
                                         btnText="立即修改"
                                         :submiting="isSubmitState"
                                         @submitTrigger="toModify()"
-                                        :autoRight="true"
                                         >
                                     </gk-submit>
                                 </div><!-- 提交按钮 -->
@@ -547,14 +565,11 @@
                 fixedPrice: 'required|between:1,3000|decimal:2',
                 retailPrice: 'required|between:1,3000|decimal:2',
                 mileage: 'required|between:0,200|decimal:2',
-                dischargeStandard: 'required',
                 liter: 'required|between:1,7|decimal:2',
                 insuranceDate: 'required',
                 serviceType: 'required',
-                vin: 'required|alpha_dash|min:17|max:17',
                 color: 'required',
                 desc: 'required|min:10|max:300',
-                nameplate: 'between:1,3|max:3',
                 photo: 'between:2,12|max:12',
             });
             this.$set(this, 'errors', this.validator.errors);
@@ -777,7 +792,6 @@
             // 选择排放标准
             dischargeStandardEnd(val){
                 this.form.dischargeStandard = val;
-                this.validator.validate('dischargeStandard',val);
             },
 
             // 排量
@@ -802,7 +816,6 @@
             // 车架号
             vinEnd(val){
                 this.form.vin = val;
-                this.validator.validate('vin',val);
             },
             
             // 选择汽车颜色
@@ -814,7 +827,6 @@
             // 车辆铭牌图片
             nameplateEnd(val){
                 this.form.nameplate = val;
-                this.validator.validate('nameplate',val.length);
             },
 
             // 车辆图片
@@ -845,14 +857,11 @@
                     fixedPrice: this.form.fixedPrice,
                     retailPrice: this.form.retailPrice,
                     mileage: this.form.mileage,
-                    dischargeStandard: this.form.dischargeStandard,
                     liter: this.form.liter,
                     insuranceDate: this.form.insuranceDate,
                     serviceType: this.form.serviceType,
-                    vin: this.form.vin,
                     color: this.form.color,
                     desc: this.form.desc,
-                    nameplate: this.form.nameplate.length,
                     photo: this.form.photo.length,
                 }).then((res) => {
                     // 如果验证不成功

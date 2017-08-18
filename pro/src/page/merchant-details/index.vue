@@ -9,8 +9,10 @@
                     <div class="m-merchant-box">
                         <div class="m-merchant-hd">
 
-                            <div class="m-cdgName f__clearfix">
+                            <div class="m-cdgName f__clearfix"
+                                :class="{'v2':merchantData.isPartner}">
                                 <span class="u-name">{{merchantData.name}}</span>
+                                <span class="u-type partner" v-show="merchantData.isPartner">合作商</span>
                                 <span class="u-type">{{theAuthType}}</span>
                             </div><!-- 车行名称 -->
 
@@ -64,6 +66,12 @@
                                     <span class="attr">已成交：</span>
                                     <span class="data">{{merchantData.fixtureNumber}}<em class="unit">（单）</em></span>
                                 </p>
+
+                                <p class="u-info">
+                                    <span class="attr">关注人数：</span>
+                                    <span class="data">{{merchantData.favoriteNum}}<em class="unit">（人）</em></span>
+                                </p>
+
                             </div><!-- 在售及已成交 -->
 
                             <div class="m-address">
@@ -222,6 +230,7 @@
 
         },
         activated(){
+
             // 获取卖家ID
             this.merchantId = this.$router.currentRoute.query.cid||0;
             // 获取卖家信息
@@ -238,6 +247,7 @@
         },
         // 属性计算
         computed:{
+
             slidePage(){
                 let page = Math.ceil(this.merchantCarList.length/8);
                 return page; 
@@ -300,6 +310,7 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.merchantData = this._normalizeMerchant(res.data);
                         this.merchantCarList = this._normalizeCarList(this.merchantData.carList);
+                        console.log(this.merchantData)
                         // 延迟获取焦点图列表
                         setTimeout(()=>{
                             this.slideCarList = this._normalizeSlideCarList(this.merchantCarList);

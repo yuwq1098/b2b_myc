@@ -746,7 +746,6 @@
             // 选择排放标准
             dischargeStandardEnd(val){
                 this.form.dischargeStandard = val;
-                this.validator.validate('dischargeStandard',val);
             },
 
             // 排量
@@ -771,7 +770,6 @@
             // 车架号
             vinEnd(val){
                 this.form.vin = val;
-                this.validator.validate('vin',val);
             },
             
             // 选择汽车颜色
@@ -783,7 +781,6 @@
             // 车辆铭牌图片
             nameplateEnd(val){
                 this.form.nameplate = val;
-                this.validator.validate('nameplate',val.length);
             },
 
             // 车辆图片
@@ -814,14 +811,11 @@
                     fixedPrice: this.form.fixedPrice,
                     retailPrice: this.form.retailPrice,
                     mileage: this.form.mileage,
-                    dischargeStandard: this.form.dischargeStandard,
                     liter: this.form.liter,
                     insuranceDate: this.form.insuranceDate,
                     serviceType: this.form.serviceType,
-                    vin: this.form.vin,
                     color: this.form.color,
                     desc: this.form.desc,
-                    nameplate: this.form.nameplate.length,
                     photo: this.form.photo.length,
                 }).then((res) => {
                     // 如果验证不成功

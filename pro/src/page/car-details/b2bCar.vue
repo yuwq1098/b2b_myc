@@ -213,7 +213,7 @@
                                 <div class="m-mct-box">
                                     <div class="m-mct-hd">
                                         
-                                        <template v-if="!hasLogin||!hasAuth=='1'||!hasCredit"
+                                        <template v-if="!hasLogin||!hasAuth=='1'"
                                             >
                                             <a class="u-icon"
                                                 @click="judgeHasPrivilege()"
@@ -228,7 +228,7 @@
                                         </template>
 
                                         <div class="u-tit">
-                                            <template v-if="!hasLogin||!hasAuth=='1'||!hasCredit"
+                                            <template v-if="!hasLogin||!hasAuth=='1'"
                                                 >
                                                 <a class="name" 
                                                     @click="judgeHasPrivilege()">{{otherInfo.cdgName}}
@@ -241,8 +241,8 @@
                                         </div><!-- 车商名字 -->
                                         <div class="u-tel">
                                             
-                                            <!-- 未认证及保证金不足的用户不允许看车商的信息 -->
-                                            <template v-if="!hasLogin||!hasAuth=='1'||!hasCredit"
+                                            <!-- 未认证的用户不允许看车商的信息 -->
+                                            <template v-if="!hasLogin||!hasAuth=='1'"
                                                 >
                                                 <span class="name">{{otherInfo.contacter | usernameFormat}}</span>
                                                 <span class="tel">{{otherInfo.tel | telFormat}}</span>
@@ -507,6 +507,7 @@
 
             // 判断是不是有相关的权限
             judgeHasPrivilege(){
+
                 let bool = !this.hasLogin==""||this.hasAuth=="1"||!this.hasCredit;
                 if(!bool) return;
                 if(!this.hasLogin){
@@ -535,6 +536,32 @@
                     }).then(() => {
                         // 前往保证金充值页面
                         this.$router.push({path:'/member/recharge',query:{type:2}});
+                    }).catch(() => {
+                        
+                    });
+                }
+            },
+
+            // 判断是不是已认证用户
+            judgeHasAuth(){
+                
+                let bool = !this.hasLogin==""||this.hasAuth=="1";
+                if(!bool) return;
+                if(!this.hasLogin){
+                    this.$notify({
+                        title: '您尚未登录',
+                        message: "请先登录，登录后可进行相关操作",
+                        type: 'error',
+                        duration: 2000,
+                    });
+                }else if(!this.hasAuth=='1'){
+                    this.$confirm('尊贵的用户，您好！通过认证后可访问车商详情页，谢谢！', '您尚未通过认证', {
+                        confirmButtonText: '前往认证',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // 前往车行认证页面
+                        this.$router.push({path:'/member/applyHome'});
                     }).catch(() => {
                         
                     });

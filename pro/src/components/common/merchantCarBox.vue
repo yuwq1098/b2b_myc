@@ -111,7 +111,7 @@
                     width @width
                     height 80px
                     _completeCenter(0,auto,0,auto)
-                    background rgba(255,255,255,.45)
+                    background rgba(22, 33, 44, 0.58)
                     _transitionAll(.25s)
                 .u-con
                     width @width - 20px

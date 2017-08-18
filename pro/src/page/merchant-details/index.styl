@@ -26,9 +26,10 @@
             _overflow()
             .m-merchant-hd
                 width 850px
-                height 192px
+                height 192px - 8px
                 margin 0 auto 20px
-                background rgba(46,49,64,.60)
+                padding 8px 0 0 
+                background rgba(22, 33, 44, 0.58)
                 color #f2f2f2
                 _borderRadius(90px)
                 .m-cdgName
@@ -49,6 +50,10 @@
                         vertical-align top
                         margin 10px 0 0
                         _borderRadius(2px)
+                        &.partner
+                            background #a470f7
+                    &.v2
+                        padding 0 0 0 75px
                 .m-collect
                     width 210px
                     height 28px
@@ -84,7 +89,7 @@
                     .tel
                         font-size 15px
                 .m-result
-                    width 380px
+                    width 580px
                     margin 0 auto 5px
                     text-align center
                     .u-info
@@ -113,8 +118,8 @@
             .m-merchant-con
                 width @width - 30px
                 padding 15px
-                background rgba(255,255,255,.92)
-                _borderRadius(3px)
+                background rgba(255,255,255,.80)
+                _borderRadius(12px)
                 .m-hd
                     height 54px
                     width 380px

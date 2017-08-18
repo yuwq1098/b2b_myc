@@ -246,21 +246,18 @@
                                     </div><!-- 成交价 -->
 
                                     <div class="u-line-box f__clearfix">
-                                        <div class="box-inner text-two">
-                                            <div class="attr">卖方保证金：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt price"
-                                                    ><em class="vital">{{sellerDeposit | priceFormat(2)}}</em>元
-                                                </div>
+                                        <div class="box-inner">
+                                            <div class="attr">双方保证金：</div>
+                                            <div class="ipt">
+                                                <input type="text" class="user-input" step="10" min="1" 
+                                                    v-model="sellerDeposit" 
+                                                    placeholder="请输入买卖方交易保证金，单位（元）" />
                                             </div>
-                                        </div>
-                                        <div class="box-inner text-two">
-                                            <div class="attr">买方保证金：</div>
-                                            <div class="ipt text-show">
-                                                <div class="txt price"
-                                                    ><em class="vital">{{buyerDeposit | priceFormat(2)}}</em>元
-                                                </div>
-                                            </div>
+                                            <span class="u-unit">元</span>
+                                            <div class="line-error" v-if="errors.has('sellerDeposit')">
+                                                <p class="error-txt">
+                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('sellerDeposit')}}</p>
+                                            </div><!-- 错误验证 -->
                                         </div>
                                     </div><!-- 卖/买方保证金 -->
 
@@ -518,6 +515,8 @@
                 carDesc: "required|min:10|max:300",               // 车况说明
                 // 成交价/万元
                 finalPrice: "required|between:1,3000|decimal:2",
+                // 买卖方交易保证金
+                sellerDeposit: "required|number|between:200,5000",
                 // 托管金额/元
                 trusteeMoney: "required|between:1,30000000|decimal:2",
             });
@@ -578,6 +577,12 @@
             // 成交价
             finalPrice(val){
                 this.validator.validate('finalPrice',val);
+            },
+
+            // 买卖方交易保证金
+            sellerDeposit(val){
+                this.validator.validate('sellerDeposit',val);
+                this.buyerDeposit = val;
             },
 
             // 是否使用平台托管车款
