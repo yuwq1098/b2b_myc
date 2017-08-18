@@ -407,19 +407,29 @@ export default {
         return fetchSign('/action2/MySubscribeCarBrand.ashx',dataToJson(params));
     },
 
-    //删除订阅
+    // 删除订阅
     deleteSubscribeCarBrand(params){
         return fetchSign('/action2/deleteSubscribeCarBrand.ashx',dataToJson(params));
     },
     
-    //获取我的我的个人信息
+    // 获取我的我的个人信息
     getMyMemberInfo(params){
         return fetchSign('/action2/MyMemberInfo.ashx',dataToJson(params));
     },
 
-    //获取所有车辆颜色
+    // 获取所有车辆颜色
     getAllCarColor(){
         return get('/action2/AllCarColor.ashx')
+    },
+
+    // 获取微信jsApiTickets
+    getWxApiSign(params){
+        return fetchSign('/action2/WxJsApiSign.ashx',dataToJson(params))
+    },
+    
+    // 二手车估值
+    getCarAppraisement(params){
+        return fetchSign('/action2/CarAppraisement.ashx',dataToJson(params));
     },
 
 
@@ -700,9 +710,14 @@ export default {
         return get('/action2/HomePageInfo.ashx')
     },
 
-    // 猜你喜欢
+    // 猜你喜欢   NewBatch:NewBatch
     getGuessYouLike(){
-        return get('/action2/GuessYouLike.ashx')
+        if(arguments.length>0){
+            return get('/action2/GuessYouLike.ashx?NewBatch='+arguments[0])
+        }else{
+            return get('/action2/GuessYouLike.ashx')
+        }
+        
     },
 
     // 广告帮助等视频

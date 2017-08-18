@@ -32,8 +32,6 @@
 
 <script>
 
-    // 最大上传数量
-    const maxUploadSize = 6;
 
     export default {
         name: "uploadInput",
@@ -63,6 +61,11 @@
                     return [];
                 }
             },
+            // 单次最大上传数量
+            maxUploadSize: {
+                type: Number,
+                default: 6
+            }
         },
         // 数据侦听
         watch:{
@@ -86,8 +89,8 @@
             uploadInputChange(){
                 var uploadInputFile = this.$refs.uploadInputFile.files;
                 if(uploadInputFile.length<=0) return;
-                if(uploadInputFile.length > maxUploadSize){
-                    this.$message.error('最多同时只可上传'+maxUploadSize+'张图片');
+                if(uploadInputFile.length > this.maxUploadSize){
+                    this.$message.error('最多同时只可上传'+this.maxUploadSize+'张图片');
                     return;
                 }
                 this.$emit('uploadChange',uploadInputFile);

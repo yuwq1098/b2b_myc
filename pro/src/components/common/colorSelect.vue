@@ -153,7 +153,7 @@
                     _borderRadius(4px)
                     _borderAll(transparent,1px)
                     &.on
-                        _borderAll(#ff6533,1px)
+                        _borderAll($c_blue,1px)
 
                     .u-lk
                         _display()
@@ -183,7 +183,7 @@
                         margin-left 30px
                     &:hover,&.on
                         .u-txt
-                            color #ff6533
+                            color $c_blue
 
         .m-color-info
             line-height 22px
@@ -195,7 +195,7 @@
                 color #959595
                 position relative
                 .vital
-                    color #ff6533
+                    color $c_blue
                 .u-icon
                     _display()
                     width 28px

@@ -12,6 +12,7 @@
                 uploadTip="按住Ctrl键可批量上传，图片比例为4:3，支持jpg/gif/png格式，每张最大2M，请最少上传2张。遵循下图从各个角度拍摄照片可以使咨询量提升80%哦！"
                 :files="photoFiles"
                 @uploadChange="photoFilesChange"
+                :maxUploadSize='15'
                 >
             </upload-input>
 

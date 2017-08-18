@@ -9,7 +9,7 @@
                 <el-input 
                     ref="myTextArea"
                     type="textarea"
-                    :autosize="{ minRows: 6, maxRows: 8}"
+                    :autosize="{ minRows: 3, maxRows: 6}"
                     resize="none"
                     :maxlength="maxLength"
                     :placeholder="placeholder"

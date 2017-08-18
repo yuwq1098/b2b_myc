@@ -120,7 +120,7 @@ const dictionary = {
                 required:()=> '请选择上牌日期' 
             },
             changeNum:{
-                required:()=> '请选择过户次数' 
+                required:()=> '请输入过户次数' 
             },
             outFactoryDate:{
                 required:()=> '请选择出厂日期'

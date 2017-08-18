@@ -88,17 +88,19 @@
         line-height 60px
         position relative
         .el-button
-            height 38px
+            height 40px
             width 240px
             font-size 15px
             _spacingPlus(3px)
-            _borderRadius(3px)
+            _borderRadius(@height * 0.5)
             _completeCenter()
-            background $c_blue
+            background #38A6E3
             border none
             color #f2f2f2
             &:hover
-                background @background - 12%
+                background @background - 6%
+            &:active
+                background @background + 8%    
             &.submiting
                 background #B8BCBF
                 &:hover
@@ -110,7 +112,7 @@
             &.autoRight
                 width 220px
                 _spacingPlus(4px)
-                _borderRadius(2px)
+                _borderRadius(@height * 0.5)
                 _completeCenter(auto,0)
 
 </style>

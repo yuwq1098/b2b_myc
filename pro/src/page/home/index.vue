@@ -93,6 +93,11 @@
                                         >
                                     </remd-list-box>
                                 </div><!-- 列表内容 -->
+
+                                <div class="m-btn-wrap">
+                                    <a class="u-btn" @click="changeBatch()">换一批</a>
+                                </div><!-- 换一批按钮 -->
+
                             </div><!-- 猜你喜欢 -->
                         </div><!-- 主要的信息列表盒子 -->
                         
@@ -403,6 +408,13 @@
             // 获取猜你喜欢的数据
             getYouLike(){
                 api.getGuessYouLike().then((res) => {
+                    this.youLikeList = this._normalizeYouLike(res.data)
+                });
+            },
+            
+            // 猜你喜欢（换一批）
+            changeBatch(){
+                api.getGuessYouLike('NewBatch').then((res) => {
                     this.youLikeList = this._normalizeYouLike(res.data)
                 });
             },

@@ -323,6 +323,15 @@
                     geekDom.removeClass(uTencent,"on");
                     geekDom.removeClass(serviceBox,"active");
                 }
+
+                let me = this;
+                if(geekDom.hasClass(uTencent,"on")){
+                    geekDom.cancelBubbleTwo(uTencent,serviceBox,function(){
+                        me.showQQ(1);
+                    });
+                }else{
+                    document.onclick = null;
+                }
                 
             },
 

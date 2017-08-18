@@ -10,6 +10,7 @@
                 v-model="inputVal"
                 @input="inputChangeEnd"
                 @blur="inputChangeEnd"
+                ref="myInput"
                 >
             </el-input>
             <span v-if="unit" class="u-unit">{{unit}}</span>
@@ -34,11 +35,16 @@
             },
             // 初始化的值
             initValue:{
-                type: String,
+                type: [String,Number],
                 default: "",
             },
             //单位
             unit: String,
+            // 输入类型
+            iptType:{
+                type: String,
+                default: "text",
+            },
         },
         // 数据侦听
         watch:{
@@ -46,18 +52,29 @@
                 this.inputVal = val;
             }
         },
+        created(){
+
+        },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
-
+            
         },
         // 自定义函数(方法)
         methods: {
+
             inputChangeEnd(){
-                this.$emit("inputChangeEnd",this.inputVal)
+                
+                if(this.iptType==='number'){
+                    this.$nextTick(() => {
+                        this.inputVal = this.inputVal.replace(/[^\d]+/g,'');
+                    });
+                }
+                
+                setTimeout(()=>{
+                    this.$emit("inputChangeEnd",this.inputVal);
+                });
+                
             },
-            inputBlur(){
-                this.$emit("inputBlur")
-            }
         },
     }
 </script>

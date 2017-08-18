@@ -3,6 +3,7 @@
 .g-doc
     .g-bd
         width 100%     
+        _unUserSelect()
         .g-bd-ct
             width 100%
             position relative
@@ -52,7 +53,7 @@
                             background #ff6533
 
 
-            // b2b服务
+            // b2b路镁脦帽
             .m-b2c-svr
                 _display(none)
                 margin-bottom 25px
@@ -66,7 +67,7 @@
                         &.lastItem
                             margin-right 0
                             
-            // 平台特色服务
+            // 脝陆脤篓脤脴脡芦路镁脦帽
             .m-svr-box
                 width 100%
                 min-height 50px
@@ -74,7 +75,7 @@
                 _boxShadow(8px,rgba(0,0,0,.05))
                 margin-bottom 25px
 
-            //进入B2B大厅
+            //陆酶脠毛B2B麓贸脤眉
             .m-b2b-entrance
                 // background url('../../assets/img/b2b-entrance-bg.jpg') 0 0 no-repeat
                 // background-size 100% auto
@@ -148,5 +149,24 @@
                         clear both
                     &.v1
                         margin 0 0 -20px
+                    .m-btn-wrap
+                        height 44px
+                        _translate3d(0,-15px)
+                        .u-btn
+                            width 175px
+                            height @height
+                            line-height @height
+                            margin 0 auto
+                            background $c_blue
+                            _display()
+                            font-size 15px
+                            _spacingPlus(4px)
+                            color #f2f2f2
+                            text-align center
+                            _borderRadius(@height * 0.5)
+                            &:hover
+                                background @background - 2%
+                            &:active
+                                background @background + 5%
 
         

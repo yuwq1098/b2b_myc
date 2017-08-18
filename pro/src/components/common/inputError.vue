@@ -5,7 +5,10 @@
 <template>
     <div class="inputError">
         <div class="u-item-hd f__clearfix">
-            <span class="u-tit">{{title}}</span>
+            <span class="u-tit">
+                <em class="must" v-show="must">*</em>
+                <em>{{title}}</em>
+            </span>
             <p class="u-error"
                 :class="[errorAlign]"
                 v-show="isShow"
@@ -43,6 +46,10 @@
             isShow:{
                 type: Boolean,
                 default: false,
+            },
+            must:{
+                type: Boolean,
+                default: false,
             }
         },
         // 数据侦听
@@ -78,9 +85,13 @@
             color #4A5C69
             font-weight 700
             _spacingPlus(2px)
+            .must
+                color #FB384A
+                font-size 17px
+                margin 0 -3px 0 -1px
         .u-error
             font-size 12px
-            color #F74062
+            color #FB384A
             &.right
                 float right
             &.left

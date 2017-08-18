@@ -861,6 +861,10 @@ export function cancelBubbleOne(obj,Fn){
 * @param obj 阻止事件冒泡的对象(2个对象)
 */ 
 export function cancelBubbleTwo(obj1,obj2,Fn){
+    
+    // 先清空绑定上document上的click事件
+    document.onclick = null;
+
     obj1.onclick = function(ev){
         var e=ev||event;
         if(e && e.stopPropagation){//阻止冒泡

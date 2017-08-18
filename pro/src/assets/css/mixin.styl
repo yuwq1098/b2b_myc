@@ -148,8 +148,8 @@ _boxSizing(fn=1)
 
 
 //---垂直居中布局
-_verticalLayout(left=auto,right=auto,top=0,bottom=0)
-    position absolute
+_verticalLayout(left=auto,right=auto,top=0,bottom=0,$position=absolute)
+    position $position
     top top
     bottom bottom
     margin auto 
@@ -158,8 +158,8 @@ _verticalLayout(left=auto,right=auto,top=0,bottom=0)
 
 
 //---完全居中布局
-_completeCenter(left=0,right=0,top=0,bottom=0)
-    position absolute
+_completeCenter(left=0,right=0,top=0,bottom=0,$position=absolute)
+    position $position
     top top
     right right
     bottom bottom

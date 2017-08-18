@@ -563,10 +563,30 @@
             // 微信分享SDK
             WXShareSDK(obj){
                 
+                var WxApiArr = ['onMenuShareAppMessage','onMenuShareTimeline','onMenuShareWeibo','onMenuShareQQ','onMenuShareQZone']
+
+                var curLink = window.location.href.split("#")[0];
+                // 获取微信jsApi签名
+                api.getWxApiSign({url:curLink}).then((res) => {
+                    console.log("成功了咯",res);
+                    let data = res.data;
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        wx.config({
+                            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            appId: data.appId, // 必填，公众号的唯一标识
+                            timestamp: data.timestamp, // 必填，生成签名的时间戳
+                            nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                            signature: data.signature,// 必填，签名，见附录1
+                            jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        });
+                    }
+                });
+
                 // 需要检测的JS接口列表是否成功
                 wx.checkJsApi({
-                    jsApiList: ['onMenuShareTimeline'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                    jsApiList: [].concat(WxApiArr),  // 需要检测的JS接口列表，所有JS接口列表见附录2,
                     success: function(res) {
+                        console.log("检测api",res)
                         // 以键值对的形式返回，可用的api值true，不可用为false
                         // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
                         // console.log("支持分享到朋友圈")
@@ -575,11 +595,12 @@
 
                 // 微信分享的数据
                 var wxData = {
-                    title: obj.title,   // 分享标题
-                    desc: obj.content,  // 分享内容
+                    title: obj.title||document.title,   // 分享标题
+                    desc: obj.content||document.title,  // 分享内容
                     link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                     imgUrl: obj.pic, // 分享图标
                 };
+
 
                 // 分享的回调函数
                 var wxCallbacks={
@@ -602,16 +623,19 @@
                 
                 var newShareOptions = Object.assign(wxData,wxCallbacks);
                 
-                // 分享至微信好友
-                wx.onMenuShareAppMessage(newShareOptions);
-                // 分享至朋友圈
-                wx.onMenuShareTimeline(newShareOptions);
-                // 分享至腾讯微博
-                wx.onMenuShareWeibo(newShareOptions);
-                // 分享至QQ
-                wx.onMenuShareQQ(newShareOptions);
-                // 分享至QQ空间
-                wx.onMenuShareQZone(newShareOptions);
+                // 微信配置就绪
+                wx.ready(function(){
+                    console.log("准备就绪")
+                    for(let i = 0; i<WxApiArr.length; i++){
+                        wx[i](newShareOptions);
+                    }
+                });
+                
+                // 微信借口错误
+                wx.error(function(res){
+                    console.log(res);
+                });
+                
             },
 
 
@@ -661,6 +685,7 @@
 
                             // 如果进入的网页是微信
                             if(geekDom.isWeiXin()){
+                                console.log("很蛋疼")
                                 this.WXShareSDK(newObj);
                             }
 
