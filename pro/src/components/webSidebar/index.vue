@@ -107,7 +107,7 @@
                                 @click.stop="showQQ(1)"
                                 ></a>
                             <div class="qq-box">
-                                <a target="_blank" class="u-box" href="http://wpa.qq.com/msgrd?v=3&uin=1098654043&site=qq&menu=yes">
+                                <a target="_blank" class="u-box" href="http://wpa.qq.com/msgrd?v=3&uin=2166659470&site=qq&menu=yes">
                                     <div class="qq-icon">
                                         <img :src="qqIcon_IMG" alt="QQ在线咨询" />
                                     </div><!-- qq的ICON -->

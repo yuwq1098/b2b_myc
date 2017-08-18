@@ -43,7 +43,51 @@ export function removeClass(el,className) {
 */ 
 export function toggleClass(el,className){
     el.classList.toggle(className);
-};
+}
+
+
+/** 
+* @description 判断是否是微信浏览器内核
+* @return boolean 是否是微信浏览器内核
+*/ 
+export function isWeiXin(){
+    var ua = window.navigator.userAgent.toLowerCase();
+    return ua.match(/MicroMessenger/i) == 'micromessenger'?true:false;
+}
+
+
+/** 
+* @description 判断设备及系统
+* @return obj 方法集
+*/ 
+export function judgeSys(){
+    
+    this.isAndroid =  function() {
+        return navigator.userAgent.match(/Android/i)?true:false;
+    };
+    this.isIOS = function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i)?true:false;
+    };
+    this.isBlackBerry = function(){
+        return navigator.userAgent.match(/BlackBerry/i)?true:false;
+    };
+    this.isOpera = function(){
+        return navigator.userAgent.match(/Opera Mini/i)?true:false;
+    };
+    this.isWindows = function(){
+        return navigator.userAgent.match(/IEMobile/i)?true:false;
+    };
+    this.isWebkit = function(){
+        return navigator.userAgent.match(/applewebkit/i)?true:false;
+    };
+    this.isWeiXin = function(){
+        return navigator.userAgent.match(/micromessenger/i)?true:false;
+    };
+    this.mobile = function(){
+        return (this.isAndroid || this.isIOS || this.isBlackBerry || this.isOpera || this.isWindows)
+    };
+    return this;
+}
 
 
 /** 
@@ -781,7 +825,6 @@ export function clearObjAllValue(obj){
         obj[key] = null;
         newObj.push(obj[key]);
     }
-    console.log(newObj);
     return newObj;
 }
 

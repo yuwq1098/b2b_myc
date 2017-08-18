@@ -372,6 +372,7 @@
     // 社会分享组件
     import gkShare from "components/common/gkShare.vue"
 
+    var wx = require('weixin-js-sdk');
     
     
 	export default {
@@ -459,7 +460,7 @@
                     // 分享组件显示隐藏
                     this.isShareShow = false;    
                     this.shareOptions = {};
-                    
+
                     // 获取hash 带参中的车辆ID
                     this.carId = to.query.CarId;
                     // 获取车辆信息
@@ -501,6 +502,7 @@
             
         },
         methods:{
+
             ...mapActions(['getMyShoppingNumber']),
 
             // 判断是不是有相关的权限
@@ -557,6 +559,61 @@
             _normalizeOtherInfo(data) {
                 return new otherInfo(data);
             },
+            
+            // 微信分享SDK
+            WXShareSDK(obj){
+                
+                // 需要检测的JS接口列表是否成功
+                wx.checkJsApi({
+                    jsApiList: ['onMenuShareTimeline'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                    success: function(res) {
+                        // 以键值对的形式返回，可用的api值true，不可用为false
+                        // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                        // console.log("支持分享到朋友圈")
+                    }
+                });
+
+                // 微信分享的数据
+                var wxData = {
+                    title: obj.title,   // 分享标题
+                    desc: obj.content,  // 分享内容
+                    link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: obj.pic, // 分享图标
+                };
+
+                // 分享的回调函数
+                var wxCallbacks={
+                    success:function(){
+                        // 用户确认分享后执行的回调函数
+                    },
+                    cancel:function(){
+                        // 用户取消分享后执行的回调函数
+                    },
+                    fail:function(){
+                        //接口调用失败时执行的回调函数
+                    },
+                    complete:function(){
+                        // 接口调用完成时执行的回调函数，无论成功或失败都会执行。
+                    },
+                    trigger:function(){
+                        //监听Menu中的按钮点击时触发的方法，该方法仅支持Menu中的相关接口。 
+                    }
+                };
+                
+                var newShareOptions = Object.assign(wxData,wxCallbacks);
+                
+                // 分享至微信好友
+                wx.onMenuShareAppMessage(newShareOptions);
+                // 分享至朋友圈
+                wx.onMenuShareTimeline(newShareOptions);
+                // 分享至腾讯微博
+                wx.onMenuShareWeibo(newShareOptions);
+                // 分享至QQ
+                wx.onMenuShareQQ(newShareOptions);
+                // 分享至QQ空间
+                wx.onMenuShareQZone(newShareOptions);
+            },
+
 
             // 获取车辆详情信息
             getCarDetailsInfo(){
@@ -601,6 +658,11 @@
                             // 分享组件配置及显隐
                             this.shareOptions = Object.assign(newObj,{});
                             this.isShareShow = true;
+
+                            // 如果进入的网页是微信
+                            if(geekDom.isWeiXin()){
+                                this.WXShareSDK(newObj);
+                            }
 
                         })
 
