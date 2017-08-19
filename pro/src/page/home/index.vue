@@ -311,6 +311,7 @@
                 if(val){
                     // 获取用户信息
                     this.getMemberInfo();
+                    this._getB2bCarList();
                 }else{
                     this.memberData = null;
                 }

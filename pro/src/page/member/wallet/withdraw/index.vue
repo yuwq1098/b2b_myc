@@ -258,7 +258,7 @@
         created(){
 
             this.validator = new Validator({
-                wMoney: 'required|number|between:1,1000000|decimal:2',     // 提现金额
+                wMoney: 'required|between:1,1000000|decimal:2',     // 提现金额
                 alipayAccount: 'required|alpha_dash',                      // 支付宝账号
                 nBankCard: 'required|alpha_dash',                          // 农行卡号
                 realName: 'required|CN_EN',                                // 真实姓名

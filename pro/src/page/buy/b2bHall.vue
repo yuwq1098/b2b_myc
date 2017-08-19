@@ -643,6 +643,7 @@
                 if(val){
                     // 获取用户信息
                     this.getMemberInfo();
+                    
                 }else{
                     this.memberData = null;
                 }

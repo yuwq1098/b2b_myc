@@ -22,9 +22,6 @@
                                 <template v-else-if="!hasAuth=='1'">
                                     <span class="u-txt">您尚未通过认证</span>
                                 </template>
-                                <template v-else-if="!hasCredit">
-                                    <span class="u-txt">信誉保证金不足</span>
-                                </template>
                                 <template v-else>
                                     <span class="u-price">￥<em class="vital">{{basicInfo.price| priceFormat(2)}}</em>万</span>
                                 </template>
@@ -75,10 +72,10 @@
                             </div><!-- 产品描述 -->
                             <!-- <div class="m-intro"></div> --><!-- 说明 -->
                             <div class="m-opra f__clearfix">
-                                <template v-if="!hasLogin||!hasAuth=='1'||!hasCredit"
+                                <template v-if="!hasLogin"
                                     >
                                     <a class="u-btn v2"
-                                        @click="judgeHasPrivilege()"
+                                        @click="noLogin()"
                                         >收藏车辆</a>
                                 </template>
                                 <template v-else>
@@ -91,11 +88,11 @@
                                 </template>
                                 
 
-                                <template v-if="!hasLogin||!hasAuth=='1'||!hasCredit"
+                                <template v-if="!hasLogin"
                                     >
                                     <a class="u-btn"
                                         v-if="!otherInfo.isInCart"
-                                        @click="judgeHasPrivilege()"
+                                        @click="noLogin()"
                                         >加入购物车</a>
                                     <a href="javascript:;" class="u-btn not"
                                         v-if="otherInfo.isInCart">已加入购物车</a>
@@ -115,7 +112,7 @@
                                     >
                                         <a class="u-btn v3"
                                             v-if="basicInfo.status=='1'"
-                                            @click="judgeHasPrivilege()"
+                                            @click="addOrderPrivilege()"
                                             >秒杀下单
                                         </a>
                                         <a href="javascript:;" class="u-btn not"
@@ -213,10 +210,10 @@
                                 <div class="m-mct-box">
                                     <div class="m-mct-hd">
                                         
-                                        <template v-if="!hasLogin||!hasAuth=='1'"
+                                        <template v-if="!hasLogin"
                                             >
                                             <a class="u-icon"
-                                                @click="judgeHasPrivilege()"
+                                                @click="noLogin()"
                                                 >
                                                 <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
                                             </a><!-- 车商商头像 -->
@@ -228,10 +225,10 @@
                                         </template>
 
                                         <div class="u-tit">
-                                            <template v-if="!hasLogin||!hasAuth=='1'"
+                                            <template v-if="!hasLogin"
                                                 >
                                                 <a class="name" 
-                                                    @click="judgeHasPrivilege()">{{otherInfo.cdgName}}
+                                                    @click="noLogin()">{{otherInfo.cdgName}}
                                                 </a>
                                             </template>
                                             <template v-else>
@@ -241,8 +238,8 @@
                                         </div><!-- 车商名字 -->
                                         <div class="u-tel">
                                             
-                                            <!-- 未认证的用户不允许看车商的信息 -->
-                                            <template v-if="!hasLogin||!hasAuth=='1'"
+                                            <!-- 未登录的用户不允许看车商的信息 -->
+                                            <template v-if="!hasLogin"
                                                 >
                                                 <span class="name">{{otherInfo.contacter | usernameFormat}}</span>
                                                 <span class="tel">{{otherInfo.tel | telFormat}}</span>
@@ -505,19 +502,10 @@
 
             ...mapActions(['getMyShoppingNumber']),
 
-            // 判断是不是有相关的权限
-            judgeHasPrivilege(){
+            // 判断是不是下单的资格
+            addOrderPrivilege(){
 
-                let bool = !this.hasLogin==""||this.hasAuth=="1"||!this.hasCredit;
-                if(!bool) return;
-                if(!this.hasLogin){
-                    this.$notify({
-                        title: '您尚未登录',
-                        message: "请先登录，登录后可进行相关操作",
-                        type: 'error',
-                        duration: 2000,
-                    });
-                }else if(!this.hasAuth=='1'){
+                if(!this.hasAuth=='1'&&!this.hasCredit){
                     this.$confirm('尊贵的用户，您好！通过认证并交纳一定的保证金，方可在我司平台办理业务，谢谢！', '您尚未通过认证', {
                         confirmButtonText: '前往认证',
                         cancelButtonText: '取消',
@@ -529,7 +517,7 @@
                         
                     });
                 }else if(!this.hasCredit){
-                    this.$confirm('尊贵的用户，您好！您的保证金余额不足'+SYSTEM.MIN_CREDIT_GOLD+'元，我司部分业务无法为您展开，请前往充值！', '保证金不足', {
+                    this.$confirm('尊贵的用户，您好！您的保证金余额不足'+SYSTEM.MIN_CREDIT_GOLD+'元，无法正常下单，请前往充值！', '保证金不足', {
                         confirmButtonText: '前往充值',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -542,30 +530,14 @@
                 }
             },
 
-            // 判断是不是已认证用户
-            judgeHasAuth(){
-                
-                let bool = !this.hasLogin==""||this.hasAuth=="1";
-                if(!bool) return;
-                if(!this.hasLogin){
-                    this.$notify({
-                        title: '您尚未登录',
-                        message: "请先登录，登录后可进行相关操作",
-                        type: 'error',
-                        duration: 2000,
-                    });
-                }else if(!this.hasAuth=='1'){
-                    this.$confirm('尊贵的用户，您好！通过认证后可访问车商详情页，谢谢！', '您尚未通过认证', {
-                        confirmButtonText: '前往认证',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        // 前往车行认证页面
-                        this.$router.push({path:'/member/applyHome'});
-                    }).catch(() => {
-                        
-                    });
-                }
+            // 未登录（请先登录）
+            noLogin(){
+                this.$notify({
+                    title: '您尚未登录',
+                    message: '登录后可进行加入购物车操作',
+                    type: 'warning',
+                    duration: 1500,
+                });
             },
 
             // 格式化车辆基本信息

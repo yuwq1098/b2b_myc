@@ -44,15 +44,34 @@
                                 _boxShadow(6px,#2e98e2 - 15%,0px,0px,true)
                         .u-info
                             color #777
+                            padding 10px 0 0
+                            text-align center
                             .tips
-                                font-size 17px
-                                height 28px
-                                line-height 28px
-                                _spacingPlus(2px)
+                                font-size 14px
+                                width 64px
+                                text-align center
+                                height 22px
+                                line-height @height
+                                _spacingPlus()
+                                color #7a7f86
+                                _display(inline-block)
+                                position relative
+                                &:before,&:after
+                                    content ""
+                                    _display()
+                                    width 50px
+                                    height 1px
+                                    background #c8c8c8
+                                &:before
+                                    _completeCenter(auto,@width + 9px,1px)
+                                &:after
+                                    _completeCenter(@width + 9px,auto,1px)
+
                             .data
-                                font-size 40px
+                                font-size 41px
                                 height 60px
                                 line-height 60px
+                                color #40474A
                     .m-tit
                         width 500px
                         height 120px

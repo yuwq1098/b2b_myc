@@ -39,11 +39,6 @@
                                         ><em class="info">您尚未认证</em>
                                     </span>
                                 </template>
-                                <template v-else-if="!hasEnoughCredit">
-                                    <span class="price"
-                                        ><em class="info">信誉保证金不足</em>
-                                    </span>
-                                </template>
                                 <template v-else>
                                     <span class="price"
                                         ><em class="vital">{{carInfo.price | priceFormat(2)}}</em>万
@@ -55,44 +50,27 @@
                         <div class="u-addCart">
 
                             <template v-if="!loginStatus">
-                                <a href="javascript:;" class="u-btn not"
+                                <a class="u-btn not"
+                                    @click.stop="noLogin()"
                                     ><i class="iconfont icon-addCart"></i>
                                     <span class="txt">加入购物车</span>
                                 </a>
                             </template>
 
                             <template v-else="loginStatus">
-                                <template v-if="!isAuthSuccess||!hasEnoughCredit"
+                                <a class="u-btn not"
+                                    v-if="carInfo.hasInCart==''"
+                                    @click.stop="inShopingCart(carInfo.id)"
                                     >
-                                    <a class="u-btn not"
-                                        v-if="carInfo.hasInCart==''"
-                                        @click.stop="judgeHasPrivilege(isAuthSuccess,hasEnoughCredit)"
-                                        >
-                                        <i class="iconfont icon-addCart"></i>
-                                        <span class="txt">加入购物车</span>
-                                    </a>
-                                    <a href="javascript:;" class="u-btn"
-                                        v-if="!carInfo.hasInCart==''"
-                                        >
-                                        <i class="iconfont icon-addCart"></i>
-                                        <span class="txt">已加入购物车</span>
-                                    </a>
-                                </template>
-                                <template v-else>
-                                    <a class="u-btn not"
-                                        v-if="carInfo.hasInCart==''"
-                                        @click.stop="inShopingCart(carInfo.id)"
-                                        >
-                                        <i class="iconfont icon-addCart"></i>
-                                        <span class="txt">加入购物车</span>
-                                    </a>
-                                    <a href="javascript:;" class="u-btn"
-                                        v-if="!carInfo.hasInCart==''"
-                                        >
-                                        <i class="iconfont icon-addCart"></i>
-                                        <span class="txt">已加入购物车</span>
-                                    </a>
-                                </template>
+                                    <i class="iconfont icon-addCart"></i>
+                                    <span class="txt">加入购物车</span>
+                                </a>
+                                <a href="javascript:;" class="u-btn"
+                                    v-if="!carInfo.hasInCart==''"
+                                    >
+                                    <i class="iconfont icon-addCart"></i>
+                                    <span class="txt">已加入购物车</span>
+                                </a>
                             </template>
 
                         </div><!-- 加入购物车 -->
@@ -147,10 +125,11 @@
                 type: Boolean,
                 default: false,
             },
-            // 是否有足够的保证金
-            hasEnoughCredit: Boolean,
             // 是否成功认证
-            isAuthSuccess: Boolean,
+            isAuthSuccess: {
+                type: Boolean,
+                default: false,
+            },
 
         },
         computed:{
@@ -165,31 +144,15 @@
         // 自定义函数(方法)
         methods: {
             ...mapActions(['getMyShoppingNumber']),
-            // 判断是不是有相关的权限
-            judgeHasPrivilege(isAuthSuccess,hasEnoughCredit){
-                if(!isAuthSuccess){
-                    this.$confirm('尊贵的用户，您好！通过认证并交纳一定保证的保证金方可在我司平台办理业务，谢谢！', '您尚未进行认证', {
-                        confirmButtonText: '前往认证',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        // 前往车行认证页面
-                        this.$router.push({path:'/member/applyHome'});
-                    }).catch(() => {
-                        
-                    });
-                }else if(!hasEnoughCredit){
-                    this.$confirm('尊贵的用户，您好！您的保证金余额不足'+SYSTEM.MIN_CREDIT_GOLD+'元，我司部分业务无法为您展开，请前往充值！', '保证金不足', {
-                        confirmButtonText: '前往充值',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        // 前往保证金充值页面
-                        this.$router.push({path:'/member/recharge',query:{type:2}});
-                    }).catch(() => {
-                        
-                    });
-                }
+            
+            // 未登录（请先登录）
+            noLogin(){
+                this.$notify({
+                    title: '您尚未登录',
+                    message: '登录后可进行加入购物车操作',
+                    type: 'warning',
+                    duration: 1500,
+                });
             },
 
             // 加入购物车
@@ -220,6 +183,7 @@
                     }
                 })
             },
+
             // 进入车辆详情
             enterCarDetails(id){
                 this.$router.push({path:'/b2bCar', query: { CarId: id }})

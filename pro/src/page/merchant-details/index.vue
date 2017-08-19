@@ -96,6 +96,7 @@
                                                         <li class="u-item">
                                                             <merchant-car-Box
                                                                 :carInfo="item"
+                                                                :isAuthSuccess="memberData&&memberData.isAuthSuccess"
                                                                 >
                                                             </merchant-car-Box>
                                                         </li>
@@ -142,7 +143,9 @@
     import {dataToJson} from "assets/js/util.js"
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
-
+    
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
     // 车行信息的构造类
     import {merchantInfo} from 'base/class/merchantInfo.js'
     // 车行车辆信息的构造类
@@ -175,6 +178,9 @@
         // 数据
         data() {
             return{
+                
+                // 用户信息
+                memberData: null,
 
                 // 车行（或卖家）ID
                 merchantId: "",
@@ -230,7 +236,9 @@
 
         },
         activated(){
-
+            
+            // 获取用户信息
+            this.getMemberInfo();
             // 获取卖家ID
             this.merchantId = this.$router.currentRoute.query.cid||0;
             // 获取卖家信息
@@ -270,6 +278,28 @@
         },
         // 自定义函数(方法)
         methods: {
+            
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+
+            // 获取用户信息
+            getMemberInfo(){
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
 
             // 格式化车行信息
             _normalizeMerchant(data) {

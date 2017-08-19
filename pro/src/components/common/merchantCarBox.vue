@@ -19,13 +19,24 @@
                 </div>
                 <div class="m-con-box">
                     <div class="u-mask">
+                        <div class="u-icon-box">
+                            <div class="view-icon"><i class="iconfont icon-yuedu"></i></div>
+                            <p class="txt">预览详情</p>
+                        </div><!-- 图标容器 -->
                     </div><!-- 朦灰层 -->
                     <div class="u-con">
                         <div class="tit">{{carInfo.title}}</div>
-                        <div class="u-price">
-                            <span class="price">￥<em class="vital">{{carInfo.price | priceFormat(2)}}</em>万</span>
-                            <span class="retail">零售价：<em class="data">{{carInfo.retailPrice | priceFormat(2)}}万</em></span>
-                        </div>
+                        <template v-if="!isAuthSuccess">
+                            <span class="u-price"
+                                ><em class="info">您尚未认证</em>
+                            </span>
+                        </template>
+                        <template v-else>
+                            <div class="u-price">
+                                <span class="attr">批发价：</span><span class="price">￥<em class="vital">{{carInfo.price | priceFormat(2)}}</em>万</span>
+                            </div>
+                        </template>
+                        
                         <div class="city">车辆所在地：{{carInfo.city}}</div>
                         <div class="other">{{carInfo.plateDate | dateFn}} · {{carInfo.mileage | mileFn(2)}}
                         </div>
@@ -54,6 +65,11 @@
         props:{
             // 车辆信息
             carInfo: Object,
+            // 是否成功认证
+            isAuthSuccess: {
+                type: Boolean,
+                default: false,
+            },
         },
         // 自定义函数(方法)
         methods: {
@@ -113,6 +129,18 @@
                     _completeCenter(0,auto,0,auto)
                     background rgba(22, 33, 44, 0.58)
                     _transitionAll(.25s)
+                    .u-icon-box
+                        color #f0f0f0
+                        text-align center
+                        .view-icon
+                            margin 12px 0 0
+                            line-height 38px 
+                            .iconfont
+                                font-size 38px
+                        .txt
+                            margin -6px 0 0
+                            font-size 13px
+                            _spacingPlus(2px)
                 .u-con
                     width @width - 20px
                     height @height - 12px
@@ -129,24 +157,32 @@
                         _ellipsis(2)
                         margin 0 0 6px
                     .u-price
-                        height 38px
-                        line-height 38px
+                        height 36px
+                        line-height @height
                         font-size 13px
+                        margin 0 0 3px
+                        .attr
+                            color #777
+                            font-size 12px
                         .price
                             font-size 14px
-                            color #e45
+                            color #ff6533
                             .vital
                                 font-size 22px
                                 font-weight bold
+                        .info
+                            font-size 17px
+                            color #ff6533
                         .retail
-                            color #a5a5a5
+                            color #777
                             margin 0 0 0 8px
                             .data
                                 text-decoration line-through
                     .city,.other
-                        height 22px
-                        line-height 22px
-                        color #a5a5a5
+                        height 21px
+                        line-height @height
+                        color #777
+                        font-size 12px
                     .city
                         margin 0 0 5px
 

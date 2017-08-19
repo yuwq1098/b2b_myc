@@ -7,7 +7,6 @@
                         <b2b-car-box
                             :carInfo="item"
                             :loginStatus="loginStatus"
-                            :hasEnoughCredit="memberData&&memberData.hasEnoughCredit"
                             :isAuthSuccess="memberData&&memberData.isAuthSuccess"
                             >
                         </b2b-car-box>
