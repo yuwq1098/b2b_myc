@@ -9,9 +9,19 @@
                             <!-- 这部分放你要渲染的那些内容 -->  
                             <template v-for="item in swiperItems">
                                 <swiper-slide >
-                                    <a :href="item.href?item.href:'javascript:;'">
-                                        <img :src="item.imgUrl" :alt="item.title"/>
-                                    </a>
+                                    <template v-if="!item.path">
+                                        <a href="javascript:;" class="u-box">
+                                            <img :src="item.imgUrl" :alt="item.title" class="pic"/>
+                                        </a>
+                                    </template>
+                                    <template v-else>
+                                        <router-link class="u-box"
+                                            :to="{path:item.path}" tag="a"
+                                            >
+                                            <img :src="item.imgUrl" :alt="item.title" class="pic"/>
+                                        </router-link>
+                                    </template>
+                                    
                                 </swiper-slide>  
                             </template>
                             <!-- 这是轮播的小圆点 -->  
@@ -202,7 +212,7 @@
                 swiperOption: {
                     slidesPerView: 'auto',  
                     centeredSlides: true,  
-                    autoplay : 3500,
+                    autoplay : 3500+100000,
                     speed: 500,                         //速度
                     loop: true,                         //环路
                     paginationClickable: true,          //分页点击
@@ -211,7 +221,7 @@
                     fade: {
                         crossFade: false,
                     },
-                    spaceBetween: 30,  
+                    spaceBetween: 0,  
                     onSlideChangeEnd: (swiper) => {  
                         //这个位置放swiper的回调方法  
                         this.page = swiper.realIndex+1;  

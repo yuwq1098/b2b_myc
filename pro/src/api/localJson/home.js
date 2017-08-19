@@ -2,25 +2,35 @@
 // 首页轮播图数据集合
 export const swiperItems = [
     {
-        title: '轮播图一',
-        href: '',
-        imgUrl: require("assets/img/hall-figure01.jpg"),
+        title: '轮播图五',
+        path: '',
+        imgUrl: require("assets/img/hall-figure05.jpg"),
     },
     {
-        title: '轮播图二',
-        href: '',
-        imgUrl: require("assets/img/hall-figure02.jpg"),
+        title: '轮播图一',
+        path: '',
+        imgUrl: require("assets/img/hall-figure01.png"),
     },
     {
         title: '轮播图三',
-        href: '',
+        path: '',
         imgUrl: require("assets/img/hall-figure03.jpg"),
     },
     {
-        title: '轮播图五',
-        href: '',
-        imgUrl: require("assets/img/hall-figure05.jpg"),
-    }
+        title: '向导精品二手车',
+        path: 'merchantDetails?cid=1785410048',
+        imgUrl: require("assets/img/merchant-figure03.png")
+    },
+    {
+        title: '深圳骏丰汇',
+        path: 'merchantDetails?cid=1755297989',
+        imgUrl: require("assets/img/merchant-figure01.png")
+    },
+    {
+        title: '袁氏万坤二手车',
+        path: 'merchantDetails?cid=1775352515',
+        imgUrl: require("assets/img/merchant-figure02.png")
+    },
 ]
 
 // 平台特色服务

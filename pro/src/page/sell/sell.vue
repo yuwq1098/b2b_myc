@@ -23,7 +23,7 @@
                                 </a>
                                 <div class="u-info">
                                     <span class="tips">咨询热线</span>
-                                    <div class="data">400-9009-936</div>
+                                    <div class="data">400-900-9936</div>
                                 </div>
                             </div>
                             <div class="m-tit">
