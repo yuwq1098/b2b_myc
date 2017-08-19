@@ -1,3 +1,7 @@
+<!--  
+ **  @description 会员中心 - 侧边栏导航
+ --> 
+
 <template>
     <div id="sidebar">
         <div class="m-sdb-box">

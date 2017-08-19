@@ -15,20 +15,6 @@ const sell = r => require.ensure([], () => r(require('page/sell/sell.vue')), 'se
 const sendCar = r => require.ensure([], () => r(require('page/sell/sendCar.vue')), 'sendCar')
 
 
-// 其他 => 木有车服务
-const service = r => require.ensure([], () => r(require('page/other/service')), 'service')
-// 其他 => 使用帮助
-const usinghelp = r => require.ensure([], () => r(require('page/other/help')), 'usinghelp')
-// 其他 => 视频操作演示
-const practice = r => require.ensure([], () => r(require('page/other/practice')), 'practice')
-// 其他 => 关于股东
-const partner = r => require.ensure([], () => r(require('page/other/partner')), 'partner')
-// 其他 => APP下载
-const download = r => require.ensure([], () => r(require('page/other/download')), 'download')
-// 其他 => 404空页面
-const page404 = r => require.ensure([], () => r(require('page/other/404')), 'page404')
-
-
 // b2b车辆详情
 const b2bCarDetails = r => require.ensure([], () => r(require('page/car-details/b2bCar.vue')), 'b2bCarDetails')
 
@@ -146,6 +132,40 @@ const editPayPass = r => require.ensure([], () => r(require('page/member/setting
 const forgetPayPass = r => require.ensure([], () => r(require('page/member/setting/safety/forgetPayPass')), 'forgetPayPass')
 
 
+// 其他 => 木有车服务
+const service = r => require.ensure([], () => r(require('page/other/service')), 'service')
+// 其他 => 视频操作演示
+const practice = r => require.ensure([], () => r(require('page/other/practice')), 'practice')
+// 其他 => APP下载
+const download = r => require.ensure([], () => r(require('page/other/download')), 'download')
+// 其他 => 404空页面
+const page404 = r => require.ensure([], () => r(require('page/other/404')), 'page404')
+
+
+// 更多网站功能 => 关于我们
+const about = r => require.ensure([], () => r(require('page/more/about')), 'about')
+// 更多网站功能 => 我们是谁
+const who = r => require.ensure([], () => r(require('page/more/about-inner/who')), 'who')
+// 更多网站功能 => 我们做啥
+const what = r => require.ensure([], () => r(require('page/more/about-inner/what')), 'what')
+// 更多网站功能 => 我们有啥（优势）
+const advantage = r => require.ensure([], () => r(require('page/more/about-inner/advantage')), 'advantage')
+// 更多网站功能 => 联系我们
+const contact = r => require.ensure([], () => r(require('page/more/about-inner/contact')), 'contact')
+// 更多网站功能 => 意见反馈
+const feedback = r => require.ensure([], () => r(require('page/more/about-inner/feedback')), 'feedback')
+// 更多网站功能 => 招贤纳士
+const recruit = r => require.ensure([], () => r(require('page/more/about-inner/recruit')), 'recruit')
+
+
+// 更多网站功能 => 常见问题 
+const FAQ = r => require.ensure([], () => r(require('page/more/FAQ')), 'FAQ')
+// 更多网站功能 => 帮助中心 
+const helpCenter = r => require.ensure([], () => r(require('page/more/help')), 'helpCenter')
+// 更多网站功能 => 平台各类协议
+const agreement = r => require.ensure([], () => r(require('page/more/agreement')), 'agreement')
+
+
 // 测试--分享
 const share = r => require.ensure([], () => r(require('page/test/share.vue')), 'share')
 
@@ -221,7 +241,7 @@ export default[{
             component: sendCar,
             alias: '/sellSend',         // 使用别名
             meta: {
-                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
+                requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                 hasWebSide: true,       // 是否有网站侧栏条 
             },
         },
@@ -235,14 +255,6 @@ export default[{
             }
         },
         {
-        // 帮助手册
-            path: '/usinghelp',
-            component: usinghelp,
-            meta: { 
-                hasWebSide: true,       // 是否有网站侧栏条 
-            }
-        },
-        {
         // 视频操作演示
             path: '/practice',
             component: practice,
@@ -251,17 +263,90 @@ export default[{
             }
         },
         {
-        // 关于股东
-            path: '/partner',
-            component: partner,
-            meta: {
+        // APP下载页
+            path: '/download',
+            component: download,
+            meta: { 
                 hasWebSide: true,       // 是否有网站侧栏条 
             }
         },
         {
-        // APP下载页
-            path: '/download',
-            component: download,
+        // 关于我们
+            path: '/about',
+            component: about,
+            redirect: '/about/who',
+            children: [
+                {
+                // 我们是谁
+                    path: 'who',
+                    component: who,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    },
+                },
+                {
+                // 我们做啥
+                    path: 'what',
+                    component: what,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    },
+                },
+                {
+                // 我们有啥（优势）
+                    path: 'advantage',
+                    component: advantage,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    },
+                },
+                {
+                // 联系我们
+                    path: 'contact',
+                    component: contact,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    },
+                },
+                {
+                // 意见反馈
+                    path: 'feedback',
+                    component: feedback,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    },
+                },
+                {
+                // 意见反馈
+                    path: 'recruit',
+                    component: recruit,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    },
+                },
+            ]
+        },
+        
+        {
+        // 常见问题
+            path: '/FAQ',
+            component: FAQ,
+            meta: { 
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
+        },
+        {
+        // 帮助中心
+            path: '/helpCenter',
+            component: helpCenter,
+            meta: { 
+                hasWebSide: true,       // 是否有网站侧栏条 
+            }
+        },
+        {
+        // 平台各类协议
+            path: '/agreement',
+            component: agreement,
             meta: { 
                 hasWebSide: true,       // 是否有网站侧栏条 
             }

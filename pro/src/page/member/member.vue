@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    //侧边栏
+    // 侧边栏
     import sidebar from "page/member/sidebar/sidebar.vue"
     import cFootServer from "components/foot/foot-svr.vue"
 

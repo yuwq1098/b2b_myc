@@ -65,23 +65,23 @@ export const lkInfoItems = [
         items:[
             {
                 name: "关于我们",
-                path: ""
+                path: "/about"
             },
             {
                 name: "联系我们",
-                path: ""
+                path: "/about/contact"
             },
             {
-                name: "成为模拟股东",
-                path: ""
-            },
-            {
-                name: "木有车全国站点",
+                name: "帮助中心",
                 path: ""
             },
             {
                 name: "隐私保护承诺",
                 path: ""
+            },
+            {
+                name: "意见反馈",
+                path: "/about/feedback"
             },
         ]
     },
@@ -90,24 +90,24 @@ export const lkInfoItems = [
         desc: '木有车业务指导链接',
         items:[
             {
-                name: "怎么发布车辆",
+                name: "平台各类协议",
                 path: ""
             },
             {
-                name: "保证金规则",
+                name: "常见问题",
                 path: ""
             },
             {
-                name: "学习在手机APP快速交易",
+                name: "B2B车辆交易流程详解",
                 path: ""
             },
             {
-                name: "更多使用帮助",
+                name: "平台功能（视频介绍）",
                 path: "/practice"
             },
             {
-                name: "问题反馈",
-                path: ""
+                name: "招贤纳士",
+                path: "/about/recruit"
             },
         ]
     }
