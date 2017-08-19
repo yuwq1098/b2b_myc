@@ -100,20 +100,7 @@
                                             </div><!-- 错误验证 -->
                                         </div>
                                     </div>
-                                    <div class="u-line-box" >
-                                        <div class="box-inner">
-                                            <span class="attr">真实姓名：</span>
-                                            <div class="ipt">
-                                                <input type="text" class="user-input"
-                                                    v-model="realName" 
-                                                    placeholder="请输入您的真实姓名" />
-                                            </div>
-                                            <div class="line-error" v-if="errors.has('realName')">
-                                                <p class="error-txt">
-                                                    <i class="iconfont icon-jinggao1"></i>{{errors.first('realName')}}</p>
-                                            </div><!-- 错误验证 -->
-                                        </div>
-                                    </div>
+
                                 </template><!-- 支付宝提现 -->
                                 
                                 <template v-if="wPayType=='2'">
@@ -153,63 +140,6 @@
                                         <div class="ipt">
                                             <p class="data-txt">{{memberData.tel | telFormat}}</p>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div class="u-line-box" >
-                                    
-                                    <div class="line-top-error" v-if="errors.has('imgCode')">
-                                        <p class="error-txt">
-                                            <i class="iconfont icon-jinggao1"></i>{{errors.first('imgCode')}}</p>
-                                    </div><!-- 错误验证 -->
-
-                                    <div class="box-inner">
-                                        <span class="attr">图形验证码：</span>
-                                        <div class="ipt code-ipt">
-                                            <input type="text" class="user-input"
-                                                v-model="imgCode" 
-                                                placeholder="请输入图形验证码" />
-                                        </div>
-                                        <a class="img-btn" 
-                                            @click="getImgCode()"
-                                            >
-                                            <img class="u-pic" 
-                                                :src="'https://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+timestamp"/>
-                                        </a><!-- 图形验证码 -->
-                                        <a class="u-lk" 
-                                            @click="getImgCode()"
-                                            >看不清？换一张</a>
-                                    </div>
-                                </div>
-
-                                <div class="u-line-box" >
-                                    
-                                    <div class="line-top-error" v-if="errors.has('smsCode')">
-                                        <p class="error-txt">
-                                            <i class="iconfont icon-jinggao1"></i>{{errors.first('smsCode')}}</p>
-                                    </div><!-- 错误验证 -->
-                                    <div class="box-inner">
-                                        <span class="attr">短信验证码：</span>
-                                        <div class="ipt code-ipt">
-                                            <input type="text" class="user-input"
-                                                v-model="smsCode" 
-                                                placeholder="请输入短信验证码" />
-                                        </div>
-                                        <a href="javascript:;"
-                                            class="code-btn" 
-                                            @click="getCode()"
-                                            v-if="!waitSeconds"
-                                            >获取验证码
-                                        </a>
-                                        <a href="javascript:;" 
-                                            class="code-btn disable"
-                                            v-if="waitSeconds"
-                                            >
-                                            {{waitSeconds}}s后重新发送
-                                        </a>
-                                        <a class="u-lk"
-                                            @click="getCode('voice')" 
-                                            >没有收到短信？</a>
                                     </div>
                                 </div>
 
@@ -309,10 +239,6 @@
                 // 农行开户名
                 nOpenAccountName:"",
                 
-                // 图形验证码
-                imgCode: '',
-                // 短信验证码
-                smsCode: '',
                 // 支付密码
                 payPass: '',
                 
@@ -333,12 +259,10 @@
 
             this.validator = new Validator({
                 wMoney: 'required|number|between:1,1000000|decimal:2',     // 提现金额
-                alipayAccount: 'required|alpha_dash',                   // 支付宝账号
-                nBankCard: 'required|alpha_dash',                       // 农行卡号
-                realName: 'required|CN_EN',                        // 真实姓名
-                nOpenAccountName: 'required|CN_EN',                // 农行开户名
-                imgCode: 'required|min:4|max:4',
-                smsCode: 'required|min:4|max:4',
+                alipayAccount: 'required|alpha_dash',                      // 支付宝账号
+                nBankCard: 'required|alpha_dash',                          // 农行卡号
+                realName: 'required|CN_EN',                                // 真实姓名
+                nOpenAccountName: 'required|CN_EN',                        // 农行开户名
                 payPass: 'required|number|min:6|max:6',      // 支付密码
             });
             this.$set(this, 'errors', this.validator.errors);
@@ -350,11 +274,11 @@
         activated(){
 
             this.reset();
-
             // 获取用户信息
             this.getMemberInfo();
             // 获取账户余额
             this.getUserAccount();
+
         },
         //退出的生命周期钩子
         deactivated(){
@@ -372,10 +296,6 @@
             alipayAccount(val){
                 this.validator.validate('alipayAccount',val);
             },
-            // 真实姓名
-            realName(val){
-                this.validator.validate('realName',val);
-            },
             // 农行卡号
             nBankCard(val){
                 this.validator.validate('nBankCard',val);
@@ -383,14 +303,6 @@
             // 农行开户名
             nOpenAccountName(val){
                 this.validator.validate('nOpenAccountName',val);
-            },
-            // 图形验证码
-            imgCode(val){
-                this.validator.validate('imgCode',val);
-            },
-            // 短信验证码
-            smsCode(val){
-                this.validator.validate('smsCode',val);
             },
             // 支付密码
             payPass(val){
@@ -444,61 +356,6 @@
                 })   
             },
 
-            // 获取图形验证码
-            getImgCode(){
-                this.timestamp = (+new Date()).valueOf();
-            },
-
-            // 获取验证码
-            getCode(type){
-                if(this.imgCode==""||this.errors.first('imgCode')){
-                    this.errors.remove('imgCode');
-                    this.errors.add('imgCode', "请输入图形验证码", 'auth');
-                    return;
-                }
-                let codeType = type||'text';
-
-                // 获取短信验证码
-                this.getSMSCode(codeType,(state,msg)=>{
-
-                    if(state){ //成功
-
-                        this.waitSeconds = MAX_WAIT_SECONDS;
-                        this.myInterval = setInterval(() => {
-                            this.waitSeconds--;
-                            if(this.waitSeconds==0){
-                                clearInterval(this.myInterval)
-                            }
-                        },1000);
-
-                    }else{  //失败
-                        this.timestamp = (+new Date()).valueOf();
-                        this.errors.remove('imgCode');
-                        this.errors.add('imgCode', msg, 'auth');
-                    }
-                });
-
-            },
-
-            // 向后台获取短信验证码，发送到用户手机上
-            getSMSCode(type,callBack){
-                let data = {
-                    Mobile: this.memberData.tel,
-                    ImgCode: this.imgCode,
-                    CodeType: type||'text',
-                }
-                let isSuccess;
-                api.getSMSCode(data).then(res=>{
-                    if(res.code==SYSTEM.CODE_IS_OK) {
-                        isSuccess = true;
-                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                        isSuccess = false;
-                    }
-                    if(callBack){
-                        callBack(isSuccess,res.msg);
-                    }
-                })
-            },
 
             // 切换提现目标（对象）
             changeWPayMethod(type){
@@ -528,9 +385,6 @@
                     this.validator.validateAll({
                         wMoney: this.withdrawAmount,
                         alipayAccount: this.alipayAccount,
-                        realName: this.realName,
-                        imgCode: this.imgCode,
-                        smsCode: this.smsCode,
                         payPass: this.payPass,
                     }).then((res) => {
                         
@@ -550,8 +404,6 @@
                         wMoney: this.withdrawAmount,
                         nBankCard: this.nBankCard,
                         nOpenAccountName: this.nOpenAccountName,
-                        imgCode: this.imgCode,
-                        smsCode: this.smsCode,
                         payPass: this.payPass,
                     }).then((res) => {
                         
@@ -600,8 +452,7 @@
                 let data = {
                     
                     Amount: this.withdrawAmount,        // 提现金额
-                    PayPwd: this.payPass,        // 支付密码
-                    SMSCode: this.smsCode,       // 短信验证码
+                    PayPwd: this.payPass,               // 支付密码
                     AmountType: this.withdrawType=='1'?'平台余额':'信誉保证金',    // 提现类别
                     
                 };
@@ -610,7 +461,6 @@
                 if(this.wPayType=='1'){
                     data.Account = this.alipayAccount;       // 支付宝账号
                     data.AccountType = "alipay";
-                    data.FullName = this.realName;    // 真实姓名
                 }else if(this.wPayType=='2'){
                     data.Account = this.nBankCard;           // 农行卡号
                     data.AccountType = "abc";                
