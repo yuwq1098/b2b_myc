@@ -280,7 +280,7 @@
                                 <template v-for="(item,index) in carImgData.imgItems">
                                     <li class="m-item">
                                         <div class="u-pic">
-                                            <img v-lazy="item.fileUrl" :alt="item.title" />
+                                            <img ondragstart="return false" v-lazy="item.fileUrl" :alt="item.title" />
                                         </div>
                                     </li>
                                 </template>
@@ -293,7 +293,7 @@
                             <h3 class="u-tit">购车流程</h3>
                         </div>
                         <div class="u-pic">
-                            <img :src="buyCarFlowImg" alt="购车流程图" />
+                            <img ondragstart="return false" :src="buyCarFlowImg" alt="购车流程图" />
                         </div>
                     </div><!-- 购车流程 -->
                     
