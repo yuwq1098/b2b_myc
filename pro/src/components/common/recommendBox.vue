@@ -10,7 +10,7 @@
                 @click="enterCarDetails(carInfo.id)"
                 >
                 <div class="m-pic-box">
-                    <p class="u-label">
+                    <p class="u-label" :class="{'merchant':theAuthType=='企业车商'}">
                         <span class="txt">{{theAuthType}}</span>
                     </p><!-- 标签 -->
                     <div class="u-pic">
@@ -130,6 +130,9 @@
                     _completeCenter(15px,auto,-8px,auto)
                     z-index 10
                     _transitionAll(.2s)
+                    &.merchant
+                        background url('../../assets/img/car-lable-02.png') 0 0 no-repeat
+                        background-size cover
                     .txt
                         color #f2f2f2
                         width 44px
@@ -193,6 +196,7 @@
                     .u-label
                         _transitionAll(.28s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
                         _translate3d(0,-80px)
+                        
                 .m-con-box
                     .u-con .u-tit
                         text-decoration underline

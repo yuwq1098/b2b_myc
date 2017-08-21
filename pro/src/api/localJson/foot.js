@@ -73,16 +73,17 @@ export const lkInfoItems = [
             },
             {
                 name: "帮助中心",
-                path: ""
+                path: "/helpCenter"
             },
             {
-                name: "隐私保护承诺",
-                path: ""
+                name: "平台功能（视频介绍）",
+                path: "/practice"
             },
             {
-                name: "意见反馈",
-                path: "/about/feedback"
+                name: "合作伙伴",
+                path: "/about/partner"
             },
+            
         ]
     },
     {
@@ -90,20 +91,20 @@ export const lkInfoItems = [
         desc: '木有车业务指导链接',
         items:[
             {
-                name: "平台各类协议",
-                path: ""
+                name: "认证流程及审批",
+                path: "/helpCenter/applyFlow"
             },
             {
-                name: "常见问题",
-                path: ""
+                name: "意见反馈",
+                path: "/about/feedback"
             },
             {
                 name: "B2B车辆交易流程详解",
-                path: ""
+                path: "/helpCenter/dealFlow"
             },
             {
-                name: "平台功能（视频介绍）",
-                path: "/practice"
+                name: "隐私保护承诺",
+                path: "/helpCenter/privacy"
             },
             {
                 name: "招贤纳士",

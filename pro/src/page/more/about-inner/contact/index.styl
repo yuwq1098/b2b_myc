@@ -1,1 +1,34 @@
 @import '~assets/css/mixin.styl'
+
+.m-info-gp
+    padding 22px 0 0
+    .info-item
+        min-height 24px
+        padding-left 84px
+        position relative
+        .u-ico
+            width 28px
+            text-align center
+            height 28px
+            line-height @height
+            _completeCenter(40px,auto,-2px,auto)
+            .iconfont
+                font-size 28px
+                color #959595
+        .u-con
+            min-height 24px
+            line-height 24px
+            font-size 14px
+            .txt-t1
+                font-size 14px
+                color #777
+            .txt-t3
+                font-size 18px
+            .line-box
+                .u-pic
+                    margin 15px 0 0
+                    width 180px
+                    height @width
+                    _imgwrap()
+        &.box-pb30
+            padding-bottom 30px

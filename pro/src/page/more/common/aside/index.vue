@@ -6,10 +6,10 @@
     <div id="aside">
         <aside class="m-aside-box">
             <header class="m-hd">
-                <div class="tit">关于我们</div>
+                <div class="tit">{{sideTitle}}</div>
             </header>
             <ul class="aside-lst">
-                <template v-for="item in aboutMenu">
+                <template v-for="item in sideMenu">
                 	<li class="u-item">
 	                    <a href="javascript:;" class="u-lk"
                             v-if="!item.hash">{{item.title}}</a>
@@ -28,9 +28,6 @@
 
 <script>
     
-    // 更多网站功能的本地数据
-    import {aboutMenu} from "api/localJson/more.js"
-
 	export default {
         name: "aside",
         // 在当前模块注册组件
@@ -40,8 +37,12 @@
         // 数据
         data() {
             return{
-                aboutMenu: aboutMenu,
+                
             }
+        },
+        props:{
+            sideTitle:String,
+            sideMenu:Array,
         },
         // 生命周期被创建时
         created() {

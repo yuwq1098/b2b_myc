@@ -152,18 +152,27 @@ const what = r => require.ensure([], () => r(require('page/more/about-inner/what
 const advantage = r => require.ensure([], () => r(require('page/more/about-inner/advantage')), 'advantage')
 // 更多网站功能 => 联系我们
 const contact = r => require.ensure([], () => r(require('page/more/about-inner/contact')), 'contact')
-// 更多网站功能 => 意见反馈
-const feedback = r => require.ensure([], () => r(require('page/more/about-inner/feedback')), 'feedback')
 // 更多网站功能 => 招贤纳士
 const recruit = r => require.ensure([], () => r(require('page/more/about-inner/recruit')), 'recruit')
+// 更多网站功能 => 合作伙伴
+const partner = r => require.ensure([], () => r(require('page/more/about-inner/partner')), 'partner')
+// 更多网站功能 => 意见反馈
+const feedback = r => require.ensure([], () => r(require('page/more/about-inner/feedback')), 'feedback')
 
 
-// 更多网站功能 => 常见问题 
-const FAQ = r => require.ensure([], () => r(require('page/more/FAQ')), 'FAQ')
-// 更多网站功能 => 帮助中心 
+// 更多网站功能 => 帮助中心
 const helpCenter = r => require.ensure([], () => r(require('page/more/help')), 'helpCenter')
+// 更多网站功能 => 常见问题 
+const FAQ = r => require.ensure([], () => r(require('page/more/help-inner/FAQ')), 'FAQ')
 // 更多网站功能 => 平台各类协议
-const agreement = r => require.ensure([], () => r(require('page/more/agreement')), 'agreement')
+const agreement = r => require.ensure([], () => r(require('page/more/help-inner/agreement')), 'agreement')
+// 更多网站功能 => 认证流程及审批
+const applyFlow = r => require.ensure([], () => r(require('page/more/help-inner/apply-flow')), 'applyFlow')
+// 更多网站功能 => 交易流程详解
+const dealFlow = r => require.ensure([], () => r(require('page/more/help-inner/deal-flow')), 'dealFlow')
+// 更多网站功能 => 隐私保护承诺
+const privacy = r => require.ensure([], () => r(require('page/more/help-inner/privacy')), 'privacy')
+
 
 
 // 测试--分享
@@ -317,7 +326,15 @@ export default[{
                     },
                 },
                 {
-                // 意见反馈
+                // 合作伙伴
+                    path: 'partner',
+                    component: partner,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    },
+                },
+                {
+                // 网站招聘
                     path: 'recruit',
                     component: recruit,
                     meta: { 
@@ -327,21 +344,50 @@ export default[{
             ]
         },
         
-        {
-        // 常见问题
-            path: '/FAQ',
-            component: FAQ,
-            meta: { 
-                hasWebSide: true,       // 是否有网站侧栏条 
-            }
-        },
+        
         {
         // 帮助中心
             path: '/helpCenter',
             component: helpCenter,
+            redirect: '/helpCenter/FAQ',
             meta: { 
                 hasWebSide: true,       // 是否有网站侧栏条 
-            }
+            },
+            children: [
+                {
+                // 常见问题
+                    path: 'FAQ',
+                    component: FAQ,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    }
+                },
+                {
+                // 隐私保护承诺
+                    path: 'privacy',
+                    component: privacy,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    }
+                },
+                {
+                // 认证流程及审核
+                    path: 'applyFlow',
+                    component: applyFlow,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    }
+                },
+                {
+                // 交易流程详解
+                    path: 'dealFlow',
+                    component: dealFlow,
+                    meta: { 
+                        hasWebSide: true,       // 是否有网站侧栏条 
+                    }
+                },
+                
+            ]
         },
         {
         // 平台各类协议

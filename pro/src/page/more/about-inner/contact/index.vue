@@ -9,7 +9,42 @@
         <about-layout
             title="联系我们"
             >
-            <p class="">联系我们</p>
+            <div class="m-info-gp">
+                <section class="info-item box-pb30 f__clearfix">
+                    <div class="u-ico">
+                        <i class="iconfont icon-dianhua-005"></i>
+                    </div><!-- 图标 -->
+                    <div class="u-con">
+                       <span class="txt-t3 mr-10">400-900-9936（9:00-18:00）</span>
+                       <span class="txt-t1">免费咨询、建议、投诉</span> 
+                    </div><!-- 内容 -->
+                </section><!-- 咨询建议 -->
+
+                <section class="info-item box-pb30 f__clearfix">
+                    <div class="u-ico">
+                        <i class="iconfont icon-weixin3"></i>
+                    </div><!-- 图标 -->
+                    <div class="u-con">
+                        <span class="txt-t3 mr-10">木有车微信公众号</span>
+                        <span class="txt-t1">关注最新平台活动，了解最新车源信息</span>
+                        <div class="line-box">
+                            <div class="u-pic">
+                                <img :src="WXCodeImg" alt="木有车微信公众号"/>
+                            </div>
+                        </div> 
+                    </div><!-- 内容 -->
+                </section><!-- 微信公众号 -->
+
+                <section class="info-item f__clearfix">
+                    <div class="u-ico">
+                        <i class="iconfont icon-dizhi1"></i>
+                    </div><!-- 图标 -->
+                    <div class="u-con">
+                       <span class="txt-t3">江西省南昌市红谷滩万达中心B3写字楼30层3002室</span>
+                    </div><!-- 内容 -->
+                </section><!-- 公司位置 -->
+
+            </div><!-- 联系我们 -->
         </about-layout>
 
 	</div>
@@ -29,7 +64,7 @@
         // 数据
         data() {
             return{
-                
+                WXCodeImg: require('assets/img/myc_ewm_wechat.jpg'),
             }
         },
         // 自定义函数(方法)

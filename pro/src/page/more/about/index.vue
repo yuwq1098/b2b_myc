@@ -11,7 +11,10 @@
                 <div class="m-about f__clearfix">
                     
                     <div class="m-aside-wrap f__fl">
-                        <sidebar></sidebar>
+                        <sidebar
+                            sideTitle="关于我们"
+                            :sideMenu="sideMenu"
+                            ></sidebar>
                     </div>
                     
                     <div class="m-mn f__fr">
@@ -29,6 +32,8 @@
 
 <script>
     
+    // 更多网站功能的本地数据
+    import {aboutMenu} from "api/localJson/more.js"
     // 侧边栏
     import sidebar from "page/more/common/aside/index.vue"
 
@@ -41,7 +46,7 @@
         // 数据
         data() {
             return{
-                
+                sideMenu: aboutMenu,
             }
         },
         // 自定义函数(方法)

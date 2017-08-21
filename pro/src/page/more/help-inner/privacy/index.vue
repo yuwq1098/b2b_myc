@@ -1,20 +1,30 @@
 <!--  
- **  @description 网站更多功能 - 常见问题
+ **  @description 网站更多功能 - 隐私保护承诺
  --> 
 
 <template>
-	<div class="FAQ">
-        <p class="">常见问题</p>
-	</div>
+    <div class="privacy">
+        
+        <!-- 关于我们内容的布局组件 -->
+        <about-layout
+            title="隐私保护承诺"
+            >
+            <p class="">隐私保护承诺</p>
+        </about-layout>
+
+    </div>
 </template>
 
 <script>
     
+    // 网站更多功能内容布局组件
+    import aboutLayout from 'page/more/common/layout/index.vue' 
+
     export default {
-        name: "FAQ",
+        name: "privacy",
         // 在当前模块注册组件
         components:{
-
+            aboutLayout,
         },
         // 数据
         data() {
@@ -27,7 +37,7 @@
             
         },
         
-	}
+    }
 
 </script>
 
