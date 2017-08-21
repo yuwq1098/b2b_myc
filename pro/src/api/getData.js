@@ -6,6 +6,10 @@ import cookie from 'assets/js/cookie.js'
 import {md5} from 'assets/js/md5.js'
 
 
+// 引入系统变量
+import * as SYSTEM from 'api/system.js'
+
+
 //获取headers签名字段
 const getSignHeaders=function(){
     let [timestamp,token,secret,sign] = [null,null,null,null];
@@ -31,7 +35,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 // http request 拦截器
 axios.interceptors.request.use(
-    config => {
+    (config) => {
         return config;
     },
     err => {
@@ -66,6 +70,11 @@ export function fetchSign(url, params) {
         }
         axios.post(newUrl, params,config)
             .then(response => {
+                // if(response.config.url.match("/action2/MyMemberInfo.ashx")!=null){
+                //     if(response.data.code==SYSTEM.CODE_IS_OUT){
+                //         console.log("过期了")
+                //     }
+                // }
                 resolve(response.data);
             }, err => {
                 reject(err);

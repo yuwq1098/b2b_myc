@@ -90,6 +90,8 @@
 <script>
 
     import $ from 'jquery'
+    // 获取数据的api
+    import api from "api/getData.js"
     // 引入系统变量
     import * as SYSTEM from 'api/system.js'
     import {getLeftToBrowser,addEvent,removeEvent} from "assets/js/dom.js"
@@ -206,6 +208,25 @@
             },
             $route (to, from) {
                 this.hasWebSide = to.meta.hasWebSide;
+
+                // 账户登陆挤退功能
+                if(this.loginStatus){
+                    let data = {}
+                    api.getMyMemberInfo(data).then(res => {
+                        if(res.code==SYSTEM.CODE_IS_OUT){
+                            this.$notify({
+                                title: '账号异常注销',
+                                message: '您的账号被其它设备挤退，若不是本人操作，请即刻修改密码',
+                                type: 'error',
+                                duration: 3000,
+                            });
+                            this.$router.push({ path: '/'})
+                            //调用vuex的注销方法
+                            this.setSignOut();
+                        }
+                    })   
+                }
+
             },
         },
         methods:{
@@ -295,10 +316,6 @@
                 //调用vuex的注销方法
                 this.setSignOut();
             },
-
-            aaaa(){
-                this.$emit("oppo",1);
-            }
 
         },
         components:{
