@@ -8,8 +8,25 @@
         <!-- 关于我们内容的布局组件 -->
         <about-layout
             title="常见问题"
+            articleType="v2"
             >
-            <p class="">常见问题</p>
+            <div class="m-help-con">
+                <ul class="m-lst">
+                    <template v-for="item in FAQData">
+                        <li class="u-item">
+                            <div class="tit"
+                                >{{item.title}}
+                            </div>
+                            <div class="text-box"
+                                >
+                                <template v-for="info in item.info">
+                                    <p class="u-line">{{info}}</p>
+                                </template>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </div>
         </about-layout>
 
     </div>
@@ -17,6 +34,8 @@
 
 <script>
     
+    // 常见问题的本地数据
+    import {FAQData} from "api/localJson/more.js"
     // 网站更多功能内容布局组件
     import aboutLayout from 'page/more/common/layout/index.vue' 
 
@@ -29,7 +48,7 @@
         // 数据
         data() {
             return{
-                
+                FAQData: FAQData,
             }
         },
         // 自定义函数(方法)
