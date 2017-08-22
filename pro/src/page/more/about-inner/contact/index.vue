@@ -50,7 +50,7 @@
                                 :scroll-wheel-zoom="true"
                                 >
                                 <bm-marker :position="{lng: 115.856572, lat: 28.701403}" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
-                                    <bm-label content="江西南昌木有车" :labelStyle="{color: '#F22', border: '1px solid #F22', padding: '2px 4px', fontSize : '13px'}" :offset="{width: -35, height: 36}"/>
+                                    <bm-label content="江西南昌木有车" :labelStyle="{color: '#3D6DCC', border: '1px solid #83ABFB', padding: '2px 4px', fontSize : '13px'}" :offset="{width: -35, height: 36}"/>
                                 </bm-marker>
                                 <bm-copyright
                                     anchor="BMAP_ANCHOR_TOP_RIGHT"
@@ -113,8 +113,14 @@
 
 </script>
 
+<style lang="stylus" rel="stylesheet/stylus">
+    .bm-view
+        .BMap_cpyCtrl 
+            a
+                color #3D6DCC
+</style>
+
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import 'index.styl'
-
 </style>

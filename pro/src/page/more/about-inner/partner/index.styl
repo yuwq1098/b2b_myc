@@ -1,1 +1,70 @@
 @import '~assets/css/mixin.styl'
+
+.m-about-con
+    em.vital
+        color $c_blue
+        padding 0 2px
+    span.decollator
+        padding 0 5px
+    .m-hd
+        padding 0 0 10px
+        margin 0 0 15px
+        _border(bottom,#ededed)
+        strong
+            font-size 18px
+            line-height 30px
+            _display()
+            color $c_blue
+            font-weight normal
+        .txt
+            font-size 14px
+            line-height 24px
+            color #777
+    .u-article
+        font-size 16px
+        line-height 30px
+        padding 0 0 15px
+        .copy-code
+            _display()
+            height 22px
+            line-height @height
+            margin 8px 0 0
+            font-size 13px
+            .attr,.code
+                _display(inline-block)
+            .attr
+                color $c_blue
+                font-size 15px
+            .code
+                background #eff0f1
+                padding 0 4px
+                height @height
+                line-height @height
+                color #777
+                margin 0 0 0 3px
+                _borderAll(#d2d2d2)
+
+    .m-info-box
+        padding 25px 0 0
+        .subtit
+            font-size 18px
+            height 30px
+            line-height 30px
+            color #27333c
+            font-weight normal
+            padding 0 0 12px
+        .link-lst
+            .u-item
+                margin 0 30px 8px 0
+                float left
+                height 36px
+                line-height @height
+                .u-lk
+                    color #777
+                    font-size 14px
+                    &.vital
+                        color $c_blue
+                    &:hover,
+                    &.vital:hover
+                        color $c_blue
+                        text-decoration underline

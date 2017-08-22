@@ -80,7 +80,7 @@ export const lkInfoItems = [
                 path: "/practice"
             },
             {
-                name: "合作伙伴",
+                name: "友情链接",
                 path: "/about/partner"
             },
             

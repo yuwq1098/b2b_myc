@@ -31,7 +31,7 @@ export const aboutMenu = [
         'hash': '/about/feedback',
     },
     {
-        'title': '合作伙伴',
+        'title': '友情链接',
         'hash': '/about/partner',
     },
     {
