@@ -47,12 +47,12 @@ export const ewmItems = [
 export const footCprtImgItems = [
     {
         title: '可信网站',
-        href: '',
+        href: 'http://t.knet.cn/',
         imgUrl: require("assets/img/credible-icon.png"),
     },
     {
         title: '诚信网站',
-        href: '',
+        href: 'http://www.cecdc.com/',
         imgUrl: require("assets/img/honest-icon.png"),
     }
 ]

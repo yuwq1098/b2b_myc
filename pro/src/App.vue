@@ -96,6 +96,7 @@
         border-right 40px solid transparent
         &.noWebSide
             _boxSizing(content-box)
+            min-width 1200px
             border none
 </style>
 

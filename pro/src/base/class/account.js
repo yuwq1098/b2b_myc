@@ -45,6 +45,7 @@ class billInfo{
 // 账单详情的构造类
 class billDetails{
     constructor(data) {
+        
 	    this.billId = data.TradeId||""                  // 交易流水号
 	    this.source = data.TradeSource||""              // 交易类型
 	    this.direction = data.TradeDirection||""        // 交易动向

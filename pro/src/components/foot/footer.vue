@@ -57,7 +57,7 @@
                     
                     <div class="m-pic">
                         <template v-for="(item,index) in cprtImgs">
-                            <a :href="item.href?item.href:'javascript:;'" class="u-lk" :class="{'last':index==cprtInfo.length-1}">
+                            <a :href="item.href?item.href:'javascript:;'" target="_blank" class="u-lk" :class="{'last':index==cprtInfo.length-1}">
                                 <img class="u-pic" :src="item.imgUrl" :alt="item.title"/>
                             </a>
                         </template>

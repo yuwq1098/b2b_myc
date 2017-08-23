@@ -287,5 +287,14 @@ export const partnerLink = [
         'sitenmae': '爱站网',
         'sitelink': 'http://www.aizhan.com/',
     },
+    {
+        'sitenmae': 'ICP备案信息查询',
+        'sitelink': 'http://icp.alexa.cn/',
+    },
+    {
+        'sitenmae': 'UC神马搜索',
+        'sitelink': 'http://zhanzhang.sm.cn/open/sitemap',
+    },
+    
 
 ]
