@@ -99,7 +99,7 @@ export const lkInfoItems = [
                 path: "/about/feedback"
             },
             {
-                name: "B2B车辆交易流程详解",
+                name: "B2B车辆交易规则",
                 path: "/helpCenter/dealFlow"
             },
             {

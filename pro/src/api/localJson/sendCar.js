@@ -51,14 +51,14 @@ export const changeNum = [
 
 // 排放标准
 export const dischargeStandard = [
-    {
-        label: "国1",
-        value: '国1',
-    },
-    {
-        label: "国2",
-        value: '国2',
-    },
+    // {
+    //     label: "国1",
+    //     value: '国1',
+    // },
+    // {
+    //     label: "国2",
+    //     value: '国2',
+    // },
     {
         label: "国3",
         value: '国3',

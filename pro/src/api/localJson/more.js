@@ -52,7 +52,7 @@ export const helpMenu = [
         'hash': '/practice',
     },
     {
-        'title': 'B2B交易流程',
+        'title': 'B2B交易规则',
         'hash': '/helpCenter/dealFlow',
     },
     {
@@ -71,13 +71,15 @@ export const helpMenu = [
 ]
 
 
+// 引入系统变量
+import * as SYSTEM from 'api/system.js'
 
 // 帮助中心 - FAQ常见问题的数据
 export const FAQData = [
     {
         'title': '平台入驻需支付入驻费吗？',
         'info': [
-            "a. 木有车平台除B2B大厅须支付200元（限时活动）商家认证信誉金外，其他项目入驻均免费；",
+            "a. 木有车平台除B2B大厅须支付"+SYSTEM.DEAL_CREDIT_TEXT+"商家认证信誉金外，其他项目入驻均免费；",
             "b. B2B大厅里商家认证金在正常情况下，需退款，可全额退回至个人钱包（特殊情况如，卖方在B2B大厅里发布车辆，有买方购买且签合同情况下，卖方在自己订单里取消订单，需支付200元违约金，违约金返守约方）。",
         ],
     },
@@ -85,7 +87,7 @@ export const FAQData = [
         'title': '进入二手车B2B市场是免费的吗？',
         'info': [
             "可以在二手车B2B市场免费查看车辆信息，不可以进行交易。",
-            "（交易需先进行商家认证，认证时需支付200元（限时活动）商家信誉保证金）",
+            "（交易需先进行商家认证，认证时需支付"+SYSTEM.DEAL_CREDIT_TEXT+"商家信誉保证金）",
         ],
     },
     {
@@ -104,7 +106,7 @@ export const FAQData = [
         'title': '进入B2B大厅流程？',
         'info': [
             "a. 进入木有车APP首页，点击进入二手车B2B大厅；",
-            "b. 200元（限时活动）商家认证信誉保证金；",
+            "b. "+SYSTEM.DEAL_CREDIT_TEXT+"商家认证信誉保证金；",
             "c. 进行买车/卖车。",
         ],
     },

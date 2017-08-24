@@ -223,7 +223,9 @@
     }
 </script>
 
+
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
+
 </style>

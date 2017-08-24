@@ -513,6 +513,24 @@ export default {
     editPayPass(params){
         return fetchSign('/action2/ForgotPasswordByOrg.ashx',dataToJson(params));
     },
+
+    // 意见反馈可用类别
+    getFeedback(){
+        return fetchSign('/action2/FeedbackType.ashx');
+    },
+
+    // 意见反馈提交
+    feedbackSubmit(params){
+        return fetchSign('/action2/FeedbackSubmit.ashx',dataToJson(params));
+    },
+
+    // 我的意见反馈列表
+    myFeedbackList(params){
+        return fetchSign('/action2/FeedbackList.ashx',dataToJson(params));
+    },
+
+    
+    
     
 
     /*

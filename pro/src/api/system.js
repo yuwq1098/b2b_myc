@@ -13,6 +13,8 @@ export const CODE_IS_OUT = -4000
 
 // 信誉保证金
 export const MIN_CREDIT_GOLD = 200
+// 支付信誉保证金提示文本
+export const DEAL_CREDIT_TEXT = "200元（限时活动）"; 
 
 /**
  * B2B订单状态

@@ -1,1 +1,33 @@
 @import '~assets/css/mixin.styl'
+
+.m-help-con
+    position relative
+    em.vital
+        color $c_blue
+        padding 0 2px
+    
+    .u-article
+        font-size 16px
+        line-height 30px
+        padding 0 0 25px
+        margin 0 0 0 60px
+        position relative
+        z-index 3
+        span.u-no
+            width 8px
+            text-align center
+            height 8px
+            line-height @height
+            _display(inline-block)
+            _borderRadius()
+            font-size 13px
+            background #b8b8b8
+            color $c_blue
+            _completeCenter(-28px,auto,10px,auto)
+    &::after
+        content ""
+        _display()
+        width 2px
+        background #ededed
+        z-index 0
+        _completeCenter(35px,auto,,25px)
