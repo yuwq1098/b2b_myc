@@ -470,67 +470,6 @@ export default {
     },
 
 
-    /*
-     * 个人中心
-     */
-    
-    // 修改个人信息
-    editMemberInfo(params){
-        return fetchSign('/action2/MemberInfoEdit.ashx',dataToJson(params));
-    },
-
-    // 银行卡管理
-    manageBankCard(params){
-        return fetchSign('/action2/BankCardMng.ashx',dataToJson(params));
-    },
-
-    // 修改密码
-    editPassword(params){
-        return fetchSign('/action2/EditPassword.ashx',dataToJson(params));
-    },
-
-    // 忘记密码（找回密码）
-    forgotPassword(params){
-        return fetchSign('/action2/ForgotPassword.ashx',dataToJson(params));
-    },
-
-    // 更绑手机号
-    editMobile(params){
-        return fetchSign('/action2/ReplaceMobile.ashx',dataToJson(params));
-    },
-    
-    // 忘记支付密码
-    forgetPayPass(params){
-        return fetchSign('/action2/EditPayPassword.ashx',dataToJson(params));
-    },
-
-    // 设置支付密码
-    setPayPass(params){
-        return fetchSign('/action2/SetPayPassword.ashx',dataToJson(params));
-    },
-
-    // 修改支付密码
-    editPayPass(params){
-        return fetchSign('/action2/ForgotPasswordByOrg.ashx',dataToJson(params));
-    },
-
-    // 意见反馈可用类别
-    getFeedback(){
-        return fetchSign('/action2/FeedbackType.ashx');
-    },
-
-    // 意见反馈提交
-    feedbackSubmit(params){
-        return fetchSign('/action2/FeedbackSubmit.ashx',dataToJson(params));
-    },
-
-    // 我的意见反馈列表
-    myFeedbackList(params){
-        return fetchSign('/action2/FeedbackList.ashx',dataToJson(params));
-    },
-
-    
-    
     
 
     /*
@@ -625,6 +564,12 @@ export default {
     myB2BCreditPoint(params){
         return fetchSign('/action2/MyB2BCreditPoint.ashx',dataToJson(params));
     },
+
+
+    /*
+     * B2B车辆管理
+     */
+
     
     //发布B2B车辆
     addOrEditB2BCar(params){
@@ -655,7 +600,90 @@ export default {
     getCarDetalis(params){
         return fetchSign('/action2/B2BCarDetail.ashx', dataToJson(params))
     },
+
+    // 批量刷新在售车源(all代表所有，否则传入以英文,号分隔的CarId)
+/**/    batchRefresh(params){
+        return fetchSign('/action2/FreshenB2BCar.ashx', dataToJson(params))
+    },
+
+    // B2B车辆大厅时间戳后新车数量
+/**/    newCarCount(params){
+        return fetchSign('/action2/B2BNewCarCount.ashx', dataToJson(params))
+    },
     
+    
+    /*
+     * 个人中心
+     */
+    
+    // 修改个人信息
+    editMemberInfo(params){
+        return fetchSign('/action2/MemberInfoEdit.ashx',dataToJson(params));
+    },
+
+    // 银行卡管理
+    manageBankCard(params){
+        return fetchSign('/action2/BankCardMng.ashx',dataToJson(params));
+    },
+
+    // 修改密码
+    editPassword(params){
+        return fetchSign('/action2/EditPassword.ashx',dataToJson(params));
+    },
+    
+    // 忘记支付密码
+    forgetPayPass(params){
+        return fetchSign('/action2/EditPayPassword.ashx',dataToJson(params));
+    },
+
+    // 忘记密码（找回密码）
+    forgotPassword(params){
+        return fetchSign('/action2/ForgotPassword.ashx',dataToJson(params));
+    },
+
+    // 更绑手机号
+    editMobile(params){
+        return fetchSign('/action2/ReplaceMobile.ashx',dataToJson(params));
+    },
+    
+    // 设置支付密码
+    setPayPass(params){
+        return fetchSign('/action2/SetPayPassword.ashx',dataToJson(params));
+    },
+
+    // 修改支付密码
+    editPayPass(params){
+        return fetchSign('/action2/ForgotPasswordByOrg.ashx',dataToJson(params));
+    },
+
+    // 我的团队&我的粉丝
+/**/ 
+    myTeam(params){
+        return fetchSign('/action2/MyTeam.ashx',dataToJson(params));
+    },
+    
+
+    // 意见反馈可用类别
+    getFeedback(){
+        return fetchSign('/action2/FeedbackType.ashx');
+    },
+
+    // 意见反馈提交
+    feedbackSubmit(params){
+        return fetchSign('/action2/FeedbackSubmit.ashx',dataToJson(params));
+    },
+
+    // 我的意见反馈列表
+    myFeedbackList(params){
+        return fetchSign('/action2/FeedbackList.ashx',dataToJson(params));
+    },
+
+
+    /*
+     * 订单相关
+     */
+
+
     //秒杀立即下单接口
     getAddB2BOrder(params){
         return fetchSign('/action2/addB2BOrder.ashx', dataToJson(params))

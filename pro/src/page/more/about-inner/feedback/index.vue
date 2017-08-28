@@ -119,7 +119,7 @@
 
         //退出的生命周期钩子
         deactivated(){
-            
+            this.reset();
         },
         computed:{
             ...mapGetters(['loginStatus']),

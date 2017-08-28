@@ -13,6 +13,8 @@ const shoppingCart = r => require.ensure([], () => r(require('page/shoppingCart'
 const sell = r => require.ensure([], () => r(require('page/sell/sell.vue')), 'sell')
 // 发布车辆订单填写页
 const sendCar = r => require.ensure([], () => r(require('page/sell/sendCar.vue')), 'sendCar')
+// 车商圈
+const dealerCircle = r => require.ensure([], () => r(require('page/dealer-circle')), 'dealerCircle');
 
 
 // b2b车辆详情
@@ -174,7 +176,6 @@ const dealFlow = r => require.ensure([], () => r(require('page/more/help-inner/d
 const privacy = r => require.ensure([], () => r(require('page/more/help-inner/privacy')), 'privacy')
 
 
-
 // 测试--分享
 const share = r => require.ensure([], () => r(require('page/test/share.vue')), 'share')
 
@@ -252,6 +253,15 @@ export default[{
             meta: {
                 requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                 hasWebSide: true,       // 是否有网站侧栏条 
+            },
+        },
+        {
+            path: '/dealerCircle',
+            component: dealerCircle,
+            alias: '/dealer',           // 使用别名
+            meta: {
+                requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                hasWebSide: true,       // 是否有网站侧栏条
             },
         },
         {

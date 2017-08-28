@@ -12,7 +12,11 @@ export const navItemList = [
     },{
         pathName: "APP下载",
         path: "/download"
-    }/*
+    },{
+        pathName: "车商圈",
+        path: "/dealer"
+    },
+    /*
     {
         pathName: "木有车服务",
         path: "/siteServer"
