@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '/api': {
-            target: 'https://www.muyouche.com/',
+            target: 'https://test.muyouche.com/',
             changeOrigin: true,
             pathRewrite: {           //需要rewrite重写的, 如果在服务器端做了处理则可以不要这段
               '^/api': ''

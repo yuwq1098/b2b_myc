@@ -16,15 +16,16 @@
                         <div class="m-mn-info f__fr">
                             <div class="m-tit">{{basicInfo.title}}</div>
                             <div class="m-pic f__clearfix">
-                                <template v-if="!hasLogin">
+                                <template v-if="!hasLogin&&!hasAuth=='1'">
                                     <span class="u-txt">未登录</span>
                                 </template>
-                                <template v-else-if="!hasAuth=='1'">
+                                <template v-else-if="hasAuth!='1'">
                                     <span class="u-txt">您尚未通过认证</span>
                                 </template>
                                 <template v-else>
                                     <span class="u-price">￥<em class="vital">{{basicInfo.price| priceFormat(2)}}</em>万</span>
                                 </template>
+
                                 <span class="u-del">零售价：{{basicInfo.retailPrice | priceFormat(2)}}万</span>
                                 <!-- <a href="javascript:;" class="u-lk record">
                                     <i class="iconfont icon-activity_fill"></i>查询维修保养记录
@@ -660,6 +661,7 @@
                         // 获取权限相关的信息
                         this.hasLogin = res.HasLogin;
                         this.hasAuth = res.HasAuth;
+                        console.log(this.hasAuth);
                         this.hasCredit = res.HasCredit;
 
                         //获取车辆图片数据
