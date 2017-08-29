@@ -9,7 +9,7 @@ export const navItemList = [
     },/*{
         pathName: "车商圈",
         path: "/dealer"
-    }*/,{
+    },*/{
         pathName: "我要卖车",
         path: "/sellHome"
     },{

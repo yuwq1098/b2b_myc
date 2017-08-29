@@ -19,24 +19,6 @@
     import {dataToJson} from "assets/js/util.js"
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
-    // 车行信息的构造类
-    import {basicInfo,carDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
-
-    // 网站外层面包屑列表本地化资源
-    import {crumbsInfo} from "api/localJson/homeCrumb.js"
-    // 面包屑组件
-    import gkBreadCrumb from "components/common/gkBreadcrumb.vue"
-
-    // 双向控制焦点图组件
-    import fcSlide from "components/slide/fc_slide.vue"
-
-    // b2b车辆信息构造类
-    import {b2bCarInfo} from "base/class/carInfo.js"
-    // 相似推荐信息列表盒子
-    import remdListBox from "components/boxLayout/remdListBox.vue"
-
-    // 社会分享组件
-    import gkShare from "components/common/gkShare.vue"
     
     
 	export default {

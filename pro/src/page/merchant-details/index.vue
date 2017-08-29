@@ -13,7 +13,9 @@
                                 :class="{'v2':merchantData.isPartner}">
                                 <span class="u-name">{{merchantData.name}}</span>
                                 <span class="u-type partner" v-show="merchantData.isPartner">合作商</span>
-                                <span class="u-type">{{theAuthType}}</span>
+                                <span class="u-type" v-show="!merchantData.isPartner">{{theAuthType}}</span>
+                                <span class="u-type hasCredit"
+                                    v-show="memberData&&memberData.credit>minCredit&&theAuthType=='个人车商'">已缴信誉金</span>
                             </div><!-- 车行名称 -->
 
                             <div class="m-collect f__clearfix">
@@ -181,6 +183,9 @@
                 
                 // 用户信息
                 memberData: null,
+                
+                // 最低信誉金
+                minCredit: SYSTEM.MIN_CREDIT_GOLD,
 
                 // 车行（或卖家）ID
                 merchantId: "",
@@ -340,7 +345,6 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.merchantData = this._normalizeMerchant(res.data);
                         this.merchantCarList = this._normalizeCarList(this.merchantData.carList);
-                        console.log(this.merchantData)
                         // 延迟获取焦点图列表
                         setTimeout(()=>{
                             this.slideCarList = this._normalizeSlideCarList(this.merchantCarList);

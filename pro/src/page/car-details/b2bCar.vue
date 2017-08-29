@@ -47,8 +47,9 @@
                                             <p class="u-des">过户次数</p>
                                         </li>
                                         <li class="u-item">
-                                            <p class="u-tit">{{basicInfo.dischargeStandard}}</p>
-                                            <p class="u-des">排放标准</p>
+                                            <p class="u-tit" v-if="basicInfo.liter">{{basicInfo.liter |literFn}}</p>
+                                            <p class="u-tit" v-else>暂无数据</p>
+                                            <p class="u-des">综合油耗</p>
                                         </li>
                                         <li class="u-item">
                                             <p class="u-tit">{{basicInfo.plateDate | dateFn}}</p>
@@ -72,6 +73,7 @@
                                 </div>
                             </div><!-- 产品描述 -->
                             <!-- <div class="m-intro"></div> --><!-- 说明 -->
+
                             <div class="m-opra f__clearfix">
                                 <template v-if="!hasLogin"
                                     >
@@ -87,7 +89,6 @@
                                     <a href="javascript:;" class="u-btn not"
                                         v-if="otherInfo.isInFavorite">已收藏</a>
                                 </template>
-                                
 
                                 <template v-if="!hasLogin"
                                     >
@@ -165,8 +166,9 @@
                                             <span class="u-val" v-else>暂无数据</span>
                                         </li>
                                         <li class="u-item">
-                                            <span class="u-attr">排放标准</span>
-                                            <span class="u-val">{{basicInfo.dischargeStandard}}</span>
+                                            <span class="u-attr">综合油耗</span>
+                                            <span class="u-val" v-if="basicInfo.liter">{{basicInfo.liter |literFn}}</span>
+                                            <span class="u-val" v-else>暂无数据</span>
                                         </li>
                                         <li class="u-item">
                                             <span class="u-attr">车身颜色</span>
@@ -529,6 +531,7 @@
                         
                     });
                 }
+
             },
 
             // 未登录（请先登录）
@@ -536,8 +539,8 @@
                 this.$notify({
                     title: '您尚未登录',
                     message: '登录后可进行加入购物车操作',
-                    type: 'warning',
-                    duration: 1500,
+                    type: 'error',
+                    duration: 2000,
                 });
             },
 
@@ -568,7 +571,6 @@
                 var curLink = window.location.href.split("#")[0];
                 // 获取微信jsApi签名
                 api.getWxApiSign({url:curLink}).then((res) => {
-                    console.log("成功了咯",res);
                     let data = res.data;
                     if(res.code==SYSTEM.CODE_IS_OK){
                         wx.config({
@@ -650,6 +652,8 @@
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
 
+                        console.log(dataToJson(this.basicInfo));
+
                         // 车辆异常状态提示
                         this.abnormalStatusTips(this.basicInfo.status);
 
@@ -661,7 +665,6 @@
                         // 获取权限相关的信息
                         this.hasLogin = res.HasLogin;
                         this.hasAuth = res.HasAuth;
-                        console.log(this.hasAuth);
                         this.hasCredit = res.HasCredit;
 
                         //获取车辆图片数据

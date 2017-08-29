@@ -26,6 +26,7 @@ var SimpleShare = function (options) {
 	var weibo = 'http://service.weibo.com/share/share.php?url={url}&title={content}&pic={pic}&searchPic=false';
 	var tqq = 'http://share.v.t.qq.com/index.php?c=share&a=index&url={url}&title={content}&appkey=801cf76d3cfc44ada52ec13114e84a96';
 	var renren = 'http://widget.renren.com/dialog/share?resourceUrl={url}&srcUrl={url}&title={title}&description={content}';
+	var kaixin = 'http://www.kaixin001.com/rest/records.php?&url={url}&title={title}&content={content}&starid=&aid=&style=11&pic=&t=26';
 	var douban = 'http://www.douban.com/share/service?href={url}&name={title}&text={content}&image={pic}';
 	var facebook = 'https://www.facebook.com/sharer/sharer.php?u={url}&t={content}&pic={pic}';
 	var twitter = 'https://twitter.com/intent/tweet?text={content}&url={url}';
@@ -55,6 +56,9 @@ var SimpleShare = function (options) {
 	};
 	this.renren = function() {
 		window.open(replaceAPI(renren));
+	};
+	this.kaixin = function() {
+		window.open(replaceAPI(kaixin));
 	};
 	this.douban = function() {
 		window.open(replaceAPI(douban));

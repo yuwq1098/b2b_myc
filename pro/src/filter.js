@@ -125,6 +125,12 @@ export const priceFormat = (data,num=1) => {
     return parseFloat(number).toFixed(num)
 }
 
+//---综合油耗单位
+export const literFn = (data,num=1) => {
+    var number = data||0;
+    return parseFloat(number).toFixed(num)+" L/100km"
+}
+
 //---城市单位去空，江西省=>江西
 export const cityFn = (str) => {
     if(!str&&str!=0) return;
