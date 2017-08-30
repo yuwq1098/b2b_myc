@@ -43,14 +43,11 @@
             &:hover
                 color $c_blue
     &.signin
-        height 436px
-        _completeCenter(,,-144px,,fixed)            
+        _completeCenter(,,100px,auto,fixed)            
     &.signup
-        height 580px
-        _completeCenter(,,,,fixed)
+        _completeCenter(,,100px,auto,fixed)
     &.forget
-        height 580px
-        _completeCenter(,,,,fixed)
+        _completeCenter(,,100px,auto,fixed)
     .m-login-tab
         height 44px
         width 300px
@@ -65,6 +62,10 @@
             float left
             _spacingPlus()
             color #959595
+            &.left
+                width 130px
+            &.right
+                width 170px
             &.active
                 _border(bottom,$c_blue,2px)
                 color $c_blue
@@ -222,4 +223,17 @@
             &:hover
                 color $c_blue
 
+// 使用@media工作原理和在常规CSS中一样，但是，要使用Stylus的块状符号，不能带{}
+@media screen and (max-height: 560px)
+    .m-sign-box
+        &.signin,&.signup,&.forget
+            _completeCenter(,,40px,auto,fixed)
+@media screen and (max-height: 680px)
+    .m-sign-box
+        &.signin,&.signup,&.forget
+            _completeCenter(,,68px,auto,fixed)
+@media screen and (min-height: 800px)
+    .m-sign-box
+        &.signin,&.signup,&.forget
+            _completeCenter(,,120px,auto,fixed)
 

@@ -332,44 +332,43 @@ const setpromise = data => {
 
 export default {
     
-    //用户登录||(FormData提交方式[qs转换])
-    Login(params){
-        return fetch('/action2/UserLogin.ashx', qs.stringify(params))
-    },
-
-    //上传隐私类图片
+    /*
+     * 基础类
+     */
+    
+    // 上传隐私类图片
     uploadImg(params){
         return fetchSign('/action2/UploadPrivateFile.ashx', qs.stringify(params))
     },
+
+    // 批量上传隐私类图片
+    uploadPrivateFileBatch(params){
+/**/        return fetchSign('/action2/UploadPrivateFileBatch.ashx', qs.stringify(params))
+    },
     
-    //上传隐私类图片base64
+    // 上传隐私类图片base64
     uploadPrivateFileBase64(params){
         return fetchSign('/action2/UploadPrivateFileBase64.ashx', qs.stringify(params))
     },
     
-    //上传开放类资源
+    // 上传开放类资源
     uploadPublicFile(params){
         return fetchSign('/action2/UploadPublicFile.ashx', qs.stringify(params))
+    },
+
+    // 批量上传开放类图片
+    uploadPublicFileBatch(params){
+/**/        return fetchSign('/action2/UploadPublicFileBatch.ashx', qs.stringify(params))
     },
 
     //上传开放类资源base64
     uploadPublicFileBatch(params){
         return fetchSign('/action2/UploadPublicFileBase64.ashx', qs.stringify(params))
     },
-
-    //车行认证
-    B2BAuthApply(params){
-        return fetchSign('/action2/B2BAuthApply.ashx',dataToJson(params))
-    },
     
     //获取车辆品牌
     getCarBrand(){
         return get('/action2/CarBrand.ashx');
-    },
-    
-    //获取热门车辆品牌
-    getHotBrand(params){
-        return fetch('/action2/HotCarBrand.ashx',dataToJson(params));
     },
 
     //根据品牌获取车系
@@ -420,10 +419,10 @@ export default {
     deleteSubscribeCarBrand(params){
         return fetchSign('/action2/deleteSubscribeCarBrand.ashx',dataToJson(params));
     },
-    
-    // 获取我的我的个人信息
-    getMyMemberInfo(params){
-        return fetchSign('/action2/MyMemberInfo.ashx',dataToJson(params));
+
+    //获取热门车辆品牌
+    getHotBrand(params){
+        return fetch('/action2/HotCarBrand.ashx',dataToJson(params));
     },
 
     // 获取所有车辆颜色
@@ -438,75 +437,13 @@ export default {
     
     // 二手车估值
     getCarAppraisement(params){
-        return fetchSign('/action2/CarAppraisement.ashx',dataToJson(params));
+/**/        return fetchSign('/action2/CarAppraisement.ashx',dataToJson(params));
     },
-
-
-    /*
-     * 验证注册类
-     */
-
-
-    // 获取图形验证码
-    // getImgRandomCode(){
-    //     let timestamp = (+new Date()).valueOf();
-    //     let url = '/action2/ImgRandomCode.ashx'+'?FS=18&a='+timestamp;
-    //     return get(url)
-    // },
-
-    // 获取手机验证码(语音或者短信)
-    getSMSCode(params){
-        return fetchSign('/action2/GetSMSCode.ashx',dataToJson(params));
-    },
-
-    // 验证手机号是否重复
-    checkMobileCanReg(params){
-        return fetchSign('/action2/CheckMobileCanReg.ashx',dataToJson(params));
-    },
-
-    // 注册
-    register(params){
-        return fetchSign('/action2/RegUser.ashx',dataToJson(params));
-    },
-
 
     
 
     /*
-     * 收藏夹
-     */
-    
-
-    // 操作收藏的车辆
-    myFavoriteCar(params){
-        return fetchSign('/action2/FavoriteB2BCar.ashx',dataToJson(params));
-    },
-
-    // 操作收藏的车行
-    myFavoriteCdg(params){
-        return fetchSign('/action2/FavoriteCdg.ashx',dataToJson(params));
-    },
-
-
-
-    /*
-     * 认证类
-     */
-
-
-    // 获取认证详情信息
-    getAuthDetails(params){
-        return fetchSign('/action2/AuthDetail.ashx',dataToJson(params));
-    },
-
-    // 车行认证
-    authApply(params){
-        return fetchSign('/action2/B2BAuthApply.ashx',dataToJson(params));
-    },
-    
-
-    /*
-     * 支付、交易、金额类
+     * 支付交易金额类
      */
     
     // 各类常规充值(支付)接口
@@ -519,14 +456,14 @@ export default {
         return payFetchSign('/action2/pay/payB2BCreditPoint.ashx',dataToJson(params));
     },
 
-    // 支付状态查询
-    checkPayStatus(params){
-        return fetchSign('/action2/pay/chkPayStatus.ashx',dataToJson(params));
+    // 各类金额流水账单
+    getBillList(params){
+        return fetchSign('/action2/MyB2BCreditPoint.ashx',dataToJson(params));
     },
 
-    // 提现接口
-    withdrawCashApply(params){
-        return fetchSign('/action2/WithdrawCashApply.ashx',dataToJson(params));
+    // 我的账户金额 
+    getUserAccount(params){
+        return fetchSign('/action2/UserAccount.ashx',dataToJson(params));
     },
 
     // 使用余额进行各类支付
@@ -534,156 +471,37 @@ export default {
         return fetchSign('/action2/BlancePay.ashx',dataToJson(params));
     },
 
-    // 各类金额流水账单
-    getBillList(params){
-        return fetchSign('/action2/MyB2BCreditPoint.ashx',dataToJson(params));
+    // 各类提现接口
+    withdrawCashApply(params){
+        return fetchSign('/action2/WithdrawCashApply.ashx',dataToJson(params));
     },
 
     // 账单交易详情页
     getBillDetails(params){
         return fetchSign('/action2/TradeDetail.ashx',dataToJson(params));
     },
-    
-    // 我的账户余额 
-    getUserAccount(params){
-        return fetchSign('/action2/UserAccount.ashx',dataToJson(params));
+
+    // 粉丝返利转到平台余额
+    rebate2Balance(params){
+/**/        return fetchSign('/action2/Rebate2Balance.ashx',dataToJson(params));
     },
+
+    // 一期提现到二期
+    secondPhaseMoneyToTwo(params){
+/**/        return fetchSign('/action2/FirstPhaseMoney2SecondPhaseMoney.ashx',dataToJson(params));
+    },
+
+    // 支付状态查询
+    checkPayStatus(params){
+        return fetchSign('/action2/pay/chkPayStatus.ashx',dataToJson(params));
+    },
+    
 
 
     /*
      * B2B核心业务
      */
-
-
-    //支付信誉保证金
-    payB2BCreditPoint(params){
-        return fetchSign('/action2/payB2BCreditPoint.ashx',dataToJson(params));
-    },
     
-    //我的信誉金流水账单
-    myB2BCreditPoint(params){
-        return fetchSign('/action2/MyB2BCreditPoint.ashx',dataToJson(params));
-    },
-
-
-    /*
-     * B2B车辆管理
-     */
-
-    
-    //发布B2B车辆
-    addOrEditB2BCar(params){
-        return fetchSign('/action2/AddOrEditB2BCar.ashx',dataToJson(params));
-    },
-
-    //删除、下架、上架 车辆
-    operateB2BCar(params){
-        return fetchSign('/action2/OperateB2BCar.ashx',dataToJson(params));
-    },
-    
-    //我的车源信息(状态混乱)
-    getMyB2BCarMobile(params){
-        return fetchSign('/action2/MyB2BCar.ashx',dataToJson(params));
-    },
-
-    //我的车源信息(PC)
-    getMyB2BCar(params){
-        return fetchSign('/action2/MyB2BCarPC.ashx',dataToJson(params));
-    },
-
-    //B2B车辆大厅列表
-    getB2BCarList(params){
-        return fetchSign('/action2/B2BCarList.ashx', dataToJson(params))
-    },
-
-    //B2B车辆大厅列表详情
-    getCarDetalis(params){
-        return fetchSign('/action2/B2BCarDetail.ashx', dataToJson(params))
-    },
-
-    // 批量刷新在售车源(all代表所有，否则传入以英文,号分隔的CarId)
-/**/    batchRefresh(params){
-        return fetchSign('/action2/FreshenB2BCar.ashx', dataToJson(params))
-    },
-
-    // B2B车辆大厅时间戳后新车数量
-/**/    newCarCount(params){
-        return fetchSign('/action2/B2BNewCarCount.ashx', dataToJson(params))
-    },
-    
-    
-    /*
-     * 个人中心
-     */
-    
-    // 修改个人信息
-    editMemberInfo(params){
-        return fetchSign('/action2/MemberInfoEdit.ashx',dataToJson(params));
-    },
-
-    // 银行卡管理
-    manageBankCard(params){
-        return fetchSign('/action2/BankCardMng.ashx',dataToJson(params));
-    },
-
-    // 修改密码
-    editPassword(params){
-        return fetchSign('/action2/EditPassword.ashx',dataToJson(params));
-    },
-    
-    // 忘记支付密码
-    forgetPayPass(params){
-        return fetchSign('/action2/EditPayPassword.ashx',dataToJson(params));
-    },
-
-    // 忘记密码（找回密码）
-    forgotPassword(params){
-        return fetchSign('/action2/ForgotPassword.ashx',dataToJson(params));
-    },
-
-    // 更绑手机号
-    editMobile(params){
-        return fetchSign('/action2/ReplaceMobile.ashx',dataToJson(params));
-    },
-    
-    // 设置支付密码
-    setPayPass(params){
-        return fetchSign('/action2/SetPayPassword.ashx',dataToJson(params));
-    },
-
-    // 修改支付密码
-    editPayPass(params){
-        return fetchSign('/action2/ForgotPasswordByOrg.ashx',dataToJson(params));
-    },
-
-    // 我的团队&我的粉丝
-/**/ 
-    myTeam(params){
-        return fetchSign('/action2/MyTeam.ashx',dataToJson(params));
-    },
-    
-
-    // 意见反馈可用类别
-    getFeedback(){
-        return fetchSign('/action2/FeedbackType.ashx');
-    },
-
-    // 意见反馈提交
-    feedbackSubmit(params){
-        return fetchSign('/action2/FeedbackSubmit.ashx',dataToJson(params));
-    },
-
-    // 我的意见反馈列表
-    myFeedbackList(params){
-        return fetchSign('/action2/FeedbackList.ashx',dataToJson(params));
-    },
-
-
-    /*
-     * 订单相关
-     */
-
-
     //秒杀立即下单接口
     getAddB2BOrder(params){
         return fetchSign('/action2/addB2BOrder.ashx', dataToJson(params))
@@ -727,10 +545,10 @@ export default {
 
     // 获取当前大厅最后几次推送的消息
     lastHallCarList(params){
-        return fetchSign('/action2/LastHallCarList.ashx', dataToJson(params))
+/**/        return fetchSign('/action2/LastHallCarList.ashx', dataToJson(params))
     },
 
-    // 管理我的购物车
+    // B2B购物车管理
     manageShoppingCart(params){
         return fetchSign('/action2/ShoppingCartMng.ashx', dataToJson(params))
     },
@@ -744,16 +562,302 @@ export default {
         }
         return fetchSign('/action2/ShoppingCartMng.ashx', dataToJson(data))
     },
+    
+    // 车商圈
+    carDealerCircle(params){
+/**/        return fetchSign('/action2/CarDealerCircle.ashx', dataToJson(params))
+    },
 
     // 平台交易历史记录
     tradeHistory(params){
-        return fetchSign('/action2/B2BOrderHistory.ashx', dataToJson(params))
+/**/        return fetchSign('/action2/B2BOrderHistory.ashx', dataToJson(params))
+    },
+
+    // 新车商排名（发车量为主）
+    carDealerCircleRanking(params){
+/**/        return fetchSign('/action2/CarDealerCircleRanking.ashx', dataToJson(params))
     },
 
     // 车行详情页
     CDGStoreDetails(params){
         return fetchSign('/action2/CDGStore.ashx', dataToJson(params))
     },
+    
+    // 合作商车辆推荐给线下客户
+    intermediaryShareB2B(params){
+/**/        return fetchSign('/action2/IntermediaryShareB2B.ashx', dataToJson(params))
+    },
+
+    // 发布同行急求
+    pushB2BCarNeed(params){
+/**/        return fetchSign('/action2/PushB2BCarNeed.ashx', dataToJson(params))
+    },
+
+    // 同行急求列表信息
+    B2BCarNeedList(params){
+/**/        return fetchSign('/action2/B2BCarNeedList.ashx', dataToJson(params))
+    },
+
+    // 置顶|删除|修改 同行急求
+    carDealerCircleRanking(params){
+/**/        return fetchSign('/action2/PushB2BCarNeed2Top.ashx', dataToJson(params))
+    },
+    
+
+    /*
+     * 激光推送
+     */
+
+
+    /*
+     * 认证类
+     */
+
+    // 获取认证详情信息
+    getAuthDetails(params){
+        return fetchSign('/action2/AuthDetail.ashx',dataToJson(params));
+    },
+
+    // 车行信息修改
+    cdgEdit(params){
+        return fetchSign('/action2/CdgEdit.ashx',dataToJson(params));
+    },
+    
+    // 车行认证
+    authApply(params){
+        return fetchSign('/action2/B2BAuthApply.ashx',dataToJson(params));
+    },
+
+    //车行认证
+    B2BAuthApply(params){
+        return fetchSign('/action2/B2BAuthApply.ashx',dataToJson(params))
+    },
+
+
+    /*
+     * B2B车辆管理
+     */
+
+    //发布B2B车辆
+    addOrEditB2BCar(params){
+        return fetchSign('/action2/AddOrEditB2BCar.ashx',dataToJson(params));
+    },
+
+    //删除、下架、上架 车辆
+    operateB2BCar(params){
+        return fetchSign('/action2/OperateB2BCar.ashx',dataToJson(params));
+    },
+    
+    //我的车源信息(状态混乱)
+    getMyB2BCarMobile(params){
+        return fetchSign('/action2/MyB2BCar.ashx',dataToJson(params));
+    },
+
+    //我的车源信息(PC)
+    getMyB2BCar(params){
+        return fetchSign('/action2/MyB2BCarPC.ashx',dataToJson(params));
+    },
+
+    //B2B车辆大厅列表
+    getB2BCarList(params){
+        return fetchSign('/action2/B2BCarList.ashx', dataToJson(params))
+    },
+
+    //B2B车辆大厅列表详情
+    getCarDetalis(params){
+        return fetchSign('/action2/B2BCarDetail.ashx', dataToJson(params))
+    },
+
+    // 批量刷新在售车源(all代表所有，否则传入以英文,号分隔的CarId)
+/**/    batchRefresh(params){
+        return fetchSign('/action2/FreshenB2BCar.ashx', dataToJson(params))
+    },
+
+    // B2B车辆大厅时间戳后新车数量
+/**/    newCarCount(params){
+        return fetchSign('/action2/B2BNewCarCount.ashx', dataToJson(params))
+    },
+    
+
+
+    /*
+     * 个人中心
+     */
+
+    // 修改个人信息
+    editMemberInfo(params){
+        return fetchSign('/action2/MemberInfoEdit.ashx',dataToJson(params));
+    },
+
+    // 银行卡管理
+    manageBankCard(params){
+        return fetchSign('/action2/BankCardMng.ashx',dataToJson(params));
+    },
+
+    // 修改密码
+    editPassword(params){
+        return fetchSign('/action2/EditPassword.ashx',dataToJson(params));
+    },
+    
+    // 忘记支付密码
+    forgetPayPass(params){
+        return fetchSign('/action2/EditPayPassword.ashx',dataToJson(params));
+    },
+
+    // 忘记密码（找回密码）
+    forgotPassword(params){
+        return fetchSign('/action2/ForgotPassword.ashx',dataToJson(params));
+    },
+
+    // 更绑手机号
+    editMobile(params){
+        return fetchSign('/action2/ReplaceMobile.ashx',dataToJson(params));
+    },
+    
+    // 设置支付密码
+    setPayPass(params){
+        return fetchSign('/action2/SetPayPassword.ashx',dataToJson(params));
+    },
+
+    // 修改支付密码
+    editPayPass(params){
+        return fetchSign('/action2/ForgotPasswordByOrg.ashx',dataToJson(params));
+    },
+
+    // 我的团队&我的粉丝
+    myTeam(params){
+/**/        return fetchSign('/action2/MyTeam.ashx',dataToJson(params));
+    },
+
+    // 意见反馈可用类别
+    getFeedback(){
+        return fetchSign('/action2/FeedbackType.ashx');
+    },
+
+    // 意见反馈提交
+    feedbackSubmit(params){
+        return fetchSign('/action2/FeedbackSubmit.ashx',dataToJson(params));
+    },
+
+    // 我的意见反馈列表
+    myFeedbackList(params){
+        return fetchSign('/action2/FeedbackList.ashx',dataToJson(params));
+    },
+
+    // 获取我的我的个人信息
+    getMyMemberInfo(params){
+        return fetchSign('/action2/MyMemberInfo.ashx',dataToJson(params));
+    },
+
+    // 合作签约合同提交
+    signPartnerContract(params){
+/**/        return fetchSign('/action2/signPartnerContract.ashx',dataToJson(params));
+    },
+
+
+    /*
+     * 收藏夹
+     */
+    
+    // B2B车商收藏管理
+    myFavoriteCdg(params){
+        return fetchSign('/action2/FavoriteCdg.ashx',dataToJson(params));
+    },
+
+    // B2B车辆收藏管理
+    myFavoriteCar(params){
+        return fetchSign('/action2/FavoriteB2BCar.ashx',dataToJson(params));
+    },
+
+
+    /*
+     * 验证、登录及注册类
+     */
+    
+    //图形验证码
+    imgRandomCode(params){
+/**/        return fetch('/action2/ImgRandomCode.ashx', qs.stringify(params))
+    },
+
+    //用户登录||(FormData提交方式[qs转换])
+    Login(params){
+        return fetch('/action2/UserLogin.ashx', qs.stringify(params))
+    },
+
+    // 获取手机验证码(语音或者短信)
+    getSMSCode(params){
+        return fetchSign('/action2/GetSMSCode.ashx',dataToJson(params));
+    },
+
+    // 检测手机号是否已经被使用过
+    checkMobileCanReg(params){
+        return fetchSign('/action2/CheckMobileCanReg.ashx',dataToJson(params));
+    },
+
+    // 检测手机号是否已经被使用过
+    getOpenId(params){
+        return fetchSign('/action2/GetOpenId.ashx',dataToJson(params));
+    },
+    
+    // 注册
+    register(params){
+        return fetchSign('/action2/RegUser.ashx',dataToJson(params));
+    },
+
+    // 手机加短信登录（无账号自动注册）
+    loginByMobile(params){
+        return fetchSign('/action2/UserLoginByMobile.ashx',dataToJson(params));
+    },
+    
+
+    /*
+     * 第三方接入
+     */
+    
+    //查违章-支持的省份
+    trafficViolationProvince(params){
+/**/        return fetch('/action2/TrafficViolationProvince.ashx', qs.stringify(params))
+    },
+
+    //查违章-支持的城市及所需要的车架号或发机动
+    trafficViolationCity(params){
+/**/        return fetch('/action2/TrafficViolationCity.ashx', qs.stringify(params))
+    },
+
+    //查违章-查询车辆实际违章
+    trafficViolationSearch(params){
+/**/        return fetch('/action2/TrafficViolationSearch.ashx', qs.stringify(params))
+    },
+
+    //查违章-根据记录编号展示查询记录
+    trafficViolationView(params){
+/**/        return fetch('/action2/TrafficViolationView.ashx', qs.stringify(params))
+    },
+
+    //查违章-我的查询记录列表
+    trafficViolationList(params){
+/**/        return fetch('/action2/TrafficViolationList.ashx', qs.stringify(params))
+    },
+
+    //B2B查保养-创建查询
+    XMaintenanceRrecordFree(params){
+/**/        return fetch('/action2/XMaintenanceRrecordFree.ashx', qs.stringify(params))
+    },
+
+    //B2B查保养-查询列表
+    XMaintenanceRrecordFreeList(params){
+/**/        return fetch('/action2/XMaintenanceRrecordFreeList.ashx', qs.stringify(params))
+    },
+
+    //B2B查保养-查看具体报告
+    XMaintenanceRrecordFreeReportShow(params){
+/**/        return fetch('/action2/XMaintenanceRrecordFreeReportShow.ashx', qs.stringify(params))
+    },
+
+
+    /*
+     * 环信IM
+     */
 
 
     /*
@@ -775,15 +879,15 @@ export default {
         
     },
 
+    // 安卓版本
+    androidVersion(){
+        return get('/action2/AndroidVersion.ashx')
+    },
+
     // 广告帮助等视频
     getAdVideos(){
         return get('/action2/AdvertisementVideo.ashx')
     },
     
-    
-    // 相似推荐
-    getSimilarRecommend(params){
-        return fetchSign('/action2/SimilarRecommend.ashx', dataToJson(params))
-    },
 
 }

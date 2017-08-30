@@ -8,19 +8,19 @@
 		    		<i class="iconfont icon-close"></i>
 		    	</a>
 		    </div>
-		    <!-- <div class="m-login-tab f__clearfix">
-		    	<a href="javascript:;" class="u-tab-item" @click="changeLoginType(0)" :class="{active:loginType==0}">
+		    <div class="m-login-tab f__clearfix">
+		    	<a href="javascript:;" class="u-tab-item left" @click="changeLoginType(0)" :class="{active:loginType==0}">
 		    		密码登录
 		    	</a>
-		    	<a href="javascript:;" class="u-tab-item"  @click="changeLoginType(1)" :class="{active:loginType==1}">
-		    		短信验证码登录
+		    	<a href="javascript:;" class="u-tab-item right"  @click="changeLoginType(1)" :class="{active:loginType==1}">
+		    		手机号快捷登录
 		    	</a>
-		    </div> --><!-- 登录方式选择 -->
-            <div class="m-login-tab one">
+		    </div><!-- 登录方式选择 -->
+            <!-- <div class="m-login-tab one">
                 <a href="javascript:;" class="u-tab-item active">
                     账号登录
                 </a>
-            </div><!-- 框标题 -->
+            </div> --><!-- 框标题 -->
 
 
             <div class="m-login-ipt" v-show="loginType==0">
@@ -103,6 +103,7 @@
                 	    <div class="u-ipt-box code">
                 		    <input class="u-ipt"
                                 v-model="smsCodeTwo"
+                                @keyup.13="onSubmitTwo"
                                 auto-complete="off" placeholder="请输入短信验证码" />
                             <a href="javascript:;"
                                 class="code-btn" 
@@ -120,6 +121,12 @@
                 		</div>
                 	</div>
                     
+                    <div class="gp-other">
+                        <a href="javascript:;" 
+                            @click="getSmsCodeTwo('voice')"
+                            class="u-lk">获取不到短信验证码？试试语音验证</a>
+                    </div>
+
                 	<div class="m-gp-line m-btn-oper">
                 		<button class="u-btn login-btn"  @click="onSubmitTwo">登录</button>
                 	</div>
@@ -199,11 +206,22 @@
         },
         //数据侦听
         watch:{
+            // 普通登录
             nameOne(val){
                 this.validator.validate('nameOne',val);
             },
             passOne(val){
                 this.validator.validate('passOne',val);
+            },
+            // 手机号快捷登录
+            telTwo(val){
+                this.validator.validate('telTwo',val);
+            },
+            imgCodeTwo(val){
+                this.validator.validate('imgCodeTwo',val);
+            },
+            smsCodeTwo(val){
+                this.validator.validate('smsCodeTwo',val);
             },
         },
     	methods:{
@@ -216,6 +234,11 @@
             //更换登录模式
             changeLoginType(num){
                 this.loginType = num
+                if(num=='0'){
+                    this.resetTwo();
+                }else if(num=='0'){
+                    this.resetOne();
+                }
             },
             //立即去注册
             goRegister(){
@@ -318,20 +341,111 @@
                     // 验证成功
                     if(res){
                         let data = {
-                            username: this.nameOne,
-                            userpass: this.passOne,
+                            mobile: this.telTwo,
+                            vcode: this.smsCodeTwo,
                             loginType: 'BusinessPC'
                         }
-                        me.putCommitOne(data);
+                        me.putCommitTwo(data);
                     }
                 }).catch(error => {
                     console.log(error);
                 });
             },
 
+            // 提交手机快捷登录
+            putCommitTwo(data){
+                api.loginByMobile(data)
+                    .then(res => {
+                        if(res.code === SYSTEM.CODE_IS_OK){
+                            this.setUserInfo(res.data)
+                            this.closeBox();
+                            this.$notify({
+                                title: '登录成功',
+                                message: '恭喜您登录成功！',
+                                type: 'success',
+                                duration: 1200,
+                            });
+                            //清空普通登录框
+                            this.resetOne();
+
+                        }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                            this.resetTwo();
+                            setTimeout(() => {
+                                this.errors.remove('telTwo');
+                                this.errors.add('telTwo', res.msg, 'auth');
+                            })
+                            
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            },
+
             //获取验证码
             getImgCodeTwo(){
                 this.timestamp = (+new Date()).valueOf();
+            },
+
+            // 向后台获取短信验证码，发送到用户手机上
+            getSMSCode(type,callBack){
+                let data = {
+                    Mobile: this.telTwo,
+                    ImgCode: this.imgCodeTwo,
+                    CodeType: type||'text',
+
+                }
+                let isSuccess;
+                api.getSMSCode(data).then(res=>{
+                    if(res.code==SYSTEM.CODE_IS_OK) {
+                        isSuccess = true;
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        isSuccess = false;
+                    }
+                    if(callBack){
+                        callBack(isSuccess,res.msg);
+                    }
+                })
+            },
+            
+            // 获取短信验证码
+            getSmsCodeTwo(oType){
+                let codeType = oType||'text';
+
+                if(this.imgCodeTwo==""||this.errors.first('imgCodeTwo')){
+                    this.errors.remove('imgCodeTwo');
+                    this.errors.add('imgCodeTwo', "请输入图形验证码", 'auth');
+                    return;
+                }
+
+                // 获取短信验证码
+                this.getSMSCode(codeType,(state,msg)=>{
+
+                    if(state){ //成功
+                        this.waitSeconds = MAX_WAIT_SECONDS;
+                        this.myInterval = setInterval(() => {
+                            this.waitSeconds--;
+                            if(this.waitSeconds==0){
+                                clearInterval(this.myInterval)
+                            }
+                        },1000);
+                    }else{  //失败
+                        this.errors.remove('imgCodeTwo');
+                        this.errors.add('imgCodeTwo', msg, 'auth');
+                    }
+                });
+
+            },
+
+            // 重置密码登录的数据
+            resetTwo(){
+                this.telTwo = "";
+                this.imgCodeTwo = "";
+                this.smsCodeTwo = "";
+                // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
+                setTimeout(() => {
+                    this.errors.clear();
+                })
             },
 
     	}
