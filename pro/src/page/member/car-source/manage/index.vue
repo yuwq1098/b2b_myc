@@ -7,7 +7,9 @@
             <div slot="content">
                 
                 <member-inner>
-                    <div class="m-source-con">
+                    <div class="m-source-con" 
+                        v-loading="loading"
+                        :element-loading-text="loadingText">
                         <div class="m-tab-box f__clearfix">
                             <a href="javascript:;" 
                                 @click="tabChange(1)"
@@ -48,13 +50,25 @@
                                 <source-con v-if="forSaleList.length>0"
                                     @getMoreData="getMoreData(1,forSaleList)"
                                     :isNotMore="isNotMoreItems[0]"
-                                    :isShowMore="forSaleList.length>=pageSize">
+                                    :isShowMore="forSaleList.length>=pageSize"
+                                    :isOnSale="true"
+                                    @sourceEdited="sourceEdited"
+                                    @onOffAllChange="onOffAllChange"
+                                    :allInChecked="onOffAllChecked"
+                                    :isIndeterminate="isIndeterminate"
+                                    >
                                     <div slot="content">
                                         <source-list
                                             @addedSource="addedSource"
                                             @editSource="editSource"
                                             @soldOutSource="soldOutSource"
                                             :sourceList="forSaleList"
+                                            :isOnSale="true"
+                                            :onEdited="onEdited"
+                                            @theStickChange="theStickChange"
+                                            @onOffAllCheckFn="onOffAllCheckFn"
+                                            :allInChecked="onOffAllChecked"
+                                            @indeterminateCheck="indeterminateCheck"
                                             >    
                                         </source-list>
                                     </div>
@@ -251,10 +265,22 @@
                 failureList: [],
 
                 // 我的分页（每页数据大小）
-                pageSize: 12,
+                pageSize: 8,
+                
                 
                 // 是否有更多的集合
-                isNotMoreItems:[false,false,false,false,false,false]
+                isNotMoreItems:[false,false,false,false,false,false],
+
+                // 选择批量编辑的车源
+                theStick: [],
+                // 是否全选
+                onOffAllChecked: true,
+                // 选择只选择了部分
+                isIndeterminate: false,
+                onEdited: false,
+
+                loading: false,
+                loadingText: "置顶中，请稍后...",
             }
         },
         //生命周期,开始的时候
@@ -271,7 +297,7 @@
         // 退出的生命周期钩子
         deactivated(){
             // 清除所有数据
-            this.clearData();
+            this.reset();
         },
         // 属性值计算
         computed:{
@@ -286,7 +312,7 @@
             // 选项卡切换方法
             tabChange(index){
                 // 清除所有数据
-                this.clearData();
+                this.reset();
                 // 开始切换
                 this.$router.push({
                     path:'/member/sourceHome',
@@ -429,8 +455,85 @@
                 }
             },
 
+            sourceEdited(params){
+                if(!params){
+                    this.batchToTop();
+                    return;
+                }
+                this.onEdited = params;
+            },
+            
+            // 选择车源编辑的变化
+            theStickChange(sourceArr){
+                this.theStick = sourceArr;
+            },
+            
+            // list组件中
+            onOffAllCheckFn(params){
+                this.onOffAllChecked = params;
+            },
+            // con组件中是否全选的变化，传递给list组件
+            onOffAllChange(params){
+                this.onOffAllChecked = params;
+            },
+          
+            // 是否为模糊选择
+            indeterminateCheck(params){
+                this.isIndeterminate = params;
+            },
+            
+            // 批量置顶
+            batchToTop(){
+                
+                let idArr = this.theStick;
+                if(!idArr.length){
+                    this.$notify({
+                        title: '温馨提示',
+                        message: "请至少选择一辆车源进行编辑！",
+                        type: 'warning',
+                        duration: 1500,
+                    });
+                    return;
+                }
+                
+                this.loading = true;
+                var carIds;
+                // 计算出需要批量操作的id数据
+                if(this.onOffAllChecked==true){
+                    carIds = 'all';
+                }else{
+                    carIds = idArr.join(",");
+                }
+                
+                let data = {
+                    CarIds: carIds,
+                }
+                api.batchRefresh(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.onEdited = false;
+                        this.$notify({
+                            title: '成功批量刷新/置顶',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 2000,
+                        });
+                        this.loading = false;
+                        this.tabChange(1);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '批量刷新/置顶失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                        this.loading = false;
+                    }
+                })
+
+            },
+
             // 清空所有列表数据
-            clearData(){
+            reset(){
                 this.forSaleList= [];
                 this.tradingList= [];
                 this.auditList= [];
@@ -438,6 +541,18 @@
                 this.notOnList= [];
                 this.failureList= [];
                 this.isNotMoreItems = [false,false,false,false,false,false];
+                
+                // 选择批量编辑的车源
+                this.theStick = [];
+                // 是否全选
+                this.onOffAllChecked = true;
+                // 选择只选择了部分
+                this.isIndeterminate = false;
+                this.onEdited = false;
+
+                this.loading = false;
+                this.loadingText = "置顶中，请稍后...";
+
             },
             // 上架车源(当已是上架时，刷新置顶，每天一次)
             addedSource(id,acted){
@@ -533,6 +648,13 @@
         
     }
 </script>
+
+<style lang="stylus" rel="stylesheet/stylus">
+    .m-source-con
+        .el-loading-spinner
+            top 30%!important
+</style>
+
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>

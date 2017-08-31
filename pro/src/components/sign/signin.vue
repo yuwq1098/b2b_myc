@@ -55,6 +55,7 @@
                 	</div>
                 	<div class="m-gp-line m-btn-oper">
                 		<button class="u-btn login-btn" @click="onSubmitOne">登录</button>
+                        <button class="reset-btn" @click="resetOne">重置</button>
                 	</div>
                 </div>
             </div><!-- 普通登录方式 -->
@@ -91,7 +92,7 @@
                                 @click="getImgCodeTwo()"
                                 >
                                 <img class="u-pic" 
-                                    :src="'https://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+timestamp"/>
+                                    :src="URL()+'/action2/ImgRandomCode.ashx?FS=18&a='+timestamp"/>
                             </a>
             			</div>
                 	</div>
@@ -129,6 +130,7 @@
 
                 	<div class="m-gp-line m-btn-oper">
                 		<button class="u-btn login-btn"  @click="onSubmitTwo">登录</button>
+                        <button class="reset-btn" @click="resetTwo">重置</button>
                 	</div>
                 </div>
 		    </div><!-- 手机号登录方式 -->
@@ -411,8 +413,16 @@
             // 获取短信验证码
             getSmsCodeTwo(oType){
                 let codeType = oType||'text';
+                
+                if(this.telTwo==""||this.errors.first('telTwo')){
+                    this.errors.remove('telTwo');
+                    this.errors.add('telTwo', "请输入手机号", 'auth');
+                    return;
+                }
 
                 if(this.imgCodeTwo==""||this.errors.first('imgCodeTwo')){
+                    // 重置图形验证码
+                    this.resetImgCode();
                     this.errors.remove('imgCodeTwo');
                     this.errors.add('imgCodeTwo', "请输入图形验证码", 'auth');
                     return;
@@ -430,13 +440,20 @@
                             }
                         },1000);
                     }else{  //失败
+                        // 重置图形验证码
+                        this.resetImgCode();
                         this.errors.remove('imgCodeTwo');
                         this.errors.add('imgCodeTwo', msg, 'auth');
                     }
                 });
 
             },
-
+            
+            // 重置图形验证码
+            resetImgCode(){
+                this.imgCodeTwo = "";
+                this.getImgCodeTwo();
+            },
             // 重置密码登录的数据
             resetTwo(){
                 this.telTwo = "";

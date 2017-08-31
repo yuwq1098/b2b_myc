@@ -91,6 +91,7 @@
                     </div>
                     <div class="m-gp-line m-btn-oper">
                         <button class="u-btn login-btn" @click="onSubmit">登录</button>
+                        <button class="reset-btn" @click="reset">重置</button>
                     </div>
                 </div>
             </div>

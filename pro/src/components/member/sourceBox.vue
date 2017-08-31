@@ -4,7 +4,9 @@
 
  <template>
     <div class="sourceBox">
-        <div class="m-source-box">
+        <div class="m-source-box" :class="[onEdit?'onEdit':'']"
+            @click="changeCheck(sourceInfo.id)"
+            >
             <a href="javascript:;" class="m-lk">
                 <div class="m-pic-box">
                     <p class="u-label" 
@@ -151,7 +153,12 @@
             boxType: {
                 type: String,
                 default: ""
-            } 
+            },
+            // 是否在编辑
+            onEdit:{
+                type: Boolean,
+                default: false,
+            },
         },
         // 自定义函数(方法)
         methods: {
@@ -170,6 +177,13 @@
             // 删除车源
             delSource(id){
                 this.$emit("delSource",id);
+            },
+            // 改变选中值
+            changeCheck(id){
+                if(!this.onEdit){
+                    return;
+                }
+                this.$emit("changeCheck",id);
             }
         },    
     }
@@ -178,11 +192,29 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
+    
+    $boxWidth_t1 = 225px;
+    $boxWidth_t2 = 200px;
+
     .m-source-box
-        width 225px
+        width $boxWidth_t1
         height 260px
         _boxShadow(12px,rgba(0,0,0,.08))
         position relative
+        &.onEdit
+            width $boxWidth_t2
+            _overflow()
+            &::before
+                content ""
+                _display()
+                width @width - 4px
+                height @height - 4px
+                $color = #2F98E2
+                _borderAll(2px,$color)
+                _colorOpacity(background,$color,.25)
+                _completeCenter()
+                z-index 999
+                cursor pointer
         .m-lk
             _display()
             width @width
@@ -264,7 +296,7 @@
                                 margin -1px 0 0
                                 _spacingPlus(2px)
                 .u-con
-                    width 225px - 12px
+                    width @width - 12px
                     height @height - 12px
                     padding 6px
                     background #fff

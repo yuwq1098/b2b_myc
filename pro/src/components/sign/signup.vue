@@ -94,6 +94,7 @@
 
                     <div class="m-gp-line m-btn-oper">
                         <button class="u-btn login-btn" @click="onSubmit">登录</button>
+                        <button class="reset-btn" @click="reset">重置</button>
                     </div>
                 </div>
             </div>
@@ -208,6 +209,13 @@
                     this.errors.remove('telReg');
                     this.errors.add('telReg', "请正确输入您的手机号", 'auth');
                 }else{
+
+                    if(this.passReg==""||this.errors.first('passReg')){
+                        this.errors.remove('passReg');
+                        this.errors.add('passReg', "请输入预设置的密码", 'auth');
+                        return;
+                    }
+
                     if(this.imgCodeReg==""||this.errors.first('imgCodeReg')){
                         this.errors.remove('imgCodeReg');
                         this.errors.add('imgCodeReg', "请输入图形验证码", 'auth');

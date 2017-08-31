@@ -341,6 +341,11 @@ _opacity(n)
     -o-opacity n
     opacity n
 
+//---颜色透明
+_colorOpacity(attr,color,opacity)
+    // 插值
+    {attr} color - rgba(0,0,0,1 - opacity)
+
 
 //---旋转
 _rotate(angle=0)
@@ -393,7 +398,6 @@ _translate3d(x=0,y=0,z=0)
     -moz-transform: translate3d(x,y,z);
     -o-transform: translate3d(x,y,z);
     transform: translate3d(x,y,z);
-
 
 //---过渡
 _transitionAll(duration=.3s,timingFn=linear,delay=0s)

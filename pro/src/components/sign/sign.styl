@@ -42,12 +42,8 @@
                 _translate3d(0,2px)
             &:hover
                 color $c_blue
-    &.signin
-        _completeCenter(,,100px,auto,fixed)            
-    &.signup
-        _completeCenter(,,100px,auto,fixed)
-    &.forget
-        _completeCenter(,,100px,auto,fixed)
+    &.signin,&.signup,&.forget
+        _completeCenter(,,80px,auto,fixed)
     .m-login-tab
         height 44px
         width 300px
@@ -180,6 +176,7 @@
                     padding-top 12px
                     margin-bottom 0
                     width @width
+                    position relative
                     .u-btn
                         border none
                         width @width
@@ -189,8 +186,27 @@
                         font-size 16px
                         _spacingPlus(8px)
                         background $c_blue
+                        &.login-btn
+                            width @width - 120px
                         &:hover
                             background $c_blue + 8% - 2deg
+                        &:active
+                            background $c_blue + 3% + 2deg
+                    .reset-btn
+                        border none
+                        width 105px
+                        height 42px
+                        _borderRadius(5px)
+                        color #545454
+                        font-size 16px
+                        _spacingPlus(8px)
+                        background #fafafa
+                        _completeCenter(auto,0,12px,auto)
+                        _borderAll(#e2e2e2)
+                        &:hover
+                            background @background - 4% - 1deg
+                        &:active
+                            background @background - 2% + 1deg
     .gp-other
         text-align right
         margin-bottom 10px
@@ -231,9 +247,9 @@
 @media screen and (max-height: 680px)
     .m-sign-box
         &.signin,&.signup,&.forget
-            _completeCenter(,,68px,auto,fixed)
+            _completeCenter(,,65px,auto,fixed)
 @media screen and (min-height: 800px)
     .m-sign-box
         &.signin,&.signup,&.forget
-            _completeCenter(,,120px,auto,fixed)
+            _completeCenter(,,95px,auto,fixed)
 

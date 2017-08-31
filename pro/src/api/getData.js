@@ -402,7 +402,7 @@ export default {
 
     //获取所有城市
     getAllCityList(){
-        return get('/action2/AllCity.ashx');
+        return fetch('/action2/AllCity.ashx');
     },
     
     //保存订阅信息
@@ -786,7 +786,7 @@ export default {
 
     // 获取手机验证码(语音或者短信)
     getSMSCode(params){
-        return fetchSign('/action2/GetSMSCode.ashx',dataToJson(params));
+        return fetch('/action2/GetSMSCode.ashx',JSON.stringify(params));
     },
 
     // 检测手机号是否已经被使用过

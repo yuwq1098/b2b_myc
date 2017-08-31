@@ -43,7 +43,7 @@
                                     @click="getImgCode()"
                                     >
                                     <img class="u-pic" 
-                                        :src="'https://www.muyouche.com/action2/ImgRandomCode.ashx?FS=18&a='+timestamp"/>
+                                        :src="URL()+'/action2/ImgRandomCode.ashx?FS=18&a='+timestamp"/>
                                 </a>
                             </div>
                             

@@ -23,6 +23,7 @@
                     </template>
                 </ul>
             </div><!-- 颜色选择区 -->
+
             <div class="m-color-info">
                 <p class="u-none" v-if="!selectedColor">请选择车辆颜色</p>
                 <div class="m-selected" v-if="selectedColor">
@@ -35,9 +36,12 @@
                     </div>
                 </div>
             </div><!-- 颜色选择提示 -->
+            
         </div>
     </div>
 </template>
+
+
 
 <script>
 
@@ -128,6 +132,7 @@
     }
 </script>
 
+
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
@@ -206,8 +211,6 @@
                         _display(inline-block)
                         _translate3d(0,-1px)
                         text-shadow rgba(0,0,0,.18) 0 0 4px 
-
-
 
 
 </style>

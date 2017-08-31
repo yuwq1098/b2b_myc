@@ -16,6 +16,7 @@ class sourceInfo{
 	    this.price = data.B2BPrice||0            // 价格
 	    this.retailPrice = data.RetailPrice||0   // 普通市场价格
 	    this.status = data.Status||0             // 车源状态
+	    this.checked = false                     // 是否选中
 
 	    //如果未认证，那么身份标识为未认证
 	    switch(this.status.toString()){
