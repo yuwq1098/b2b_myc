@@ -208,9 +208,10 @@
                     &:active
                         background @background + 4%
                     &.affirm
-                        _borderRadius(6px)
+                        _borderRadius(16px)
                         background $c_blue
                         &:hover
+                            _borderRadius(3px)
                             background @background + 12%
                         &:active
                             background @background + 4%

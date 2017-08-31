@@ -197,7 +197,7 @@
             },
             // 全选/全不选
             allInOnOff(val){
-                this.theStick = val?this.allTheStick:[];
+                this.theStick = val?[].concat(this.allTheStick):[];
                 // 非不确定选择
                 this.$emit('indeterminateCheck',false);
                 // 触发变化
