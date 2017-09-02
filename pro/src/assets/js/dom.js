@@ -47,6 +47,89 @@ export function toggleClass(el,className){
 
 
 /** 
+* @description 判断当前浏览器是否支持某个css3属性
+* @param array/string 传入对应css3属性名
+*/ 
+export function supportCssToBrowser(cssParams){
+    var numargs = arguments.length;
+    var valType = getValClass(arguments[0]);
+    var element = document.createElement('div');
+
+    switch(valType){
+        case "String":
+            return verifyByString(cssParams);
+            break;
+        case "Null": 
+            break;
+        case "Object": 
+            break;
+        case "Array": 
+            return verifyByArray(cssParams);
+            break;
+        case "Json": 
+            break;
+    }
+    
+    // 字符串验证
+    function verifyByString(cssParams){
+        var newStr = cssParams;
+        var currRes = false;
+        
+        if(newStr[0]=='-'){
+            newStr = newStr.substr(1);
+            var strArrs = newStr.split("-");
+            var i =0,len=strArrs.length;
+            for(;i<len;i++){
+                if(i==0){
+                    continue;
+                }
+                strArrs[i] = setCapitalize(strArrs[i]);
+            }
+            newStr = strArrs.join("");
+            if(newStr in element.style){
+                currRes = true;
+            }else{
+                currRes = false;
+            }
+        }
+        return currRes;
+    }
+
+    // 数组验证
+    function verifyByArray(cssParams){
+        var allStrArr = cssParams;
+        var allRes = true;
+        var index =0,len=allStrArr.length;
+
+        for(;index<len;index++){
+            allRes = allRes && verifyByString(allStrArr[index]);
+        }
+        return allRes;
+    }
+
+}
+
+
+/** 
+* @description 首字母大写
+* @return String 待变换字符串
+*/ 
+export function setCapitalize(str){
+    return str.replace(/\b\w+\b/g,function(word){
+        return word.substring(0,1).toUpperCase() + word.substring(1);
+    });
+}
+
+/** 
+* @description 获取值类型
+* @return String 类型名
+*/ 
+export function getValClass(x) {
+    var str = Object.prototype.toString.call(x);
+    return /^\[object (.*)\]$/.exec(str)[1]; 
+}
+
+/** 
 * @description 判断是否是微信浏览器内核
 * @return boolean 是否是微信浏览器内核
 */ 
@@ -344,16 +427,6 @@ export function sliceArray(array,num=8){
         }
     }   
     return arr2;
-}
-
-
-/** 
-* @description 获取值类型
-* @return String 类型名
-*/ 
-export function getValClass(x) {
-    var str = Object.prototype.toString.call(x);
-    return /^\[object (.*)\]$/.exec(str)[1]; 
 }
 
 

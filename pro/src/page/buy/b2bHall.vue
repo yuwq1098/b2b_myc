@@ -423,8 +423,6 @@
     //本地的过滤筛选数据
     import * as filterData from "api/localJson/filter.js"
 
-    //每页显示条数
-    const RESULE_PAGE_SIZE = 25
     //搜索延迟
     const SEARCH_DELAY = 150
     
@@ -531,7 +529,7 @@
                   */
                 resultPage:{ 
                     currentPage : 1,
-                    pageSize : 25,
+                    pageSize : SYSTEM.HALL_RESULE_PAGE_SIZE,
                     totalPage : 0
                 },
                 
@@ -682,7 +680,7 @@
                 let lastSrhVal = this.srhValItems[this.srhValItems.length-1];
                 let data = {
                     "PageSize": 20,
-                    "PageIndex": RESULE_PAGE_SIZE,
+                    "PageIndex": 1,
                     "LikeKey": lastSrhVal,
                 }
                 api.getB2BCarList(data).then((res) => {
@@ -783,7 +781,7 @@
                 this.isNotBrand = this.userFilterData.brand?false:true;
                 
                 //设置分页控件的分页大小
-                this.searchFilterList.PageSize = RESULE_PAGE_SIZE;
+                this.searchFilterList.PageSize = SYSTEM.HALL_RESULE_PAGE_SIZE;
                 this.searchFilterList.PageIndex = 1;
 
                 //页面渲染
@@ -1000,7 +998,6 @@
             
             // 车辆所在城市选择
             carInCityChangeEnd(val,allName){
-                console.log(allName.split("/")[1])
                 let cityName = allName.split("/")[1];
                 // 设置展示给界面  用户所选条件集合中 排序类型的的lable
                 this.userFilterData.carInCity = cityName; 
@@ -1202,8 +1199,6 @@
             
             // 根据筛选数据渲染页面
             renderByData(data){
-                // this.resultPage.currentPage = parseInt(data.PageIndex);
-                // this.resultPage.pageSize = parseInt(RESULE_PAGE_SIZE);
 
                 //获取数据并设置分页条数
                 this._getB2bCarList(data);

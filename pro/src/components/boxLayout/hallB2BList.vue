@@ -8,6 +8,7 @@
                             :carInfo="item"
                             :loginStatus="loginStatus"
                             :isAuthSuccess="memberData&&memberData.isAuthSuccess"
+                            :hasTextGradient="hasTextGradient"
                             >
                         </hall-b2b-box>
                     </li>
@@ -20,6 +21,8 @@
 
 <script>
     
+    // dom操作方法
+    import * as geekDom from "assets/js/dom.js"
     // b2b车辆信息盒子组件
     import hallB2bBox from "components/common/hallB2bBox.vue"
 
@@ -32,7 +35,8 @@
         // 数据
         data() {
             return{
-
+                // 支持文字渐变
+                hasTextGradient: geekDom.supportCssToBrowser(['-webkit-background-clip','-webkit-text-fill-color']),
             }
         },
         props:{

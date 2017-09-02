@@ -1,4 +1,7 @@
 
+// 引入系统变量
+import * as SYSTEM from 'api/system.js'
+
 //展示用户所选筛选条件构造类
 class filterShowData{
     constructor(key,value,label) {
@@ -30,7 +33,8 @@ class filterDataClass{
 //用户向后台发起api请求的数据的构造类
 class searchFilterClass{
     constructor(data) {
-        this.PageSize = data.PageSize||"8",                            // pageSize页面规格 默认10
+        // pageSize页面规格 默认10
+        this.PageSize = data.PageSize||SYSTEM.HALL_RESULE_PAGE_SIZE.toString(),
         this.PageIndex = data.PageIndex||"1",                          // pageIndex当前页序 默认第1页
         this.CarBrandId = data.CarBrandId||"",                                // 汽车品牌id
         this.CarSeriesId = data.CarSeriesId||"",                              // 车系id

@@ -16,6 +16,9 @@ export const MIN_CREDIT_GOLD = 200
 // 支付信誉保证金提示文本
 export const DEAL_CREDIT_TEXT = "200元（限时活动）"; 
 
+// b2b大厅搜索条数限制
+export const HALL_RESULE_PAGE_SIZE = 25
+
 /**
  * B2B订单状态
  */

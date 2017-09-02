@@ -73,7 +73,9 @@
 
                         <div class="u-other">{{carInfo.inCity}} | {{carInfo.plateDate | dateYearFormat}} | {{carInfo.mileage | mileFn(1)}}</div><!-- 其他 -->
                         <div class="u-cdg-info">
-                            <p class="cname">{{carInfo.cName}}</p>
+                            <p class="cname"
+                                :class="{'t-gradient':hasTextGradient}"
+                                >{{carInfo.cName}}</p>
                         </div><!-- 商家车行信息 -->
                         <div class="u-time-block">
                             <p class="time">{{carInfo.shelveTime | formatDate}}</p>
@@ -129,7 +131,11 @@
                 type: Boolean,
                 default: false,
             },
-
+            // 支持文字渐变
+            hasTextGradient: {
+                type: Boolean,
+                default: false,
+            },
         },
         computed:{
             theAuthType(){
@@ -194,6 +200,20 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
+    .t-gradient{
+        _gradientText()
+    }
+    @keyframes masked-animation {
+        0% {
+            background-position: 0%  0;
+        }
+        50% {
+            background-position: 100%  0;
+        }
+        100% {
+            background-position: 0%  0;
+        }
+    }
     .m-car-box
         width 228px
         height 255px
@@ -330,6 +350,7 @@
                         font-size 13px
                         .cname
                             color #40474a
+                            
                             _display()
                             _ellipsis()
                     .u-time-block
@@ -362,5 +383,6 @@
                     .u-mask
                         _transitionAll(.3s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
                         _translate3d(0,-83px )
+
 
 </style>

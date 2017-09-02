@@ -112,6 +112,17 @@ _color(color)
 _bgColor(bg=$c_white)
     background-color bg
 
+//---文字渐变技巧
+_gradientText(){
+    background-color: #DA4AF3;
+    background-image: linear-gradient(116deg, #FF9800 0%, #ff2a6b 33%, #fb2bf6 58%, #9e3dff 78%, #5f3df7 90%, #2b83ff 100%);
+
+    -webkit-text-fill-color: transparent;/* 将字体设置成透明色 */
+    -webkit-background-clip: text;/* 裁剪背景图，使文字作为裁剪区域向外裁剪 */
+    -webkit-background-size: 300% 100%; 
+    // -webkit-animation: masked-animation 5s linear infinite alternate; 
+    -webkit-animation: masked-animation 5s linear infinite; 
+}
 
 //---显示方式
 _display(arg=block)
