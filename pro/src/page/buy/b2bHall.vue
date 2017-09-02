@@ -322,7 +322,7 @@
                         <div class="m-con">
 
                             <div class="m-carlist-true" v-if="b2bCarList&&b2bCarList.length>0">
-                                <b2b-car-list-box
+                                <hall-b2b-list
                                     :carList="b2bCarList"
                                     :loginStatus="loginStatus"
                                     :memberData="memberData"
@@ -330,7 +330,7 @@
                                     :hasAuth= "hasAuth"
                                     :hasCredit= "hasCredit"
                                     >
-                                </b2b-car-list-box>
+                                </hall-b2b-list>
 
                                 <div class="m-page" v-show="resultPage.totalPage>0">
                                     <el-pagination
@@ -414,7 +414,7 @@
     // b2b车辆信息构造类
     import {b2bCarInfo} from "base/class/carInfo.js"
     // b2b车辆信息列表盒子
-    import b2bCarListBox from "components/boxLayout/b2bCarListBox.vue"
+    import hallB2bList from "components/boxLayout/hallB2bList.vue"
     
     // 搜索结果盒子
     import srhResultBox from "components/common/srhResultBox.vue"
@@ -423,8 +423,8 @@
     //本地的过滤筛选数据
     import * as filterData from "api/localJson/filter.js"
 
-    //每页显示八条
-    const RESULE_PAGE_SIZE = 8
+    //每页显示条数
+    const RESULE_PAGE_SIZE = 25
     //搜索延迟
     const SEARCH_DELAY = 150
     
@@ -435,7 +435,7 @@
             gkBreadCrumb,
             brandMoreBox,
             seriesMoreBox,
-            b2bCarListBox,
+            hallB2bList,
             srhResultBox,
             gkCitySelect,
         },
@@ -531,7 +531,7 @@
                   */
                 resultPage:{ 
                     currentPage : 1,
-                    pageSize : 8,
+                    pageSize : 25,
                     totalPage : 0
                 },
                 
@@ -682,7 +682,7 @@
                 let lastSrhVal = this.srhValItems[this.srhValItems.length-1];
                 let data = {
                     "PageSize": 20,
-                    "PageIndex": 1,
+                    "PageIndex": RESULE_PAGE_SIZE,
                     "LikeKey": lastSrhVal,
                 }
                 api.getB2BCarList(data).then((res) => {

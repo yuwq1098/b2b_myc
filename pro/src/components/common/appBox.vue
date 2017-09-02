@@ -31,7 +31,7 @@
         },
         data() {
             return{
-                imgCodeUrl: require("assets/img/myc_ewm_app.jpg"),
+                imgCodeUrl: require("assets/img/app-sendCar.png"),
             }
         },
         mounted(){
@@ -103,12 +103,10 @@
             _borderRadius(2px)
             _completeCenter(,,20px,auto)
             .u-pic
-                width 84px
-                margin 2px 2px
-                height 84px
-                .u-imgCode
-                    width @width
-                    height @height
+                width 82px
+                height @width
+                margin 3px 3px
+                _imgwrap()
             .u-tit,.u-txt
                 color #ff6533
                 text-align center
