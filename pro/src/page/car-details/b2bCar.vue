@@ -652,7 +652,6 @@
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
 
-                        console.log(dataToJson(this.basicInfo));
 
                         // 车辆异常状态提示
                         this.abnormalStatusTips(this.basicInfo.status);
@@ -674,9 +673,17 @@
                             this.similarList = this._normalizeB2bCarInfo(res.data.SimilarRecommend)
                             // 获取分享标题
                             let carTit = ((this.basicInfo.title).split(" ")).join("_");
-                            let share_tit = "木有车__B2B二手车平台__"+carTit+"__"+this.otherInfo.cdgName;
-                            let share_desc = "扎心了老铁，天大喜讯！"+this.otherInfo.cdgName+"在木有车发布了一辆非常不错的"+carTit+"。喜欢的朋友还犹豫什么，木有车B2B二手车安全放心的交易，您不容错过！";
+                            
+                            // 设置网页title
+                            var options = {
+                                title: carTit+"__"+this.otherInfo.cdgName+"__b2b车辆详情",
+                            }
+                            this.docTitle(options)
 
+                            // 设置分享信息
+                            let share_tit = carTit+"__"+this.otherInfo.cdgName+"__b2b车辆详情____木有车B2B汽车服务平台 - 木有车（www.muyouche.com）";
+                            let share_desc = "扎心了老铁，天大喜讯！"+this.otherInfo.cdgName+"在木有车发布了一辆非常不错的"+carTit+"。喜欢的朋友还犹豫什么，木有车B2B二手车安全放心的交易，您不容错过！";
+                            
                             let newObj = {
                                 title: share_tit,
                                 content: share_desc,

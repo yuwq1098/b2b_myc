@@ -197,7 +197,8 @@ export default[{
             alias: '/home',             // 使用别名
             meta: {
                 notGoTop: true,
-                hasWebSide: true,       // 是否有网站侧栏条 
+                hasWebSide: true,       // 是否有网站侧栏条
+                title: '首页',          // 网页信息title 
             }
         },
         {   
@@ -206,6 +207,7 @@ export default[{
             component: b2bHall,
             meta: { 
                 hasWebSide: true,       // 是否有网站侧栏条 
+                title: '二手车交易大厅',          // 网页信息title 
             }
         },
         {
@@ -216,6 +218,7 @@ export default[{
             meta: {
                 // requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
                 hasWebSide: true,       // 是否有网站侧栏条 
+                title: 'b2b车辆详情',          // 网页信息title 
             },      
         },
         {
@@ -225,6 +228,7 @@ export default[{
             meta: {
                 requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
                 hasWebSide: true,       // 是否有网站侧栏条 
+                title: '购物车',          // 网页信息title 
             },      
         },
         {
@@ -233,7 +237,8 @@ export default[{
             component: merchantDetails,
             meta: {
                 requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
-                hasWebSide: true,       // 是否有网站侧栏条 
+                hasWebSide: true,       // 是否有网站侧栏条
+                title: '车商详情',          // 网页信息title 
             },   
         },
         {   
@@ -242,7 +247,8 @@ export default[{
             component: sell,
             alias: '/sellHome',         // 使用别名
             meta: { 
-                hasWebSide: true,       // 是否有网站侧栏条 
+                hasWebSide: true,       // 是否有网站侧栏条
+                title: '卖车大厅',          // 网页信息title 
             }
         },
         {
@@ -252,7 +258,8 @@ export default[{
             alias: '/sellSend',         // 使用别名
             meta: {
                 requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
-                hasWebSide: true,       // 是否有网站侧栏条 
+                hasWebSide: true,       // 是否有网站侧栏条
+                title: '发布新车',          // 网页信息title 
             },
         },
         {
@@ -263,6 +270,7 @@ export default[{
             meta: {
                 requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                 hasWebSide: true,       // 是否有网站侧栏条
+                title: '车商圈',          // 网页信息title 
             },
         },
         {
@@ -271,7 +279,8 @@ export default[{
             component: service,
             alias: '/siteServer',       // 使用别名
             meta: {
-                hasWebSide: true,       // 是否有网站侧栏条 
+                hasWebSide: true,       // 是否有网站侧栏条
+                title: '木有车服务',          // 网页信息title
             }
         },
         {
@@ -279,7 +288,8 @@ export default[{
             path: '/practice',
             component: practice,
             meta: { 
-                hasWebSide: true,       // 是否有网站侧栏条 
+                hasWebSide: true,       // 是否有网站侧栏条
+                title: '视频教程（帮助）',          // 网页信息title
             }
         },
         {
@@ -287,7 +297,8 @@ export default[{
             path: '/download',
             component: download,
             meta: { 
-                hasWebSide: true,       // 是否有网站侧栏条 
+                hasWebSide: true,       // 是否有网站侧栏条
+                title: 'app下载',          // 网页信息title
             }
         },
         {
@@ -301,7 +312,8 @@ export default[{
                     path: 'who',
                     component: who,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '我们是谁',          // 网页信息title
                     },
                 },
                 {
@@ -309,7 +321,8 @@ export default[{
                     path: 'what',
                     component: what,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '我们做啥',          // 网页信息title
                     },
                 },
                 {
@@ -317,7 +330,8 @@ export default[{
                     path: 'advantage',
                     component: advantage,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '我们的优势',          // 网页信息title
                     },
                 },
                 {
@@ -325,7 +339,8 @@ export default[{
                     path: 'contact',
                     component: contact,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '联系我们',          // 网页信息title
                     },
                 },
                 {
@@ -333,7 +348,8 @@ export default[{
                     path: 'feedback',
                     component: feedback,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '意见反馈',          // 网页信息title
                     },
                 },
                 {
@@ -341,7 +357,8 @@ export default[{
                     path: 'partner',
                     component: partner,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '友情链接',          // 网页信息title
                     },
                 },
                 {
@@ -349,7 +366,8 @@ export default[{
                     path: 'recruit',
                     component: recruit,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '招贤纳士',          // 网页信息title
                     },
                 },
             ]
@@ -370,7 +388,8 @@ export default[{
                     path: 'FAQ',
                     component: FAQ,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '常见问题',          // 网页信息title
                     }
                 },
                 {
@@ -378,7 +397,8 @@ export default[{
                     path: 'privacy',
                     component: privacy,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '隐私保护承诺',          // 网页信息title
                     }
                 },
                 {
@@ -386,7 +406,8 @@ export default[{
                     path: 'applyFlow',
                     component: applyFlow,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '认证流程及审核',          // 网页信息title
                     }
                 },
                 {
@@ -394,7 +415,8 @@ export default[{
                     path: 'dealFlow',
                     component: dealFlow,
                     meta: { 
-                        hasWebSide: true,       // 是否有网站侧栏条 
+                        hasWebSide: true,       // 是否有网站侧栏条
+                        title: '交易流程详解',          // 网页信息title
                     }
                 },
                 
@@ -405,7 +427,8 @@ export default[{
             path: '/agreement',
             component: agreement,
             meta: { 
-                hasWebSide: true,       // 是否有网站侧栏条 
+                hasWebSide: true,       // 是否有网站侧栏条
+                title: '平台各类协议',          // 网页信息title
             }
         },
         {
@@ -423,6 +446,7 @@ export default[{
                     component: memberHome,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '我的主页',          // 网页信息title
                     },
                 },
                 {
@@ -431,6 +455,7 @@ export default[{
                     component: applyHome,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '车商认证',          // 网页信息title
                     },
                 },
                 {
@@ -439,6 +464,7 @@ export default[{
                     component: putApply,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '认证车商资料',          // 网页信息title
                     },
                 },
                 {
@@ -447,6 +473,7 @@ export default[{
                     component: merchantApply,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '升级企业车商',          // 网页信息title
                     },
                 },
                 {
@@ -455,6 +482,7 @@ export default[{
                     component: shoppingCart,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '我的购物车(会员中心)',          // 网页信息title
                     },
                 },
                 {
@@ -463,6 +491,7 @@ export default[{
                     component: buyOrder,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '买车订单',          // 网页信息title
                     },
                 },
                 {
@@ -471,6 +500,7 @@ export default[{
                     component: sellOrder,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '卖车订单',          // 网页信息title
                     },
                 },
                 {
@@ -479,6 +509,7 @@ export default[{
                     component: buyOrderDetails,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '买车订单详情',          // 网页信息title
                     },
                 },
                 {
@@ -487,6 +518,7 @@ export default[{
                     component: sellOrderDetails,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '卖车订单详情',          // 网页信息title
                     },
                 },
                 {
@@ -495,6 +527,7 @@ export default[{
                     component: contractBuy,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '买车合同',          // 网页信息title
                     },
                 },
                 {
@@ -503,6 +536,7 @@ export default[{
                     component: contractSell,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '卖车合同',          // 网页信息title
                     },
                 },
                 {
@@ -511,6 +545,7 @@ export default[{
                     component: editContract,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '卖方修改合同',          // 网页信息title
                     },
                 },
                 {
@@ -519,6 +554,7 @@ export default[{
                     component: contractDetails,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '合同详情',          // 网页信息title
                     },
                 },
                 {
@@ -527,6 +563,7 @@ export default[{
                     component: orderPay,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '订单支付',          // 网页信息title
                     },
                 },
                 {
@@ -535,6 +572,7 @@ export default[{
                     component: fullPayout,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '支付托管车款（尾款）',          // 网页信息title
                     },
                 },
                 {
@@ -543,6 +581,7 @@ export default[{
                     component: signOff,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '买家签收',          // 网页信息title
                     },
                 },
                 {
@@ -551,6 +590,7 @@ export default[{
                     component: arbitrateApply,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '维权申请',          // 网页信息title
                     },
                 },
                 {
@@ -559,6 +599,7 @@ export default[{
                     component: arbitrateBuy,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '买家维权详情',          // 网页信息title
                     },
                 },
                 {
@@ -567,6 +608,7 @@ export default[{
                     component: arbitrateSell,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '卖家维权详情',          // 网页信息title
                     },
                 },
                 {
@@ -575,6 +617,7 @@ export default[{
                     component: buyArbitrateList,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '买车仲裁列表',          // 网页信息title
                     },
                 },
                 {
@@ -583,6 +626,7 @@ export default[{
                     component: sellArbitrateList,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '卖车仲裁列表',          // 网页信息title
                     },
                 },
                 {
@@ -592,6 +636,7 @@ export default[{
                     alias: 'sourceHome',        // 使用别名
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '我的车源',          // 网页信息title
                     },
                 },
                 {
@@ -601,6 +646,7 @@ export default[{
                     alias: 'sourceEdit',        // 使用别名
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '编辑车源',          // 网页信息title
                     },
                 },
                 {
@@ -611,6 +657,7 @@ export default[{
                     alias: 'wallet',            // 使用别名
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '我的钱包',          // 网页信息title
                     },
                 },
                 {
@@ -620,6 +667,7 @@ export default[{
                     alias: 'billDetails',       // 使用别名
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '账单详情',          // 网页信息title
                     },
                 },
                 {
@@ -628,6 +676,7 @@ export default[{
                     component: recharge,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '充值',          // 网页信息title
                     },
                 },
                 {
@@ -636,6 +685,7 @@ export default[{
                     component: withdraw,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '提现',          // 网页信息title
                     },
                 },
                 {
@@ -645,6 +695,7 @@ export default[{
                     alias: 'collectCar',        // 使用别名
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '车辆收藏',          // 网页信息title
                     },
                 },
                 {
@@ -654,6 +705,7 @@ export default[{
                     alias: 'merchantCar',       // 使用别名
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '车行收藏',          // 网页信息title
                     },
                 },
                 {
@@ -662,6 +714,7 @@ export default[{
                     component: personalSetting,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '个人资料设置',          // 网页信息title
                     },
                 },
                 {
@@ -670,6 +723,7 @@ export default[{
                     component: bankCardManage,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '银行卡管理',          // 网页信息title
                     },
                 },
                 {
@@ -678,6 +732,7 @@ export default[{
                     component: bankCardEdit,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '银行卡修改',          // 网页信息title
                     },
                 },
                 {
@@ -686,14 +741,16 @@ export default[{
                     component: bankCardAdd,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '银行卡添加',          // 网页信息title
                     },
                 },
                 {
-                // 中心内容
+                // 安全中心
                     path: 'safetyCenter',
                     component: safetyCenter,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '安全中心',          // 网页信息title
                     },
                 },
                 {
@@ -702,6 +759,7 @@ export default[{
                     component: safetyPass,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '密码修改',          // 网页信息title
                     },
                 },
                 {
@@ -710,6 +768,7 @@ export default[{
                     component: safetyForget,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '找回密码',          // 网页信息title
                     },
                 },
                 {
@@ -718,6 +777,7 @@ export default[{
                     component: safetyTel,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '手机号绑定修改',          // 网页信息title
                     },
                 },
                 {
@@ -726,6 +786,7 @@ export default[{
                     component: payPass,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '设置支付密码',          // 网页信息title
                     },
                 },
                 {
@@ -734,6 +795,7 @@ export default[{
                     component: editPayPass,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '修改支付密码',          // 网页信息title
                     },
                 },
                 {
@@ -742,6 +804,7 @@ export default[{
                     component: forgetPayPass,
                     meta:{
                         requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
+                        title: '忘记支付密码',          // 网页信息title
                     },
                 },
 
@@ -757,7 +820,9 @@ export default[{
         // 404页面
             path: '/page404',
             component: page404,
-            meta: { }
+            meta: { 
+                title: '404页面',          // 网页信息title
+            }
         },
         {
         // 所有未匹配到的页面

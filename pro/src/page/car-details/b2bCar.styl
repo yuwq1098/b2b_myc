@@ -246,7 +246,7 @@
                         margin 35px auto 0
                         .m-mct-hd
                             height 90px
-                            width 305px
+                            width 380px
                             padding-left 90px
                             position relative
                             .u-box
@@ -272,23 +272,26 @@
                                 margin 0 0 8px
                                 .name
                                     color #40474a
+                                    height 28px
+                                    max-width 245px
+                                    _ellipsis()
                                     &:hover
                                         text-decoration underline
                                 .u-prove
                                     margin 0 0 0 5px
-                                    height 22px
+                                    height 20px
                                     line-height @height
                                     font-size 12px
                                     text-align center
                                     width 60px
                                     _borderRadius(3px)
+                                    _spacingPlus()
                                     background #fbad42
                                     color #f4f4f4
                                     _display(inline-block)
                                     vertical-align middle
-                                    _translate3d(0,-8px)
+                                    _translate3d(0,-3px)
                                     position relative
-                                    top -2px
                             .u-tel,.u-adss
                                 font-size 13px
                                 line-height 22px

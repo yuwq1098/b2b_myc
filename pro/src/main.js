@@ -40,6 +40,28 @@ Vue.prototype.URL = function(){
   return rootURL;
 };
 
+
+// 设置页面文档信息
+function setDocumentTitle(option){
+    var defaults,                 // 默认配置
+        setting;                  // 实际的配置
+        
+    // 默认配置
+    defaults = {
+        title: '木有车',
+        meta: [
+          { hid: 'description', name: 'description', content: '这是木有车B2B的一个页面描述' }
+        ]
+    };
+    // 参数继承
+    setting = Object.assign(defaults,option);
+
+    document.title = setting.title+"__木有车B2B汽车服务平台 - 木有车（www.muyouche.com）"
+} 
+
+// 将文档标题赋给 Vue原型方法
+Vue.prototype.docTitle = setDocumentTitle;
+
 // 将axios 改写为 Vue 的原型属性,使得其在其他组件中一样能使用
 Vue.prototype.$ajax = axios
 //挂载全局方法在vue对象原型方法下
@@ -68,12 +90,14 @@ if(rootURL!="/api"){
 
 // 路由导航钩子beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {
-
-  // 如果想去的页面不存在，即matched为空数组,那么就跳转至404页面
-  // if(to.matched.length==0){
-  //     next({path: '/page404'});
-  //     return;
-  // }
+  
+  // 设置每个页面的文档信息
+  if(to.meta.hasDocInfo == void 0 && to.meta.title != void 0){
+      var options = {
+          title: to.meta.title,
+      }
+  }
+  setDocumentTitle(options);
   
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
       if (store.state.user.loginStatus) {  // 通过vuex state获取当前的token是否存在

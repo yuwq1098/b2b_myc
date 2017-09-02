@@ -348,6 +348,14 @@
                         // 延迟获取焦点图列表
                         setTimeout(()=>{
                             this.slideCarList = this._normalizeSlideCarList(this.merchantCarList);
+                            
+                            // 设置网页title
+                            var currAuth = this.merchantData.isPartner?"合作商":this.theAuthType;
+                            var options = {
+                                title: this.merchantData.name+"（"+currAuth+"）__"+this.merchantData.username+"__车商详情",
+                            }
+                            this.docTitle(options)
+
                         })
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
