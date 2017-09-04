@@ -61,13 +61,12 @@
         width 1200px
         position relative
         .m-lst
-            width 1220px
-            _translate3d(0,-20px)
-            margin 0 0 0 -20px
+            width 1215px
+            _translate3d(0,-15px)
+            margin 0 0 0 -15px
             .m-item
                 float left
-                width 285px
-                margin 20px 20px 0 0
-                margin 20px 0 0 20px
+                width 228px
+                margin 15px 0 0 15px
 
 </style>

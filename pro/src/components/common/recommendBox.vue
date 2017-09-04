@@ -10,12 +10,13 @@
                 @click="enterCarDetails(carInfo.id)"
                 >
                 <div class="m-pic-box">
-                    <p class="u-label" :class="{'merchant':theAuthType=='企业车商'}">
-                        <span class="txt">{{theAuthType}}</span>
-                    </p><!-- 标签 -->
+                    <div class="time-block">
+                        <p class="time">{{carInfo.shelveTime | formatDate}}上架</p>
+                    </div><!-- 时间标签 -->
                     <div class="u-pic">
                         <img v-lazy="carInfo.imgUrl" :alt="carInfo.name"/>
                     </div>
+                    <div class="pic-shade"></div><!-- 效果遮罩 -->
                 </div><!-- 图片盒子 -->
 
                 <div class="m-con-box">
@@ -24,16 +25,16 @@
                     <div class="u-con">
                         <div class="u-tit">[{{carInfo.inCity}}]{{carInfo.name}}</div><!-- 标题 -->
 
-                        <div class="u-other">上牌 {{carInfo.plateDate | dateYearFormat}}年 | 里程 {{carInfo.mileage | mileFn(1)}}</div><!-- 其他 -->
+                        <div class="u-other">
+                            <span class="attr">上牌 {{carInfo.plateDate | dateYearFormat}}年</span>
+                            <span class="cut">|</span>
+                            <span class="attr">里程 {{carInfo.mileage | mileFn(1)}}</span>
+                        </div><!-- 其他 -->
 
                         <div class="u-price">
                             <span class="retail"><em class="attr">零售价：</em><em class="vital">{{carInfo.retailPrice | priceFormat(2)}}</em><em>万元</em></span>
                         </div><!-- 价格 -->
                         
-                        <div class="u-cdg-info f__clearfix">
-                            <p class="cname">{{carInfo.cName}}</p>
-                        </div><!-- 商家车行信息 -->
-
                     </div><!-- 车辆信息内容 -->
                 </div>
             </a>
@@ -66,13 +67,7 @@
             }
         },
         computed:{
-            theAuthType(){
-                if(this.carInfo.authType=="个人车行"){
-                    return "个人车商";
-                }else if(this.carInfo.authType=="企业车行"){
-                    return "企业车商";
-                }
-            }
+
         },
         props:{
             carInfo: {
@@ -106,9 +101,11 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
+
+    $picHeight = 160px
     .m-car-box
-        width 285px
-        height 302px
+        width 228px
+        height 270px
         background #fff
         _boxShadow(12px,rgba(0,0,0,.15))
         .m-lk
@@ -119,85 +116,104 @@
             position relative
             .m-pic-box
                 width @width
-                height 210px
+                height $picHeight
                 position relative
-                .u-label
-                    _display()
-                    width 60px
-                    height 59px
-                    background url('../../assets/img/car-lable-01.png') 0 0 no-repeat
-                    background-size 100% 100%
-                    _completeCenter(15px,auto,-8px,auto)
+                .time-block
+                    height 22px
+                    position absolute
+                    right 12px
+                    bottom 12px
                     z-index 10
                     _transitionAll(.2s)
-                    &.merchant
-                        background url('../../assets/img/car-lable-02.png') 0 0 no-repeat
-                        background-size cover
-                    .txt
+                    .time
+                        height 20px
+                        font-size 12px
+                        line-height @height
+                        background #27333C - rgba(0,0,0,.2)
                         color #f2f2f2
-                        width 44px
-                        height 36px
-                        line-height 18px
+                        padding 0 11px
                         _spacingPlus()
+                        _borderRadius(@height * 1/2)
+                .pic-shade
+                    width 0px
+                    height 0px
+                    &:before
                         _display()
-                        text-align center
-                        _completeCenter()
-
-                .u-pic
+                        content ""
+                        _completeCenter(0,auto,0,auto)
+                        width 100%
+                        height $picHeight * 0.6
+                        border-top $picHeight * 0.4 solid rgba(255,255,255,0.4)
+                        background rgba(255,255,255,0.2)
+                        _transform(scale3d(3,1.5,1) translate3d(40%,-75%,0) rotate3d(0,0,1,45deg))
+                        -webkit-transition -webkit-transform 0.5s cubic-bezier(0.14, 0.46, 0.46, 1.02)
+                        transition transform 0.5s cubic-bezier(0.14, 0.46, 0.46, 1.02)
+                .u-pic   
                     width @width
                     height @height
                     _completeCenter()
                     _overflow()
+                    _transitionAll(.28s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
                     img
                         width @width + 10px
                         height auto
                         _completeCenter(-5px,auto,0,0)
+                        _opacity(1)
             .m-con-box
                 width @width
-                height 120px
+                height 110px
                 z-index 15
-                _completeCenter(,,210px,auto)
+                _completeCenter(,,160px,auto)
                 _transitionAll(.3s)
                 .u-con
-                    width @width - 16px
-                    height @height - 12px
-                    padding 8px 8px 4px
+                    width @width - 20px
+                    height @height - 16px
+                    padding 8px 10px
                     background #fff
                     _completeCenter(0,auto,auto,0)
                     z-index 2
-                    color #40474a
                     .u-tit
-                        height 24px
-                        line-height 24px
-                        font-size 15px
-                        _ellipsis(1)
-                        margin 0 0 4px
+                        height 44px
+                        line-height 22px
+                        margin-bottom 6px
+                        font-size 14px
+                        _ellipsis(2)
+                        color #444
                     .u-other
-                        height 20px
-                        line-height 20px
+                        height 22px
+                        line-height 22px
                         font-size 12px
-                        margin 0 0 2px
-                        color #959595
+                        color #999
+                        .attr
+                            margin-right 4px
+                        .cut
+                            zoom 0.8
+                            margin-right 4px
                     .u-price
-                        height 28px
-                        line-height 28px
-                        margin 0 0 6px
-                        font-size 13px
+                        height 22px
+                        line-height 22px
+                        font-size 12px
                         .retail
-                            color #ff6533
-                            .attr
-                                color @color
+                            color #999
                             .vital
-                                font-size 18px
+                                font-size 16px
+                                color $c_blue
+                                margin-right 3px
 
             &:hover
                 _boxShadow(20px,rgba(0,0,0,.10),6px,6px)
                 .m-pic-box
-                    .u-label
-                        _transitionAll(.28s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
-                        _translate3d(0,-80px)
-                        
+                    .pic-shade
+                        &:before
+                            _transform(scale3d(3,1.5,1) translate3d(-40%,75%,0) rotate3d(0,0,1,45deg))
+                    .u-pic
+                        _opacity(.65)
+                        _transitionAll(.28s,cubic-bezier(0.14, 0.46, 0.46, 1.02),.2s)
+                    .time-block
+                        _transitionAll(.2s,cubic-bezier(0.14, 0.46, 0.46, 1.02),.05s)
+                        _translate3d(0,50px)
                 .m-con-box
                     .u-con .u-tit
+                        color #111
                         text-decoration underline
 </style>

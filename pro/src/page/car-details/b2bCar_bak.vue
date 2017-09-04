@@ -27,18 +27,18 @@
                                 </template>
 
                                 <span class="u-del">零售价：{{basicInfo.retailPrice | priceFormat(2)}}万</span>
-
+                                <!-- <a href="javascript:;" class="u-lk record">
+                                    <i class="iconfont icon-activity_fill"></i>查询维修保养记录
+                                </a> -->
                                 <p class="u-view" v-if="otherInfo.browseCount&&otherInfo.browseCount>0">
                                     <i class="iconfont icon-yuedu"></i>{{otherInfo.browseCount}}
                                 </p>
                             </div><!-- 价格 -->
-
                             <div class="m-des">
                                 <div class="m-lst-wrap">
                                     <ul class="m-des-lst f__clearfix">
                                         <li class="u-item">
-                                            <p class="u-tit" v-if="basicInfo.mileage">{{basicInfo.mileage | mileFn(2)}}</p>
-                                            <p class="u-tit" v-else>暂无数据</p>
+                                            <p class="u-tit">{{basicInfo.mileage | mileFn(2)}}</p>
                                             <p class="u-des">表显里程</p>
                                         </li>
                                         <li class="u-item">
@@ -66,13 +66,13 @@
                                             <p class="u-des">牌照归属</p>
                                         </li>
                                         <li class="u-item">
-                                            <p class="u-tit" v-if="basicInfo.serviceType">{{basicInfo.serviceType}}</p>
-                                            <p class="u-tit" v-else>暂无数据</p>
+                                            <p class="u-tit">{{basicInfo.serviceType}}</p>
                                             <p class="u-des">使用性质</p>
                                         </li>
                                     </ul>
                                 </div>
                             </div><!-- 产品描述 -->
+                            <!-- <div class="m-intro"></div> --><!-- 说明 -->
 
                             <div class="m-opra f__clearfix">
                                 <template v-if="!hasLogin"
@@ -144,83 +144,11 @@
 
                         </div><!-- 主要信息 -->
                     </div><!-- 主要的头部信息 -->
-                    
-                    <div class="m-basic-info f__boxClearM">
-                        <div class="box-header">
-                            <i class="icon-block"></i><h3>基本信息</h3>
-                        </div><!-- 标题 -->
-                        <div class="basic-con">
-                            <ul class="info-lst f__clearfix">
-                                <li class="grid-6">
-                                    <span class="attr">上牌日期：</span>
-                                    <span class="data" v-if="basicInfo.plateDate">{{basicInfo.plateDate | dateDayFormat}}</span>
-                                    <span class="data" v-else>暂无数据</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">排放标准：</span>
-                                    <span class="data" v-if="basicInfo.dischargeStandard">{{basicInfo.dischargeStandard | dateDayFormat}}</span>
-                                    <span class="data" v-else>暂无数据</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">汽车排量：</span>
-                                    <span class="data" v-if="basicInfo.liter">{{basicInfo.liter |literFn}}</span>
-                                    <span class="data" v-else>暂无数据</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">过户次数：</span>
-                                    <span class="data">{{basicInfo.transferTimes}}次</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">使用性质：</span>
-                                    <span class="data" v-if="basicInfo.serviceType">{{basicInfo.serviceType}}</span>
-                                    <span class="data" v-else>暂无数据</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">车辆颜色：</span>
-                                    <span class="data" v-if="basicInfo.color">{{basicInfo.color}}</span>
-                                    <span class="data" v-else>暂无数据</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">真实里程数：</span>
-                                    <span class="data" v-if="basicInfo.mileage">{{basicInfo.mileage | mileFn(2)}}</span>
-                                    <span class="data" v-else>暂无数据</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">车辆所在地：</span>
-                                    <span class="data" v-if="basicInfo.inProvince">{{basicInfo.inProvince}}{{basicInfo.inCity}}</span>
-                                    <span class="data" v-else>暂无数据</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">牌照归属地：</span>
-                                    <span class="data" v-if="basicInfo.plateInProvince"
-                                        >{{basicInfo.plateInProvince}}{{basicInfo.plateInCity}}</span>
-                                    <span class="data" v-else>暂无数据</span>
-                                </li>
-                                <li class="grid-6">
-                                    <span class="attr">有无交强险：</span>
-                                    <span class="data">{{basicInfo.compulsoryData?"有":"无"}}</span>
-                                </li>
-                                <li class="grid-20 f__clearfix">
-                                    <div class="u-block-info">
-                                        <span class="attr">车商店铺名称：</span>
-                                        <span class="data">{{otherInfo.cdgName}}</span>
-                                    </div>
-                                    <div class="box-tip businessmen-note">
-                                        <div class="tip-content"
-                                            >{{basicInfo.desc}}
-                                        </div>
-                                        <span class="tip-arrow"></span><!-- 箭头装饰物 -->
-                                    </div><!-- 车商描述 -->
-                                </li>
-                            </ul>
-                        </div><!-- 信息内容 -->
 
-                    </div><!-- 车辆信息 -->
-
-                    <div class="m-car-info f__boxClearM">
-                        <div class="box-header">
-                            <i class="icon-block"></i><h3>基本信息</h3>
-                        </div><!-- 标题 -->
+                    <div class="m-car-info">
+                        <div class="m-box-hd-c">
+                            <h3 class="u-tit">相关信息</h3>
+                        </div>
                         <div class="m-mn f__clearfix">
                             <div class="m-basic f__fl">
                                 <div class="u-tit">
@@ -344,12 +272,12 @@
 
                     </div><!-- 车辆信息 -->
 
-                    <div class="m-carPhoto f__boxClearM" 
+                    <div class="m-carPhoto" 
                         v-if="carImgData.imgItems&&carImgData.imgItems.length>=2"
                         >
-                        <div class="box-header">
-                            <i class="icon-block"></i><h3>车辆图片</h3>
-                        </div><!-- 标题 -->
+                        <div class="m-box-hd-c">
+                            <h3 class="u-tit">车辆图片</h3>
+                        </div>
                         <div class="m-photo-con">
                             <ul class="m-photo-lst f__clearfix">
                                 <template v-for="(item,index) in carImgData.imgItems">
@@ -362,44 +290,42 @@
                             </ul>    
                         </div><!-- 图片内容 -->
                     </div><!-- 车辆图片信息 -->
-                    
-                    <div class="m-process f__boxClearM">
-                        <div class="box-header">
-                            <i class="icon-block"></i><h3>购车流程</h3>
-                        </div><!-- 标题 -->
+
+                    <div class="m-process">
+                        <div class="m-box-hd-c">
+                            <h3 class="u-tit">购车流程</h3>
+                        </div>
                         <div class="u-pic">
                             <img ondragstart="return false" :src="buyCarFlowImg" alt="购车流程图" />
                         </div>
                     </div><!-- 购车流程 -->
-
-                    <div class="m-dealer f__boxClearM">
-                        <div class="m-box-hd">
-                            <h4>车商信息</h4>
-                        </div><!-- 标题 -->
-                    </div><!-- 车商信息 -->
-
-                    <div class="m-selling-car f__boxClearM">
-                        <div class="m-box-hd">
-                            <h4>店铺在售车源</h4>
-                        </div><!-- 标题 -->
-                    </div><!-- 店铺在售车源 -->
                     
-                    <div class="m-remd">
-                        <div class="m-other-hd">
-                            <h4>相似推荐</h4>
-                        </div><!-- 标题 -->
+                    <div class="m-remd" v-show="similarList&&similarList.length>0">
+                        <!-- <div class="m-box-hd">
+                            <div class="u-adorn"></div>装饰物
+                            <h3 class="u-tit">相似推荐</h3>
+                        </div> -->
+                        <div class="m-box-hd-c">
+                            <h3 class="u-tit">相似推荐</h3>
+                        </div>
                         <div class="m-lst-gp-b">
-                            <ul class="m-lst f__clearfix"
-                                v-if="similarList&&similarList.length>0">
+                            <ul class="m-lst f__clearfix">
                                 <remd-list-box
                                     :carList="similarList"
                                     >
                                 </remd-list-box>
                             </ul>
-                            <ul class="m-lst f__clearfix"
-                                v-else>
+                        </div><!-- 列表组b -->
+                    </div><!-- 相似推荐 -->
+
+                    <div class="m-remd" v-show="!similarList||similarList.length==0">
+                        <div class="m-box-hd-c">
+                            <h3 class="u-tit">相似推荐</h3>
+                        </div>
+                        <div class="m-lst-gp-b">
+                            <ul class="m-lst f__clearfix">
                                 <remd-list-box
-                                    :carList="b2bCarList"
+                                    :carList= "b2bCarList"
                                     >
                                 </remd-list-box>
                             </ul>
@@ -1007,7 +933,7 @@
             getCarList(){
                 let data = {
                     PageIndex : '1',
-                    PageSize: '5',
+                    PageSize: '4',
                 }
                 api.getB2BCarList(data).then((res) => {
                     this.b2bCarList = this._normalizeB2bCarInfo(res.data)

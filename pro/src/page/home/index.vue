@@ -438,7 +438,7 @@
             _normalizeYouLike(list){
                 let carInfo = [];
                 list.forEach((item, index) => {
-                    if(index<4){
+                    if(index<5){
                         carInfo.push(new b2bCarInfo(item))
                     }
                 });

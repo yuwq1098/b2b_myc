@@ -199,44 +199,6 @@
                             font-size 18px
                             margin-right 4px
                             color #ff6533
-        .m-basic-info
-            .basic-con
-                .info-lst
-                    width 1200px
-                    li
-                        float left
-                        margin-right 20px
-                        font normal 13px/36px "Helvetica Neue","Helvetica","PingFangSC-Regular","Helvetica Neue","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",Arial,sans-serif
-                        color #666
-                        &.grid-6
-                            width 340px
-                        &.grid-8
-                            width 460px
-                        &.grid-20
-                            width 1200px
-                            margin-right 0
-                        .box-tip
-                            float left
-                            min-width 200px
-                            margin-top 14px
-                            z-index 100
-                            background #fcfcfc
-                            _borderAll(#eceef0)
-                            position relative
-                            .tip-content
-                                font-size 14px
-                                line-height 30px
-                                padding 22px 30px
-                                color #666
-                            .tip-arrow
-                                _display(inline-block)
-                                width 18px
-                                height 10px
-                                _completeCenter(65px,auto,-10px,auto)
-                                _overflow()
-                                z-index 2
-                                background url("../../assets/img/tip-arrow-24.png") 0 0 no-repeat
-                                background-position 0 0
 
         .m-car-info
             height 330px
@@ -393,26 +355,23 @@
                     width 1px
                     background #e2e2e2
                     _completeCenter(,,55px,auto);
-        // 车辆图片
         .m-carPhoto
+            margin 0 0 25px
             .m-photo-con
                 width 1200px
                 .m-photo-lst
-                    width 1218px
-                    margin 0 0 0 -18px
+                    width 1224px
+                    margin 0 0 0 -24px
                     .m-item
-                        width (1200px - 18px) * 0.5 - 2px
-                        _borderAll(#e2e2e2)
-                        _borderRadius(5px)
+                        width 588px
                         height 440px
-                        margin 0 0 18px 18px
+                        margin 20px 0 0 24px
                         position relative
                         float left
                         .u-pic
-                            width @width - 16px
-                            height @height - 16px
+                            width @width
+                            height @height
                             _completeCenter()
-                            _borderRadius(2px)
                             _overflow()
                             img
                                 width @width + 10px
@@ -420,58 +379,124 @@
                                 _completeCenter(-5px,auto,0,0)
 
         .m-process
+            height 210px
+            margin 0 0 25px
             .u-pic
                 width 100%
                 height 120px
+                padding 18px 0 12px
                 img
                     width 100%
                     height 100%
         .m-remd
-            margin-bottom 15px
+            min-height 380px
+            margin 25px 0 20px
+            .m-box-hd
+                margin 0 0 10px
+            .m-box-hd-c
+                margin 0 0 20px
             .m-lst-gp-b
-                height 270px
+                height 310px
                 width 1200px
+                .m-lst
+                    width 1220px
+                    .m-item
+                        float left
+                        width 285px
+                        height 310px
+                        background #fff
+                        _boxShadow(12px,rgba(0,0,0,.15))
+                        margin 0 20px 0 0
+                        _transitionAll(.2s)
+                        &:hover
+                            _transitionAll(.3s,cubic-bezier(0.04, 0.65, 0.65, 0.92))
+                            _translate3d(,-4px);
+                            _boxShadow(20px,rgba(0,0,0,.15),1px,10px)
+                            h5.u-tit
+                                font-size 16px
+                        .u-pic
+                            width 285px
+                            height 200px
+                            img 
+                                width 100%
+                                height 100%
+                        .u-con
+                            width 260px
+                            position relative
+                            padding 0 14px
+                            h5.u-tit
+                                height 28px
+                                line-height 28px
+                                font-size 15px
+                                overflow hidden
+                                font-weight normal
+                                margin-top 10px
+                            .u-des
+                                height 22px
+                                line-height 22px
+                                color #a5a5a5
+                            .u-price
+                                margin-top 15px
+                                height 22px
+                                line-height 22px
+                                color #ff6533
+                                em
+                                    font-size 20px
+                                    margin-left 3px
+                                    font-weight normal
+                            .u-lk
+                                width 85px
+                                height 42px
+                                background #2e98e2
+                                color #fff
+                                text-align center
+                                position absolute
+                                top 48px
+                                right 14px
+                                _borderRadius(3px)
+                                p 
+                                    font-size 13px
+                                    line-height 18px
+                                    &.u-count
+                                        margin-top 3px
+                                p strong
+                                    font-weight normal
 
-        .box-header
-            height 58px
-            line-height @height
+        .m-box-hd
+            height 60px
+            line-height 60px
             position relative
-            margin-top 15px
-            .icon-block
-                _display()
-                width 6px
-                height @width
+            padding-left 15px
+            .u-adorn
+                width 4px
+                height 21px
                 background $c_blue
-                _completeCenter(0,auto,25px,auto)
-            h3
-                _display(inline-block)
-                padding-left 20px
+                _verticalLayout(0)
+            .u-tit
                 font-size 20px
-                color #333
                 font-weight normal
+                _spacingPlus(2)
 
-        .m-box-hd,.m-other-hd
-            height 48px
-            line-height @height
-            margin-top 15px
-            _border(bottom,#e2e2e2)
-            h4
+        .m-box-hd-c
+            height 60px
+            line-height 60px
+            text-align center
+            .u-tit
+                width 360px
                 _display(inline-block)
-                font-size 18px
-                color #333
-                font-weight normal
-                padding 0 12px
+                height 60px
+                font-size 24px
+                font-weight bold
+                _spacingPlus(5px)
                 position relative
-        .m-other-hd
-            margin-bottom 15px
-            h4
-                &::before
+                &::before,&::after
+                    width 95px
+                    height 1px
                     content ""
-                    height 3px
-                    _completeCenter(,,auto,-1px)
-                    background $c_blue
-
-
-
-
+                    _display()
+                    background #e2e2e2
+                &::before
+                    _completeCenter(0,auto,2px)
+                &::after
+                    _completeCenter(auto,0,2px)
 
