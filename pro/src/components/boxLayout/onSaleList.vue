@@ -1,16 +1,20 @@
+<!--  
+ **  @description b2b车辆详情页 车店在售车源列表
+ --> 
+
 <template>
-	<div class="hallB2bList">
+	<div class="onSaleList">
 	    <div class="m-lst-con">
             <ul class="m-lst f__clearfix">
                 <template>
                     <li class="m-item" v-for="(item,index) in carList">
-                        <hall-b2b-box
+                        <on-sale-car-box
                             :carInfo="item"
                             :loginStatus="loginStatus"
                             :hasAuth="hasAuth"
                             :hasTextGradient="hasTextGradient"
                             >
-                        </hall-b2b-box>
+                        </on-sale-car-box>
                     </li>
                 </template>
             </ul>
@@ -23,14 +27,14 @@
     
     // dom操作方法
     import * as geekDom from "assets/js/dom.js"
-    // b2b车辆信息盒子组件
-    import hallB2bBox from "components/common/hallB2bBox.vue"
+    // b2b在售车源信息盒子组件
+    import onSaleCarBox from "components/common/onSaleCarBox.vue"
 
 	export default {
-        name: "hallB2bList",
+        name: "onSaleList",
         // 在当前模块注册组件
         components:{
-            hallB2bBox,
+            onSaleCarBox,
         },
         // 数据
         data() {

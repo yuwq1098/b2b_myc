@@ -70,7 +70,7 @@
                                 </p>
 
                                 <p class="u-info">
-                                    <span class="attr">关注人数：</span>
+                                    <span class="attr">收藏人数：</span>
                                     <span class="data">{{merchantData.favoriteNum}}<em class="unit">（人）</em></span>
                                 </p>
 
@@ -198,17 +198,17 @@
                 // 焦点图列表
                 slideCarList: [],
                  
-                // 未关注的信息
+                // 未收藏的信息
                 attentionNot:{
-                    text: "关注",
+                    text: "收藏",
                     isHover: false,
                 },
-                // 已关注的信息
+                // 已收藏的信息
                 attentionYes:{
-                    text: "已关注",
+                    text: "已收藏",
                     isHover: false,
                 },
-                // 关注提示
+                // 收藏提示
                 tipsShow: {
                     tipsText: "",
                     isShow: false,
@@ -368,45 +368,45 @@
                 })   
             },
 
-            // 鼠标悬浮在关注图标上触发的效果事件
+            // 鼠标悬浮在收藏图标上触发的效果事件
             attentionFn(isFavorite,mouseFn){
                 if(isFavorite==0){
                     if(mouseFn==1){
                         this.attentionNot = {
-                            text: "立即关注",
+                            text: "立即收藏",
                             isHover: true,
                         }
                     }else{
                         this.attentionNot = {
-                            text: "关注",
+                            text: "收藏",
                             isHover: false,
                         }
                     }
                 }else{
                     if(mouseFn==1){
                         this.attentionYes = {
-                            text: "取消关注",
+                            text: "取消收藏",
                             isHover: true,
                         }
                     }else{
                         this.attentionYes = {
-                            text: "已关注",
+                            text: "已收藏",
                             isHover: false,
                         }
                     }
                 }
             },
             
-            // 关注和取消关注的事件
+            // 收藏和取消收藏的事件
             setAttention(type,id){
                 let act = "";
                 let tips = "";
                 if(type==1){
                     act="Add";
-                    tips = "关注成功";
+                    tips = "收藏成功";
                 }else{
                     act="Delete"
-                    tips = "成功取消关注";
+                    tips = "成功取消收藏";
                 }
                 
                 let data = {
@@ -414,7 +414,7 @@
                     SellerId: id
                 }
                 
-                // 关注和取消关注
+                // 收藏和取消收藏
                 api.myFavoriteCdg(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         // 清除我的延时器

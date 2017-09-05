@@ -149,6 +149,12 @@ export const addressFormat = (str) => {
     return str.replace(/[/]/g,' · ')
 }
 
+//---地址格式转换 / => 点
+export const addressFormat2 = (str) => {
+    if(!str&&str!=0) return;
+    return str.replace(/[/]/g,'')
+}
+
 //---手机号格式转换 => 188****6264
 export const telFormat = (str) => {
     if(!str&&str!=0) return;

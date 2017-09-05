@@ -325,10 +325,7 @@
                                 <hall-b2b-list
                                     :carList="b2bCarList"
                                     :loginStatus="loginStatus"
-                                    :memberData="memberData"
-                                    :hasLogin= "hasLogin"
                                     :hasAuth= "hasAuth"
-                                    :hasCredit= "hasCredit"
                                     >
                                 </hall-b2b-list>
 

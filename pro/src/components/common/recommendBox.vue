@@ -142,8 +142,8 @@
                         content ""
                         _completeCenter(0,auto,0,auto)
                         width 100%
-                        height $picHeight * 0.6
-                        border-top $picHeight * 0.4 solid rgba(255,255,255,0.4)
+                        height $picHeight * 0.8
+                        border-top $picHeight * 0.2 solid rgba(255,255,255,0.4)
                         background rgba(255,255,255,0.2)
                         _transform(scale3d(3,1.5,1) translate3d(40%,-75%,0) rotate3d(0,0,1,45deg))
                         -webkit-transition -webkit-transform 0.5s cubic-bezier(0.14, 0.46, 0.46, 1.02)

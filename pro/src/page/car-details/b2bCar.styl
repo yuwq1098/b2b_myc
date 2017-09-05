@@ -142,16 +142,26 @@
                         _spacingPlus(3px)
                         padding 0 15px
                         color #FFF
-                        background #ff6533
+                        background #39D485
                         &:hover
                             background @background - 12%
+                        &:active
+                            background @background + 2%  
                         &.v2
-                            background #fbad42
+                            background #ff6533
                             &:hover
                                 background @background - 12%
-                        &.not
-                            background #c2c2c2
+                            &:active
+                                background @background + 2%  
+                        &.cancel
+                            background #f43
                             &:hover
+                                background @background - 12%
+                            &:active
+                                background @background + 2%
+                        &.not
+                            background #b8b8b8
+                            &:hover,&:active
                                 background @background
                         &.v3
                             background $c_blue
@@ -237,7 +247,7 @@
                                 z-index 2
                                 background url("../../assets/img/tip-arrow-24.png") 0 0 no-repeat
                                 background-position 0 0
-
+        // 车辆信息
         .m-car-info
             height 330px
             margin 0 0 25px
@@ -418,14 +428,118 @@
                                 width @width + 10px
                                 height auto
                                 _completeCenter(-5px,auto,0,0)
-
+        // 购车流程
         .m-process
             .u-pic
                 width 100%
                 height 120px
-                img
-                    width 100%
-                    height 100%
+                _imgwrap()
+
+        //车商信息/店铺信息
+        .m-dealer
+            .store-info
+                min-height 100px
+                padding 30px 0 10px 0 
+                .u-info-lt,.u-info-rt
+                    float left
+                .u-info-lt
+                    width 500px
+                    margin-right 20px
+                    position relative
+                    .store-pic
+                        width 100px
+                        height @width
+                        _completeCenter(12px,auto,0,auto)
+                        _imgwrap()
+                        img
+                            _borderRadius(12px)
+                    .store-basic
+                        padding-left 132px
+                        color #666
+                        .line-tit
+                            height 28px
+                            margin-bottom 3px
+                            .name
+                                font-size 17px
+                        .line-box
+                            height 28px
+                            font-size 14px
+                            .vital
+                                font-size 24px
+                                margin-right 4px
+                            .separated
+                                color #e2e2e2
+                                margin 0 5px
+                            &.btnWrap
+                                margin-top 12px
+                            .u-btn
+                                _display(inline-block)
+                                height 28px
+                                line-height @height
+                                padding 0 13px
+                                _spacingPlus()
+                                _borderRadius(3px)
+                                background $c_blue
+                                color #f2f2f2
+                                &:hover
+                                    background @background - 15%
+                                &:active
+                                    background @background - 5%
+                            .u-collect
+                                margin-left 10px
+                                _display(inline-block)
+                                height 28px - 2px
+                                line-height @height
+                                padding 0 13px
+                                _spacingPlus()
+                                _borderRadius(3px)
+                                background #fff
+                                _borderAll(#e2e2e2)
+                                color #666
+                                &:hover
+                                    background @background - 15%
+                                &:active
+                                    background @background - 5%
+                                &.cancel
+                                    border none
+                                    height 28px
+                                    line-height @height
+                                    background #f43
+                                    color #f2f2f2
+                                    &:hover
+                                        background @background - 15%
+                                    &:active
+                                        background @background - 5%
+                .u-info-rt
+                    width 500px
+                    color #666
+                    ul li
+                        width 100%
+                        height 28px
+                        line-height @height
+                        margin-bottom 4px
+                        position relative
+                        .adorn
+                            width 4px
+                            height @width
+                            _completeCenter(0,auto)
+                            background #999
+                        .attr
+                            padding-left 15px
+                            margin-right 8px
+                        .attr,.data
+                            float left
+                        .data:not(.desc)
+                            _ellipsis()
+                        &.desc
+                            .attr
+                                width 78px
+                                margin-right 0
+                            .data
+                                _ellipsis(3)
+                                float right
+                                width 500px - 78px - 15px 
+        // 相似推荐
         .m-remd
             margin-bottom 15px
             .m-lst-gp-b
@@ -462,16 +576,10 @@
                 font-weight normal
                 padding 0 12px
                 position relative
-        .m-other-hd
-            margin-bottom 15px
-            h4
                 &::before
                     content ""
-                    height 3px
+                    height 2px
                     _completeCenter(,,auto,-1px)
                     background $c_blue
-
-
-
 
 

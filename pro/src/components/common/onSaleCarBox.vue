@@ -1,18 +1,15 @@
 <!--  
- **  @description b2b车辆信息盒子组件
+ **  @description 在售车源信息盒子
  --> 
 
  <template>
-    <div class="hallB2bBox">
+    <div class="onSaleCarBox">
         <div class="m-car-box">
 
             <a class="m-lk" target="_blank"
                 @click="enterCarDetails(carInfo.id)"
                 >
                 <div class="m-pic-box">
-                    <p class="u-label" :class="{'merchant':theAuthType=='企业车商'}">
-                        <span class="txt">{{theAuthType}}</span>
-                    </p><!-- 标签 -->
                     <div class="u-pic">
                         <img v-lazy="carInfo.imgUrl" :alt="carInfo.name"/>
                     </div>
@@ -48,40 +45,34 @@
                             </template>
                             <span class="retail">零售：<em class="data">{{carInfo.retailPrice | priceFormat(2)}}万</em></span>
                         </div>
-                        <div class="u-addCart">
+                        <div class="u-favorite">
 
                             <template v-if="!loginStatus">
                                 <a class="u-btn not"
                                     @click.stop="noLogin()"
-                                    ><i class="iconfont icon-addCart"></i>
+                                    ><i class="iconfont icon-like"></i>
                                 </a>
                             </template>
 
                             <template v-else>
                                 <a class="u-btn not"
-                                    v-if="carInfo.hasInCart==''"
-                                    title="加入购物车" 
-                                    @click.stop="inShopingCart(carInfo.id)"
+                                    v-if="!carInfo.favorite"
+                                    title="收藏车辆" 
+                                    @click.stop="setCollect(1,carInfo.id)"
                                     >
-                                    <i class="iconfont icon-addCart"></i>                                </a>
+                                    <i class="iconfont icon-like"></i>
+                                </a>
                                 <a href="javascript:;" class="u-btn"
-                                    v-else>
-                                    <i class="iconfont icon-addCart"></i>
+                                    v-else
+                                    title="取消收藏"
+                                    @click.stop="setCollect(2,carInfo.id)">
+                                    <i class="iconfont icon-like_fill"></i>
                                 </a>
                             </template>
 
                         </div><!-- 加入购物车 -->
 
                         <div class="u-other">{{carInfo.inCity}} | {{carInfo.plateDate | dateYearFormat}} | {{carInfo.mileage | mileFn(1)}}</div><!-- 其他 -->
-                        <div class="u-cdg-info">
-                            <p class="cname"
-                                :class="{'t-gradient':hasTextGradient}"
-                                >{{carInfo.cName}}</p>
-                        </div><!-- 商家车行信息 -->
-                        <div class="u-time-block">
-                            <p class="time">{{carInfo.shelveTime | formatDate}}</p>
-                        </div><!-- 时间 -->
-                        
 
                     </div><!-- 车辆信息内容 -->
                 </div>
@@ -98,14 +89,14 @@
     // 引入系统变量
     import * as SYSTEM from 'api/system.js'
 
-    // b2b车辆信息构造类
-    import {b2bCarInfo} from "base/class/carInfo.js"
+    // 在售车源信息的构造类
+    import {onSaleCarInfo} from "base/class/carInfo.js"
     // vuex状态管理
     import { mapActions } from 'vuex'
 
     export default {
 
-        name: "hallB2bBox",
+        name: "onSaleCarBox",
         // 在当前模块注册组件
         components:{
 
@@ -120,7 +111,7 @@
             carInfo: {
                 type: Object,
                 default(){
-                    return new b2bCarInfo({});
+                    return new onSaleCarInfo({});
                 }
             },
             loginStatus: {
@@ -139,49 +130,60 @@
             },
         },
         computed:{
-            theAuthType(){
-                if(this.carInfo.authType=="个人车行"){
-                    return "个人车商";
-                }else if(this.carInfo.authType=="企业车行"){
-                    return "企业车商";
-                }
-            }
+
         },
         // 自定义函数(方法)
         methods: {
-            ...mapActions(['getMyShoppingNumber']),
             
             // 未登录（请先登录）
             noLogin(){
                 this.$notify({
                     title: '您尚未登录',
-                    message: '登录后可进行加入购物车操作',
+                    message: '登录后可进行收藏操作',
                     type: 'error',
                     duration: 1500,
                 });
             },
+            
+            // 收藏车辆/取消收藏
+            setCollect(type,id){
 
-            // 加入购物车
-            inShopingCart(id){
-                let data = {
-                    ActType: 'Add',
-                    CarId: id,
+                let act = "";
+                if(type==1){
+                    act="Add";
+                }else{
+                    act="Delete"
                 }
-                api.manageShoppingCart(data).then(res => {
-                    if(res.code==SYSTEM.CODE_IS_OK){
-                        this.carInfo.hasInCart = true;
-                        // 重新获取购物车内车辆数量
-                        this.getMyShoppingNumber();
-                        this.$notify({
-                            title: '成功加入购物车',
-                            message: res.msg,
-                            type: 'success',
-                            duration: 1500,
-                        });
+                
+                let data = {
+                    ActType: act,
+                    CarId: id
+                }
 
+                api.myFavoriteCar(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        // 假刷新
+                        if(type==1){
+                            this.carInfo.favorite = true;
+                            this.$notify({
+                                title: '车辆收藏成功',
+                                message: res.msg,
+                                type: 'success',
+                                duration: 1500,
+                            });
+                        }else{
+                            this.carInfo.favorite = false;
+                            this.$notify({
+                                title: '取消收藏成功',
+                                message: '您已成功取消收藏',
+                                type: 'success',
+                                duration: 1500,
+                            });
+                        }
+                        
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
-                            title: '加入购物车失败',
+                            title: '车辆收藏失败',
                             message: res.msg,
                             type: 'error',
                             duration: 1500,
@@ -264,13 +266,13 @@
                         _completeCenter(-5px,auto,0,0)
             .m-con-box
                 width @width
-                height 172px
+                height 125px
                 z-index 15
                 _completeCenter(,,160px,auto)
                 _transitionAll(.3s)
                 .u-mask
                     width 100%
-                    height 255px - 172px
+                    height 255px - 125px
                     _completeCenter(0,auto,0,auto)
                     background rgba(0,0,0,.65)
                     _transitionAll(.25s)
@@ -278,12 +280,12 @@
                         color #f0f0f0
                         text-align center
                         .view-icon
-                            margin 12px 0 0
-                            line-height 36px 
+                            margin 28px 0 0
+                            line-height 46px 
                             .iconfont
-                                font-size 36px
+                                font-size 46px
                         .txt
-                            margin -4px 0 0
+                            margin -6px 0 0
                             font-size 13px
                             _spacingPlus(2px)
                 .u-con
@@ -317,7 +319,7 @@
                             font-size 12px
                             .data
                                 text-decoration line-through
-                    .u-addCart
+                    .u-favorite
                         width 28px
                         height 28px
                         text-align center
@@ -327,7 +329,7 @@
                             width @width
                             height @height
                             _borderRadius(@width * 1/2)
-                            background #c2c2c2
+                            background #f43
                             color #f2f2f2
                             position relative
                             .iconfont 
@@ -336,39 +338,23 @@
                                 _display(inline-block)
                                 _translate3d(0,5px)
                             &.not
-                                background #40474a + 15% 
+                                // background #40474a + 15%
+                                width 28px - 2px
+                                height 28px - 2px
+                                _borderAll(#f43)
+                                background #fff
+                                .iconfont 
+                                    color #f43
                                 &:hover
-                                    background @background - 20%
-                                &:active
-                                    background @background + 2%
-                    .u-other,.u-cdg-info
+                                    .iconfont 
+                                        &:before
+                                            content "\e713"
+                    .u-other
                         height 20px
                         line-height @height
                         font-size 12px
                         margin 0 0 5px
                         color #959595
-                    .u-cdg-info
-                        font-size 13px
-                        .cname
-                            color #40474a
-                            
-                            _display()
-                            _ellipsis()
-                    .u-time-block
-                        height 22px
-                        position relative
-                        .time
-                            height 20px - 2px
-                            font-size 12px
-                            line-height @height
-                            padding 0 9px
-                            _spacingPlus()
-                            _borderRadius(@height * 1/2)
-                            _borderAll($c_blue,1px,groove)
-                            color $c_blue
-                            _completeCenter(auto,0,0,auto)
-
-
 
             &:hover
                 _boxShadow(20px,rgba(0,0,0,.10),6px,6px)
@@ -378,12 +364,12 @@
                         _translate3d(0,-80px)
                 .m-con-box
                     _transitionAll(.3s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
-                    _translate3d(0,-77px)
+                    _translate3d(0,-30px)
                     // -webkit-backface-visibility: hidden;
                     // -webkit-transform-style: preserve-3d;
                     .u-mask
                         _transitionAll(.3s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
-                        _translate3d(0,-83px )
+                        _translate3d(0,-130px )
 
 
 </style>

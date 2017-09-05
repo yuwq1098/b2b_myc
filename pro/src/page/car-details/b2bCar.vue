@@ -84,10 +84,12 @@
                                 <template v-else>
                                     <a class="u-btn v2"
                                         v-if="!otherInfo.isInFavorite"
-                                        @click="inMyCollect(basicInfo.id)"
+                                        @click="inMyCollect(1,basicInfo.id)"
                                         >收藏车辆</a>
-                                    <a href="javascript:;" class="u-btn not"
-                                        v-if="otherInfo.isInFavorite">已收藏</a>
+                                    <a href="javascript:;" class="u-btn cancel"
+                                        v-if="otherInfo.isInFavorite"
+                                        @click="inMyCollect(2,basicInfo.id)"
+                                        >取消收藏</a>
                                 </template>
 
                                 <template v-if="!hasLogin"
@@ -207,140 +209,13 @@
                                     </div>
                                     <div class="box-tip businessmen-note">
                                         <div class="tip-content"
-                                            >{{basicInfo.desc}}
+                                            >{{basicInfo.desc||'车主暂未对该车源进行描述'}}
                                         </div>
                                         <span class="tip-arrow"></span><!-- 箭头装饰物 -->
                                     </div><!-- 车商描述 -->
                                 </li>
                             </ul>
                         </div><!-- 信息内容 -->
-
-                    </div><!-- 车辆信息 -->
-
-                    <div class="m-car-info f__boxClearM">
-                        <div class="box-header">
-                            <i class="icon-block"></i><h3>基本信息</h3>
-                        </div><!-- 标题 -->
-                        <div class="m-mn f__clearfix">
-                            <div class="m-basic f__fl">
-                                <div class="u-tit">
-                                    <span class="txt">车辆基本信息</span>
-                                </div>
-                                <div class="u-con f__clearfix">
-                                    <ul class="u-list f__fl">
-                                        <li class="u-item">
-                                            <span class="u-attr">表显里程</span>
-                                            <span class="u-val">{{basicInfo.mileage | mileFn(2)}}</span>
-                                        </li>
-                                        <li class="u-item">
-                                            <span class="u-attr">过户次数</span>
-                                            <span class="u-val" v-if="basicInfo.transferTimes">{{basicInfo.transferTimes}}次</span>
-                                            <span class="u-val" v-else>暂无数据</span>
-                                        </li>
-                                        <li class="u-item">
-                                            <span class="u-attr">综合油耗</span>
-                                            <span class="u-val" v-if="basicInfo.liter">{{basicInfo.liter |literFn}}</span>
-                                            <span class="u-val" v-else>暂无数据</span>
-                                        </li>
-                                        <li class="u-item">
-                                            <span class="u-attr">车身颜色</span>
-                                            <span class="u-val">{{basicInfo.color}}</span>
-                                        </li>
-                                    </ul>
-                                    <ul class="u-list f__fl">
-                                        <li class="u-item">
-                                            <span class="u-attr">上牌时间</span>
-                                            <span class="u-val" v-if="basicInfo.plateDate">{{basicInfo.plateDate | dateFn}}</span>
-                                            <span class="u-val" v-else>暂无数据</span>
-                                        </li>
-                                        <li class="u-item">
-                                            <span class="u-attr">车辆所在地</span>
-                                            <span class="u-val" v-if="basicInfo.inProvince&&basicInfo.inCity">
-                                                <template>{{basicInfo.inProvince | cityFn}}</template><!--
-                                                --><template v-if="basicInfo.inProvince!=basicInfo.inCity"
-                                                    >{{basicInfo.inCity | cityFn}}
-                                                </template>
-                                            </span>
-                                            <span class="u-val" v-else>暂无数据</span>
-                                        </li>
-                                        <li class="u-item">
-                                            <span class="u-attr">牌照归属</span>
-                                            <span class="u-val" v-if="basicInfo.plateInProvince&&basicInfo.plateInCity">
-                                                <template>{{basicInfo.plateInProvince | cityFn}}</template><!--
-                                                --><template v-if="basicInfo.plateInProvince!=basicInfo.plateInCity"
-                                                    >{{basicInfo.plateInCity | cityFn}}
-                                                </template>
-                                            </span>
-                                            <span class="u-val" v-else>暂无数据</span>
-                                        </li>
-                                        <li class="u-item">
-                                            <span class="u-attr">使用性质</span>
-                                            <span class="u-val">{{basicInfo.serviceType}}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div><!-- 基本信息 -->
-                            <div class="u-line-y"></div><!-- 垂直分割线 -->
-                            <div class="m-merchant f__fr">
-                                <div class="m-mct-box">
-                                    <div class="m-mct-hd">
-                                        
-                                        <template v-if="!hasLogin"
-                                            >
-                                            <a class="u-icon"
-                                                @click="noLogin()"
-                                                >
-                                                <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
-                                            </a><!-- 车商商头像 -->
-                                        </template>
-                                        <template v-else>
-                                            <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="u-icon" tag="a">
-                                                <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
-                                            </router-link><!-- 车商商头像 -->
-                                        </template>
-
-                                        <div class="u-tit">
-                                            <template v-if="!hasLogin"
-                                                >
-                                                <a class="name" 
-                                                    @click="noLogin()">{{otherInfo.cdgName}}
-                                                </a>
-                                            </template>
-                                            <template v-else>
-                                                <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="name" tag="a">{{otherInfo.cdgName}}</router-link>
-                                            </template>
-                                            <div class="u-prove">{{theAuthType}}</div><!-- 认证标识 -->
-                                        </div><!-- 车商名字 -->
-                                        <div class="u-tel">
-                                            
-                                            <!-- 未登录的用户不允许看车商的信息 -->
-                                            <template v-if="!hasLogin"
-                                                >
-                                                <span class="name">{{otherInfo.contacter | usernameFormat}}</span>
-                                                <span class="tel">{{otherInfo.tel | telFormat}}</span>
-                                            </template>
-                                            <template v-else>
-                                                <span class="name">{{otherInfo.contacter}}</span>
-                                                <span class="tel">{{otherInfo.tel}}</span>
-                                            </template>
-                                            
-                                            <span class="onSell"
-                                                v-if="otherInfo.onSellCount&&otherInfo.onSellCount>0"
-                                                >在售<em class="data">{{otherInfo.onSellCount}}</em>辆</span>
-                                        </div><!-- 电话 -->
-
-                                        <div class="u-adss"><span class="tit">车行地址</span>{{otherInfo.address | addressFormat}}</div><!-- 地址 -->
-                                        
-                                        
-                                    </div><!-- 头部 -->
-                                    <div class="u-mct-txt">
-                                        <span class="tit">车行描述：</span>
-                                        <p class="desc">{{otherInfo.desc}}</p>
-                                    </div><!-- 文本介绍 -->   
-                                </div>
-                                
-                            </div><!-- 车商认证信息 -->
-                        </div>
 
                     </div><!-- 车辆信息 -->
 
@@ -363,6 +238,108 @@
                         </div><!-- 图片内容 -->
                     </div><!-- 车辆图片信息 -->
                     
+                    <div class="m-dealer f__boxClearM">
+                        <div class="m-box-hd">
+                            <h4>店铺信息</h4>
+                        </div><!-- 标题 -->
+                        <div class="store-info f__clearfix">
+                            <div class="u-info-lt">
+
+                                <template v-if="!hasLogin"
+                                    >
+                                    <a class="store-pic" @click="noLogin()">
+                                        <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
+                                    </a>
+                                </template>
+                                <template v-else>
+                                    <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="store-pic" tag="a">
+                                        <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
+                                    </router-link>
+                                </template><!-- 车商商头像 -->
+                                
+                                <div class="store-basic">
+                                    <div class="line-tit">
+                                        <template v-if="!hasLogin"
+                                            >
+                                            <a class="name" 
+                                                @click="noLogin()">{{otherInfo.cdgName}}
+                                            </a>
+                                        </template>
+                                        <template v-else>
+                                            <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="name" tag="a">{{otherInfo.cdgName}}</router-link>
+                                        </template>
+                                    </div>
+
+                                    <div class="line-box">
+                                        <span><em class="vital">{{otherInfo.onSellCount}}</em>在售</span>
+                                        <i class="separated">|</i>
+                                        <span>认证类型：{{theAuthType}}</span>
+                                    </div>
+
+                                    <div class="line-box btnWrap">
+                                        <template v-if="!hasLogin"
+                                            >
+                                            <a class="u-btn" 
+                                                @click="noLogin()">进入该店铺
+                                            </a>
+                                        </template>
+                                        <template v-else>
+                                            <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="u-btn" tag="a"
+                                                >进入该店铺</router-link>
+                                        </template>
+                                        <a class="u-collect" v-if="!cdgIsFavorite"
+                                            @click="setAttention(1,basicInfo.mid)">收藏车店</a>
+                                        <a class="u-collect cancel" v-else
+                                            @click="setAttention(2,basicInfo.mid)">取消收藏</a>
+                                    </div>
+                                </div>
+                            </div><!-- 左侧主要信息 -->
+
+                            <div class="u-info-rt">
+                                <ul>
+                                    <li>
+                                        <i class="adorn"></i>
+                                        <span class="attr">电话：</span>
+                                        <template v-if="!hasLogin"
+                                                >
+                                            <p class="data">{{otherInfo.tel | telFormat}}</p>
+                                        </template>
+                                        <template v-else>
+                                            <p class="data">{{otherInfo.tel}}</p>
+                                        </template>
+                                    </li>
+                                    <li>
+                                        <i class="adorn"></i>
+                                        <span class="attr">地址：</span>
+                                        <p class="data">{{otherInfo.address | addressFormat2}}</p>
+                                    </li>
+                                    <li class="desc">
+                                        <i class="adorn"></i>
+                                        <span class="attr">店铺描述：</span>
+                                        <p class="data desc">{{otherInfo.desc}}</p>
+                                    </li>
+                                </ul>
+                            </div><!-- 右侧信息 -->
+                        </div><!-- 店铺信息 -->
+                    </div><!-- 车商信息 -->
+
+                    <div class="m-selling-car f__boxClearM">
+                        <div class="m-box-hd">
+                            <h4>店铺在售车源</h4>
+                        </div><!-- 标题 -->
+                        <div class="m-onSale-con">
+                            <template v-if="onSaleCarList&&onSaleCarList.length>0">
+                                <on-sale-list
+                                    :carList="onSaleCarList"
+                                    :loginStatus="loginStatus"
+                                    :hasAuth= "hasAuth"
+                                    >
+                                </on-sale-list>
+                            </template>
+                            
+                        </div>
+                    </div><!-- 店铺在售车源 -->
+                    
                     <div class="m-process f__boxClearM">
                         <div class="box-header">
                             <i class="icon-block"></i><h3>购车流程</h3>
@@ -372,22 +349,12 @@
                         </div>
                     </div><!-- 购车流程 -->
 
-                    <div class="m-dealer f__boxClearM">
-                        <div class="m-box-hd">
-                            <h4>车商信息</h4>
-                        </div><!-- 标题 -->
-                    </div><!-- 车商信息 -->
-
-                    <div class="m-selling-car f__boxClearM">
-                        <div class="m-box-hd">
-                            <h4>店铺在售车源</h4>
-                        </div><!-- 标题 -->
-                    </div><!-- 店铺在售车源 -->
-                    
                     <div class="m-remd">
-                        <div class="m-other-hd">
-                            <h4>相似推荐</h4>
+                        
+                        <div class="box-header">
+                            <i class="icon-block"></i><h3>相似推荐</h3>
                         </div><!-- 标题 -->
+                        
                         <div class="m-lst-gp-b">
                             <ul class="m-lst f__clearfix"
                                 v-if="similarList&&similarList.length>0">
@@ -429,6 +396,8 @@
     import * as geekDom from 'assets/js/dom.js'
     // 车行信息的构造类
     import {basicInfo,carDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
+    // 在售车源信息的构造类
+    import {onSaleCarInfo} from "base/class/carInfo.js"
 
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
@@ -445,6 +414,8 @@
 
     // 社会分享组件
     import gkShare from "components/common/gkShare.vue"
+    // 车店在售车源列表
+    import onSaleList from "components/boxLayout/onSaleList.vue"
 
     var wx = require('weixin-js-sdk');
     
@@ -457,6 +428,7 @@
             fcSlide,
             remdListBox,
             gkShare,
+            onSaleList,
         },
         // 数据
         data() {
@@ -496,7 +468,12 @@
                 // 相似推荐列表
                 similarList: [],
                 // 车辆列表
-                b2bCarList: [],                       
+                b2bCarList: [],
+                
+                // 店铺在售车源
+                onSaleCarList: [],
+                // 是否收藏车店
+                cdgIsFavorite: false,                       
             }
         },
         //生命周期,开始的时候
@@ -550,7 +527,6 @@
             loginStatus(val){
                 // 获取用户信息
                 this.getCarDetailsInfo();
-                
             },
 
         },
@@ -742,6 +718,9 @@
 
                         //获取车辆图片数据
                         setTimeout(() => {
+                            // 获取在售车辆列表
+                            this.getOnSaleCar(this.basicInfo.mid);
+
                             this.carImgData = this.getCarImgsData(this.fileInfoList,this.otherInfo);
                             // 获取相似推荐数据
                             this.similarList = this._normalizeB2bCarInfo(res.data.SimilarRecommend)
@@ -880,9 +859,21 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         // 假刷新
                         if(type==1){
-                            this.otherInfo.isInFavorite = true;
+                            this.cdgIsFavorite = true;
+                            this.$notify({
+                                title: '成功关注车店',
+                                message: res.msg,
+                                type: 'success',
+                                duration: 1500,
+                            });
                         }else{
-                            this.otherInfo.isInFavorite = false;
+                            this.cdgIsFavorite = false;
+                            this.$notify({
+                                title: '取消关注成功',
+                                message: '您已成功取消关注',
+                                type: 'success',
+                                duration: 1500,
+                            })
                         }
 
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
@@ -925,20 +916,40 @@
             },
 
             // 加入车辆收藏
-            inMyCollect(id){
+            inMyCollect(type,id){
+
+                let act = "";
+                if(type==1){
+                    act="Add";
+                }else{
+                    act="Delete"
+                }
                 let data = {
-                    ActType: 'Add',
+                    ActType: act,
                     CarId: id,
                 }
                 api.myFavoriteCar(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
-                        this.otherInfo.isInFavorite = 1;
-                        this.$notify({
-                            title: '车辆收藏成功',
-                            message: res.msg,
-                            type: 'success',
-                            duration: 1500,
-                        });
+
+                        // 假刷新
+                        if(type==1){
+                            this.otherInfo.isInFavorite = true;
+                            this.$notify({
+                                title: '车辆收藏成功',
+                                message: res.msg,
+                                type: 'success',
+                                duration: 1500,
+                            });
+                        }else{
+                            this.otherInfo.isInFavorite = false;
+                            this.$notify({
+                                title: '取消车辆收藏',
+                                message: '您已成功取消车辆收藏',
+                                type: 'success',
+                                duration: 1500,
+                            })
+                        }
+                        
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '车辆收藏失败',
@@ -1022,6 +1033,42 @@
                 });
                 return carInfo;
             },
+            
+
+            // 格式化车行车辆信息列表
+            _normalizeCarList(list) {
+                let arr = [];
+                list.forEach((item,index) => {
+                    if(index<5){
+                        arr.push(new onSaleCarInfo(item));
+                    }
+                })
+                return arr;
+            },
+
+
+            // 获取卖家店铺在售车源信息列表
+            getOnSaleCar(id){
+                let data = {
+                    SellerId: id,
+                }
+                api.CDGStoreDetails(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        
+                        this.cdgIsFavorite = res.data.HasFavorite;
+                        this.onSaleCarList = this._normalizeCarList(res.data.CarList);
+                        
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })   
+            },
+
         }
 	}
 </script>
