@@ -57,5 +57,20 @@ class commentClass{
 	}
 }
 
+// 评论信息的构造类
+class judgeInfo{
+	constructor(data) {
+	    this.low = data.LowCount||0            // 适中价格评价数
+	    this.high = data.HighCount||0          // 价格高评价数
+        this.total = data.TotalCount||0        // 总评价数
 
-export {commentClass};
+	    this.hasJudged = data.HasJudged||false                        // 是否已经评价过了，true表示已评价过
+	    this.myJudge = data.MyJudgeResult||0                          // 我的评价结果 （1/-1/0 1高，-1低，0未评）
+	    this.activityCount = data.B2BCarPriceJudgeActivityCount||0    // 总评价数达到此数值时，是否低价车功能才生效
+	    this.isNiceCar = data.B2BCarPriceNicePercent||0               // 低价数÷总评价数>=0.7 表示是低价车
+	}
+}
+
+
+
+export {commentClass,rlyCommentClass,judgeInfo};

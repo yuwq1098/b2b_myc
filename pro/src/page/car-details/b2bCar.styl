@@ -218,7 +218,7 @@ $box-width = 1200px
                             _completeCenter(0,auto,10px,auto)
                             background url("../../assets/img/u-vote-up.png") center center no-repeat
                             background-size cover
-                            &:hover
+                            &:hover,&.active
                                 background url("../../assets/img/u-vote-up-active.png") center center no-repeat
                                 background-size @background-size
                             &:active
@@ -227,7 +227,7 @@ $box-width = 1200px
                             _completeCenter(auto,0,10px,auto)
                             background url("../../assets/img/u-vote-down.png") center center no-repeat
                             background-size cover
-                            &:hover
+                            &:hover,&.active
                                 background url("../../assets/img/u-vote-down-active.png") center center no-repeat
                                 background-size @background-size
                             &:active
@@ -262,6 +262,7 @@ $box-width = 1200px
                                 float right
                                 color #072c4c
                         .progress-box
+                            width @width
                             margin 5px 0
                             height 6px
                             background #f2f2f2
@@ -269,23 +270,51 @@ $box-width = 1200px
                             position relative
                             section
                                 height @height
+                                position relative
+                                width 50%
+                                _transitionAll(.5s,cubic-bezier(0.31, 0.51, 0.69, 0.94))
                                 &.vup-progress
                                     _borderRadiusCustom(3px,0,0,3px)
                                     background #ffb911
                                     _completeCenter(0,auto)
+                                    &::before
+                                        content ""
+                                        display()
+                                        width 0
+                                        height 0
+                                        _border(right,#fff,3px)
+                                        _border(bottom,#fff,4px)
+                                        _border(left,transparent,3px)
+                                        _border(top,transparent,4px)
+                                        _completeCenter(auto,0)
                                 &.vdown-progress
                                     _borderRadiusCustom(0,3px,3px,0)
                                     background #072c4c
                                     _completeCenter(auto,0)
-                            .middle-decorate
-                                height 6px
-                                width 17px
-                                position absolute
-                                left 0
-                                background url("../../assets/img/u-center-middle.png") center center no-repeat
-                                background-size auto 6px
-                                z-index 2
-                                _translate3d(-8px)
+                                    &::before
+                                        content ""
+                                        display()
+                                        width 0
+                                        height 0
+                                        _border(right,transparent,3px)
+                                        _border(bottom,transparent,4px)
+                                        _border(left,#fff,3px)
+                                        _border(top,#fff,4px)
+                                        _completeCenter(0,auto)
+                            .decorate-wrapper
+                                _display(none)
+                                width @width - 8px
+                                height @height
+                                position relative
+                                .middle-decorate
+                                    height @height
+                                    width 17px
+                                    position absolute
+                                    left 0
+                                    background url("../../assets/img/u-center-middle.png") center center no-repeat
+                                    background-size auto 6px
+                                    z-index 2
+                                    _translate3d(-8px)
                         .volume
                             height 16px
                             line-height @height
@@ -786,7 +815,21 @@ $box-width = 1200px
                         height 22px
                         line-height @height
                         color #959595
-
+        // 店铺在售车源
+        .m-selling-car
+            .m-box-hd
+                position relative
+                .view-more
+                    height 26px - 2px
+                    line-height @height
+                    _completeCenter(auto,0)
+                    padding 0 12px
+                    _borderAll(#e2e2e2)
+                    _borderRadius(14px)
+                    color #666
+                    &:hover
+                        color #222
+                        _borderAll(#222)
         //车商信息/店铺信息
         .m-dealer
             .store-info

@@ -365,7 +365,7 @@ export default {
     uploadPublicFileBatch(params){
         return fetchSign('/action2/UploadPublicFileBase64.ashx', qs.stringify(params))
     },
-    
+
     //获取车辆品牌
     getCarBrand(){
         return get('/action2/CarBrand.ashx');
@@ -404,7 +404,7 @@ export default {
     getAllCityList(){
         return fetch('/action2/AllCity.ashx');
     },
-    
+
     //保存订阅信息
     subscribeCarBrand(params){
         return fetchSign('/action2/SubscribeCarBrand.ashx',dataToJson(params));
@@ -495,13 +495,13 @@ export default {
     checkPayStatus(params){
         return fetchSign('/action2/pay/chkPayStatus.ashx',dataToJson(params));
     },
-    
+
 
 
     /*
      * B2B核心业务
      */
-    
+
     //秒杀立即下单接口
     getAddB2BOrder(params){
         return fetchSign('/action2/addB2BOrder.ashx', dataToJson(params))
@@ -516,7 +516,7 @@ export default {
     getB2BOrderDetail(params){
         return fetchSign('/action2/B2BOrderDetail.ashx', dataToJson(params))
     },
-    
+
     // 卖家发起合同模版需要的内容
     sellerNeedContract(params){
         return fetchSign('/action2/B2BOrderContractNeedInfo.ashx', dataToJson(params))
@@ -536,7 +536,7 @@ export default {
     orderContractView(params){
         return fetchSign('/action2/OrderContractView.ashx', dataToJson(params))
     },
-    
+
 
     // 更改订单状态
     changeB2BOrderStatus(params){
@@ -562,7 +562,7 @@ export default {
         }
         return fetchSign('/action2/ShoppingCartMng.ashx', dataToJson(data))
     },
-    
+
     // 车商圈
     carDealerCircle(params){
 /**/        return fetchSign('/action2/CarDealerCircle.ashx', dataToJson(params))
@@ -582,7 +582,7 @@ export default {
     CDGStoreDetails(params){
         return fetchSign('/action2/CDGStore.ashx', dataToJson(params))
     },
-    
+
     // 合作商车辆推荐给线下客户
     intermediaryShareB2B(params){
 /**/        return fetchSign('/action2/IntermediaryShareB2B.ashx', dataToJson(params))
@@ -602,7 +602,7 @@ export default {
     carDealerCircleRanking(params){
 /**/        return fetchSign('/action2/PushB2BCarNeed2Top.ashx', dataToJson(params))
     },
-    
+
 
     /*
      * 激光推送
@@ -622,7 +622,7 @@ export default {
     cdgEdit(params){
         return fetchSign('/action2/CdgEdit.ashx',dataToJson(params));
     },
-    
+
     // 车行认证
     authApply(params){
         return fetchSign('/action2/B2BAuthApply.ashx',dataToJson(params));
@@ -647,7 +647,7 @@ export default {
     operateB2BCar(params){
         return fetchSign('/action2/OperateB2BCar.ashx',dataToJson(params));
     },
-    
+
     //我的车源信息(状态混乱)
     getMyB2BCarMobile(params){
         return fetchSign('/action2/MyB2BCar.ashx',dataToJson(params));
@@ -712,7 +712,7 @@ export default {
     editPassword(params){
         return fetchSign('/action2/EditPassword.ashx',dataToJson(params));
     },
-    
+
     // 忘记支付密码
     forgetPayPass(params){
         return fetchSign('/action2/EditPayPassword.ashx',dataToJson(params));
@@ -727,7 +727,7 @@ export default {
     editMobile(params){
         return fetchSign('/action2/ReplaceMobile.ashx',dataToJson(params));
     },
-    
+
     // 设置支付密码
     setPayPass(params){
         return fetchSign('/action2/SetPayPassword.ashx',dataToJson(params));
@@ -772,7 +772,7 @@ export default {
     /*
      * 收藏夹
      */
-    
+
     // B2B车商收藏管理
     myFavoriteCdg(params){
         return fetchSign('/action2/FavoriteCdg.ashx',dataToJson(params));
@@ -783,11 +783,10 @@ export default {
         return fetchSign('/action2/FavoriteB2BCar.ashx',dataToJson(params));
     },
 
-
     /*
      * 验证、登录及注册类
      */
-    
+
     //图形验证码
     imgRandomCode(params){
 /**/        return fetch('/action2/ImgRandomCode.ashx', qs.stringify(params))
@@ -812,7 +811,7 @@ export default {
     getOpenId(params){
         return fetchSign('/action2/GetOpenId.ashx',dataToJson(params));
     },
-    
+
     // 注册
     register(params){
         return fetchSign('/action2/RegUser.ashx',dataToJson(params));

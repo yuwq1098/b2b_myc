@@ -75,7 +75,8 @@
                             </div><!-- 产品描述 -->
 
                             <div class="m-vote">
-                                <a class="u-btn vote-up"></a><!-- 合适，赞 -->
+                                
+                                
                                 <div class="progress-container">
                                     <div class="top f__clearfix">
                                         <span class="text-lt">这辆车价格很不错</span>
@@ -87,21 +88,43 @@
                                     </div><!-- 头部信息 -->
                                     <div class="progress-box">
                                         <section class="vup-progress"
-                                            style="width:45%"
+                                            :style="{width: (+lowPageWeight)+'%'}"
                                             ></section>
-                                        <div class="middle-decorate"
-                                            style="left:45%"
+                                        <div class="decorate-wrapper">
+                                            <div class="middle-decorate"
+                                            :style="{left: (+lowPageWeight)+'%'}"
                                             ></div><!-- 装饰物 -->
+                                        </div>
                                         <section class="vdown-progress"
-                                            style="width:55%"
+                                            :style="{width: (-lowPageWeight+100)+'%'}"
                                             ></section>
                                     </div><!-- 进度条容器 -->
                                     <div class="volume f__clearfix">
-                                        <span class="volume-lt">3620</span>
-                                        <span class="volume-rt">2953</span>
+                                        <span class="volume-lt">{{judgeCarInfo.low}}</span>
+                                        <span class="volume-rt">{{judgeCarInfo.high}}</span>
                                     </div><!-- 投票量 -->
                                 </div>
-                                <a class="u-btn vote-down"></a><!-- 价太高，踩 -->
+
+                                <template v-if="judgeCarInfo.hasJudged">
+                                    <a class="u-btn vote-up" 
+                                        :class="{'active':judgeCarInfo.hasJudged&&judgeCarInfo.myJudge==-1}"
+                                        @click="putHasJudged()"
+                                        ></a><!-- 合适，低，赞 -->
+                                    <a class="u-btn vote-down"
+                                        :class="{'active':judgeCarInfo.hasJudged&&judgeCarInfo.myJudge==1}"
+                                        @click="putHasJudged()"
+                                        ></a><!-- 价太高，踩 -->
+                                </template>
+                                <template v-else>
+                                    <a class="u-btn vote-up" 
+                                        :class="{'active':judgeCarInfo.hasJudged&&judgeCarInfo.myJudge==-1}"
+                                        @click="putCarPriceJudge(-1)"
+                                        ></a><!-- 合适，低，赞 -->
+                                    <a class="u-btn vote-down"
+                                        :class="{'active':judgeCarInfo.hasJudged&&judgeCarInfo.myJudge==1}"
+                                        @click="putCarPriceJudge(1)"
+                                        ></a><!-- 价太高，踩 -->
+                                </template>
                             </div><!-- 投票 -->
 
                             <div class="m-opra f__clearfix">
@@ -114,11 +137,11 @@
                                 <template v-else>
                                     <a class="u-btn v2"
                                         v-if="!otherInfo.isInFavorite"
-                                        @click="inMyCollect(1,basicd)"
+                                        @click="inMyCollect(1,basicInfo.id)"
                                         >收藏车辆</a>
                                     <a href="javascript:;" class="u-btn cancel"
                                         v-if="otherInfo.isInFavorite"
-                                        @click="inMyCollect(2,basicd)"
+                                        @click="inMyCollect(2,basicInfo.id)"
                                         >取消收藏</a>
                                 </template>
 
@@ -502,6 +525,12 @@
                     <div class="m-selling-car f__boxClearM">
                         <div class="m-box-hd">
                             <h4>店铺在售车源</h4>
+                            <template v-if="otherInfo.onSellCount>5">
+                                <router-link class="view-more" tag="a"
+                                    :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}"
+                                    >查看更多
+                                </router-link>
+                            </template>
                         </div><!-- 标题 -->
                         <div class="m-onSale-con">
                             <template v-if="onSaleCarList&&onSaleCarList.length>0">
@@ -577,7 +606,7 @@
     // 在售车源信息的构造类
     import {onSaleCarInfo} from "base/class/carInfo.js"
     // 评论信息的构造类
-    import {commentClass} from "base/class/comment.js"
+    import {commentClass,judgeInfo} from "base/class/comment.js"
 
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
@@ -688,11 +717,10 @@
                     totalPage : 0
                 },
 
-                // 返回顶部的定时器
-                timer: null,
-                // 返回顶部的方法是否已结束
-                tf: true,
-
+                // 价格评判信息
+                judgeCarInfo: {},
+                // 计算评低价的占有率
+                lowPageWeight: 50,
             }
         },
         //生命周期,开始的时候
@@ -718,6 +746,9 @@
 
             // 获取车辆留言列表
             this.getCarCommentList();
+
+            // 获取评价信息
+            this.getJudgeInfo();
 
         },
         //退出的生命周期钩子
@@ -779,7 +810,8 @@
                 }else if(this.otherInfo.authType=="企业车行"){
                     return "企业车商";
                 }
-            },
+            }
+
         },
         // vue实例方法
         methods:{
@@ -1328,6 +1360,70 @@
                 this.isShowRlyPanel(true,this.currRlyPanelIndex)
             },
 
+            // 格式化用户信息
+            _normalizeJudgeInfo(data) {
+                return new judgeInfo(data);
+            },
+
+            // 获取车价评判信息
+            getJudgeInfo(){
+                let data = {
+                    ActType :"PriceJudgeDetail",
+                    CarId: this.carId,
+                }
+                api.judgeCarPrice(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.judgeCarInfo = this._normalizeJudgeInfo(res.data);
+                        this.lowPageWeight = ((this.judgeCarInfo.low/this.judgeCarInfo.total)*100).toFixed(2);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '车价评判信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+
+            // 提交车价高低评判
+            putCarPriceJudge(type){
+                let data = {
+                    ActType :"JudgePrice",
+                    CarId: this.carId,
+                    PriceLevel: type,
+                }
+                api.judgeCarPrice(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '车价评判成功',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                        // 重新获取车价评判信息
+                        this.getJudgeInfo();
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '车价评判操作失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
+
+            // 评价过
+            putHasJudged(){
+                this.$notify({
+                    title: '这辆车您已评价过',
+                    message: "您已为该车进行过价格评判了，请勿重复操作",
+                    type: 'error',
+                    duration: 1500,
+                });
+            },
+
             // 车辆异常状态提示
             abnormalStatusTips(status){
 
@@ -1479,7 +1575,6 @@
 
             // 加入车辆收藏
             inMyCollect(type,id){
-                console.log(event)
                 let act = "";
                 if(type==1){
                     act="Add";
