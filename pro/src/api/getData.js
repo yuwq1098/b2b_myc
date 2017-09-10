@@ -677,7 +677,21 @@ export default {
 /**/    newCarCount(params){
         return fetchSign('/action2/B2BNewCarCount.ashx', dataToJson(params))
     },
-    
+
+    // 车辆报价（b2b意向价）
+/**/    quotedPrice(params){
+        return fetchSign('/action2/B2BQuotedPrice.ashx', dataToJson(params))
+    },
+
+    // 车辆评论留言
+/**/    carComment(params){
+        return fetchSign('/action2/B2BCarComment.ashx', dataToJson(params))
+    },
+
+    // 车辆价格评判(评价系统)
+/**/    judgeCarPrice(params){
+        return fetchSign('/action2/B2BCarPriceJudge.ashx', dataToJson(params))
+    },
 
 
     /*

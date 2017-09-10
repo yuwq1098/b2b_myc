@@ -50,7 +50,7 @@
                                 <transition name="tips">
                                     <div class="attention-tips" v-if="tipsShow.isShow">{{tipsShow.tipsText}}</div>
                                 </transition>
-                                
+
                             </div><!-- 评分与收藏 -->
 
                             <div class="m-contact">
@@ -98,6 +98,7 @@
                                                         <li class="u-item">
                                                             <merchant-car-Box
                                                                 :carInfo="item"
+                                                                :loginStatus="loginStatus"
                                                                 :isAuthSuccess="memberData&&memberData.isAuthSuccess"
                                                                 >
                                                             </merchant-car-Box>
@@ -106,7 +107,7 @@
                                                 </ul>
                                             </swiper-slide>
                                         </template>
-                                       
+
                                         <!-- 这是轮播的小圆点 -->  
                                         <div class="swiper-pagination"
                                             v-show="merchantCarList.length>8"
@@ -124,11 +125,11 @@
                                         <router-link :to="{path:'/b2bHall'}" class="u-lk" tag="a">B2B大厅&gt;</router-link>
                                     </not-content><!-- 缺省组件 -->
                                 </div><!-- 缺省组件容器 -->
-                                
+
                             </div><!-- 列表容器 -->
                         </div><!-- 所属车辆列表信息 -->
                     </div><!-- 盒子 -->
-                    
+
                 </section>
             </div>
         </div>
@@ -143,9 +144,11 @@
     import * as SYSTEM from 'api/system.js'
     // 工具类
     import {dataToJson} from "assets/js/util.js"
+    // vuex状态管理
+    import { mapGetters } from 'vuex'
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
-    
+
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
     // 车行信息的构造类
@@ -180,10 +183,10 @@
         // 数据
         data() {
             return{
-                
+
                 // 用户信息
                 memberData: null,
-                
+
                 // 最低信誉金
                 minCredit: SYSTEM.MIN_CREDIT_GOLD,
 
@@ -197,7 +200,7 @@
                 merchantCarList: [],
                 // 焦点图列表
                 slideCarList: [],
-                 
+
                 // 未收藏的信息
                 attentionNot:{
                     text: "收藏",
@@ -215,7 +218,7 @@
                 }, 
                 // 我的延时器
                 mySetTimeOut: null,
-                
+
                 // 焦点图设置
                 swiperOption: {  
                     //是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true  
@@ -241,7 +244,7 @@
 
         },
         activated(){
-            
+
             // 获取用户信息
             this.getMemberInfo();
             // 获取卖家ID
@@ -256,14 +259,24 @@
         },
         // 数据侦听
         watch:{
-
+            // 侦听登录状态
+            loginStatus(val){
+                this.getMerchantInfo(this.merchantId);
+                if(val){
+                    // 获取用户信息
+                    this.getMemberInfo();
+                }else{
+                    this.memberData = null;
+                }
+            },
         },
         // 属性计算
         computed:{
+            ...mapGetters(['loginStatus']),
 
             slidePage(){
                 let page = Math.ceil(this.merchantCarList.length/8);
-                return page; 
+                return page;
             },
             // 面包屑列表信息
             crumbItems(){
@@ -278,12 +291,11 @@
                     return "企业车商";
                 }
             }
-            
 
         },
         // 自定义函数(方法)
         methods: {
-            
+
             // 格式化用户信息
             _normalizeMember(data) {
                 return new memberInfo(data);
@@ -291,6 +303,8 @@
 
             // 获取用户信息
             getMemberInfo(){
+                if(!this.loginStatus) return;
+
                 let data = {}
                 api.getMyMemberInfo(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
@@ -303,7 +317,7 @@
                             duration: 1500,
                         });
                     }
-                })   
+                })
             },
 
             // 格式化车行信息

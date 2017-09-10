@@ -1,7 +1,6 @@
 @import '~assets/css/mixin.styl'
 
-.bg-test
-    background #e2e2e2
+$box-width = 1200px
 
 .g-doc
     background #fff
@@ -40,7 +39,7 @@
                         line-height 40px
                         color #ff6533
                         font-size 16px
-                        .vital                            
+                        .vital
                             font-size 28px
                             font-weight bold
                     .u-del
@@ -76,7 +75,7 @@
                 .m-des
                     width 510px
                     height 170px
-                    padding 15px 0
+                    padding 5px 0
                     .m-lst-wrap
                         width @width
                         height @height
@@ -142,13 +141,13 @@
                         _spacingPlus(3px)
                         padding 0 15px
                         color #FFF
-                        background #39D485
+                        background #A557FB
                         &:hover
                             background @background - 12%
                         &:active
                             background @background + 2%  
                         &.v2
-                            background #ff6533
+                            background #795CEC
                             &:hover
                                 background @background - 12%
                             &:active
@@ -164,7 +163,7 @@
                             &:hover,&:active
                                 background @background
                         &.v3
-                            background $c_blue
+                            background #FFA535
                             &:hover
                                 background @background - 12%
                     .u-btn-a
@@ -193,22 +192,112 @@
                                 left 0
                                 background url("../../assets/img/i-tel-icon.png") 0 0 no-repeat
                                 background-size 100% 100%
+                // 分享
                 .m-share
                     width 480px
-                    margin 0 0 0 16px
-                    height 60px
-                .m-collect
-                    margin-top 15px
+                    margin 0 0 12px 16px
                     height 32px
-                    line-height 32px
-                    .u-lk
-                        margin-right 20px
-                        &:hover
-                            color #ff6533
-                        .iconfont
-                            font-size 18px
-                            margin-right 4px
-                            color #ff6533
+                    .u-attr,.share-box
+                        _display(inline-block)
+                        _verticalTextAlign()
+                    .u-attr
+                        margin-right 5px
+                        color #333
+                // 投票/评价高低
+                .m-vote
+                    width 480px
+                    height 60px
+                    margin 0 0 20px 16px
+                    position relative
+                    .u-btn
+                        width 48px
+                        height 48px
+                        _display()
+                        _borderRadius()
+                        &.vote-up
+                            _completeCenter(0,auto,10px,auto)
+                            background url("../../assets/img/u-vote-up.png") center center no-repeat
+                            background-size cover
+                            &:hover
+                                background url("../../assets/img/u-vote-up-active.png") center center no-repeat
+                                background-size @background-size
+                            &:active
+                                _opactiy(.8)
+                        &.vote-down
+                            _completeCenter(auto,0,10px,auto)
+                            background url("../../assets/img/u-vote-down.png") center center no-repeat
+                            background-size cover
+                            &:hover
+                                background url("../../assets/img/u-vote-down-active.png") center center no-repeat
+                                background-size @background-size
+                            &:active
+                                _opactiy(.8)
+                    .progress-container
+                        margin 0 58px
+                        width @width - 58 * 2
+                        .top
+                            height 18px
+                            line-height @height
+                            padding-top 10px
+                            position relative
+                            span
+                                font-size 14px
+                                font-weight bold
+                            .text-lt
+                                float left
+                                color #ffb911
+                            .pk-text
+                                text-align center
+                                _display()
+                                _completeCenter(,,auto,4px)
+                                font-size 22px
+                                em
+                                    font-weight bold
+                                    _spacingPlus(-4px)
+                                    &.p-txt
+                                        color #ffb911
+                                    &.k-txt
+                                        color #072c4c
+                            .text-rt
+                                float right
+                                color #072c4c
+                        .progress-box
+                            margin 5px 0
+                            height 6px
+                            background #f2f2f2
+                            _borderRadius(3px)
+                            position relative
+                            section
+                                height @height
+                                &.vup-progress
+                                    _borderRadiusCustom(3px,0,0,3px)
+                                    background #ffb911
+                                    _completeCenter(0,auto)
+                                &.vdown-progress
+                                    _borderRadiusCustom(0,3px,3px,0)
+                                    background #072c4c
+                                    _completeCenter(auto,0)
+                            .middle-decorate
+                                height 6px
+                                width 17px
+                                position absolute
+                                left 0
+                                background url("../../assets/img/u-center-middle.png") center center no-repeat
+                                background-size auto 6px
+                                z-index 2
+                                _translate3d(-8px)
+                        .volume
+                            height 16px
+                            line-height @height
+                            span
+                                font-size 13px
+                            .volume-lt
+                                float left
+                                color #ffb911
+                            .volume-rt
+                                float right
+                                color #072c4c
+        // 车辆基本信息
         .m-basic-info
             .basic-con
                 .info-lst
@@ -309,7 +398,7 @@
                                 _borderAll(#e2e2e2)
                                 _borderRadius()
                                 _imgwrap()
-                                img 
+                                img
                                     _borderRadius()
                                     width @width - 6px
                                     height @height - 6px
@@ -346,7 +435,7 @@
                                 color #a5a5a5
                             .u-tel
                                 span.name
-                                    margin 0 7px 0 0 
+                                    margin 0 7px 0 0
                                 span.onSell
                                     height 20px
                                     line-height @height
@@ -435,11 +524,274 @@
                 height 120px
                 _imgwrap()
 
+        $mr02 = 68px
+        // 众人评车
+        .m-comment-car
+            .m-speak-con
+                padding-bottom 10px
+                .put-comment
+                    padding 15px 0 0 12px
+                    .new-comment
+                        margin-left $mr02
+                        margin-bottom 25px
+                        position relative
+                        .avatar
+                            width 56px
+                            height @width
+                            _borderRadius()
+                            _completeCenter(-68px,auto,0,auto)
+                            _imgwrap()
+                            img
+                                _borderRadius()
+                        textarea
+                            _textareaStyle()
+                            padding 10px 15px
+                            width 800px - $mr02 - 30px - 2px
+                            height 80px - 20px
+                            font-size 14px
+                        .write-function-box
+                            width 800px - $mr02
+                            padding 12px 0 0
+                            height 30px
+                            line-height @height
+                            .tips
+                                color #959595
+                                font-size 13px
+                                float left
+                                em
+                                    margin-right 15px
+                            .u-btn
+                                float right
+                                font-size 16px
+                                &.okay
+                                    text-align center
+                                    padding 0 20px
+                                    border none
+                                    _borderRadius(20px)
+                                    background #3EDA26
+                                    color #fff
+                                    _display(inline-block)
+                                    _verticalTextAlign(bottom)
+                                    &:hover
+                                        background @background - 7%
+                                    &:active
+                                        background @background + 5%
+                                &.cancel
+                                    margin-right 25px
+                                    color #959595
+                $comment_list_width =880px
+                .comment-container
+                    width $comment_list_width
+                    margin-left 12px
+                    .top
+                        padding-bottom 10px
+                        height 24px
+                        line-height @height
+                        _border(bottom,#e2e2e2)
+                        position relative
+                        span
+                            font-weight bold
+                            color #333
+                            font-size 15px
+                            font-family 'Microsoft Yahei'
+                        .show-comment-btn
+                            height 24px
+                            line-height @height
+                            _completeCenter(auto,8px,0,auto)
+                            color #959595
+                            font-size 13px
+                            .iconfont
+                                _display(inline-block)
+                                _translate3d(0,2px)
+                                font-size 18px
+                                margin-right 4px
+                            &:hover
+                                color #333
+                    .comment-lst
+                        padding-top 10px
+                        .comment-item
+                            margin-bottom 15px
+                            padding 15px 0
+                            _border(bottom,#e2e2e2)
+                            .comment-main
+                                .author
+                                    height 42px
+                                    width $comment_list_width
+                                    position relative
+                                    .avatar
+                                        width 42px
+                                        height 42px
+                                        _completeCenter(0,auto,0,auto)
+                                        _borderRadius()
+                                        _imgwrap()
+                                        img
+                                            _borderRadius()
+                                    .info
+                                        height @height
+                                        padding-left 56px
+                                        width @width - 56px
+                                        .name
+                                            _textLineHeigth(22px)
+                                            font-size 15px
+                                            color #333
+                                        .time
+                                            padding-top 2px
+                                            _textLineHeigth(18px)
+                                            font-size 12px
+                                            color #959595
+                                .info-wrap
+                                    .speak
+                                        font-size 16px
+                                        margin 10px 0
+                                        line-height 24px
+                                        color #222
+                                    .tool-group
+                                        height 24px
+                                        line-height 24px
+                                        color #959595
+                                        padding-left 8px
+                                        position relative
+                                        font-size 13px
+                                        .u-lk
+                                            float left
+                                            margin-right 18px
+                                            .iconfont
+                                                font-size 18px
+                                                _display(inline-block)
+                                            &:hover
+                                                color #333
+                                            &.like
+                                                .iconfont
+                                                    font-size 20px
+                                                    _translate3d(1px,1px)
+                                                &:hover,&.active
+                                                    color #333
+                                                    .iconfont
+                                                        color #ff6533
+                                            &.reply
+                                                .iconfont
+                                                    font-size 18px
+                                                    _translate3d(0,3px)
+                                                    margin-right 3px
+                                            &.delete
+                                                margin-left 20px
+                                                _display(none)
+                                                &:hover
+                                                    color #f43
+                                        &:hover
+                                            .delete
+                                                _display()
+                            .sub-comment-lst
+                                margin-top 20px
+                                padding 5px 0 5px 20px
+                                border-left 2px solid #c2c2c2
+                                .sub-comment-item
+                                    margin-bottom 10px
+                                    padding-bottom 10px
+                                    border-bottom 1px dashed #e2e2e2
+                                    color #555
+                                    .info
+                                        margin 0 0 6px
+                                        font-size 14px
+                                        line-height 22px
+                                        .author-name
+                                            color #3194d0
+                                    .sub-tool-group
+                                        width 100%
+                                        font-size 12px
+                                        height 18px
+                                        line-height @height
+                                        color #959595
+                                        position relative
+                                        .sub-reply
+                                            margin-left 20px
+                                            .iconfont
+                                                _display(inline-block)
+                                                font-size 16px
+                                                _translate3d(0,2px)
+                                                margin-right 3px
+                                            &:hover
+                                                color #333
+                                                .iconfont
+                                                    color #333
+                                        .delete
+                                            margin-left 20px
+                                            _display(none)
+                                            &:hover
+                                                color #f43
+                                        &:hover
+                                            .delete
+                                                _display(inline-block)
+                                .more-comment
+                                    height 24px
+                                    .add-comment-btn
+                                        height @height
+                                        line-height @height
+                                        color #959595
+                                        font-size 13px
+                                        &:hover
+                                            color #333
+                                        .iconfont
+                                            font-size 20px
+                                            _display(inline-block)
+                                            _translate3d(0,2px)
+                                            margin-right 3px
+                                            &.pack-up
+                                                margin-right 1px
+
+                                .sub-new-comment
+                                    padding 22px 0 0
+                                    textarea
+                                        _textareaStyle()
+                                        padding 10px 15px
+                                        width 800px - $mr02 - 30px - 2px
+                                        height 80px - 20px
+                                        font-size 14px
+                                    .write-function-box
+                                        width 800px - $mr02
+                                        padding 12px 0 0
+                                        height 30px
+                                        line-height @height
+                                        .tips
+                                            color #959595
+                                            font-size 13px
+                                            float left
+                                            em
+                                                margin-right 15px
+                                        .u-btn
+                                            float right
+                                            font-size 16px
+                                            &.okay
+                                                text-align center
+                                                padding 0 20px
+                                                border none
+                                                _borderRadius(20px)
+                                                background #3EDA26
+                                                color #fff
+                                                _display(inline-block)
+                                                _verticalTextAlign(bottom)
+                                                &:hover
+                                                    background @background - 7%
+                                                &:active
+                                                    background @background + 5%
+                                            &.cancel
+                                                margin-right 25px
+                                                color #959595
+                    .pagination
+                        padding 15px 0 0
+                        .el-page
+                            text-align center
+                    .no-data,.tips-show
+                        margin-top 15px
+                        height 22px
+                        line-height @height
+                        color #959595
+
         //车商信息/店铺信息
         .m-dealer
             .store-info
                 min-height 100px
-                padding 30px 0 10px 0 
+                padding 30px 0 10px 0
                 .u-info-lt,.u-info-rt
                     float left
                 .u-info-lt

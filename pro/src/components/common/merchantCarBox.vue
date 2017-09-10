@@ -26,20 +26,28 @@
                     </div><!-- 朦灰层 -->
                     <div class="u-con">
                         <div class="tit">{{carInfo.title}}</div>
-                        <template v-if="!isAuthSuccess">
+                        <template v-if="!loginStatus">
                             <span class="u-price"
-                                ><em class="info">您尚未认证</em>
+                                ><em class="info">未登录</em>
                             </span>
                         </template>
                         <template v-else>
-                            <div class="u-price">
-                                <span class="attr">批发价：</span><span class="price">￥<em class="vital">{{carInfo.price | priceFormat(2)}}</em>万</span>
-                            </div>
+                            <template v-if="!isAuthSuccess">
+                                <span class="u-price"
+                                    ><em class="info">您尚未认证</em>
+                                </span>
+                            </template>
+                            <template v-else>
+                                <div class="u-price">
+                                    <span class="attr">批发价：</span><span class="price">￥<em class="vital">{{carInfo.price | priceFormat(2)}}</em>万</span>
+                                </div>
+                            </template>
                         </template>
-                        
+
                         <div class="city">车辆所在地：{{carInfo.city}}</div>
                         <div class="other">{{carInfo.plateDate | dateFn}} · {{carInfo.mileage | mileFn(2)}}
                         </div>
+
                     </div><!-- 真正的内容层 -->
                 </div>
             </router-link>
@@ -65,6 +73,10 @@
         props:{
             // 车辆信息
             carInfo: Object,
+            loginStatus: {
+                type: Boolean,
+                default: false,
+            },
             // 是否成功认证
             isAuthSuccess: {
                 type: Boolean,

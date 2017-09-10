@@ -340,7 +340,7 @@
                                     </el-pagination>
                                 </div>
                             </div><!-- 当搜索到数据时 -->
- 
+
                             <div class="m-carlist-null"  v-if="b2bCarList&&b2bCarList.length==0">
                                 <div class="m-not-srh">
                                     <div class="m-pic">
@@ -529,7 +529,7 @@
                     pageSize : SYSTEM.HALL_RESULE_PAGE_SIZE,
                     totalPage : 0
                 },
-                
+
             }
 
         },
@@ -543,9 +543,11 @@
         created(){
             this.dataChangeOnOff = true;
         },
+
         mounted() {
-            
+
         },
+
         //再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
 
@@ -557,7 +559,7 @@
                 //用户条件筛选数据
                 this._initUserFilterData();
             }
-            
+
             // 获取用户信息
             this.getMemberInfo();
 
@@ -570,7 +572,7 @@
                     this._initUserFilterData();
                 },20)
             }
-            
+
         },
         //退出的生命周期钩子
         deactivated(){
@@ -638,7 +640,6 @@
                 if(val){
                     // 获取用户信息
                     this.getMemberInfo();
-                    
                 }else{
                     this.memberData = null;
                 }
@@ -646,6 +647,7 @@
                     if(this.$router.currentRoute.path=="/b2bHall"){
                         // 重新渲染页面
                         this.carListResultRender();
+                        console.log("别的页面这里也触发？")
                     }
                 },20)
                 

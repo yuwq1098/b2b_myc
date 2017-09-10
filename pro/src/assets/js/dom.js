@@ -45,6 +45,35 @@ export function toggleClass(el,className){
     el.classList.toggle(className);
 }
 
+/** 
+* @description 滚动条到某位置
+* @param offsetTop Number 滚动条终点高度位置
+*/ 
+
+// 指定位置
+export function goOffsetTop(offsetTop,direction){
+    var direction = 'top';
+    //创建定时器
+    var ctimer = setInterval(() => {
+        //获取滚动条高度
+        var ostop=getScrollTop();
+        if(ostop<0) {
+            clearInterval(ctimer);
+            return;
+        }
+        //每次上升高度的20%
+        var speed;
+        speed=Math.ceil((ostop-offsetTop)/5);
+        // 每次上升当前高度的80%
+        setScrollTop(ostop-speed);
+        //如果滚动条高度为0，清除定时器
+        if(ostop<=offsetTop){
+            clearInterval(ctimer);
+        }
+    },20);
+}
+
+
 
 /** 
 * @description 判断当前浏览器是否支持某个css3属性
@@ -174,6 +203,29 @@ export function judgeSys(){
 
 
 /** 
+* @description 按键事件及按键组合绑定事件
+* @param key 常规按键
+* @param assistKey  其他按键
+* @param callback 事件回调
+*/ 
+export function bindkeydown(key,assistKey,callback){
+    var assistKey = assistKey||null;
+    document.onkeydown = function()
+    {
+        var oEvent = window.event;
+        if(assistKey==null){
+            if (oEvent.keyCode == key) {  //这里只能用alt，shift，ctrl等去组合其他键event.altKey、event.ctrlKey、event.shiftKey 属性
+                callback&&callback();
+            }
+        }
+        if (oEvent.keyCode == key && oEvent[assistKey]) {  //这里只能用alt，shift，ctrl等去组合其他键event.altKey、event.ctrlKey、event.shiftKey 属性
+            callback&&callback();
+        }
+    }
+}
+
+
+/** 
 * @description 阻止鼠标滚轮事件冒泡
 * @param ev 事件作用对象
 */ 
@@ -193,7 +245,6 @@ export function preventScroll(ev){
     }
     return this;
 }
-
 
 /**  
  * @description 事件绑定，兼容各浏览器  
@@ -491,7 +542,7 @@ export function drawToCanvas(img,theW,theH,realW,realH,callback){
     );  
 
     //--获取base64字符串及canvas对象传给success函数。  
-    var base64str=canvas.toDataURL("image/jpeg");  
+    var base64str=canvas.toDataURL("image/jpeg",0.8);  
     if(callback){  
         callback(base64str,canvas);  
     }  

@@ -14,7 +14,7 @@ export const formatDate = (str) => {
     var date = new Date(str)
     var time = new Date().getTime() - date.getTime() //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
     if (time < 0) {
-        return ''
+        return '刚刚'
     } else if ((time / 1000 < 30)) {
         return '刚刚'
     } else if (time / 1000 < 60) {

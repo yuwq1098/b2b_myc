@@ -19,6 +19,9 @@ export const DEAL_CREDIT_TEXT = "200元（限时活动）";
 // b2b大厅搜索条数限制
 export const HALL_RESULE_PAGE_SIZE = 25
 
+// 评论搜索条数限制
+export const COMMENT_RESULE_PAGE_SIZE = 5
+
 /**
  * B2B订单状态
  */

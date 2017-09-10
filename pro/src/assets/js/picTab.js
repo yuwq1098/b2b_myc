@@ -46,14 +46,14 @@ import $ from "jquery"
 		jq(can.pop_pic).find('ul').width(picpopnum*poppicw);
 		
 	//点击小图切换大图
-		    jq(can.pnum).find('li').click(function () {
+		jq(can.pnum).find('li').unbind('click').click(function () {
 	        tpqhnum = xtqhnum = jq(can.pnum).find('li').index(this);
 	        show(tpqhnum);
 			minshow(xtqhnum);
-	    }).eq(can.order).trigger("click");
+	    }).eq(can.order).unbind('trigger').trigger("click");
 	//大图弹出框
 	if(can.pop_up==true){
-		jq(can.pic).find('ul li').click(function(){
+		jq(can.pic).find('ul li').unbind('click').click(function(){
 			jq(can.mhc).height(jq(document).height()).show();
 			jq(can.pop_div).show();
 			popnum = jq(this).index();
@@ -61,7 +61,7 @@ import $ from "jquery"
 			jq(can.pop_pic).find('ul').css('left',gdjl_w);
 			popshow(popnum);
 			})
-		jq(can.pop_xx).click(function(){
+		jq(can.pop_xx).unbind('click').click(function(){
 			jq(can.mhc).hide();
 			jq(can.pop_div).hide();
 		})
@@ -76,9 +76,9 @@ import $ from "jquery"
 				xtqhnum++;
 				if(tpqhnum==picnum){tpqhnum=0};	
 				if(xtqhnum==picminnum){xtqhnum=0};
-						
-			},can.interTime);	
-			
+
+			},can.interTime);
+
 	//鼠标经过停止播放
 			jq(can.box).hover(function(){
 				clearInterval(pictime);
@@ -93,8 +93,8 @@ import $ from "jquery"
 					},can.interTime);			
 				});
 		}
-	//小图左右切换			
-		jq(can.prev_btn).click(function(){
+	//小图左右切换
+		jq(can.prev_btn).unbind('click').click(function(){
 			if(tpqhnum==0){tpqhnum=picnum};
 			if(xtqhnum==0){xtqhnum=picnum};
 			xtqhnum--;
@@ -102,7 +102,7 @@ import $ from "jquery"
 			show(tpqhnum);
 			minshow(xtqhnum);	
 			})
-		jq(can.next_btn).click(function(){
+		jq(can.next_btn).unbind('click').click(function(){
 			if(tpqhnum==picnum-1){tpqhnum=-1};
 			if(xtqhnum==picminnum-1){xtqhnum=-1};
 			xtqhnum++;
@@ -111,7 +111,7 @@ import $ from "jquery"
 			show(tpqhnum);
 			})	
 	//大图左右切换	
-		jq(can.prev).click(function(){
+		jq(can.prev).unbind('click').click(function(){
 			if(tpqhnum==0){tpqhnum=picnum};
 			if(xtqhnum==0){xtqhnum=picnum};
 			xtqhnum--;
@@ -119,7 +119,7 @@ import $ from "jquery"
 			show(tpqhnum);
 			minshow(xtqhnum);	
 			})
-		jq(can.next).click(function(){
+		jq(can.next).unbind('click').click(function(){
 			if(tpqhnum==picnum-1){tpqhnum=-1};
 			if(xtqhnum==picminnum-1){xtqhnum=-1};
 			xtqhnum++;
@@ -128,12 +128,12 @@ import $ from "jquery"
 			show(tpqhnum);
 			})
 	//弹出框图片左右切换	
-		jq(can.pop_prev).click(function(){
+		jq(can.pop_prev).unbind('click').click(function(){
 			if(popnum==0){popnum=picnum};
 			popnum--;
 			popshow(popnum);
 			})
-		jq(can.pop_next).click(function(){
+		jq(can.pop_next).unbind('click').click(function(){
 			if(popnum==picnum-1){popnum=-1};
 			popnum++;
 			popshow(popnum);
@@ -143,15 +143,16 @@ import $ from "jquery"
 			var mingdjl_num =xtqhnum-can.min_picnum+2
 			var mingdjl_w=-mingdjl_num*picminw;
 			var mingdjl_h=-mingdjl_num*picminh;
-			
+
 			if(can.mindire==true){
 				jq(can.pnum).find('ul li').css('float','left');
 				if(picminnum>can.min_picnum){
 					if(xtqhnum<3){mingdjl_w=0;}
-					if(xtqhnum==picminnum-1){mingdjl_w=-(mingdjl_num-1)*picminw;}
-					jq(can.pnum).find('ul').stop().animate({'left':mingdjl_w},can.delayTime);
+					if(xtqhnum==picminnum-1){
+						mingdjl_w=-(mingdjl_num-1)*picminw;
 					}
-					
+					jq(can.pnum).find('ul').stop().animate({'left':mingdjl_w},can.delayTime);
+				}
 			}else{
 				jq(can.pnum).find('ul li').css('float','none');
 				if(picminnum>can.min_picnum){
@@ -165,28 +166,30 @@ import $ from "jquery"
 				can.xtqhnum = xtqhnum;
                 can.onSlideChangeEnd(can);
 			}
-			
 		}
 	//大图切换过程
-			function show(tpqhnum){
-				var gdjl_w=-tpqhnum*picw;
-				var gdjl_h=-tpqhnum*pich;
-				if(can.picdire==true){
-					jq(can.pic).find('ul li').css('float','left');
-					jq(can.pic).find('ul').stop().animate({'left':gdjl_w},can.delayTime);
-					}else{
-				jq(can.pic).find('ul').stop().animate({'top':gdjl_h},can.delayTime);
-				}//滚动
-				//jq(can.pic).find('ul li').eq(tpqhnum).fadeIn(can.delayTime).siblings('li').fadeOut(can.delayTime);//淡入淡出
-				jq(can.pnum).find('li').eq(tpqhnum).addClass("on").siblings(this).removeClass("on");
-			};
-	//弹出框图片切换过程
-			function popshow(popnum){
-				var gdjl_w=-popnum*poppicw;
-					jq(can.pop_pic).find('ul').stop().animate({'left':gdjl_w},can.pop_delayTime);
-				//jq(can.pop_pic).find('ul li').eq(tpqhnum).fadeIn(can.pop_delayTime).siblings('li').fadeOut(can.pop_delayTime);//淡入淡出
-			};					
-					
+		function show(tpqhnum){
+			var gdjl_w=-tpqhnum*picw;
+			var gdjl_h=-tpqhnum*pich;
+			if(can.picdire==true){
+				jq(can.pic).find('ul li').css('float','left');
+				jq(can.pic).find('ul').stop().animate({'left':gdjl_w},can.delayTime);
+				}else{
+			jq(can.pic).find('ul').stop().animate({'top':gdjl_h},can.delayTime);
+			}//滚动
+			//jq(can.pic).find('ul li').eq(tpqhnum).fadeIn(can.delayTime).siblings('li').fadeOut(can.delayTime);//淡入淡出
+			jq(can.pnum).find('li').eq(tpqhnum).addClass("on").siblings(this).removeClass("on");
+		};
+//弹出框图片切换过程
+		function popshow(popnum){
+			var gdjl_w=-popnum*poppicw;
+				jq(can.pop_pic).find('ul').stop().animate({'left':gdjl_w},can.pop_delayTime);
+			//jq(can.pop_pic).find('ul li').eq(tpqhnum).fadeIn(can.pop_delayTime).siblings('li').fadeOut(can.pop_delayTime);//淡入淡出
+		};
+		function unbind(){
+            console.log("解除绑定");
+		};
+
 	}
 
 export {jq};

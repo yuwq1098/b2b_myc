@@ -9,7 +9,7 @@
                         ></gk-bread-crumb><!-- 面包屑组件 -->
 
                     <div class="m-mn-hd f__clearfix">
-                        <div class="f__fl" v-if="carImgData">
+                        <div class="f__fl" v-if="carImgData.imgItems">
                             <fc-slide :carImgData="carImgData"></fc-slide>
                         </div>
 
@@ -74,21 +74,51 @@
                                 </div>
                             </div><!-- 产品描述 -->
 
+                            <div class="m-vote">
+                                <a class="u-btn vote-up"></a><!-- 合适，赞 -->
+                                <div class="progress-container">
+                                    <div class="top f__clearfix">
+                                        <span class="text-lt">这辆车价格很不错</span>
+                                        <div class="pk-text"
+                                            ><em class="p-txt">P</em>
+                                            <em class="k-txt">K</em>
+                                        </div>
+                                        <span class="text-rt">这辆车价格贼高</span>
+                                    </div><!-- 头部信息 -->
+                                    <div class="progress-box">
+                                        <section class="vup-progress"
+                                            style="width:45%"
+                                            ></section>
+                                        <div class="middle-decorate"
+                                            style="left:45%"
+                                            ></div><!-- 装饰物 -->
+                                        <section class="vdown-progress"
+                                            style="width:55%"
+                                            ></section>
+                                    </div><!-- 进度条容器 -->
+                                    <div class="volume f__clearfix">
+                                        <span class="volume-lt">3620</span>
+                                        <span class="volume-rt">2953</span>
+                                    </div><!-- 投票量 -->
+                                </div>
+                                <a class="u-btn vote-down"></a><!-- 价太高，踩 -->
+                            </div><!-- 投票 -->
+
                             <div class="m-opra f__clearfix">
                                 <template v-if="!hasLogin"
                                     >
                                     <a class="u-btn v2"
-                                        @click="noLogin()"
+                                        @click="noLoginByCollect()"
                                         >收藏车辆</a>
                                 </template>
                                 <template v-else>
                                     <a class="u-btn v2"
                                         v-if="!otherInfo.isInFavorite"
-                                        @click="inMyCollect(1,basicInfo.id)"
+                                        @click="inMyCollect(1,basicd)"
                                         >收藏车辆</a>
                                     <a href="javascript:;" class="u-btn cancel"
                                         v-if="otherInfo.isInFavorite"
-                                        @click="inMyCollect(2,basicInfo.id)"
+                                        @click="inMyCollect(2,basicd)"
                                         >取消收藏</a>
                                 </template>
 
@@ -96,7 +126,7 @@
                                     >
                                     <a class="u-btn"
                                         v-if="!otherInfo.isInCart"
-                                        @click="noLogin()"
+                                        @click="noLoginByInCart()"
                                         >加入购物车</a>
                                     <a href="javascript:;" class="u-btn not"
                                         v-if="otherInfo.isInCart">已加入购物车</a>
@@ -138,15 +168,27 @@
                                 </template>
 
                             </div><!-- 操作 -->
-                            
+
                             <div class="m-share" v-if="isShareShow">
-                                <gk-share
+                                <span class="u-attr">车辆分享至：</span>
+                                <gk-share class="share-box"
                                     :options="shareOptions"></gk-share>
                             </div><!-- 分享 -->
 
+                            <!-- <div class="m-offer">
+                                <a class="u-btn"
+                                    ><i class=""></i><em>我要出价</em>
+                                </a>
+                                <a catch="u-lk">查看其他人出价</a>
+                            </div>我的报价
+
+                            <div class="m-use-mobile">使用手机看该车</div>使用手机看
+
+                            <div class="m-evaluation">评价高低</div>高低价一键评论 -->
+
                         </div><!-- 主要信息 -->
                     </div><!-- 主要的头部信息 -->
-                    
+
                     <div class="m-basic-info f__boxClearM">
                         <div class="box-header">
                             <i class="icon-block"></i><h3>基本信息</h3>
@@ -234,10 +276,10 @@
                                         </div>
                                     </li>
                                 </template>
-                            </ul>    
+                            </ul>
                         </div><!-- 图片内容 -->
                     </div><!-- 车辆图片信息 -->
-                    
+
                     <div class="m-dealer f__boxClearM">
                         <div class="m-box-hd">
                             <h4>店铺信息</h4>
@@ -245,29 +287,14 @@
                         <div class="store-info f__clearfix">
                             <div class="u-info-lt">
 
-                                <template v-if="!hasLogin"
-                                    >
-                                    <a class="store-pic" @click="noLogin()">
-                                        <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
-                                    </a>
-                                </template>
-                                <template v-else>
-                                    <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="store-pic" tag="a">
-                                        <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
-                                    </router-link>
-                                </template><!-- 车商商头像 -->
-                                
+                                <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="store-pic" tag="a">
+                                    <img :src="otherInfo.faceImgUrl" :alt="otherInfo.cdgName" />
+                                </router-link>
+
                                 <div class="store-basic">
                                     <div class="line-tit">
-                                        <template v-if="!hasLogin"
-                                            >
-                                            <a class="name" 
-                                                @click="noLogin()">{{otherInfo.cdgName}}
-                                            </a>
-                                        </template>
-                                        <template v-else>
-                                            <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="name" tag="a">{{otherInfo.cdgName}}</router-link>
-                                        </template>
+                                        <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="name" tag="a"
+                                            >{{otherInfo.cdgName}}</router-link>
                                     </div>
 
                                     <div class="line-box">
@@ -277,20 +304,22 @@
                                     </div>
 
                                     <div class="line-box btnWrap">
+                                        <router-link class="u-btn" tag="a"
+                                            :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}"
+                                            >进入该店铺
+                                        </router-link>
+
                                         <template v-if="!hasLogin"
                                             >
-                                            <a class="u-btn" 
-                                                @click="noLogin()">进入该店铺
-                                            </a>
+                                            <a class="u-collect"
+                                                @click="noLoginByAttention()">收藏车店</a>
                                         </template>
                                         <template v-else>
-                                            <router-link :to="{path:'/merchantDetails',query:{cid:basicInfo.mid}}" class="u-btn" tag="a"
-                                                >进入该店铺</router-link>
+                                            <a class="u-collect" v-if="!cdgIsFavorite"
+                                                @click="setAttention(1,basicInfo.mid)">收藏车店</a>
+                                            <a class="u-collect cancel" v-else
+                                                @click="setAttention(2,basicInfo.mid)">取消收藏</a>
                                         </template>
-                                        <a class="u-collect" v-if="!cdgIsFavorite"
-                                            @click="setAttention(1,basicInfo.mid)">收藏车店</a>
-                                        <a class="u-collect cancel" v-else
-                                            @click="setAttention(2,basicInfo.mid)">取消收藏</a>
                                     </div>
                                 </div>
                             </div><!-- 左侧主要信息 -->
@@ -323,6 +352,153 @@
                         </div><!-- 店铺信息 -->
                     </div><!-- 车商信息 -->
 
+                    <div class="m-comment-car">
+                        <div class="m-box-hd">
+                            <h4>大家来留言</h4>
+                        </div><!-- 标题 -->
+                        <div class="m-speak-con">
+                            <div class="put-comment">
+                                <form class="new-comment">
+                                    <a class="avatar">
+                                        <img :src="memberData.imgUrl" :alt="memberData.name" />
+                                    </a><!-- 头像 -->
+                                    <textarea placeholder="写下你的评论..." maxlength="150"
+                                        @focus="FCommentFocus()"
+                                        v-model="FCommentContent">
+                                    </textarea>
+                                    <div class="write-function-box f__clearfix"
+                                        v-show="isStartComment">
+                                        <div class="tips">
+                                            <span><em>Ctrl+回车键</em>发表</span><!-- Ctrl+回车键 发表 -->
+                                        </div>
+                                        <a class="u-btn okay" @click="FPutComment">发表</a><!-- 发送 -->
+                                        <a class="u-btn cancel" @click="FCommentCloseBox">取消</a><!-- 取消 -->
+                                    </div>
+                                </form>
+                            </div><!-- 发表留言 -->
+                            <div class="comment-container" ref="ctContainer">
+                                <div class="top">
+                                    <span v-if="carCommentList.length == 0">留言</span>
+                                    <span v-else>共{{resultPage.totalPage}}条留言</span>
+                                    <a class="show-comment-btn" @click="showCommentList=!showCommentList">
+                                        <template v-if="showCommentList"><i class="iconfont unshow icon-yincang1"></i>隐藏留言</template>
+                                        <template v-else><i class="iconfont icon-yincang"></i>显示留言</template>
+                                    </a>
+                                </div>
+                                <template v-if="showCommentList">
+                                    <div class="comment-lst" v-if="carCommentList.length > 0">
+                                        <template v-for="(item,index) in carCommentList">
+                                            <div class="comment-item">
+                                                <div class="comment-main">
+                                                    <div class="author">
+                                                        <a class="avatar">
+                                                            <img :src="item.imgUrl" :alt="item.name" />
+                                                        </a>
+                                                        <div class="info">
+                                                            <div class="name">{{item.name}}</div>
+                                                            <div class="time">{{item.time | formatDate}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="info-wrap">
+                                                        <p class="speak">{{item.content}}</p>
+                                                        <div class="tool-group f__clearfix">
+                                                            <a class="u-lk like" @click="commentLike(item.id,index,item.upvoted)
+                                                                " :class="{'active':item.upvoted==1}">
+                                                                <i class="iconfont icon-boshiweb_yizan"
+                                                                    v-if="item.upvoted==1"></i><!-- 已赞 -->
+                                                                <i class="iconfont icon-boshiweb_weizan"
+                                                                    v-else></i><!-- 点赞 -->
+                                                                <span>{{item.upvoteCount}}人赞</span>
+                                                            </a><!-- 点赞 -->
+                                                            <a class="u-lk reply" @click="putRlyComment(1,item.isShowPanel,index,item.id)">
+                                                                <i class="iconfont icon-huifu3"></i>
+                                                                <span>回复</span>
+                                                            </a><!-- 回复 -->
+                                                            <a class="u-lk delete" v-show="memberData.id==item.memberId" @click="deleteComment(item.id)"
+                                                                >删除
+                                                            </a>
+                                                        </div><!-- 工具组 -->
+                                                    </div>
+                                                </div>
+                                                <div class="sub-comment-lst">
+                                                    <template  v-if="item.rlyList.length>0" v-for="(rlyItem,rlyIndex) in item.rlyList">
+                                                        <div class="sub-comment-item">
+                                                            <p class="info">
+                                                                <a href="javascript:;" class="author-name">{{rlyItem.name}}</a>：
+                                                                <span>
+                                                                    <a href="javascript:;" class="author-name" 
+                                                                    v-if="rlyItem.replyCommentId!=item.id">{{'@'+rlyItem.replyName}}</a>
+                                                                    <em>{{rlyItem.content}}</em>
+                                                                </span>
+                                                            </p>
+                                                            <div class="sub-tool-group f__clearfix">
+                                                                <span class="sub-time">{{rlyItem.time | formatDate}}</span>
+                                                                <a class="u-lk sub-reply" @click="putRlyComment(2,item.isShowPanel,index,rlyItem.id,rlyIndex,rlyItem.name)">
+                                                                    <i class="iconfont icon-huifu3"></i>
+                                                                    <span>回复</span>
+                                                                </a>
+                                                                <a class="u-lk delete" v-show="memberData.id==rlyItem.memberId" @click="deleteComment(rlyItem.id)"
+                                                                >删除
+                                                            </a>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+
+                                                    <div class="more-comment">
+                                                        <a class="add-comment-btn" @click="putRlyComment(1,item.isShowPanel,index,item.id)">
+                                                            <template v-if="item.isShowPanel">
+                                                                <i class="iconfont icon-shouqi pack-up"></i>
+                                                                <span>收起评论框</span>
+                                                            </template>
+                                                            <template v-else>
+                                                                <i class="iconfont icon-bianji5"></i>
+                                                                <span>添加新评论</span>
+                                                            </template>
+                                                        </a>
+                                                    </div><!-- 添加新评论按钮 -->
+
+                                                    <div class="sub-new-comment" v-show="item.isShowPanel">
+                                                        <form>
+                                                            <textarea ref="rlyCommentTexearea" placeholder="写下你的评论..." maxlength="150"
+                                                                v-model="rlyCommentContent"></textarea>
+                                                            <div class="write-function-box f__clearfix">
+                                                                <div class="tips">
+                                                                    <span><em>Ctrl+回车键</em>发表</span><!-- Ctrl+回车键 发表 -->
+                                                                </div>
+                                                                <a class="u-btn okay" @click="putComment('2')">发表</a><!-- 发送 -->
+                                                                <a class="u-btn cancel" @click="rlyCommentCloseBox">取消</a><!-- 取消 -->
+                                                            </div>
+                                                        </form>
+                                                    </div><!-- 子回复评论 -->
+
+                                                </div><!-- 子回复评论列表 -->
+                                            </div>
+                                        </template>
+                                    </div><!-- 评论列表 -->
+
+                                    <div class="pagination" v-if="resultPage.totalPage > resultPage.pageSize">
+                                        <el-pagination
+                                            @current-change="handleCurrentChange"
+                                            :current-page.sync="resultPage.currentPage"
+                                            :page-size="resultPage.pageSize"
+                                            layout="prev, pager, next"
+                                            :total="resultPage.totalPage"
+                                            class="el-page">
+                                        </el-pagination>
+                                    </div><!-- 评论分页 -->
+                                </template>
+
+                                <div class="no-data"  v-if="carCommentList.length == 0"
+                                    >暂时还没有人评论这辆车，说说您独特的见解吧~~</div>
+
+                                <div class="tips-show" v-if="carCommentList.length > 0 && !showCommentList"
+                                    >默认隐藏留言信息，点击右上角的 ‘显示留言’ 可显示留言列表哟 ~~
+                                </div>
+
+                            </div><!-- 评论列表 -->
+                        </div>
+                    </div><!-- 众人评车 -->
+
                     <div class="m-selling-car f__boxClearM">
                         <div class="m-box-hd">
                             <h4>店铺在售车源</h4>
@@ -336,10 +512,9 @@
                                     >
                                 </on-sale-list>
                             </template>
-                            
                         </div>
                     </div><!-- 店铺在售车源 -->
-                    
+
                     <div class="m-process f__boxClearM">
                         <div class="box-header">
                             <i class="icon-block"></i><h3>购车流程</h3>
@@ -350,11 +525,11 @@
                     </div><!-- 购车流程 -->
 
                     <div class="m-remd">
-                        
+
                         <div class="box-header">
                             <i class="icon-block"></i><h3>相似推荐</h3>
                         </div><!-- 标题 -->
-                        
+
                         <div class="m-lst-gp-b">
                             <ul class="m-lst f__clearfix"
                                 v-if="similarList&&similarList.length>0">
@@ -394,10 +569,15 @@
     import {dataToJson} from "assets/js/util.js"
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
+    // 用户信息的构造类
+    import {memberInfo} from 'base/class/member.js'
+
     // 车行信息的构造类
     import {basicInfo,carDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
     // 在售车源信息的构造类
     import {onSaleCarInfo} from "base/class/carInfo.js"
+    // 评论信息的构造类
+    import {commentClass} from "base/class/comment.js"
 
     // 网站外层面包屑列表本地化资源
     import {crumbsInfo} from "api/localJson/homeCrumb.js"
@@ -418,9 +598,8 @@
     import onSaleList from "components/boxLayout/onSaleList.vue"
 
     var wx = require('weixin-js-sdk');
-    
-    
-	export default {
+
+    export default {
         name: "b2bCarDetails",
         // 在当前模块注册组件
         components:{
@@ -433,7 +612,9 @@
         // 数据
         data() {
             return{
-                
+
+                memberData: new memberInfo({}),            //用户信息
+
                 isShareShow: false,    // 分享组件显示隐藏
                 shareOptions: {},      // 分享组件配置
 
@@ -446,7 +627,6 @@
 
                 // 车辆ID
                 carId: 0,
-                
                 // 流程图
                 buyCarFlowImg: require("assets/img/img-flow.png"),
 
@@ -454,26 +634,65 @@
                 basicInfo:{},
                 // 车况信息列表
                 carDetails: [],
+
                 // 文件列表
                 fileInfoList:[],
                 // 其他信息
                 otherInfo:{},
-                
                 // 车辆图片信息
                 carImgData:{
                     merchantName : "暂无数据",
                     imgItems:[]
                 },
-                
+
                 // 相似推荐列表
                 similarList: [],
                 // 车辆列表
                 b2bCarList: [],
-                
                 // 店铺在售车源
                 onSaleCarList: [],
                 // 是否收藏车店
-                cdgIsFavorite: false,                       
+                cdgIsFavorite: false,
+
+                // 评论总条数
+                carCommentListTotal: 0,
+                // 评论列表
+                carCommentList: [],
+
+                // 是否开始评论
+                isStartComment: false,
+                // 评论的内容
+                FCommentContent: "",
+
+                // 回复评论的内容
+                rlyCommentContent: "",
+                // 回复评论打开的面板类型  , 0未打开,1父回复按钮触发,2子回复按钮触发
+                rlyCommentPanelType: 0,
+                // 回复面板打开的当前索引
+                currRlyPanelIndex: -1,
+                // 回复子面板打开的索引 
+                rlyCommentPanelIndex: -1,
+                // 回复评论的Id
+                rlyCommentId: "",
+
+                // 是否显示全部的评论信息
+                showCommentList: false,
+
+
+                /**
+                  * @description 结果集分页信息
+                  */
+                resultPage:{
+                    currentPage : 1,
+                    pageSize : SYSTEM.COMMENT_RESULE_PAGE_SIZE,
+                    totalPage : 0
+                },
+
+                // 返回顶部的定时器
+                timer: null,
+                // 返回顶部的方法是否已结束
+                tf: true,
+
             }
         },
         //生命周期,开始的时候
@@ -481,7 +700,7 @@
 
         },
         mounted(){
-            
+
         },
         activated(){
 
@@ -490,14 +709,21 @@
 
             // 获取车辆信息
             this.getCarDetailsInfo();
-            
+
             // 获取车辆列表信息
             this.getCarList();
+
+            // 获取用户信息
+            this.getMemberInfo();
+
+            // 获取车辆留言列表
+            this.getCarCommentList();
 
         },
         //退出的生命周期钩子
         deactivated(){
-            
+            // 重置
+            this.reset();
         },
         // 数据侦听
         watch:{
@@ -509,7 +735,7 @@
                 if(to.path==from.path){
 
                     // 分享组件显示隐藏
-                    this.isShareShow = false;    
+                    this.isShareShow = false;
                     this.shareOptions = {};
 
                     // 获取hash 带参中的车辆ID
@@ -525,8 +751,13 @@
 
             // 侦听登录状态
             loginStatus(val){
-                // 获取用户信息
-                this.getCarDetailsInfo();
+                if(val){
+                    // 获取用户信息
+                    this.getMemberInfo();
+                    this.getCarDetailsInfo();
+                }else{
+                    this.memberData = null;
+                }
             },
 
         },
@@ -549,11 +780,34 @@
                     return "企业车商";
                 }
             },
-            
         },
+        // vue实例方法
         methods:{
 
             ...mapActions(['getMyShoppingNumber']),
+
+            // 格式化用户信息
+            _normalizeMember(data) {
+                return new memberInfo(data);
+            },
+            // 获取用户信息
+            getMemberInfo(){
+                if(!this.loginStatus) return;
+
+                let data = {}
+                api.getMyMemberInfo(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.memberData = this._normalizeMember(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                })
+            },
 
             // 判断是不是下单的资格
             addOrderPrivilege(){
@@ -567,7 +821,7 @@
                         // 前往车行认证页面
                         this.$router.push({path:'/member/applyHome'});
                     }).catch(() => {
-                        
+
                     });
                 }else if(!this.hasCredit){
                     this.$confirm('尊贵的用户，您好！您的保证金余额不足'+SYSTEM.MIN_CREDIT_GOLD+'元，无法正常下单，请前往充值！', '保证金不足', {
@@ -578,17 +832,37 @@
                         // 前往保证金充值页面
                         this.$router.push({path:'/member/recharge',query:{type:2}});
                     }).catch(() => {
-                        
+
                     });
                 }
 
             },
 
-            // 未登录（请先登录）
-            noLogin(){
+            // 收藏车辆
+            noLoginByCollect(){
+                this.$notify({
+                    title: '您尚未登录',
+                    message: '登录后可进行收藏车辆操作',
+                    type: 'error',
+                    duration: 2000,
+                });
+            },
+
+            // 加入购物车
+            noLoginByInCart(){
                 this.$notify({
                     title: '您尚未登录',
                     message: '登录后可进行加入购物车操作',
+                    type: 'error',
+                    duration: 2000,
+                });
+            },
+
+            // 收藏车店的未登录
+            noLoginByAttention(){
+                this.$notify({
+                    title: '您尚未登录',
+                    message: '登录后可进行收藏车店操作',
                     type: 'error',
                     duration: 2000,
                 });
@@ -612,10 +886,10 @@
             _normalizeOtherInfo(data) {
                 return new otherInfo(data);
             },
-            
+
             // 微信分享SDK
             WXShareSDK(obj){
-                
+
                 var WxApiArr = ['onMenuShareAppMessage','onMenuShareTimeline','onMenuShareWeibo','onMenuShareQQ','onMenuShareQZone']
 
                 var curLink = window.location.href.split("#")[0];
@@ -672,9 +946,9 @@
                         //监听Menu中的按钮点击时触发的方法，该方法仅支持Menu中的相关接口。 
                     }
                 };
-                
+
                 var newShareOptions = Object.assign(wxData,wxCallbacks);
-                
+
                 // 微信配置就绪
                 wx.ready(function(){
                     console.log("准备就绪")
@@ -682,12 +956,12 @@
                         wx[i](newShareOptions);
                     }
                 });
-                
+
                 // 微信借口错误
                 wx.error(function(res){
                     console.log(res);
                 });
-                
+
             },
 
 
@@ -698,7 +972,7 @@
                 }
                 api.getCarDetalis(data).then((res) => {
                     if(res.code==SYSTEM.CODE_IS_OK){
-                        
+
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
 
@@ -726,7 +1000,7 @@
                             this.similarList = this._normalizeB2bCarInfo(res.data.SimilarRecommend)
                             // 获取分享标题
                             let carTit = ((this.basicInfo.title).split(" ")).join("_");
-                            
+
                             // 设置网页title
                             var options = {
                                 title: carTit+"__"+this.otherInfo.cdgName+"__b2b车辆详情",
@@ -736,20 +1010,19 @@
                             // 设置分享信息
                             let share_tit = carTit+"__"+this.otherInfo.cdgName+"__b2b车辆详情____木有车B2B汽车服务平台 - 木有车（www.muyouche.com）";
                             let share_desc = "扎心了老铁，天大喜讯！"+this.otherInfo.cdgName+"在木有车发布了一辆非常不错的"+carTit+"。喜欢的朋友还犹豫什么，木有车B2B二手车安全放心的交易，您不容错过！";
-                            
+
                             let newObj = {
                                 title: share_tit,
                                 content: share_desc,
                                 pic: this.fileInfoList[0].fileUrl,
                             }
-                            
+
                             // 分享组件配置及显隐
                             this.shareOptions = Object.assign(newObj,{});
                             this.isShareShow = true;
 
                             // 如果进入的网页是微信
                             if(geekDom.isWeiXin()){
-                                console.log("很蛋疼")
                                 this.WXShareSDK(newObj);
                             }
 
@@ -765,10 +1038,299 @@
                     }
                 })
             },
-            
+
+            // 直接对该车辆发起评论
+            putComment(type){
+                if(!this.loginStatus){
+                    this.$notify({
+                        title: '您尚未登录',
+                        message: '登录后可进行评论操作',
+                        type: 'error',
+                        duration: 2000,
+                    });
+                    return;
+                };
+                let commentContent = "";
+                if(type=='1'){
+                    commentContent = this.FCommentContent;
+                }else if(type=="2"){
+                    if(this.rlyCommentPanelType == 2){
+                        var quotesIndex = /[：]/.exec(this.rlyCommentContent).index;
+                        commentContent = this.rlyCommentContent.substr(quotesIndex+1);
+                    }else{
+                        commentContent = this.rlyCommentContent;
+                    }
+                }
+
+                let data = {
+                    ActType : 'Comment',
+                    Content : commentContent,
+                    CarId : this.carId,
+                    BeReplyCommentId : type=='2'?this.rlyCommentId:'',     // 被回复者的id
+                }
+                this.$confirm('评论内容：'+commentContent, '确认发表这条评论？', {
+                    confirmButtonText: '确认发表',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.commitCarComment(type,data);
+                }).catch(() => {
+
+                });
+
+            },
+
+            // 提交评论接口
+            commitCarComment(type,data){
+                api.carComment(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '评论成功',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                        if(type=='1'){
+                            // 重新获取评论列表
+                            this.getCarCommentList();
+                            this.FCommentCloseBox();
+                            if(!this.showCommentList){
+                                this.showCommentList = true;
+                            }
+                        }else{
+                            // 重新获取评论列表
+                            this.getCarCommentList();
+                            this.rlyCommentCloseBox();
+                        }
+
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '操作失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
+
+            // 对评论进行评论
+            putRlyComment(type,isShow,index,id,rlyIndex,name){
+
+                // 回复评论的id
+                this.rlyCommentId = id;
+
+                // 如果打开的是其他评论，则隐藏那个评论
+                if(this.currRlyPanelIndex!=-1&&index!=this.currRlyPanelIndex){
+                    this.isShowRlyPanel(true,this.currRlyPanelIndex);
+                }
+
+                if(isShow&&this.rlyCommentPanelType!=type){  // 如果框是打开的，并且是父回复类型与子回复类型的区别
+                    this.rlyCommentFocus(index);
+                    if(type==2){
+                        this.rlyCommentContent = "@"+name+"：";
+                    }else{
+                        this.rlyCommentContent = "";
+                    }
+
+                }else if(isShow&&this.rlyCommentPanelType==type&&type==2&&this.rlyCommentPanelIndex!=rlyIndex){
+                    // 回复子评论切换
+                    this.rlyCommentFocus(index);
+                    this.rlyCommentContent = "@"+name+"：";
+                }else{
+
+                    // 如果用户直接选择回复子评论
+                    if(type==2&&!isShow){
+                        this.isShowRlyPanel(isShow,index);
+                        setTimeout(()=>{
+                            this.rlyCommentContent = "@"+name+"：";
+                        })
+                    }else{
+                        this.isShowRlyPanel(isShow,index);
+                    }
+                }
+                setTimeout(()=>{
+                    // 赋值控制相关组件的显示
+                    this.rlyCommentPanelType = type;
+                    this.currRlyPanelIndex = index;
+                    this.rlyCommentPanelIndex = rlyIndex;
+                })
+
+            },
+
+            // 格式化评论信息列表
+            _normalizeCommentList(list) {
+                let arr = [];
+                list.forEach((item,index) => {
+                    arr.push(new commentClass(item));
+                })
+                return arr;
+            },
+
+            // 获取车辆评论列表
+            getCarCommentList(){
+                let data = {
+                    ActType : 'CarCommentList',
+                    CarId: this.carId,
+                    PageIndex: this.resultPage.currentPage,
+                    PageSize: SYSTEM.COMMENT_RESULE_PAGE_SIZE
+                }
+                api.carComment(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.resultPage.totalPage = res.Total;
+                        this.carCommentList = this._normalizeCommentList(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '操作失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
+
+            // 删除自己的评论
+            deleteComment(id){
+                let data = {
+                    ActType : 'Delete',
+                    BeReplyCommentId: id
+                }
+                this.$confirm('点击确认，删除该评论', '确认删除这条评论？', {
+                    confirmButtonText: '确认',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.commitDeleteComment(data);
+                }).catch(() => {
+
+                });
+
+            },
+
+            // 提交删除评论
+            commitDeleteComment(data){
+                api.carComment(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '删除评论成功',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                        // 重新获取评论列表
+                        this.getCarCommentList();
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '操作失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
+
+            //分页页号切换触发
+            handleCurrentChange(val) {
+                this.resultPage.currentPage = val;
+                // 重新获取评论列表
+                this.getCarCommentList();
+                var ctContainer = this.$refs.ctContainer;
+                var ctContainerOffsetTop = this.$refs.ctContainer.offsetTop;
+                geekDom.goOffsetTop(ctContainerOffsetTop - 100);
+            },
+
+            // 点赞评论
+            commentLike(id,index,onOff){
+                let data = {
+                    ActType: onOff!=1?'Upvote':'Downvote',
+                    BeReplyCommentId: id,
+                }
+                api.carComment(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        // 重新获取评论列表
+                        this.getCarCommentList();
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '操作失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
+
+            // 发表评论
+            FPutComment(){
+                if(!this.loginStatus){
+                    this.$notify({
+                        title: '您尚未登录',
+                        message: '登录后可进行评论操作',
+                        type: 'error',
+                        duration: 2000,
+                    });
+                    return;
+                };
+                this.putComment('1');
+            },
+
+            // 大评论框获取焦点
+            FCommentFocus(){
+                this.isStartComment = true;
+                var that = this;
+                geekDom.bindkeydown(13,'ctrlKey',function(){
+                    that.FPutComment();
+                })
+            },
+
+            // 大评论框关闭
+            FCommentCloseBox(){
+                document.onkeydown = null;
+                this.isStartComment = false;
+                this.FCommentContent = "";
+            },
+
+            // 回复评论框的显示隐藏
+            isShowRlyPanel(isShow,index){
+                // this.$refs.rlyCommentTexearea[index].focus()
+                // 显示隐藏切换
+                this.carCommentList[index].isShowPanel = !isShow;
+                setTimeout(()=>{
+                    if(isShow){ // 如果回复评论框隐藏，那么type赋值为0
+                        this.rlyCommentContent = "";
+                        this.rlyCommentPanelType = 0;
+                        this.currRlyPanelIndex = -1;
+                        this.rlyCommentPanelIndex = -1;
+                        this.rlyCommentId = "";
+                    }else{
+                        this.rlyCommentFocus(index);
+                    }
+                })
+
+            },
+
+            // 小评论框获取焦点
+            rlyCommentFocus(index){
+                var that = this;
+                this.FCommentCloseBox();
+                this.$refs.rlyCommentTexearea[index].focus();
+
+                geekDom.bindkeydown(13,'ctrlKey',function(){
+                    that.putComment('2');
+                })
+            },
+
+            // 小评论框关闭
+            rlyCommentCloseBox(){
+                // 回复评论框的显示隐藏
+                this.isShowRlyPanel(true,this.currRlyPanelIndex)
+            },
+
             // 车辆异常状态提示
             abnormalStatusTips(status){
-                
+
                 // 提示类型
                 let tipsType = "";
                 // 提示状态
@@ -853,7 +1415,7 @@
                     ActType: act,
                     SellerId: id
                 }
-                
+
                 // 关注和取消关注
                 api.myFavoriteCdg(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
@@ -917,7 +1479,7 @@
 
             // 加入车辆收藏
             inMyCollect(type,id){
-
+                console.log(event)
                 let act = "";
                 if(type==1){
                     act="Add";
@@ -949,7 +1511,7 @@
                                 duration: 1500,
                             })
                         }
-                        
+
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '车辆收藏失败',
@@ -966,7 +1528,7 @@
 
                 this.$alert(
                         `1.点击“立即秒杀”键之前，请与卖方对接车况，谈好成交价格
-                         2.一旦确认“立即秒杀”，任何一方反悔，将自动扣除信誉保证金200元给守约方`
+                         2.一旦确认“立即秒杀”，任何一方反悔，将自动扣除信誉保证金`+SYSTEM.MIN_CREDIT_GOLD+`元给守约方`
                         , '温馨提示', {
                         confirmButtonText: '立即秒杀',
                         type: 'warning',
@@ -1066,7 +1628,32 @@
                             duration: 1500,
                         });
                     }
-                })   
+                })
+            },
+
+            reset(){
+                // 清除本页的按键绑定
+                document.onkeydown = null;
+
+                // 是否开始评论
+                this.isStartComment = false;
+                // 评论的内容
+                this.FCommentContent = "";
+                // 回复评论的内容
+                this.rlyCommentContent = "";
+                // 重置回复评论框的状态
+                this.rlyCommentPanelType = 0;
+                this.currRlyPanelIndex = -1;
+                this.rlyCommentPanelIndex = -1;
+                this.rlyCommentId = "";
+
+                this.showCommentList = false;
+
+                this.resultPage = {
+                    currentPage : 1,
+                    pageSize : SYSTEM.COMMENT_RESULE_PAGE_SIZE,
+                    totalPage : 0
+                }
             },
 
         }

@@ -52,7 +52,9 @@
                     {
                         title:'没有信息',
                         fileUrl: require('assets/img/car-default.jpg'),
-                    }],
+                    }
+                ],
+                currBanqh: {},
 			}
 		},
 		props: {
@@ -72,6 +74,10 @@
 		mounted(){
             
 		},
+        //退出的生命周期钩子
+        deactivated(){
+            
+        },
 		methods:{
 
 		},
@@ -79,9 +85,8 @@
         watch:{
             carImgData: function(val){
                 if(val.imgItems.length==0){
-                    val.imgItems = this.defaultImgItem;
+                    this.carImgData.imgItems = this.defaultImgItem;
                 }
-
                 let me = this;
                 setTimeout(() => {
                     jq('#cSlide').banqh({

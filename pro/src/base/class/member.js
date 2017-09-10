@@ -96,7 +96,7 @@ class memberInfo{
 
         //如果未认证，那么身份标识为未认证
         if(data.CdgAuth&&data.CdgAuth.length>0){
-        		
+
             this.authStatus = data.CdgAuth[0].AuthInfo.AuthStatus;
             switch(data.CdgAuth[0].AuthInfo.AuthStatus){
                 case 0:
@@ -109,7 +109,7 @@ class memberInfo{
                     this.authStatusText = "审核失败";   
                     break;
             }
-            
+
             // 是否已认证个人车行
             data.CdgAuth.forEach((item,index)=>{
                 if(data.CdgAuth[index].AuthInfo.AuthType=="个人车行"&&
@@ -126,12 +126,12 @@ class memberInfo{
                 }
             })
         }
-   
+
         // 是否有足够的保证金
         this.hasEnoughCredit = this.credit>=SYSTEM.MIN_CREDIT_GOLD
-        // 是否认证成功  
-        this.isAuthSuccess = false                  
-         
+        // 是否认证成功
+        this.isAuthSuccess = false
+
         // 逻辑判断是否认证成功
         if(data.CdgAuth&&data.CdgAuth.length==1){
             this.hasApplyCount = 1
@@ -141,7 +141,7 @@ class memberInfo{
             this.curApplyInfo = data.CdgAuth[0];
             this.curApplyId = data.CdgAuth[0].AuthInfo.AuthId;
             this.errorApplyText = data.CdgAuth[0].AuthInfo.CheckDescription;
-            
+
             // 认证标识
             if(data.CdgAuth[0].AuthInfo.AuthStatus==1){
                 this.authName = data.CdgAuth[0].AuthInfo.CertificateName;

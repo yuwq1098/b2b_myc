@@ -152,9 +152,7 @@ _border(direction,color=$c_white03,pixel=1px,bstyle=solid)
 _boxSizing(fn=1)
     if fn == 1
         -webkit-box-sizing border-box
-        box-sizing border-
-
-        
+        box-sizing border-box
     else if fn == 2
         -webkit-box-sizing content-box
         box-sizing content-box
@@ -179,6 +177,38 @@ _completeCenter(left=0,right=0,top=0,bottom=0,$position=absolute)
     left left
     margin auto
 
+//---垂直文本对齐
+// baseline    默认。元素放置在父元素的基线上。
+// sub 垂直对齐文本的下标。
+// super   垂直对齐文本的上标
+// top 把元素的顶端与行中最高元素的顶端对齐
+// text-top    把元素的顶端与父元素字体的顶端对齐
+// middle  把此元素放置在父元素的中部。
+// bottom  把元素的顶端与行中最低的元素的顶端对齐。
+// text-bottom 把元素的底端与父元素字体的底端对齐。
+// length
+// %   使用 "line-height" 属性的百分比值来排列此元素。允许使用负值。
+// inherit 规定应该从父元素继承 vertical-align 属性的值。
+_verticalTextAlign($direction=middle)
+    vertical-align $direction
+
+
+//---多行文本默认样式
+_textareaStyle()
+    font-size: 13px;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    background-color: #F7F9FA;
+    resize: none;
+    display: inline-block;
+    vertical-align: top;
+    outline-style: none;
+
+
+//---文本垂直居中/利用行高垂直居中
+_textLineHeigth(pixel)
+    height pixel
+    line-height pixel
 
 //---图片大小控制(被容器填充)
 _imgwrap(x=100%,y=100%)
@@ -266,7 +296,6 @@ _borderRadiusCustom()
 _boxSizing(args=border-box)
     -webkit-box-sizing args
     box-sizing args
-    
 
 //---禁止用户对该区域进入选中
 _unUserSelect()
@@ -285,7 +314,6 @@ _willAccelerate()
     -moz-transform translate3d(0,0,0)
     -o-transform translate3d(0,0,0)
     transform translate3d(0,0,0)
-    
 
 //---线性渐变
 _gradient(bColor,eColor,direction=null)

@@ -33,7 +33,7 @@
                                     ><em class="info">未登录</em>
                                 </span>
                             </template>
-                            <template v-else="loginStatus">
+                            <template v-else>
                                 <template v-if="!isAuthSuccess">
                                     <span class="price"
                                         ><em class="info">您尚未认证</em>
@@ -57,7 +57,7 @@
                                 </a>
                             </template>
 
-                            <template v-else="loginStatus">
+                            <template v-else>
                                 <a class="u-btn not"
                                     v-if="carInfo.hasInCart==''"
                                     @click.stop="inShopingCart(carInfo.id)"
@@ -66,8 +66,7 @@
                                     <span class="txt">加入购物车</span>
                                 </a>
                                 <a href="javascript:;" class="u-btn"
-                                    v-if="!carInfo.hasInCart==''"
-                                    >
+                                    v-else>
                                     <i class="iconfont icon-addCart"></i>
                                     <span class="txt">已加入购物车</span>
                                 </a>

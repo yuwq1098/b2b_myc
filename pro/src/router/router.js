@@ -100,7 +100,7 @@ const recharge = r => require.ensure([], () => r(require('page/member/wallet/rec
 const withdraw = r => require.ensure([], () => r(require('page/member/wallet/withdraw')), 'withdraw')
 
 
-// 我的收藏 => 车辆收藏                                     
+// 我的收藏 => 车辆收藏
 const carCollect = r => require.ensure([], () => r(require('page/member/collect/car/index')), 'carCollect')
 // 我的收藏 => 车商收藏
 const merchantCollect = r => require.ensure([], () => r(require('page/member/collect/merchant/index')), 'merchantCollect')
@@ -130,7 +130,7 @@ const safetyTel = r => require.ensure([], () => r(require('page/member/setting/s
 const payPass = r => require.ensure([], () => r(require('page/member/setting/safety/payPass')), 'payPass')
 // 账户设置 => 安全中心 => 修改支付密码
 const editPayPass = r => require.ensure([], () => r(require('page/member/setting/safety/editPayPass')), 'editPayPass')
-// 账户设置 => 安全中心 => 忘记支付密码                                                   
+// 账户设置 => 安全中心 => 忘记支付密码
 const forgetPayPass = r => require.ensure([], () => r(require('page/member/setting/safety/forgetPayPass')), 'forgetPayPass')
 
 
@@ -164,7 +164,7 @@ const feedback = r => require.ensure([], () => r(require('page/more/about-inner/
 
 // 更多网站功能 => 帮助中心
 const helpCenter = r => require.ensure([], () => r(require('page/more/help')), 'helpCenter')
-// 更多网站功能 => 常见问题 
+// 更多网站功能 => 常见问题
 const FAQ = r => require.ensure([], () => r(require('page/more/help-inner/FAQ')), 'FAQ')
 // 更多网站功能 => 平台各类协议
 const agreement = r => require.ensure([], () => r(require('page/more/help-inner/agreement')), 'agreement')
@@ -185,7 +185,7 @@ export default[{
     path: '/',
     component: App,                     // 顶层路由，对应index.html
     children: [                         // 二级路由，对应App.vue
-        {             
+        {
         // 页面为空时跳转至首页
             path: '',
             redirect: '/home'           // 页面重定向
@@ -226,22 +226,21 @@ export default[{
             path: '/shoppingCart',
             component: shoppingCart,
             meta: {
-                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
-                hasWebSide: true,       // 是否有网站侧栏条 
+                requireAuth: true,        // 添加该字段，表示进入这个路由是需要登录的
+                hasWebSide: true,         // 是否有网站侧栏条 
                 title: '购物车',          // 网页信息title 
-            },      
+            },
         },
         {
         // 车行详情
             path: '/merchantDetails',
             component: merchantDetails,
             meta: {
-                requireAuth: true,              // 添加该字段，表示进入这个路由是需要登录的
-                hasWebSide: true,       // 是否有网站侧栏条
+                hasWebSide: true,           // 是否有网站侧栏条
                 title: '车商详情',          // 网页信息title 
-            },   
+            },
         },
-        {   
+        {
         // 卖车大厅
             path: '/sell',
             component: sell,
@@ -270,7 +269,7 @@ export default[{
             meta: {
                 requireAuth: true,      // 添加该字段，表示进入这个路由是需要登录的
                 hasWebSide: true,       // 是否有网站侧栏条
-                title: '车商圈',          // 网页信息title 
+                title: '车商圈',          // 网页信息title
             },
         },
         {
@@ -372,8 +371,6 @@ export default[{
                 },
             ]
         },
-        
-        
         {
         // 帮助中心
             path: '/helpCenter',
@@ -419,7 +416,6 @@ export default[{
                         title: '交易流程详解',          // 网页信息title
                     }
                 },
-                
             ]
         },
         {
@@ -651,7 +647,6 @@ export default[{
                 },
                 {
                 // 我的钱包主页
-                    
                     path: 'wallet-home',
                     component: walletHome,
                     alias: 'wallet',            // 使用别名

@@ -235,16 +235,11 @@
                 youLikeList: [],     // 猜你喜欢
             }
         },
-        created () {
-            
 
-        },
-        mounted(){
-            
-        },
+
         //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated() {
-            
+
             // 获取用户信息
             this.getMemberInfo();
 
@@ -253,7 +248,7 @@
 
             // 获取猜你喜欢的数据
             this.getYouLike();
-            
+
             //更新swiper(强制初始化)
             this.$nextTick(() => {
                 if(this.siteHomeSwiper){
@@ -261,7 +256,7 @@
                 }
             });
         },
-        
+
         //退出的生命周期钩子
         deactivated(){
             //清空用户搜索结果集合
@@ -273,7 +268,7 @@
             ...mapGetters(['loginStatus']),
             siteHomeSwiper() {  
                 return this.$refs.siteHomeSwiper.swiper;  
-            }  
+            }
         },
         watch:{
 
@@ -308,6 +303,9 @@
 
             // 侦听登录状态
             loginStatus(val){
+
+                if(this.$router.currentRoute.path!="/home") return;
+
                 if(val){
                     // 获取用户信息
                     this.getMemberInfo();
@@ -341,7 +339,7 @@
                             duration: 1500,
                         });
                     }
-                })   
+                })
             },
 
             //使用b2b抽象类完成carInfo
@@ -426,7 +424,7 @@
                     this.youLikeList = this._normalizeYouLike(res.data)
                 });
             },
-            
+
             // 猜你喜欢（换一批）
             changeBatch(){
                 api.getGuessYouLike('NewBatch').then((res) => {
