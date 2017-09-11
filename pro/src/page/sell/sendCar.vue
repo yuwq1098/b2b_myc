@@ -274,6 +274,7 @@
                                                         title="排放标准"
                                                         :errorTetx="errors.first('dischargeStandard')"
                                                         :isShow="errors.has('dischargeStandard')"
+                                                        :must="true"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
@@ -324,7 +325,7 @@
                                             </color-select>
                                         </div>
                                     </div><!-- 车身颜色选择 -->
-                                    
+
                                     <div class="m-gp-other nameplate">
                                         <div class="m-other-hd">
                                             <gk-input-error
@@ -359,7 +360,7 @@
                                             <photo-upload
                                                 :maxUploadSize="15"
                                                 @changeFiles="photoEnd"
-                                                >    
+                                                >
                                             </photo-upload>
                                         </div>
                                     </div><!-- 车辆图片 -->
@@ -398,7 +399,7 @@
                                             </gk-switch>
                                         </div>
                                     </div><!-- 发布到普通b2c市场 -->
-                                    
+
                                     <div class="m-gp-btn">
                                         <div class="m-submit-box">
                                             <gk-submit
@@ -424,7 +425,7 @@
 </template>
 
 <script>
-    
+
     // 获取数据的api
     import api from 'api/getData.js'
     // 引入系统变量
@@ -470,7 +471,7 @@
 
     // 获取卖车填单页的本地相关数据
     import * as sendCarData from "api/localJson/sendCar.js"
-    
+
     //引入表单验证
     import { Validator } from 'vee-validate';
 
@@ -479,7 +480,7 @@
         validator: null,
         // 在当前模块注册组件
         components:{
-            gkBreadCrumb,           
+            gkBreadCrumb,
             appBox,
             promptInfo,
             modelCascader,
@@ -576,6 +577,7 @@
                 insuranceDate: 'required',
                 serviceType: 'required',
                 color: 'required',
+                dischargeStandard: 'required',
                 desc: 'required|min:10|max:300',
                 photo: 'between:2,12|max:12',
             });
@@ -585,7 +587,7 @@
 
         // $el 挂载的时候
         mounted() {
-            
+
         },
 
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
@@ -607,7 +609,7 @@
         },
         // 自定义函数(方法)
         methods: {
-            
+
             // 格式化用户信息
             _normalizeMember(data) {
                 return new memberInfo(data);
@@ -629,9 +631,9 @@
                             duration: 1500,
                         });
                     }
-                })   
+                })
             },
-            
+
             // 判断是不是有相关的权限
             judgeHasPrivilege(memberInfo){
                 if(!memberInfo.isAuthSuccess){
@@ -746,6 +748,7 @@
             // 选择排放标准
             dischargeStandardEnd(val){
                 this.form.dischargeStandard = val;
+                this.validator.validate('dischargeStandard',val);
             },
 
             // 排量
@@ -815,6 +818,7 @@
                     insuranceDate: this.form.insuranceDate,
                     serviceType: this.form.serviceType,
                     color: this.form.color,
+                    dischargeStandard: this.form.dischargeStandard,
                     desc: this.form.desc,
                     photo: this.form.photo.length,
                 }).then((res) => {
@@ -883,6 +887,10 @@
             //整理数据并发布
             issue(){
                 let me = this;
+
+                if(this.form.dischargeStandard == '-1'){
+                    this.form.dischargeStandard = "";
+                }
 
                 // 获取数据
                 this._normalizeData(this.form,(data)=>{

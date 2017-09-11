@@ -5,13 +5,16 @@
             title="车商认证"
             >
             <div slot="content">
-                
+
                 <member-inner>
                     <div class="m-apply-wrap">
-                        <!-- <p>是否已开始认证：{{isApplyStart}}</p>
-                        <p>按钮文本：{{btnText}}</p>
-                        <p>第一个盒子信息：{{box1Info}}</p>
-                        <p>第二个盒子信息：{{box2Info}}</p> -->
+                        <div class="m-hint-container">
+                            <h4 class="hint-title">认证立享</h4>
+                            <p class="u-txt"><i></i>1.免费查询上百个品牌的4S记录；</p>
+                            <p class="u-txt"><i></i>2.免费查询全国违章记录；</p>
+                            <p class="u-txt"><i></i>3.免费查看全国车源批发价；</p>
+                            <p class="u-txt"><i></i>4.免费进入中国诚信车商两千人交流群。</p>
+                        </div>
                         <div class="m-mn not"
                             v-if="memberData.authStatus!=1"
                             >
@@ -45,7 +48,7 @@
                                 >立即上传
                             </router-link>
                         </div><!-- 认证资料补充 -->
-                        
+
                         <div class="m-other" v-if="memberData.curApplyType=='企业车行'&&memberData.authStatus==1">
                             <div class="u-info">
                                 <div class="u-tit">成功认证企业车行</div><!-- 标题 -->

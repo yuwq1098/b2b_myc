@@ -5,13 +5,14 @@ export const clearNull = v => {
 
 /**
  * 格式化时间
- * 
+ *
  * @param {String} str
  * @returns 格式化后的时间
  */
 export const formatDate = (str) => {
     if (!str) return ''
-    var date = new Date(str)
+    var newStr = str.replace(/\s/g,'T').replace(/\//g,'-');
+    var date = new Date(newStr)
     var time = new Date().getTime() - date.getTime() //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
     if (time < 0) {
         return '刚刚'

@@ -5,7 +5,7 @@
             title="车源管理"
             >
             <div slot="content">
-                
+
                 <member-inner>
                     <div class="m-edit-con"
                         >
@@ -140,7 +140,7 @@
                                             </div>
                                         </div>
                                     </el-col>
-                                    
+
                                     <el-col :span="8">
                                         <div class="m-item">
                                             <gk-input-error
@@ -182,7 +182,7 @@
                                             </div>
                                         </div>
                                     </el-col>
-                                    
+
                                 </el-row>
                             </div>
 
@@ -208,7 +208,7 @@
                                             </div>
                                         </div>
                                     </el-col>
-                                    
+
                                     <el-col :span="8">
                                         <div class="m-item">
                                             <gk-input-error
@@ -229,7 +229,7 @@
                                             </div>
                                         </div>
                                     </el-col>
-                                    
+
                                     <el-col :span="8">
                                         <div class="m-item">
                                             <gk-input-error
@@ -255,7 +255,7 @@
 
                             <div class="m-gp-wrap f__clearfix">
                                 <el-row :gutter="formStyleData.gutter">
-                                    
+
                                     <el-col :span="8">
                                         <div class="m-item">
 
@@ -276,7 +276,7 @@
                                             </div>
                                         </div>
                                     </el-col>
-                                    
+
                                     <el-col :span="11">
                                         <div class="m-item">
                                             <gk-input-error
@@ -317,7 +317,7 @@
                                     </color-select>
                                 </div>
                             </div><!-- 车身颜色选择 -->
-                            
+
                             <div class="m-gp-other nameplate">
                                 <div class="m-other-hd">
                                     <gk-input-error
@@ -352,7 +352,7 @@
                                     <photo-upload
                                         :maxUploadSize="12"
                                         @changeFiles="photoEnd"
-                                        >    
+                                        >
                                     </photo-upload>
                                 </div>
                             </div><!-- 车辆图片 -->
@@ -395,7 +395,7 @@
                                     </div>
                                 </div>
                             </div><!-- 发布到普通b2c市场 -->
-                            
+
                             <div class="m-gp-btn">
                                 <div class="m-submit-box">
                                     <gk-submit
@@ -506,7 +506,7 @@
                 isSubmitState: false,
 
                 // 表单样式集中管理
-                formStyleData:{  
+                formStyleData:{
                     gutter: 20,
                 },
                 
@@ -517,7 +517,7 @@
                 iv_plateInCity: "",        // 车牌归属地
                 iv_selectedModel: [],      // 品牌车型选择
 
-                
+
                 // 车辆订单的表单信息（供双向绑定及提交）
                 form:{
                     carId: "",              // 车辆Id,修改时需带有
@@ -580,8 +580,8 @@
         },
         activated(){
 
-            // 清空数据
-            this.reset();
+            // 确认用户是否继续
+            this.verifyContinues();
             // 获取hash 带参中的车辆ID
             this.carId = this.$router.currentRoute.query.id;
             // 获取车辆信息
@@ -606,7 +606,7 @@
         },
         // 自定义函数(方法)
         methods: {
-            
+
             // 格式化车辆基本信息
             _normalizeBasicInfo(data) {
                 return new basicInfo(data);
@@ -661,6 +661,20 @@
                 })
             },
 
+            // 确认用户是否继续
+            verifyContinues(){
+                this.$confirm('尊贵的用户，您好！重新编辑车辆会进行重新审核，是否要进行编辑？', '温馨提示', {
+                    confirmButtonText: '确认',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+
+                }).catch(() => {
+                    // 返回上一页
+                    this.$router.go(-1);
+                });
+            },
+
             // 获取车辆图片列表
             getCarImgsData(list,otherInfo){
                 let arr = [];
@@ -672,7 +686,7 @@
                 });
                 return arr;
             },
-            
+
             // 编辑车源数据的初始化
             setInitSourceData(){
                 // 车辆Id
@@ -693,7 +707,7 @@
                 this.form.retailPrice = this.basicInfo.retailPrice.toString();
                 // 行驶里程
                 this.form.mileage = this.basicInfo.mileage.toString();
-                
+
                 // 排放标准
                 this.form.dischargeStandard = this.basicInfo.dischargeStandard;        
                 this.form.liter = this.basicInfo.liter.toString();        // 排量
@@ -782,7 +796,7 @@
                     }
                 }
             },
-            
+
             // 行驶里程
             mileageEnd(val){
                 this.form.mileage = val;

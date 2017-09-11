@@ -19,6 +19,7 @@
                                 :data-id="item.id"
                                 @addedSource="addedSource"
                                 @editSource="editSource"
+                                @seeOffer="seeOffer"
                                 @soldOutSource="soldOutSource"
                                 @delSource="delSource"
                                 :sourceInfo="item"
@@ -152,11 +153,15 @@
             addedSource(id,acted){
                 this.$emit("addedSource",id,acted);
             },
-            // 编辑车源 
+            // 编辑车源
             editSource(id){
                 this.$emit("editSource",id);
             },
-            // 下架车源 
+            // 查看出价
+            seeOffer(id){
+                this.$emit("seeOffer",id);
+            },
+            // 下架车源
             soldOutSource(id){
                 this.$emit("soldOutSource",id);
             },

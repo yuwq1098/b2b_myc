@@ -61,6 +61,7 @@
                                         <source-list
                                             @addedSource="addedSource"
                                             @editSource="editSource"
+                                            @seeOffer="seeOffer"
                                             @soldOutSource="soldOutSource"
                                             :sourceList="forSaleList"
                                             :isOnSale="true"
@@ -69,7 +70,7 @@
                                             @onOffAllCheckFn="onOffAllCheckFn"
                                             :allInChecked="onOffAllChecked"
                                             @indeterminateCheck="indeterminateCheck"
-                                            >    
+                                            >
                                         </source-list>
                                     </div>
                                 </source-con>
@@ -138,7 +139,7 @@
                                     <div slot="content">
                                         <source-list
                                             :sourceList="soldList"
-                                            >    
+                                            >
                                         </source-list>
                                     </div>
                                 </source-con>
@@ -165,7 +166,7 @@
                                             @editSource="editSource"
                                             @delSource="delSource"
                                             :sourceList="notOnList"
-                                            >    
+                                            >
                                         </source-list>
                                     </div>
                                 </source-con>
@@ -190,7 +191,7 @@
                                             @editSource="editSource"
                                             @delSource="delSource"
                                             :sourceList="failureList"
-                                            >    
+                                            >
                                         </source-list>
                                     </div>
                                 </source-con>
@@ -214,7 +215,7 @@
 
 
 <script>
-    
+
     // 获取数据的api
     import api from 'api/getData.js'
     // 引入系统变量
@@ -236,7 +237,7 @@
     import noContent from 'components/member/noContent.vue' 
 
     export default {
-        
+
         name: "sourceManage",
         // 在当前模块注册组件
         components:{
@@ -266,8 +267,7 @@
 
                 // 我的分页（每页数据大小）
                 pageSize: 8,
-                
-                
+
                 // 是否有更多的集合
                 isNotMoreItems:[false,false,false,false,false,false],
 
@@ -285,7 +285,7 @@
         },
         //生命周期,开始的时候
         created(){
-            
+
         },
         mounted(){
 
@@ -499,7 +499,7 @@
                 this.loading = true;
                 var carIds;
                 // 计算出需要批量操作的id数据
-                if(this.onOffAllChecked==true){
+                if(idArr.length==this.forSaleList.length){
                     carIds = 'all';
                 }else{
                     carIds = idArr.join(",");
@@ -583,7 +583,11 @@
                     {path:'/member/sourceEdit',query:{id:id}}
                 );
             },
-            // 下架车源 
+            // 查看出价
+            seeOffer(){
+                console.log("查看出价")
+            },
+            // 下架车源
             soldOutSource(id){
                 // 操作码 -1失败，1上架，2下架
                 this.operateSource(2,id,(msg)=>{

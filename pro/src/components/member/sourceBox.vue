@@ -78,15 +78,19 @@
                                 >前往卖车订单
                             </router-link>
                         </div><!-- 在售 -->
-                        
-                        <div class="btn-wrap two f__clearfix" v-if="sourceInfo.status == '1'">
-                            <a class="u-btn" 
+
+                        <div class="btn-wrap three f__clearfix" v-if="sourceInfo.status == '1'">
+                            <a class="u-btn tiny"
                                 @click="addedSource(sourceInfo.id,'置顶')"
-                                style="width: 120px"
-                                >置顶/刷新</a>
-                            <a class="u-btn" 
+                                style="width: 56px"
+                                >置顶</a>
+                            <a class="u-btn tiny"
+                                @click="seeOffer(sourceInfo.id)"
+                                style="width: 77px"
+                                >查看出价</a>
+                            <a class="u-btn tiny"
                                 @click="soldOutSource(sourceInfo.id)"
-                                style="width: 72px"
+                                style="width: 56px"
                                 >下架</a>
                         </div><!-- 交易中 -->
 
@@ -166,11 +170,15 @@
             addedSource(id,acted){
                 this.$emit("addedSource",id,acted);
             },
-            // 编辑车源 
+            // 编辑车源
             editSource(id){
                 this.$emit("editSource",id);
             },
-            // 下架车源 
+            // 查看出价
+            seeOffer(id){
+                this.$emit("seeOffer",id);
+            },
+            // 下架车源
             soldOutSource(id){
                 this.$emit("soldOutSource",id);
             },
@@ -185,7 +193,7 @@
                 }
                 this.$emit("changeCheck",id);
             }
-        },    
+        },
     }
 </script>
 

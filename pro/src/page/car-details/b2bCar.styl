@@ -2,6 +2,16 @@
 
 $box-width = 1200px
 
+// 接着为过渡类名添加规则
+&.moveUpFade-enter-active, &.moveUpFade-leave-active
+    transition all 0.3s ease
+&.moveUpFade-enter, &.moveUpFade-leave-active
+    opacity 0
+&.moveUpFade-enter
+    _translate3d(0,-10px)
+&.moveUpFade-leave-active
+    _translate3d(0,25px)
+
 .g-doc
     background #fff
     .g-bd
@@ -163,7 +173,7 @@ $box-width = 1200px
                             &:hover,&:active
                                 background @background
                         &.v3
-                            background #FFA535
+                            background #FB576D
                             &:hover
                                 background @background - 12%
                     .u-btn-a
@@ -195,7 +205,7 @@ $box-width = 1200px
                 // 分享
                 .m-share
                     width 480px
-                    margin 0 0 12px 16px
+                    margin 0 0 15px 16px
                     height 32px
                     .u-attr,.share-box
                         _display(inline-block)
@@ -203,6 +213,77 @@ $box-width = 1200px
                     .u-attr
                         margin-right 5px
                         color #333
+                // 报价，及使用手机看
+                .m-offer-mobile
+                    width 480px
+                    margin 0 0 15px 16px
+                    height 36px
+                    position relative
+                    .m-details-unfold
+                        width 140px
+                        height @width
+                        background #fff
+                        _completeCenter(38px,auto,48px,auto)
+                        _borderRadius(2px)
+                        _borderAll(#d2d2d2)
+                        _boxShadow(12px,rgba(0,0,0,.12),-1px,1px)
+                        .u-pic
+                            width 128px
+                            height @width
+                            _completeCenter()
+                            _imgwrap()
+                        .decorate
+                            width 32px
+                            height @width
+                            _opacity(.95)
+                            _display()
+                            _completeCenter()
+                            background url("../../assets/img/logoBg.png") center center no-repeat
+                            background-size cover
+                            _borderRadius(6px)
+                    .u-btn
+                        height @height
+                        line-height @height
+                        _display(inline-block)
+                        margin-right 10px
+                        _borderRadius(3px)
+                        font-size 15px
+                        _spacingPlus(2px)
+                        $lookBtnBg = #072C4C
+                        &.look
+                            height @height - 2px
+                            line-height @height
+                            _borderAll($lookBtnBg)
+                            color $lookBtnBg
+                            padding 0 40px
+                            .icon-erweima3
+                                font-size 20px
+                                _display(inline-block)
+                                _translate3d(,1px)
+                            &:hover,&:active
+                                color #fff
+                            &:hover
+                                background $lookBtnBg - 12%
+                            &:active
+                                background $lookBtnBg + 2%
+                        &.offer
+                            background #FFB911
+                            color #fff
+                            padding 0 42px
+                            .ico
+                                _display(inline-block)
+                                _verticalTextAlign(middle)
+                                _translate3d(,-1px)
+                                width 24px
+                                height @width
+                                background url('../../assets/img/offer-price-ico.gif') center center no-repeat
+                                background-size cover
+                                margin-right 2px
+                            &:hover
+                                background @background - 12%
+                            &:active
+                                background @background + 2%
+
                 // 投票/评价高低
                 .m-vote
                     width 480px
@@ -356,6 +437,29 @@ $box-width = 1200px
                                 line-height 30px
                                 padding 22px 30px
                                 color #666
+                                .link-wrap
+                                    height 24px
+                                    .fold-lk
+                                        line-height @height
+                                        color $c_blue
+                                        _display()
+                                        float right
+                                &.fold
+                                    position relative
+                                    .txt
+                                        line-height 30px
+                                        height 60px
+                                        _ellipsis(2)
+                                    .unfold
+                                        background #fff
+                                        line-height 30px
+                                        padding-left 20px
+                                        _completeCenter(auto,30px,auto,22px)
+                                        color $c_blue
+                                pre
+                                    _display(inline-block)
+                                    margin-right 3px
+                                    _translate3d(0,-2px)
                             .tip-arrow
                                 _display(inline-block)
                                 width 18px

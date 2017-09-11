@@ -22,6 +22,9 @@ export const HALL_RESULE_PAGE_SIZE = 25
 // 评论搜索条数限制
 export const COMMENT_RESULE_PAGE_SIZE = 5
 
+// 手机车辆详情路径
+export const MOBILE_CAR_DETAILS_URL_ROOT = "https://"+(process.env.NODE_ENV === 'production' ? 'www': "test")+".muyouche.com/mo1/?#/B2BDetail?CarId="
+
 /**
  * B2B订单状态
  */

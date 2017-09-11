@@ -60,6 +60,10 @@ export const dischargeStandard = [
     //     value: '国2',
     // },
     {
+        label: "不祥",
+        value: '-1',
+    },
+    {
         label: "国3",
         value: '国3',
     },

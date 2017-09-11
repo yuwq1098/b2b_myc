@@ -75,8 +75,7 @@
                             </div><!-- 产品描述 -->
 
                             <div class="m-vote">
-                                
-                                
+
                                 <div class="progress-container">
                                     <div class="top f__clearfix">
                                         <span class="text-lt">这辆车价格很不错</span>
@@ -189,7 +188,6 @@
                                         </a>
                                     </template>
                                 </template>
-
                             </div><!-- 操作 -->
 
                             <div class="m-share" v-if="isShareShow">
@@ -198,16 +196,28 @@
                                     :options="shareOptions"></gk-share>
                             </div><!-- 分享 -->
 
-                            <!-- <div class="m-offer">
-                                <a class="u-btn"
-                                    ><i class=""></i><em>我要出价</em>
+                            <div class="m-offer-mobile">
+                                <transition name="moveUpFade">
+                                    <section class="m-details-unfold" v-show="isShowDetailsUnfold">
+                                        <div class="u-pic">
+                                            <img :src="carDetailsEwmIMG" alt="用手机查看车" />
+                                            <i class="decorate"></i><!-- 装饰物 -->
+                                        </div>
+                                    </section><!-- 车详情二维码展开 -->
+                                </transition>
+
+                                <a class="u-btn look"
+                                    @mouseover="usePhoneLook(true)" @mouseleave="usePhoneLook(false)">
+                                    <i class="iconfont icon-erweima3"></i>
+                                    <span class="txt">使用手机查看</span>
                                 </a>
-                                <a catch="u-lk">查看其他人出价</a>
-                            </div>我的报价
 
-                            <div class="m-use-mobile">使用手机看该车</div>使用手机看
-
-                            <div class="m-evaluation">评价高低</div>高低价一键评论 -->
+                                <a class="u-btn offer"
+                                    @click="offerPrice()">
+                                    <i class="ico"></i>
+                                    <span class="txt">向ta出价</span>
+                                </a>
+                            </div><!-- 报价，及使用手机看 -->
 
                         </div><!-- 主要信息 -->
                     </div><!-- 主要的头部信息 -->
@@ -273,18 +283,26 @@
                                         <span class="data">{{otherInfo.cdgName}}</span>
                                     </div>
                                     <div class="box-tip businessmen-note">
-                                        <div class="tip-content"
+                                        <div class="tip-content fold" v-if="isShowDescMore"
+                                            ><p class="txt">{{basicInfo.desc.substr(0,158)+"..."}}</p>
+                                            <a class="u-lk unfold" @click="unfoldDescMore(false)"><pre>&darr;</pre>展开更多</a>
+                                        </div>
+                                        <div class="tip-content" v-if="!isShowDescMore"
                                             >{{basicInfo.desc||'车主暂未对该车源进行描述'}}
+                                            <div class="link-wrap f__clearfix"
+                                                v-if="basicInfo.desc&&basicInfo.desc.length>158">
+                                                <a class="u-lk fold-lk" @click="unfoldDescMore(true)"
+                                                    ><pre>&uarr;</pre>收起</a>
+                                            </div>
                                         </div>
                                         <span class="tip-arrow"></span><!-- 箭头装饰物 -->
                                     </div><!-- 车商描述 -->
                                 </li>
                             </ul>
                         </div><!-- 信息内容 -->
-
                     </div><!-- 车辆信息 -->
 
-                    <div class="m-carPhoto f__boxClearM" 
+                    <div class="m-carPhoto f__boxClearM"
                         v-if="carImgData.imgItems&&carImgData.imgItems.length>=2"
                         >
                         <div class="box-header">
@@ -368,7 +386,8 @@
                                     <li class="desc">
                                         <i class="adorn"></i>
                                         <span class="attr">店铺描述：</span>
-                                        <p class="data desc">{{otherInfo.desc}}</p>
+                                        <p class="data desc"
+                                            >{{otherInfo.desc}}</p>
                                     </li>
                                 </ul>
                             </div><!-- 右侧信息 -->
@@ -493,8 +512,8 @@
                                                             </div>
                                                         </form>
                                                     </div><!-- 子回复评论 -->
-
                                                 </div><!-- 子回复评论列表 -->
+
                                             </div>
                                         </template>
                                     </div><!-- 评论列表 -->
@@ -517,8 +536,8 @@
                                 <div class="tips-show" v-if="carCommentList.length > 0 && !showCommentList"
                                     >默认隐藏留言信息，点击右上角的 ‘显示留言’ 可显示留言列表哟 ~~
                                 </div>
-
                             </div><!-- 评论列表 -->
+
                         </div>
                     </div><!-- 众人评车 -->
 
@@ -578,6 +597,11 @@
                     </div><!-- 相似推荐 -->
 
                 </section><!-- 1200px布局 -->
+
+                <div class="m-bid-wrapper">
+                    <bid-popup></bid-popup>
+                </div><!-- 我要出价 -->
+
             </div><!-- 网页主体 -->
 		</div>
 	</div>
@@ -625,6 +649,11 @@
     import gkShare from "components/common/gkShare.vue"
     // 车店在售车源列表
     import onSaleList from "components/boxLayout/onSaleList.vue"
+    // 出价弹出组件
+    import bidPopup from "components/common/bidPopup.vue"
+
+    // 引入二维码转换器
+    import QRCode from 'qrcode';
 
     var wx = require('weixin-js-sdk');
 
@@ -637,6 +666,7 @@
             remdListBox,
             gkShare,
             onSaleList,
+            bidPopup,
         },
         // 数据
         data() {
@@ -721,6 +751,14 @@
                 judgeCarInfo: {},
                 // 计算评低价的占有率
                 lowPageWeight: 50,
+
+                // 显示用手机看
+                isShowDetailsUnfold: false,
+                // 车辆详情手机二维码
+                carDetailsEwmIMG: "",
+
+                // 显示店铺详情的更多
+                isShowDescMore: false,
             }
         },
         //生命周期,开始的时候
@@ -749,6 +787,9 @@
 
             // 获取评价信息
             this.getJudgeInfo();
+
+            // 获取车辆详情手机链接二维码
+            this.getMobileEwmIMG();
 
         },
         //退出的生命周期钩子
@@ -1017,6 +1058,11 @@
                         // 获取车辆其他相关信息
                         this.otherInfo = this._normalizeOtherInfo(res.data.OtherInfo);
 
+                        // 是否展示更多
+                        if(this.basicInfo.desc.length>158){
+                            this.isShowDescMore = true;
+                        }
+
                         // 获取权限相关的信息
                         this.hasLogin = res.HasLogin;
                         this.hasAuth = res.HasAuth;
@@ -1069,6 +1115,45 @@
                         });
                     }
                 })
+            },
+
+            // 使用手机看
+            usePhoneLook(type){
+                this.isShowDetailsUnfold = type;
+            },
+
+            // 获取车辆详情手机链接二维码
+            getMobileEwmIMG(){
+                var theMobileUrl = SYSTEM.MOBILE_CAR_DETAILS_URL_ROOT+this.carId;
+                var that = this;
+                var opts = {
+                    errorCorrectionLevel: 'Q',
+                    type: 'image/jpeg',
+                    color:{
+                        light: "#fff",
+                        dark: "072c4c",
+                    },
+                    margin: 1,
+                    scale: 18,
+                    rendererOpts: {
+                        quality: 0.4
+                    }
+                }
+                // 微信二维码
+                QRCode.toDataURL(theMobileUrl,opts,function (err, url) {
+                    // 车辆详情手机二维码
+                    that.carDetailsEwmIMG = url
+                })
+            },
+
+            // 展开更多
+            unfoldDescMore(type){
+                this.isShowDescMore = type;
+            },
+
+            // 我的出价
+            offerPrice(){
+                console.log("我的出价");
             },
 
             // 直接对该车辆发起评论
@@ -1506,7 +1591,7 @@
                 }else{
                     act="Delete"
                 }
-                
+
                 let data = {
                     ActType: act,
                     SellerId: id
@@ -1617,7 +1702,7 @@
                     }
                 })
             },
-            
+
             // 下单
             addOrder(carId){
 
@@ -1635,14 +1720,13 @@
                             }).then(() => {
                                 this.putB2BOrder(carId);
                             }).catch(() => {
-                                
+
                             });
                     }).catch(() => {
                         return;
                     });
-                
             },
-            
+
             // 提交下单申请
             putB2BOrder(carId){
                 let data = {
@@ -1670,7 +1754,7 @@
                     }
                 })
             },
-            
+
             // 获取车辆信息
             getCarList(){
                 let data = {
@@ -1711,10 +1795,10 @@
                 }
                 api.CDGStoreDetails(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
-                        
+
                         this.cdgIsFavorite = res.data.HasFavorite;
                         this.onSaleCarList = this._normalizeCarList(res.data.CarList);
-                        
+
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',
