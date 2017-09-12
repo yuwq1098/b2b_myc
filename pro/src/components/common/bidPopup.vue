@@ -4,16 +4,32 @@
 
  <template>
     <div class="bidPopup">
-        <div class="m-mask"></div><!-- 遮罩层 -->
+        <div class="m-mask" @click="cancelBidPopup()"></div><!-- 遮罩层 -->
         <div class="popup-wrapper">
             <section class="popup-adorn">
                 <i class="iconfont icon-baojia1"></i>
             </section><!-- 装饰物 -->
-            <a class="u-btn cancel" href="javascript:;">
+            <a class="u-btn cancel" title="关闭报价框" @click="cancelBidPopup()">
                 <i class="iconfont icon-guanbi1"></i>
             </a><!-- 关闭 -->
             <div class="bid-content">
-                
+                <header class="dialog-title">请输入您的意向价</header>
+                <div class="current-price">当前批发价：<em>6.50万</em></div>
+                <input class="intention-price" type="text"
+                    v-model="thePrice" placeholder="输入意向价" />
+                <button class="bid-submit" @click="bidSubmit()">提交</button>
+                <template v-if="false">
+                    <section class="old-price">
+                        <div class="u-tit">我的最近报价</div>
+                        <div class="u-con">
+                            <span class="time">20分钟前</span>
+                            <span class="price">5.40万</span>
+                        </div>
+                    </section><!-- 最近报价 -->
+                </template>
+                <template v-if="true">
+                    <p class="no-old-price">您还没有对这辆车进行过报价~~</p>
+                </template>
             </div><!-- 内容 -->
         </div><!-- 弹出层 -->
     </div><!-- 出价弹出组件 -->
@@ -31,11 +47,18 @@
         // 数据
         data() {
             return{
-
+                // 当前输入的报价
+                thePrice: "",
             }
         },
         props:{
-
+            // 我的最近报价信息
+            oldPriceInfo: {
+                type: Object,
+                default(){
+                    return {};
+                }
+            },
         },
         computed:{
 
@@ -43,6 +66,19 @@
         // 自定义函数(方法)
         methods: {
 
+            // 关闭报价框
+            cancelBidPopup(){
+                this.reset();
+                this.$emit("cancelBidPopup");
+            },
+            // 提交报价
+            bidSubmit(){
+                console.log("提交报价")
+            },
+            // 数据重置
+            reset(){
+                this.thePrice = "";
+            }
         },
     }
 </script>
@@ -55,11 +91,11 @@
             width 100%
             height 100%
             _completeCenter(,,,,fixed)
-            background rgba(0,0,0,.7)
+            background rgba(0,0,0,.8)
             z-index 20170911
         .popup-wrapper
             width 380px
-            height 340px
+            height 320px
             _completeCenter(,,,,fixed)
             z-index 20170912
             .popup-adorn
@@ -76,9 +112,94 @@
                     color #fa3
                     _display()
                     _completeCenter(,,7px,auto)
+            .u-btn.cancel
+                width 32px
+                height @width
+                text-align center
+                line-height @height
+                z-index 2
+                _completeCenter(auto,15px,25px,auto)
+                _borderRadius()
+                .iconfont
+                    color #959595
+                    font-size 28px
+                    _display()
+                    _translate3d(0,1px)
+                &:hover
+                    .iconfont
+                        color #ff6533
             .bid-content
-                width @width
-                height @height
+                width @width - 48px
+                height @height - 60px
                 background #fff
                 _completeCenter()
+                padding 45px 24px 15px
+                text-align center
+                .dialog-title
+                    height 32px
+                    line-height @height
+                    margin-bottom 13px
+                    font-size 24px
+                    color #222
+                .current-price
+                    color #959595
+                    font-size 13px
+                    height 18px
+                    line-height @height
+                    margin-bottom 20px
+                    em
+                        color #ff6533
+                input.intention-price
+                    height 40px
+                    width 100%
+                    padding 0 12px
+                    margin 0 0 18px
+                    _boxSizing()
+                    _borderAll(#e2e2e2)
+                    _borderRadius(2px)
+                    _display()
+                    font-size 14px
+                button.bid-submit
+                    height 42px
+                    width 100%
+                    border none
+                    font-size 16px
+                    _spacingPlus(8px)
+                    _borderRadius(2px)
+                    background #FFAA33
+                    color #fff
+                    &:hover
+                        background @background - 8%
+                    &:active
+                        background @background + 2%
+                .old-price
+                    margin-top 18px
+                    .u-tit
+                        height 22px
+                        line-height @height
+                        margin-bottom 10px
+                        font-size 15px
+                        color #666
+                        &:before,&:after
+                            content ""
+                            _display(inline-block)
+                            width 68px
+                            height 1px
+                            background #c2c2c2
+                            _verticalTextAlign(middle)
+                            margin 0 10px
+                            _translate3d(0,-1px)
+                    .u-con
+                        height 18px
+                        line-height @height
+                        font-size 13px
+                        color #959595
+                        span
+                            margin 0 8px
+                .no-old-price
+                    height 22px
+                    line-height @height
+                    font-size 13px
+                    color #959595
+                    margin-top 28px
 </style>

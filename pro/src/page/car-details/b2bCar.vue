@@ -213,7 +213,7 @@
                                 </a>
 
                                 <a class="u-btn offer"
-                                    @click="offerPrice()">
+                                    @click="openBidPopup()">
                                     <i class="ico"></i>
                                     <span class="txt">向ta出价</span>
                                 </a>
@@ -598,8 +598,9 @@
 
                 </section><!-- 1200px布局 -->
 
-                <div class="m-bid-wrapper">
-                    <bid-popup></bid-popup>
+                <div class="m-bid-wrapper" v-if="isShowBidPopup">
+                    <bid-popup
+                        @cancelBidPopup="cancelBidPopup"></bid-popup>
                 </div><!-- 我要出价 -->
 
             </div><!-- 网页主体 -->
@@ -759,6 +760,9 @@
 
                 // 显示店铺详情的更多
                 isShowDescMore: false,
+
+                // 是否显示出价弹出框
+                isShowBidPopup: false,
             }
         },
         //生命周期,开始的时候
@@ -1151,9 +1155,14 @@
                 this.isShowDescMore = type;
             },
 
-            // 我的出价
-            offerPrice(){
-                console.log("我的出价");
+            // 打开出价弹出框
+            openBidPopup(){
+                this.isShowBidPopup = true;
+            },
+
+            // 打开出价弹出框
+            cancelBidPopup(){
+                this.isShowBidPopup = false;
             },
 
             // 直接对该车辆发起评论
