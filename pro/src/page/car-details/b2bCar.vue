@@ -1572,6 +1572,7 @@
                     CarId: this.carId,
                 }
                 api.judgeCarPrice(data).then(res => {
+
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.judgeCarInfo = this._normalizeJudgeInfo(res.data);
                         this.lowPageWeight = (((this.judgeCarInfo.low+(SYSTEM.JUDGE_PRICE_WEIGHTED/2))/(this.judgeCarInfo.total+SYSTEM.JUDGE_PRICE_WEIGHTED))*100).toFixed(2);

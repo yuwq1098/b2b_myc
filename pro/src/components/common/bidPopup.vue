@@ -31,7 +31,7 @@
                 </div>
                 <button class="bid-submit" @click="bidSubmit()">提交</button>
 
-                <template v-if="oldPriceInfo">
+                <template v-if="oldPriceInfo.time">
                     <section class="old-price">
                         <div class="u-tit">我的最近报价</div>
                         <div class="u-con">
