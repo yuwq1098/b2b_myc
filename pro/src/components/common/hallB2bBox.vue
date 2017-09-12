@@ -120,7 +120,7 @@
             carInfo: {
                 type: Object,
                 default(){
-                    return new b2bCarInfo({});
+                    return {};
                 }
             },
             loginStatus: {

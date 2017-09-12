@@ -404,7 +404,7 @@
                                     <a class="avatar">
                                         <img :src="memberData.imgUrl" :alt="memberData.name" />
                                     </a><!-- 头像 -->
-                                    <textarea placeholder="写下你的评论..." maxlength="150"
+                                    <textarea placeholder="写下您的留言..." maxlength="150"
                                         @focus="FCommentFocus()"
                                         v-model="FCommentContent">
                                     </textarea>
@@ -501,7 +501,7 @@
 
                                                     <div class="sub-new-comment" v-show="item.isShowPanel">
                                                         <form>
-                                                            <textarea ref="rlyCommentTexearea" placeholder="写下你的评论..." maxlength="150"
+                                                            <textarea ref="rlyCommentTexearea" placeholder="写下您的留言..." maxlength="150"
                                                                 v-model="rlyCommentContent"></textarea>
                                                             <div class="write-function-box f__clearfix">
                                                                 <div class="tips">
@@ -1573,7 +1573,7 @@
                         });
                     }
                 })
-                
+
             },
 
             // 获取车辆图片列表
@@ -1783,7 +1783,6 @@
                 });
                 return carInfo;
             },
-            
 
             // 格式化车行车辆信息列表
             _normalizeCarList(list) {
