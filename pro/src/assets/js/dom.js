@@ -725,7 +725,8 @@ export const passByFormatDate = (str) => {
     if (!str) return ''
     var newStr = str.replace(/\s/g,'T').replace(/\//g,'-');
     var date = new Date(newStr)
-    var time = new Date().getTime() - date.getTime() //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
+    // 北京时间东八区/格林威治  北京时间比世界时间快8个小时
+    var time = new Date().getTime() - (date.getTime() - 8 * 3600000) //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
     if (time < 0) {
         return ''
     } else if ((time / 1000 < 30)) {
