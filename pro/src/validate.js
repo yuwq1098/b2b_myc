@@ -274,6 +274,7 @@ const dictionary = {
             sellerDeposit: "双方交易保证金",
             feedbackContent: "反馈内容",
             contactText: "联系方式",
+            intentionPrice: "意向价",
         }
     }
 };

@@ -600,6 +600,10 @@
 
                 <div class="m-bid-wrapper" v-if="isShowBidPopup">
                     <bid-popup
+                        :ownerFixedPrice="basicInfo.price"
+                        :hasAuth="hasAuth"
+                        :oldPriceInfo="myHistoryBid"
+                        @putBidPopup="putBidPopup"
                         @cancelBidPopup="cancelBidPopup"></bid-popup>
                 </div><!-- 我要出价 -->
 
@@ -763,6 +767,9 @@
 
                 // 是否显示出价弹出框
                 isShowBidPopup: false,
+
+                // 我的历史出价
+                myHistoryBid: {},
             }
         },
         //生命周期,开始的时候
@@ -1157,10 +1164,108 @@
 
             // 打开出价弹出框
             openBidPopup(){
+                if(!this.hasLogin){
+                    this.$notify({
+                        title: '您尚未登录',
+                        message: '请先登录，认证后可使用出价功能',
+                        type: 'error',
+                        duration: 2000,
+                    });
+                    return;
+                };
+                if(!this.hasAuth){
+                    this.$notify({
+                        title: '您尚未通过认证',
+                        message: '通过认证认证后可使用出价功能',
+                        type: 'error',
+                        duration: 2000,
+                    });
+                    return;
+                };
+                // 重新获取我的历史报价
+                this.getMyBidData();
                 this.isShowBidPopup = true;
+
             },
 
-            // 打开出价弹出框
+            // 格式化历史出价信息
+            _normalizeMyHistoryBid(arr){
+                let data = {}
+                arr.forEach((item,index)=>{
+                    if(item.CarId == this.carId){
+                        data = {
+                            price: item.Price,
+                            time: item.QuotedTime,
+                        }
+                    }
+                })
+                return data;
+            },
+
+            // 获取我的报价
+            getMyBidData(){
+                let data = {
+                    ActType: "MyQuotedPrice",
+                    PageIndex: "0",
+                    PageSize: "5",
+                    CarId: this.carId
+                }
+                api.quotedPrice(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.myHistoryBid =  this._normalizeMyHistoryBid(res.data)
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
+
+            // 发起报价申请
+            putBidPopup(offerPrice){
+                let data = {
+                    ActType: "QuotedPrice",
+                    QuotedPrice: offerPrice,
+                    CarId: this.carId
+                }
+                this.$confirm('您的报价是：'+offerPrice+"万元", '确认发布这条报价？', {
+                    confirmButtonText: '确认',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.commitOfferPrice(data)
+                }).catch(() => {
+
+                });
+            },
+
+            // 提交报价
+            commitOfferPrice(data){
+                api.quotedPrice(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.$notify({
+                            title: '报价成功',
+                            message: res.msg,
+                            type: 'success',
+                            duration: 1500,
+                        });
+                        // 关闭出价弹出框
+                        this.cancelBidPopup();
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '操作失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
+
+            // 关闭出价弹出框
             cancelBidPopup(){
                 this.isShowBidPopup = false;
             },
@@ -1220,6 +1325,7 @@
                             // 重新获取评论列表
                             this.getCarCommentList();
                             this.FCommentCloseBox();
+                            // 如果列表框是隐藏的
                             if(!this.showCommentList){
                                 this.showCommentList = true;
                             }
@@ -1468,7 +1574,7 @@
                 api.judgeCarPrice(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.judgeCarInfo = this._normalizeJudgeInfo(res.data);
-                        this.lowPageWeight = ((this.judgeCarInfo.low/this.judgeCarInfo.total)*100).toFixed(2);
+                        this.lowPageWeight = (((this.judgeCarInfo.low+(SYSTEM.JUDGE_PRICE_WEIGHTED/2))/(this.judgeCarInfo.total+SYSTEM.JUDGE_PRICE_WEIGHTED))*100).toFixed(2);
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '车价评判信息获取失败',

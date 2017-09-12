@@ -25,6 +25,9 @@ export const COMMENT_RESULE_PAGE_SIZE = 5
 // 手机车辆详情路径
 export const MOBILE_CAR_DETAILS_URL_ROOT = "https://"+(process.env.NODE_ENV === 'production' ? 'www': "test")+".muyouche.com/mo1/?#/B2BDetail?CarId="
 
+// 车价评判高低的基数权重
+export const JUDGE_PRICE_WEIGHTED = 10
+
 /**
  * B2B订单状态
  */
