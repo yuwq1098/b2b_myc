@@ -108,14 +108,14 @@ export const searchPriceList = [
         max: 50,
     },
     {
-        title: '50-80万',
+        title: '50-100万',
         min: 50,
-        max: 80,
+        max: 100,
         isHot: true,
     },
     {
-        title: '80万以上',
-        min: 80,
+        title: '100万以上',
+        min: 100,
         max: 9999
     },
 

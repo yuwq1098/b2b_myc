@@ -273,6 +273,7 @@
                             userpass: this.passOne,
                             loginType: 'BusinessPC'
                         }
+
                         // 第一步提交操作
                         me.putCommitOne(data);
                     }
@@ -304,14 +305,14 @@
                                 this.errors.remove('nameOne');
                                 this.errors.add('nameOne', res.msg, 'auth');
                             })
-                            
+
                         }
                     })
                     .catch(error => {
                         console.log(error)
                     })
             },
-            
+
             //重置普通登录表单数据
             resetOne(){
                 this.nameOne = "";

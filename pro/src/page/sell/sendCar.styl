@@ -52,10 +52,51 @@
                             margin-bottom 12px
                             .m-item
                                 width 100%
+                            .gk-radio-box
+                                height 36px
+                                line-height 36px
                         .m-gp-other
+                            &.color
+                                padding-top 10px
+                                margin-top 25px
+                                _border(top,#e2e2e2)
                             &.postRetail
                                 .m-switch-box
                                     margin-bottom 10px
+                        .other-car-info
+                            margin 25px 0 10px
+                            padding 0 0 20px
+                            _border(bottom,#e2e2e2)
+                            .m-hd
+                                height 32px
+                                line-height @height
+                                position relative
+                                padding 0 0 0 20px
+                                margin 0 0 8px 0
+                                font-size 17px
+                                _spacingPlus()
+                                &:before
+                                    content ""
+                                    _display()
+                                    width 8px
+                                    height 8px
+                                    background $c_blue
+                                    _completeCenter(0,auto)
+                            .not-show
+                                position relative
+                                .info
+                                    line-height 24px
+                                    color #999
+                                .u-btn
+                                    _display()
+                                    width 120px
+                                    height 28px
+                                    line-height @height
+                                    text-align center
+                                    margin 12px 0 0
+                                    _borderAll($c_blue)
+                                    color $c_blue
+                                    _borderRadius(14px)
                         .m-gp-btn
                             margin 35px 0 0
                             .m-submit-box

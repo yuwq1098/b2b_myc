@@ -1,5 +1,6 @@
 export default function myc_kefu (){
 
+
     // 创建Script标签
     // function createKefuScript(){
     //     var newScriptDom = document.createElement("script");
@@ -87,6 +88,20 @@ export default function myc_kefu (){
             clearMyInterval();
         }
     },kefuObj.intervalTime);
+
+    // 改变视觉窗口的时候，同步修改客服框的位置
+    window.onresize = null;
+    window.onresize = function(){
+        var _kefu = document.getElementsByClassName("kf_qycn_com_cckf_icon");
+        setTimeout(function(){
+            if(_kefu.length>0){
+                // 设置客服样式
+                setKefuDomStyle(_kefu[0])
+                setKefuDomStyle2(_kefu[1])
+                return;
+            }
+        })
+    }
 
 };
 

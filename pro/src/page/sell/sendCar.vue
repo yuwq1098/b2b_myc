@@ -111,20 +111,21 @@
                                             </el-col>
                                             <el-col :span="8">
                                                 <div class="m-item">
+
                                                     <gk-input-error
-                                                        title="交强险"
-                                                        :errorTetx="errors.first('insuranceDate')"
-                                                        :isShow="errors.has('insuranceDate')"
+                                                        title="排放标准"
+                                                        :errorTetx="errors.first('dischargeStandard')"
+                                                        :isShow="errors.has('dischargeStandard')"
                                                         :must="true"
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
-                                                        <date-picke
-                                                            @dateChangeEnd="insuranceDateEnd"
-                                                            :disabledPrevYear="3"
-                                                            placeholder="请选择交强险（到期时间）"
+                                                        <gk-select
+                                                            placeholder="请选择排放标准"
+                                                            @selectedEnd="dischargeStandardEnd"
+                                                            :options="selectData.dischargeStandardList"
                                                             >
-                                                        </date-picke>
+                                                        </gk-select>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -143,12 +144,6 @@
                                                         >
                                                     </gk-input-error>
                                                     <div class="u-item-box">
-                                                        <!-- <gk-select
-                                                            placeholder="请选择过户次数"
-                                                            @selectedEnd="changeNumEnd"
-                                                            :options="selectData.changeNumList"
-                                                            >
-                                                        </gk-select> -->
                                                         <gk-input
                                                             placeholder="请输入过户次数，无过户填 0"
                                                             @inputChangeEnd="changeNumEnd"
@@ -266,24 +261,18 @@
 
                                     <div class="m-gp-wrap f__clearfix">
                                         <el-row :gutter="formStyleData.gutter">
-                                            
-                                            <el-col :span="8">
-                                                <div class="m-item">
-
-                                                    <gk-input-error
-                                                        title="排放标准"
-                                                        :errorTetx="errors.first('dischargeStandard')"
-                                                        :isShow="errors.has('dischargeStandard')"
-                                                        :must="true"
-                                                        >
-                                                    </gk-input-error>
-                                                    <div class="u-item-box">
-                                                        <gk-select
-                                                            placeholder="请选择排放标准"
-                                                            @selectedEnd="dischargeStandardEnd"
-                                                            :options="selectData.dischargeStandardList"
-                                                            >
-                                                        </gk-select>
+                                            <el-col :span="5">
+                                                <gk-input-error
+                                                    title="有无交强险"
+                                                    :errorTetx="errors.first('vin')"
+                                                    :isShow="errors.has('vin')"
+                                                    :must="true"
+                                                    >
+                                                </gk-input-error>
+                                                <div class="u-item-box">
+                                                    <div class="gk-radio-box">
+                                                        <el-radio class="radio" v-model="hasInsurance" :label="true">有</el-radio>
+                                                        <el-radio class="radio" v-model="hasInsurance" :label="false">无</el-radio>
                                                     </div>
                                                 </div>
                                             </el-col>
@@ -325,6 +314,18 @@
                                             </color-select>
                                         </div>
                                     </div><!-- 车身颜色选择 -->
+
+                                    <div class="other-car-info">
+                                        <div class="m-hd">完善信息,批发给同行</div>
+                                        <div class="not-show">
+                                            <p class="info">1.每天可在我的车源置顶刷新两次</p>
+                                            <p class="info">2.完善车辆信息,可大幅提高车辆成交率</p>
+                                            <a class="u-btn">立即完善<i class="iconfont icon-enter"></i></a>
+                                        </div><!-- 不显示盒子的时候 -->
+                                        <div class="show-info-box">
+                                            
+                                        </div><!-- 显示盒子信息 -->
+                                    </div><!-- 其他车辆信息配置 -->
 
                                     <div class="m-gp-other nameplate">
                                         <div class="m-other-hd">
@@ -514,6 +515,8 @@
                 
                 // 发布订单的表单验证报错集合
                 errors: null,
+                // 有无交强险
+                hasInsurance: true,
                 
                 // 车辆订单的表单信息（供双向绑定及提交）
                 form:{
@@ -574,7 +577,6 @@
                 retailPrice: 'required|between:1,3000|decimal:2',
                 mileage: 'required|between:0,200|decimal:2',
                 liter: 'required|between:1,7|decimal:2',
-                insuranceDate: 'required',
                 serviceType: 'required',
                 color: 'required',
                 dischargeStandard: 'required',
@@ -815,7 +817,6 @@
                     retailPrice: this.form.retailPrice,
                     mileage: this.form.mileage,
                     liter: this.form.liter,
-                    insuranceDate: this.form.insuranceDate,
                     serviceType: this.form.serviceType,
                     color: this.form.color,
                     dischargeStandard: this.form.dischargeStandard,
@@ -883,18 +884,29 @@
                 });
                 document.body.scrollTop = 500
             },
-            
+
             //整理数据并发布
             issue(){
                 let me = this;
 
+                // 判断排放标准是否为不祥
                 if(this.form.dischargeStandard == '-1'){
                     this.form.dischargeStandard = "";
                 }
 
+                // 有无交强险, 有则加一年，无则减一年
+                if(this.hasInsurance == false){
+                    this.form.insuranceDate = geekDom.computedTimeDate(new Date,'减',1,'年');
+                }else{
+                    this.form.insuranceDate = geekDom.computedTimeDate(new Date,'加',1,'年');
+                }
+
+                console.log(this.form.insuranceDate);
+                return;
+
                 // 获取数据
                 this._normalizeData(this.form,(data)=>{
-                    
+
                     api.addOrEditB2BCar(data).then(res => {
                         // 请求成功将解除按钮的提交中状态
                         this.isSubmitState = false;
@@ -1002,6 +1014,10 @@
         .el-select:hover
             .el-input__inner
                 _borderAll(#b8b8b8)
+        .el-radio__input
+            _translate3d(0,-1px)
+        .el-radio__label
+            color #4a5c69
 
 </style>
 

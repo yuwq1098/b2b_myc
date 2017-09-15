@@ -17,7 +17,6 @@ import VueLazyload from 'vue-lazyload'
 // dom操作方法
 import * as geekDom from "assets/js/dom.js"
 
-
 // 改变客服dom样式
 import mycKefu from "assets/js/kefu_control.js"
 // url请求根路经
@@ -43,19 +42,6 @@ import 'assets/css/index.styl'
 Vue.prototype.URL = function(){
   return rootURL;
 };
-
-// <script src="https://cc.dns4.cn/kf/vclient/state.php?shopid=200741" language="javascript" type="text/javascript"></script>
-// function createKefuScript(){
-//     var newScriptDom = document.createElement("script");
-//     newScriptDom.src = "https://cc.dns4.cn/kf/vclient/state.php?shopid=200741";
-//     newScriptDom.language = "javascript";
-//     newScriptDom.type = "text/javascript";
-//     document.body.appendChild(newScriptDom);
-//     newScriptDom = null;
-// }
-
-// // 调用
-// createKefuScript();
 
 // 设置页面文档信息
 function setDocumentTitle(option){

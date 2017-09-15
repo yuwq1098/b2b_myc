@@ -717,7 +717,6 @@ export function getLeftToBrowser(e) {
 
 /**
  * 格式化时间(已过去时间)
- * 
  * @param {String} str
  * @returns 格式化后的时间
  */
@@ -744,6 +743,67 @@ export const passByFormatDate = (str) => {
     } else {
         return parseInt(time / 31536000000) + '年前'
     }
+}
+
+
+/**
+ * 获取当前时间加减时间戳后的时间
+ * @param {String|Data} date 日期
+ * @param {String} operation 运算规则
+ * @param {Number} numValue 数值
+ * @param {String} unit 单位   年月周日时分秒
+ * @returns 格式化后的时间
+ */
+export const computedTimeDate = (date,operation,numValue,unit) => {
+
+    var theTime = "";
+    switch(getValClass(date)){
+        case "String":
+            var newStr = date.replace(/\s/g,'T').replace(/\//g,'-');
+            theTime = (new Date(newStr).getTime() - 8 * 3600000);
+            break;
+        case "Date":
+            theTime = new Date(date).getTime();
+            break;
+    }
+    var unitValue = 0;
+
+    switch(unit){
+        case '年':
+            unitValue = 31536000000;
+            break;
+        case '月':
+            unitValue = 2592000000;
+            break;
+        case '周':
+            unitValue = 604800000;
+            break;
+        case '日':
+            unitValue = 86400000;
+            break;
+        case '时':
+            unitValue = 3600000;
+            break;
+        case '分':
+            unitValue = 60000;
+            break;
+        case '秒':
+            unitValue = 1000;
+            break;
+    }
+
+    // 时间戳结果
+    var resTimestamp = 0;
+    switch(operation){
+        case '加':
+            resTimestamp = theTime + (Number(numValue)*unitValue);
+            break;
+        case '减':
+            resTimestamp = theTime - (Number(numValue)*unitValue);
+            break;
+    }
+    return dateFormat("yyyy-MM-dd HH:mm:ss.S",resTimestamp);
+
 }
 
 
