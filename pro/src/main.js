@@ -16,6 +16,8 @@ import VueLazyload from 'vue-lazyload'
 
 // dom操作方法
 import * as geekDom from "assets/js/dom.js"
+// dom操作方法
+import mycKefu from "assets/js/kefu_control.js"
 // url请求根路经
 import {rootURL} from 'api/rootUrl.js'
 
@@ -90,7 +92,20 @@ if(rootURL!="/api"){
 // 路由导航钩子beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {
 
-  // 判断是否
+  // 如果是会员中心的路径，那么就禁用客服
+  if(to.path.match(/[/]member/g)){
+      to.meta.isEnabledKefu = true;
+  }
+
+  // 判断是否不启用kefu
+  if(to.meta.isEnabledKefu == void 0){
+      mycKefu();
+  }else{
+      var myc_kefu_di_dom = document.getElementById("myc_kefu");
+      if(myc_kefu_di_dom){
+        geekDom.removeClass(myc_kefu_di_dom,'f__display_block');
+      }
+  }
 
   // 设置每个页面的文档信息
   if(to.meta.hasDocInfo == void 0 && to.meta.title != void 0){
@@ -99,7 +114,7 @@ router.beforeEach((to, from, next) => {
       }
   }
   setDocumentTitle(options);
-  
+
   if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
       if (store.state.user.loginStatus) {  // 通过vuex state获取当前的token是否存在
           next();   //通过
