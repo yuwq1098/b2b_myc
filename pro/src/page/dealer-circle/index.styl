@@ -1,1 +1,214 @@
 @import '~assets/css/mixin.styl'
+
+@keyframes spin {
+	0% {
+		stroke: #000
+	}
+	37.5% {
+		stroke: #e45;
+	}
+	67.5% {
+		stroke: #29d;
+	}
+	100% {
+		stroke-dashoffset: -240;
+		stroke: #ff6533;
+	}
+}
+
+svg {
+	width: 500px;
+	height: 500px;
+}
+
+polygon {
+    stroke: black;
+    stroke-linecap: round;
+    stroke-width: 1;
+    stroke-dasharray: 0, 0, 50, 190;
+    stroke-dashoffset: 0;
+    stroke-linejoin: round;
+	animation: spin 3.5s infinite linear;
+}
+
+.dealerCircle
+	background #fff
+	_overflow(auto)
+	*zoom 1
+.m-dealer-container
+	margin 0 0 25px
+	.m-header
+		height 60px
+		margin 0 0 20px
+		position relative
+		.hd-search-box
+			width 300px
+			height 40px
+			line-height @height
+			_border(bottom,#bbb)
+			_completeCenter(auto,20px)
+			.u-ipt
+				width @width - 25px
+				height @height
+				background transparent
+				padding 0 0 0 10px
+				border none
+				_placeholder(#bbb,14px)
+				&:focus
+					color $c_blue
+			.iconfont
+				_display()
+				width 28px
+				height @width
+				line-height @height
+				font-size 22px
+				text-align center
+				color #bbb
+				_completeCenter(auto,5px,8px,auto)
+			.u-borderAction
+				height 1px
+				width 0
+				background $c_blue
+				_completeCenter(auto,0,auto,-1px)
+				_transitionAll(.2s,ease-in-out)
+	.dealer-info-erea
+		.dealer-lst
+			min-height 140px
+			width 1200px - 15px
+			margin-left 15px
+			.dealer-item
+				width 156px
+				height 200px
+				margin 0 13px 13px 0
+				float left
+				position relative
+				.u-box
+					width @width
+					height @height
+					_display()
+					_overflow()
+					_transitionAll(.4s,ease-in-out)
+					_translate3d()
+					position relative
+					.front
+						background #fff
+						width @width - 16px - 2px
+						height @height - 28px - 2px
+						padding 14px 8px
+						_borderAll(#dedede)
+						_completeCenter()
+						_scale(1)
+						_transitionAll(.35s,ease-in-out)
+						.avatar
+							width 72px
+							height @width
+							margin 0 auto 8px
+							_borderRadius()
+							_imgwrap()
+							img
+								_borderRadius()
+						.line-info
+							margin-bottom 4px
+							_ellipsis()
+							text-align center
+						.cdg-nmae
+							font-size 12px
+							height 18px
+							line-height @height
+							color #666
+						.owner-info
+							font-size 13px
+							height 20px
+							line-height @height
+							color #222
+						.line-box
+							position relative
+							height 20px
+							text-align center
+							margin 8px 0
+							.on-sale-num
+								line-height 20px
+								background #F73C89
+								_gradient(#F73C89,#9027C7)
+								color #fff
+								padding 0 8px
+								_borderRadius(10px)
+								_display(inline-block)
+								&.single
+									width 8px
+									padding 0 6px
+						.on-sale-txt
+							_display()
+							line-height 18px
+							font-size 12px
+							color #666
+							text-align center
+					.reverse
+						background #BE35F6
+						_gradient(#BE35F6,#7528FF,top)
+						color #fff
+						width @width - 16px
+						height @height - 30px
+						_completeCenter()
+						padding 18px 8px 12px
+						_scale(1.5)
+						_transitionAll(.25s,ease-in-out,.1s)
+						_visibility(hidden)
+						_opacity(0)
+						.avatar
+							width 48px
+							height @width
+							margin 0 auto 8px
+							background rgba(255,255,255,.9)
+							_borderRadius(3px)
+							position relative
+							img
+								_borderRadius(5px)
+								width @width - 4px
+								height @width
+								_completeCenter()
+						.u-auType
+							font-size 14px
+							height 20px
+							line-height @height
+							margin 5px 0 10px
+							color #222
+							text-align center
+							font-weight bold
+							_spacingPlus()
+							&.v1
+								color #E9C0FB
+							&.v2
+								color #ff6533
+							&.v3
+								color #FFBA52
+						.u-address
+							height 36px
+							line-height 18px
+							_ellipsis(2)
+							font-size 12px
+							text-align center
+							color #340A46
+						.u-btn.enter
+							height 24px
+							width 90px
+							_borderAll(#fff)
+							line-height @height - 2px
+							_borderRadius(2px)
+							text-align center
+							_completeCenter(,,auto,20px)
+							&:hover
+								background #fff
+								color #BE35F6
+					&:hover
+						.front
+							_scale(5)
+							_opacity(0)
+							_transitionCustom opacity .15s 0s linear, all .35s 0s ease-in-out
+						.reverse
+							_display()
+							_scale(1)
+							_opacity(1)
+							_visibility()
+	.m-pagination
+		padding 15px 0 5px

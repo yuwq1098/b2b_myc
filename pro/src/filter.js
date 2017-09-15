@@ -151,7 +151,7 @@ export const addressFormat = (str) => {
     return str.replace(/[/]/g,' · ')
 }
 
-//---地址格式转换 / => 点
+//---地址格式转换 去/
 export const addressFormat2 = (str) => {
     if(!str&&str!=0) return;
     return str.replace(/[/]/g,'')

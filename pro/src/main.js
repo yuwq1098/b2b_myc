@@ -45,7 +45,6 @@ Vue.prototype.URL = function(){
 function setDocumentTitle(option){
     var defaults,                 // 默认配置
         setting;                  // 实际的配置
-        
     // 默认配置
     defaults = {
         title: '木有车',
@@ -57,7 +56,7 @@ function setDocumentTitle(option){
     setting = Object.assign(defaults,option);
 
     document.title = setting.title+"__木有车B2B汽车服务平台 - 木有车（www.muyouche.com）"
-} 
+}
 
 // 将文档标题赋给 Vue原型方法
 Vue.prototype.docTitle = setDocumentTitle;
@@ -90,7 +89,9 @@ if(rootURL!="/api"){
 
 // 路由导航钩子beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {
-  
+
+  // 判断是否
+
   // 设置每个页面的文档信息
   if(to.meta.hasDocInfo == void 0 && to.meta.title != void 0){
       var options = {

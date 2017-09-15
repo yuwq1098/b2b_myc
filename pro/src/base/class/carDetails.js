@@ -84,9 +84,9 @@ class fileInfoList{
 // 其他信息的构造类
 class otherInfo{
     constructor(data) {
-        
+
         // 卖家头像
-        this.faceImgUrl = data.SellerPhotoUrl?data.SellerPhotoUrl+"?imageView2/3/w/200/h/200":require("assets/img/logos-pic2.png")            
+        this.faceImgUrl = data.SellerPhotoUrl?data.SellerPhotoUrl+"?imageView2/3/w/200/h/200":require('assets/img/none-face.png')
         this.tel = data.Mobile||""                           // 联系电话
         this.browseCount = data.CountBrowse||""              // 浏览量
         this.authType = data.AuthType||""                    // 企业车行，个人车行（认证类别）
@@ -94,7 +94,7 @@ class otherInfo{
         this.cdgName = data.CdgName||""                      // 车行名
         this.address = data.CdgAddress||""                   // 车行地址
         // 车行描述
-        this.desc = data.CdgDescription||"该车行比较高冷，啥也没有说。"                  
+        this.desc = data.CdgDescription||"该车行比较高冷，啥也没有说。"
         this.type = data.CdgType||""                         // 车行类别（4S店，企业车行，批发市场等）
         this.isInCart = data.HasInCart||""                   // 购物车：0=未收藏，1=已收藏
         this.isInFavorite = data.HasInFavorite||""           // 收藏夹：0=未收藏，1=已收藏

@@ -16,7 +16,7 @@ export const navItemList = [
         pathName: "APP下载",
         path: "/download"
     },{
-        pathName: "帮助中心",
+        pathName: "帮助",
         path: "/helpCenter"
     },
     /*

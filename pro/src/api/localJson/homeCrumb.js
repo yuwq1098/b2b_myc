@@ -36,6 +36,17 @@ export const crumbsInfo = {
             },
         ]
     },
+    // b2b大厅
+    'dealerCircle':[
+        {
+            title:'首页',
+            path:'/',
+        },
+        {
+            title:'车商圈',
+            path:'',
+        },
+    ],
     // 我的购物车
     'shoppingCart':[
         {

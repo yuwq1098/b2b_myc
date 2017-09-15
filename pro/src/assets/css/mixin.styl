@@ -140,8 +140,8 @@ _box__show()
 
 
 //---边框线
-_borderAll(color=$c_white03,pixel=1px)
-    border pixel solid color
+_borderAll(color=$c_white03,pixel=1px,bstyle=solid)
+    border pixel bstyle color
 _borderCustom()
     border arguments
 _border(direction,color=$c_white03,pixel=1px,bstyle=solid)
@@ -389,6 +389,15 @@ _opacity(n)
     -moz-opacity n
     -o-opacity n
     opacity n
+
+//---元素的显示隐藏
+
+// visible 默认值。元素是可见的。
+// hidden  元素是不可见的。
+// collapse    当在表格元素中使用时，此值可删除一行或一列，但是它不会影响表格的布局。被行或列占据的空间会留给其他内容使用。如果此值被用在其他的元素上，会呈现为 "hidden"。
+_visibility(value=visible){
+    visibility visible
+}
 
 //---颜色透明
 _colorOpacity(attr,color,opacity)

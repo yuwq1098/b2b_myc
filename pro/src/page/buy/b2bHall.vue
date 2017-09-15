@@ -1,12 +1,12 @@
 <template>
-    <div class="buy-car-list">
+    <div class="b2bHall">
         <div class="g-doc">
             <div class="g-bd">
                 <section class="f__w1200">
                     <gk-bread-crumb
                         :crumbItems="crumbItems"
                         ></gk-bread-crumb><!-- 面包屑组件 -->
-                    
+
                     <div class="m-sch-wrap f__clearfix">
                         <div class="m-sch f__fr">
                             <div class="m-srh-result-box" v-show="isShowSchResultBox" ref="schResultBox">
@@ -424,7 +424,7 @@
     const SEARCH_DELAY = 150
     
     export default {
-        name: "buy-car-list",
+        name: "b2bHall",
         // 在当前模块注册组件
         components:{
             gkBreadCrumb,

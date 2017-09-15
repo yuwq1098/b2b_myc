@@ -237,8 +237,12 @@ export const SortTypeList = [
         value: '车龄最短',
     },
     {
-        label: "最新发布",
+        label: "最新上架",
         value: '最近更新',
+    },
+    {
+        label: "最新发布",
+        value: '最新发布',
     },
     {
         label: "价格最低",

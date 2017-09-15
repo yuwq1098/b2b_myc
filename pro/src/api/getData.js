@@ -599,7 +599,7 @@ export default {
     },
 
     // 置顶|删除|修改 同行急求
-    carDealerCircleRanking(params){
+    operateCarNeed(params){
 /**/        return fetchSign('/action2/PushB2BCarNeed2Top.ashx', dataToJson(params))
     },
 

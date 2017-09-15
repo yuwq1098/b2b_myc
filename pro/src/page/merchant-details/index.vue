@@ -122,7 +122,7 @@
                                         speak="该车行比较懒，已经没有在售车辆了，我们去别处瞅瞅!"
                                         >
                                         <router-link :to="{path:'/'}" class="u-lk" tag="a">网站首页&gt;</router-link>
-                                        <router-link :to="{path:'/b2bHall'}" class="u-lk" tag="a">B2B大厅&gt;</router-link>
+                                        <router-link :to="{path:'/dealer'}" class="u-lk" tag="a">前往车商圈&gt;</router-link>
                                     </not-content><!-- 缺省组件 -->
                                 </div><!-- 缺省组件容器 -->
 
