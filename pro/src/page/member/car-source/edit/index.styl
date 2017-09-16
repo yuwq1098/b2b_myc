@@ -29,7 +29,82 @@
                         margin 0 8px 0 0
                     .info
                         color #40474a
-
+        .other-car-info
+                            margin 25px 0 10px
+                            padding 0 0 20px
+                            _border(bottom,#e2e2e2)
+                            .m-hd
+                                height 32px
+                                line-height @height
+                                position relative
+                                padding 0 0 0 18px
+                                margin 0 0 8px 0
+                                font-size 17px
+                                _spacingPlus()
+                                &:before
+                                    content ""
+                                    _display()
+                                    width 8px
+                                    height 8px
+                                    background $c_blue
+                                    _completeCenter(0,auto)
+                            .not-show
+                                position relative
+                                .info
+                                    line-height 24px
+                                    color #999
+                                .u-btn
+                                    _display()
+                                    width 120px
+                                    height 28px
+                                    line-height @height
+                                    text-align center
+                                    margin 12px 0 0
+                                    _borderAll($c_blue)
+                                    color $c_blue
+                                    _borderRadius(14px)
+                            .show-info-box
+                                padding-left 20px
+                                .u-label-lst
+                                    _overflow(auto)
+                                    li
+                                        margin-bottom 8px
+                                        .tit
+                                            _display()
+                                            height 28px
+                                            line-height @height
+                                            color #999
+                                            font-size 14px
+                                            margin-bottom 6px
+                                        span
+                                            _display()
+                                            float left
+                                            padding 0 12px
+                                            font-size 13px
+                                            _spacingPlus()
+                                            color #666
+                                            height 28px
+                                            line-height @height
+                                            _borderAll(#ddd)
+                                            margin 0 12px 0 0
+                                            cursor pointer
+                                            &.active
+                                                _borderAll($c_blue)
+                                                color $c_blue
+                                .u-btn.close
+                                    _display()
+                                    width 120px
+                                    height 32px
+                                    line-height @height
+                                    text-align center
+                                    margin 12px 0 0
+                                    background $c_blue
+                                    color #f2f2f2
+                                    _borderRadius(16px)
+                                    &:hover
+                                        background @background - 12%
+                                    &:active
+                                        background @background + 2%
         .m-gp-btn
             margin 30px 0 20px 
             .u-submit

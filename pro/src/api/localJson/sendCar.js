@@ -137,3 +137,50 @@ export const nameplateExamples = [
         imgUrl: require("assets/img/vehicle-nameplate_02.jpg"),
     },
 ]
+
+
+// 车辆信息完善
+export const supplementGroup = [
+    {
+        gpTitle: "事故情况",
+        gpCode: "a",
+        items:[
+            {'label':"无事故无火烧无水浸"},
+            {'label':"水浸车"},
+            {'label':"火烧车"},
+            {'label':"事故车"}
+        ]
+    },
+    {
+        gpTitle: "钣金情况",
+        gpCode: "b",
+        items:[
+            {'label':"全车原钣"},
+            {'label':"1~2处"},
+            {'label':"3~5处"},
+            {'label':"6处及以上"}
+        ]
+    },
+    {
+        gpTitle: "漆面情况",
+        gpCode: "c",
+        items:[
+            {'label':"全车原漆"},
+            {'label':"1~2面"},
+            {'label':"3~5面"},
+            {'label':"6面及以上"}
+        ]
+    },
+    {
+        gpTitle: "内饰情况",
+        gpCode: "d",
+        items:[
+            {'label':"接近全新"},
+            {'label':"6~8成新"},
+            {'label':"5成以下"},
+            {'label':"内饰换新"}
+        ]
+    },
+]
+
+

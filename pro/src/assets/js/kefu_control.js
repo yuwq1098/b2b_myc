@@ -69,6 +69,14 @@ export default function myc_kefu (){
         el.id = "myc_kefu"
     }
 
+    function setKefuDomStyleCopy(el){
+        el.style.bottom = "5px";
+        el.style.right = "47px";
+        el.style.top = "";
+        el.style.zIndex = "999";
+        el.id = "myc_kefu"
+    }
+
     function setKefuDomStyle2(el){
         addClass(el,'f__display_block')
     }
@@ -91,13 +99,13 @@ export default function myc_kefu (){
 
     // 改变视觉窗口的时候，同步修改客服框的位置
     window.onresize = null;
+
     window.onresize = function(){
         var _kefu = document.getElementsByClassName("kf_qycn_com_cckf_icon");
         setTimeout(function(){
             if(_kefu.length>0){
                 // 设置客服样式
-                setKefuDomStyle(_kefu[0])
-                setKefuDomStyle2(_kefu[1])
+                setKefuDomStyleCopy(_kefu[0])
                 return;
             }
         })

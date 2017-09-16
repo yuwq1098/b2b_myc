@@ -53,9 +53,8 @@ class basicInfo{
 }
 
 // 车况信息列表的构造类
-class carDetails{
+class carOtherDetails{
     constructor(data) {
-
         this.id = data.DetailId||""                         // 补充id
         this.cid = data.CarId||""                           // 车辆id
         this.label = data.Label||""                         // 补充对应的车况项目名：内饰、轮胎、钣金
@@ -63,6 +62,7 @@ class carDetails{
         this.groupName = data.GroupName||""                 // 所属分组
     }
 }
+
 
 // 文件列表的构造类
 class fileInfoList{
@@ -103,4 +103,4 @@ class otherInfo{
 }
 
 
-export {basicInfo,carDetails,fileInfoList,otherInfo};
+export {basicInfo,carOtherDetails,fileInfoList,otherInfo};

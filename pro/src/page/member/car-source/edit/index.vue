@@ -298,6 +298,38 @@
                                 </el-row>
                             </div>
 
+                            <div class="other-car-info">
+                                <div class="m-hd">完善信息,批发给同行</div>
+                                <div class="not-show" v-show="!isOpenSupplement">
+                                    <p class="info">1.每天可在我的车源置顶刷新两次</p>
+                                    <p class="info">2.完善车辆信息,可大幅提高车辆成交率</p>
+                                    <a class="u-btn" @click="changeSupplement(true)"
+                                        >立即完善<i class="iconfont icon-enter"></i></a>
+                                </div><!-- 不显示盒子的时候 -->
+                                <div class="show-info-box" v-show="isOpenSupplement">
+                                    <div class="u-label-lst">
+                                        <ul>
+                                            <template v-for="gpItem in supplementGroup">
+                                                <li>
+                                                    <div class="tit">{{gpItem.gpTitle}}：</div>
+                                                    <div class="label-box f__clearfix"
+                                                        @click="labelCheck($event,gpItem.gpCode)">
+                                                        <template v-for="(item,index) in gpItem.items">
+                                                            <span :data-lable-index="index"
+                                                                :class="[item.active?'active':'']"
+                                                                >{{item.label}}</span>
+                                                        </template>
+                                                    </div>
+                                                </li>
+                                            </template>
+
+                                        </ul>
+                                    </div>
+                                    <a class="u-btn close" @click="changeSupplement(false)"
+                                        >选择完成</a>
+                                </div><!-- 显示盒子信息 -->
+                            </div><!-- 其他车辆信息配置 -->
+
                             <div class="m-gp-other color">
                                 <div class="m-other-hd">
                                     <gk-input-error
@@ -436,7 +468,7 @@
     // 发布订单的向后端请求的构造类
     import {sendCarForm} from "base/class/sendCar.js"
     // 车行信息的构造类
-    import {basicInfo,fileInfoList} from 'base/class/carDetails.js'
+    import {basicInfo,carOtherDetails,fileInfoList} from 'base/class/carDetails.js'
 
     // 车型级联选择组件
     import modelCascader from "components/cascader/brandModel.vue"
@@ -495,6 +527,9 @@
             return{
                 // 车辆基本信息
                 basicInfo:{},
+                // 车况信息列表
+                carDetails: [],
+
                 // 文件列表
                 fileInfoList:[],
                 
@@ -509,13 +544,21 @@
                 formStyleData:{
                     gutter: 20,
                 },
-                
+
                 // 发布订单的表单验证报错集合
                 errors: null,
-            
+
                 iv_carInCity: "",          // 车辆所在地
                 iv_plateInCity: "",        // 车牌归属地
                 iv_selectedModel: [],      // 品牌车型选择
+
+                // 是否打开补充信息
+                isOpenSupplement: true,
+
+                // 补充信息组
+                supplementGroup: this._normalizeSupplementData(sendCarData.supplementGroup),
+                // 用户选择的信息
+                userCheckedSupplement: {},
 
 
                 // 车辆订单的表单信息（供双向绑定及提交）
@@ -612,6 +655,15 @@
                 return new basicInfo(data);
             },
 
+            // 格式化车辆信息补充
+            _normalizeCarOtherInfo(list) {
+                let arr = [];
+                list.forEach((item,index) => {
+                    arr.push(new carOtherDetails(item));
+                })
+                return arr;
+            },
+
             // 格式化车辆文件列表
             _normalizeFileList(list) {
                 let arr = [];
@@ -621,6 +673,38 @@
                 return arr;
             },
 
+            // 格式化补充信息
+            _normalizeSupplementData(list){
+                let arr = [].concat(list)
+                arr.forEach((gpItem,gpIndex)=>{
+                    gpItem.items.forEach((item,index)=>{
+                        item.active = false;
+                    })
+                });
+                return arr;
+            },
+
+            // 重新改造车辆信息补充
+            initCarOther(list){
+                list.forEach((item,index)=>{
+                    let currItrems = [];
+                    if(item.label=='事故情况'){
+                        currItrems = this.supplementGroup[0].items;
+                    }else if(item.label=='钣金情况'){
+                        currItrems = this.supplementGroup[1].items;
+                    }else if(item.label=='漆面情况'){
+                        currItrems = this.supplementGroup[2].items;
+                    }else if(item.label=='内饰情况'){
+                        currItrems = this.supplementGroup[3].items;
+                    }
+                    currItrems.forEach((citem,i)=>{
+                        if(citem.label == item.desc){
+                            citem.active = true;
+                        }
+                    });
+                });
+            },
+
             // 获取车辆详情信息
             getCarDetailsInfo(){
                 var data = {
@@ -628,12 +712,20 @@
                 }
                 api.getCarDetalis(data).then((res) => {
                     if(res.code==SYSTEM.CODE_IS_OK){
-                        
+
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
                         // 获取车辆图片列表信息
                         this.fileInfoList = this._normalizeFileList(res.data.CarFiles)
-                        
+
+                        // 车辆信息补充
+                        if(res.data.CarDetails.length==0){
+                            this.carDetails = []
+                        }else{
+                            this.carDetails = this._normalizeCarOtherInfo(res.data.CarDetails)
+                            this.initCarOther(this.carDetails);
+                        }
+
                         // 获取车辆详情基本信息
                         // console.log("获取车辆详情基本信息",dataToJson(this.basicInfo))
                         // 获取车辆图片列表信息
@@ -644,7 +736,7 @@
                             this.carImgItems = this.getCarImgsData(this.fileInfoList,this.otherInfo);
                             // console.log("获取车辆图片数据",dataToJson(this.carImgItems))
                         })
-                        
+
                         // 编辑车源数据的初始化
                         setTimeout(() => {
                             this.setInitSourceData();
@@ -709,7 +801,7 @@
                 this.form.mileage = this.basicInfo.mileage.toString();
 
                 // 排放标准
-                this.form.dischargeStandard = this.basicInfo.dischargeStandard;        
+                this.form.dischargeStandard = this.basicInfo.dischargeStandard||'-1';
                 this.form.liter = this.basicInfo.liter.toString();        // 排量
 
                 // 交强险日期
@@ -766,7 +858,7 @@
                 this.form.changeNum = curNumber;
                 this.validator.validate('changeNum',curNumber);
             },
-            
+
             // 一口价
             fixedPriceEnd(val){
                 this.form.fixedPrice = val;
@@ -831,7 +923,7 @@
             vinEnd(val){
                 this.form.vin = val;
             },
-            
+
             // 选择汽车颜色
             carColorEnd(val){
                 this.form.color = val;
@@ -937,14 +1029,57 @@
                 });
                 document.body.scrollTop = 200
             },
-            
+
+            // 改变补充信息的状态
+            changeSupplement(onOff){
+                this.isOpenSupplement = onOff;
+            },
+
+            // 补充信息的选择
+            labelCheck(ev,groupCode){
+
+                if(ev.target.dataset.lableIndex == void 0) return;
+                var currIndex = ev.target.dataset.lableIndex;
+                this.supplementGroup.forEach((gpItem,index)=>{
+                    if(gpItem.gpCode == groupCode){
+                        let i = 0,len= this.supplementGroup[index].items.length;
+                        for(;i<len;i++){
+                            this.supplementGroup[index].items[i].active = false;
+                        }
+                        this.supplementGroup[index].items[currIndex].active = true;
+                        if(!this.userCheckedSupplement[gpItem.gpTitle]){
+                            this.userCheckedSupplement[gpItem.gpTitle] = {
+                                title: gpItem.gpTitle,
+                                value :  this.supplementGroup[index].items[currIndex].label
+                            }
+                        }else{
+                            this.userCheckedSupplement[gpItem.gpTitle].value = this.supplementGroup[index].items[currIndex].label;
+                        }
+                    }
+                });
+            },
+
             //整理数据并发布
             issue(){
                 let me = this;
 
+                // 判断排放标准是否为不祥
+                if(this.form.dischargeStandard == '-1'){
+                    this.form.dischargeStandard = "";
+                }
+
+                // 给其他车辆信息填充值
+                this.form.carOtherInfo = [];
+                for(let item in this.userCheckedSupplement){
+                    this.form.carOtherInfo.push({
+                        Label: this.userCheckedSupplement[item].title,
+                        Content: this.userCheckedSupplement[item].value
+                    })
+                }
+
                 // 获取数据
                 this._normalizeData(this.form,(data)=>{
-                    
+
                     api.addOrEditB2BCar(data).then(res => {
 
                         // 请求成功将解除按钮的提交中状态

@@ -32,11 +32,11 @@ class sendCarForm{
 	    }
         
         // 其他车况内容补充，参考示例(可不填)
-	    this.CarOtherInfo = [];               
+	    this.CarOtherInfo = data.carOtherInfo||[];
          
         // 录音描述、车辆照片、（选填）出厂铭牌
 	    this.CarFileInfo = []
-        
+
         // 如果有车辆铭牌图片文件
 	    if(data.nameplate&&data.nameplate.length>0){
             data.nameplate.forEach((item,index) => {

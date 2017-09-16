@@ -27,7 +27,7 @@
                             </div><!-- 头部标题 -->
 
 
-                            <div class="m-bill-con">    
+                            <div class="m-bill-con">
                                 <div class="m-bill-box">
                                     <div class="m-gp-wrap f__clearfix">
                                         <el-row :gutter="formStyleData.gutter">
@@ -317,13 +317,33 @@
 
                                     <div class="other-car-info">
                                         <div class="m-hd">完善信息,批发给同行</div>
-                                        <div class="not-show">
+                                        <div class="not-show" v-show="!isOpenSupplement">
                                             <p class="info">1.每天可在我的车源置顶刷新两次</p>
                                             <p class="info">2.完善车辆信息,可大幅提高车辆成交率</p>
-                                            <a class="u-btn">立即完善<i class="iconfont icon-enter"></i></a>
+                                            <a class="u-btn" @click="changeSupplement(true)"
+                                                >立即完善<i class="iconfont icon-enter"></i></a>
                                         </div><!-- 不显示盒子的时候 -->
-                                        <div class="show-info-box">
-                                            
+                                        <div class="show-info-box" v-show="isOpenSupplement">
+                                            <div class="u-label-lst">
+                                                <ul>
+                                                    <template v-for="gpItem in supplementGroup">
+                                                        <li>
+                                                            <div class="tit">{{gpItem.gpTitle}}：</div>
+                                                            <div class="label-box f__clearfix"
+                                                                @click="labelCheck($event,gpItem.gpCode)">
+                                                                <template v-for="(item,index) in gpItem.items">
+                                                                    <span :data-lable-index="index"
+                                                                        :class="[item.active?'active':'']"
+                                                                        >{{item.label}}</span>
+                                                                </template>
+                                                            </div>
+                                                        </li>
+                                                    </template>
+
+                                                </ul>
+                                            </div>
+                                            <a class="u-btn close" @click="changeSupplement(false)"
+                                                >选择完成</a>
                                         </div><!-- 显示盒子信息 -->
                                     </div><!-- 其他车辆信息配置 -->
 
@@ -538,7 +558,8 @@
                     desc: "",               // 车主留言
                     nameplate: [],          // 铭牌图片
                     photo: [],              // 车辆图片
-                    isPostRetail: true,    // 是否发布到二手市场
+                    isPostRetail: true,     // 是否发布到二手市场
+                    carOtherInfo: [],       // 其他车况内容补充
                 },
 
                 // 数据源（下拉选择的数据）
@@ -550,7 +571,15 @@
                     // 运营类型
                     ServiceCharacteristics: sendCarData.ServiceCharacteristics,
                 },
-                
+
+                // 是否打开补充信息
+                isOpenSupplement: false,
+
+                // 补充信息组
+                supplementGroup: this._normalizeSupplementData(sendCarData.supplementGroup),
+                // 用户选择的信息
+                userCheckedSupplement: {},
+
             }
         },
 
@@ -566,7 +595,7 @@
 
         //生命周期,开始的时候
         created(){
-            
+
             this.validator = new Validator({
                 carInCity: 'required',
                 selectedModel: 'required',
@@ -584,7 +613,6 @@
                 photo: 'between:2,12|max:12',
             });
             this.$set(this, 'errors', this.validator.errors);
-
         },
 
         // $el 挂载的时候
@@ -597,13 +625,10 @@
 
             // 获取用户信息
             this.getMemberInfo();
-            // this.$set(this.form,'changeNum','0');
-            // this.form.changeNum = "0";
         },
 
         //退出的生命周期钩子
         deactivated(){
-
             // 清空数据
             this.reset();
             // 由于绑定的是一些组件，所以要用vue实例销毁才有真实的作用
@@ -634,6 +659,17 @@
                         });
                     }
                 })
+            },
+
+            // 格式化补充信息
+            _normalizeSupplementData(list){
+                let arr = [].concat(list)
+                arr.forEach((gpItem,gpIndex)=>{
+                    gpItem.items.forEach((item,index)=>{
+                        item.active = false;
+                    })
+                });
+                return arr;
             },
 
             // 判断是不是有相关的权限
@@ -693,13 +729,11 @@
                 let curDateTime = geekDom.formatDateByDate("yyyy-MM-dd",selected);
                 this.form.plateDate = curDateTime;
                 this.validator.validate('plateDate',curDateTime);
-                
                 let [theDate,newDate] = [ +new Date(this.form.plateDate),+new Date()];
                 if(theDate>newDate){
                     this.errors.remove('plateDate');
                     this.errors.add('plateDate', "上牌日期必须早于当前日期", 'auth');
                 }
-                
             },
 
             // 过户次数
@@ -846,7 +880,7 @@
                             return;
                         }
                     }
-                    
+
                     this.$confirm('尊贵的用户，您好！请确保您发布车辆信息的真实性，这将审核的通过率！', '温馨提示', {
                         confirmButtonText: '确认发布',
                         cancelButtonText: '再仔细看看',
@@ -885,6 +919,35 @@
                 document.body.scrollTop = 500
             },
 
+            // 改变补充信息的状态
+            changeSupplement(onOff){
+                this.isOpenSupplement = onOff;
+            },
+
+            // 补充信息的选择
+            labelCheck(ev,groupCode){
+
+                if(ev.target.dataset.lableIndex == void 0) return;
+                var currIndex = ev.target.dataset.lableIndex;
+                this.supplementGroup.forEach((gpItem,index)=>{
+                    if(gpItem.gpCode == groupCode){
+                        let i = 0,len= this.supplementGroup[index].items.length;
+                        for(;i<len;i++){
+                            this.supplementGroup[index].items[i].active = false;
+                        }
+                        this.supplementGroup[index].items[currIndex].active = true;
+                        if(!this.userCheckedSupplement[gpItem.gpTitle]){
+                            this.userCheckedSupplement[gpItem.gpTitle] = {
+                                title: gpItem.gpTitle,
+                                value :  this.supplementGroup[index].items[currIndex].label
+                            }
+                        }else{
+                            this.userCheckedSupplement[gpItem.gpTitle].value = this.supplementGroup[index].items[currIndex].label;
+                        }
+                    }
+                });
+            },
+
             //整理数据并发布
             issue(){
                 let me = this;
@@ -901,8 +964,14 @@
                     this.form.insuranceDate = geekDom.computedTimeDate(new Date,'加',1,'年');
                 }
 
-                console.log(this.form.insuranceDate);
-                return;
+                // 给其他车辆信息填充值
+                this.form.carOtherInfo = [];
+                for(let item in this.userCheckedSupplement){
+                    this.form.carOtherInfo.push({
+                        Label: this.userCheckedSupplement[item].title,
+                        Content: this.userCheckedSupplement[item].value
+                    })
+                }
 
                 // 获取数据
                 this._normalizeData(this.form,(data)=>{
@@ -978,6 +1047,11 @@
                     photo: [],              // 车辆图片
                     isPostRetail: false,    // 是否发布到二手市场
                 }
+                // 是否打开补充信息
+                this.isOpenSupplement= false;
+                // 补充信息组
+                this.supplementGroup = this._normalizeSupplementData(sendCarData.supplementGroup)
+
                 this.isSubmitState = false;
                 // 因为设置为空时会触发数据侦听的验证方法，所以给个setTimeOut
                 setTimeout(() => {

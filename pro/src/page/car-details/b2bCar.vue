@@ -105,7 +105,7 @@
                                 </div>
 
                                 <template v-if="judgeCarInfo.hasJudged">
-                                    <a class="u-btn vote-up" 
+                                    <a class="u-btn vote-up"
                                         :class="{'active':judgeCarInfo.hasJudged&&judgeCarInfo.myJudge==-1}"
                                         @click="putHasJudged()"
                                         ></a><!-- 合适，低，赞 -->
@@ -115,7 +115,7 @@
                                         ></a><!-- 价太高，踩 -->
                                 </template>
                                 <template v-else>
-                                    <a class="u-btn vote-up" 
+                                    <a class="u-btn vote-up"
                                         :class="{'active':judgeCarInfo.hasJudged&&judgeCarInfo.myJudge==-1}"
                                         @click="putCarPriceJudge(-1)"
                                         ></a><!-- 合适，低，赞 -->
@@ -298,6 +298,22 @@
                                         <span class="tip-arrow"></span><!-- 箭头装饰物 -->
                                     </div><!-- 车商描述 -->
                                 </li>
+                            </ul>
+                        </div><!-- 信息内容 -->
+                    </div><!-- 车辆信息 -->
+
+                    <div class="m-supplement-info f__boxClearM" v-if="carDetails&&carDetails.length>0">
+                        <div class="box-header">
+                            <i class="icon-block"></i><h3>车况内容补充</h3>
+                        </div><!-- 标题 -->
+                        <div class="supplement-con">
+                            <ul class="info-lst f__clearfix">
+                                <template v-for="item in carDetails">
+                                    <li>
+                                        <span class="attr">{{item.label}}：</span>
+                                        <span class="data">{{item.desc}}</span>
+                                    </li>
+                                </template>
                             </ul>
                         </div><!-- 信息内容 -->
                     </div><!-- 车辆信息 -->
@@ -631,7 +647,7 @@
     import {memberInfo} from 'base/class/member.js'
 
     // 车行信息的构造类
-    import {basicInfo,carDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
+    import {basicInfo,carOtherDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
     // 在售车源信息的构造类
     import {onSaleCarInfo} from "base/class/carInfo.js"
     // 评论信息的构造类
@@ -696,6 +712,7 @@
 
                 // 车辆基本信息
                 basicInfo:{},
+
                 // 车况信息列表
                 carDetails: [],
 
@@ -703,6 +720,7 @@
                 fileInfoList:[],
                 // 其他信息
                 otherInfo:{},
+
                 // 车辆图片信息
                 carImgData:{
                     merchantName : "暂无数据",
@@ -957,6 +975,15 @@
                 return new basicInfo(data);
             },
 
+            // 格式化车辆信息补充
+            _normalizeCarOtherInfo(list) {
+                let arr = [];
+                list.forEach((item,index) => {
+                    arr.push(new carOtherDetails(item));
+                })
+                return arr;
+            },
+
             // 格式化车辆文件列表
             _normalizeFileList(list) {
                 let arr = [];
@@ -1059,6 +1086,12 @@
 
                         // 获取车辆详情基本信息
                         this.basicInfo = this._normalizeBasicInfo(res.data.CarInfo)
+                        // 车辆信息补充
+                        if(res.data.CarDetails.length==0){
+                            this.carDetails = []
+                        }else{
+                            this.carDetails = this._normalizeCarOtherInfo(res.data.CarDetails)
+                        }
 
 
                         // 车辆异常状态提示
