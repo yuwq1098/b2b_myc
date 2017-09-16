@@ -475,6 +475,10 @@
                                                             <a class="u-lk delete" v-show="memberData.id==item.memberId" @click="deleteComment(item.id)"
                                                                 >删除
                                                             </a>
+                                                            <template v-if="item.rlyCount>maxReplyCommentCount">
+                                                                <a class="u-btn all-reply" @click="openAllReply(item.id)"
+                                                                    >查看全部回复...</a>
+                                                            </template>
                                                         </div><!-- 工具组 -->
                                                     </div>
                                                 </div>
@@ -495,9 +499,9 @@
                                                                     <i class="iconfont icon-huifu3"></i>
                                                                     <span>回复</span>
                                                                 </a>
-                                                                <a class="u-lk delete" v-show="memberData.id==rlyItem.memberId" @click="deleteComment(rlyItem.id)"
-                                                                >删除
-                                                            </a>
+                                                                    <a class="u-lk delete" v-show="memberData.id==rlyItem.memberId" @click="deleteComment(rlyItem.id)"
+                                                                    >删除
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </template>
@@ -506,18 +510,19 @@
                                                         <a class="add-comment-btn" @click="putRlyComment(1,item.isShowPanel,index,item.id)">
                                                             <template v-if="item.isShowPanel">
                                                                 <i class="iconfont icon-shouqi pack-up"></i>
-                                                                <span>收起评论框</span>
+                                                                <span>收起回复框</span>
                                                             </template>
                                                             <template v-else>
                                                                 <i class="iconfont icon-bianji5"></i>
-                                                                <span>添加新评论</span>
+                                                                <span>添加新回复</span>
                                                             </template>
                                                         </a>
-                                                    </div><!-- 添加新评论按钮 -->
+
+                                                    </div><!-- 添加新留言按钮 -->
 
                                                     <div class="sub-new-comment" v-show="item.isShowPanel">
                                                         <form>
-                                                            <textarea ref="rlyCommentTexearea" placeholder="写下您的留言..." maxlength="150"
+                                                            <textarea ref="rlyCommentTexearea" placeholder="写下您的回复..." maxlength="150"
                                                                 v-model="rlyCommentContent"></textarea>
                                                             <div class="write-function-box f__clearfix">
                                                                 <div class="tips">
@@ -527,12 +532,12 @@
                                                                 <a class="u-btn cancel" @click="rlyCommentCloseBox">取消</a><!-- 取消 -->
                                                             </div>
                                                         </form>
-                                                    </div><!-- 子回复评论 -->
-                                                </div><!-- 子回复评论列表 -->
+                                                    </div><!-- 子回复留言 -->
+                                                </div><!-- 子回复留言列表 -->
 
                                             </div>
                                         </template>
-                                    </div><!-- 评论列表 -->
+                                    </div><!-- 留言列表 -->
 
                                     <div class="pagination" v-if="resultPage.totalPage > resultPage.pageSize">
                                         <el-pagination
@@ -543,16 +548,16 @@
                                             :total="resultPage.totalPage"
                                             class="el-page">
                                         </el-pagination>
-                                    </div><!-- 评论分页 -->
+                                    </div><!-- 留言分页 -->
                                 </template>
 
                                 <div class="no-data"  v-if="carCommentList.length == 0"
-                                    >暂时还没有人评论这辆车，说说您独特的见解吧~~</div>
+                                    >暂时还没有人对这辆车留言，聊聊您独特的见解吧~~</div>
 
                                 <div class="tips-show" v-if="carCommentList.length > 0 && !showCommentList"
                                     >默认隐藏留言信息，点击右上角的 ‘显示留言’ 可显示留言列表哟 ~~
                                 </div>
-                            </div><!-- 评论列表 -->
+                            </div><!-- 留言列表 -->
 
                         </div>
                     </div><!-- 众人评车 -->
@@ -623,6 +628,10 @@
                         @cancelBidPopup="cancelBidPopup"></bid-popup>
                 </div><!-- 我要出价 -->
 
+                <div class="m-more-reply" v-if="isShowMoreReply">
+
+                </div><!-- 回复评论之更多 -->
+
             </div><!-- 网页主体 -->
 		</div>
 	</div>
@@ -650,7 +659,7 @@
     import {basicInfo,carOtherDetails,fileInfoList,otherInfo} from 'base/class/carDetails.js'
     // 在售车源信息的构造类
     import {onSaleCarInfo} from "base/class/carInfo.js"
-    // 评论信息的构造类
+    // 留言信息的构造类
     import {commentClass,judgeInfo} from "base/class/comment.js"
 
     // 网站外层面包屑列表本地化资源
@@ -736,28 +745,31 @@
                 // 是否收藏车店
                 cdgIsFavorite: false,
 
-                // 评论总条数
+                // 留言总条数
                 carCommentListTotal: 0,
-                // 评论列表
+                // 留言列表
                 carCommentList: [],
 
-                // 是否开始评论
+                // 最大回复留言展示书
+                maxReplyCommentCount: SYSTEM.MAX_REPLY_COMMENT_COUNT,
+
+                // 是否开始留言
                 isStartComment: false,
-                // 评论的内容
+                // 留言的内容
                 FCommentContent: "",
 
-                // 回复评论的内容
+                // 回复留言的内容
                 rlyCommentContent: "",
-                // 回复评论打开的面板类型  , 0未打开,1父回复按钮触发,2子回复按钮触发
+                // 回复留言打开的面板类型  , 0未打开,1父回复按钮触发,2子回复按钮触发
                 rlyCommentPanelType: 0,
                 // 回复面板打开的当前索引
                 currRlyPanelIndex: -1,
-                // 回复子面板打开的索引 
+                // 回复子面板打开的索引
                 rlyCommentPanelIndex: -1,
-                // 回复评论的Id
+                // 回复留言的Id
                 rlyCommentId: "",
 
-                // 是否显示全部的评论信息
+                // 是否显示全部的留言信息
                 showCommentList: false,
 
 
@@ -788,6 +800,9 @@
 
                 // 我的历史出价
                 myHistoryBid: {},
+
+                // 显示 全部回复评论列表
+                isShowMoreReply: false,
             }
         },
         //生命周期,开始的时候
@@ -834,7 +849,8 @@
 
                 // if(to.path=="/b2bCar"){
                 if(to.path==from.path){
-
+                    // 显示店铺详情的更多
+                    this.isShowDescMore = false;
                     // 分享组件显示隐藏
                     this.isShareShow = false;
                     this.shareOptions = {};
@@ -1303,12 +1319,12 @@
                 this.isShowBidPopup = false;
             },
 
-            // 直接对该车辆发起评论
+            // 直接对该车辆发起留言
             putComment(type){
                 if(!this.loginStatus){
                     this.$notify({
                         title: '您尚未登录',
-                        message: '登录后可进行评论操作',
+                        message: '登录后可进行留言操作',
                         type: 'error',
                         duration: 2000,
                     });
@@ -1317,12 +1333,20 @@
                 let commentContent = "";
                 if(type=='1'){
                     commentContent = this.FCommentContent;
+
+                    // 如果用户输入的只是一个空格
+                    if(geekDom.valToEmpty(this.FCommentContent)=='') return;
+
                 }else if(type=="2"){
                     if(this.rlyCommentPanelType == 2){
                         var quotesIndex = /[：]/.exec(this.rlyCommentContent).index;
                         commentContent = this.rlyCommentContent.substr(quotesIndex+1);
+                        // 如果用户输入的只是一个空格
+                        if(geekDom.valToEmpty(commentContent)=='') return;
                     }else{
                         commentContent = this.rlyCommentContent;
+                        // 如果用户输入的只是一个空格
+                        if(geekDom.valToEmpty(commentContent)=='') return;
                     }
                 }
 
@@ -1332,7 +1356,7 @@
                     CarId : this.carId,
                     BeReplyCommentId : type=='2'?this.rlyCommentId:'',     // 被回复者的id
                 }
-                this.$confirm('评论内容：'+commentContent, '确认发表这条评论？', {
+                this.$confirm('留言内容：'+commentContent, '确认发表这条留言？', {
                     confirmButtonText: '确认发表',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -1344,18 +1368,18 @@
 
             },
 
-            // 提交评论接口
+            // 提交留言接口
             commitCarComment(type,data){
                 api.carComment(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.$notify({
-                            title: '评论成功',
+                            title: '留言成功',
                             message: res.msg,
                             type: 'success',
                             duration: 1500,
                         });
                         if(type=='1'){
-                            // 重新获取评论列表
+                            // 重新获取留言列表
                             this.getCarCommentList();
                             this.FCommentCloseBox();
                             // 如果列表框是隐藏的
@@ -1363,7 +1387,7 @@
                                 this.showCommentList = true;
                             }
                         }else{
-                            // 重新获取评论列表
+                            // 重新获取留言列表
                             this.getCarCommentList();
                             this.rlyCommentCloseBox();
                         }
@@ -1379,13 +1403,19 @@
                 });
             },
 
-            // 对评论进行评论
+            // 获取全部回复
+            openAllReply(id){
+                // 获取某条评论下的所有回复
+                this.getAllReplyComment(id);
+            },
+
+            // 对留言进行留言
             putRlyComment(type,isShow,index,id,rlyIndex,name){
 
-                // 回复评论的id
+                // 回复留言的id
                 this.rlyCommentId = id;
 
-                // 如果打开的是其他评论，则隐藏那个评论
+                // 如果打开的是其他留言，则隐藏那个留言
                 if(this.currRlyPanelIndex!=-1&&index!=this.currRlyPanelIndex){
                     this.isShowRlyPanel(true,this.currRlyPanelIndex);
                 }
@@ -1399,12 +1429,12 @@
                     }
 
                 }else if(isShow&&this.rlyCommentPanelType==type&&type==2&&this.rlyCommentPanelIndex!=rlyIndex){
-                    // 回复子评论切换
+                    // 回复子留言切换
                     this.rlyCommentFocus(index);
                     this.rlyCommentContent = "@"+name+"：";
                 }else{
 
-                    // 如果用户直接选择回复子评论
+                    // 如果用户直接选择回复子留言
                     if(type==2&&!isShow){
                         this.isShowRlyPanel(isShow,index);
                         setTimeout(()=>{
@@ -1423,7 +1453,7 @@
 
             },
 
-            // 格式化评论信息列表
+            // 格式化留言信息列表
             _normalizeCommentList(list) {
                 let arr = [];
                 list.forEach((item,index) => {
@@ -1432,7 +1462,7 @@
                 return arr;
             },
 
-            // 获取车辆评论列表
+            // 获取车辆留言列表
             getCarCommentList(){
                 let data = {
                     ActType : 'CarCommentList',
@@ -1444,9 +1474,10 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.resultPage.totalPage = res.Total;
                         this.carCommentList = this._normalizeCommentList(res.data);
+                        console.log(this.carCommentList);
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
-                            title: '操作失败',
+                            title: '获取信息失败',
                             message: res.msg,
                             type: 'error',
                             duration: 1500,
@@ -1455,13 +1486,36 @@
                 });
             },
 
-            // 删除自己的评论
+            // 获取某条评论下的所有回复
+            getAllReplyComment(id){
+                let data = {
+                    ActType : 'CommentDetail',
+                    BeReplyCommentId: id,
+                    PageIndex: 1,
+                    PageSize: 20,
+                }
+                api.carComment(data).then(res => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        console.log("全部回复评论列表")
+                        console.dir(res.data);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '获取信息失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
+
+            // 删除自己的留言
             deleteComment(id){
                 let data = {
                     ActType : 'Delete',
                     BeReplyCommentId: id
                 }
-                this.$confirm('点击确认，删除该评论', '确认删除这条评论？', {
+                this.$confirm('点击确认，删除该留言', '确认删除这条留言？', {
                     confirmButtonText: '确认',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -1473,17 +1527,17 @@
 
             },
 
-            // 提交删除评论
+            // 提交删除留言
             commitDeleteComment(data){
                 api.carComment(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.$notify({
-                            title: '删除评论成功',
+                            title: '删除留言成功',
                             message: res.msg,
                             type: 'success',
                             duration: 1500,
                         });
-                        // 重新获取评论列表
+                        // 重新获取留言列表
                         this.getCarCommentList();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
@@ -1499,14 +1553,14 @@
             //分页页号切换触发
             handleCurrentChange(val) {
                 this.resultPage.currentPage = val;
-                // 重新获取评论列表
+                // 重新获取留言列表
                 this.getCarCommentList();
                 var ctContainer = this.$refs.ctContainer;
                 var ctContainerOffsetTop = this.$refs.ctContainer.offsetTop;
                 geekDom.goOffsetTop(ctContainerOffsetTop - 100);
             },
 
-            // 点赞评论
+            // 点赞留言
             commentLike(id,index,onOff){
                 let data = {
                     ActType: onOff!=1?'Upvote':'Downvote',
@@ -1514,7 +1568,7 @@
                 }
                 api.carComment(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
-                        // 重新获取评论列表
+                        // 重新获取留言列表
                         this.getCarCommentList();
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
@@ -1527,12 +1581,12 @@
                 });
             },
 
-            // 发表评论
+            // 发表留言
             FPutComment(){
                 if(!this.loginStatus){
                     this.$notify({
                         title: '您尚未登录',
-                        message: '登录后可进行评论操作',
+                        message: '登录后可进行留言操作',
                         type: 'error',
                         duration: 2000,
                     });
@@ -1541,7 +1595,7 @@
                 this.putComment('1');
             },
 
-            // 大评论框获取焦点
+            // 大留言框获取焦点
             FCommentFocus(){
                 this.isStartComment = true;
                 var that = this;
@@ -1550,20 +1604,20 @@
                 })
             },
 
-            // 大评论框关闭
+            // 大留言框关闭
             FCommentCloseBox(){
                 document.onkeydown = null;
                 this.isStartComment = false;
                 this.FCommentContent = "";
             },
 
-            // 回复评论框的显示隐藏
+            // 回复留言框的显示隐藏
             isShowRlyPanel(isShow,index){
                 // this.$refs.rlyCommentTexearea[index].focus()
                 // 显示隐藏切换
                 this.carCommentList[index].isShowPanel = !isShow;
                 setTimeout(()=>{
-                    if(isShow){ // 如果回复评论框隐藏，那么type赋值为0
+                    if(isShow){ // 如果回复留言框隐藏，那么type赋值为0
                         this.rlyCommentContent = "";
                         this.rlyCommentPanelType = 0;
                         this.currRlyPanelIndex = -1;
@@ -1576,7 +1630,7 @@
 
             },
 
-            // 小评论框获取焦点
+            // 小留言框获取焦点
             rlyCommentFocus(index){
                 var that = this;
                 this.FCommentCloseBox();
@@ -1587,9 +1641,9 @@
                 })
             },
 
-            // 小评论框关闭
+            // 小留言框关闭
             rlyCommentCloseBox(){
-                // 回复评论框的显示隐藏
+                // 回复留言框的显示隐藏
                 this.isShowRlyPanel(true,this.currRlyPanelIndex)
             },
 
@@ -1962,19 +2016,26 @@
                 // 清除本页的按键绑定
                 document.onkeydown = null;
 
-                // 是否开始评论
+                // 是否开始留言
                 this.isStartComment = false;
-                // 评论的内容
+                // 留言的内容
                 this.FCommentContent = "";
-                // 回复评论的内容
+                // 回复留言的内容
                 this.rlyCommentContent = "";
-                // 重置回复评论框的状态
+                // 重置回复留言框的状态
                 this.rlyCommentPanelType = 0;
                 this.currRlyPanelIndex = -1;
                 this.rlyCommentPanelIndex = -1;
                 this.rlyCommentId = "";
 
+                // 是否显示评论列表
                 this.showCommentList = false;
+                // 是否显示出价弹出框
+                this.isShowBidPopup = false;
+                // 我的历史出价
+                this.myHistoryBid = {};
+                // 是否显示全部回复内容
+                this.isShowMoreReply = false;
 
                 this.resultPage = {
                     currentPage : 1,

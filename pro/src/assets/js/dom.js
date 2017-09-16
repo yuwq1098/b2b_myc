@@ -577,6 +577,14 @@ export function isRepeatSelectionByFiles(newfiles,curFiles){
     return isRepeat;
 }
 
+/** 
+* @description 去除字符串前后空格
+* @param val 需要去空的值
+* @return val 返回匹配后的值
+*/
+export function valToEmpty(val){
+    return val.replace(/^\s+|\s+$/g,'');
+}
 
 /** 
 * @description 对用户表单输入的值进行约束 

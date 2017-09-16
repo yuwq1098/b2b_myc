@@ -822,6 +822,19 @@ $box-width = 1200px
                                                 _display(none)
                                                 &:hover
                                                     color #f43
+                                        .u-btn.all-reply
+                                            height @height - 2px
+                                            line-height @height
+                                            _completeCenter(auto,0)
+                                            _borderAll(#e2e2e2)
+                                            _borderRadius(3px)
+                                            color #999
+                                            _spacingPlus()
+                                            font-size 12px
+                                            padding 0 12px
+                                            &:hover
+                                                _borderAll(#333)
+                                                color #333
                                         &:hover
                                             .delete
                                                 _display()
@@ -868,6 +881,7 @@ $box-width = 1200px
                                                 _display(inline-block)
                                 .more-comment
                                     height 24px
+                                    position relative
                                     .add-comment-btn
                                         height @height
                                         line-height @height
@@ -882,7 +896,6 @@ $box-width = 1200px
                                             margin-right 3px
                                             &.pack-up
                                                 margin-right 1px
-
                                 .sub-new-comment
                                     padding 22px 0 0
                                     textarea

@@ -298,7 +298,7 @@
                                             <div class="attr">注意事项：</div>
                                             <div class="ipt text-info">
                                                 <div class="txt">
-                                                    <div>1.【保证金】双方协商好价格并在平台签订电子购车合同后，双方各自缴纳3000元交易保证金，交易成功后，将原路返回。</div>
+                                                    <div>1.【保证金】双方协商好价格并在平台签订电子购车合同后，双方各自缴纳{{tradeDepositText}}元交易保证金，交易成功后，将原路返回。</div>
                                                     <div>2.【托运车】买家接车后，与合同描述不符，卖家无条件退还保证金，并承担损失费用。若卖方要求退车，卖方必须无条件接受。</div>
                                                     <div>3.【上门验车】买方上门验车，如与合同描述不符，卖家无条件退还保证金，并承担损失费用。若卖方要求退车，卖方必须无条件接受。</div>
                                                     <div>4.【交易完成】买方验车完成签收后，出现任何问题与卖方无关。</div>
@@ -381,7 +381,7 @@
                         
                         <div class="u-sign-wrap" id="js__signParent">
                             <canvas id="js__signWrap" ref="signWrap" width="280" height="100"></canvas>
-                        </div><!-- 签名区域 -->                        
+                        </div><!-- 签名区域 -->
 
                     </div><!-- 内容 -->
                     <div class="u-operate-btn">
@@ -493,6 +493,8 @@
 
                 // 表单验证报错集合
                 errors: null,
+                
+                tradeDepositText: SYSTEM.TRADE_DEPOSIT_GOLD,
             }
         },
         //生命周期,开始的时候

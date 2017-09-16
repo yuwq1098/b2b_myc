@@ -22,11 +22,19 @@ export const HALL_RESULE_PAGE_SIZE = 25
 // 评论搜索条数限制
 export const COMMENT_RESULE_PAGE_SIZE = 5
 
+// 评论回复列表最大展示条数
+export const MAX_REPLY_COMMENT_COUNT = 2
+
 // 手机车辆详情路径
 export const MOBILE_CAR_DETAILS_URL_ROOT = "https://"+(process.env.NODE_ENV === 'production' ? 'www': "test")+".muyouche.com/mo1/?#/B2BDetail?CarId="
 
 // 车价评判高低的基数权重
 export const JUDGE_PRICE_WEIGHTED = 10
+
+// 交易保证金
+export const TRADE_DEPOSIT_GOLD = "200 ~ 5000"
+
+
 
 /**
  * B2B订单状态
