@@ -1,3 +1,7 @@
+<!--
+ **  @description 手机发单
+ -->
+
 <template>
 	<div class="appCodeBox">
 	    <div class="m-app-box">
@@ -22,7 +26,7 @@
 </template>
 
 <script>
-    
+
 	export default {
         name: "appCodeBox",
         // 数据

@@ -37,7 +37,9 @@
                     </div>
                 </div>
 
-                
+                <div class="multiUpload-box">
+                    <multi-files></multi-files>
+                </div><!-- 图片上传组件 -->
 
                 <div class="item-error" v-if="errors.has('contactText')">
                     <p class="error-txt">
@@ -67,7 +69,10 @@
     // vuex状态管理
     import { mapGetters,mapActions } from 'vuex'
     // 网站更多功能内容布局组件
-    import aboutLayout from 'page/more/common/layout/index.vue' 
+    import aboutLayout from 'page/more/common/layout/index.vue'
+
+    // 多图拖拽裁切上传组件
+    import multiFiles from 'components/dragClip/multiFiles.vue'
 
     //引入表单验证
     import { Validator } from 'vee-validate';
@@ -79,6 +84,7 @@
         // 在当前模块注册组件
         components:{
             aboutLayout,
+            multiFiles,
         },
         // 数据
         data() {
