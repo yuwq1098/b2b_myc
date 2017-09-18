@@ -62,7 +62,7 @@ export default function myc_kefu (){
     // 设置客服样式
     function setKefuDomStyle(el){
         el.style.bottom = "5px";
-        el.style.right = "47px";
+        el.style.right = "45px";
         el.style.top = "";
         el.style.zIndex = "999";
         addClass(el,'f__display_block')
@@ -71,7 +71,7 @@ export default function myc_kefu (){
 
     function setKefuDomStyleCopy(el){
         el.style.bottom = "5px";
-        el.style.right = "47px";
+        el.style.right = "45px";
         el.style.top = "";
         el.style.zIndex = "999";
         el.id = "myc_kefu"

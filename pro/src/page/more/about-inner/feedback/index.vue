@@ -1,6 +1,6 @@
-<!--  
+<!--
  **  @description 网站更多功能 - 意见反馈
- --> 
+ -->
 
 <template>
 	<div class="feedback">
@@ -36,7 +36,9 @@
                         <el-radio class="ipt-radio" v-model="contactType" label="QQ号">QQ号</el-radio>
                     </div>
                 </div>
+
                 
+
                 <div class="item-error" v-if="errors.has('contactText')">
                     <p class="error-txt">
                         <i class="iconfont icon-jinggao1"></i>{{errors.first('contactText')}}</p>
@@ -55,7 +57,7 @@
 </template>
 
 <script>
-    
+
     // 获取数据的api
     import api from 'api/getData.js'
     // 引入系统变量
@@ -111,7 +113,6 @@
             
         },
         activated(){
-            
             // 获取反馈类别可用类型
             // this.getFeedback();
 

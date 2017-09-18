@@ -9,3 +9,29 @@
         font-size 16px
         line-height 30px
         padding 0 0 15px
+    .video-container
+        width 930px
+        .video-hd
+            height 30px
+            line-height @height
+            font-size 20px
+            margin 15px 0
+            position relative
+            .adorn
+            	width 6px
+            	height @width
+            	_display()
+            	background $c_blue
+            	_completeCenter(2px,auto)
+            .txt
+            	margin-left 20px
+        .video-box
+            width @width
+            height 500px
+            background #000
+            position relative
+            _overflow()
+            video
+                width @width
+                height @height + 8px
+                _completeCenter(0,auto,-12px,auto)

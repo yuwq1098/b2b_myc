@@ -15,6 +15,18 @@
                 </p>
                 <p class="u-article"
                     >木有 · 车，创造了一个让用户享优惠，商家得实惠，创客好机会的<em class="vital">互联网+</em>高效汽车服务共享平台。</p>
+                <section class="video-container">
+                    <div class="video-hd">
+                        <i class="adorn"></i>
+                        <span class="txt">木有车平台宣传大片</span>
+                    </div><!-- 视频标题 -->
+                    <div class="video-box">
+                        <video controls="controls" loop="loop" autoplay="autoplay" ref="advertisingVideo">
+                            <source :src="aboutVideoUrl" type="video/mp4">
+                            您的浏览器不支持视频播放，请升级您的浏览器以获取最佳的体验！
+                        </video>
+                    </div>
+                </section><!-- 视频播放容器 -->
             </div>
         </about-layout>
 
@@ -22,9 +34,12 @@
 </template>
 
 <script>
-    
+
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
+
     // 网站更多功能内容布局组件
-    import aboutLayout from 'page/more/common/layout/index.vue' 
+    import aboutLayout from 'page/more/common/layout/index.vue'
 
     export default {
         name: "who",
@@ -35,14 +50,23 @@
         // 数据
         data() {
             return{
-                
+                aboutVideoUrl: SYSTEM.PLATFORM_INTRODUCE_VIDEO_URL,
             }
+        },
+        // 再次进入生命周期
+        activated(){
+            this.init();
         },
         // 自定义函数(方法)
         methods: {
-            
+            // 初始化事件
+            init(){
+                this.$nextTick(()=>{
+                    this.$refs.advertisingVideo.play();
+                    // this.$refs.advertisingVideo.pause();
+                })
+            }
         },
-        
 	}
 
 </script>

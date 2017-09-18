@@ -14,7 +14,7 @@ export const CODE_IS_OUT = -4000
 // 信誉保证金
 export const MIN_CREDIT_GOLD = 200
 // 支付信誉保证金提示文本
-export const DEAL_CREDIT_TEXT = "200元（限时活动）"; 
+export const DEAL_CREDIT_TEXT = "200元（限时活动）";
 
 // b2b大厅搜索条数限制
 export const HALL_RESULE_PAGE_SIZE = 25
@@ -33,6 +33,9 @@ export const JUDGE_PRICE_WEIGHTED = 10
 
 // 交易保证金
 export const TRADE_DEPOSIT_GOLD = "200 ~ 5000"
+
+// 平台视频介绍
+export const PLATFORM_INTRODUCE_VIDEO_URL = "https://www.muyouche.com/pc/video/video1.mp4"
 
 
 

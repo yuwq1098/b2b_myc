@@ -1474,7 +1474,7 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.resultPage.totalPage = res.Total;
                         this.carCommentList = this._normalizeCommentList(res.data);
-                        console.log(this.carCommentList);
+                        // console.log(this.carCommentList);
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '获取信息失败',
