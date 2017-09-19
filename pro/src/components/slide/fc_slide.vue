@@ -47,6 +47,7 @@
 		// 数据
 		data() {
 			return{
+                // 当前悬浮的点
                 curSildeNumber: 1,
                 defaultImgItem: [
                     {
@@ -71,6 +72,13 @@
                 },
             }
 		},
+        created(){
+            // 实例创建时，当前悬浮的点默认1
+            this.curSildeNumber = 1;
+        },
+        activated(){
+
+        },
 		mounted(){
             
 		},
@@ -88,7 +96,7 @@
                     this.carImgData.imgItems = this.defaultImgItem;
                 }
                 let me = this;
-                setTimeout(() => {
+                this.$nextTick(()=>{
                     jq('#cSlide').banqh({
                         box:"#cSlide",//总框架
                         pic:"#ban_pic",//大图框架
@@ -108,7 +116,10 @@
                             me.curSildeNumber = can.xtqhnum + 1;
                         }
                     })
-                },20)
+                });
+            },
+            curSildeNumber(val){
+                this.$emit('changeCurrSilde',val)
             },
         }
 

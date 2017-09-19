@@ -148,13 +148,7 @@
             getFeedback(){
                 api.getFeedback().then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
-                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
-                        this.$notify({
-                            title: '请先登录',
-                            message: res.msg,
-                            type: 'error',
-                            duration: 2000,
-                        });
+                        
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '请先登录',

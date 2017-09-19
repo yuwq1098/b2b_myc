@@ -11,7 +11,7 @@
                 @change="uploadInputChange" 
                 type="file" 
                 ref="uploadInputFile" 
-                accept="image/*" 
+                accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" 
                 multiple
                 />
 

@@ -9,8 +9,18 @@
                         ></gk-bread-crumb><!-- 面包屑组件 -->
 
                     <div class="m-mn-hd f__clearfix">
+
+                        <div class="m-magnifying-container" v-if="currSlideImg">
+                            <magnifying-glass
+                                :imageUrl="currSlideImg">
+                            </magnifying-glass>
+                        </div><!-- 放大镜组件容器 -->
+
                         <div class="f__fl" v-if="carImgData.imgItems">
-                            <fc-slide :carImgData="carImgData"></fc-slide>
+                            <fc-slide
+                                :carImgData="carImgData"
+                                @changeCurrSilde="changeCurrSilde"
+                                ></fc-slide>
                         </div>
 
                         <div class="m-mn-info f__fr">
@@ -672,15 +682,19 @@
 
     // b2b车辆信息构造类
     import {b2bCarInfo} from "base/class/carInfo.js"
+
+
     // 相似推荐信息列表盒子
     import remdListBox from "components/boxLayout/remdListBox.vue"
-
+    // 放大镜组件
+    import magnifyingGlass from "components/common/magnifyingGlass.vue"
     // 社会分享组件
     import gkShare from "components/common/gkShare.vue"
     // 车店在售车源列表
     import onSaleList from "components/boxLayout/onSaleList.vue"
     // 出价弹出组件
     import bidPopup from "components/common/bidPopup.vue"
+
 
     // 引入二维码转换器
     import QRCode from 'qrcode';
@@ -693,6 +707,7 @@
         components:{
             gkBreadCrumb,
             fcSlide,
+            magnifyingGlass,
             remdListBox,
             gkShare,
             onSaleList,
@@ -721,6 +736,9 @@
 
                 // 车辆基本信息
                 basicInfo:{},
+
+                // 当前焦点图高亮的点，用以实现放大镜效果
+                currSlideImg: "",
 
                 // 车况信息列表
                 carDetails: [],
@@ -1134,6 +1152,9 @@
                             this.getOnSaleCar(this.basicInfo.mid);
 
                             this.carImgData = this.getCarImgsData(this.fileInfoList,this.otherInfo);
+                            // 设置当前slide的焦点为第一个
+                            this.changeCurrSilde(1);
+
                             // 获取相似推荐数据
                             this.similarList = this._normalizeB2bCarInfo(res.data.SimilarRecommend)
                             // 获取分享标题
@@ -1175,6 +1196,12 @@
                         });
                     }
                 })
+            },
+
+            // 当改变slide焦点时
+            changeCurrSilde(num){
+                let index = num - 1;
+                this.currSlideImg = this.carImgData.imgItems[index].fileUrl;
             },
 
             // 使用手机看

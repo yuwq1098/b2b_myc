@@ -724,16 +724,40 @@ export function getLeftToBrowser(e) {
 
 
 /**
+ * 获取元素的绝对位置
+ * @param dom 元素
+ * @returns 包含left和top的对象
+ */
+export function getPosition(dom){
+    var left = dom.offsetLeft;
+    var top = dom.offsetTop;
+    var current = dom.offsetParent; // 取得元素的offsetParent
+    　// 一直循环直到根元素
+　　while (current != null) {
+    　　left += current.offsetLeft;
+    　　top += current.offsetTop;
+    　　current = current.offsetParent;
+　　}
+    return {"left":left,"top":top};
+}
+
+
+
+
+/**
  * 格式化时间(已过去时间)
  * @param {String} str
  * @returns 格式化后的时间
  */
 export const passByFormatDate = (str) => {
     if (!str) return ''
-    var newStr = str.replace(/\s/g,'T').replace(/\//g,'-');
-    var date = new Date(newStr)
-    // 北京时间东八区/格林威治  北京时间比世界时间快8个小时
-    var time = new Date().getTime() - (date.getTime() - 8 * 3600000) //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
+    // var newStr = str.replace(/\s/g,'T').replace(/\//g,'-');
+    // var date = new Date(newStr)
+    // // 北京时间东八区/格林威治  北京时间比世界时间快8个小时
+    // var time = new Date().getTime() - (date.getTime() - 8 * 3600000) //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
+
+    var date = new Date(str.replace(/[-]/g,'/'));
+    var time = new Date().getTime() - date.getTime();
     if (time < 0) {
         return ''
     } else if ((time / 1000 < 30)) {

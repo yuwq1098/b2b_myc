@@ -384,11 +384,11 @@ _boxShadowByText(insetShadow,shadow)
 
 
 //---透明度写法
+support-for-ie ?= true
 _opacity(n)
-    -webkit-opacity n
-    -moz-opacity n
-    -o-opacity n
-    opacity n
+  opacity n
+  if support-for-ie
+    filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
 
 //---元素的显示隐藏
 

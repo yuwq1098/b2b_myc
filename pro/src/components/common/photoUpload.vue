@@ -92,14 +92,14 @@
     import {joinUrl,dataToJson,strToJson} from 'assets/js/util.js'
     // 本地存储工具
     import {store} from 'assets/js/store.js'
-    // md5加密 
+    // md5加密
     import {md5} from 'assets/js/md5.js'
     // 文件上传(button区域)
     import uploadInput from "components/common/uploadInput.vue"
 
     
     // 单张图片1MB(大于100k就压缩,否则不做处理&&可直接上传)
-    const MAX_FILE_SIZE_100KB = 100 * 1024;    
+    const MAX_FILE_SIZE_100KB = 100 * 1024;
 
     export default {
         name: "photoUpload",
@@ -129,7 +129,7 @@
         },
         // 数据侦听
         watch:{
-            
+
         },
         // 再次进入生命周期钩子(因为keep-alive的原因,created和mounted在页面切换过程中都是无效的)
         activated(){
