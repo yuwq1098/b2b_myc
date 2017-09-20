@@ -71,6 +71,11 @@
                 </div>
             </div><!-- 显示文件区 -->
 
+            <img id="waterMark" 
+                ref="waterMark"
+                :src="watermarkImg" 
+                alt="木有车车辆图片水印" v-show="false" /><!-- 水印 -->
+
             <el-dialog v-model="dialogVisible" size="small">
                 <img width="100%" :src="dialogImageUrl" alt="">
             </el-dialog><!-- 显示大图（对话框）组件 -->
@@ -97,9 +102,8 @@
     // 文件上传(button区域)
     import uploadInput from "components/common/uploadInput.vue"
 
-    
-    // 单张图片1MB(大于100k就压缩,否则不做处理&&可直接上传)
-    const MAX_FILE_SIZE_100KB = 100 * 1024;
+    // 单张图片1MB(大于30k就压缩,否则不做处理&&可直接上传)
+    const MAX_FILE_SIZE_30KB = 30 * 1024;
 
     export default {
         name: "photoUpload",
@@ -117,7 +121,9 @@
                 newFiles: [],
                 // 图片放大对话框
                 dialogImageUrl: '',
-                dialogVisible: false
+                dialogVisible: false,
+                // 木有车水印
+                watermarkImg: require("assets/img/u-watermark-myc.png"),
             }
         },
         props:{
@@ -135,8 +141,9 @@
         activated(){
 
         },
+        // 计算
         computed:{
-                
+
         },
         // 自定义函数(方法)
         methods: {
@@ -155,29 +162,22 @@
                     if(isRepeat){
                         this.$message.error('请不要选择相同的图片');
                         return;
-                    }   
+                    }
                 }
 
                 // 对选择的图片进行处理
                 this._setPhotoFiles(files,function(myFile,base64Img){
-                    // 选择的图片文件大于100kb就进入压缩
-                    if(base64Img.length>MAX_FILE_SIZE_100KB){
+                    // 选择的图片文件大于30kb就进入压缩
+                    if(base64Img.length>MAX_FILE_SIZE_30KB){
                         //调用压缩图片的方法
                         me._compressBase64Image(base64Img,function(base64str){
-                            me.newFiles.push(Object.assign(myFile,{
-                                base64Img: base64str,
-                                isLoad: true,
-                            }));
+                            me.joinArrayFiles(myFile,base64str);
                         });
+
                     }else{
-                        me.newFiles.push(Object.assign(myFile,{
-                            base64Img: base64Img,
-                            isLoad: true,
-                        }));
+                        me.joinArrayFiles(myFile,base64Img);
                     }
-                    
                 });
-                
             },
 
             // 循环处理我们的图片
@@ -185,16 +185,13 @@
                 for (var key of Object.keys(files)) {
                     let myFile = files[key];
                     geekDom.getBase64FromImgFile(myFile,function(base64Img){
-                        if(callBack){  
-                            callBack(myFile,base64Img);  
-                        }  
+                        callBack&&callBack(myFile,base64Img);
                     })
                 }
             },
 
             // 压缩图片
             _compressBase64Image(base64Img,callBack){
-                 
                 let me = this;
                 //    用于压缩图片的canvas
                 var canvas = document.createElement("canvas");
@@ -202,7 +199,9 @@
                 //    瓦片canvas
                 var tCanvas = document.createElement("canvas");
                 var tctx = tCanvas.getContext("2d");
-                
+
+                // 获取水印的DOM
+                var waterMarkDom = this.$refs.waterMark;
 
                 var img = new Image();
                 img.src = base64Img;
@@ -216,7 +215,7 @@
                     var initSize = img.src.length;
                     var width = img.width;
                     var height = img.height;
-                    
+
                     //调整的裁切信息
                     var _resize_info={  
                         w:0,  
@@ -230,16 +229,22 @@
                         w: 640*2,
                         h: 480*2,
                     }
+
                     // 使用canvas裁剪图片
-                    geekDom.drawToCanvas(img,get_info.w,get_info.h,width,height,function(base64str){
-                        if(callBack){  
-                            callBack(base64str);  
-                        }  
+                    geekDom.drawToCanvasJoinWatermark(img,get_info.w,get_info.h,width,height,waterMarkDom,(base64str)=>{
+                        callBack&&callBack(base64str);
                     })
                 }
-                
             },
-            
+
+            // 将图片置入相应的Array集合
+            joinArrayFiles(myFile,base64Img,hasCompress){
+                this.newFiles.push(Object.assign(myFile,{
+                    base64Img: base64Img,
+                    isLoad: true,
+                }));
+            },
+
             //图片上传
             fileUpload(index,name,base64str){
                 let me = this;

@@ -539,13 +539,45 @@ export function drawToCanvas(img,theW,theH,realW,realH,callback){
         0,      //在画布上放置图像的 y 坐标位置,  
         theW,   //要使用的图像的宽度。（伸展或缩小图像） 
         theH    //要使用的图像的高度。（伸展或缩小图像）
-    );  
-
+    );
     //--获取base64字符串及canvas对象传给success函数。  
     var base64str=canvas.toDataURL("image/jpeg",0.8);  
     if(callback){  
         callback(base64str,canvas);  
     }  
+}
+
+/** 
+* @description 使用canvas裁剪/压缩图片
+* @param img,theW,theH,realW,realH  Number/String 传值 图片及各种canvas信息
+* @param watermark  DOM  水印图片
+* @param callBack Function 回调方法
+*/ 
+export function drawToCanvasJoinWatermark(img,theW,theH,realW,realH,watermark,callback){
+    var canvas = document.createElement("canvas");  
+    canvas.width=theW;  
+    canvas.height=theH;  
+    var ctx = canvas.getContext('2d');  
+    ctx.drawImage( img, 0, 0, realW, realH, 0, 0, theW, theH );
+
+    var objWM = {
+        w: 235,
+        h: 35,
+        tw: 235 * 2,
+        th: 35 * 2,
+        tx: theW - (235 * 2) - 12,
+        ty: theH - (35 * 2) - 15,
+    }
+    // 如果水印存在
+    if(watermark){
+        ctx.drawImage( watermark, 0, 0, objWM.w, objWM.h, objWM.tx, objWM.ty, objWM.tw, objWM.th );
+    }
+
+    //--获取base64字符串及canvas对象传给success函数。  
+    var base64str=canvas.toDataURL("image/jpeg",0.8);  
+    if(callback){  
+        callback(base64str,canvas);  
+    }
 }
 
 
