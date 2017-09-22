@@ -229,7 +229,7 @@
                         _completeCenter()
                     &.merchant
                         background url('../../assets/img/car-lable-02.png') 0 0 no-repeat
-                    background-size cover
+                        background-size cover
 
                 .u-pic
                     width @width

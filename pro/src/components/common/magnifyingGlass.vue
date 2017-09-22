@@ -4,7 +4,7 @@
 
 <template>
     <div class="magnifyingGlass">
-        <div class="m-magnifying">
+        <div class="m-magnifying" v-if="!!imageUrl">
             <div id="normal-box" ref="normalBox">
                 <div id="mark"
                     ref="mark"

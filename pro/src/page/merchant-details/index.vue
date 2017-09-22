@@ -232,8 +232,11 @@
                         //这个位置放swiper的回调方法  
                         this.page = swiper.realIndex+1;  
                         this.index = swiper.realIndex;  
-                    }  
-                }  
+                    },
+                    onAutoplayStop: (swiper) => {
+                        swiper.startAutoplay();
+                    }
+                }
             }
         },
         //生命周期,开始的时候
@@ -255,7 +258,8 @@
         },
         //退出的生命周期钩子
         deactivated(){
-
+            // 重置信息
+            this.reset();
         },
         // 数据侦听
         watch:{
@@ -456,7 +460,20 @@
                 })
             }
         },
-        
+        // 重置
+        reset(){
+
+            // 清除我的延时器
+            if(this.mySetTimeOut){
+                clearTimeout(this.mySetTimeOut);
+                this.mySetTimeOut = null;
+            }
+            // 车行（或卖家）ID
+            this.merchantId = "";
+            // 车行数据
+            this.merchantData = new merchantInfo({});
+
+        },
     }
 </script>
 

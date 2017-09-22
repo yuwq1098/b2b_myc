@@ -63,11 +63,11 @@
                                     </template>
                             </div>
                         </template>
-                        <template v-else-if="!hasCredit">
+                        <!-- <template v-else-if="!hasCredit">
                             <div class="u-price">
                                 <em class="info">信誉保证金不足</em>
                             </div>
-                        </template>
+                        </template> -->
                         <template v-else>
                             <div class="u-price">批发价：
                                 <em class="vital">{{carInfo.price | priceToFixed(2)}}</em>

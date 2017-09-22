@@ -37,11 +37,11 @@
                                             class="u-lk operate"
                                             tag="a"
                                             >
-                                            <template 
+                                            <template
                                                 v-if="memberData&&(memberData.authName=='未实名认证'&&memberData.hasApplyCount==0)"
                                                 >立即认证
                                             </template>
-                                            <template 
+                                            <template
                                                 v-else
                                                 >管理我的认证
                                             </template>
@@ -73,6 +73,10 @@
                                 ref="uploadInputFile" 
                                 accept="image/png,image/jpeg,image/jpg"
                                 /><!-- 真实的文件上传按钮 -->
+
+                            <avatar-clip
+                                >
+                            </avatar-clip><!-- 图片上传组件 -->
 
                             <div class="m-hd">
                                 <div class="m-face">
@@ -125,7 +129,7 @@
 </template>
 
 <script>
-    
+
     // 获取数据的api
     import api from 'api/getData.js'
     // 引入系统变量
@@ -140,9 +144,11 @@
     import {memberInfo} from 'base/class/member.js'
 
     // 会员中心内容布局组件
-    import memberLayout from 'components/layout/memberCon.vue' 
+    import memberLayout from 'components/layout/memberCon.vue'
     // 会员中心子内容组件
     import memberInner from 'components/layout/memberInner.vue'
+    // vue头像剪裁组件
+    import avatarClip from 'components/common/avatarClip.vue'
 
     //引入表单验证
     import { Validator } from 'vee-validate';
@@ -155,6 +161,7 @@
         components:{
             memberLayout,
             memberInner,
+            avatarClip,
         },
         // 数据
         data() {
@@ -234,7 +241,7 @@
                             duration: 1500,
                         });
                     }
-                })   
+                })
             },
 
             // 为编辑页的信息赋值
