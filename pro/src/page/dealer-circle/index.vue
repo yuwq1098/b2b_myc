@@ -159,7 +159,7 @@
         },
         methods:{
 
-            // 格式化车店
+            // 格式化车行列表
             _normalizeCdgList(list) {
                 let arr = [];
                 list.forEach((item,index) => {
@@ -168,7 +168,7 @@
                 return arr;
             },
 
-            // 获取车店搜索结果
+            // 获取车行搜索结果
             getDealerCDGList(){
                 let data = {
                     PageIndex: 1,

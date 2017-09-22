@@ -774,8 +774,6 @@ export function getPosition(dom){
 }
 
 
-
-
 /**
  * 格式化时间(已过去时间)
  * @param {String} str

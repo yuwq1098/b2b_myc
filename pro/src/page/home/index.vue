@@ -21,7 +21,6 @@
                                             <img :src="item.imgUrl" :alt="item.title" class="pic"/>
                                         </router-link>
                                     </template>
-                                    
                                 </swiper-slide>  
                             </template>
                             <!-- 这是轮播的小圆点 -->  
@@ -71,8 +70,7 @@
                     </div><!-- B2B专区大厅入口 -->
 
                     <div class="f__w1200">
-                        <div class="m-lst-mn">
-
+                        <div class="m-carlist-container">
                             <div class="m-lst-wrap v1">
                                 <div class="m-lst-hd f__clearfix">
                                     <h3 class="f__fl">
@@ -90,6 +88,77 @@
                                     </b2b-car-list-box>
                                 </div><!-- 列表内容 -->
                             </div><!-- 热门好车 -->
+                        </div><!-- 主要的信息列表盒子 -->
+
+                    </div><!-- 1200布局 -->
+
+
+                    <div class="m-trade-star">
+                        <section class="inner-box f__w1200 f__clearfix">
+                            <div class="star-dealer-bg"></div><!-- 背景 -->
+                            <div class="dealer-box">
+                                <ul class="dealer-lst f__clearfix" v-if="starDealerList.length>0">
+                                    <template v-for="(item,index) in starDealerList">
+                                        <li class="u-item v1"
+                                            ref="starDealerBoxDom"
+                                            :class="{'last-line':index>=6,
+                                                    'corner-tl':index==0,
+                                                    'corner-tr':index==2,
+                                                    'corner-bl':index==6,
+                                                    'corner-br':index==8,
+                                                    'top-block':index==1,
+                                                    'right-block':index==5,
+                                                    'bottom-block':index==7,
+                                                    'left-block':index==3,
+                                                    'center-block':index==4,
+                                                    }"
+                                            @mousemove="starDealerBoxHoverEvent($event,index)"
+                                            @mouseleave="starDealerBoxLeaveEvent($event,index)"
+                                        >
+                                            <router-link class="u-box" tag="a"
+                                                :to="{path:'/merchantDetails',query:{'cid':item.mid}}"
+                                                :title="'进入'+item.cdgName">
+                                                <div class="u-pic" name="avatarWrap">
+                                                    <img :src="item.faceUrl" :alt="item.nikeName"/>
+                                                </div>
+                                                <div class="info-con">
+                                                    <h4 class="cdg-name">{{item.cdgName}}</h4>
+                                                    <p class="owner-info">{{item.city}}-{{item.nikeName}}</p>
+                                                    <p class="has-credit" v-if="item.hasCredit==1">已缴纳保证金</p>
+
+                                                    <div class="onsale">
+                                                        <em class="vital">{{item.carCount}}</em>
+                                                        <span>在售</span>
+                                                    </div>
+                                                </div><!-- 信息 -->
+                                            </router-link>
+                                        </li>
+                                    </template>
+                                </ul>
+                                <ul class="dealer-lst f__clearfix" v-else>
+                                    <template v-for="(item,index) in 9">
+                                        <li class="u-item v1"
+                                            :class="{'last-line':index>=6,
+                                                    'corner-tl':index==0,
+                                                    'corner-tr':index==2,
+                                                    'corner-bl':index==6,
+                                                    'corner-br':index==8,
+                                                    'top-block':index==1,
+                                                    'right-block':index==5,
+                                                    'bottom-block':index==7,
+                                                    'left-block':index==3,
+                                                    'center-block':index==4,
+                                                    }">
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div><!-- 明星车商 -->
+                        </section><!-- 1200px布局 -->
+                    </div><!-- 交易明星/明星车商 -->
+
+
+                    <div class="f__w1200">
+                        <div class="m-carlist-container">
 
                             <div class="m-lst-wrap v2">
                                 <div class="m-lst-hd f__clearfix">
@@ -107,21 +176,19 @@
                                 <div class="m-btn-wrap">
                                     <a class="u-btn" @click="changeBatch()">换一批</a>
                                 </div><!-- 换一批按钮 -->
-
                             </div><!-- 猜你喜欢 -->
+
                         </div><!-- 主要的信息列表盒子 -->
-                        
                     </div><!-- 1200布局 -->
 
-                    
+
                 </div><!-- 网页内容 -->
 
             </div><!-- 网页主体 -->
-            
+
             <!-- 引入底部站点服务图示 -->
             <c-foot-server></c-foot-server>
-            
-            
+
         </div><!-- 文档 -->
     </div>
 </template>
@@ -144,11 +211,13 @@
     import {noticeBarList,swiperItems} from "api/localJson/home.js"
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
+    // 单个车店排名信息的构造类
+    import {dealerInfo} from 'base/class/dealerCircle.js'
     // b2b/b2c车辆信息构造类
     import {b2bCarInfo,b2cCarInfo} from "base/class/carInfo.js"
     // 车辆搜索结果的构造类
     import {searchCarResult} from "base/class/searchResult.js"
-    
+
     // 搜索结果选择组件
     import srhSelect from "components/common/srhSelect.vue"
     // 车辆品牌选择组件
@@ -162,20 +231,18 @@
     import remdListBox from "components/boxLayout/remdListBox.vue"
     // b2b车辆信息列表盒子
     import b2bCarListBox from "components/boxLayout/b2bCarListBox.vue"
-    
+
     //搜索延迟,150ms
     const SEARCH_DELAY = 150
-
-
 
     export default {
         name: 'home',
         // 注册组件
         components: {
-            swiper,  
+            swiper,
             swiperSlide,
             cFootServer,
-            
+
             brandSelect,
             srhSelect,
             noticeBar,
@@ -189,6 +256,8 @@
             return {
                 // 用户信息
                 memberData: null,
+                // 明星车商列表
+                starDealerList: [],
 
                 //全部搜索的绑定值
                 allSearchInputVal: "",
@@ -204,14 +273,13 @@
 
                 noticeBarList: noticeBarList,    //公告滚动条的信息列表
                 swiperItems: swiperItems,        //首页轮播图数据集合
-                
 
                 // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
                 notNextTick: true,
 
                 swiperOption: {
-                    slidesPerView: 'auto',  
-                    centeredSlides: true,  
+                    slidesPerView: 'auto',
+                    centeredSlides: true,
                     autoplay : 3500,
                     speed: 500,                         //速度
                     loop: true,                         //环路
@@ -221,11 +289,11 @@
                     fade: {
                         crossFade: false,
                     },
-                    spaceBetween: 0,  
-                    onSlideChangeEnd: (swiper) => {  
-                        //这个位置放swiper的回调方法  
-                        this.page = swiper.realIndex+1;  
-                        this.index = swiper.realIndex;  
+                    spaceBetween: 0,
+                    onSlideChangeEnd: (swiper) => {
+                        //这个位置放swiper的回调方法
+                        this.page = swiper.realIndex+1;
+                        this.index = swiper.realIndex;
                     },
                     onAutoplayStop: (swiper) => {
                         swiper.startAutoplay();
@@ -246,9 +314,12 @@
             //获取b2b二手车大厅列表
             this._getB2bCarList();
 
+            // 获取明星车商的列表数据
+            this._getStarDealerListData();
+
             // 获取猜你喜欢的数据
             this.getYouLike();
-
+            // 
             //更新swiper(强制初始化)
             this.$nextTick(() => {
                 if(this.siteHomeSwiper){
@@ -365,7 +436,7 @@
 
             //通过用户输入获取对应信息
             allSearchInput(){
-                
+
                 if(this.allSearchInputVal=="") return;
 
                 this.srhValItems.push(this.allSearchInputVal);
@@ -418,6 +489,66 @@
                 );
             },
 
+            // 格式化车行列表
+            _normalizeCdgList(list) {
+                let arr = [];
+                list.forEach((item,index) => {
+                    arr.push(new dealerInfo(item));
+                })
+                return arr;
+            },
+
+            // 获取明星车商数据
+            _getStarDealerListData(){
+                let data = {
+                    PageIndex: 1,
+                    PageSize: 9,
+                }
+                // 发起车商信息api信息请求
+                api.carDealerCircleRanking(data).then((res) => {
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                        this.starDealerList = this._normalizeCdgList(res.data.CdgList);
+                        console.log(this.starDealerList);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '信息获取失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 1500,
+                        });
+                    }
+                });
+            },
+
+            // 明星车商鼠标悬浮效果
+            starDealerBoxHoverEvent(ev,index){
+
+                var _event = ev || window.event;  //兼容多个浏览器的event参数模式
+                var thestarDealerDom = this.$refs.starDealerBoxDom[index];
+                var avatarDom = thestarDealerDom.querySelectorAll("[name='avatarWrap']")[0];
+
+                var boxOffsetObj = {
+                    x: ev.clientX - (Math.floor(thestarDealerDom.offsetWidth/2) + geekDom.getPosition(thestarDealerDom).left),
+                    y: (Math.floor(thestarDealerDom.offsetHeight/2) + geekDom.getPosition(thestarDealerDom).top) - (geekDom.getScrollTop() + ev.clientY)
+                }
+                // 比例
+                var ratios = 0.6;
+                geekDom.css(thestarDealerDom,'rotateX', Math.floor(ratios*boxOffsetObj.y/5))
+                geekDom.css(thestarDealerDom,'rotateY', Math.floor(ratios*boxOffsetObj.x/14))
+                var avatarRatios = 0.4;
+                geekDom.css(avatarDom,'translateX',  - Math.floor(avatarRatios*boxOffsetObj.x/14))
+                geekDom.css(avatarDom,'translateY', Math.floor(avatarRatios*boxOffsetObj.y/5))
+
+            },
+            // 取消悬浮
+            starDealerBoxLeaveEvent(ev,index){
+                var thestarDealerDom = this.$refs.starDealerBoxDom[index];
+                var avatarDom = thestarDealerDom.querySelectorAll("[name='avatarWrap']")[0];
+                // 删除行内样式
+                thestarDealerDom.removeAttribute('style');
+                avatarDom.removeAttribute('style');
+            },
+
             // 获取猜你喜欢的数据
             getYouLike(){
                 api.getGuessYouLike().then((res) => {
@@ -443,7 +574,6 @@
                 return carInfo;
             },
         },
-        
     }
 </script>
 

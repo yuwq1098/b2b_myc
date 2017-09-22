@@ -17,19 +17,19 @@ export const swiperItems = [
         imgUrl: require("assets/img/hall-figure03.jpg"),
     },
     {
-        title: '向导精品二手车',
-        path: 'merchantDetails?cid=1785410048',
-        imgUrl: require("assets/img/merchant-figure03.png")
+        title: '宁波卢露精品车行',
+        path: 'merchantDetails?cid=1702499952',
+        imgUrl: require("assets/img/merchant-figure04.png")
     },
     {
-        title: '深圳骏丰汇',
-        path: 'merchantDetails?cid=1755297989',
-        imgUrl: require("assets/img/merchant-figure01.png")
+        title: '泛洋盛汽车广场',
+        path: 'merchantDetails?cid=1702975349',
+        imgUrl: require("assets/img/merchant-figure05.png")
     },
     {
-        title: '袁氏万坤二手车',
-        path: 'merchantDetails?cid=1775352515',
-        imgUrl: require("assets/img/merchant-figure02.png")
+        title: '田园名车广场',
+        path: 'merchantDetails?cid=1789854102',
+        imgUrl: require("assets/img/merchant-figure06.png")
     },
 ]
 

@@ -412,6 +412,11 @@ _rotate(angle=0)
     -o-transform: rotate(angle);
     transform: rotate(angle);
 
+//---旋转自定义
+_rotateCustom()
+    -webkit-transform: arguments
+    transform: arguments
+
 
 //---缩放
 _scale(zoom=0.8)
@@ -492,6 +497,12 @@ _transformOrigin(x=50%, y=50% , z=0)
     -moz-transform-origin x y z
     -o-transform-origin x y z
     transform-origin x y z
+
+
+//---3D转换
+_transformStyle($theStyle=preserve-3d)
+    -webkit-transform-style $theStyle
+    transform-style $theStyle
 
 
 //---文本提示样式

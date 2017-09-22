@@ -286,9 +286,9 @@
             },
             theAuthType(){
                 if(this.merchantData.authType=="个人车行"){
-                    return "个人车商";
+                    return "个人认证";
                 }else if(this.merchantData.authType=="企业车行"){
-                    return "企业车商";
+                    return "企业认证";
                 }
             }
 
