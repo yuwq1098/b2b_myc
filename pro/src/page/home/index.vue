@@ -508,7 +508,6 @@
                 api.carDealerCircleRanking(data).then((res) => {
                     if(res.code==SYSTEM.CODE_IS_OK){
                         this.starDealerList = this._normalizeCdgList(res.data.CdgList);
-                        console.log(this.starDealerList);
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '信息获取失败',

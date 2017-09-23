@@ -75,7 +75,8 @@
                                 /><!-- 真实的文件上传按钮 -->
 
                             <avatar-clip
-                                >
+                                v-if="isShowAvatarClip"
+                                :clipImage="avatarClipImg">
                             </avatar-clip><!-- 图片上传组件 -->
 
                             <div class="m-hd">
@@ -184,6 +185,9 @@
                 newFileBase64: "",    // 新文件的Base64位图片
                 uploadTips: "",       // 图片上传提示
                 errorText: "",        // 总错误提示
+                // 显示头像裁切
+                isShowAvatarClip: false,
+                avatarClipImg: "",
 
             }
         },
@@ -257,11 +261,19 @@
                 uploadInputFile.click();
             },
             
-            // 头像文件更新
+            // 头像文件的值发生变化
             uploadInputChange(){
-                let me = this;
+                let that = this;
                 var photoFile = this.$refs.uploadInputFile.files;
                 if(photoFile.length<=0) return;
+                this._getBase64Img(photoFile,function(myFile,base64Img){
+                    that.isShowAvatarClip = true;
+                    that.avatarClipImg = base64Img;
+                });
+            },
+
+            // 操作上传文件
+            operateUploadFile(photoFile){
                 this._getBase64Img(photoFile,function(myFile,base64Img){
                     me.myFile = Object.assign(myFile,{
                         base64Img: base64Img
@@ -273,16 +285,15 @@
                         me.fileUpload(me.myFile.name,base64str);
                     })
                 })
-                
             },
 
             // 获取Base64位的图片
             _getBase64Img(files,callBack){
                 let myFile = files[0];
                 geekDom.getBase64FromImgFile(myFile,function(base64Img){
-                    if(callBack){  
+                    if(callBack){
                         callBack(myFile,base64Img);
-                    }  
+                    }
                 })
             },
 
