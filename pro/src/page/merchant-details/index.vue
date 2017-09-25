@@ -247,7 +247,6 @@
 
         },
         activated(){
-
             // 获取用户信息
             this.getMemberInfo();
             // 获取卖家ID
@@ -258,7 +257,6 @@
         },
         //退出的生命周期钩子
         deactivated(){
-            // 重置信息
             this.reset();
         },
         // 数据侦听
@@ -299,7 +297,11 @@
         },
         // 自定义函数(方法)
         methods: {
-
+            
+            myDefinedFunc(){
+                console.log("蛋疼的紧")
+            },
+            
             // 格式化用户信息
             _normalizeMember(data) {
                 return new memberInfo(data);
@@ -366,7 +368,6 @@
                         // 延迟获取焦点图列表
                         setTimeout(()=>{
                             this.slideCarList = this._normalizeSlideCarList(this.merchantCarList);
-                            
                             // 设置网页title
                             var currAuth = this.merchantData.isPartner?"合作商":this.theAuthType;
                             var options = {
@@ -414,11 +415,12 @@
                     }
                 }
             },
-            
+
             // 收藏和取消收藏的事件
             setAttention(type,id){
                 let act = "";
                 let tips = "";
+
                 if(type==1){
                     act="Add";
                     tips = "收藏成功";
@@ -426,12 +428,11 @@
                     act="Delete"
                     tips = "成功取消收藏";
                 }
-                
                 let data = {
                     ActType: act,
                     SellerId: id
                 }
-                
+
                 // 收藏和取消收藏
                 api.myFavoriteCdg(data).then(res => {
                     if(res.code==SYSTEM.CODE_IS_OK){
@@ -458,22 +459,22 @@
                         });
                     }
                 })
-            }
-        },
-        // 重置
-        reset(){
+            },
 
-            // 清除我的延时器
-            if(this.mySetTimeOut){
-                clearTimeout(this.mySetTimeOut);
-                this.mySetTimeOut = null;
-            }
-            // 车行（或卖家）ID
-            this.merchantId = "";
-            // 车行数据
-            this.merchantData = new merchantInfo({});
+            // 重置
+            reset(){
+                // 清除我的延时器
+                if(this.mySetTimeOut){
+                    clearTimeout(this.mySetTimeOut);
+                    this.mySetTimeOut = null;
+                }
+                // 车行（或卖家）ID
+                this.merchantId = "";
+                // 车行数据
+                this.merchantData = new merchantInfo({});
 
-        },
+            },
+        }
     }
 </script>
 

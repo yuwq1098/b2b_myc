@@ -47,9 +47,11 @@
 
         			<div class="btn-wrap f__clearfix">
         				<button class="u-btn ok"
-        				    @click="cutterOk">确认</button>
+        				    @click="cutterOk"  v-show="!isUploading">确认</button>
+        				<button class="u-btn upload"
+        				    @click="cutterOk"  v-show="isUploading"><i class="iconfont icon-jiazai1"></i>正在上传</button>
         				<button class="u-btn cancel"
-        				    @click="cutterCancel">取消</button>
+        				    @click="cutterCancel()">取消</button>
         			</div><!-- 按钮区域 -->
         		</div>
         	</div>
@@ -59,6 +61,10 @@
 
 <script type="text/javascript">
 
+    // 获取数据的api
+    import api from 'api/getData.js'
+    // 引入系统变量
+    import * as SYSTEM from 'api/system.js'
     // dom操作类
     import * as geekDom from 'assets/js/dom.js'
 
@@ -99,6 +105,11 @@
                 isDragToClip: false,
                 // 图片裁剪对象开始拖拽时鼠标按下的位置
                 clipEvPositionObj: true,
+
+                // 剪裁结果图
+                cutResultBase64Img: "",
+                // 图片是否正在上传
+                isUploading: false,
     		}
     	},
     	props: {
@@ -156,7 +167,6 @@
 					        that.originalImgStyle.h = imgFix.height;
 					    }
 					    that.depthWidth_ration = that.originalImgStyle.h/that.originalImgStyle.w;
-					    console.log(that.depthWidth_ration)
 					    that.initClipImageStyle()
 					}
 					img.src = that.avatarPhoto;
@@ -253,7 +263,7 @@
                 if(this.depthWidth_ration<=1){
                     let increment = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.h) / 10;
                     // 缩放比例
-                    _scaleRatio = (this.selfImgStyle.h + decrement)/this.selfImgStyle.h;
+                    _scaleRatio = (this.selfImgStyle.h + increment)/this.selfImgStyle.h;
                     // 如果到了临界值，则对其作出相应约束
                     if(this.selfImgStyle.h + increment>=(this.boxMinSize.h * this.zoomScaleRange.max)){
                         this.selfImgStyle.h = this.boxMinSize.h * this.zoomScaleRange.max;
@@ -464,19 +474,121 @@
 
             // 确认
             cutterOk(){
-                console.log("信息确认");
+            	let that = this;
+            	this.isUploading = true;
+                // 获取裁剪结果图片
+                this._clipImageFunc(this.avatarPhoto,function(base64Img){
+                	that.cutResultBase64Img = base64Img,
+                	that.fileUpload('新头像',base64Img);
+                })
             },
+
+            //图片上传
+            fileUpload(name,base64str){
+                let me = this;
+                let data = {
+                    title: name,
+                    dataUrl: base64str,
+                }
+                api.uploadPublicFileBatch(data).then(res=>{
+                    if(res.code==SYSTEM.CODE_IS_OK){
+                    	var fileId = res.data.FileId;
+                        this.$emit('uploadAvatarSuccess',base64str,fileId);
+                    }else if(res.code==SYSTEM.CODE_IS_ERROR){
+                        this.$notify({
+                            title: '上传失败',
+                            message: res.msg,
+                            type: 'error',
+                            duration: 2000,
+                        });
+                    }
+                    // 取消正在上传的loading
+                    this.isUploading = false;
+                })
+            },
+
+            // 使用canvas裁剪图片
+            _clipImageFunc(base64Img,callBack){
+            	var that = this;
+            	var img = new Image();
+            	// 操作图示与原图比 / 用以计算top left
+            	var scale = 1;
+            	// 裁切比
+            	var clipScale = 1;
+
+                img.src = base64Img;
+                // 但图片加载完毕后执行回调，避免后续操作中img是不存在的
+                if (img.complete) {
+                    myCallback();
+                } else {
+                    img.onload = myCallback;
+                }
+
+                function myCallback() {
+                	// 原图宽高信息
+                	var originImg_info = {
+	            		w: img.width,
+	            		h: img.height
+	            	}
+	            	scale = that.outputImage.offsetWidth/originImg_info.w;
+	            	if(originImg_info.w/originImg_info.h>=1){
+	            		clipScale = that.outputImage.offsetHeight/that.imgOutputDom.offsetHeight;
+	            	}else{
+	            		clipScale = that.outputImage.offsetWidth/that.imgOutputDom.offsetWidth;
+	            	}
+
+	            	var clipObj = {
+	            		rx: - that.outputImage.offsetLeft / scale,
+	            		ry: - that.outputImage.offsetTop / scale,
+	            		width: that.imgOutputDom.offsetWidth,
+	            		height: that.imgOutputDom.offsetHeight
+	            	}
+
+	            	// 保证图片比例/ 因为结果是个正方形
+                    if(originImg_info.w>originImg_info.h){
+                        originImg_info.w = originImg_info.h;
+                    }else{
+                    	originImg_info.h = originImg_info.w;
+                    }
+
+                    geekDom.drawToCanvasHasPst(
+                        img,
+                        clipObj.rx,
+                        clipObj.ry,
+                        originImg_info.w/clipScale,
+                        originImg_info.h/clipScale,
+                        0,
+                        0,
+                        clipObj.width,
+                        clipObj.height,
+	                    function(base64str){ 
+	                        callBack&&callBack(base64str);
+	                    }
+	                )
+                }
+            },
+
             // 取消
-            cutterCancel(){
-                console.log("信息取消");
-            },
-    	},
+	        cutterCancel(){
+	        	// 关闭头像剪裁框
+	            this.$emit("closeClip");
+	        },
+        },
     }
 </script>
 
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import '~assets/css/mixin.styl'
+    @keyframes circleFn {
+	  from {
+	    _rotate(0deg)
+	  }
+	  to {
+	    _rotate(360deg)
+	  }
+	}
+
     .avatarClip
         width 100%
         height 100%
@@ -528,7 +640,7 @@
                             _overflow()
                             img
                                 position absolute
-                                _transitionAll(.15s cubic-bezier(0.14, 0.46, 0.46, 1.02))
+                                _transitionAll(.15s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
                         .clip-mark
                             width @width - 50px
                             height @width
@@ -543,7 +655,7 @@
                             z-index 2
                             img
                                 position absolute
-                                _transitionAll(.15s cubic-bezier(0.14, 0.46, 0.46, 1.02))
+                                _transitionAll(.15s,cubic-bezier(0.14, 0.46, 0.46, 1.02))
                     .slider-control
                         width @width
                         height 30px
@@ -598,15 +710,28 @@
                             height @height
                             line-height @height
                             margin-left 4px
-                            &.ok
+                            &.ok,&.upload
                                 background $c_blue
                                 color #fff
                                 &:hover
                                     background @background - 12%
                                 &:active
                                     background @background + 2%
+                            &.upload
+                            	font-size 15px
+                            	.iconfont
+                            		_display(inline-block)
+                            		font-size 19px
+                            		margin-right 6px
+                            		_animationSingle(circleFn,2s)
+                            		_verticalTextAlign(-2%)
                             &.cancel
                                 background transparent
                                 color #222
+        .result-pic
+        	width 230px
+        	height 230px
+        	_completeCenter(auto,150px)
+        	_imgwrap()
 </style>
 

@@ -548,6 +548,36 @@ export function drawToCanvas(img,theW,theH,realW,realH,callback){
 }
 
 /** 
+* @description 使用canvas裁剪/压缩图片,升级加位置
+* @param img,theW,theH,realW,realH  Number/String 传值 图片及各种canvas信息
+* @param callBack Function 回调方法
+*/ 
+export function drawToCanvasHasPst(img,sx,sy,realW,realH,x,y,theW,theH,callback){
+
+    var canvas = document.createElement("canvas");  
+    canvas.width=theW;  
+    canvas.height=theH;  
+    var ctx = canvas.getContext('2d');  
+    ctx.drawImage(
+        img,    //规定要使用的图像、画布或视频。
+        sx,      //开始剪切的 x 坐标位置,  
+        sy,      //开始剪切的 y 坐标位置,  
+        realW,  //被剪切图像的宽度,  
+        realH,  //被剪切图像的高度,
+        x,      //在画布上放置图像的 x 坐标位置,  
+        y,      //在画布上放置图像的 y 坐标位置,  
+        theW,   //要使用的图像的宽度。（伸展或缩小图像） 
+        theH    //要使用的图像的高度。（伸展或缩小图像）
+    );
+    //--获取base64字符串及canvas对象传给success函数。  
+    var base64str=canvas.toDataURL("image/jpeg",0.8);  
+    if(callback){  
+        callback(base64str,canvas);  
+    }  
+}
+
+
+/** 
 * @description 使用canvas裁剪/压缩图片
 * @param img,theW,theH,realW,realH  Number/String 传值 图片及各种canvas信息
 * @param watermark  DOM  水印图片

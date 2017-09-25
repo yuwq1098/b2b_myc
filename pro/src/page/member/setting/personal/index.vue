@@ -76,7 +76,9 @@
 
                             <avatar-clip
                                 v-if="isShowAvatarClip"
-                                :clipImage="avatarClipImg">
+                                :clipImage="avatarClipImg"
+                                @closeClip="closeClip"
+                                @uploadAvatarSuccess="clipImageSuccess">
                             </avatar-clip><!-- 图片上传组件 -->
 
                             <div class="m-hd">
@@ -110,7 +112,7 @@
                                         <i class="iconfont icon-jinggao1"></i>{{errorText}}</p>
                                 </div><!-- 报错 -->
                                 <div class="m-btn-box f__clearfix">
-                                    <a href="javascript:;" 
+                                    <a href="javascript:;"
                                         @click="onSubmit()" class="u-btn commit"
                                         >保存
                                     </a>
@@ -272,6 +274,28 @@
                 });
             },
 
+            // 获取Base64位的图片
+            _getBase64Img(files,callBack){
+                let myFile = files[0];
+                geekDom.getBase64FromImgFile(myFile,function(base64Img){
+                    if(callBack){
+                        callBack(myFile,base64Img);
+                    }
+                })
+            },
+
+            // 图片上传成功
+            clipImageSuccess(base64str,fileId){
+                this.imgFileId = fileId;
+                this.faceImg = base64str;
+                this.closeClip();
+            },
+
+            // 关闭图像裁切组件
+            closeClip(){
+                this.isShowAvatarClip = false;
+            },
+
             // 操作上传文件
             operateUploadFile(photoFile){
                 this._getBase64Img(photoFile,function(myFile,base64Img){
@@ -285,86 +309,6 @@
                         me.fileUpload(me.myFile.name,base64str);
                     })
                 })
-            },
-
-            // 获取Base64位的图片
-            _getBase64Img(files,callBack){
-                let myFile = files[0];
-                geekDom.getBase64FromImgFile(myFile,function(base64Img){
-                    if(callBack){
-                        callBack(myFile,base64Img);
-                    }
-                })
-            },
-
-            // 压缩图片
-            _compressBase64Image(base64Img,callBack){
-                 
-                let me = this;
-                //    用于压缩图片的canvas
-                var canvas = document.createElement("canvas");
-                var ctx = canvas.getContext('2d');
-                //    瓦片canvas
-                var tCanvas = document.createElement("canvas");
-                var tctx = tCanvas.getContext("2d");
-                
-
-                var img = new Image();
-                img.src = base64Img;
-                if (img.complete) {
-                    myCallback();
-                } else {
-                    img.onload = myCallback;
-                }
-
-                function myCallback() {
-                    var initSize = img.src.length;
-                    var width = img.width;
-                    var height = img.height;
-                    var scale = 1;
-                    var fixedPixel = 200;
-
-                    //调整的被裁切图片的信息
-                    var _resize_info={  
-                        w:0,  
-                        h:0,
-                        l:0,
-                        r:0,
-                    };
-
-                    // 期望获取裁剪后图片的信息
-                    var get_info = {
-                        w: fixedPixel,
-                        h: fixedPixel,
-                    }
-                    
-                    // 保证图片比例
-                    if(width>height){
-                        _resize_info.h = height;
-                        _resize_info.w = height;
-                    }else{
-                        _resize_info.w = width;
-                        _resize_info.h = width;
-                    }
-
-                    img.width = get_info.w;
-                    img.height = get_info.h;
-
-                    
-                    // 使用canvas裁剪图片
-                    geekDom.drawToCanvas(
-                        img,
-                        get_info.w,
-                        get_info.h,
-                        _resize_info.w,
-                        _resize_info.h,
-                        function(base64str){
-                            if(callBack){  
-                                callBack(base64str);  
-                            }  
-                        }
-                    )
-                }
             },
 
             //图片上传
