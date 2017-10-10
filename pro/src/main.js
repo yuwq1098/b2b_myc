@@ -36,7 +36,7 @@ Vue.use(VeeValidate, vConfig, validator);
 import * as yyd from 'assets/js/yydjs.js';
 
 // 引入木有车网站的公共样式
-import 'assets/css/index.styl'
+import 'assets/css/index.styl';
 
 // 将根路径赋给 Vue原型方法
 Vue.prototype.URL = function(){

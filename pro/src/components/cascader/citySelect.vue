@@ -40,7 +40,7 @@
                 // 级联选择组件的props
                 props: {
                     value: 'value',
-                    children: 'children'    
+                    children: 'children'
                 }
             }
         },
@@ -174,7 +174,7 @@
                     callBack&&callBack(this._normalizes(res.data,2));
                 })
             },
-            
+
             // 格式化相关选项   @type  =1 省份， =2 城市
             _normalizes(list,type){
                 let arr = [];
@@ -187,7 +187,7 @@
                             arr.push(new cityCascader(item));
                             break;
                     }
-                    
+
                 })
                 return arr;
             },
@@ -209,10 +209,10 @@
                 if(arr.length<2) return;
                 return arr[0]+"/"+arr[1];
             },
-            
+
             // 清除值
             clearVal(){
-                      
+
             },
 
         },
