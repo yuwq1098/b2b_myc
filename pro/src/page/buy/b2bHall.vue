@@ -298,7 +298,8 @@
                         <div class="m-hd f__clearfix">
                             <h3 class="u-tit f__fl">
                                 <span class="tit">全部车源</span>
-                                <span class="data" v-show="resultPage.totalPage>0">(共<em class="vital">{{resultPage.totalPage}}</em>条搜索结果)</span>
+                                <span class="data"
+                                    >(共<em class="vital">{{resultPage.totalPage}}</em>条结果，新增<em class="vital">{{newAddsCount}}</em>辆车)</span>
                             </h3>
                             <div class="m-filtrate f__fr">
                                 <ul class="m-filter-lst f__clearfix" id="js__sort_list">
@@ -529,6 +530,9 @@
                     pageSize : SYSTEM.HALL_RESULE_PAGE_SIZE,
                     totalPage : 0
                 },
+
+                // 今日新增
+                newAddsCount: 0,
 
             }
 
@@ -1220,14 +1224,15 @@
                 // if(data.PageIndex==1){
                 //     data.TS = +new Date();   
                 // }
-                let me = this;
                 api.getB2BCarList(data).then((res) => {
                     // 获取权限相关的信息
                     this.hasLogin = res.HasLogin;
                     this.hasAuth = res.HasAuth;
                     this.hasCredit = res.HasCredit;
                     this.b2bCarList = this._normalizeB2bCarInfo(res.data)
-                    me.resultPage.totalPage = parseInt(res.total);
+                    this.resultPage.totalPage = parseInt(res.total);
+                    // 今日新增
+                    this.newAddsCount = res.TodayCnt 
                 });
             },
 

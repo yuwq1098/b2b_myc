@@ -107,7 +107,6 @@
         },
         //生命周期,开始的时候
         created(){
-            
             this.validator = new Validator({
                 feedbackContent: 'required',
                 contactText: 'required',
@@ -115,8 +114,9 @@
             this.$set(this, 'errors', this.validator.errors);
 
         },
+        // 代码挂载到实例上的钩子
         mounted(){
-            
+            console.log("代码")
         },
         activated(){
             // 获取反馈类别可用类型
@@ -143,7 +143,6 @@
 
         // 自定义函数(方法)
         methods: {
-            
             // 获取反馈类别可用类型
             getFeedback(){
                 api.getFeedback().then(res => {

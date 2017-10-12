@@ -146,6 +146,7 @@
                 width @width
                 height auto
                 _completeCenter()
+                display none
         #float-box
             _display(none)
             width 510px * 0.4
