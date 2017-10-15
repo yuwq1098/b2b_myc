@@ -95,6 +95,8 @@
                     min: 1,
                     max: 2,
                 },
+                // 缩放比例
+                scaleRatio: 1,
                 // 高宽比  高/宽>=1 高大于等于宽
 	            depthWidth_ration: 0,
 	            // 缩放条触手是否在拖拽中
@@ -105,6 +107,8 @@
                 isDragToClip: false,
                 // 图片裁剪对象开始拖拽时鼠标按下的位置
                 clipEvPositionObj: true,
+                
+
 
                 // 剪裁结果图
                 cutResultBase64Img: "",
@@ -176,6 +180,7 @@
     		// 初始化剪裁图片的初始数据
     		initClipImageStyle(){
                 var ratio = 0;
+                this.scaleRatio = 1;
 
                 if(this.depthWidth_ration<=1){
                     ratio = this.boxMinSize.h/this.originalImgStyle.h;
@@ -188,8 +193,14 @@
                 }
                 this.doubleImageCenter();
     		},
+
     		// 两个图片都绝对居中
-    	    doubleImageCenter(){
+    	    doubleImageCenter(params,ratio){
+
+                var type = params||1;
+                var theRatio = ratio||this.scaleRatio;
+                let outputOffsetObj = {};
+                
                 // 实时变化后自身图片的位置
                 let selfOffsetObj = {
                     left: Math.floor((this.parentBoxSize.w-this.selfImgStyle.w)/2),
@@ -199,128 +210,16 @@
                 this.selfImage.style.top = selfOffsetObj.top + "px"
 
                 // 输出图片的位置
-                let outputOffsetObj = {
+                outputOffsetObj = {
                     left: Math.floor((this.boxMinSize.w-this.selfImgStyle.w)/2),
                     top: Math.floor((this.boxMinSize.h-this.selfImgStyle.h)/2),
                 }
                 this.outputImage.style.left = outputOffsetObj.left + "px"
                 this.outputImage.style.top = outputOffsetObj.top + "px"
+            
     	    },
 
-            // 缩放后位置重新渲染
-    	    scalePostionRender(){
-                
-    	    },
-
-    	    // 缩小
-    	    triggerReduce(){
-                if((this.selfImgStyle.h / this.boxMinSize.h <= this.zoomScaleRange.min
-                	    &&this.depthWidth_ration<=1) ||
-                	(this.selfImgStyle.w / this.boxMinSize.w <= this.zoomScaleRange.min
-    	    		    &&this.depthWidth_ration>1))
-                {
-            	    return;
-            	}
-            	let _scaleRatio = 0;
-                if(this.depthWidth_ration<=1){
-                    let decrement = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.h) / 10;
-                    // 缩放比例
-                    _scaleRatio = (this.selfImgStyle.h - decrement)/this.selfImgStyle.h;
-                    // 如果到了临界值，则对其作出相应约束
-                    if(this.selfImgStyle.h - decrement<=this.boxMinSize.h){
-                        this.selfImgStyle.h = this.boxMinSize.h;
-                    }else{
-                        this.selfImgStyle.h = this.selfImgStyle.h - decrement;
-                    }
-                    this.selfImgStyle.w = this.selfImgStyle.h / this.depthWidth_ration;
-                }else{
-                	let decrement = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.w) / 10;
-                	// 缩放比例
-                    _scaleRatio = (this.selfImgStyle.w - decrement)/this.selfImgStyle.w;
-                    // 如果到了临界值，则对其作出相应约束
-                    if(this.selfImgStyle.w - decrement<=this.boxMinSize.w){
-                        this.selfImgStyle.w = this.boxMinSize.w;
-                    }else{
-                        this.selfImgStyle.w = this.selfImgStyle.w - decrement;
-                    }
-                    this.selfImgStyle.h = this.selfImgStyle.w * this.depthWidth_ration;
-                }
-                // 设置滑块left值位置
-                this.setHandlerOffsetLeft();
-                this.doubleImageCenter(_scaleRatio);
-    	    },
-
-    	    // 放大
-    	    triggerEnlarge(){
-                if((this.selfImgStyle.h / this.boxMinSize.h >= this.zoomScaleRange.max
-                	    &&this.depthWidth_ration<=1) ||
-                	(this.selfImgStyle.w / this.boxMinSize.w >= this.zoomScaleRange.max
-    	    		    &&this.depthWidth_ration>1))
-                {
-            	    return;
-            	}
-            	let _scaleRatio = 0;
-                if(this.depthWidth_ration<=1){
-                    let increment = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.h) / 10;
-                    // 缩放比例
-                    _scaleRatio = (this.selfImgStyle.h + increment)/this.selfImgStyle.h;
-                    // 如果到了临界值，则对其作出相应约束
-                    if(this.selfImgStyle.h + increment>=(this.boxMinSize.h * this.zoomScaleRange.max)){
-                        this.selfImgStyle.h = this.boxMinSize.h * this.zoomScaleRange.max;
-                    }else{
-                        this.selfImgStyle.h = this.selfImgStyle.h + increment;
-                    }
-                    this.selfImgStyle.w = this.selfImgStyle.h / this.depthWidth_ration;
-                }else{
-                	let increment = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.w) / 10;
-                	// 缩放比例
-                    _scaleRatio = (this.selfImgStyle.w + increment)/this.selfImgStyle.w;
-                    // 如果到了临界值，则对其作出相应约束
-                    if(this.selfImgStyle.w + increment>=(this.boxMinSize.w * this.zoomScaleRange.max)){
-                        this.selfImgStyle.w = this.boxMinSize.w * this.zoomScaleRange.max;
-                    }else{
-                        this.selfImgStyle.w = this.selfImgStyle.w + increment;
-                    }
-                    this.selfImgStyle.h = this.selfImgStyle.w * this.depthWidth_ration;
-                }
-                // 设置滑块left值位置
-                this.setHandlerOffsetLeft();
-                this.doubleImageCenter(_scaleRatio);
-    	    },
-
-    	    // 设置滑块left值位置
-    	    setHandlerOffsetLeft(){
-                let schedule = 0,theLeft = "";
-                if(this.depthWidth_ration<=1){
-                	schedule = +(((this.selfImgStyle.h - this.boxMinSize.h) / this.boxMinSize.h).toFixed(2));
-                }else{
-                    schedule = +(((this.selfImgStyle.w - this.boxMinSize.w) / this.boxMinSize.w).toFixed(2));
-                }
-                theLeft = schedule * (this.handlerWrap.offsetWidth - this.handlerBlock.offsetWidth);
-                this.handlerBlock.style.left = theLeft + "px";
-    	    },
-
-            // 缩放控制条点击触发事件
-    	    handlerPress(ev){
-                var _event = ev || window.event;  //兼容多个浏览器的event参数模式
-                // 滑块应该在的位置
-                var left = _event.clientX - geekDom.getPosition(this.handlerWrap).left - this.handlerBlock.offsetWidth / 2;
-                // 允许的最大宽度
-                var maxAllowWidth = this.handlerWrap.offsetWidth-this.handlerBlock.offsetWidth;
-                // 如果到了临界值，则对其作出相应约束
-                if(left<0){
-                    left = 0;
-                }else if(left>maxAllowWidth){
-                	left = maxAllowWidth;
-                }
-                // 设置滑块位置
-                this.handlerBlock.style.left = left + "px";
-
-                // 重新计算变化后的图片样式并渲染
-                this.renderSelfImgStyle(left);
-    	    },
-
-            // 裁剪图片拖拽事件
+            // 被裁剪图片对象位移方法
     	    dragClipEvent(ev){
                 var _event = ev || window.event;  //兼容多个浏览器的event参数模式
                 // 鼠标移动的距离
@@ -380,7 +279,7 @@
                         	top: this.outputImage.offsetTop,
                         };
 
-                        // 绑定鼠标移动事件
+                        // 绑定鼠标移动事件(被裁剪图片对象位移方法)
                         document.onmousemove = this.dragClipEvent;
                         document.onmouseup = function(){
                         	that.isDragToClip = false;
@@ -393,7 +292,140 @@
                 }
     	    },
 
-    	    // 缩放控制条内触手拖拽事件
+            // 设置滑块left值位置
+    	    setHandlerOffsetLeft(){
+                let schedule = 0,theLeft = "";
+                if(this.depthWidth_ration<=1){
+                	schedule = +(((this.selfImgStyle.h - this.boxMinSize.h) / this.boxMinSize.h).toFixed(2));
+                }else{
+                    schedule = +(((this.selfImgStyle.w - this.boxMinSize.w) / this.boxMinSize.w).toFixed(2));
+                }
+                theLeft = schedule * (this.handlerWrap.offsetWidth - this.handlerBlock.offsetWidth);
+                this.handlerBlock.style.left = theLeft + "px";
+                
+                // 重新计算变化后的图片样式并渲染
+                this.renderSelfImgStyle(theLeft);
+    	    },
+
+    	    // 缩小
+    	    triggerReduce(){
+                if((this.selfImgStyle.h / this.boxMinSize.h <= this.zoomScaleRange.min
+                	    &&this.depthWidth_ration<=1) ||
+                	(this.selfImgStyle.w / this.boxMinSize.w <= this.zoomScaleRange.min
+    	    		    &&this.depthWidth_ration>1))
+                {
+            	    return;
+            	}
+            	let _scaleRatio = 0;
+                if(this.depthWidth_ration<=1){
+                    let decrement = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.h) / 10;
+                    // 缩放比例
+                    _scaleRatio = (this.selfImgStyle.h - decrement)/this.selfImgStyle.h;
+                    // 如果到了临界值，则对其作出相应约束
+                    if(this.selfImgStyle.h - decrement<=this.boxMinSize.h){
+                        this.selfImgStyle.h = this.boxMinSize.h;
+                    }else{
+                        this.selfImgStyle.h = this.selfImgStyle.h - decrement;
+                    }
+                    this.selfImgStyle.w = this.selfImgStyle.h / this.depthWidth_ration;
+                }else{
+                	let decrement = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.w) / 10;
+                	// 缩放比例
+                    _scaleRatio = (this.selfImgStyle.w - decrement)/this.selfImgStyle.w;
+                    // 如果到了临界值，则对其作出相应约束
+                    if(this.selfImgStyle.w - decrement<=this.boxMinSize.w){
+                        this.selfImgStyle.w = this.boxMinSize.w;
+                    }else{
+                        this.selfImgStyle.w = this.selfImgStyle.w - decrement;
+                    }
+                    this.selfImgStyle.h = this.selfImgStyle.w * this.depthWidth_ration;
+                }
+                // 设置滑块left值位置
+                this.setHandlerOffsetLeft();
+    	    },
+
+    	    // 放大
+    	    triggerEnlarge(){
+                if((this.selfImgStyle.h / this.boxMinSize.h >= this.zoomScaleRange.max
+                	    &&this.depthWidth_ration<=1) ||
+                	(this.selfImgStyle.w / this.boxMinSize.w >= this.zoomScaleRange.max
+    	    		    &&this.depthWidth_ration>1))
+                {
+            	    return;
+            	}
+            	let _scaleRatio = 0;
+                if(this.depthWidth_ration<=1){
+                    let increment = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.h) / 10;
+                    // 缩放比例
+                    _scaleRatio = (this.selfImgStyle.h + increment)/this.selfImgStyle.h;
+                    // 如果到了临界值，则对其作出相应约束
+                    if(this.selfImgStyle.h + increment>=(this.boxMinSize.h * this.zoomScaleRange.max)){
+                        this.selfImgStyle.h = this.boxMinSize.h * this.zoomScaleRange.max;
+                    }else{
+                        this.selfImgStyle.h = this.selfImgStyle.h + increment;
+                    }
+                    this.selfImgStyle.w = this.selfImgStyle.h / this.depthWidth_ration;
+                }else{
+                	let increment = Math.ceil((this.zoomScaleRange.max - 1) * this.boxMinSize.w) / 10;
+                	// 缩放比例
+                    _scaleRatio = (this.selfImgStyle.w + increment)/this.selfImgStyle.w;
+                    // 如果到了临界值，则对其作出相应约束
+                    if(this.selfImgStyle.w + increment>=(this.boxMinSize.w * this.zoomScaleRange.max)){
+                        this.selfImgStyle.w = this.boxMinSize.w * this.zoomScaleRange.max;
+                    }else{
+                        this.selfImgStyle.w = this.selfImgStyle.w + increment;
+                    }
+                    this.selfImgStyle.h = this.selfImgStyle.w * this.depthWidth_ration;
+                }
+                // 设置滑块left值位置
+                this.setHandlerOffsetLeft();
+    	    },
+
+
+            // 重新计算变化后的图片样式并渲染
+            renderSelfImgStyle(offsetLeft){
+
+                //** 不能直接 this.handlerBlock.offsetLeft来获取左值，会被transtition所影响
+
+            	// 允许的最大宽度
+                var maxAllowWidth = this.handlerWrap.offsetWidth - this.handlerBlock.offsetWidth;
+                // 计算比例
+                var handlerRatio = offsetLeft/maxAllowWidth;
+
+                // 设置图片大小
+                if(this.depthWidth_ration<=1){
+                    this.selfImgStyle.h = this.boxMinSize.h * (handlerRatio + 1);
+                    this.selfImgStyle.w = this.selfImgStyle.h / this.depthWidth_ration;
+                }else{
+                    this.selfImgStyle.w = this.boxMinSize.w * (handlerRatio + 1);
+                    this.selfImgStyle.h = this.selfImgStyle.w * this.depthWidth_ration;
+                }
+                // 重新渲染
+                this.doubleImageCenter(2,handlerRatio);
+
+            },
+
+            // 缩放控制条点击触发事件
+    	    handlerPress(ev){
+                var _event = ev || window.event;  //兼容多个浏览器的event参数模式
+                // 滑块应该在的位置
+                var left = _event.clientX - geekDom.getPosition(this.handlerWrap).left - this.handlerBlock.offsetWidth / 2;
+                // 允许的最大宽度
+                var maxAllowWidth = this.handlerWrap.offsetWidth-this.handlerBlock.offsetWidth;
+                // 如果到了临界值，则对其作出相应约束
+                if(left<0){
+                    left = 0;
+                }else if(left>maxAllowWidth){
+                	left = maxAllowWidth;
+                }
+                // 设置滑块位置
+                this.handlerBlock.style.left = left + "px";
+
+                // 重新计算变化后的图片样式并渲染
+                this.renderSelfImgStyle(left);
+    	    },
+
+            // 缩放控制条内触手拖拽事件
             handlerDrag(ev){
             	var _event = ev || window.event;  //兼容多个浏览器的event参数模式
             	// 滑块移动的距离
@@ -416,31 +448,8 @@
                 // 重新计算变化后的图片样式并渲染
                 this.renderSelfImgStyle(blockLeft);
             },
-
-            // 重新计算变化后的图片样式并渲染
-            renderSelfImgStyle(offsetLeft){
-
-                /**
-                 * 不能直接 this.handlerBlock.offsetLeft来获取左值，会被transtition所影响
-                 */
-
-            	// 允许的最大宽度
-                var maxAllowWidth = this.handlerWrap.offsetWidth - this.handlerBlock.offsetWidth;
-                // 计算比例
-                var handlerRatio = offsetLeft/maxAllowWidth;
-
-                // 设置图片大小
-                if(this.depthWidth_ration<=1){
-                    this.selfImgStyle.h = this.boxMinSize.h * (handlerRatio + 1);
-                    this.selfImgStyle.w = this.selfImgStyle.h / this.depthWidth_ration;
-                }else{
-                    this.selfImgStyle.w = this.boxMinSize.w * (handlerRatio + 1);
-                    this.selfImgStyle.h = this.selfImgStyle.w * this.depthWidth_ration;
-                }
-                this.doubleImageCenter();
-
-            },
-
+            
+            // 滑动触手拖拽事件
             isDrag(params,ev){
             	let that = this;
                 this.isDragDrop = params;
@@ -504,7 +513,7 @@
                     }
                     // 取消正在上传的loading
                     this.isUploading = false;
-                })
+                });
             },
 
             // 使用canvas裁剪图片

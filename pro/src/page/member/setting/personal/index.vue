@@ -90,6 +90,7 @@
                                 </div><!--用户头像展示 -->
                                 <span class="u-tips" v-if="uploadTips">{{uploadTips}}</span>
                             </div>
+                            
                             <div class="m-info">
                                 <div class="m-line-box f__clearfix input">
                                     <span class="u-attr">昵称：</span>
