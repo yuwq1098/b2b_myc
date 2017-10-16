@@ -14,21 +14,21 @@ export const swiperItems = [{
         path: '',
         imgUrl: require("assets/img/hall-figure03.jpg"),
     },
-    {
-        title: '宁波卢露精品车行',
-        path: 'merchantDetails?cid=1702499952',
-        imgUrl: require("assets/img/merchant-figure04.png")
-    },
+    // {
+    //     title: '宁波卢露精品车行',
+    //     path: 'merchantDetails?cid=1702499952',
+    //     imgUrl: require("assets/img/merchant-figure04.png")
+    // },
     // {
     //     title: '泛洋盛汽车广场',
     //     path: 'merchantDetails?cid=1702975349',
     //     imgUrl: require("assets/img/merchant-figure05.png")
     // },
-    {
-        title: '田园名车广场',
-        path: 'merchantDetails?cid=1789854102',
-        imgUrl: require("assets/img/merchant-figure06.png")
-    },
+    // {
+    //     title: '田园名车广场',
+    //     path: 'merchantDetails?cid=1789854102',
+    //     imgUrl: require("assets/img/merchant-figure06.png")
+    // },
 ]
 
 // 平台特色服务

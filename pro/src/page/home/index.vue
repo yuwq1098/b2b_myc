@@ -41,10 +41,12 @@
                                 </div><!-- 查询结果列表 -->
 
                                 <!-- 输入 -->
-                                <input type="text" ref="allSearchInputBox" 
-                                    @input="allSearchInput" class="u-ipt" 
-                                    placeholder="请输入感兴趣的品牌、车系" 
-                                    id="brandSearch" 
+                                <input type="text" ref="allSearchInputBox"
+                                    class="u-ipt"
+                                    placeholder="请输入感兴趣的品牌、车系"
+                                    @blur="searchEvent(0)"
+                                    @focus="searchEvent(1)"
+                                    @input="allSearchInput"
                                     v-model="allSearchInputVal" autocomplete="off"
                                 />
 
@@ -55,7 +57,9 @@
                         </div><!-- 搜索框 -->
 
                         <div class="m-category-wrap">
-                            <brand-select></brand-select>
+                            <brand-select
+                                :rsIndex="resSearchIndex"
+                                ></brand-select>
                         </div><!-- 汽车品牌，价格条件搜索 -->
                     </div>
 
@@ -215,7 +219,11 @@
     import cFootServer from "components/foot/foot-svr.vue"
     import {dataToJson} from "assets/js/util.js"
     import * as geekDom from "assets/js/dom.js"
+    // 首页静态数据
     import {noticeBarList,swiperItems} from "api/localJson/home.js"
+    // 搜索静态数据
+    import {homeSearchData} from "api/localJson/search.js"
+
     // 用户信息的构造类
     import {memberInfo} from 'base/class/member.js'
     // 单个车店排名信息的构造类
@@ -240,7 +248,9 @@
     import b2bCarListBox from "components/boxLayout/b2bCarListBox.vue"
 
     //搜索延迟,150ms
-    const SEARCH_DELAY = 150
+    const SEARCH_DELAY = 150;
+
+    const searchData =  homeSearchData; 
 
     export default {
         name: 'home',
@@ -266,13 +276,12 @@
                 // 明星车商列表
                 starDealerList: [],
 
-                //全部搜索的绑定值
+                // 全部搜索的绑定值
                 allSearchInputVal: "",
-                //用户缓暂搜索值的集合，当用户清空时，也同时清空
-                srhValItems : [],
-                srhResultList: [],               // 搜索结果列表
+                srhResultList: searchData,       // 搜索结果列表
                 isShowSchResultBox: false,       // 是否显示查询结果列表
-                isOkSearch: true,                // 是否允许用户触发搜索
+                resSearchIndex: 2,              // 搜索索引
+
                 // 普通市场车辆列表
                 b2cCarList: [],
                 // b2b交易大厅列表数据
@@ -280,6 +289,7 @@
 
                 noticeBarList: noticeBarList,    //公告滚动条的信息列表
                 swiperItems: swiperItems,        //首页轮播图数据集合
+                
 
                 // notNextTick是一个组件自有属性，如果notNextTick设置为true，组件则不会通过NextTick来实例化swiper，也就意味着你可以在第一时间获取到swiper对象，假如你需要刚加载遍使用获取swiper对象来做什么事，那么这个属性一定要是true
                 notNextTick: true,
@@ -337,10 +347,8 @@
 
         //退出的生命周期钩子
         deactivated(){
-            //清空用户搜索结果集合
-            this.srhValItems = [];
-            this.isShowSchResultBox = false;
-            this.allSearchInputVal = "";
+            // 信息重置
+            this.reset();
         },
         computed:{
             ...mapGetters(['loginStatus']),
@@ -370,7 +378,7 @@
                     this.$refs.allSearchInputBox
                 ]
                 if(val){
-                    this._searchCancelBubble();
+                    this.searchCancelBubble();
                 }else{
                     //清空首页的 文档点击事件
                     document.onclick = null;
@@ -441,32 +449,43 @@
                 })
             },
 
-            //通过用户输入获取对应信息
-            allSearchInput(){
-
-                if(this.allSearchInputVal=="") return;
-
-                this.srhValItems.push(this.allSearchInputVal);
-                //如果没有过延缓搜索规定的时间，那么久延迟搜索
-                if(!this.isOkSearch) return;
-                //获取用户最后一次输入的值
-                let lastSrhVal = this.srhValItems[this.srhValItems.length-1];
-                let data = {
-                    "PageSize": 20,
-                    "PageIndex": 1,
-                    "LikeKey": lastSrhVal,
+            // 搜索事件
+            searchEvent(type){
+                if(!type){
+                    this.isShowSchResultBox = false;
+                    console.log("失去焦点")
+                }else{
+                    this.isShowSchResultBox = true;
+                    console.log("获取焦点")
                 }
-                api.getB2BCarList(data).then((res) => {
-                    this.srhResultList = this._normalizeSearchCarResult(res.data)
-                })
-                setTimeout(() => {
-                    this.isOkSearch = true;
-                    if(this.allSearchInputVal=="") return;
-                    api.getB2BCarList(data).then((res) => {
-                        this.srhResultList = this._normalizeSearchCarResult(res.data)
-                    })
-                },SEARCH_DELAY)
-                if(this.isOkSearch) this.isOkSearch = false;
+            },
+
+            // 通过用户输入获取对应信息
+            allSearchInput(){
+                
+                // if(this.allSearchInputVal=="") return;
+
+                // //如果没有过延缓搜索规定的时间，那么久延迟搜索
+                // if(!this.isOkSearch) return;
+                // //获取用户最后一次输入的值
+                // let lastSrhVal = this.srhValItems[this.srhValItems.length-1];
+                // let data = {
+                //     "PageSize": 20,
+                //     "PageIndex": 1,
+                //     "LikeKey": lastSrhVal,
+                // }
+                // api.getB2BCarList(data).then((res) => {
+                //     this.srhResultList = this._normalizeSearchCarResult(res.data)
+                // })
+                // // 延时定时器
+                // setTimeout(() => {
+                //     this.isOkSearch = true;
+                //     if(this.allSearchInputVal=="") return;
+                //     api.getB2BCarList(data).then((res) => {
+                //         this.srhResultList = this._normalizeSearchCarResult(res.data)
+                //     })
+                // },SEARCH_DELAY);
+                // if(this.isOkSearch) this.isOkSearch = false;
 
             },
 
@@ -480,7 +499,7 @@
             },
 
             //处理事件冒泡
-            _searchCancelBubble(){
+            searchCancelBubble(){
                 let me = this;
                 let [schResultBox,allSearchInputBox] = [
                     this.$refs.schResultBox,
@@ -579,6 +598,14 @@
                 });
                 return carInfo;
             },
+
+            // 重置信息
+            reset(){
+                // 重置用户搜索结果信息
+                this.allSearchInputVal = "";
+                this.srhResultList = searchData;
+                this.isShowSchResultBox = false;
+            }
         },
     }
 </script>
