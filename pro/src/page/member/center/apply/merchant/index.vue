@@ -194,7 +194,6 @@
                     if(res.code==SYSTEM.CODE_IS_OK){
                         // 格式化认证信息
                         this.applyData = res.data;
-
                     }else if(res.code==SYSTEM.CODE_IS_ERROR){
                         this.$notify({
                             title: '认证信息获取失败',
@@ -251,7 +250,6 @@
                     
                 // 回调
                 setTimeout(()=>{
-
                     // 提交给后台的信息
                     let data = {
                         AuthId: myAuthId,
@@ -281,7 +279,6 @@
                             imgTitle : "营业执照",
                         }
                     ]
-                     
                     // 向后台提交审核申请
                     this.putCommit(data);
                 });
@@ -323,5 +320,4 @@
 <!-- 限定作用域"scoped" 不要误写成scope -->
 <style lang="stylus" rel="stylesheet/stylus" scoped>
     @import 'index.styl'
-
 </style>
