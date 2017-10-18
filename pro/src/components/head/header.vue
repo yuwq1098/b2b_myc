@@ -12,8 +12,6 @@
 		            <div class="m-city f__fl" id="f__city_choose">
 		                
                         <a href="javascript:;" id="city_cur" class="u-lk" ref="city_cur" :class="{on:isCityChooseShow}">{{curCityName}}<i class="iconfont icon-arrowdown1"></i></a>
-
-                        
                         <city-choose 
                             v-show="isCityChooseShow" 
                             :isShow="isCityChooseShow"
@@ -114,7 +112,6 @@
     		return {
             
                 siteLogo: require("assets/img/logo.png"),   //网站LOGO
-
     			signInShow: false,         //是否显示登录框
     			signUpShow: false,         //是否显示注册框
     			forgetShow: false,         //是否显示忘记密码框
@@ -129,16 +126,24 @@
 
     		}
     	},
+        // 值传递
+        props:{
+            // 头部引用类型
+            headType: {
+                type: String,
+                default: '',
+            },
+        },
+        // 实例创建时
         created () {
             //reverse 方法颠倒数组中元素的位置，并返回该数组的引用。
             if(this.navItemList[0].pathName=="首页"){
                 // 如果第一个是首页
                 this.navItemList.reverse();
             }
-            
         },
+        // 将实例挂在在DOM上时
         mounted(){
-
             this.$nextTick(function(){
                 var cityChooseDom = $("#f__city_choose");
                 var currentCity = $("#city_cur");
@@ -154,11 +159,8 @@
                 if(this.loginStatus){
                     this._updateUserData();
                 }
-
             });
-
         },
-        
         // 切换会当前组件
         activated() {
             // 是否含有网站侧栏
@@ -182,6 +184,7 @@
                 isOpenSignInBox: 'isOpenSignInBox',
             }),
         },
+
         //数据侦听
         watch:{
             curCityName(val) {

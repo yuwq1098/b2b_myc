@@ -4,7 +4,7 @@
             :class="{'noWebSide':!$router.currentRoute.meta.hasWebSide}">
 	        <!-- 引入网站头部 -->
 	        <keep-alive>
-	            <c-head></c-head>
+	            <c-head :headType="$router.currentRoute.meta.headType"></c-head>
 	        </keep-alive>
 
 		    <keep-alive>

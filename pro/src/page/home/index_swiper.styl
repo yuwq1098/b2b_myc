@@ -1,0 +1,43 @@
+@import '~assets/css/mixin.styl'
+
+.g-doc
+    .g-bd
+        width 100%
+        .g-csl
+            height 450px
+            position relative
+            .m-sld
+                height @height
+                .swiper-container
+                    .swiper-wrapper
+                        height @height
+                        .swiper-slide
+                            _overflow()
+                            .u-box
+                                _display()
+                                width 100%
+                                height 100%
+                                position relative
+                                .pic
+                                    width 1920px
+                                    height 450px
+                                    position absolute
+                                    left 50%
+                                    margin-left -960px
+                    .swiper-pagination
+                        bottom 15px
+                        height 10px
+                        line-height 10px
+                        cursor default
+                        .swiper-pagination-bullet
+                            width 42px
+                            height 4px
+                            margin 0 6px
+                            _borderRadius(1px)
+                            background #eee
+                            _opacity(.6)
+                            cursor pointer
+                            vertical-align top
+                        .swiper-pagination-bullet-active
+                            _opacity(1)
+                            background $c_blue
