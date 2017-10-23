@@ -3,21 +3,142 @@
 .g-doc
     width 100%
     _unUserSelect()
-    background-color #fff
+    background-color #f4f4f4
+
+    // 搜索区
+    .g-filter
+        display block
+        margin-top 0
+        .filter-box
+            background-color #fff
+            height 260px 
+            margin -80px auto 25px
+            z-index 9
+            position relative
+            font-size 14px
+            _borderAll(#dfe3e3)
+            _border(top,,0)
+            _borderRadius(6px)
+            _boxShadow(4px,rgba(88,100,117,.18),-1px,2px)
 
     // 低价区
     .g-lowPrice
         display block
+        height 280px
+        margin-top 25px
+        .area-inner
+            height @height
+            .u-box
+                _display()
+                width 100%
+                height 100%
+                background url('../../assets/img/low-price-area.png') center center no-repeat
+                background-size 100% 100%
+                
     // 二手车b2b市场（批发市场）
     .g-lemon-market
         display block
+        height 632px
+        margin-top 25px
+        .box-inner
+            height @height
+        // 左侧/背景图片
+        .u-lt-ad 
+            .u-bg-pic
+                background url('../../assets/img/lemon-market-bg.png') center center no-repeat
+                background-size cover
+
     // 明星车商
     .g-carDealer
         display block
+        height 632px
+        margin-top 40px
+        .box-inner
+            height @height
+        // 左侧/背景图片
+        .u-lt-ad 
+            .u-bg-pic
+                background url('../../assets/img/star-dealer-bg.png') center center no-repeat
+                background-size cover
     // 新车专区
     .g-newCars
         display block
+        height 632px
+        margin-top 40px
+        .box-inner
+            height @height
+        // 左侧/背景图片
+        .u-lt-ad 
+            .u-bg-pic
+                background url('../../assets/img/new-cars-bg.png') center center no-repeat
+                background-size cover
+    // 布局/左右分栏布局，三区块共享样式
+    .m-layout
+        // 左侧广告
+        .u-lt-ad
+            width 240px
+            height 632px
+            .u-bg-pic
+                width 100%
+                height 100%
+        // 右侧内容
+        .u-rt-con
+            width 948px
+            height 632px
+    
+        
+
     // 热门推荐
     .g-recommend
         display block
+        height 317px + 65px
+        margin 25px 0
+        .box-inner
+            height @height
+        .u-btn.batch
+            width 175px
+            height 30px
+            line-height @height
+            _borderAll(#555)
+            margin 25px auto 8px
+            color #555
+            transition border-radius 0.28s cubic-bezier(0.14, 0.46, 0.46, 1.02)
+            _display()
+            font-size 14px
+            text-align center
+            _borderRadius(@height * 0.5)
+            .iconfont
+                color #555
+                margin-left 8px
+            &:hover
+                color #fff
+                border-color $c_blue - 15%
+                background-color $c_blue
+                .iconfont
+                    color #fff
+            &:active
+                background-color $c_blue + 10% 
+    // 车辆列表公用样式
+    .m-carlist-box
+        .u-head
+            height 32px
+            padding 0 0 15px
+            h3
+                height @height
+                font: normal 20px/32px Microsoft YaHei;
+                .u-tit
+                    font-size 20px
+                    _spacingPlus()
+                    font-weight normal
+                    margin 0 0 0 4px
+                .u-sep
+                    color #959595
+                    margin 0 0 0 5px
+                .u-des
+                    color #959595
+                    margin 0 0 0 2px
+                    font-weight normal
+        .u-con
+            clear both
+
 

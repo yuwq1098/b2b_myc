@@ -1,3 +1,7 @@
+<!--  
+ **  @description 热门推荐组件
+ --> 
+
 <template>
 	<div class="remdListBox">
 	    <div class="m-lst-con">
@@ -63,6 +67,7 @@
         .m-lst
             width 1215px
             _translate3d(0,-15px)
+            height 270px
             margin 0 0 0 -15px
             .m-item
                 float left

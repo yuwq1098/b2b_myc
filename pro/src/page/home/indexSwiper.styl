@@ -24,19 +24,21 @@
                                 left 50%
                                 margin-left -960px
                 .swiper-pagination
-                    bottom 15px
+                    bottom 12px + 80px
                     height 10px
                     line-height 10px
                     cursor default
                     .swiper-pagination-bullet
-                        width 42px
-                        height 4px
-                        margin 0 6px
-                        _borderRadius(1px)
-                        background #eee
-                        _opacity(.6)
+                        width 6px
+                        height 6px
+                        margin 0 8px
+                        _borderRadius()
+                        background #777
+                        _borderAll(#aaa)
+                        _opacity(1)
                         cursor pointer
                         vertical-align top
                     .swiper-pagination-bullet-active
                         _opacity(1)
-                        background $c_blue
+                        background #eee
+                        _borderAll(#aaa)

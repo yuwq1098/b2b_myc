@@ -1,3 +1,7 @@
+<!--  
+ **  @description b2b大厅车辆列表组件
+ --> 
+
 <template>
 	<div class="hallB2bList">
 	    <div class="m-lst-con">

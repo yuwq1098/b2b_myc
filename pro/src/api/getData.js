@@ -358,7 +358,7 @@ export default {
     },
 
     // 我收到的推荐
-    myRecievedRecommendList() {
+    myRecievedRecommendList(parmas) {
         return fetchSign("/action2/MyRecievedRecommendList.ashx", dataToJson(parmas));
     },
 
@@ -759,12 +759,12 @@ export default {
     },
 
     // b2b金蛋车
-    goldenEggsCar() {
-        return fetchSign('/action/B2BCarPriceJudge.ashx', dataToJson(params));
+    goldenEggsCar(params) {
+        return fetchSign('/action2/B2BCarGoldenEgg.ashx', dataToJson(params));
     },
 
     // 我的低价车发车情况
-    myCheapCarCount() {
+    myCheapCarCount(params) {
         return fetchSign('/action/MyCheapCarCount.ashx', dataToJson(params));
     },
 
@@ -819,8 +819,11 @@ export default {
         return fetchSign('/action2/MyTeam.ashx', dataToJson(params));
     },
 
-    // 排行榜
 
+
+    /**
+     * 排行榜
+     */
 
     // 意见反馈可用类别
     getFeedback() {
@@ -1116,7 +1119,7 @@ export default {
 
     // 新车大厅列表
     newCarListHall(parmas) {
-        return fetch("/LeagueOfPartnrt/NewCarList.ashx", qs.stringify(parmas));
+        return fetchSign("/LeagueOfPartner/NewCarList.ashx", qs.stringify(parmas));
     },
 
 }

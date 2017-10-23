@@ -107,7 +107,7 @@
         width 228px
         height 270px
         background #fff
-        _boxShadow(12px,rgba(0,0,0,.15))
+        _boxShadow(8px,rgba(0,0,0,.08),1px,2px)
         .m-lk
             _display()
             width @width
@@ -129,7 +129,7 @@
                         height 20px
                         font-size 12px
                         line-height @height
-                        background #27333C - rgba(0,0,0,.2)
+                        background #8757FB - rgba(0,0,0,.25)
                         color #f2f2f2
                         padding 0 11px
                         _spacingPlus()
@@ -142,12 +142,12 @@
                         content ""
                         _completeCenter(0,auto,0,auto)
                         width 100%
-                        height $picHeight * 0.8
-                        border-top $picHeight * 0.2 solid rgba(255,255,255,0.4)
-                        background rgba(255,255,255,0.2)
+                        height $picHeight * 0.80
+                        border-top $picHeight * 0.10 solid rgba(255,255,255,0.25)
+                        background rgba(255,255,255,0.1)
                         _transform(scale3d(3,1.5,1) translate3d(40%,-75%,0) rotate3d(0,0,1,45deg))
                         -webkit-transition -webkit-transform 0.5s cubic-bezier(0.14, 0.46, 0.46, 1.02)
-                        transition transform 0.5s cubic-bezier(0.14, 0.46, 0.46, 1.02)
+                        transition transform 0.28s cubic-bezier(0.14, 0.46, 0.46, 1.02)
                 .u-pic   
                     width @width
                     height @height
@@ -178,7 +178,7 @@
                         margin-bottom 6px
                         font-size 14px
                         _ellipsis(2)
-                        color #444
+                        color #555
                     .u-other
                         height 22px
                         line-height 22px
@@ -197,23 +197,23 @@
                             color #999
                             .vital
                                 font-size 16px
-                                color $c_blue
+                                color #ff6533
                                 margin-right 3px
 
             &:hover
-                _boxShadow(20px,rgba(0,0,0,.10),6px,6px)
+                _boxShadow(12px,rgba(0,0,0,.10),-4px,5px)
                 .m-pic-box
                     .pic-shade
                         &:before
                             _transform(scale3d(3,1.5,1) translate3d(-40%,75%,0) rotate3d(0,0,1,45deg))
                     .u-pic
-                        _opacity(.65)
+                        _opacity(.8)
                         _transitionAll(.28s,cubic-bezier(0.14, 0.46, 0.46, 1.02),.2s)
                     .time-block
                         _transitionAll(.2s,cubic-bezier(0.14, 0.46, 0.46, 1.02),.05s)
                         _translate3d(0,50px)
                 .m-con-box
                     .u-con .u-tit
-                        color #111
+                        color #27333C
                         text-decoration underline
 </style>

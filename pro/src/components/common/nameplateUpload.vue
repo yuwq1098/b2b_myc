@@ -9,7 +9,7 @@
             <!-- 文件上传(button区域)组件 -->
             <upload-input
                 btnText="上传车辆铭牌"
-                uploadTip="上传车辆铭牌图片，图片比例为4:3，支持jpg/gif/png格式，每张最大2M，为保证铭牌有效辨识度，您可以尝试上传1~3张不同角度的铭牌照片！"
+                uploadTip="上传车辆铭牌图片，图片比例为4:3，支持jpg/gif/png格式，每张最大2M，为保证铭牌有效辨识度，您可以尝试上传2张不同角度的铭牌照片！"
                 :files="nameplateFiles"
                 @uploadChange="nameplateFilesChange"
                 >
@@ -262,7 +262,7 @@
                 }));
             },
 
-            //图片上传
+            // 图片上传
             fileUpload(index,name,base64str){
 
                 let me = this;
@@ -290,6 +290,7 @@
                 this.dialogImageUrl = base64Img;
                 this.dialogVisible = true;
             },
+            
             // 用户选择的图片文件集合派发给父组件
             changeFiles(){
                 this.$emit('changeFiles',this.newFiles);

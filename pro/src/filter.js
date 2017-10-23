@@ -1,6 +1,6 @@
 // 去空
 export const clearNull = v => {
-    return v.replace(/null/g,'')
+    return v.replace(/null/g, '')
 }
 
 /**
@@ -11,12 +11,12 @@ export const clearNull = v => {
  */
 export const formatDate = (str) => {
     if (!str) return ''
-    // var newStr = str.replace(/\s/g,'T').replace(/\//g,'-');
-    // var date = new Date(newStr)
-    // // 北京时间东八区/格林威治  北京时间比世界时间快8个小时
-    // var time = new Date().getTime() - (date.getTime() - 8 * 3600000) //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
+        // var newStr = str.replace(/\s/g,'T').replace(/\//g,'-');
+        // var date = new Date(newStr)
+        // // 北京时间东八区/格林威治  北京时间比世界时间快8个小时
+        // var time = new Date().getTime() - (date.getTime() - 8 * 3600000) //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
 
-    var date = new Date(str.replace(/[-]/g,'/'));
+    var date = new Date(str.replace(/[-]/g, '/'));
     var time = new Date().getTime() - date.getTime();
 
     if (time < 0) {
@@ -46,15 +46,15 @@ export const formatDate = (str) => {
 export const greetByDate = (data) => {
 
     var hours = +(new Date().getHours());
-    if(hours>11&&hours<=14){
+    if (hours > 11 && hours <= 14) {
         return "中午好，"
-    }else if(hours>14&&hours<=18){
+    } else if (hours > 14 && hours <= 18) {
         return "下午好，"
-    }else if(hours>18&&hours<=23){
+    } else if (hours > 18 && hours <= 23) {
         return "晚上好，"
-    }else if(hours>=0&&hours<=4){
+    } else if (hours >= 0 && hours <= 4) {
         return "夜深了，要注意休息哦！"
-    }else if(hours>4&&hours<=11){
+    } else if (hours > 4 && hours <= 11) {
         return "早上好！"
     }
 }
@@ -64,83 +64,90 @@ export const greetByDate = (data) => {
 
 //转换成2015年02月
 export const dateFn = (data) => {
-	if(!data&&data!=0) return;
-    var data = data.substr(0,4)+'年'+data.substr(5,2)+'月';
+    if (!data && data != 0) return;
+    var data = data.substr(0, 4) + '年' + data.substr(5, 2) + '月';
     return data.toString();
 }
 
 //转换成2015年02月04日
 export const dateFnToDay = (data) => {
-    if(!data&&data!=0) return;
-    var data = data.substr(0,4)+'年'+data.substr(5,2)+'月'+data.substr(8,2)+'日';
+    if (!data && data != 0) return;
+    var data = data.substr(0, 4) + '年' + data.substr(5, 2) + '月' + data.substr(8, 2) + '日';
     return data.toString();
 }
 
 //转换成2015年
 export const dateFnToYear = (data) => {
-	if(!data&&data!=0) return;
-    var data = data&&data.substr(0,4)+'年';
+    if (!data && data != 0) return;
+    var data = data && data.substr(0, 4) + '年';
     return data.toString();
 }
 
 // 年份转换
 export const dateYearFormat = (data) => {
-    if(!data&&data!=0) return;
-    var data = data&&data.substr(0,4);
+    if (!data && data != 0) return;
+    var data = data && data.substr(0, 4);
     return data.toString();
 }
 
 // 去除年份日期转换
 export const dateFormatRemoverYear = (data) => {
-    if(!data&&data!=0) return;
-    var data = data&&data.substr(5,);
-    var str = data.substr(0,2)+"/"+data.substr(3,2)+"  "+data.substr(6,)
+    if (!data && data != 0) return;
+    var data = data && data.substr(5, );
+    var str = data.substr(0, 2) + "/" + data.substr(3, 2) + "  " + data.substr(6, )
     return str.toString();
 }
 
 // 日期转换
 export const dateDayFormat = (data) => {
-    if(!data&&data!=0) return;
-    var data = data&&data.substr(0,10);
+    if (!data && data != 0) return;
+    var data = data && data.substr(0, 10);
+    return data.toString();
+}
+
+// 日期转换
+export const dateFormatV2 = (data) => {
+    if (!data && data != 0) return;
+    var data = data && data.substr(5, 11);
     return data.toString();
 }
 
 // 分钟转换
 export const dateMinuteFormat = (data) => {
-    if(!data&&data!=0) return;
-    var data = data&&data.substr(0,16);
+    if (!data && data != 0) return;
+    var data = data && data.substr(0, 16);
     return data.toString();
 }
 
 //----公里单位转换
 
 //转换成15.2万公里
-export const mileFn = (data,num=1) => {
-    var number = data||0;
-    return parseInt(number).toFixed(num)+"万公里"
+export const mileFn = (data, num = 1) => {
+    var number = data || 0;
+    return parseInt(number).toFixed(num) + "万公里"
 }
 
 //---价格小数加零
-export const priceToFixed = (data,num=1) => {
-    var number = data||0;
-    return parseFloat(number).toFixed(num)+"万元"
+export const priceToFixed = (data, num = 1) => {
+    var number = data || 0;
+    return parseFloat(number).toFixed(num) + "万元"
 }
 
-export const priceFormat = (data,num=1) => {
-    var number = data||0;
+export const priceFormat = (data, num = 1) => {
+    var number = data || 0;
     return parseFloat(number).toFixed(num)
 }
 
 //---综合油耗单位
-export const literFn = (data,num=1) => {
-    var number = data||0;
-    return parseFloat(number).toFixed(num)+" L/100km"
+export const literFn = (data, num = 1) => {
+    var number = data || 0;
+    return parseFloat(number).toFixed(num) + " L/100km"
 }
 
 //---城市单位去空，江西省=>江西
 export const cityFn = (str) => {
-    if(!str&&str!=0) return;
-    return str.replace(/['省'|'市']/g,'')
+    if (!str && str != 0) return;
+    return str.replace(/['省'|'市']/g, '')
 }
 
 //---评分格式转换
@@ -151,36 +158,36 @@ export const gradeFormat = (num) => {
 
 //---地址格式转换 / => 点
 export const addressFormat = (str) => {
-    if(!str&&str!=0) return;
-    return str.replace(/[/]/g,' · ')
+    if (!str && str != 0) return;
+    return str.replace(/[/]/g, ' · ')
 }
 
 //---地址格式转换 去/
 export const addressFormat2 = (str) => {
-    if(!str&&str!=0) return;
-    return str.replace(/[/]/g,'')
+    if (!str && str != 0) return;
+    return str.replace(/[/]/g, '')
 }
 
 //---手机号格式转换 => 188****6264
 export const telFormat = (str) => {
-    if(!str&&str!=0) return;
-    return str.substr(0,3) + "****" + str.substr(7,4)
+    if (!str && str != 0) return;
+    return str.substr(0, 3) + "****" + str.substr(7, 4)
 }
 
 //---用户姓名式转换 => *文强
 export const usernameFormat = (str) => {
-    if(!str&&str!=0) return;
-    return '*'+str.substr(1,str.length)
+    if (!str && str != 0) return;
+    return '*' + str.substr(1, str.length)
 }
 
 //---Boolean转换 => 是/否
 export const boolFormat = (str) => {
-    if(!str&&str!="") return;
-    return str=="true"?"是":"否"
+    if (!str && str != "") return;
+    return str == "true" ? "是" : "否"
 }
 
 //---Boolean转换 => 能/不能
 export const canFormat = (str) => {
-    if(!str&&str!="") return;
-    return str=="true"?"能":"不能"
+    if (!str && str != "") return;
+    return str == "true" ? "能" : "不能"
 }

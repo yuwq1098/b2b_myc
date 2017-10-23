@@ -53,178 +53,178 @@ import zh_CN from 'vee-validate/dist/locale/zh_CN';
 
 // 验证器配置信息
 const vConfig = {
-  errorBagName: 'allErrors',     // 如果属性有冲突，那么改变这个错误提示的名字.
-  fieldsBagName: 'fields',    // 将在Vue的实例数据中注入的字段(旗帜)对象的名称。
-  delay: 20,                  // 延迟时间(验证延时触发) 我这里改成 20ms，一般设置0
-  locale: 'zh_CN',            // 加载语言包 (zh_CN中文包)，默认en,  英文字体包
-  messages: null,         
-  strict: true,               // 没有规则的字段将会失败，除非严格设置为false。
-  
-  enableAutoClasses: false,   // 在输入或组件的根元素上应用自动类。
-  classNames: {
-    touched: 'touched',       // the control has been blurred
-    untouched: 'untouched',   // the control hasn't been blurred
-    valid: 'valid',           // model is valid
-    invalid: 'invalid',       // model is invalid
-    pristine: 'pristine',     // control has not been interacted with
-    dirty: 'dirty'            // control has been interacted with
-  },
+    errorBagName: 'allErrors', // 如果属性有冲突，那么改变这个错误提示的名字.
+    fieldsBagName: 'fields', // 将在Vue的实例数据中注入的字段(旗帜)对象的名称。
+    delay: 20, // 延迟时间(验证延时触发) 我这里改成 20ms，一般设置0
+    locale: 'zh_CN', // 加载语言包 (zh_CN中文包)，默认en,  英文字体包
+    messages: null,
+    strict: true, // 没有规则的字段将会失败，除非严格设置为false。
 
-  /**
-  * @description 可用参数, 常用表单事件 onkeyup,onkeydown,onfocus,onblur
-  * @targetUrl  参考网址路径:  http://www.w3school.com.cn/tags/html_ref_eventattributes.asp
-  */
-  events: 'input|blur|keyup',       // input的频率远高于blur, 事件触发, 如果提供了空字符串，它将禁用所有侦听器。
-                          
-  inject: true,               // 指定是否应该为所有组件自动注入验证器实例，检查组件注入(高级注射)以获得更多信息。
+    enableAutoClasses: false, // 在输入或组件的根元素上应用自动类。
+    classNames: {
+        touched: 'touched', // the control has been blurred
+        untouched: 'untouched', // the control hasn't been blurred
+        valid: 'valid', // model is valid
+        invalid: 'invalid', // model is invalid
+        pristine: 'pristine', // control has not been interacted with
+        dirty: 'dirty' // control has been interacted with
+    },
+
+    /**
+     * @description 可用参数, 常用表单事件 onkeyup,onkeydown,onfocus,onblur
+     * @targetUrl  参考网址路径:  http://www.w3school.com.cn/tags/html_ref_eventattributes.asp
+     */
+    events: 'input|blur|keyup', // input的频率远高于blur, 事件触发, 如果提供了空字符串，它将禁用所有侦听器。
+
+    inject: true, // 指定是否应该为所有组件自动注入验证器实例，检查组件注入(高级注射)以获得更多信息。
 };
 
 /**
-* @effect 与验证器字典合并的字典，检查自定义消息
-* @description 验证规则 
-*    [custom messages](rules.html#custom-messages) and [localization](localization.html) sections.
-*    用户自定义消息(rules.html#custom-messages)和本地化(localization.html)部分。
-* @supplement 在zh_CN下改变中文提示，改变
-*/
+ * @effect 与验证器字典合并的字典，检查自定义消息
+ * @description 验证规则 
+ *    [custom messages](rules.html#custom-messages) and [localization](localization.html) sections.
+ *    用户自定义消息(rules.html#custom-messages)和本地化(localization.html)部分。
+ * @supplement 在zh_CN下改变中文提示，改变
+ */
 
 const dictionary = {
 
     zh_CN: {
         // 默认的匹配提示
         messages: {
-            required:(field)=> "请输入"+field,
-            decimal:(field,params)=> '请输入'+params+'位小数以内的数字',
-            between:(field,params) => '请输入'+params[0]+'~'+params[1]+'之间的值',
-            min:(field,params) => '请最少输入'+params+'个字符',
-            max:(field,params) => '最多允许输入'+params+'个字符',
-            alpha_dash:(field,params) => '只能输入数字和字母'
+            required: (field) => "请输入" + field,
+            decimal: (field, params) => '请输入' + params + '位小数以内的数字',
+            between: (field, params) => '请输入' + params[0] + '~' + params[1] + '之间的值',
+            min: (field, params) => '请最少输入' + params + '个字符',
+            max: (field, params) => '最多允许输入' + params + '个字符',
+            alpha_dash: (field, params) => '只能输入数字和字母'
         },
         // 用户自定义匹配提示(简单说就是不想用默认的)
         custom: {
             mobile: {
-                required:(field)=> field+'为空,你好意思吗' // messages can be strings as well.
+                required: (field) => field + '为空,你好意思吗' // messages can be strings as well.
             },
             email: {
-                email:(field)=> field+'格式不对' // messages can be strings as well.
+                email: (field) => field + '格式不对' // messages can be strings as well.
             },
-            carInCity:{
-                required:()=> '请选择车辆所在地' 
+            carInCity: {
+                required: () => '请选择车辆所在地'
             },
-            selectedModel:{
-                required:()=> '请选择品牌车型' 
+            selectedModel: {
+                required: () => '请选择品牌车型'
             },
-            plateInCity:{
-                required:()=> '请选择车牌归属地' 
+            plateInCity: {
+                required: () => '请选择车牌归属地'
             },
-            plateDate:{
-                required:()=> '请选择上牌日期' 
+            plateDate: {
+                required: () => '请选择上牌日期'
             },
-            changeNum:{
-                required:()=> '请输入过户次数' 
+            changeNum: {
+                required: () => '请输入过户次数'
             },
-            outFactoryDate:{
-                required:()=> '请选择出厂日期'
+            outFactoryDate: {
+                required: () => '请选择出厂日期'
             },
-            fixedPrice:{
-                required:()=> '请填写一口价'
+            fixedPrice: {
+                required: () => '请填写一口价'
             },
-            retailPrice:{
-                required:()=> '请填写零售价'
+            retailPrice: {
+                required: () => '请填写零售价'
             },
-            mileage:{
-                required:()=> '请填写行驶里程'
+            mileage: {
+                required: () => '请填写行驶里程'
             },
-            dischargeStandard:{
-                required:()=> '请选择排放标准'
+            dischargeStandard: {
+                required: () => '请选择排放标准'
             },
-            liter:{
-                required:()=> '请填写排量',
-                between:(field,params) => '请输入'+params[0]+'.0L ~ '+params[1]+'.0L 之间的值',
+            liter: {
+                required: () => '请填写排量',
+                between: (field, params) => '请输入' + params[0] + '.0L ~ ' + params[1] + '.0L 之间的值',
             },
-            insuranceDate:{
-                required:()=> '请选择交强险日期'
+            insuranceDate: {
+                required: () => '请选择交强险日期'
             },
-            serviceType:{
-                required:()=> '请选择使用性质'
+            serviceType: {
+                required: () => '请选择使用性质'
             },
-            vin:{
-                required:()=> '请填写车架号',
-                min:()=> '车架号一般由17位字符组成',
-                max:()=> '车架号一般由17位字符组成',
+            vin: {
+                required: () => '请填写车架号',
+                min: () => '车架号一般由17位字符组成',
+                max: () => '车架号一般由17位字符组成',
             },
-            color:{
-                required:()=> '请选择车身颜色'
+            color: {
+                required: () => '请选择车身颜色'
             },
-            desc:{
-                required:(field)=> '请填写'+field,
-                min:(field,params) => '请填写10 ~ 300字的'+field,
-                max:(field,params) => '请填写10 ~ 300字的'+field
+            desc: {
+                required: (field) => '请填写' + field,
+                min: (field, params) => '请填写10 ~ 300字的' + field,
+                max: (field, params) => '请填写10 ~ 300字的' + field
             },
-            nameplate:{
-                between:() => '请上传1~3张车铭牌图片'
+            nameplate: {
+                between: () => '请上传1~3张车铭牌图片'
             },
-            photo:{
-                between:() => '请上传2~12张车辆图片'
+            photo: {
+                between: () => '请上传6~15张车辆图片'
             },
-            pass:{
-                min:()=> '密码由6-22位数字与字母组成,暂不支持符号',
-                max:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+            pass: {
+                min: () => '密码由6-22位数字与字母组成,暂不支持符号',
+                max: () => '密码由6-22位数字与字母组成,暂不支持符号',
             },
-            newPass:{
-                min:()=> '密码由6-22位数字与字母组成,暂不支持符号',
-                max:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+            newPass: {
+                min: () => '密码由6-22位数字与字母组成,暂不支持符号',
+                max: () => '密码由6-22位数字与字母组成,暂不支持符号',
             },
-            imgCode:{
-                min:(field)=> field+'由4位字符组成',
-                max:(field)=> field+'由4位字符组成',
+            imgCode: {
+                min: (field) => field + '由4位字符组成',
+                max: (field) => field + '由4位字符组成',
             },
-            smsCode:{
-                min:(field)=> field+'由4位数字组成',
-                max:(field)=> field+'由4位数字组成',
+            smsCode: {
+                min: (field) => field + '由4位数字组成',
+                max: (field) => field + '由4位数字组成',
             },
-            passReg:{
-                min:()=> '密码由6-22位数字与字母组成,暂不支持符号',
-                max:()=> '密码由6-22位数字与字母组成,暂不支持符号',
+            passReg: {
+                min: () => '密码由6-22位数字与字母组成,暂不支持符号',
+                max: () => '密码由6-22位数字与字母组成,暂不支持符号',
             },
-            imgCodeReg:{
-                min:(field)=> field+'由4位字符组成',
-                max:(field)=> field+'由4位字符组成',
+            imgCodeReg: {
+                min: (field) => field + '由4位字符组成',
+                max: (field) => field + '由4位字符组成',
             },
-            smsCodeReg:{
-                min:(field)=> field+'由4位数字组成',
-                max:(field)=> field+'由4位数字组成',
+            smsCodeReg: {
+                min: (field) => field + '由4位数字组成',
+                max: (field) => field + '由4位数字组成',
             },
-            nickname:{
-                min:(field)=> field+'由2~12个字符组成',
-                max:(field)=> field+'由2~12个字符组成',
+            nickname: {
+                min: (field) => field + '由2~12个字符组成',
+                max: (field) => field + '由2~12个字符组成',
             },
-            payPass:{
-                min:(field)=> '输入6位数字组成的'+field,
-                max:(field)=> '输入6位数字组成的'+field,
+            payPass: {
+                min: (field) => '输入6位数字组成的' + field,
+                max: (field) => '输入6位数字组成的' + field,
             },
-            oldPayPass:{
-                min:(field)=> '输入6位数字组成的'+field,
-                max:(field)=> '输入6位数字组成的'+field,
+            oldPayPass: {
+                min: (field) => '输入6位数字组成的' + field,
+                max: (field) => '输入6位数字组成的' + field,
             },
-            newPayPass:{
-                min:(field)=> '输入6位数字组成的'+field,
-                max:(field)=> '输入6位数字组成的'+field,
+            newPayPass: {
+                min: (field) => '输入6位数字组成的' + field,
+                max: (field) => '输入6位数字组成的' + field,
             },
-            checkPayPass:{
-                confirmed:(field)=> '请再次输入以确认您的密码',
+            checkPayPass: {
+                confirmed: (field) => '请再次输入以确认您的密码',
             },
-            cdgCity:{
-                required:()=> '请选择车行所在地'
+            cdgCity: {
+                required: () => '请选择车行所在地'
             },
-            rMoney:{
-                between:()=> '单笔充值最低100元,限额100万'
+            rMoney: {
+                between: () => '单笔充值最低100元,限额100万'
             }
         },
-        attributes:{
+        attributes: {
             tel: '手机号码',
-            email:'邮箱',
-            password:'密码',
-            name:'用户名',
+            email: '邮箱',
+            password: '密码',
+            name: '用户名',
 
             desc: '车主留言',
             fixedPrice: "一口价",
@@ -280,113 +280,113 @@ const dictionary = {
 };
 
 /*
-* @description 用户名验证规则
-*/
+ * @description 用户名验证规则
+ */
 Validator.extend('uname', {
     messages: {
-        zh_CN:(field, args) => '登录名通常是手机号哦！',
+        zh_CN: (field, args) => '登录名通常是手机号哦！',
     },
     validate: (value, args) => {
-       return value.length <= 11 && value.length >= 4
+        return value.length <= 11 && value.length >= 4
     }
 });
 
 
 /*
-* @description 手机号验证规则
-*/
+ * @description 手机号验证规则
+ */
 Validator.extend('mobile', {
     messages: {
-        zh_CN:(field, args) => field + '必须是11位',
+        zh_CN: (field, args) => field + '必须是11位',
     },
     validate: (value, args) => {
-       return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
+        return value.length == 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
     }
 });
 
 
 /*
-* @description 只允许用户输入数字规则
-*/
+ * @description 只允许用户输入数字规则
+ */
 Validator.extend('number', {
     messages: {
-        zh_CN:(field, args) => '您不能输入数字以外的字符',
+        zh_CN: (field, args) => '您不能输入数字以外的字符',
     },
     validate: (value, args) => {
-       return /^([0-9]+)$/.test(value)
+        return /^([0-9]+)$/.test(value)
     }
 });
 
 
 /*
-* @description 身份证号验证规则
-*/
+ * @description 身份证号验证规则
+ */
 Validator.extend('identity', {
     messages: {
-        zh_CN:(field, args) => '请输入正确的身份证号码',
+        zh_CN: (field, args) => '请输入正确的身份证号码',
     },
     validate: (value, args) => {
-       // return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)
-       return /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/.test(value)
+        // return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)
+        return /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/.test(value)
     }
 });
 
 
 /*
-* @description QQ号验证规则
-*/
+ * @description QQ号验证规则
+ */
 Validator.extend('QQ', {
     messages: {
-        zh_CN:(field, args) => '请输入正确的QQ号码',
+        zh_CN: (field, args) => '请输入正确的QQ号码',
     },
     validate: (value, args) => {
-        var reg = new RegExp("/^[1-9]\d{4,11}$/","i");
+        var reg = new RegExp("/^[1-9]\d{4,11}$/", "i");
         return reg.test(value)
     }
 });
 
 
 /*
-* @description 车牌号验证规则
-*/
+ * @description 车牌号验证规则
+ */
 Validator.extend('plateNumber', {
     messages: {
-        zh_CN:(field, args) => '请输入正确的车牌号码，例: 赣A6P522',
+        zh_CN: (field, args) => '请输入正确的车牌号码，例: 赣A6P522',
     },
     validate: (value, args) => {
-       return /^[\u4E00-\u9FA5][\da-zA-Z]{6}$/.test(value)
+        return /^[\u4E00-\u9FA5][\da-zA-Z]{6}$/.test(value)
     }
 });
 
 
 /*
-* @description 发动机号验证规则
-*/
+ * @description 发动机号验证规则
+ */
 Validator.extend('engineNumber', {
     messages: {
-        zh_CN:(field, args) => '请输入正确的发动机号',
+        zh_CN: (field, args) => '请输入正确的发动机号',
     },
     validate: (value, args) => {
-       return /^[a-zA-Z0-9]{16}$/.test(value)
+        return /^[a-zA-Z0-9]{16}$/.test(value)
     }
 });
 
 
 /*
-* @description 只能输入中文和英文
-*/
+ * @description 只能输入中文和英文
+ */
 Validator.extend('CN_EN', {
     messages: {
-        zh_CN:(field, args) => '请输入中英文的组合',
+        zh_CN: (field, args) => '请输入中英文的组合',
     },
     validate: (value, args) => {
-       return /^[\u4E00-\u9FA5A-Za-z]+$/.test(value)
+        return /^[\u4E00-\u9FA5A-Za-z]+$/.test(value)
     }
 });
 
 /*
-* @description 异步验证,返回一个promise
-*/
+ * @description 异步验证,返回一个promise
+ */
 Validator.extend('verify_coupon', {
     getMessage: (field) => `The ${field} is not a valid coupon.`,
     validate: (value) => new Promise(resolve => {
@@ -402,4 +402,4 @@ validator.attach('name', 'required|alpha|min:3');
 Validator.addLocale(zh_CN);
 Validator.updateDictionary(dictionary);
 
-export {VeeValidate, vConfig, validator};
+export { VeeValidate, vConfig, validator };

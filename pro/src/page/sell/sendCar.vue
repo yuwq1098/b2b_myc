@@ -320,6 +320,10 @@
                                         <div class="not-show" v-show="!isOpenSupplement">
                                             <p class="info">1.每天可在我的车源置顶刷新两次</p>
                                             <p class="info">2.完善车辆信息,可大幅提高车辆成交率</p>
+                                            <div class="selected">
+                                                <>
+                                                <span></span>
+                                            </div><!-- 已选标签 -->
                                             <a class="u-btn" @click="changeSupplement(true)"
                                                 >立即完善<i class="iconfont icon-enter"></i></a>
                                         </div><!-- 不显示盒子的时候 -->
@@ -359,7 +363,7 @@
                                         </div>
                                         <div class="m-nameplate-upload">
                                             <nameplate-upload
-                                                :maxUploadSize="3"
+                                                :maxUploadSize="2"
                                                 @changeFiles="nameplateEnd"
                                                 >
                                             </nameplate-upload>
@@ -610,7 +614,7 @@
                 color: 'required',
                 dischargeStandard: 'required',
                 desc: 'required|min:10|max:300',
-                photo: 'between:2,12|max:12',
+                photo: 'between:6,12|max:12',
             });
             this.$set(this, 'errors', this.validator.errors);
         },
