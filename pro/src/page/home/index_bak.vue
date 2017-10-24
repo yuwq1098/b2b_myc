@@ -49,7 +49,6 @@
                                     @input="allSearchInput"
                                     v-model="allSearchInputVal" autocomplete="off"
                                 />
-
                                 <router-link :to="{path:'/b2bHall'}" class="u-btn">我要买车</router-link>
                                 <router-link :to="{path:'/sellHome'}" class="u-btn v2">我要卖车</router-link>
                             </section>

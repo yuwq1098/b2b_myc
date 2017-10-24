@@ -30,7 +30,9 @@
 
             <div class="g-filter">
                 <section class="filter-box f__clearfix  f__w1200">
-                    <buysell-wrap></buysell-wrap><!-- 买车卖车小操作容器 -->
+                    <buysell-wrap
+                        :hotBrand="hotBrandList"
+                        ></buysell-wrap><!-- 买车卖车小操作容器 -->
                 </section><!-- 过滤容器 -->
             </div><!-- 过滤区 -->
 
@@ -116,6 +118,8 @@
     import { b2bCarInfo, b2cCarInfo, lowPriceInfo, goldenEggsInfo, newCarInfo } from "base/class/carInfo.js"
     // 车商信息的构造类
     import { dealerInfo } from 'base/class/dealerCircle.js'
+    // 车辆品牌信息构造类
+    import { brandInfo } from "base/class/brand.js"
     
     // 买车卖车
     import buysellWrap from 'components/boxLayout/buysell.vue'
@@ -127,6 +131,9 @@
     import newCars from "components/boxLayout/newCars.vue"
     // 相似推荐车辆列表组件
     import remdListBox from "components/boxLayout/remdListBox.vue"
+
+    // 热门品牌
+    const HOT_BRAND_LEN = 13
 
     export default {
         name: 'home',
@@ -169,6 +176,8 @@
                         swiper.startAutoplay();
                     }
                 },
+                // 热门品牌列表
+                hotBrandList: [],
                 // 红包车
                 goldenEggsCar: [],
                 // 明星车商信息
@@ -184,6 +193,8 @@
         //keep-alive之后页面会缓存，不会执行created(),和mounted(),但是会执行activated()
         activated() {
             
+            //获取热门品牌列表
+            this.getHotBrandList();
             // 获取红包车列表
             this.getGoldenEggsList();
             // 获取 b2b车辆列表
@@ -220,6 +231,27 @@
         },
         // 实例方法
         methods:{
+
+            // 使用构造类格式化热门品牌
+            normalizeHotBrand(list){
+                let hot = [];
+                list.forEach((item, index) => {
+                    if(index<HOT_BRAND_LEN){
+                        hot.push(new brandInfo(item));
+                    }
+                })
+                return hot;
+            },
+
+            // 获取热门品牌
+            getHotBrandList(){
+                let data = {
+                    Qty: "16"
+                }
+                api.getHotBrand(data).then((res) => {
+                    this.hotBrandList = this.normalizeHotBrand(res.data);
+                })
+            },
         
             // 使用 红包车构造类完成格式化
             normalizeGoldenEggs(info){

@@ -114,8 +114,50 @@ export const searchPriceList = [{
         min: 100,
         max: 9999
     },
-
 ]
+
+
+// 搜索价格列表(新)
+export const homePriceList = [{
+        title: '5万以内',
+        min: 0,
+        max: 5,
+    },
+    {
+        title: '5-10万',
+        min: 5,
+        max: 10,
+    },
+    {
+        title: '10-15万',
+        min: 10,
+        max: 15,
+        isHot: true,
+    },
+    {
+        title: '15-20万',
+        min: 15,
+        max: 20,
+        isHot: true,
+    },
+    {
+        title: '20-40万',
+        min: 20,
+        max: 30,
+    },
+    {
+        title: '40-80万',
+        min: 30,
+        max: 50,
+    },
+    {
+        title: '80万以上',
+        min: 50,
+        max: 100,
+        isHot: true,
+    }
+]
+
 
 // 公告滚动条的信息列表
 export const noticeBarList = [{
